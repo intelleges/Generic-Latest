@@ -5,6 +5,11 @@ using System.Web;
 
 namespace Generic.Areas.RegistrationArea.Models
 {
+    public enum ConcatinationSign
+    {
+        And,
+        Or
+    }
     public class ViewBagModel
     {
         public string CONTACT_US_EMAIL { get; set; }

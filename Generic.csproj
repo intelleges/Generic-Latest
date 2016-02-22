@@ -582,6 +582,7 @@
     <Compile Include="Areas\RegistrationArea\Models\ViewBagModel.cs" />
     <Compile Include="Areas\RegistrationArea\Models\ViewBagPdfModel.cs" />
     <Compile Include="Areas\RegistrationArea\RegistrationAreaRegistration.cs" />
+    <Compile Include="Areas\RegistrationArea\Services\NextPageCalculationService.cs" />
     <Compile Include="autoMailAttachment.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

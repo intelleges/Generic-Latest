@@ -17,6 +17,7 @@ using Generic.Helpers.Questionnaire;
 using Generic.Models;
 using Generic.Helpers;
 using Generic.Areas.RegistrationArea.Models;
+using Generic.Areas.RegistrationArea.Services;
 
 namespace Generic.Areas.RegistrationArea.Controllers
 {
@@ -522,137 +523,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             if (objQuestion.skipLogicAnswer != null)
                             {
-                                if (objQuestion.skipLogicJump.Contains("&"))
-                                {
-                                    string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
-                                    for (int k = 0; k < strQuestionLogic.Length - 1; k++)
-                                    {
-                                        string[] subStrQuestionlogic = strQuestionLogic[k].Split('&');
-                                        Boolean logicOneStatus = false;
-                                        Boolean logicTwoStatus = false;
-                                        int gotoQuestionId = 0, gotoELseQuestionId = 0;
-                                        for (int j = 0; j < subStrQuestionlogic.Length; j++)
-                                        {
-                                            string[] strquestionid = subStrQuestionlogic[j].Split('=');
-                                            int questionidLogic = Convert.ToInt32(strquestionid[0]);
-                                            string[] strNewQuestionAns = strquestionid[1].Split(':');
-                                            int ansLogicStatus = 0;
-                                            if (strNewQuestionAns.Length > 0)
-                                            {
-                                                ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
-                                            }
-                                            if (strNewQuestionAns.Length > 1)
-                                            {
-                                                gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
-                                            }
-                                            if (strNewQuestionAns.Length > 2)
-                                            {
-                                                gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
-                                            }
-                                            string answerStatus = "";
-                                            Boolean foundFlage = false;
-                                            for (int l = 0; l < formCollection.Keys.Count; ++l)
-                                            {
-                                                key = formCollection.Keys[l];
-                                                if (key.Contains("question_"))
-                                                {
-                                                    array = keyName.ToString().Split(splitter);
-                                                    questionId = int.Parse(array[1]);
-                                                    surveyId = int.Parse(array[2]);
-                                                    answer = formCollection[l];
-
-                                                    if (questionId == gotoQuestionId)
-                                                    {
-                                                        Response.Redirect("~/Registration/Home/eSignature");
-                                                    }
-                                                    if (questionId == questionidLogic)
-                                                    {
-
-                                                        foundFlage = true;
-
-                                                    }
-
-                                                    if (foundFlage)
-                                                    {
-                                                        question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                                                        var currentQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
-                                                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();                                                        
-                                                        int? rId = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
-                                                        response responsenew = db.pr_getResponse(rId).FirstOrDefault();
-                                                        int check = 0;
-                                                        //if skip logic answer type is multiply then check by response.id
-                                                        if (currentQuestion.skipLogicAnswer == SkipLogicAnswer.D)
-                                                        {
-                                                            check = responsenew.id == ansLogicStatus ? 1 : 0;
-                                                        }
-                                                        else
-                                                            if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
-                                                            {
-                                                                foundFlage = true;
-
-                                                                if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
-                                                                {
-                                                                    check = 1;
-                                                                }
-                                                                else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
-                                                                {
-                                                                    check = 1;
-                                                                }
-                                                                else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
-                                                                {
-                                                                    check = 1;
-                                                                }
-                                                                else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
-                                                                {
-                                                                    check = 1;
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                if (ansLogicStatus == 3 && responsenew != null)
-                                                                {
-                                                                    check = 1;
-                                                                }
-                                                            }
-                                                        if (check == 1)
-                                                        {
-                                                            if (j == 0)
-                                                            {
-                                                                logicOneStatus = true;
-                                                            }
-                                                            else if (j == 1)
-                                                            {
-                                                                logicTwoStatus = true;
-                                                            }
-                                                        }
-                                                    }
-
-
-
-                                                }
-
-                                            }
-
-                                        }
-                                        if (logicOneStatus == true && logicTwoStatus == true)
-                                        {
-                                            objQuestion.skipLogicJump = gotoQuestionId.ToString();
-                                            jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                            break;
-                                        }
-                                        else
-                                            if (gotoELseQuestionId != 0)
-                                                jumpToQuestion = gotoELseQuestionId;
-                                    }
-
-
-
-                                }
+                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq);
                             }
                         }
-
-
-
                     }
                 }
 

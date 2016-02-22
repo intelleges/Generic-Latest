@@ -25,6 +25,7 @@ using Generic.Helpers.PartNumberHelper;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using Generic.Areas.RegistrationArea.Models;
+using Generic.Areas.RegistrationArea.Services;
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -1465,177 +1466,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         if (objQuestion.skipLogicAnswer != null)
                         {
-
-                            if (objQuestion.skipLogicJump.Contains("&") || objQuestion.skipLogicJump.Contains("|"))
-                            {
-                                string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
-                                for (int k = 0; k < strQuestionLogic.Length - 1; k++)
-                                {
-                                    string[] subStrQuestionlogic = strQuestionLogic[k].Split("&|".ToCharArray());
-                                    Boolean logicOneStatus = false;
-                                    Boolean logicTwoStatus = false;
-                                    int gotoQuestionId = 0, gotoELseQuestionId=0;
-                                    for (int j = 0; j < subStrQuestionlogic.Length; j++)
-                                    {
-                                       if(subStrQuestionlogic[j].Contains("!="))
-                                       {
-                                           //todo != check
-                                       }
-                                       else 
-                                       {
-                                        string[] strquestionid = subStrQuestionlogic[j].Split('=');
-                                        int questionidLogic = Convert.ToInt32(strquestionid[0]);
-                                        string[] strNewQuestionAns = strquestionid[1].Split(':');
-                                        int ansLogicStatus = 0;
-                                        if (strNewQuestionAns.Length > 0)
-                                        {
-                                            ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
-                                        }
-                                        if (strNewQuestionAns.Length > 1)
-                                        {
-                                            gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
-                                        }
-                                           if (strNewQuestionAns.Length > 2)
-                                        {
-                                            gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
-                                        }
-                                        string answerStatus = "";
-
-                                        Boolean foundFlage = false;
-
-                                        for (int l = 0; l < formCollection.Keys.Count; ++l)
-                                        {
-                                            key = formCollection.Keys[l];
-                                            if (key.Contains("question_"))
-                                            {
-                                                array = keyName.ToString().Split(splitter);
-                                                questionId = int.Parse(array[1]);
-                                                surveyId = int.Parse(array[2]);
-                                                answer = formCollection[l];
-                                                if (questionId == questionidLogic)
-                                                {
-                                                    foundFlage = true;
-                                                }
-                                            }
-                                        }
-
-                                        if (foundFlage)
-                                        {
-                                            question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
-                                            var currentQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
-                                            var context = new EntitiesDBContext();
-
-                                            int? rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault().response;
-                                            response responsenew = db.pr_getResponse(rID).FirstOrDefault();
-
-
-                                            int check = 0;
-                                            //if skip logic answer type is multiply then check by response.id
-                                            if (responsenew != null)
-                                                if (responsenew != null && currentQuestion.skipLogicAnswer == SkipLogicAnswer.D)
-                                                {
-                                                    check = responsenew.id == ansLogicStatus ? 1 : 0;
-                                                }
-                                                else
-                                                    if (responsenew.description.ToLower() == "yes" || responsenew.description.ToLower() == "n/a" || responsenew.description.ToLower() == "no" || responsenew.description.ToLower() == "cots")
-                                                    {
-                                                        foundFlage = true;
-
-                                                        if (ansLogicStatus == 1 && responsenew.description.ToLower() == "yes")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == 0 && responsenew.description.ToLower() == "no")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == -1 && responsenew.description.ToLower() == "n/a")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                        else if (ansLogicStatus == 2 && responsenew.description.ToLower() == "cots")
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if (ansLogicStatus == 3 && responsenew != null)
-                                                        {
-                                                            check = 1;
-                                                        }
-                                                    }
-                                            if (check == 1)
-                                            {
-                                                if (j == 0)
-                                                {
-                                                    logicOneStatus = true;
-                                                }
-                                                else if (j == 1)
-                                                {
-                                                    logicTwoStatus = true;
-                                                }
-                                            }
-                                        }
-                                       }
-
-                                        //int ansLogicStatus =Convert.ToInt32(
-                                    }
-                                    if (logicOneStatus == true && logicTwoStatus == true)
-                                    {
-                                        objQuestion.skipLogicJump = gotoQuestionId.ToString();
-                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                        break;
-                                    } else 
-                                        if(gotoELseQuestionId!=0)
- jumpToQuestion = gotoELseQuestionId;
-                                }
-                            }
-                            else if (answer != "74")
-                            {
-
-
-                                if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer != null))
-                                {
-                                    if (answer != "75")
-                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                    else
-                                        jumpToQuestion = 0;
-                                }
-                                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump != null && objQuestion.skipLogicAnswer == null))
-                                {
-                                    if (answer == "75")
-                                        jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-                                    else
-                                        jumpToQuestion = 0;
-                                }
-                                else if (objQuestion.commentType == 5 && (objQuestion.skipLogicJump == null))
-                                {
-                                    jumpToQuestion = 0;
-                                }
-
-                                else
-                                {
-                                    jumpToQuestion = int.Parse(objQuestion.skipLogicJump);
-
-                                    if (Request.QueryString["skip"] != null)
-                                    {
-
-                                        string strJumToQuestion = db.pr_getQuestion(objQuestion.id + 1).FirstOrDefault().skipLogicJump;
-                                        if (strJumToQuestion.Contains("&"))
-                                        {
-                                        }
-                                        else
-                                        {
-                                            jumpToQuestion = int.Parse(strJumToQuestion);
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                jumpToQuestion = 0;
-                            }
+                            jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq);
                         }
                     }
                     //}
@@ -1726,7 +1557,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             else
             {
-
                 goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
             }
 
@@ -1735,6 +1565,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             // QuestionnaireResponse(questionIndex, jumpToQuestion, page, errorQuestion, pageNumber, errorMessage);
             // return View();
         }
+        
+
 
 
         private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int pageQ = 0, int pageNumberQ = 0)
