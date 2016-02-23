@@ -523,7 +523,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             if (objQuestion.skipLogicAnswer != null)
                             {
-                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq);
+                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList,siteSelectList);
                             }
                         }
                     }

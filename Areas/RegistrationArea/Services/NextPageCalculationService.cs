@@ -10,7 +10,7 @@ namespace Generic.Areas.RegistrationArea.Services
 {
     public static class NextPageCalculationService
     {
-        public static int GetJumpToQuestion(question objQuestion, EntitiesDBContext db, int pptq)
+        public static int GetJumpToQuestion(question objQuestion, EntitiesDBContext db, int pptq,int? partNumberSelectList=null, int? siteSelectList=null)
         {
             string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
             for (int k = 0; k < strQuestionLogic.Length - 1; k++)
@@ -50,8 +50,17 @@ namespace Generic.Areas.RegistrationArea.Services
                     question questionnew = db.pr_getQuestion(questionidLogic).FirstOrDefault();
 
                     var context = new EntitiesDBContext();
-
-                    int? rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionidLogic, pptq).FirstOrDefault().response;
+                    int? rID = null;
+                    if (partNumberSelectList.HasValue)
+                    {
+                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
+                        rID = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionidLogic, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                    }
+                    else
+                    {
+                        rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionidLogic, pptq).FirstOrDefault().response;
+                    }                  
+                   
                     response responsenew = db.pr_getResponse(rID).FirstOrDefault();
                     if (responsenew != null)
                     {
