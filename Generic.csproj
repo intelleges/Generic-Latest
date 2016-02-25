@@ -1793,6 +1793,9 @@
     <Compile Include="pr_getQuestionBySurveySkipLogic_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionBySurvey_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaireAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

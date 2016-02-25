@@ -10729,9 +10729,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getQuestionByRule">
           <Parameter Name="rule" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getQuestionBySurvey">
-          <Parameter Name="survey" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getQuestionByTranslation">
           <Parameter Name="translation" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -14530,6 +14527,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getEventNotificationByTouchpointCountToday" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointCountToday_Result)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionBySurvey" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionBySurvey_Result)">
+            <Parameter Name="survey" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -23386,6 +23386,33 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="total" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionBySurvey_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="String" Name="tag" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="responseType" Nullable="true" />
+          <Property Type="Int32" Name="required" Nullable="true" />
+          <Property Type="Int32" Name="weight" Nullable="true" />
+          <Property Type="Int32" Name="skipLogicAnswer" Nullable="true" />
+          <Property Type="String" Name="skipLogicJump" Nullable="true" />
+          <Property Type="String" Name="subCheckBoxChoice" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="commentRequired" Nullable="true" />
+          <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="commentType" Nullable="true" />
+          <Property Type="String" Name="calendarMessageTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="spinOffQID" Nullable="true" />
+          <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="emailAlertList" Nullable="true" />
+          <Property Type="Int32" Name="updated" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -26239,8 +26266,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getQuestionByResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByResponse">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionByRule" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByRule" >
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getQuestionBySurvey" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBySurvey" >
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionByTranslation" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByTranslation" >
           </FunctionImportMapping>
@@ -30987,6 +31012,37 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByTouchpointCountToday_Result">
                 <ScalarProperty Name="event" ColumnName="event" />
                 <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionBySurvey" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBySurvey">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionBySurvey_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="responseType" ColumnName="responseType" />
+                <ScalarProperty Name="required" ColumnName="required" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+                <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+                <ScalarProperty Name="subCheckBoxChoice" ColumnName="subCheckBoxChoice" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
+                <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
+                <ScalarProperty Name="commentUploadTxt" ColumnName="commentUploadTxt" />
+                <ScalarProperty Name="commentType" ColumnName="commentType" />
+                <ScalarProperty Name="calendarMessageTxt" ColumnName="calendarMessageTxt" />
+                <ScalarProperty Name="spinOffQuestionnaire" ColumnName="spinOffQuestionnaire" />
+                <ScalarProperty Name="spinOffQID" ColumnName="spinOffQID" />
+                <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
+                <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
+                <ScalarProperty Name="updated" ColumnName="updated" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

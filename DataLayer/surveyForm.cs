@@ -646,13 +646,14 @@ namespace Generic.DataLayer
 
                 txtbox.Width = 600;
                 txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
-                if (pptqResponse != null && !string.IsNullOrEmpty(pptqResponse.comment))
+                divn.InnerHtml = incldComment + " ";
+                if (pptqResponse != null && !string.IsNullOrEmpty(pptqResponse.comment) && pptqResponse.response1.description.Contains("????"))
                 {                    
                      divn.Style.Clear();
                      txtbox.Text = convertLanguageApi(pptqResponse.comment);                    
                     if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
                         divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + _translator.Translate(pptqResponse.response1.id, TranslationType.Response, _currentLanguage).Replace("????", "") + ": </span>") + " ";
-                    else divn.InnerHtml = incldComment + " ";
+                    
                 }
                 else divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                 txtbox.Attributes.Add("required", "");

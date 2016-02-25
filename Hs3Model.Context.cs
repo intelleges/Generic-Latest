@@ -4318,15 +4318,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getQuestionByRule", ruleParameter);
         }
     
-        public virtual int pr_getQuestionBySurvey(Nullable<int> survey)
-        {
-            var surveyParameter = survey.HasValue ?
-                new ObjectParameter("survey", survey) :
-                new ObjectParameter("survey", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getQuestionBySurvey", surveyParameter);
-        }
-    
         public virtual int pr_getQuestionByTranslation(Nullable<int> translation)
         {
             var translationParameter = translation.HasValue ?
@@ -17314,6 +17305,15 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByTouchpointCountToday_Result>("pr_getEventNotificationByTouchpointCountToday", enterpriseParameter, touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionBySurvey_Result> pr_getQuestionBySurvey(Nullable<int> survey)
+        {
+            var surveyParameter = survey.HasValue ?
+                new ObjectParameter("survey", survey) :
+                new ObjectParameter("survey", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBySurvey_Result>("pr_getQuestionBySurvey", surveyParameter);
         }
     }
 }

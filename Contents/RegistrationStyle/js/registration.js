@@ -266,7 +266,7 @@ function showdivRadioList(sender) {
                             animatedcollapse.hide('y' + divname);
                             animatedcollapse.hide('n' + divname);
                             if ($(radios[j]).data("commented") === "True") {
-                                $('#commented' + divname + ' span').text($("label[for='" + $(radios[j]).prop("id") + "']").text());
+                                //$('#commented' + divname + ' span').text($("label[for='" + $(radios[j]).prop("id") + "']").text());
                                 animatedcollapse.show('commented' + divname);
                                 //animatedcollapse.hide('commented' + divname);
                             } else {

@@ -207,6 +207,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             objSurveyForm.errorquestion = errorQuestion;
             objSurveyForm.errorMessage = errorMessage;
+            if (Session["NextPartnumber"] == null)
+            {
+                try
+                {
+                    var maxId = db.pr_getQuestionByQuestionnaire(objQuestionnaire.id).ToList().Max(o => o.id);
+                    var questionId = db.pr_getQuestionBySurvey(db.pr_getSurveyBySurveyset(db.pr_getSurveysetByPage(page).FirstOrDefault().id).FirstOrDefault().id).Select(o => o.id).FirstOrDefault();
+                    if (questionId == maxId)
+                    {
+                        return RedirectToAction("ESignature", "Home");
+                    }
+                }
+                catch
+                {
+
+                }
+            }
             Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
 
             StringWriter objhtml = new StringWriter();
