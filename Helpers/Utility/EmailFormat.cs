@@ -404,6 +404,20 @@ namespace Generic.Helpers.Utility
                                 sValue = db.pr_getPartnumber(partid).FirstOrDefault().description;
                             }
                         }
+                        else
+                        {
+                            int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
+                            if (partid != 0)
+                            {
+                                var partnumber = db.pr_getPartnumber(partid).FirstOrDefault();
+                                var details = db.pr_getPartnumberDetail(partid).FirstOrDefault();
+                                if (details != null)
+                                    sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", partnumber.description, HttpUtility.HtmlEncode(details.description));
+                                else sValue = partnumber.description;
+                              
+                            }
+                            return "You have completed the questions for " + sValue + ", please select YES to COMPLETE this questionnaire by providing an eSignature, or NO to leave the QUESTIONNAIRE INCOMPLETE and return to change your answers for " + sValue + ".";
+                        }
                         break;
                     case "[first name]":
                         sValue = partner.firstName;
