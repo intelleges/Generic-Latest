@@ -86,9 +86,32 @@
         //        window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID + "/" + objgroupID);
         //    }
         //});
-
-
-
+        $(document).ready(function () {
+            $("#address1").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsgaddress1").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            $("#address2").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsgaddress2").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+            $("#city").keypress(function (e) {
+                //if the letter is not digit then display error and don't type anything
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    //display error message
+                    $("#errmsgcity").html("Digits Only").show().fadeOut("slow");
+                    return false;
+                }
+            });
+        });
 
         $("#touchpoint").change(function () {
             var touchpoint = $("#touchpoint").val();
@@ -534,7 +557,8 @@
                     @Html.Label("Purchase Order#")
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass" })
+                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass numberText", @maxlength = "10" })
+                    <span style="color:red;" id="errmsgaddress1"></span>
                     @Html.ValidationMessageFor(model => model.address1)
                 </div>
 
@@ -544,7 +568,8 @@
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.address2)*@
-                    @Html.TextBoxFor(model => model.address2, new { @class = "txtClass" })
+                    @Html.TextBoxFor(model => model.address2, new { @class = "txtClass numberText" })
+                    <span style="color:red;" id="errmsgaddress2"></span>
                     @Html.ValidationMessageFor(model => model.address2)
                 </div>
 
@@ -554,7 +579,8 @@
                 </div>
                 <div class="editor-field">
 
-                    @Html.TextBoxFor(model => model.city, new { @class = "txtClass" })
+                    @Html.TextBoxFor(model => model.city, new { @class = "txtClass numberText" })
+                    <span style="color:red;" id="errmsgcity"></span>
                     @Html.ValidationMessageFor(model => model.city)
                 </div>
 
