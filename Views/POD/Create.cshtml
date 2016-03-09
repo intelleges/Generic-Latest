@@ -1,0 +1,1008 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+
+@{
+    #region My
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner";
+    #endregion
+}
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script>
+    @*function BindGroup(objtouchpointID) {
+
+        $('#Touchpoint').val(objtouchpointID);
+
+
+        var formData = { touchpointId: objtouchpointID };
+        $.ajax({
+            url: "@Url.Content("~/Group/GetGroupsByTouchpoint")",
+            type: "post",
+        data: formData,
+        success: function (data) {
+            var len = data.Data.length;
+            var i = 0;
+            var groupSelectList = "<option value=''>Select Group</option>";
+            for (i = 0; i < len; i++) {
+                groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+            }
+
+            $('#group').html(groupSelectList);
+
+            var objgroupid = GetURLParameter(1);
+
+
+            $('#group').val(objgroupid);
+
+        },
+        error: function (data) {
+            var touchpointSelectList = "<option value=''>Select Group</option>";
+            $('#group').html(touchpointSelectList);
+        }
+    });
+        }
+
+
+
+        *@
+    jQuery(document).ready(function () {
+        var touchpointid = GetURLParameter(0);
+
+
+
+        //BindGroup(touchpointid);
+
+
+
+        //$('#Touchpoint').change(function () {
+
+        //    var objtouchpointID = $('#Touchpoint').val();
+
+        //    if (objtouchpointID == "") {
+        //        objtouchpointID = 0;
+        //    }
+
+        //    else {
+
+        //        //window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
+        //        window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
+        //    }
+        //});
+
+        //$('#group').change(function () {
+
+        //    var objtouchpointID = $('#Touchpoint').val();
+        //    var objgroupID = $('#group').val();
+
+        //    if (objtouchpointID == "" && objgroupID == "") {
+        //        objtouchpointID = 0;
+        //    }
+
+        //    else {
+
+        //        window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID + "/" + objgroupID);
+        //    }
+        //});
+
+
+
+
+        $("#touchpoint").change(function () {
+            var touchpoint = $("#touchpoint").val();
+           
+            var defaultOption = "<option value>Select Partner Type</option>";
+            if (touchpoint) {
+                $.getJSON("GetPartnerTypes/" + touchpoint).done(function (result) {
+                  if (result) {
+                        var len = result.length;
+                        var i = 0;
+                        for (i = 0; i < len; i++) {
+                            defaultOption += "<option value='" + result[i].id + "'>" + result[i].name + "</option>";
+                        }
+
+                        $('#partnertype').html(defaultOption);
+                    }
+                });
+            }
+            else $("#partnertype").html(defaultOption);
+        });
+        var formData = {};
+        $('#protocol').change(function () {
+            var objProtocolID = $('#protocol').val();
+            formData = { protocolId: objProtocolID };
+            if (objProtocolID == "") {
+                var touchpointSelectList = "<option value=''>-Select-</option>";
+                $('#touchpoint').html(touchpointSelectList);
+                return;
+            }
+            $.ajax({
+                url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    var len = data.Data.length;
+                    var i = 0;
+                    var touchpointSelectList = "<option value=''></option>";
+                    for (i = 0; i < len; i++) {
+                        touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+                    }
+
+                    $('#touchpoint').html(touchpointSelectList);
+                    $('#touchpointDiv').show();
+
+                },
+                error: function (data) {
+                    var touchpointSelectList = "<option value=''> -Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                }
+            });
+        });
+        if ("@ViewBag.Message" == "1") {
+            debugger;
+            alertify.set({
+                labels: {
+                    ok: "Invite Later", cancel: "Invite Now"
+                }
+            });
+            alertify.confirm("", function (e) {
+                if (e) {
+                    // Click no
+                } else {
+                    // click yes
+                    $.ajax({
+                        url: "@Url.Content("~/partner/InvitePartners")",
+                        type: "post",
+                        success: function (data) {
+
+                            alertify.set({
+                                labels: {
+                                    ok: "ok", cancel: "cancel"
+                                }
+                            });
+
+                            //dataClear();
+                            alertify.alert(data.Data.message);
+                            $('#alertify-ok').text('OK');
+                            var len = data.EventNotification.length;
+                            $('#btnInviteList').show();
+                            if (len == 0) {
+                                alertify.alert("Please wait, data processing");
+                                $('#alertify-ok').text('OK');
+                            } else {
+
+                                var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                                for (i = 0; i < len; i++)
+                                    events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                                $('#DivEventNotification').html(events);
+                            }
+
+                        },
+                        error: function (data) {
+
+                        }
+                    });
+                }
+            });
+        }
+        if ("@ViewBag.Message" == "2") {
+
+            alertify.alert('@ViewBag.MessageDetail');
+            dataClear();
+        }
+        if ("@ViewBag.Message" == "error") {
+
+            alertify.alert('@ViewBag.MessageDetail');
+            dataClear();
+        }
+
+
+        $('#btnInvite').click(function (e) {
+            e.preventDefault();
+        });
+
+        $('#btnInviteList').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersList")",
+                type: "post",
+                success: function (data) {
+                    var len = data.EventNotification.length;
+
+                    if (len == 0) {
+                        alertify.alert("Please wait, data processing");
+                    } else {
+
+                        var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                        for (i = 0; i < len; i++)
+                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                        $('#DivEventNotification').html(events);
+                    }
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
+        $('#btnInvitelater').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersLater")",
+                type: "post",
+                success: function (data) {
+                    alertify.alert(data.Data.message);
+
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
+        $("#btnClear").click(function (e) {
+            dataClear();
+        });
+
+        function dataClear() {
+            $("#name").val("");
+            $("#internalID").val("");
+            $("#address1").val("");
+            $("#address2").val("");
+            $("#city").val("");
+            $("#state").val("0");
+            $("#province").val("");
+            $("#zipcode").val("");
+            $("#country").val("0");
+            $("#phone").val("");
+            $("#fax").val("");
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#title").val("");
+            $("#email").val("");
+            $("#dunsNumber").val("");
+            $("#federalID").val("");
+            $("#owner").val("");
+            $("#author").val("");
+            $("#protocol").val("");
+            $("#touchpoint").val("");
+            $("#partnertype").val("");
+            $("#group").val("");
+            $("#DueDate").val("");
+        }
+
+        $.ajax({
+            url: "@Url.Content("~/touchpoint/GetGroupByPerson")",
+            type: "GET",
+            success: function (data) {
+                var len = data.Data.length;
+                var i = 0;
+                var groupSelectList = "<option value=''>Select Group</option>";
+                for (i = 0; i < len; i++) {
+                    groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+                }
+
+                $('#group').html(groupSelectList);
+
+
+            },
+            error: function (data) {
+                var touchpointSelectList = "<option value=''> -Select-</option>";
+                $('#group').html(touchpointSelectList);
+            }
+        });
+    });
+    function doSomething() {
+
+    }
+
+    $("#btnConfirm").click(function () {
+        debugger;
+        alertify.alert('you choose Confirm');
+    });
+
+    $("#btnConfirmlater").click(function () {
+        debugger;
+        alertify.alert('you choose Confirm Later');
+    });
+</script>
+<script>
+    //#region First declaration
+    $(document).ready(function () {
+        $("form").submit(function () {
+            return validateControl();
+
+        });
+        //#endregion
+        //#region validation
+        function validateControl() {
+
+            if ($("#name").val() == "") {
+                alertify.alert("Supplier Name is required");
+                return false;
+            }
+            if ($("#internalID").val() == "") {
+                alertify.alert("Supplier# is required");
+                return false;
+            }
+
+            if ($("#firstName").val() == "") {
+                alertify.alert("Buyer First Name is required");
+                return false;
+            }
+            if ($("#lastName").val() == "") {
+                alertify.alert("Buyer Last Name is required");
+                return false;
+            }
+            if ($("#email").val() == "") {
+                alertify.alert("Buyer Email is required");
+                return false;
+            }
+            if ($("#protocol").val() == "") {
+                alertify.alert("Protocol is required");
+                return false;
+            }
+            if ($("#touchpoint").val() == "") {
+                alertify.alert("Touchpoint is required");
+                return false;
+            }
+            if ($("#DueDate").val() == "") {
+                alertify.alert("Date is required");
+                return false;
+            }
+            if ($("#group").val() == "") {
+                alertify.alert("Group is required");
+                return false;
+            }
+            if ($("#partnertype").val() == "") {
+                alertify.alert("Partner type is required");
+                return false;
+            }
+            if ($("#owner").val() == "") {
+                alertify.alert("Owner is required");
+                return false;
+            }
+            //#endregion
+
+            if ($("#address1").val() === "") {
+                alertify.alert("Purchase Order# is required");
+                return false;
+            }
+            if ($("#address2").val() === "") {
+                alertify.alert("Purchase Order Value is required");
+                return false;
+            }
+            if ($("#city").val() === "") {
+                alertify.alert("Change Amount");
+                return false;
+            }
+            if ($("#state").val() === "") {
+                alertify.alert("State is required");
+                return false;
+            }
+            if ($("#zipcode").val() === "") {
+                alertify.alert("Zip Code is required");
+                return false;
+            }
+            if ($("#country").val() === "") {
+                alertify.alert("Country is required");
+                return false;
+            }
+            if ($("#phone").val() === "") {
+                alertify.alert("PO Version# is required");
+                return false;
+            }
+            if ($("#title").val() === "") {
+                alertify.alert("Approving S&P Compliance Manager Email is required");
+                return false;
+            }
+            if ($("#dunsNumber").val() === "") {
+                alertify.alert("PN Description is required");
+                return false;
+            }
+           
+        }
+    });
+</script>
+<!--#region collapse-->
+<style type="text/css">
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .twocol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .twocol .editor-field {
+        width: 35%;
+        display: inline-block;
+    }
+
+    .threecol .editor-label {
+        width: 10%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .threecol .editor-field {
+        width: 20%;
+        display: inline-block;
+    }
+
+        .threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+            width: 90%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+    .txtClass {
+        border-radius: 5px;
+        border-color: rgb(169, 169, 169);
+    }
+
+    .ddlClass {
+        height: 25px;
+        width: 96% !important;
+        border-radius: 5px;
+    }
+
+    #DueDate {
+        border-radius: 5px;
+        height: 18px;
+    }
+
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+</style>
+<div class="addPartnerDiv">
+    <h2>Create POD</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>POD</legend>
+        <div id="addPartner" class="addPartnerDiv">
+            <div class="twocol">
+                @Html.HiddenFor(model => model.id)
+
+                <!-- #region Supplier ID-->
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.internalID)*@
+                    @Html.Label("Supplier#")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.internalID)*@
+                    @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.internalID)
+                </div>
+                <!-- #endregion-->
+                <!-- #region Name-->
+                <div class="editor-label">
+                    @Html.Label("Supplier Name")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.name)*@
+                    @Html.TextBoxFor(model => model.name, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.name)
+                </div>
+                <!-- #endregion-->
+               
+
+            </div>
+
+
+            <div class="threecol">
+                <div class="editor-label">
+                    @Html.Label("Purchase Order#")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.address1)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.address2)*@
+                    @Html.Label("Purchase Order value")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.address2)*@
+                    @Html.TextBoxFor(model => model.address2, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.address2)
+                </div>
+
+                <div class="editor-label">
+
+                    @Html.Label("Change Amount")
+                </div>
+                <div class="editor-field">
+
+                    @Html.TextBoxFor(model => model.city, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.city)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.phone)*@
+                    @Html.Label("PO Version#")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.phone)*@
+                    @Html.TextBoxFor(model => model.phone, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.phone)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.fax)*@
+                    @Html.Label("Part Number")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.fax)*@
+                    @Html.TextBoxFor(model => model.fax, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.fax)
+                </div>
+
+                <div class="editor-label">
+                    @* @Html.LabelFor(model => model.dunsNumber)*@
+                    @Html.Label("PN Description")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.dunsNumber)*@
+                    @Html.TextBoxFor(model => model.dunsNumber, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.dunsNumber)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.firstName)*@
+                    @Html.Label("Buyer First Name")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.firstName)*@
+                    @Html.TextBoxFor(model => model.firstName, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.firstName)
+                </div>
+
+                <div class="editor-label">
+                    @* @Html.LabelFor(model => model.lastName)*@
+                    @Html.Label("Buyer Last Name")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.lastName)*@
+                    @Html.TextBoxFor(model => model.lastName, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.lastName)
+                </div>
+
+                <div class="editor-label">
+
+                    @Html.Label("Buyer Email")
+                </div>
+                <div class="editor-field">
+
+                    @Html.TextBoxFor(model => model.email, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.email)
+                </div>
+                <!-- #endregion-->
+               
+
+             @*<div class="editor-label">
+                        @Html.LabelFor(model => model.loadHistory)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.loadHistory)
+                        @Html.ValidationMessageFor(model => model.loadHistory)
+                    </div>*@
+
+                <div class="editor-label">
+                    @Html.Label("Protocol")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("protocol", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    <span class="field-validation-valid" data-valmsg-for="protocol" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="editor-label">
+                    @Html.Label("Touchpoint")
+                </div>
+                <div class="editor-field">
+                    <select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>
+                    <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
+                </div>
+
+                <div class="editor-label">
+                    @Html.Label("Partner Type")
+                </div>
+                <div class="editor-field">
+                    <select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" "></select>
+                    <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
+                    @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
+                </div>
+
+                <div class="editor-label">
+                    @Html.Label("Group")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("group", null, String.Empty, new { @class = "ddlClass", @style = "margin-top: 3%;", @data_val = "true", @data_val_required = " " })
+                    <span class="field-validation-valid" data-valmsg-for="group" data-valmsg-replace="true"></span>
+                    @* <a href="@Url.Content(" ~ /Group/Create")">Add Group</a>*@
+
+                </div>
+
+               <div class="editor-label">
+                    @*@Html.LabelFor(model => model.owner)*@
+                    @Html.Label("Owner")
+                </div>
+                <div class="editor-field">
+
+                    @Html.DropDownList("owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.owner)
+                    @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Owner</a>*@
+                </div>
+
+                <div class="editor-label">
+                    @Html.Label("Date")
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100%;" })
+                </div>
+
+              <div class="editor-label">
+                    @*@Html.LabelFor(model => model.title)*@
+                    @Html.Label("Approving S&P Compliance Manager Email")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.title)*@
+                    @Html.TextBoxFor(model => model.title, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.title)
+                </div>
+
+                <div class="editor-label">
+                    @Html.Label("Global Sourcing Manager Email")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.province)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.federalID)*@
+                    @Html.Label("Federal ID")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.federalID)*@
+                    @Html.TextBoxFor(model => model.federalID, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.federalID)
+                </div>
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.state)*@
+                    @Html.Label("State")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass" })
+
+                    @Html.ValidationMessageFor(model => model.state)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.zipcode)*@
+                    @Html.Label("Zip Code")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.zipcode)*@
+                    @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.zipcode)
+                </div>
+
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.country)*@
+                    @Html.Label("Country")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("country", null, String.Empty, new { @class = "ddlClass" })
+                    @Html.ValidationMessageFor(model => model.country)
+                </div>
+
+                <div class="editor-label">
+                  
+                </div>
+                <div class="editor-field">
+                 
+                </div>
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.province)*@
+                    @Html.Label("Province")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.province)*@
+                    @Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.province)
+                </div>
+                @*<div class="editor-label">
+
+                    </div>
+                    <div class="editor-field">
+                        <a id="lnkGrp" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Group</a>
+                    </div>
+                    <div class="editor-label">
+
+                    </div>
+                    <div class="editor-field">
+                        <a id="lnkPartnerType" href="javascript:doSomething();" style="margin-left:39%;font-size: 1em;">Add PartnerType</a>
+                    </div>
+                    <div class="editor-label">
+
+                    </div>
+                    <div class="editor-field">
+                        <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
+                    </div>*@
+
+
+
+
+
+            </div>
+            <p style="float: right; width: 20%;">
+                @*<input type="submit" value="Save" />*@
+                <input type="submit" value="Save" class="btn" />
+                <input type="button" value="Clear" class="btn" id="btnClear" />
+                @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
+            </p>
+        </div>
+        <p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
+        <div id="DivEventNotification">
+
+        </div>
+    </fieldset>
+
+    <div id="dvInvite" style="display:none">
+        <input type="submit" name="button" id="btnInvite" value="Send invites now" />
+        <input type="submit" name="button" id="btnInvitelater" value="Invite Later" />
+    </div>
+
+
+    <div id="dvConfirm" style="display:none">
+        @*For Confirm Now and later buttons*@
+        <input type="button" name="button" id="btnConfirm" value="Confirm Now" />
+        <input type="button" name="button" id="btnConfirmlater" value="Confirm Later" />
+    </div>
+    @*<fieldset>
+            <legend>partner</legend>
+
+
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.internalID)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.internalID)
+                @Html.ValidationMessageFor(model => model.internalID)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.name)
+                @Html.ValidationMessageFor(model => model.name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.address1)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address1)
+                @Html.ValidationMessageFor(model => model.address1)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.address2)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address2)
+                @Html.ValidationMessageFor(model => model.address2)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.city)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.city)
+                @Html.ValidationMessageFor(model => model.city)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.state)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.state)
+                @Html.ValidationMessageFor(model => model.state)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.province)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.province)
+                @Html.ValidationMessageFor(model => model.province)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.zipcode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.zipcode)
+                @Html.ValidationMessageFor(model => model.zipcode)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.country)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.country)
+                @Html.ValidationMessageFor(model => model.country)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.phone)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.phone)
+                @Html.ValidationMessageFor(model => model.phone)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.fax)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.fax)
+                @Html.ValidationMessageFor(model => model.fax)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.firstName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.firstName)
+                @Html.ValidationMessageFor(model => model.firstName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.lastName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.lastName)
+                @Html.ValidationMessageFor(model => model.lastName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.title)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.title)
+                @Html.ValidationMessageFor(model => model.title)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.email)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.email)
+                @Html.ValidationMessageFor(model => model.email)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.dunsNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.dunsNumber)
+                @Html.ValidationMessageFor(model => model.dunsNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.federalID)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.federalID)
+                @Html.ValidationMessageFor(model => model.federalID)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.status)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.status)
+                @Html.ValidationMessageFor(model => model.status)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.loadHistory)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.loadHistory)
+                @Html.ValidationMessageFor(model => model.loadHistory)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.owner)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.owner)
+                @Html.ValidationMessageFor(model => model.owner)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.author)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.author)
+                @Html.ValidationMessageFor(model => model.author)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.dateApproved)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.dateApproved)
+                @Html.ValidationMessageFor(model => model.dateApproved)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.active)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.active)
+                @Html.ValidationMessageFor(model => model.active)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.lastModified)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.lastModified)
+                @Html.ValidationMessageFor(model => model.lastModified)
+            </div>
+
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>*@
+}
+
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

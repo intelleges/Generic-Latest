@@ -636,6 +636,7 @@
     <Compile Include="Controllers\MerckController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PartnerTypeController.cs" />
+    <Compile Include="Controllers\PODController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Controllers\Registration1Controller.cs" />
     <Compile Include="Controllers\PersonController.cs" />
@@ -4816,6 +4817,7 @@
     <Content Include="Views\ZCodeCheck\Index.cshtml" />
     <Content Include="Views\Shared\_NewAdminLayout.cshtml" />
     <Content Include="Views\Shared\_NewRegistrationLayout.cshtml" />
+    <Content Include="Views\POD\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
