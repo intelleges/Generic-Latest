@@ -143,6 +143,7 @@
                     <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Rescind</a></li>
                     <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Remove</a></li>
                     <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Retrieve</a></li>
+                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
                 </ul>
             </div>
         }
@@ -438,6 +439,14 @@
     function remind(accessCodeValue) {
         $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
 
+            if (result) {
+                alertify.alert(result);
+            }
+        });
+    }
+
+    function sms(accessCode) {
+        $.post("SendRemindSms", { accessCode: accessCode }).done(function (result) {
             if (result) {
                 alertify.alert(result);
             }

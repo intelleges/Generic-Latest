@@ -59,6 +59,9 @@
     <Reference Include="AsyncOAuth.Evernote.Simple">
       <HintPath>..\packages\AsyncOAuth.Evernote.Simple.0.2.0.0\lib\net45\AsyncOAuth.Evernote.Simple.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="ChargifyNET, Version=1.1.5506.24411, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\chargify.1.1.5506.24411\lib\net35\ChargifyNET.dll</HintPath>
@@ -114,35 +117,40 @@
     <Reference Include="EvernoteSDK">
       <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\EvernoteSDK.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.9.2.27817, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis, Version=1.10.0.25332, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Google.Apis.1.9.2\lib\net40\Google.Apis.dll</HintPath>
+      <HintPath>..\packages\Google.Apis.1.10.0\lib\net40\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth">
-      <HintPath>..\packages\Google.Apis.Auth.1.9.2\lib\net40\Google.Apis.Auth.dll</HintPath>
+    <Reference Include="Google.Apis.Auth, Version=1.10.0.25333, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.Apis.Auth.1.10.0\lib\net40\Google.Apis.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Auth.Mvc4">
       <HintPath>..\packages\Google.Apis.Auth.Mvc.1.9.2\lib\net40\Google.Apis.Auth.Mvc4.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices">
-      <HintPath>..\packages\Google.Apis.Auth.1.9.2\lib\net40\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.10.0.25333, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.Apis.Auth.1.10.0\lib\net40\Google.Apis.Auth.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Calendar.v3">
       <HintPath>..\packages\Google.Apis.Calendar.v3.1.9.2.1330\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Calendar.v3.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.9.2.27816, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis.Core, Version=1.10.0.25331, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Google.Apis.Core.1.9.2\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
+      <HintPath>..\packages\Google.Apis.Core.1.10.0\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Gmail.v1">
       <HintPath>..\packages\Google.Apis.Gmail.v1.1.9.2.310\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Gmail.v1.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.9.2.27818, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+    <Reference Include="Google.Apis.PlatformServices, Version=1.10.0.25332, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Google.Apis.1.9.2\lib\net40\Google.Apis.PlatformServices.dll</HintPath>
+      <HintPath>..\packages\Google.Apis.1.10.0\lib\net40\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Translate.v2">
       <HintPath>..\packages\Google.Apis.Translate.v2.1.9.2.410\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Translate.v2.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Urlshortener.v1">
+      <HintPath>..\packages\Google.Apis.Urlshortener.v1.1.10.1.138\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Urlshortener.v1.dll</HintPath>
     </Reference>
     <Reference Include="GoogleTranslateAPI">
       <HintPath>..\packages\Google.Translate.api.0.3.1\lib\net40\GoogleTranslateAPI.dll</HintPath>

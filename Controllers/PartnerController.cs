@@ -55,6 +55,7 @@ using HtmlAgilityPack;
 using System.Net;
 using Google.Apis.Calendar.v3.Data;
 using System.Data.Entity.Core.EntityClient;
+using Google.Apis.Urlshortener.v1;
 #endregion
 
 namespace Generic.Controllers
@@ -2130,6 +2131,77 @@ namespace Generic.Controllers
 
             }
             return result;
+        }
+
+        [HttpPost]
+        public string SendRemindSms(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var partner = db.pr_getPartner(pptq.partner).FirstOrDefault();
+            var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var result = "Congratulations, you have just sent a SMS reminder to " + pptq.partner1.name + " with access code " + accessCode;
+            //if (string.IsNullOrEmpty(currentPerson.phone)||currentPerson.phone.Length<10)
+            //{
+            //    result = "Please enter your correct phone number to the system. The SMS wasn't sent.";
+            //}
+            //else
+                if (string.IsNullOrEmpty(partner.phone) || partner.phone.Length<10)
+            {
+                result = "The partner's phone number is invalid. The SMS wasn't sent";
+            }
+            else 
+            if (new int[] { 6, 7 }.Contains(pptq.status))
+            {
+                var service = new UrlshortenerService(new BaseClientService.Initializer
+                {
+                    ApplicationName = "IntellegesServer",
+                    ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"],
+
+                });
+                var newUrl = service.Url.Insert(new Google.Apis.Urlshortener.v1.Data.Url()
+                {
+                    LongUrl = sGetProjectUrl(partner.enterprise1) + "/Registration/?accessCode=" + accessCode
+                }
+
+                ).Execute();
+                
+                var twilio = new TwilioRestClient(ConfigurationManager.AppSettings["accountSidTwilio"], ConfigurationManager.AppSettings["authTokenTwilio"]);
+                //if (!PreparePhoneString(currentPerson.phone).Contains("+1"))
+                //    currentPerson.phone = "+1" + currentPerson.phone;
+                if (!PreparePhoneString(partner.phone).Contains("+1"))
+                    partner.phone = "+1" + partner.phone;
+                var message = twilio.SendMessage(
+                "+19178180225", PreparePhoneString(partner.phone),
+                  "Please complete your questionnaire for " + pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description + ": " +accessCode+" at "+ newUrl.Id
+                );
+            }
+            else
+            {
+                result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
+            }
+            return result;
+        }
+        private string sGetProjectUrl(enterprise enterprise)
+        {
+            if (enterprise == null)
+            {
+                return "https://www.intelleges.com/mvcmt/Generic";
+            }
+            else
+            {
+                if (enterprise.multiTenantProjectType == 1)
+                {
+                    return "https://www.intelleges.com/mvcmt/Generic";
+                }
+                else if (enterprise.multiTenantProjectType == 2)
+                {
+                    return "https://www.intelleges.com/mvcmt/BAA";
+                }
+                else
+                {
+                    return "https://www.intelleges.com/mvcmt/Generic";
+                }
+            }
         }
 
         public ActionResult RemindJSON(string accessCode)
