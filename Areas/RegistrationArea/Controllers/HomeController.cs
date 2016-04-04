@@ -95,173 +95,195 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult SaveForLaterConfirm()
         {
-            ViewBag.accesscode = Session["accessCode"];
-            ViewBagModel objViewBag=new ViewBagModel();
+			try
+			{
+				ViewBag.accesscode = Session["accessCode"];
+				ViewBagModel objViewBag = new ViewBagModel();
 
-            objViewBag.CMS_PAGE_TITLE = CMS.ACCESS_CODE_TITLE;
-            objViewBag.CMS_PAGE_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
-            objViewBag.CMS_PAGE_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
-            objViewBag.CMS_PAGE_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
-            ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
-            ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
-            ViewBag.CMS_SUBMIT_TEXT = CMS.ACCESS_CODE_SUBMIT_TEXT.Substring(0, 10);
-            ViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
-            objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT;
-            objViewBag.SAVE_FOR_LATER_TEXT_NOTICE = CMS.SAVE_FOR_LATER_TEXT_NOTICE;
-            objViewBag.CMS_PAGE_NEXT_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT;
-            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
-            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
-            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
-            //objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
-            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+				objViewBag.CMS_PAGE_TITLE = CMS.ACCESS_CODE_TITLE;
+				objViewBag.CMS_PAGE_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
+				objViewBag.CMS_PAGE_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
+				objViewBag.CMS_PAGE_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
+				ViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
+				ViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
+				ViewBag.CMS_SUBMIT_TEXT = CMS.ACCESS_CODE_SUBMIT_TEXT.Substring(0, 10);
+				ViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
+				objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_PREVIOUS_TEXT;
+				objViewBag.SAVE_FOR_LATER_TEXT_NOTICE = CMS.SAVE_FOR_LATER_TEXT_NOTICE;
+				objViewBag.CMS_PAGE_NEXT_TEXT = CMS.SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT;
+				//objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
+				//objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
+				//objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
+				//objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
+				var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+				var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
-            var cmsId = 0;
+				var cmsId = 0;
 
-            if (ppptqCms != null)
-            {
-                var enterpriseInfo = ppptqCms.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.enterpriseSystemInfo.FirstOrDefault();
-                if (enterpriseInfo != null)
-                    ViewBag.ENTERPRISE_URL = enterpriseInfo.companyWebSite;
-                _translator.PPTQ = ppptqCms;
-                ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
-                ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
-                var enterpriseDb = db.pr_getPartner(ppptqCms != null ? ppptqCms.partner : 0).FirstOrDefault();
-                if (enterpriseDb != null)
-                {
-                    Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(enterpriseDb.enterprise.ToString());
-                }
+				if (ppptqCms != null)
+				{
+					var enterpriseInfo = ppptqCms.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.enterpriseSystemInfo.FirstOrDefault();
+					if (enterpriseInfo != null)
+						ViewBag.ENTERPRISE_URL = enterpriseInfo.companyWebSite;
+					_translator.PPTQ = ppptqCms;
+					ViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
+					ViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
+					var enterpriseDb = db.pr_getPartner(ppptqCms != null ? ppptqCms.partner : 0).FirstOrDefault();
+					if (enterpriseDb != null)
+					{
+						Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(enterpriseDb.enterprise.ToString());
+					}
 
-                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptqCms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                ViewBag.ENTERPRISE_ID =ptq!=null? ptq.questionnaire1.enterprise:-1;
-                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq!=null? ptq.questionnaire:0).ToList();
-                var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
-                objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
-                try
-                {
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "SaveForLaterConfirm");
-                    if (!string.IsNullOrEmpty(model.CMS_PAGE_TITLE))
-                        objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
-                    if (!string.IsNullOrEmpty(model.CMS_PAGE_PANEL_ONE))
-                        objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
-                    if (!string.IsNullOrEmpty(model.CMS_PAGE_PANEL_TWO))
-                        objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
-                    if (!string.IsNullOrEmpty(model.CMS_PAGE_PREVIOUS_TEXT))
-                        objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
-                    if (!string.IsNullOrEmpty(model.CMS_PAGE_NEXT_TEXT))
-                        objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
-                    Session["QuestionnaireTitle"] = model.CMS_PAGE_TITLE;
-                    objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
-                    objViewBag.SAVE_FOR_LATER_TEXT_NOTICE = !string.IsNullOrEmpty(model.SAVE_FOR_LATER_TEXT_NOTICE)? model.SAVE_FOR_LATER_TEXT_NOTICE
-                        : objViewBag.SAVE_FOR_LATER_TEXT_NOTICE;
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptqCms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					ViewBag.ENTERPRISE_ID = ptq != null ? ptq.questionnaire1.enterprise : -1;
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+					objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
+					//try
+					//{
+					var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "SaveForLaterConfirm");
+					if (!string.IsNullOrEmpty(model.CMS_PAGE_TITLE))
+						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+					if (!string.IsNullOrEmpty(model.CMS_PAGE_PANEL_ONE))
+						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+					if (!string.IsNullOrEmpty(model.CMS_PAGE_PANEL_TWO))
+						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+					if (!string.IsNullOrEmpty(model.CMS_PAGE_PREVIOUS_TEXT))
+						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+					if (!string.IsNullOrEmpty(model.CMS_PAGE_NEXT_TEXT))
+						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+					Session["QuestionnaireTitle"] = model.CMS_PAGE_TITLE;
+					objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+					objViewBag.SAVE_FOR_LATER_TEXT_NOTICE = !string.IsNullOrEmpty(model.SAVE_FOR_LATER_TEXT_NOTICE) ? model.SAVE_FOR_LATER_TEXT_NOTICE
+						: objViewBag.SAVE_FOR_LATER_TEXT_NOTICE;
 
-                    ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = !string.IsNullOrEmpty(model.QUESTIONNAIRE_DOC_OTHER_2)? model.QUESTIONNAIRE_DOC_OTHER_2
-                        : ViewBag.QUESTIONNAIRE_DOC_OTHER_2;
+					ViewBag.QUESTIONNAIRE_DOC_OTHER_2 = !string.IsNullOrEmpty(model.QUESTIONNAIRE_DOC_OTHER_2) ? model.QUESTIONNAIRE_DOC_OTHER_2
+						: ViewBag.QUESTIONNAIRE_DOC_OTHER_2;
 
-                    //cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).id;
-                    //var cms_SubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
-                    //if (cms_SubmitText != null)
-                    //{
-                    //    ViewBag.CMS_SUBMIT_TEXT = cms_SubmitText;
-                    //}
-                    //cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT).id;
-                    //var ret_AccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
-                    //if (ret_AccCode != null)
-                    //{
-                    //    ViewBag.RETRIEVE_ACCESS_CODE_TEXT = ret_AccCode;
-                    //}
-                    //cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).id;
-                    //var cms_FooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
-                    //if (cms_FooterOne != null)
-                    //{
-                    //    ViewBag.CMS_FOOTER_ONE = cms_FooterOne;
-                    //}
-                    //cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).id;
-                    //var cms_FooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
-                    //if (cms_FooterTwo != null)
-                    //{
-                    //    ViewBag.CMS_FOOTER_TWO = cms_FooterTwo;
-                    //}
+					//cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT).id;
+					//var cms_SubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+					//if (cms_SubmitText != null)
+					//{
+					//    ViewBag.CMS_SUBMIT_TEXT = cms_SubmitText;
+					//}
+					//cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT).id;
+					//var ret_AccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+					//if (ret_AccCode != null)
+					//{
+					//    ViewBag.RETRIEVE_ACCESS_CODE_TEXT = ret_AccCode;
+					//}
+					//cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE).id;
+					//var cms_FooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+					//if (cms_FooterOne != null)
+					//{
+					//    ViewBag.CMS_FOOTER_ONE = cms_FooterOne;
+					//}
+					//cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO).id;
+					//var cms_FooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cmsId);
+					//if (cms_FooterTwo != null)
+					//{
+					//    ViewBag.CMS_FOOTER_TWO = cms_FooterTwo;
+					//}
 
 
-                }
-                catch (Exception exc)
-                {
-                }
-            }
-            else
-            {
-                ViewBag.message = "wrongstatus";
-            }
-            ViewBag.FormData = objViewBag;
-            return View();
+
+				}
+				else
+				{
+					ViewBag.message = "wrongstatus";
+				}
+				ViewBag.FormData = objViewBag;
+			}
+			catch (Google.GoogleApiException ex)
+			{
+				ViewBag.googleError = "Sorry, translation limit has been reached on server.";
+				CurrentLanguage = "en";
+				return SaveForLaterConfirm();
+			}
+			catch (Exception exc)
+			{
+			}
+			
+			return View();
         }
 
-        public virtual ActionResult Index(string id = "", string accessCode = null, bool? advanced = null)
-        {
-            ViewBagModel objViewBag =new ViewBagModel();
-            ViewBag.accesscode = accessCode;
+		public virtual ActionResult Index(string id = "", string accessCode = null, bool? advanced = null)
+		{
+			try
+			{
+				ViewBagModel objViewBag = new ViewBagModel();
+				ViewBag.accesscode = accessCode;
 
-            objViewBag.CMS_PAGE_TITLE = CMS.ACCESS_CODE_TITLE;
-            objViewBag.CMS_PAGE_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
-            objViewBag.CMS_PAGE_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
-            objViewBag.CMS_PAGE_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
-            objViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
-            objViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
-            objViewBag.CMS_SUBMIT_TEXT = CMS.ACCESS_CODE_SUBMIT_TEXT.Substring(0, 10);
-            objViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
+				objViewBag.CMS_PAGE_TITLE = CMS.ACCESS_CODE_TITLE;
+				objViewBag.CMS_PAGE_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
+				objViewBag.CMS_PAGE_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
+				objViewBag.CMS_PAGE_PANEL_TWO = CMS.ACCESS_CODE_PANEL_TWO;
+				objViewBag.CMS_FOOTER_ONE = CMS.ACCESS_CODE_FOOTER_ONE;
+				objViewBag.CMS_FOOTER_TWO = CMS.ACCESS_CODE_FOOTER_TWO;
+				objViewBag.CMS_SUBMIT_TEXT = CMS.ACCESS_CODE_SUBMIT_TEXT.Substring(0, 10);
+				objViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
 
 
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+				var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
-            var cmsId = 0;
-            if (ppptq_cms != null)
-            {
-                _translator.PPTQ = ppptq_cms;
-                objViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
-                objViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
-                
-                var enterPrise = db.pr_getPartner(ppptq_cms.partner).FirstOrDefault();
-                if (enterPrise != null)
-                {
-                    Generic.Helpers.CurrentInstance.EnterpriseID =
-                        Int32.Parse(enterPrise.enterprise.ToString());
-                }
-                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                objViewBag.ENTERPRISE_ID = ptq!=null?ptq.questionnaire1.enterprise:-1;
-                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq!=null?ptq.questionnaire:-1).ToList();
-                var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
-                try
-                {
-                    var model = GetPageTitles(cmsId, questionnairCmsAll , ptq, "Index");
+				var cmsId = 0;
+				if (ppptq_cms != null)
+				{
+					_translator.PPTQ = ppptq_cms;
+					objViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
+					objViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
 
-                    objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
-                    objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
-                    objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
-                    objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
-                    Session["QuestionnaireTitle"] = model.CMS_PAGE_TITLE;
-                    if (!string.IsNullOrEmpty(model.CMS_FOOTER_ONE))
-                        objViewBag.CMS_FOOTER_ONE = model.CMS_FOOTER_ONE;
-                    if (!string.IsNullOrEmpty(model.CMS_FOOTER_TWO))
-                        objViewBag.CMS_FOOTER_TWO = model.CMS_FOOTER_TWO;
-                    if (!string.IsNullOrEmpty(model.CMS_SUBMIT_TEXT))
-                        objViewBag.CMS_SUBMIT_TEXT = model.CMS_SUBMIT_TEXT;
-                    if (!string.IsNullOrEmpty(model.RETRIEVE_ACCESS_CODE_TEXT))
-                        objViewBag.RETRIEVE_ACCESS_CODE_TEXT = model.RETRIEVE_ACCESS_CODE_TEXT;
-                }
-                catch (Exception exc)
-                {
-                }
-            }
-            else
-            {
-                ViewBag.message = "wrongstatus";
-            }
-            ViewBag.FormData = objViewBag;
-            if (advanced.HasValue && advanced.Value)
-                return GenerateIndex(accessCode, advanced);
-            return View();
-        }
+					var enterPrise = db.pr_getPartner(ppptq_cms.partner).FirstOrDefault();
+					if (enterPrise != null)
+					{
+						Generic.Helpers.CurrentInstance.EnterpriseID =
+							Int32.Parse(enterPrise.enterprise.ToString());
+					}
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					objViewBag.ENTERPRISE_ID = ptq != null ? ptq.questionnaire1.enterprise : -1;
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : -1).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+					//try
+					//{
+					var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "Index");
+
+					objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+					objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+					objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+					objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+					Session["QuestionnaireTitle"] = model.CMS_PAGE_TITLE;
+					if (!string.IsNullOrEmpty(model.CMS_FOOTER_ONE))
+						objViewBag.CMS_FOOTER_ONE = model.CMS_FOOTER_ONE;
+					if (!string.IsNullOrEmpty(model.CMS_FOOTER_TWO))
+						objViewBag.CMS_FOOTER_TWO = model.CMS_FOOTER_TWO;
+					if (!string.IsNullOrEmpty(model.CMS_SUBMIT_TEXT))
+						objViewBag.CMS_SUBMIT_TEXT = model.CMS_SUBMIT_TEXT;
+					if (!string.IsNullOrEmpty(model.RETRIEVE_ACCESS_CODE_TEXT))
+						objViewBag.RETRIEVE_ACCESS_CODE_TEXT = model.RETRIEVE_ACCESS_CODE_TEXT;
+					//}
+					//catch (Exception exc)
+					//{
+					//}
+				}
+				else
+				{
+					ViewBag.message = "wrongstatus";
+				}
+				ViewBag.FormData = objViewBag;
+				if (advanced.HasValue && advanced.Value)
+					return GenerateIndex(accessCode, advanced);
+			}
+			catch (Google.GoogleApiException ex)
+			{
+				ViewBag.googleError = "Sorry, translation limit has been reached on server.";
+				CurrentLanguage = "en";
+				return Index(id ,  accessCode ,  advanced );
+			}
+			catch (Exception exc)
+			{
+			}
+			return View();
+		}
 
         protected virtual ActionResult GenerateIndex(string accessCode, bool? advanced = null)
         {
@@ -374,7 +396,20 @@ namespace Generic.Areas.RegistrationArea.Controllers
         [HttpPost]
         public virtual ActionResult Index(string accessCode)
         {
-            return GenerateIndex(accessCode, false);
+			try
+			{
+				return GenerateIndex(accessCode, false);
+			}
+			catch (Google.GoogleApiException ex)
+			{
+				ViewBag.googleError = "Sorry, translation limit has been reached on server.";
+				CurrentLanguage = "en";
+				return Index(accessCode);
+			}
+			catch (Exception exc)
+			{
+			}
+			return View();
         }
 
         public ViewBagModel GetPageTitles(int cms_id, List<pr_getQuestionnaireCMSAll_Result> questionnairCmsAll, partnerTypeTouchpointQuestionnaire ptq,string pageName,partnerPartnertypeTouchpointQuestionnaire pptq=null,List<questionnaireQuestionnaireCMS> questionareCMS=null)
@@ -660,128 +695,154 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult CompanyInformation()
         {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Default");
-            }
-            ViewBagModel objViewBag = new ViewBagModel();
+			try
+			{
+				if (Session["hs3Registration"] == null)
+				{
+					return RedirectToAction("Default");
+				}
+				ViewBagModel objViewBag = new ViewBagModel();
 
-            partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            try
-            {
-                var country = db.pr_getCountry(objPartner == null ? 0 : objPartner.country).FirstOrDefault();
-                objViewBag.country = country != null ? country.name : "";
+				partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+				try
+				{
+					var country = db.pr_getCountry(objPartner == null ? 0 : objPartner.country).FirstOrDefault();
+					objViewBag.country = country != null ? country.name : "";
 
-            }
-            catch { }
-            try
-            {
-                var state = db.pr_getState(objPartner != null ? objPartner.state : 0).FirstOrDefault();
-                objViewBag.state = state != null ? state.stateCode : "";
-            }
-            catch { }
-
-
-            objViewBag.CMS_PAGE_TITLE = CMS.COMPANY_PAGE_TITLE;
-            objViewBag.CMS_PAGE_SUBTITLE = CMS.COMPANY_PAGE_SUBTITLE;
-            objViewBag.CMS_PAGE_PANEL_ONE = CMS.COMPANY_PAGE_PANEL_ONE;
-            objViewBag.CMS_PAGE_PANEL_TWO = CMS.COMPANY_PAGE_PANEL_TWO;
-            objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.COMPANY_PAGE_PREVIOUS_TEXT;
-            objViewBag.CMS_PAGE_NEXT_TEXT = CMS.COMPANY_PAGE_NEXT_TEXT;
+				}
+				catch { }
+				try
+				{
+					var state = db.pr_getState(objPartner != null ? objPartner.state : 0).FirstOrDefault();
+					objViewBag.state = state != null ? state.stateCode : "";
+				}
+				catch { }
 
 
-            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            int cms_id = 0;
-            if (ppptq != null)
-            {
-                _translator.PPTQ = ppptq;
-                objViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
-                objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
-                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
-                var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+				objViewBag.CMS_PAGE_TITLE = CMS.COMPANY_PAGE_TITLE;
+				objViewBag.CMS_PAGE_SUBTITLE = CMS.COMPANY_PAGE_SUBTITLE;
+				objViewBag.CMS_PAGE_PANEL_ONE = CMS.COMPANY_PAGE_PANEL_ONE;
+				objViewBag.CMS_PAGE_PANEL_TWO = CMS.COMPANY_PAGE_PANEL_TWO;
+				objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.COMPANY_PAGE_PREVIOUS_TEXT;
+				objViewBag.CMS_PAGE_NEXT_TEXT = CMS.COMPANY_PAGE_NEXT_TEXT;
 
 
-                try
-                {
-                    var model = GetPageTitles(cms_id, questionnairCmsAll, ptq,"CompanyInformation");
-                    objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
-                    objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
-                    objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
-                    objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
-                    objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
-                    objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
-                    objViewBag= QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0,objViewBag);
-                }
-                catch { }
+				//objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+				//objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+				//objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+				//objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+				//objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+				var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+				var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+				int cms_id = 0;
+				if (ppptq != null)
+				{
+					_translator.PPTQ = ppptq;
+					objViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_COMPANY_INFO, CurrentLanguage);
+					objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
 
-            }
-            ViewBag.FormData = objViewBag;
-            return View(objPartner);
+
+					try
+					{
+						var model = GetPageTitles(cms_id, questionnairCmsAll, ptq, "CompanyInformation");
+						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+						objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+						objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
+					}
+					catch { }
+
+				}
+				ViewBag.FormData = objViewBag;
+				return View(objPartner);
+			}
+			catch (Google.GoogleApiException ex)
+			{
+				ViewBag.googleError = "Sorry, translation limit has been reached on server.";
+				CurrentLanguage = "en";
+				return CompanyInformation();
+			}
+			catch (Exception exc)
+			{
+			}
+			return View();
         }
 
         public virtual ActionResult ContactInformation()
         {
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Default");
-            }
-            ViewBagModel objViewBag = new ViewBagModel();
-            partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-            try
-            {
+			try
+			{
+				if (Session["hs3Registration"] == null)
+				{
+					return RedirectToAction("Default");
+				}
+				ViewBagModel objViewBag = new ViewBagModel();
+				partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+				try
+				{
 
-                var country = db.pr_getCountry(objPartner == null ? 0 : objPartner.country).FirstOrDefault();
-                objViewBag.country = country != null ? country.name : "";
-            }
-            catch { }
+					var country = db.pr_getCountry(objPartner == null ? 0 : objPartner.country).FirstOrDefault();
+					objViewBag.country = country != null ? country.name : "";
+				}
+				catch { }
 
-            objViewBag.CMS_PAGE_TITLE = CMS.CONTACT_PAGE_TITLE;
-            objViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_PAGE_SUBTITLE;
-            objViewBag.CMS_PAGE_PANEL_ONE = CMS.CONTACT_PAGE_PANEL_ONE;
-            objViewBag.CMS_PAGE_PANEL_TWO = CMS.CONTACT_PAGE_PANEL_TWO;
-            objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONTACT_PAGE_PREVIOUS_TEXT;
-            objViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONTACT_PAGE_NEXT_TEXT;
+				objViewBag.CMS_PAGE_TITLE = CMS.CONTACT_PAGE_TITLE;
+				objViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_PAGE_SUBTITLE;
+				objViewBag.CMS_PAGE_PANEL_ONE = CMS.CONTACT_PAGE_PANEL_ONE;
+				objViewBag.CMS_PAGE_PANEL_TWO = CMS.CONTACT_PAGE_PANEL_TWO;
+				objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONTACT_PAGE_PREVIOUS_TEXT;
+				objViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONTACT_PAGE_NEXT_TEXT;
 
-            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
-            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
-            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
-            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
-            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
-            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            var cmsId = 0;
-            if (ppptq != null)
-            {
-                _translator.PPTQ = ppptq;
-                objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
-                objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
-                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
-                var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
-                try
-                {
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
-                    objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
-                    objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
-                    objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
-                    objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
-                    objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
-                    objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
-                    objViewBag =  QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0,objViewBag);
+				//objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF.Substring(0, 15);
+				//objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ.Substring(0, 15);
+				//objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER.Substring(0, 15);
+				//objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
+				//objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
+				var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+				var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+				var cmsId = 0;
+				if (ppptq != null)
+				{
+					_translator.PPTQ = ppptq;
+					objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
+					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+					try
+					{
+						var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
+						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+						objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+						objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
 
-                   
-                }
-                catch { }
-            }
-            ViewBag.FormData = objViewBag;
-            return View(objPartner);
+
+					}
+					catch { }
+				}
+				ViewBag.FormData = objViewBag;
+				return View(objPartner);
+			}
+			catch (Google.GoogleApiException ex)
+			{
+				ViewBag.googleError = "Sorry, translation limit has been reached on server.";
+				CurrentLanguage = "en";
+				return ContactInformation();
+			}
+			catch (Exception exc)
+			{
+			}
+			return View();
         }
         public virtual ActionResult CorrectCompanyInformation()
         {
@@ -789,6 +850,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
         public virtual ActionResult CorrectContactInformation()
         {
+			
             Session["partnumber"] = null;
             Session["site"] = null;
             Session["partnumberstatus"] = null;
@@ -904,103 +966,115 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
-            ViewBagModel objViewBag=new ViewBagModel();
-            if (Session["hs3Registration"] == null)
-            {
-                return RedirectToAction("Default");
-            }
-            #region CMS
-            objViewBag.CMS_PAGE_TITLE = CMS.QUESTIONNAIRE_PAGE_TITLE;
-            objViewBag.CMS_PAGE_SUBTITLE = CMS.QUESTIONNAIRE_PAGE_SUBTITLE;
-            objViewBag.CMS_PAGE_PANEL_ONE = CMS.QUESTIONNAIRE_PAGE_PANEL_ONE;
-            objViewBag.CMS_PAGE_PANEL_TWO = CMS.QUESTIONNAIRE_PAGE_PANEL_TWO;
-            objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.QUESTIONNAIRE_PAGE_PREVIOUS_TEXT;
-            objViewBag.CMS_PAGE_NEXT_TEXT = CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT;
-            objViewBag.SAVE_FOR_LATER_TEXT = CMS.SAVE_FOR_LATER_TEXT;
+			try
+			{
+				ViewBagModel objViewBag = new ViewBagModel();
+				if (Session["hs3Registration"] == null)
+				{
+					return RedirectToAction("Default");
+				}
+				#region CMS
+				objViewBag.CMS_PAGE_TITLE = CMS.QUESTIONNAIRE_PAGE_TITLE;
+				objViewBag.CMS_PAGE_SUBTITLE = CMS.QUESTIONNAIRE_PAGE_SUBTITLE;
+				objViewBag.CMS_PAGE_PANEL_ONE = CMS.QUESTIONNAIRE_PAGE_PANEL_ONE;
+				objViewBag.CMS_PAGE_PANEL_TWO = CMS.QUESTIONNAIRE_PAGE_PANEL_TWO;
+				objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.QUESTIONNAIRE_PAGE_PREVIOUS_TEXT;
+				objViewBag.CMS_PAGE_NEXT_TEXT = CMS.QUESTIONNAIRE_PAGE_NEXT_TEXT;
+				objViewBag.SAVE_FOR_LATER_TEXT = CMS.SAVE_FOR_LATER_TEXT;
 
-            //objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
-            //objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
-            //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
-            //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO;
-            //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL;
+				//objViewBag.QUESTIONNAIRE_PDF = CMS.QUESTIONNAIRE_PDF;
+				//objViewBag.QUESTIONNAIRE_FAQ = CMS.QUESTIONNAIRE_FAQ;
+				//objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
+				//objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO;
+				//objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL;
 
-            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            int cmsId = 0;
-            if (ppptq_cms != null)
-            {
-                _translator.PPTQ = ppptq_cms;
-                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                int questionnaire = ptq != null ? ptq.questionnaire : -1;
-                var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaire).ToList();
-                var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
-                try
-                {
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "QuestionnaireResponse", null, cms);
-                    objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
-                    objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
-                    objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
-                    objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
-                    objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
-                    objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
-                    objViewBag.SAVE_FOR_LATER_TEXT = model.SAVE_FOR_LATER_TEXT;
+				var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+				var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+				int cmsId = 0;
+				if (ppptq_cms != null)
+				{
+					_translator.PPTQ = ppptq_cms;
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					int questionnaire = ptq != null ? ptq.questionnaire : -1;
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaire).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+					try
+					{
+						var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "QuestionnaireResponse", null, cms);
+						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+						objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+						objViewBag.SAVE_FOR_LATER_TEXT = model.SAVE_FOR_LATER_TEXT;
 
-                    objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, questionnaire, objViewBag);
-                    
-                }
-                catch { }
-            }
-            #endregion
-            ViewBag.FormData = objViewBag;
+						objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, questionnaire, objViewBag);
 
-            int questionnaireId = (int)Session["questionnaire"];
+					}
+					catch { }
+				}
+				#endregion
+				ViewBag.FormData = objViewBag;
 
-            var questioncount = db.pr_getQuestionCountByQuestionnaire(questionnaireId);
-            int totalCount =questioncount!=null? (int) questioncount.FirstOrDefault():0;
-            var rows = db.pr_getQuestionRowIDByQuestionnaire(questionnaireId).ToList();
+				int questionnaireId = (int)Session["questionnaire"];
 
-            foreach (var row in rows)
-            {
-                if (row.page == page)
-                {
+				var questioncount = db.pr_getQuestionCountByQuestionnaire(questionnaireId);
+				int totalCount = questioncount != null ? (int)questioncount.FirstOrDefault() : 0;
+				var rows = db.pr_getQuestionRowIDByQuestionnaire(questionnaireId).ToList();
 
-                    var percentageprogressbar = ((row.row - 1) / (float)totalCount) * 100;
+				foreach (var row in rows)
+				{
+					if (row.page == page)
+					{
 
-                    ViewBag.percentageProgressbar = percentageprogressbar;
-                    break;
-                }
-            }
-            questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
+						var percentageprogressbar = ((row.row - 1) / (float)totalCount) * 100;
 
-            touchpoint objtouchpoint = new touchpoint();
-            partner objpartner = new partner();
-            protocol objprotocol = new protocol();
+						ViewBag.percentageProgressbar = percentageprogressbar;
+						break;
+					}
+				}
+				questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
 
-            surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire, _translator, CurrentLanguage);
-            objSurveyForm.questionIndex = questionIndex;
-            objSurveyForm.questionClass = "brownbg  brownbgarrow";
-            objSurveyForm.answerClass = "brownbg";
-            objSurveyForm.alternativeAnswerClass = "bluebg";
-            objSurveyForm.alternativequestionClass = "bluebg bluebgarrow";
+				touchpoint objtouchpoint = new touchpoint();
+				partner objpartner = new partner();
+				protocol objprotocol = new protocol();
 
-            objSurveyForm.errorquestion = errorQuestion;
-            objSurveyForm.errorMessage = errorMessage;
-            Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
-            // Table table = objSurveyForm.tGetSurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
-            // panel.Controls.Add(table);
+				surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire, _translator, CurrentLanguage);
+				objSurveyForm.questionIndex = questionIndex;
+				objSurveyForm.questionClass = "brownbg  brownbgarrow";
+				objSurveyForm.answerClass = "brownbg";
+				objSurveyForm.alternativeAnswerClass = "bluebg";
+				objSurveyForm.alternativequestionClass = "bluebg bluebgarrow";
 
-            StringWriter objhtml = new StringWriter();
-            using (var htmlWriter = new HtmlTextWriter(objhtml))
-            {
-                table.RenderControl(htmlWriter);
-            }
+				objSurveyForm.errorquestion = errorQuestion;
+				objSurveyForm.errorMessage = errorMessage;
+				Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
+				// Table table = objSurveyForm.tGetSurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
+				// panel.Controls.Add(table);
 
-            ViewBag.questions = objhtml.ToString();
-            if (TempData.ContainsKey("message"))
-            {
-                ViewBag.message = TempData["message"];
-            }
-            getZcodeByProviderProtocolCampaignQuestionnaire();
+				StringWriter objhtml = new StringWriter();
+				using (var htmlWriter = new HtmlTextWriter(objhtml))
+				{
+					table.RenderControl(htmlWriter);
+				}
+
+				ViewBag.questions = objhtml.ToString();
+				if (TempData.ContainsKey("message"))
+				{
+					ViewBag.message = TempData["message"];
+				}
+				getZcodeByProviderProtocolCampaignQuestionnaire();
+			}
+			catch (Google.GoogleApiException ex)
+			{
+				ViewBag.googleError = "Sorry, translation limit has been reached on server.";
+				CurrentLanguage = "en";
+				return QuestionnaireResponse( questionIndex,  jumpToQuestion ,  page,  errorQuestion,  pageNumber ,  errorMessage);
+			}
+			catch (Exception exc)
+			{
+			}
             return View();
         }
 

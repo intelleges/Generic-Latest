@@ -213,6 +213,9 @@
         $(document).ready(function () {
             $(".footer-outer").insertAfter(".page-inner");
             $(".pre-next-btn").insertAfter(".shadow-outer");
+            if ('@ViewBag.googleError' !== '') {
+            	alertify.alert('@ViewBag.googleError');
+            }
         });
     </script>
 <script>
