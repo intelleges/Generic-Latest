@@ -5004,7 +5004,7 @@ Intelleges Team";
 			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 			if(question!=null&&question.footer=="4")
 			{
-				htmltext = htmltext.Replace("Honeywell", "Mood").Replace("honeywell", "mood").Replace("HONEYWELL", "MOOD");
+				htmltext = htmltext.Replace("Honeywell", "Moog").Replace("honeywell", "moog").Replace("HONEYWELL", "MOOG");
 			}
             string PDF_FileName = "HON_" + accessCode.Substring(1, 4) + ".pdf";
 
