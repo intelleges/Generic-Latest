@@ -3096,6 +3096,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Contents\images\MOOG_Logo.png" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>

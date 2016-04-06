@@ -3977,6 +3977,7 @@ Intelleges Team";
         public static int FillCustomPdfHtml(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
         {
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
@@ -4002,7 +4003,10 @@ Intelleges Team";
                 ViewBag.state = _state.stateCode;
             else
                 ViewBag.state = string.Empty;
-
+			if (question.footer == "4")
+			{
+				ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+			}else
             if (enterprise != null &&enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
@@ -4020,7 +4024,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+					ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -4975,14 +4979,13 @@ Intelleges Team";
             int pptqID = 0;
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
-            if (question!=null && question.footer == "3")
+            if (question!=null && (question.footer == "3"||question.footer == "4"))
             {
                 pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload";
                 return ViewCustomizedPdf(pptqID, ViewName);
-
             }
-            else if (question != null && question.footer == "2")
+            else if (question != null && (question.footer == "2"))
             {
                 pptqID = FillPdfHtml(ViewBag, db, Session, Server);
                 ViewName = "CustomizedQuestionnaireSurveyPdfDownload";
@@ -4998,6 +5001,11 @@ Intelleges Team";
 
             string htmltext = this.RenderActionResultToString(this.View(ViewName));  //name of the view...
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			if(question!=null&&question.footer=="4")
+			{
+				htmltext = htmltext.Replace("Honeywell", "Mood").Replace("honeywell", "mood").Replace("HONEYWELL", "MOOD");
+			}
             string PDF_FileName = "HON_" + accessCode.Substring(1, 4) + ".pdf";
 
             string dirname = "~/uploadedFiles/";
