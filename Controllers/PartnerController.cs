@@ -2322,7 +2322,8 @@ namespace Generic.Controllers
             var daysGone = db.pr_getDailyCountAll(SessionSingleton.LoggedInUserId).Count();
             ViewBag.DaysGone = daysGone;
             ViewBag.DaysLeft = 250 - daysGone;
-            
+			if (ViewBag.DaysLeft == 0)
+				ViewBag.DaysLeft = 1;
             var a1 = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 2);
             if (a1 != null)
             {
