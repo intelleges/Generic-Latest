@@ -2295,7 +2295,9 @@ namespace Generic.Controllers
             ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
             ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
             ViewBag.iterateObjections = new SelectList(db.pr_getIterateObjectionAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
-            ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault().campaign).ToList(), "id", "name");
+			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+			if (currentPerson != null)
+				ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(currentPerson.campaign).ToList(), "id", "name");
 
             //Scheduler Initializeer
             //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
