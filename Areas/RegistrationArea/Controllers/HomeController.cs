@@ -2747,7 +2747,15 @@ Intelleges Team";
                             email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
                             email.emailTo = objPartner.email;
                             SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(email);
+							try
+							{
+								objSendEmail.sendEmail(email);
+							}
+							catch(FormatException ex)
+							{
+								ViewData["ErrorMessage"] = "Invalide Email Address - "+objPartner.email+". Please correct email address and Retry";
+								//RedirectToAction("eSignature");
+							}
                         }
                     }
                     //change ptq if required

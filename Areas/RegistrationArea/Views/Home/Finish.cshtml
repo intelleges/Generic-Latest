@@ -213,4 +213,12 @@
         });
     </script>
 }
+@if (ViewBag.ErrorMessage != null)
+{
+	<script>
+		$(document).ready(function () {
+			alertify.alert("@ViewBag.ErrorMessage.ToString()");
+		});
+	</script>
+}
 
