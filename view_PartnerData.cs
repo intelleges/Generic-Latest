@@ -21,6 +21,7 @@ namespace Generic
         public string Contact { get; set; }
         public string phone { get; set; }
         public string ContactEmail { get; set; }
+        public string dunsNumber { get; set; }
         public string ContactTitle { get; set; }
         public string owner { get; set; }
         public Nullable<int> countryID { get; set; }
@@ -35,12 +36,12 @@ namespace Generic
         public string Partnertype { get; set; }
         public int groupID { get; set; }
         public string Group { get; set; }
+        public int pptq { get; set; }
         public string AccessCode { get; set; }
         public int statusID { get; set; }
         public string status { get; set; }
         public string Expr1 { get; set; }
         public int campaign { get; set; }
         public Nullable<bool> active { get; set; }
-        public string dunsNumber { get; set; }
     }
 }

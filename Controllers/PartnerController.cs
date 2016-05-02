@@ -4004,6 +4004,12 @@ namespace Generic.Controllers
             return Json(message, JsonRequestBehavior.AllowGet);
 
         }
+		public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId)
+		{
+			var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
+			var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
+			return Json(new { accessCode = accessCode, message = message }, JsonRequestBehavior.AllowGet);
+		}
     }
     
 }

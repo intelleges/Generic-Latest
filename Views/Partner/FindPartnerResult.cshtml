@@ -90,7 +90,7 @@
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
 
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF('@item.status','@item.AccessCode')">Print PDF</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq)">Print PDF</a></li>
 
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
                         @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
@@ -576,82 +576,62 @@
             }
         });
     }
-    function checkToPrintPDF(status, accesscode) {
-        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus2")', { accessCode: accesscode }, function (data) {
+	function checkToPrintPDF(pptqId) {
+		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId }, function (data) {
 
-            if (data[0].next == 6) {
-                alertify.alert(data[0].nextStep);
+			if (data.message.next == 6) {
+				alertify.alert(data[0].nextStep);
+			}
+			else if (data.message.next == 5) {
+				alertify.alert(data.message.nextStep);
+			}
+			else if (data.message.next == 4) {
+				alertify.alert(data.message.nextStep);
+			}
+			else if (data.message.next == 3) {
+				alertify.confirm(data.message.nextStep, function (e) {
+					if (e) {
+						// click yes
+						window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
 
-            }
-            else if (data[0].next == 5) {
-                alertify.alert(data[0].nextStep);
-            }
-            else if (data[0].next == 4) {
-                alertify.alert(data[0].nextStep);
-            }
-            else if (data[0].next == 3) {
-                alertify.confirm(data[0].nextStep, function (e) {
-                    if (e) {
-                        // click yes
-                        window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
+					} else {
+						// click no
+					}
+				});
+			}
+			else if (data.message.next == 2) {
+				alertify.confirm(data.message.nextStep, function (e) {
+					if (e) {
+						// click yes
+						remind(data.accessCode);
 
-                    } else {
-                        // click no
-                    }
-                });
-            }
-            else if (data[0].next == 2) {
-                alertify.confirm(data[0].nextStep, function (e) {
-                    if (e) {
-                        // click yes
-                        remind(accesscode);
+					} else {
+						// click no
+					}
+				});
+			}
+			else if (data.message.next == 1) {
+				alertify.confirm(data.message.nextStep, function (e) {
+					if (e) {
+						// click yes
+						remind(data.accessCode);
 
-                    } else {
-                        // click no
-                    }
-                });
-            }
-            else if (data[0].next == 1) {
-                alertify.confirm(data[0].nextStep, function (e) {
-                    if (e) {
-                        // click yes
-                        remind(accesscode);
-
-                    } else {
-                        // click no
-                    }
-                });
-            }
-            else {
-                alertify.alert(data[0].nextStep);
-            }
-
-            //alertify.alert(data[0].nextStep);
-            @*if (data[0].newStatus == 8) {
-                alertify.confirm(data[0].nextStep, function (e) {
-                    if (e) {
-                        // click yes
-                        window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
-
-                    } else {
-                        // click no
-                    }
-                });
-            }
-            else {
-                alertify.alert(data[0].nextStep);
-            }*@
-
-            @*if (status.toLowerCase() == 'responded/complete') {
-                    window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + accesscode;
-                } else {
-                    alert("it's not responded yet");
-            }*@
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            debugger;
-            alertify.alert('Error getting Touch Point!');
-        });
-    }
+					} else {
+						// click no
+					}
+				});
+			}
+			else {
+				alertify.alert(data.message.nextStep);
+				if (data.message.next > 6) {
+					checkToPrintPDF(data.message.next);
+				}
+			}
+		}).fail(function (jqXHR, textStatus, errorThrown) {
+			debugger;
+			alertify.alert('Error getting Touch Point!');
+		});
+	}
 
     function checkToPrintHTML(status, accesscode) {
         if (status.toLowerCase() == 'responded/complete') {
