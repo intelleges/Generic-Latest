@@ -4010,6 +4010,54 @@ namespace Generic.Controllers
 			var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 			return Json(new { accessCode = accessCode, message = message }, JsonRequestBehavior.AllowGet);
 		}
+
+		private DataTable GetResponsesTable(int pptqId)
+		{
+			var connection = db.Database.Connection;
+			var sqlCommand = new SqlCommand();
+			sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+			sqlCommand.CommandText = "dbo.pr_getResponsesByProtocolTouchpointGroupPartnertypeByPPTQ";
+			sqlCommand.Parameters.Add("@pptq", System.Data.SqlDbType.Int).Value = pptqId;
+			//sqlCommand.Parameters["pptq"].Value = pptqId;
+			sqlCommand.Connection = connection as SqlConnection;
+			connection.Open();
+			//var reader = sqlCommand.ExecuteReader();
+			var dataTable = new DataTable();
+			SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+			sqlDataAdapter.Fill(dataTable);
+			connection.Close();
+			return dataTable;
+		}
+		public ActionResult CheckResponses(int pptqId)
+		{
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+			if (pptq.status == 14)
+				return Json(false, JsonRequestBehavior.AllowGet);
+			var dataTable = GetResponsesTable(pptqId);
+			var stream = new MemoryStream();
+			if (dataTable.Rows.Count > 0)
+			{
+				return Json(true, JsonRequestBehavior.AllowGet);
+			}
+			else return Json(string.Format("Currently, there is no response data available for {0}. Would you like to send a reminder?",pptq.partner1.name), JsonRequestBehavior.AllowGet);			
+		}
+
+		public ActionResult GetResponses(int pptqId)
+		{
+			var dataTable = GetResponsesTable(pptqId);
+			var stream = new MemoryStream();
+			if (dataTable.Rows.Count > 0)
+			{
+				//dataTable.TableName = "Response";
+				//return Json(true, JsonRequestBehavior.AllowGet);
+				//dataTable.WriteXml(stream);
+				//stream.Position = 0;
+				ExportToExcel(dataTable);
+			}
+
+			
+			return File(stream, "application/vnd.ms-excel", "Response.xls");
+		}
     }
     
 }

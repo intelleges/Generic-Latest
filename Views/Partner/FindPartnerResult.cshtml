@@ -98,7 +98,7 @@
                             <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
                         }
                         <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
-                        <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li><li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
                     </ul>
                 </div>
             </text>);
@@ -640,6 +640,25 @@
             alert("it's not responded yet");
         }
     }
+
+	function ExecuteResponses(acceessCode, pptqId)
+	{
+		$.getJSON("CheckResponses", { pptqId: pptqId }, function (data) {
+			if (data) {
+				if (data === true) {
+					window.location.href = '@Url.Action("GetResponses")' + '?pptqId=' + pptqId;
+				} else {
+					alertify.confirm(data, function (result) {
+						if (result) {
+							remind(acceessCode);
+						}
+					});
+				}
+			} else {
+				alertify.alert('There is no response data available for shadows. Please access the REFERENCE and try again');
+			}
+		});
+	}
 
     $(function () {
         $(".t-widget.t-dropdown.t-header").css("width", "100%");
