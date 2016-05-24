@@ -1276,15 +1276,13 @@ namespace Generic.Controllers
                 levelType = int.Parse(db.pr_getQuestionnaire(qId).FirstOrDefault().levelType.ToString());
             }
             catch { }
-            if (levelType == 1)
-            {
-
-                ExportToExcel(getResponsesByProtocolCampaignGroupProviderType2(db.pr_getProtocolByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().id, SessionSingleton.Touchpoint));
-            }
-            else
-            {
-                ExportToExcel(getCustomizedLSMWReport());
-            }
+			if ( levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+			{
+				ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpoint(SessionSingleton.Touchpoint));
+			} else if(levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
+				ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypeByTouchpoint(SessionSingleton.Touchpoint));
+			else ExportToExcel(getCustomizedLSMWReport());		
+			
 
         }
 
@@ -1334,6 +1332,47 @@ namespace Generic.Controllers
             conn.Close();
             return dataTable;
         }
+
+		public DataTable getpr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpoint(int touchpoint)
+		{ 
+			DataTable dataTable = new DataTable();
+            EntityConnectionStringBuilder cs = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["EntitiesDBContext"].ConnectionString);
+            SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);
+
+			SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpoint", conn);
+            command.CommandTimeout = 120;
+            command.CommandType = CommandType.StoredProcedure;
+            //command.Parameters.Add("@protocol", SqlDbType.VarChar).Value = protocol;
+            command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
+			//command.Parameters.Add("@group", SqlDbType.VarChar).Value = DBNull.Value;
+			//command.Parameters.Add("@partnertype", SqlDbType.VarChar).Value = DBNull.Value;
+            conn.Open();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            sqlDataAdapter.Fill(dataTable);
+            conn.Close();
+            return dataTable;
+
+		}
+		public DataTable getpr_getResponsesByProtocolTouchpointGroupPartnertypeByTouchpoint(int touchpoint)
+		{
+			DataTable dataTable = new DataTable();
+			EntityConnectionStringBuilder cs = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["EntitiesDBContext"].ConnectionString);
+			SqlConnection conn = new SqlConnection(cs.ProviderConnectionString);
+
+			SqlCommand command = new SqlCommand("pr_getResponsesByProtocolTouchpointGroupPartnertypeByTouchpoint", conn);
+			command.CommandTimeout = 120;
+			command.CommandType = CommandType.StoredProcedure;
+			//command.Parameters.Add("@protocol", SqlDbType.VarChar).Value = protocol;
+			command.Parameters.Add("@touchpoint", SqlDbType.VarChar).Value = touchpoint;
+			//command.Parameters.Add("@group", SqlDbType.VarChar).Value = DBNull.Value;
+			//command.Parameters.Add("@partnertype", SqlDbType.VarChar).Value = DBNull.Value;
+			conn.Open();
+			SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+			sqlDataAdapter.Fill(dataTable);
+			conn.Close();
+			return dataTable;
+
+		}
 
 
         public DataTable getCustomizedLSMWReport()
@@ -4011,12 +4050,14 @@ namespace Generic.Controllers
 			return Json(new { accessCode = accessCode, message = message }, JsonRequestBehavior.AllowGet);
 		}
 
-		private DataTable GetResponsesTable(int pptqId)
+		private DataTable GetResponsesTable(int pptqId, int levelType)
 		{
 			var connection = db.Database.Connection;
 			var sqlCommand = new SqlCommand();
 			sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+			if (levelType==LevelType.COMPANY_LEVEL)
 			sqlCommand.CommandText = "dbo.pr_getResponsesByProtocolTouchpointGroupPartnertypeByPPTQ";
+			else sqlCommand.CommandText = "dbo.pr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByPPTQ";
 			sqlCommand.Parameters.Add("@pptq", System.Data.SqlDbType.Int).Value = pptqId;
 			//sqlCommand.Parameters["pptq"].Value = pptqId;
 			sqlCommand.Connection = connection as SqlConnection;
@@ -4031,9 +4072,11 @@ namespace Generic.Controllers
 		public ActionResult CheckResponses(int pptqId)
 		{
 			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-			if (pptq.status == 14)
+			var questionnaire = db.pr_getQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire1.questionnaire).FirstOrDefault();
+			if (pptq.status == 14 && questionnaire!=null)
 				return Json(false, JsonRequestBehavior.AllowGet);
-			var dataTable = GetResponsesTable(pptqId);
+
+			var dataTable = GetResponsesTable(pptqId, (int)questionnaire.levelType);
 			var stream = new MemoryStream();
 			if (dataTable.Rows.Count > 0)
 			{
@@ -4044,7 +4087,9 @@ namespace Generic.Controllers
 
 		public ActionResult GetResponses(int pptqId)
 		{
-			var dataTable = GetResponsesTable(pptqId);
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+			var questionnaire = db.pr_getQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire1.questionnaire).FirstOrDefault();
+			var dataTable = GetResponsesTable(pptqId, (int)questionnaire.levelType);
 			var stream = new MemoryStream();
 			if (dataTable.Rows.Count > 0)
 			{
@@ -4057,6 +4102,31 @@ namespace Generic.Controllers
 
 			
 			return File(stream, "application/vnd.ms-excel", "Response.xls");
+		}
+		public ActionResult ExecuteResponse(int pptqId)
+		{
+			var connection = db.Database.Connection;
+			var sqlCommand = new SqlCommand();
+			sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+			sqlCommand.CommandText = "dbo.pr_getResponsesByProtocolTouchpointGroupPartnertypeByPPTQ";
+			sqlCommand.Parameters.Add("@pptq", System.Data.SqlDbType.Int).Value = pptqId;
+			//sqlCommand.Parameters["pptq"].Value = pptqId;
+			sqlCommand.Connection = connection as SqlConnection;
+			connection.Open();
+			//var reader = sqlCommand.ExecuteReader();
+			var dataTable = new DataTable();
+			SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+			sqlDataAdapter.Fill(dataTable);
+			var stream = new MemoryStream();
+			if (dataTable.Rows.Count > 0)
+			{
+				dataTable.WriteXml(stream);
+				stream.Position = 0;
+			}
+
+			connection.Close();
+			return File(stream, "application/vnd.ms-excel", "CallsList.xls");
+			//return View();
 		}
     }
     
