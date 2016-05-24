@@ -379,15 +379,15 @@
 @*<script src="~/Scripts/jquery-1.8.2.js"></script>
     <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
 <script type="text/javascript">
-	
-    function printDocs(accessCode) {
 
-        //var grid = $("#partnersDocGrid").data("tGrid");
-        // grid.ajax.selectUrl = "/Partner/ShowDocs/?accessCode=" + accessCode;
-        //grid.ajaxRequest();
-        grid.rebind({ accessCode: accessCode });
-        //$("#emailDialog").modal("toggle");
-        @*$.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
+	function printDocs(accessCode) {
+
+		//var grid = $("#partnersDocGrid").data("tGrid");
+		// grid.ajax.selectUrl = "/Partner/ShowDocs/?accessCode=" + accessCode;
+		//grid.ajaxRequest();
+		grid.rebind({ accessCode: accessCode });
+		//$("#emailDialog").modal("toggle");
+		@*$.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
             //if (result.length) {
                 $("#madalEmailForm").html("");
                 $("#madalEmailForm").append("<table class='table table-hover'></table>");
@@ -405,178 +405,178 @@
                // alertify.alert('There are no available documents for this partner.');
            // }
         });*@
-    }
-    $(function () {
-        //jQuery.noConflict();
-        $("#EmailDialog").dialog({
-            autoOpen: false
-        });
+	}
+	$(function () {
+		//jQuery.noConflict();
+		$("#EmailDialog").dialog({
+			autoOpen: false
+		});
 
-        $('#popup').bind('dialogclose', function (event) {
-            window.location.replace(window.location.href);
-        });
-
-
-
-    });
-
-    function RedirectScreen(url) {
-        window.location.replace(url);
-    }
-    var currentPTQAccessCode = null;
-    function changePTQ(accessCode) {
-        currentPTQAccessCode = accessCode;
-        $("#ptqList").data("tDropDownList").reload();
-        $("#changePtqDialog").modal("toggle");
-    }
-
-    function CloseMe() {
-        $("#genericPopup").dialog('close');
-        //$(".t-icon .t-refresh").trigger('click');
-
-        window.location.replace(window.location.href);
-    }
-
-    function remind(accessCodeValue) {
-        $.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
-
-            if (result) {
-                alertify.alert(result);
-            }
-        });
-    }
-
-    function sms(accessCode) {
-        $.post("SendRemindSms", { accessCode: accessCode }).done(function (result) {
-            if (result) {
-                alertify.alert(result);
-            }
-        });
-    }
-
-
-    function OpenEmailDialog(ac) {
-        //jQuery.noConflict();
-
-        $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
-
-            $("#EmailDialog").html(data);
-            $("#EmailDialog").dialog({
-                width: 1200,
-                height: 1000,
-            });
-            $("#EmailDialog").dialog('open');
-        });
-    }
-    $('#menu_block').hover(function () {
-        // alert("call");
-        $('#display_menu').show();
-    }, function () {
-        $('#display_menu').hide();
-    })
-
-    $('#menu_block').mouseenter(function () {
-        $('#display_menu').show();
-    }).mouseleave(function () {
-
-        $('#display_menu').hide();
-
-    });
-
-    function openEditPopup(id) {
-        $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
-            $("#genericPopup").html(data);
-        });
-
-        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-        $("#genericPopup").dialog('open');
-    }
-
-    function openRemovePopup(id, internalid, name) {
+		$('#popup').bind('dialogclose', function (event) {
+			window.location.replace(window.location.href);
+		});
 
 
 
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
+	});
 
-                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
+	function RedirectScreen(url) {
+		window.location.replace(url);
+	}
+	var currentPTQAccessCode = null;
+	function changePTQ(accessCode) {
+		currentPTQAccessCode = accessCode;
+		$("#ptqList").data("tDropDownList").reload();
+		$("#changePtqDialog").modal("toggle");
+	}
 
-            }
-        });
+	function CloseMe() {
+		$("#genericPopup").dialog('close');
+		//$(".t-icon .t-refresh").trigger('click');
 
+		window.location.replace(window.location.href);
+	}
 
-    }
+	function remind(accessCodeValue) {
+		$.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
 
+			if (result) {
+				alertify.alert(result);
+			}
+		});
+	}
 
-    function openArchivePopup(id, internalid, name) {
-
-
-
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
-
-                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
-
-            }
-        });
+	function sms(accessCode) {
+		$.post("SendRemindSms", { accessCode: accessCode }).done(function (result) {
+			if (result) {
+				alertify.alert(result);
+			}
+		});
+	}
 
 
-    }
+	function OpenEmailDialog(ac) {
+		//jQuery.noConflict();
 
-    function openViewDetailPopup(id) {
-        $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
-            $("#genericPopup").html(data);
-        });
-        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
-        $("#genericPopup").dialog('open');
-    }
+		$.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
 
-    function openCompletePopup(accesscode) {
-        $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
-            $("#genericPopup").html(data);
-        });
-        $("#genericPopup").dialog({ height: 600, title: "Complete" });
-        $("#genericPopup").dialog('open');
-    }
-    function resetPdf(accessCode) {
-        $.get('@Url.Content("~/Partner/ResetPdf")' + '?accesscode=' + accessCode, function (data) {
-            if (data) {
-                alertify.alert("Pdf document was reset");
-            } else {
-                alertify.alert("Something went wrong, please try again later");
-            }
-        });
-    }
+			$("#EmailDialog").html(data);
+			$("#EmailDialog").dialog({
+				width: 1200,
+				height: 1000,
+			});
+			$("#EmailDialog").dialog('open');
+		});
+	}
+	$('#menu_block').hover(function () {
+		// alert("call");
+		$('#display_menu').show();
+	}, function () {
+		$('#display_menu').hide();
+	})
+
+	$('#menu_block').mouseenter(function () {
+		$('#display_menu').show();
+	}).mouseleave(function () {
+
+		$('#display_menu').hide();
+
+	});
+
+	function openEditPopup(id) {
+		$.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
+			$("#genericPopup").html(data);
+		});
+
+		$("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+		$("#genericPopup").dialog('open');
+	}
+
+	function openRemovePopup(id, internalid, name) {
+
+
+
+		alertify.set({
+			labels: {
+				ok: "No",
+				cancel: "Yes"
+			},
+			buttonFocus: "cancel"
+		});
+		// button labels will be "Accept" and "Deny"
+		alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+			if (e) {
+				// Click no
+			} else {
+				// click yes
+
+				$.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+					// $(".t-icon .t-refresh").trigger('click');
+					window.location.replace(window.location.href);
+				});
+
+			}
+		});
+
+
+	}
+
+
+	function openArchivePopup(id, internalid, name) {
+
+
+
+		alertify.set({
+			labels: {
+				ok: "No",
+				cancel: "Yes"
+			},
+			buttonFocus: "cancel"
+		});
+		// button labels will be "Accept" and "Deny"
+		alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+			if (e) {
+				// Click no
+			} else {
+				// click yes
+
+				$.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+					// $(".t-icon .t-refresh").trigger('click');
+					window.location.replace(window.location.href);
+				});
+
+			}
+		});
+
+
+	}
+
+	function openViewDetailPopup(id) {
+		$("#genericPopup").html("<p>Loading Data...</p>");
+		$.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
+			$("#genericPopup").html(data);
+		});
+		$("#genericPopup").dialog({ height: 600, title: "View Detail" });
+		$("#genericPopup").dialog('open');
+	}
+
+	function openCompletePopup(accesscode) {
+		$("#genericPopup").html("<p>Loading Data...</p>");
+		$.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
+			$("#genericPopup").html(data);
+		});
+		$("#genericPopup").dialog({ height: 600, title: "Complete" });
+		$("#genericPopup").dialog('open');
+	}
+	function resetPdf(accessCode) {
+		$.get('@Url.Content("~/Partner/ResetPdf")' + '?accesscode=' + accessCode, function (data) {
+			if (data) {
+				alertify.alert("Pdf document was reset");
+			} else {
+				alertify.alert("Something went wrong, please try again later");
+			}
+		});
+	}
 	function checkToPrintPDF(pptqId) {
 		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId }, function (data) {
 
@@ -634,24 +634,32 @@
 		});
 	}
 
-    function checkToPrintHTML(status, accesscode) {
-        if (status.toLowerCase() == 'responded/complete') {
-            window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;
-        } else {
-            alert("it's not responded yet");
-        }
-    }
+	function checkToPrintHTML(status, accesscode) {
+		if (status.toLowerCase() == 'responded/complete') {
+			window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;
+		} else {
+			alert("it's not responded yet");
+		}
+	}
 
-	function ExecuteResponses(acceessCode, pptqId)
-	{
+	function ExecuteResponses(acceessCode, pptqId) {
 		$.getJSON("CheckResponses", { pptqId: pptqId }, function (data) {
 			if (data) {
 				if (data === true) {
 					window.location.href = '@Url.Action("GetResponses")' + '?pptqId=' + pptqId;
 				} else {
 					alertify.confirm(data, function (result) {
+
 						if (result) {
 							remind(acceessCode);
+						} else {
+							if (data.startsWith("Currently, there are only partitial (incomplete) data available for"))
+								alertify.confirm("Would you like to print partitial response?", function (endgeResult) {
+									if (endgeResult) {
+										window.location.href = '@Url.Action("GetResponses")' + '?pptqId=' + pptqId;
+									}
+								});
+
 						}
 					});
 				}

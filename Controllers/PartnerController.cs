@@ -4080,6 +4080,11 @@ namespace Generic.Controllers
 			var stream = new MemoryStream();
 			if (dataTable.Rows.Count > 0)
 			{
+				if (pptq.status==7)
+				{
+					return Json(string.Format("Currently, there are only partitial (incomplete) data available for {0}. Would you like to send a reminder?", pptq.partner1.name), JsonRequestBehavior.AllowGet);	
+				}
+				else
 				return Json(true, JsonRequestBehavior.AllowGet);
 			}
 			else return Json(string.Format("Currently, there is no response data available for {0}. Would you like to send a reminder?",pptq.partner1.name), JsonRequestBehavior.AllowGet);			
@@ -4092,42 +4097,13 @@ namespace Generic.Controllers
 			var dataTable = GetResponsesTable(pptqId, (int)questionnaire.levelType);
 			var stream = new MemoryStream();
 			if (dataTable.Rows.Count > 0)
-			{
-				//dataTable.TableName = "Response";
-				//return Json(true, JsonRequestBehavior.AllowGet);
-				//dataTable.WriteXml(stream);
-				//stream.Position = 0;
+			{				
 				ExportToExcel(dataTable);
 			}
 
 			
 			return File(stream, "application/vnd.ms-excel", "Response.xls");
-		}
-		public ActionResult ExecuteResponse(int pptqId)
-		{
-			var connection = db.Database.Connection;
-			var sqlCommand = new SqlCommand();
-			sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-			sqlCommand.CommandText = "dbo.pr_getResponsesByProtocolTouchpointGroupPartnertypeByPPTQ";
-			sqlCommand.Parameters.Add("@pptq", System.Data.SqlDbType.Int).Value = pptqId;
-			//sqlCommand.Parameters["pptq"].Value = pptqId;
-			sqlCommand.Connection = connection as SqlConnection;
-			connection.Open();
-			//var reader = sqlCommand.ExecuteReader();
-			var dataTable = new DataTable();
-			SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-			sqlDataAdapter.Fill(dataTable);
-			var stream = new MemoryStream();
-			if (dataTable.Rows.Count > 0)
-			{
-				dataTable.WriteXml(stream);
-				stream.Position = 0;
-			}
-
-			connection.Close();
-			return File(stream, "application/vnd.ms-excel", "CallsList.xls");
-			//return View();
-		}
+		}		
     }
     
 }
