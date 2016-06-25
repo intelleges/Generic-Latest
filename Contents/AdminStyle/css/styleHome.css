@@ -1292,8 +1292,11 @@ body .shadow-box li::before {
     display: inline-block;
     width: 100%;
 }
+.questionaire-table table table tr td input[type='radio'] {
+   vertical-align: top;
+}
 .questionaire-table table table tr td label {
-    /*width: 94%;*/
+    width: 94%;
     padding-left: 10px;
     /*vertical-align: top;
     display:inline-block;*/
