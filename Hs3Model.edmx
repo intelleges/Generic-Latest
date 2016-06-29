@@ -6116,6 +6116,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPartnertypeByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerTypeForAssignment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -14534,6 +14538,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="survey" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="view_PartnerData" EntityType="hs3MVCMTQa2Model.view_PartnerData" />
+          <FunctionImport Name="pr_getPartnerTypeForAssignment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerTypeForAssignment_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -23418,6 +23426,16 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="campaign" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="pr_getPartnerTypeForAssignment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="alias" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="partnerClass" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -31052,6 +31070,20 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerTypeForAssignment" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerTypeForAssignment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerTypeForAssignment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="partnerClass" ColumnName="partnerClass" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           
         </EntityContainerMapping>
       </Mapping>

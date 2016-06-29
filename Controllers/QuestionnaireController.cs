@@ -621,6 +621,11 @@ namespace Generic.Controllers
             return View();
         }
 
+		public ActionResult GetPartnerTypesByTouchpoint(int touchpoint)
+		{
+			return Json(db.pr_getPartnerTypeForAssignment(Generic.Helpers.CurrentInstance.EnterpriseID, touchpoint).ToList(), JsonRequestBehavior.AllowGet);
+		}
+
         public ActionResult Download(int questionnaireId)
         {
             var stream = new MemoryStream();

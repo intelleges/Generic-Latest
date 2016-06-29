@@ -49,9 +49,40 @@
 
             });
 
-            $('#touchpoint').change(function () {
-                $('#partnertypeDiv').show();
-                $('#touchpointName').val($('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text());
+        	$('#touchpoint').change(function () {
+        		$('#touchpointName').val($('#touchpoint option[value="' + $('#touchpoint').val() + '"]').text());
+
+
+        		var objTouchpointID = $('#touchpoint').val();
+        		var formData = { touchpoint: objTouchpointID };
+        		if (objTouchpointID == "") {
+        			var touchpointSelectList = "<option value=''>-Select-</option>";
+        			$('#partnertype').html(touchpointSelectList);
+        			return;
+        		}
+        		$.ajax({
+        			url: "@Url.Content("~/Questionnaire/GetPartnerTypesByTouchpoint")",
+        			type: "post",
+        		data: formData,
+        		success: function (data) {
+        			var len = data.length;
+        			var i = 0;
+        			var touchpointSelectList = "<option value=''></option>";
+        			for (i = 0; i < len; i++) {
+        				touchpointSelectList += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+        			}
+
+        			$('#partnertype').html(touchpointSelectList);
+        			$('#partnertypeDiv').show();
+
+        		},
+        		error: function (data) {
+        			var touchpointSelectList = "<option value=''> -Select-</option>";
+        			$('#partnertype').html(touchpointSelectList);
+        		}
+        	});
+                
+               
 
             });
 

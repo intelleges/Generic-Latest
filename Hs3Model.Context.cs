@@ -17315,5 +17315,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBySurvey_Result>("pr_getQuestionBySurvey", surveyParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerTypeForAssignment_Result> pr_getPartnerTypeForAssignment(Nullable<int> enterprise, Nullable<int> touchpoint)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerTypeForAssignment_Result>("pr_getPartnerTypeForAssignment", enterpriseParameter, touchpointParameter);
+        }
     }
 }
