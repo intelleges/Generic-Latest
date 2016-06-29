@@ -39,6 +39,8 @@ namespace Generic.Helpers.Questionnaire
         public const int XX_CHECKBOX_X = 15;
         public const int YN_UPLOADEXPIRY_Y = 16;
         public const int YN_UPLOADEXPIRY_N = 17;
+		public const int TEXT_NUMBER_N_X = 18;
+		public const int TEXT_NUMBER_Y_X = 19;
         // old system
         //        commentType 4 = File  Upload
         //commentType 1 = Warning

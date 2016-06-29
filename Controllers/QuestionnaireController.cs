@@ -1170,10 +1170,32 @@ namespace Generic.Controllers
                                     objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
                                 else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
                                     objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
-                                else
-                                {
-                                    objQuestion.commentType = 0;
-                                }
+								else if (excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
+								{
+									try
+									{
+										objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_N_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_N_".Length-1));
+									}
+									catch
+									{
+										throw new Exception("Wrong TEXT_NUMBER_N_ comment type value");
+									}
+								}
+								else if (excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_Y_"))
+								{
+									try
+									{
+										objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_Y_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_Y_".Length-1));
+									}
+									catch
+									{
+										throw new Exception("Wrong TEXT_NUMBER_Y_ comment type value");
+									}
+								}
+								else
+								{
+									objQuestion.commentType = 0;
+								}
 
                                 try
                                 {

@@ -1441,6 +1441,75 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                 divn.Controls.Add(tb);
                 tableCell.Controls.AddAt(0, divn);
             }
+			if (question.commentType >100)
+			{
+				var value = question.commentType.ToString().Substring(0,2).ToString();
+				var clearCommentType = int.Parse(value);
+				var restrict = int.Parse(question.commentType.ToString().Substring(2).ToString());
+				if (clearCommentType == CommentType.TEXT_NUMBER_N_X || clearCommentType == CommentType.TEXT_NUMBER_Y_X)
+				{
+					var divPrefix = clearCommentType == CommentType.TEXT_NUMBER_N_X ? "n" : "y";
+					HtmlGenericControl divn = new HtmlGenericControl();
+					divn.ID = divPrefix + "Div_" + question.id.ToString();
+					//divn.Visible = false;
+					//divn.Style.Add("display", "none");
+
+					Table tb = new Table();
+					tb.Attributes.Add("style", "width:100%");
+					TableRow headerRow = new TableRow();
+					var dueHeaderCell = new TableHeaderCell();
+					dueHeaderCell.Text = incldComment;
+					dueHeaderCell.Attributes.Add("style", "text-align:left;");
+					headerRow.Cells.Add(dueHeaderCell);
+					TableRow controlRow = new TableRow();
+					var duedateCtrlCell = new TableCell();
+					duedateCtrlCell.Attributes.Add("style", "vertical-align:middle");
+
+					txtbox = new TextBox();
+					txtbox.Width = 100;
+					txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
+					txtbox.Attributes.Add("required", "");
+					txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+					//textBox.Attributes["data-val-required"] = "Required";
+					txtbox.Attributes["data-val-number"] = "Required number";
+					txtbox.Attributes["data-val-length"] = "Required number where length equals {0}";
+					txtbox.Attributes["data-val-length-min"] = restrict.ToString();
+					txtbox.Attributes["data-val-length-max"] = restrict.ToString();
+					txtbox.TextMode = TextBoxMode.Number;					
+					txtbox.MaxLength = restrict;
+					if (clearCommentType == CommentType.TEXT_NUMBER_Y_X)
+					{
+						if (pptqResponse != null && pptqResponse.response == 74 || pptqResponse != null && pptqResponse.response1 != null)
+						{
+							txtbox.Text = pptqResponse.comment;
+
+						}
+						else
+							divn.Style.Add("display", "none");
+					}
+					else
+					{
+						if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null)
+						{
+							txtbox.Text = pptqResponse.comment;
+
+						}
+						else
+							divn.Style.Add("display", "none");
+					}
+					//txtbox.Attributes.Add("data-val-dpDate", _translator.Translate("Enter valid date value", _currentLanguage));
+					txtbox.Attributes.Add("data-val", "true");
+					//txtbox.Attributes.Add("class", "duedate dpDate");
+					txtbox.Attributes.Add("style", "vertical-align:top");
+					//divn.InnerHtml = incldComment + " ";//"Include comments here: ";
+					duedateCtrlCell.Controls.Add(txtbox);
+					controlRow.Cells.Add(duedateCtrlCell);
+					tb.Rows.Add(headerRow);
+					tb.Rows.Add(controlRow);
+					divn.Controls.Add(tb);
+					tableCell.Controls.AddAt(0, divn);
+				}
+			}
 
 
 
