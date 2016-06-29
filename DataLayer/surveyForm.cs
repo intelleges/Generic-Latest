@@ -1458,7 +1458,9 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
 					tb.Attributes.Add("style", "width:100%");
 					TableRow headerRow = new TableRow();
 					var dueHeaderCell = new TableHeaderCell();
-					dueHeaderCell.Text = incldComment;
+					//dueHeaderCell.Text = incldComment;
+					
+					//<span class="field-validation-valid" data-valmsg-for="question_21946_14406" data-valmsg-replace="true"></span>
 					dueHeaderCell.Attributes.Add("style", "text-align:left;");
 					headerRow.Cells.Add(dueHeaderCell);
 					TableRow controlRow = new TableRow();
@@ -1468,7 +1470,9 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
 					txtbox = new TextBox();
 					txtbox.Width = 100;
 					txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
+					txtbox.Attributes.Add("data-val", "true");
 					txtbox.Attributes.Add("required", "");
+					txtbox.Attributes.Add("min", "0");
 					txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
 					//textBox.Attributes["data-val-required"] = "Required";
 					txtbox.Attributes["data-val-number"] = "Required number";
@@ -1476,7 +1480,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
 					txtbox.Attributes["data-val-length-min"] = restrict.ToString();
 					txtbox.Attributes["data-val-length-max"] = restrict.ToString();
 					txtbox.TextMode = TextBoxMode.Number;					
-					txtbox.MaxLength = restrict;
+					//txtbox.MaxLength = restrict;
 					if (clearCommentType == CommentType.TEXT_NUMBER_Y_X)
 					{
 						if (pptqResponse != null && pptqResponse.response == 74 || pptqResponse != null && pptqResponse.response1 != null)
@@ -1501,7 +1505,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
 					txtbox.Attributes.Add("data-val", "true");
 					//txtbox.Attributes.Add("class", "duedate dpDate");
 					txtbox.Attributes.Add("style", "vertical-align:top");
-					//divn.InnerHtml = incldComment + " ";//"Include comments here: ";
+					divn.InnerHtml = incldComment + " <span class='field-validation-valid' data-valmsg-for='"+txtbox.ID+"' data-valmsg-replace='true'></span>";//"Include comments here: ";
 					duedateCtrlCell.Controls.Add(txtbox);
 					controlRow.Cells.Add(duedateCtrlCell);
 					tb.Rows.Add(headerRow);
