@@ -24,7 +24,7 @@
     <script type="text/javascript" src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js">s</script>
     <link href="@Url.Content("~/Contents/css/gfdynamicfeedcontroller.css")" type="text/css" rel="stylesheet" />
 
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/registrationJs")
     @RenderSection("styles", false)
@@ -204,34 +204,35 @@
     </div>
     <!-- jQuery -->
     @RenderSection("scripts", required: false)
-    @Scripts.Render("~/bundles/Homejquery")
+    @*@Scripts.Render("~/bundles/Homejquery")*@
     @Scripts.Render("~/Scripts/validator.js")
     <!-- Bootstrap Core JavaScript -->
     @Scripts.Render("~/bundles/HomeBootstrapJs")
 
     <script>
-        $(document).ready(function () {
-            $(".footer-outer").insertAfter(".page-inner");
-            $(".pre-next-btn").insertAfter(".shadow-outer");
-            if ('@ViewBag.googleError' !== '') {
-            	alertify.alert('@ViewBag.googleError');
-            }
-        });
+		(function ($) {
+			$(document).ready(function () {
+				$(".footer-outer").insertAfter(".page-inner");
+				$(".pre-next-btn").insertAfter(".shadow-outer");
+				$(".box-shadow-dropdown").insertBefore("table:first");
+				if ('@ViewBag.googleError' !== '') {
+					alertify.alert('@ViewBag.googleError');
+				}
+
+			});
+		})(jQuery);
+        
     </script>
-<script>
-        $(document).ready(function () {
-            $(".box-shadow-dropdown").insertBefore("table:first");
-        });
-    </script>
+
 
 
 
 
 @(Html.Telerik().ScriptRegistrar()
     .DefaultGroup(group => group
-        .Combined(true)
-        .Compress(true)
-     )
+        .Combined(false)
+        .Compress(false)
+		 ).jQuery(false).jQueryValidation(false)
 )
 
 

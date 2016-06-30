@@ -168,7 +168,7 @@ namespace Generic.Helpers.Utility
                     var innerText = elementTextExpression.Match(sVariable);
                     if(innerText.Success)
                     {
-                        sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", innerText.Value, HttpUtility.HtmlEncode(text.Value));
+						sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top' data-trigger='hover'>{0}</a>", innerText.Value, HttpUtility.HtmlEncode(text.Value));
                     }
                 }
 
