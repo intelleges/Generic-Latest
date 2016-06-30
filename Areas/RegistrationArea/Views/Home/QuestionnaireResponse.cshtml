@@ -205,7 +205,7 @@
 
                 </div>
                 <div class=" Later-button">
-                    <input type="submit" value="@formData.SAVE_FOR_LATER_TEXT" form="QuestionnaireResponse" id="saveforLater" formnovalidate class="btn btn-default pull-right cancel" />
+                    <input type="button" value="@formData.SAVE_FOR_LATER_TEXT" form="QuestionnaireResponse" id="saveforLater" formnovalidate class="btn btn-default pull-right cancel" onclick="submitForm()"/>
                     @*<button class="btn btn-default pull-right cancel" type="submit" form="QuestionnaireResponse" id="saveforLater" formnovalidate>@formData.SAVE_FOR_LATER_TEXT</button>*@
                 </div>
             </div>
@@ -250,7 +250,9 @@
 @Scripts.Render("~/bundles/jquery")
 
 <script type="text/javascript">
-
+	function submitForm() {
+		$("#QuestionnaireResponse").submit();
+	}
     $(document).ready(function () {
 
         var percentage = $('#barpercent').val() + '%';
@@ -266,13 +268,13 @@
 
         $("#QuestionnaireResponse").submit(function (e) {
             debugger;
-            var $btn = $("input[type=submit][clicked=true]");
-            if ($btn.prop("id") == "saveforLater") {
-                $("#btnSaveForLater").val("false");
-                $(this).validate().cancelSubmit = true;
-            } else {
-                $("#btnSaveForLater").val("false");
-            }
+            //var $btn = $("input[type=submit][clicked=true]");
+            //if ($btn.prop("id") == "saveforLater") {
+            //    $("#btnSaveForLater").val("false");
+            //    $(this).validate().cancelSubmit = true;
+            //} else {
+            //    $("#btnSaveForLater").val("false");
+            //}
         });
 
         $("input[type=submit]").click(function () {
