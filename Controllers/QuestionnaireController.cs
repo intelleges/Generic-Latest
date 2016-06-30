@@ -1170,22 +1170,22 @@ namespace Generic.Controllers
                                     objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
                                 else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
                                     objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
-								else if (excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
+								else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType)&& excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
 								{
 									try
 									{
-										objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_N_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_N_".Length-1));
+										objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_N_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_N_".Length));
 									}
 									catch
 									{
 										throw new Exception("Wrong TEXT_NUMBER_N_ comment type value");
 									}
 								}
-								else if (excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_Y_"))
+								else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_Y_"))
 								{
 									try
 									{
-										objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_Y_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_Y_".Length-1));
+										objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_Y_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_Y_".Length));
 									}
 									catch
 									{
