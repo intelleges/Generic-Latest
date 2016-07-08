@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-using LinqToExcel;
 using Generic.ViewModel;
 using Generic.Models;
 using Generic.Helpers.Utility;
@@ -610,7 +609,7 @@ namespace Generic.Controllers
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 
             string sheetname = "Sheet1";
-            var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+            //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
             //excelRead.AddMapping<ExcelPartner>(x => x.internalID, "HON Internal ID");
             //excelRead.AddMapping<ExcelPartner>(x => x.name, "Provider Name");
@@ -629,31 +628,54 @@ namespace Generic.Controllers
 
 
 
-            excelRead.AddMapping<ExcelPartner>(x => x.internalID, "PARTNER_INTERNAL_ID");
-            excelRead.AddMapping<ExcelPartner>(x => x.name, "PARTNER_NAME");
-            excelRead.AddMapping<ExcelPartner>(x => x.address1, "PARTNER_ADDRESS_ONE");
-            excelRead.AddMapping<ExcelPartner>(x => x.address2, "PARTNER_ADDRESS_TWO");
-            excelRead.AddMapping<ExcelPartner>(x => x.city, "PARTNER_CITY");
-            excelRead.AddMapping<ExcelPartner>(x => x.StateName, "PARTNER_STATE");
-            excelRead.AddMapping<ExcelPartner>(x => x.province, "PARTNER_PROVINCE");
-            excelRead.AddMapping<ExcelPartner>(x => x.zipcode, "PARTNER_ZIPCODE");
-            excelRead.AddMapping<ExcelPartner>(x => x.CountryName, "PARTNER_COUNTRY");
-            excelRead.AddMapping<ExcelPartner>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
-            excelRead.AddMapping<ExcelPartner>(x => x.fax, "PARTNER_CONTACT_FAX");
-            excelRead.AddMapping<ExcelPartner>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
-            excelRead.AddMapping<ExcelPartner>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
-            excelRead.AddMapping<ExcelPartner>(x => x.lastName, "PARTNER_POC_LAST_NAME");
-            excelRead.AddMapping<ExcelPartner>(x => x.title, "PARTNER_POC_TITLE");
-            excelRead.AddMapping<ExcelPartner>(x => x.dunsNumber, "PARTNER_DUNS");
-            excelRead.AddMapping<ExcelPartner>(x => x.federalID, "POC EID");
-            excelRead.AddMapping<ExcelPartner>(x => x.PARTNER_SAP_ID, "PARTNER_SAP_ID");
-            excelRead.AddMapping<ExcelPartner>(x => x.RO_FIRST_NAME, "RO_FIRST_NAME");
-            excelRead.AddMapping<ExcelPartner>(x => x.RO_LAST_NAME, "RO_LAST_NAME");
-            excelRead.AddMapping<ExcelPartner>(x => x.RO_EMAIL, "RO_EMAIL");
+			//excelRead.AddMapping<ExcelPartner>(x => x.internalID, "PARTNER_INTERNAL_ID");
+			//excelRead.AddMapping<ExcelPartner>(x => x.name, "PARTNER_NAME");
+			//excelRead.AddMapping<ExcelPartner>(x => x.address1, "PARTNER_ADDRESS_ONE");
+			//excelRead.AddMapping<ExcelPartner>(x => x.address2, "PARTNER_ADDRESS_TWO");
+			//excelRead.AddMapping<ExcelPartner>(x => x.city, "PARTNER_CITY");
+			//excelRead.AddMapping<ExcelPartner>(x => x.StateName, "PARTNER_STATE");
+			//excelRead.AddMapping<ExcelPartner>(x => x.province, "PARTNER_PROVINCE");
+			//excelRead.AddMapping<ExcelPartner>(x => x.zipcode, "PARTNER_ZIPCODE");
+			//excelRead.AddMapping<ExcelPartner>(x => x.CountryName, "PARTNER_COUNTRY");
+			//excelRead.AddMapping<ExcelPartner>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
+			//excelRead.AddMapping<ExcelPartner>(x => x.fax, "PARTNER_CONTACT_FAX");
+			//excelRead.AddMapping<ExcelPartner>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
+			//excelRead.AddMapping<ExcelPartner>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
+			//excelRead.AddMapping<ExcelPartner>(x => x.lastName, "PARTNER_POC_LAST_NAME");
+			//excelRead.AddMapping<ExcelPartner>(x => x.title, "PARTNER_POC_TITLE");
+			//excelRead.AddMapping<ExcelPartner>(x => x.dunsNumber, "PARTNER_DUNS");
+			//excelRead.AddMapping<ExcelPartner>(x => x.federalID, "POC EID");
+			//excelRead.AddMapping<ExcelPartner>(x => x.PARTNER_SAP_ID, "PARTNER_SAP_ID");
+			//excelRead.AddMapping<ExcelPartner>(x => x.RO_FIRST_NAME, "RO_FIRST_NAME");
+			//excelRead.AddMapping<ExcelPartner>(x => x.RO_LAST_NAME, "RO_LAST_NAME");
+			//excelRead.AddMapping<ExcelPartner>(x => x.RO_EMAIL, "RO_EMAIL");
 
+			var map = new Dictionary<string, string>();
+			map.Add("PARTNER_INTERNAL_ID", "internalID");
+			map.Add("PARTNER_NAME", "name");
+			map.Add("PARTNER_ADDRESS_ONE", "address1");
+			map.Add("PARTNER_ADDRESS_TWO", "address2");
+			map.Add("PARTNER_CITY", "city");
+			map.Add("PARTNER_STATE", "StateName");
+			map.Add("PARTNER_PROVINCE", "province");
+			map.Add("PARTNER_ZIPCODE", "zipcode");
+			map.Add("PARTNER_COUNTRY", "CountryName");
+			map.Add("PARTNER_POC_PHONE_NUMBER", "phone");
+			map.Add("PARTNER_CONTACT_FAX", "fax");
+			map.Add("PARTNER_POC_EMAIL_ADDRESS", "email");
+			map.Add("PARTNER_POC_FIRST_NAME", "firstName");
+			map.Add("PARTNER_POC_LAST_NAME", "lastName");
+			map.Add("PARTNER_POC_TITLE", "title");
+			map.Add("PARTNER_DUNS", "dunsNumber");
 
+			map.Add("POC EID", "federalID");
+			//map.Add("PARTNER_SAP_ID", "PARTNER_SAP_ID");
+			//map.Add("PARTNER_POC_TITLE", "title");
+			//map.Add("PARTNER_DUNS", "dunsNumber");
+			//   var columnnames = excelRead.GetColumnNames(sheetname);
+			var partnerinExcel = ExcelMapper.GetRows<ExcelPartner>(physicalPath, sheetname, map);
             //   var columnnames = excelRead.GetColumnNames(sheetname);
-            var partnerinExcel = from a in excelRead.Worksheet<ExcelPartner>(sheetname) select a;
+            //var partnerinExcel = from a in excelRead.Worksheet<ExcelPartner>(sheetname) select a;
 
             //partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype).ToList().Where(x => x.touchpoint == touchpoint).FirstOrDefault();
 
@@ -1109,33 +1131,53 @@ namespace Generic.Controllers
                     int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 
                     string sheetname = "upload";
-                    var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+					//var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.internalID, "PARTNER_INTERNAL_ID");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.dunsNumber, "PARTNER_SAP_ID");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.name, "PARTNER_NAME");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.address1, "PARTNER_ADDRESS_ONE");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.address2, "PARTNER_ADDRESS_TWO");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.city, "PARTNER_CITY");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.StateName, "PARTNER_STATE");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.internalID, "PARTNER_INTERNAL_ID");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.dunsNumber, "PARTNER_SAP_ID");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.name, "PARTNER_NAME");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.address1, "PARTNER_ADDRESS_ONE");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.address2, "PARTNER_ADDRESS_TWO");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.city, "PARTNER_CITY");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.StateName, "PARTNER_STATE");
 
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.zipcode, "PARTNER_ZIPCODE");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.CountryName, "PARTNER_COUNTRY");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.zipcode, "PARTNER_ZIPCODE");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.CountryName, "PARTNER_COUNTRY");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.phone, "PARTNER_POC_PHONE_NUMBER");
 
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.lastName, "PARTNER_POC_LAST_NAME");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.title, "PARTNER_POC_TITLE");
-                    excelRead.AddMapping<ExcelPartnumber>(x => x.PARTNUMBER_DETAIL, "PARTNUMBER_DETAIL");
-
-
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.email, "PARTNER_POC_EMAIL_ADDRESS");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.firstName, "PARTNER_POC_FIRST_NAME");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.lastName, "PARTNER_POC_LAST_NAME");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.title, "PARTNER_POC_TITLE");
+					//excelRead.AddMapping<ExcelPartnumber>(x => x.PARTNUMBER_DETAIL, "PARTNUMBER_DETAIL");
 
 
 
+
+					var map = new Dictionary<string, string>();
+					map.Add("PARTNER_INTERNAL_ID", "internalID");
+					map.Add("dunsNumber", "PARTNER_SAP_ID");
+					map.Add("name", "PARTNER_NAME");
+					map.Add("address1", "PARTNER_ADDRESS_ONE");
+					map.Add("address2", "PARTNER_ADDRESS_TWO");
+					map.Add("city", "PARTNER_CITY");
+					map.Add("StateName", "PARTNER_STATE");
+					map.Add("zipcode", "PARTNER_ZIPCODE");
+					map.Add("CountryName", "PARTNER_COUNTRY");
+					map.Add("phone", "PARTNER_POC_PHONE_NUMBER");
+					map.Add("email", "PARTNER_POC_EMAIL_ADDRESS");
+					map.Add("firstName", "PARTNER_POC_FIRST_NAME");
+					map.Add("lastName", "PARTNER_POC_LAST_NAME");
+					map.Add("title", "PARTNER_POC_TITLE");
+					map.Add("PARTNUMBER_DETAIL", "PARTNUMBER_DETAIL");
+
+
+
+					//  var columnnames = excelRead.GetColumnNames(sheetname);
+					var partnerinExcel = ExcelMapper.GetRows<ExcelPartnumber>(physicalPath, sheetname, map);
 
                     //  var columnnames = excelRead.GetColumnNames(sheetname);
-                    var partnerinExcel = from a in excelRead.Worksheet<ExcelPartnumber>(sheetname) select a;
+                    //var partnerinExcel = from a in excelRead.Worksheet<ExcelPartnumber>(sheetname) select a;
 
                     //partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype).ToList().Where(x => x.touchpoint == touchpoint).FirstOrDefault();
 
@@ -2020,7 +2062,7 @@ namespace Generic.Controllers
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
                 string sheetname = "Sheet1";
-                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+                //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaire, questionnaireid);
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "questionnaireCMS");
@@ -2029,7 +2071,7 @@ namespace Generic.Controllers
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "text");
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "link");
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "doc");
-                var confirmPartnerExcel = from a in excelRead.Worksheet<ConfirmPartnerSpreadsheetViewModelupload>(sheetname) select a;
+                var confirmPartnerExcel =ExcelMapper.GetRows<ConfirmPartnerSpreadsheetViewModelupload>(physicalPath,sheetname).ToList();// from a in excelRead.Worksheet<ConfirmPartnerSpreadsheetViewModelupload>(sheetname) select a;
 
                 //  var confirmPartnerExcel = from a in excelRead.Worksheet(sheetname) select a;
 
@@ -3268,8 +3310,8 @@ namespace Generic.Controllers
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
                 var sheetname = "Sheet1";
-                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-                var newPartnerExcel = from a in excelRead.Worksheet<ExcelInteratePartner>(sheetname) select a;
+                //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+				var newPartnerExcel = ExcelMapper.GetRows<ExcelInteratePartner>(physicalPath, sheetname).ToList();// from a in excelRead.Worksheet<ExcelInteratePartner>(sheetname) select a;
 
                 //dictionaries initialization
                 var statuses = db.pr_getIteratePersonStatus().ToList().ToDictionary(o => o.description, p => p.id);

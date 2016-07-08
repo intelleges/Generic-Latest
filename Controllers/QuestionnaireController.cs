@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Generic.ViewModel;
-using LinqToExcel;
 using Generic.SessionClass;
 using Generic.Helpers.Questionnaire;
 using System.Xml.Serialization;
@@ -107,10 +106,10 @@ namespace Generic.Controllers
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 
             string sheetname = "sheet1";
-            var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+            //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
             // ITEM TEXT LINK
 
-            var cmsinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireCMS>(sheetname) select a;
+			var cmsinExcel = ExcelMapper.GetRows<ExcelQuestionnaireCMS>(Convert.ToString(physicalPath), sheetname).ToList();
 
             //var objQuestionnareCMS = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaireId).ToList();
             var objQuestionnareCMS = db.pr_getQuestionnaireCMSAll().ToList();
@@ -823,13 +822,14 @@ namespace Generic.Controllers
                         var fileName = TempData["fileName"];
                         var physicalPath = TempData["physicalPath"];
                         string sheetname = "surveyQuestion";
-                        var excelRead = new ExcelQueryFactory(Convert.ToString(physicalPath));
-
+                        //var excelRead = new ExcelQueryFactory(Convert.ToString(physicalPath));
+						//excelRead.TrimSpaces = LinqToExcel.Query.TrimSpacesType.Both;
                         //  excelRead.AddMapping<ExcelPartner>(x => x.internalID, "Internal ID");
                         List<ExcelQuestionnaire> questionnaireinExcel = null;
                         try
                         {
-                            questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).ToList().Where(o=>!string.IsNullOrEmpty(o.Response)&&!string.IsNullOrEmpty(o.Question)).ToList();
+							questionnaireinExcel = ExcelMapper.GetRows<ExcelQuestionnaire>(Convert.ToString(physicalPath), sheetname).Where(o => !string.IsNullOrEmpty(o.Response) && !string.IsNullOrEmpty(o.Question)).ToList();
+                            //questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).ToList().Where(o=>!string.IsNullOrEmpty(o.Response)&&!string.IsNullOrEmpty(o.Question)).ToList();
                         }
                         catch (NullReferenceException ex)
                         {
@@ -1774,16 +1774,16 @@ namespace Generic.Controllers
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
                 string sheetname = "Sheet1";
-                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+                //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaire, questionnaireid);
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "questionnaireCMS");
+                //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaire, questionnaireid);
+				//excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.questionnaireCMS, "questionnaireCMS");
                 //Need to ignore now
                 //excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.section, "SECTION");
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "text");
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "link");
-                excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "doc");
-                var questionnaireCMSinExcel = from a in excelRead.Worksheet<ExcelQuestionnaireQuestionnireCMS>(sheetname) select a;
+				//excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.text, "text");
+				//excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.link, "link");
+				//excelRead.AddMapping<ExcelQuestionnaireQuestionnireCMS>(x => x.doc, "doc");
+                var questionnaireCMSinExcel =  ExcelMapper.GetRows<ExcelQuestionnaireQuestionnireCMS>(physicalPath,sheetname);//from a in excelRead.Worksheet<ExcelQuestionnaireQuestionnireCMS>(sheetname) select a;
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
 
                 foreach (var questionnaireCMSitem in questionnaireCMSinExcel.ToList())
@@ -1841,8 +1841,8 @@ namespace Generic.Controllers
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
                 string sheetname = "mailMessage";
-                var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-                excelRead.AddMapping<ExcelAutoMailMessage>(x => x.SendDateCalcFactor, "Send Date Calc Factor");
+                //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+                //excelRead.AddMapping<ExcelAutoMailMessage>(x => x.SendDateCalcFactor, "Send Date Calc Factor");
                 //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire1, autoMailid);
                 //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.id, "RID");
                 //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.subject, "Subject");
@@ -1855,7 +1855,9 @@ namespace Generic.Controllers
                 //excelRead.AddMapping<QuestionnaireAutoMailViewModel>(x => x.partnerTypeTouchpointQuestionnaire, "partnerTypeTouchpointQuestionnaire");
 
 
-                var questionnaireCMSinExcel = from a in excelRead.Worksheet<ExcelAutoMailMessage>(sheetname) select a;
+				var map = new Dictionary<string, string>();
+				map.Add("Send Date Calc Factor", "SendDateCalcFactor");
+				var questionnaireCMSinExcel = ExcelMapper.GetRows<ExcelAutoMailMessage>(physicalPath, sheetname, map);
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
 
                 db.pr_removeAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid));

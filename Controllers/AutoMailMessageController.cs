@@ -5,7 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Generic.ViewModel;
-using LinqToExcel;
+using Generic.Helpers;
+
 
 namespace Generic.Controllers
 {
@@ -51,9 +52,11 @@ namespace Generic.Controllers
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 
             string sheetname = "mailMessage";
-            var excelRead = new ExcelQueryFactory(physicalPath.ToString());
-            excelRead.AddMapping<ExcelAutoMailMessage>(x => x.SendDateCalcFactor, "Send Date Calc Factor");
-            var autoMailMessageinExcel = from a in excelRead.Worksheet<ExcelAutoMailMessage>(sheetname) select a;
+            //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+            //excelRead.AddMapping<ExcelAutoMailMessage>(x => x.SendDateCalcFactor, "Send Date Calc Factor");
+			var map = new Dictionary<string, string>();
+			map.Add("Send Date Calc Factor", "SendDateCalcFactor");
+			var autoMailMessageinExcel = ExcelMapper.GetRows<ExcelAutoMailMessage>(physicalPath, sheetname, map).ToList();// from a in excelRead.Worksheet<ExcelAutoMailMessage>(sheetname) select a;
 
             partnerTypeTouchpointQuestionnaire objptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype).ToList().Where(x => x.touchpoint == touchpoint).FirstOrDefault();
 

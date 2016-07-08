@@ -6769,6 +6769,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getZcodeCheckActionTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_isSystemMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -14541,6 +14544,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getPartnerTypeForAssignment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerTypeForAssignment_Result)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_isSystemMaster" ReturnType="Collection(Int32)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31084,6 +31090,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_isSystemMaster" FunctionName="hs3MVCMTQa2Model.Store.pr_isSystemMaster" />
           
         </EntityContainerMapping>
       </Mapping>

@@ -10,7 +10,6 @@ using Generic.Models;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
 using System.IO;
-using LinqToExcel;
 using Generic.ViewModel;
 using System.Xml.Serialization;
 
@@ -83,18 +82,21 @@ namespace Generic.Controllers
             int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 
             string sheetname = "addUser";
-            var excelRead = new ExcelQueryFactory(physicalPath.ToString());
+            //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
 
-
-            excelRead.AddMapping<ExcelPerson>(x => x.internalId, "internalID");
-            excelRead.AddMapping<ExcelPerson>(x => x.state, "StateName");
-            excelRead.AddMapping<ExcelPerson>(x => x.country, "CountryName");
+			var map = new Dictionary<string, string>();
+			map.Add("internalID", "internalId");
+			map.Add("StateName", "state");
+			map.Add("CountryName", "country");
+			//excelRead.AddMapping<ExcelPerson>(x => x.internalId, "internalID");
+			//excelRead.AddMapping<ExcelPerson>(x => x.state, "StateName");
+			//excelRead.AddMapping<ExcelPerson>(x => x.country, "CountryName");
 
 
 
             //   var columnnames = excelRead.GetColumnNames(sheetname);
-            var personinExcel = from a in excelRead.Worksheet<ExcelPerson>(sheetname) select a;
+            var personinExcel =ExcelMapper.GetRows<ExcelPerson>(physicalPath,sheetname,map).ToList();// from a in excelRead.Worksheet<ExcelPerson>(sheetname) select a;
 
 
             List<Tuple<int, string>> uploadedperson = new List<Tuple<int, string>>();

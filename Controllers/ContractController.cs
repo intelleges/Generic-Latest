@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
 using Generic.Models;
-using LinqToExcel;
 
 namespace Generic.Controllers
 {
@@ -44,21 +43,29 @@ namespace Generic.Controllers
 
          public ActionResult ContactData(int ContractId)
          {
-             var model = new ContactDataModel();
+			 var model = new ContactDataModel();
+			 var path = Server.MapPath("~/DummyData/dummydata.xlsx");
+			 //var excelRead = new ExcelQueryFactory(Server.MapPath("~/DummyData/dummydata.xlsx"));
+			 //excelRead.AddMapping<ContactDataTouchpoint>(x=>x.AccessCode,"Access Code");             
+			 //excelRead.AddMapping<ContactDataTouchpoint>(x => x.DueDate, "Due Date");
+			 //excelRead.AddMapping<ContactDataZcodeModel>(x => x.AccessCode, "Access Code");
+			 //excelRead.AddMapping<ContactDataZcodeModel>(x => x.WorkBreakdownStructure, "Work Breakdown Structure");
+			 //excelRead.AddMapping<ContactDataZcodeModel>(x => x.CompletedDate, "Completed Date");
+			 //excelRead.AddMapping<ContactDataZcodeModel>(x => x.AssignedBy, "Assigned By");
+			 //excelRead.AddMapping<ContactDataZcodeModel>(x => x.CompletedBy, "Completed By");
+			 //excelRead.AddMapping<ContactDataAlertModel>(x => x.AccessCode, "Access Code");
+			 //excelRead.AddMapping<ContactDataAlertModel>(x => x.DueDate, "Due Date");
+			 var map = new Dictionary<string, string>();
+			 map.Add("Access Code", "AccessCode");
+			 map.Add("Due Date", "DueDate");
+			 map.Add("Work Breakdown Structure", "WorkBreakdownStructure");
+			 map.Add("Completed Date", "CompletedDate");
+			 map.Add("Assigned By", "AssignedBy");
+			 map.Add("Completed By", "CompletedBy");
 
-             var excelRead = new ExcelQueryFactory(Server.MapPath("~/DummyData/dummydata.xlsx"));
-             excelRead.AddMapping<ContactDataTouchpoint>(x=>x.AccessCode,"Access Code");             
-             excelRead.AddMapping<ContactDataTouchpoint>(x => x.DueDate, "Due Date");
-             excelRead.AddMapping<ContactDataZcodeModel>(x => x.AccessCode, "Access Code");
-             excelRead.AddMapping<ContactDataZcodeModel>(x => x.WorkBreakdownStructure, "Work Breakdown Structure");
-             excelRead.AddMapping<ContactDataZcodeModel>(x => x.CompletedDate, "Completed Date");
-             excelRead.AddMapping<ContactDataZcodeModel>(x => x.AssignedBy, "Assigned By");
-             excelRead.AddMapping<ContactDataZcodeModel>(x => x.CompletedBy, "Completed By");
-             excelRead.AddMapping<ContactDataAlertModel>(x => x.AccessCode, "Access Code");
-             excelRead.AddMapping<ContactDataAlertModel>(x => x.DueDate, "Due Date");
-             model.Touchpoints = excelRead.Worksheet<ContactDataTouchpoint>("Data1").ToList();
-             model.ZCodes = excelRead.Worksheet<ContactDataZcodeModel>("Data2").ToList();
-             model.Alerts = excelRead.Worksheet<ContactDataAlertModel>("Data3").ToList();
+			 model.Touchpoints = ExcelMapper.GetRows<ContactDataTouchpoint>(path, "Data1", map).ToList();// excelRead.Worksheet<ContactDataTouchpoint>("Data1").ToList();
+			 model.ZCodes = ExcelMapper.GetRows<ContactDataZcodeModel>(path, "Data2", map).ToList(); //excelRead.Worksheet<ContactDataZcodeModel>("Data2").ToList();
+			 model.Alerts = ExcelMapper.GetRows<ContactDataAlertModel>(path, "Data3", map).ToList(); //excelRead.Worksheet<ContactDataAlertModel>("Data3").ToList();
              return View(model);
          }
 

@@ -882,7 +882,11 @@ namespace Generic.Controllers
                 _touchpoint = (int)id;
 
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
-
+			var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+			if (isSystemMaster.HasValue && isSystemMaster.Value==1)
+			{
+				ViewBag.IsSystemMaster = true;
+			}
             foreach (var ptqItem in ptq)
             {
 

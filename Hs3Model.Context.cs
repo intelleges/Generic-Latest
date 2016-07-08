@@ -17328,5 +17328,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerTypeForAssignment_Result>("pr_getPartnerTypeForAssignment", enterpriseParameter, touchpointParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_isSystemMaster(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_isSystemMaster", personParameter);
+        }
     }
 }
