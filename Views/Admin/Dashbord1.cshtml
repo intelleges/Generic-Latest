@@ -120,7 +120,7 @@
                         <table class="TestTable">
 
                             <tr style="background-color:darkblue;; color: white;">
-                                <th colspan="8">
+                                <th colspan="8" class="groupLabel">
                                     @Model.groups[groupAdded].description
 
                                 </th>
@@ -240,8 +240,27 @@
 }
 
 <script>
-    $(document).ready(function () {
-        debugger;
+	$(document).ready(function () {
+		@if((bool)ViewBag.IsSystemMaster)
+  {
+	  <text>
+		$(".groupLabel").contextmenu({
+			//delegate: ".hasmenu",
+			menu: [
+				{title: "Edit/Correct"},//, cmd: "copy", uiIcon: "ui-icon-copy"},
+				{title: "Remove"}//,
+				//{title: "More", children: [
+				//	{title: "Sub 1", cmd: "sub1"},
+				//	{title: "Sub 2", cmd: "sub1"}
+				//]}
+			],
+			select: function(event, ui) {
+				alert("select "  + ui.target.text());
+			}
+		});
+		</text>
+	}
+        //debugger;
         //$("#TestTable tr:eq(1)").each(function () {
         //    $(this).find("td").css({
         //        "color": "skyblue",

@@ -12,7 +12,7 @@ namespace Generic
                      "~/Scripts/jquery-1.9.1.js", "~/Scripts/jquery-migrate-1.2.1.js", "~/Scripts/alertify.js", "~/Scripts/jquery.blockUI.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-1.9.2.js"));
+						"~/Scripts/jquery-ui-1.9.2.js", "~/Scripts/jquery.ui-contextmenu.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

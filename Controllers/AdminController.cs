@@ -883,10 +883,8 @@ namespace Generic.Controllers
 
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
 			var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
-			if (isSystemMaster.HasValue && isSystemMaster.Value==1)
-			{
-				ViewBag.IsSystemMaster = true;
-			}
+			ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
+			
             foreach (var ptqItem in ptq)
             {
 
