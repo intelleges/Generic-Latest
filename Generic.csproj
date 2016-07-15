@@ -2382,6 +2382,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Contents\images\i_386abcb4f9499a4e_html_55b65ccf.gif" />
     <Content Include="Contents\AdminStyle\css\bootstrap.css" />
     <Content Include="Contents\AdminStyle\css\bootstrap.min.css" />
     <Content Include="Contents\AdminStyle\css\styleHome.css" />
