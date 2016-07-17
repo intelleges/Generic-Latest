@@ -5619,6 +5619,7 @@ Intelleges Team";
 		{
 			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
 			var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+			ViewBag.accessCode = accessCode;
 			ViewBag.partnerHeader = _partnerHeader;
 			List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
