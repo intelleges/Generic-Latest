@@ -5289,27 +5289,43 @@
 		<div id="td_12" class="t s5_12">accuracy of the information contained in the declaration provided herein. </div>
 		<div id="te_12" class="t s3_12">14. </div>
 		<div id="tf_12" class="t s6_12">Certification Signatures</div>
-		<div id="tg_12" class="t s7_12">Offeror's Signature </div>
+		<div id="tg_12" class="t s7_12">Offeror's Signature: </div>
 		<div id="th_12" class="t s7_12">Name </div>
-		<div id="ti_12" class="t s7_12">_____________________________________ </div>
-		<div id="tj_12" class="t s7_12">Typed </div>
-		<div id="tk_12" class="t s7_12">________________________________________ </div>
+		<style>
+			.margined{
+				margin-top:-10px;
+			}
+			.margined2{
+				margin-top:-25px;
+			}
+		</style>
+		<div id="ti_12" class="t s7_12 margined" style="font-size:80px;"> @ViewBag.eSig_Name</div>
+		<div id="tj_12" class="t s7_12 margined2" style="font-size:90px;">_________________________ </div>
+		<div id="tk_12" class="t s7_12" style="margin-left:20px;font-size:80px;">@ViewBag.eSig_Email</div>
+		<div id="tk_12" class="t s7_12" style="font-size:95px;">_________________________</div>
 		<div id="tl_12" class="t s7_12">Title </div>
-		<div id="tm_12" class="t s7_12">_____________________________________ </div>
-		<div id="tn_12" class="t s7_12">Company </div>
-		<div id="to_12" class="t s7_12">_____________________________________ </div>
-		<div id="tp_12" class="t s7_12">Date ____________________________________ </div>
-		<div id="tq_12" class="t s7_12">Address </div>
-		<div id="tr_12" class="t s7_12">_____________________________________ </div>
-		<div id="ts_12" class="t s7_12">_____________________________________ </div>
-		<div id="tt_12" class="t s7_12">Telephone </div>
-		<div id="tu_12" class="t s7_12">_____________________________________ </div>
-		<!-- End text definitions -->
-		<!-- Begin page background -->
-		@*<div id="pg12Overlay" style="width:100%; height:100%; position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>*@
-		<div id="pg12"><object width="935" height="1210" data="12/12.svg" type="image/svg+xml" id="pdf12" style="width:935px; height:1210px; background-color:white; -moz-transform:scale(1); z-index: 0;"></object></div>
-		<!-- End page background -->
-		<!--[if lt IE 9]><script type="text/javascript">
+		<div id="tm_12" class="t s7_12 margined" style="font-size:80px;">  @ViewBag.eSig_Title </div>
+		<div id="tm_12" class="t s7_12 margined" style="font-size:90px;">_________________________</div>
+		<div id="tn_12" class="t s7_12 margined">Company </div>
+		<div id="to_12" class="t s7_12 margined" style="font-size:80px;"> @ViewBag.eSig_Company</div>
+		<div id="to_12" class="t s7_12 margined" style="font-size:90px;">_________________________ </div>
+		<div id="tp_12" class="t s7_12">Date:  </div>
+		<div id="tp_12" class="t s7_12" style="margin-left:60px;font-size:80px;">@(((DateTime?)ViewBag.eSig_Date).HasValue ? ((DateTime?)ViewBag.eSig_Date).Value.ToShortDateString() : "")</div>
+		<div id="tp_12" class="t s7_12" style="margin-left:40px;font-size:95px;">_________________________</div>
+			<div id="tq_12" class="t s7_12">Address </div>
+		<div id="tr_12" class="t s7_12 margined" style="font-size:80px;">  @ViewBag.Address1 </div>
+		<div id="tr_12" class="t s7_12 margined" style="font-size:90px;">_________________________ </div>
+		<div id="ts_12" class="t s7_12 margined" style="font-size:80px;">  @ViewBag.Address2 </div>
+		<div id="ts_12" class="t s7_12 margined" style="font-size:90px;">_________________________ </div>
+			<div id="tt_12" class="t s7_12">Telephone </div>
+		<div id="tu_12" class="t s7_12 margined" style="font-size:80px;">  @ViewBag.eSig_phone </div>
+		<div id="tu_12" class="t s7_12 margined" style="font-size:90px;">_________________________ </div>
+			<!-- End text definitions -->
+			<!-- Begin page background -->
+			@*<div id="pg12Overlay" style="width:100%; height:100%; position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>*@
+			<div id="pg12"><object width="935" height="1210" data="12/12.svg" type="image/svg+xml" id="pdf12" style="width:935px; height:1210px; background-color:white; -moz-transform:scale(1); z-index: 0;"></object></div>
+			<!-- End page background -->
+			<!--[if lt IE 9]><script type="text/javascript">
 		(function(divCount, pageNum) {
 		for (var i = 1; i < divCount; i++) {
 			var div = document.getElementById('t' + i.toString(36) + '_' + pageNum);
@@ -5321,7 +5337,7 @@
 		}
 		})(31, 12);
 		</script><![endif]-->
-	</div>
+		</div>
 </body>
 
 </html>

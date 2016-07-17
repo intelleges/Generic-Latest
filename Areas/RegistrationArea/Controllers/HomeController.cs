@@ -5628,10 +5628,22 @@ Intelleges Team";
 			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
 			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+			eSignature objeSignature =
+					db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptqID).FirstOrDefault();
 			ViewBag.Offerer = _partner.FullName;
 			ViewBag.Date = pptq.completedDate;
 			ViewBag.Address1 = _partner.address1;
 			ViewBag.Address2 =  _partner.address2;
+			if(objeSignature!=null)
+			{
+				ViewBag.eSig_Email = objeSignature.email;
+				ViewBag.eSig_Date = objeSignature.completeDate;
+				ViewBag.eSig_Name = _partner.firstName+ " "+_partner.lastName;
+				ViewBag.eSig_Title = _partner.title;
+				ViewBag.eSig_Company = _partner.name;
+				ViewBag.eSig_phone = _partner.phone;
+
+			}
 			//  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
 			var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
