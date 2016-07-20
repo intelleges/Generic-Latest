@@ -5631,10 +5631,11 @@ Intelleges Team";
 			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
 			eSignature objeSignature =
 					db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptqID).FirstOrDefault();
+			var state = db.pr_getState(_partner.state ?? -1).FirstOrDefault();
 			ViewBag.Offerer = _partner.FullName;
 			ViewBag.Date = pptq.completedDate;
-			ViewBag.Address1 = _partner.address1;
-			ViewBag.Address2 =  _partner.address2;
+			ViewBag.Address1 = _partner.address1+" "+_partner.address2+",";
+			ViewBag.Address2 = _partner.city + ", " + (state!=null?state.name:"")+", "+_partner.zipcode;
 			if(objeSignature!=null)
 			{
 				ViewBag.eSig_Email = objeSignature.email;
@@ -5732,7 +5733,25 @@ Intelleges Team";
 						ViewBag.Value_22115 = item.comment;
 						break;
 					case 22116:
-						ViewBag.Value_22116 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22116 = item.response == _responseNO ? _chacked : "";
+						ViewBag.Value_22116_Name = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22119:
+						ViewBag.Value_22119 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22120:
+						ViewBag.Value_22120 = item.comment;
+						//ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22121:
+
+						var responseObj = db.pr_getResponse(item.response??-1).FirstOrDefault();
+						if (responseObj != null)
+						{
+							ViewBag.Value_22121 = codeRegex.Replace(responseObj.description, "");
+						}
+						//ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
 						break;
 					case 22122:
 						ViewBag.Value_22122 = item.response == _responseYES ? _chacked : "";
@@ -5809,6 +5828,10 @@ Intelleges Team";
 					case 22141:
 						ViewBag.Value_22141 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22141_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22143:
+						ViewBag.Value_22143 = item.comment;
+						//ViewBag.Value_22141_oposite = item.response == _responseNO ? _chacked : "";
 						break;
 					case 22145:
 						switch (item.response)
