@@ -5736,6 +5736,12 @@ Intelleges Team";
 						ViewBag.Value_22116 = item.response == _responseNO ? _chacked : "";
 						ViewBag.Value_22116_Name = item.response == _responseYES ? _chacked : "";
 						break;
+					case 22117:
+						ViewBag.Value_22117 = item.comment;						
+						break;
+					case 22118:
+						ViewBag.Value_22118 = item.comment;
+						break;
 					case 22119:
 						ViewBag.Value_22119 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
