@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="82">
+      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.5" PointY="1.125" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailMessage" PointX="30.75" PointY="62" Width="1.5" IsExpanded="false" />
@@ -59,7 +59,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerType" PointX="8" PointY="59.5" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeGroupGoal" PointX="14.75" PointY="0.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" PointX="28.5" PointY="61.625" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.person" PointX="18.75" PointY="56" Width="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.person" PointX="18.75" PointY="56" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAudit" PointX="21" PointY="57.625" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAuditEvent" PointX="18.75" PointY="52.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personRelationship" PointX="24" PointY="59.625" Width="1.5" IsExpanded="false" />
@@ -239,7 +239,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseSpreadsheetDataLoad" Width="1.5" PointX="10.995945984030119" PointY="21.91816369719718" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.confirmationSpreadsheetDataLoad" Width="1.5" PointX="11.143329899359182" PointY="5.8776222941827134" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireCMS" Width="1.5" PointX="10.024359476763923" PointY="6.7434592725445794" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" Width="1.5" PointX="2.506392679413032" PointY="20.723104948514656" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" Width="1.5" PointX="2.506392679413032" PointY="20.723104948514656" IsExpanded="true" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_autoMailMessage" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_partnerPartnertypeTouchpointQuestionnaire" />

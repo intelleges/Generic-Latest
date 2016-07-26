@@ -14546,7 +14546,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_isSystemMaster" ReturnType="Collection(Int32)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">

@@ -258,8 +258,8 @@ namespace Generic.Controllers
                     {
                         context.person.Add(person);
                         context.SaveChanges();
-                    }  
-                    
+                    }
+					if (person.id == 0) throw new Exception("System unable to add additional users. You have reached the maximum limit of user accounts for this enterprise. Please contact your system administrator. Thank you.");
                     SessionSingleton.PersonId = person.id;
                     using (var context = new EntitiesDBContext())
                     {
