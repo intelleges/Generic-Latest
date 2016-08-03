@@ -19,6 +19,7 @@ using Generic.ViewModel;
 using System.Data;
 using WebMatrix.WebData;
 using Telerik.Web.Mvc;
+using System.Net.Sockets;
 
 
 namespace Generic.Controllers
@@ -397,7 +398,15 @@ namespace Generic.Controllers
 
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     var ip = Request.UserHostAddress;
-                    string[] computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+					string[] computer_name = { ip };
+					try
+					{
+						computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+					}
+					catch (SocketException ex)
+					{
+						//if can't resolve remote host then set up IP address
+					}
                     String ecn = System.Environment.MachineName;
                     var computerName = computer_name[0].ToString();
                     var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
