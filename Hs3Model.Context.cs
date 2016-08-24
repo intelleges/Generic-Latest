@@ -199,6 +199,12 @@ namespace Generic
         public virtual DbSet<questionnaireCMS> questionnaireCMS { get; set; }
         public virtual DbSet<questionnaireQuestionnaireCMS> questionnaireQuestionnaireCMS { get; set; }
         public virtual DbSet<view_PartnerData> view_PartnerData { get; set; }
+        public virtual DbSet<siteIP> siteIP { get; set; }
+        public virtual DbSet<failureType> failureType { get; set; }
+        public virtual DbSet<supportItem> supportItem { get; set; }
+        public virtual DbSet<supportItemFailureType> supportItemFailureType { get; set; }
+        public virtual DbSet<team> team { get; set; }
+        public virtual DbSet<severityType> severityType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -17336,6 +17342,460 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_isSystemMaster", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addSiteIP(Nullable<int> enterprise, Nullable<int> site, string sitename, string siteIPStart, string siteIPEnd, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            var sitenameParameter = sitename != null ?
+                new ObjectParameter("sitename", sitename) :
+                new ObjectParameter("sitename", typeof(string));
+    
+            var siteIPStartParameter = siteIPStart != null ?
+                new ObjectParameter("siteIPStart", siteIPStart) :
+                new ObjectParameter("siteIPStart", typeof(string));
+    
+            var siteIPEndParameter = siteIPEnd != null ?
+                new ObjectParameter("siteIPEnd", siteIPEnd) :
+                new ObjectParameter("siteIPEnd", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSiteIP", enterpriseParameter, siteParameter, sitenameParameter, siteIPStartParameter, siteIPEndParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveSiteIP(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSiteIP", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSiteIP_Result> pr_getSiteIP(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSiteIP_Result>("pr_getSiteIP", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSiteIPAll_Result> pr_getSiteIPAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSiteIPAll_Result>("pr_getSiteIPAll");
+        }
+    
+        public virtual int pr_modifySiteIP(Nullable<int> id, Nullable<int> enterprise, Nullable<int> site, string sitename, string siteIPStart, string siteIPEnd, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var siteParameter = site.HasValue ?
+                new ObjectParameter("site", site) :
+                new ObjectParameter("site", typeof(int));
+    
+            var sitenameParameter = sitename != null ?
+                new ObjectParameter("sitename", sitename) :
+                new ObjectParameter("sitename", typeof(string));
+    
+            var siteIPStartParameter = siteIPStart != null ?
+                new ObjectParameter("siteIPStart", siteIPStart) :
+                new ObjectParameter("siteIPStart", typeof(string));
+    
+            var siteIPEndParameter = siteIPEnd != null ?
+                new ObjectParameter("siteIPEnd", siteIPEnd) :
+                new ObjectParameter("siteIPEnd", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySiteIP", idParameter, enterpriseParameter, siteParameter, sitenameParameter, siteIPStartParameter, siteIPEndParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeSiteIP(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSiteIP", idParameter);
+        }
+    
+        public virtual int pr_unArchiveSiteIP(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveSiteIP", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getFailureType_Result> pr_getFailureType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getFailureType_Result>("pr_getFailureType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getFailureTypeAll_Result> pr_getFailureTypeAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getFailureTypeAll_Result>("pr_getFailureTypeAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItem_Result> pr_getSupportItem(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItem_Result>("pr_getSupportItem", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemAll_Result> pr_getSupportItemAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemAll_Result>("pr_getSupportItemAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemFailureType_Result> pr_getSupportItemFailureType(Nullable<int> supportItem, Nullable<int> failureType)
+        {
+            var supportItemParameter = supportItem.HasValue ?
+                new ObjectParameter("supportItem", supportItem) :
+                new ObjectParameter("supportItem", typeof(int));
+    
+            var failureTypeParameter = failureType.HasValue ?
+                new ObjectParameter("failureType", failureType) :
+                new ObjectParameter("failureType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemFailureType_Result>("pr_getSupportItemFailureType", supportItemParameter, failureTypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemFailureTypeAllByFailureType_Result> pr_getSupportItemFailureTypeAllByFailureType(Nullable<int> failureType)
+        {
+            var failureTypeParameter = failureType.HasValue ?
+                new ObjectParameter("failureType", failureType) :
+                new ObjectParameter("failureType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemFailureTypeAllByFailureType_Result>("pr_getSupportItemFailureTypeAllByFailureType", failureTypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemFailureTypeAllBySupportItem_Result> pr_getSupportItemFailureTypeAllBySupportItem(Nullable<int> supportItem)
+        {
+            var supportItemParameter = supportItem.HasValue ?
+                new ObjectParameter("supportItem", supportItem) :
+                new ObjectParameter("supportItem", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemFailureTypeAllBySupportItem_Result>("pr_getSupportItemFailureTypeAllBySupportItem", supportItemParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTeam_Result> pr_getTeam(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTeam_Result>("pr_getTeam", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTeamAll_Result> pr_getTeamAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTeamAll_Result>("pr_getTeamAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemFailureTypeDetailAll_Result> pr_getSupportItemFailureTypeDetailAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemFailureTypeDetailAll_Result>("pr_getSupportItemFailureTypeDetailAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemFailureTypeDetailAllOrderedByFailureType_Result> pr_getSupportItemFailureTypeDetailAllOrderedByFailureType(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemFailureTypeDetailAllOrderedByFailureType_Result>("pr_getSupportItemFailureTypeDetailAllOrderedByFailureType", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addSeverityType(Nullable<int> enterprise, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSeverityType", enterpriseParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addSupportItem(Nullable<int> enterprise, string name, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addSupportItem", enterpriseParameter, nameParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_addSupportItemFailureType(Nullable<int> enterprise, Nullable<int> supportItem, string failuretype)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var supportItemParameter = supportItem.HasValue ?
+                new ObjectParameter("supportItem", supportItem) :
+                new ObjectParameter("supportItem", typeof(int));
+    
+            var failuretypeParameter = failuretype != null ?
+                new ObjectParameter("failuretype", failuretype) :
+                new ObjectParameter("failuretype", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addSupportItemFailureType", enterpriseParameter, supportItemParameter, failuretypeParameter);
+        }
+    
+        public virtual int pr_archiveSeverityType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSeverityType", idParameter);
+        }
+    
+        public virtual int pr_archiveSupportItem(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveSupportItem", idParameter);
+        }
+    
+        public virtual int pr_archiveTeam(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveTeam", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSeverityType_Result> pr_getSeverityType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSeverityType_Result>("pr_getSeverityType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSeverityTypeAll_Result> pr_getSeverityTypeAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSeverityTypeAll_Result>("pr_getSeverityTypeAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSupportItemByName_Result> pr_getSupportItemByName(Nullable<int> enterprise, Nullable<int> sortorder, string name)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var sortorderParameter = sortorder.HasValue ?
+                new ObjectParameter("sortorder", sortorder) :
+                new ObjectParameter("sortorder", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSupportItemByName_Result>("pr_getSupportItemByName", enterpriseParameter, sortorderParameter, nameParameter);
+        }
+    
+        public virtual int pr_modifySeverityType(Nullable<int> id, Nullable<int> enterprise, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySeverityType", idParameter, enterpriseParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifySupportItem(Nullable<int> id, Nullable<int> enterprise, string name, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifySupportItem", idParameter, enterpriseParameter, nameParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyTeam(Nullable<int> id, Nullable<int> enterprise, string name, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTeam", idParameter, enterpriseParameter, nameParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeSeverityType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSeverityType", idParameter);
+        }
+    
+        public virtual int pr_removeSupportItem(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSupportItem", idParameter);
+        }
+    
+        public virtual int pr_removeSupportItemFailureType(Nullable<int> supportItem, Nullable<int> failureType)
+        {
+            var supportItemParameter = supportItem.HasValue ?
+                new ObjectParameter("supportItem", supportItem) :
+                new ObjectParameter("supportItem", typeof(int));
+    
+            var failureTypeParameter = failureType.HasValue ?
+                new ObjectParameter("failureType", failureType) :
+                new ObjectParameter("failureType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeSupportItemFailureType", supportItemParameter, failureTypeParameter);
+        }
+    
+        public virtual int pr_removeTeam(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTeam", idParameter);
         }
     }
 }

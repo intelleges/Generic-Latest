@@ -298,6 +298,12 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="22.375" PointY="17.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.siteIP" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.failureType" Width="1.5" PointX="23.375" PointY="4.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.supportItem" Width="1.5" PointX="23.375" PointY="7.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.supportItemFailureType" Width="1.5" PointX="15.375" PointY="18.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.team" Width="1.5" PointX="23.375" PointY="10.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.severityType" Width="1.5" PointX="10.375" PointY="23.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -378,6 +378,16 @@
           <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="error" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="failureType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="focus">
           <Key>
             <PropertyRef Name="id" />
@@ -1866,6 +1876,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.responseZcode' does not have a pri
           <Property Name="lowerBound" Type="int" />
           <Property Name="upperBound" Type="int" />
         </EntityType>
+        <EntityType Name="severityType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="site">
           <Key>
             <PropertyRef Name="id" />
@@ -1877,6 +1897,19 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.responseZcode' does not have a pri
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
           <Property Name="enterprise" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="siteIP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="site" Type="int" Nullable="false" />
+          <Property Name="sitename" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="siteIPStart" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="siteIPEnd" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1924,6 +1957,24 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a pr
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supportItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supportItemFailureType">
+          <Key>
+            <PropertyRef Name="supportItem" />
+            <PropertyRef Name="failureType" />
+          </Key>
+          <Property Name="supportItem" Type="int" Nullable="false" />
+          <Property Name="failureType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="survey">
           <Key>
@@ -1999,6 +2050,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a pr
           <Property Name="hasReference" Type="bit" />
           <Property Name="hasRegion" Type="bit" />
           <Property Name="hasw9Form" Type="bit" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="template">
           <Key>
@@ -5126,6 +5188,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addSeverityType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="internalID" Type="varchar" Mode="In" />
@@ -5133,6 +5201,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addSiteIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="site" Type="int" Mode="In" />
+          <Parameter Name="sitename" Type="varchar" Mode="In" />
+          <Parameter Name="siteIPStart" Type="varchar" Mode="In" />
+          <Parameter Name="siteIPEnd" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StateCode" Type="varchar" Mode="In" />
@@ -5150,6 +5227,17 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addSupportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addSupportItemFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="supportItem" Type="int" Mode="In" />
+          <Parameter Name="failuretype" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_addSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -5393,7 +5481,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archiveRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveSeverityType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveSiteIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5405,10 +5499,16 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archiveSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveSupportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveSurveyset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5790,6 +5890,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getEvernoteStackByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getFailureTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getFocusByIndustry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="industry" Type="int" Mode="In" />
@@ -6638,6 +6744,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getRuletypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSeverityType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSeverityTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6651,6 +6763,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getSiteByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSiteIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSiteIPAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6681,6 +6797,33 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getSubscriptionTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getSupportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="sortorder" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="supportItem" Type="int" Mode="In" />
+          <Parameter Name="failureType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemFailureTypeAllByFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="failureType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemFailureTypeAllBySupportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="supportItem" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemFailureTypeDetailAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSupportItemFailureTypeDetailAllOrderedByFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6709,6 +6852,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getSystemMasterByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTeamAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7685,6 +7834,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifySeverityType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifySite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -7693,6 +7849,16 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifySiteIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="site" Type="int" Mode="In" />
+          <Parameter Name="sitename" Type="varchar" Mode="In" />
+          <Parameter Name="siteIPStart" Type="varchar" Mode="In" />
+          <Parameter Name="siteIPEnd" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7710,6 +7876,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_modifySubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifySupportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -7732,6 +7905,14 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_modifySystemExpiry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="systemExpiry" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8069,7 +8250,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_removeRuleType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeSeverityType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeSiteIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8080,6 +8267,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_removeSubscriptionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeSupportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeSupportItemFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="supportItem" Type="int" Mode="In" />
+          <Parameter Name="failureType" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8094,6 +8288,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_removeSurveysetSurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="surveySet" Type="int" Mode="In" />
           <Parameter Name="survey" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8304,6 +8501,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_unArchiveSite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveSiteIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8477,6 +8677,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="eSignature" EntityType="Self.eSignature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="eventNotification" EntityType="Self.eventNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="eventNotificationBounce" EntityType="Self.eventNotificationBounce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="failureType" EntityType="Self.failureType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="focus" EntityType="Self.focus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="group" EntityType="Self.group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="groupCollection" EntityType="Self.groupCollection" Schema="dbo" store:Type="Tables" />
@@ -8587,11 +8788,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="rule" EntityType="Self.rule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ruleType" EntityType="Self.ruleType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="score" EntityType="Self.score" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="severityType" EntityType="Self.severityType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="site" EntityType="Self.site" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="siteIP" EntityType="Self.siteIP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sorter" EntityType="Self.sorter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="state" EntityType="Self.state" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subscriptionStatus" EntityType="Self.subscriptionStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="subscriptionType" EntityType="Self.subscriptionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supportItem" EntityType="Self.supportItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supportItemFailureType" EntityType="Self.supportItemFailureType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="survey" EntityType="Self.survey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="surveyQuestion" EntityType="Self.surveyQuestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="surveyset" EntityType="Self.surveyset" Schema="dbo" store:Type="Tables" />
@@ -8599,6 +8804,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="swap" EntityType="Self.swap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="systemConfiguration" EntityType="Self.systemConfiguration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="team" EntityType="Self.team" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="template" EntityType="Self.template" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tmpPartnerConfirm" EntityType="Self.tmpPartnerConfirm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpoint" EntityType="Self.touchpoint" Schema="dbo" store:Type="Tables" />
@@ -14547,6 +14753,150 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="pr_isSystemMaster" ReturnType="Collection(Int32)">
           <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="siteIP" EntityType="hs3MVCMTQa2Model.siteIP" />
+          <FunctionImport Name="pr_addSiteIP" ReturnType="Collection(Decimal)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="site" Mode="In" Type="Int32" />
+            <Parameter Name="sitename" Mode="In" Type="String" />
+            <Parameter Name="siteIPStart" Mode="In" Type="String" />
+            <Parameter Name="siteIPEnd" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveSiteIP">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSiteIP" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSiteIP_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSiteIPAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSiteIPAll_Result)" />
+          <FunctionImport Name="pr_modifySiteIP">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="site" Mode="In" Type="Int32" />
+            <Parameter Name="sitename" Mode="In" Type="String" />
+            <Parameter Name="siteIPStart" Mode="In" Type="String" />
+            <Parameter Name="siteIPEnd" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeSiteIP">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveSiteIP">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="failureType" EntityType="hs3MVCMTQa2Model.failureType" />
+          <EntitySet Name="supportItem" EntityType="hs3MVCMTQa2Model.supportItem" />
+          <EntitySet Name="supportItemFailureType" EntityType="hs3MVCMTQa2Model.supportItemFailureType" />
+          <EntitySet Name="team" EntityType="hs3MVCMTQa2Model.team" />
+          <FunctionImport Name="pr_getFailureType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getFailureType_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getFailureTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getFailureTypeAll_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItem" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItem_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemAll_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemFailureType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemFailureType_Result)">
+            <Parameter Name="supportItem" Mode="In" Type="Int32" />
+            <Parameter Name="failureType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemFailureTypeAllByFailureType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemFailureTypeAllByFailureType_Result)">
+          <Parameter Name="failureType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemFailureTypeAllBySupportItem" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemFailureTypeAllBySupportItem_Result)">
+          <Parameter Name="supportItem" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTeam" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTeam_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTeamAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTeamAll_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemFailureTypeDetailAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemFailureTypeDetailAll_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemFailureTypeDetailAllOrderedByFailureType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemFailureTypeDetailAllOrderedByFailureType_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="severityType" EntityType="hs3MVCMTQa2Model.severityType" />
+          <FunctionImport Name="pr_addSeverityType" ReturnType="Collection(Decimal)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addSupportItem" ReturnType="Collection(Decimal)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addSupportItemFailureType">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="supportItem" Mode="In" Type="Int32" />
+            <Parameter Name="failuretype" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveSeverityType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveSupportItem">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveTeam">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSeverityType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSeverityType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSeverityTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSeverityTypeAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSupportItemByName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemByName_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="sortorder" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifySeverityType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifySupportItem">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyTeam">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeSeverityType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeSupportItem">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeSupportItemFailureType">
+            <Parameter Name="supportItem" Mode="In" Type="Int32" />
+            <Parameter Name="failureType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeTeam">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -23442,6 +23792,177 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Int32" Name="active" Nullable="true" />
         </ComplexType>
+        <EntityType Name="siteIP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="site" Type="Int32" Nullable="false" />
+          <Property Name="sitename" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="siteIPStart" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="siteIPEnd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="pr_getSiteIP_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="site" Nullable="false" />
+          <Property Type="String" Name="sitename" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="siteIPStart" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="siteIPEnd" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getSiteIPAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="site" Nullable="false" />
+          <Property Type="String" Name="sitename" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="siteIPStart" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="siteIPEnd" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="failureType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supportItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supportItemFailureType">
+          <Key>
+            <PropertyRef Name="supportItem" />
+            <PropertyRef Name="failureType" />
+          </Key>
+          <Property Name="supportItem" Type="Int32" Nullable="false" />
+          <Property Name="failureType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getFailureType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getFailureTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItem_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemFailureType_Result">
+          <Property Type="Int32" Name="supportItem" Nullable="false" />
+          <Property Type="Int32" Name="failureType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemFailureTypeAllByFailureType_Result">
+          <Property Type="Int32" Name="supportItem" Nullable="false" />
+          <Property Type="Int32" Name="failureType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemFailureTypeAllBySupportItem_Result">
+          <Property Type="Int32" Name="supportItem" Nullable="false" />
+          <Property Type="Int32" Name="failureType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTeam_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTeamAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemFailureTypeDetailAll_Result">
+          <Property Type="Int32" Name="supportitem" Nullable="false" />
+          <Property Type="String" Name="supportItemDescription" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="failuretype" Nullable="false" />
+          <Property Type="String" Name="failureTypeDescription" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemFailureTypeDetailAllOrderedByFailureType_Result">
+          <Property Type="Int32" Name="supportitem" Nullable="false" />
+          <Property Type="String" Name="supportItemDescription" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="failuretype" Nullable="false" />
+          <Property Type="String" Name="failureTypeDescription" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="severityType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getSeverityType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="400" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSeverityTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="400" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSupportItemByName_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -31091,6 +31612,264 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_isSystemMaster" FunctionName="hs3MVCMTQa2Model.Store.pr_isSystemMaster" />
+          <EntitySetMapping Name="siteIP">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.siteIP">
+              <MappingFragment StoreEntitySet="siteIP">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="siteIPEnd" ColumnName="siteIPEnd" />
+                <ScalarProperty Name="siteIPStart" ColumnName="siteIPStart" />
+                <ScalarProperty Name="sitename" ColumnName="sitename" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addSiteIP" FunctionName="hs3MVCMTQa2Model.Store.pr_addSiteIP" />
+          <FunctionImportMapping FunctionImportName="pr_archiveSiteIP" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSiteIP" />
+          <FunctionImportMapping FunctionImportName="pr_getSiteIP" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteIP">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSiteIP_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="sitename" ColumnName="sitename" />
+                <ScalarProperty Name="siteIPStart" ColumnName="siteIPStart" />
+                <ScalarProperty Name="siteIPEnd" ColumnName="siteIPEnd" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSiteIPAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSiteIPAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSiteIPAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="sitename" ColumnName="sitename" />
+                <ScalarProperty Name="siteIPStart" ColumnName="siteIPStart" />
+                <ScalarProperty Name="siteIPEnd" ColumnName="siteIPEnd" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifySiteIP" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySiteIP" />
+          <FunctionImportMapping FunctionImportName="pr_removeSiteIP" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSiteIP" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveSiteIP" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveSiteIP" />
+          <EntitySetMapping Name="failureType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.failureType">
+              <MappingFragment StoreEntitySet="failureType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supportItem">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.supportItem">
+              <MappingFragment StoreEntitySet="supportItem">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supportItemFailureType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.supportItemFailureType">
+              <MappingFragment StoreEntitySet="supportItemFailureType">
+                <ScalarProperty Name="failureType" ColumnName="failureType" />
+                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="team">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.team">
+              <MappingFragment StoreEntitySet="team">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_getFailureType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getFailureType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getFailureTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getFailureTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getFailureTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItem_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemFailureType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemFailureType_Result">
+                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
+                <ScalarProperty Name="failureType" ColumnName="failureType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemFailureTypeAllByFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemFailureTypeAllByFailureType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemFailureTypeAllByFailureType_Result">
+                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
+                <ScalarProperty Name="failureType" ColumnName="failureType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemFailureTypeAllBySupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemFailureTypeAllBySupportItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemFailureTypeAllBySupportItem_Result">
+                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
+                <ScalarProperty Name="failureType" ColumnName="failureType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_getTeam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTeam_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTeamAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTeamAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTeamAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemFailureTypeDetailAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemFailureTypeDetailAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemFailureTypeDetailAll_Result">
+                <ScalarProperty Name="supportitem" ColumnName="supportitem" />
+                <ScalarProperty Name="supportItemDescription" ColumnName="supportItemDescription" />
+                <ScalarProperty Name="failuretype" ColumnName="failuretype" />
+                <ScalarProperty Name="failureTypeDescription" ColumnName="failureTypeDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemFailureTypeDetailAllOrderedByFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemFailureTypeDetailAllOrderedByFailureType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemFailureTypeDetailAllOrderedByFailureType_Result">
+                <ScalarProperty Name="supportitem" ColumnName="supportitem" />
+                <ScalarProperty Name="supportItemDescription" ColumnName="supportItemDescription" />
+                <ScalarProperty Name="failuretype" ColumnName="failuretype" />
+                <ScalarProperty Name="failureTypeDescription" ColumnName="failureTypeDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="severityType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.severityType">
+              <MappingFragment StoreEntitySet="severityType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addSeverityType" FunctionName="hs3MVCMTQa2Model.Store.pr_addSeverityType" />
+          <FunctionImportMapping FunctionImportName="pr_addSupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_addSupportItem" />
+          <FunctionImportMapping FunctionImportName="pr_addSupportItemFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_addSupportItemFailureType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveSeverityType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSeverityType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveSupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveSupportItem" />
+          <FunctionImportMapping FunctionImportName="pr_archiveTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveTeam" />
+          <FunctionImportMapping FunctionImportName="pr_getSeverityType" FunctionName="hs3MVCMTQa2Model.Store.pr_getSeverityType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSeverityType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSeverityTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getSeverityTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSeverityTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSupportItemByName" FunctionName="hs3MVCMTQa2Model.Store.pr_getSupportItemByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSupportItemByName_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifySeverityType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySeverityType" />
+          <FunctionImportMapping FunctionImportName="pr_modifySupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_modifySupportItem" />
+          <FunctionImportMapping FunctionImportName="pr_modifyTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTeam" />
+          <FunctionImportMapping FunctionImportName="pr_removeSeverityType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSeverityType" />
+          <FunctionImportMapping FunctionImportName="pr_removeSupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSupportItem" />
+          <FunctionImportMapping FunctionImportName="pr_removeSupportItemFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSupportItemFailureType" />
+          <FunctionImportMapping FunctionImportName="pr_removeTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTeam" />
           
         </EntityContainerMapping>
       </Mapping>

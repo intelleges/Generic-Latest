@@ -101,49 +101,49 @@
 
 @( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
-    {
-        commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
-    })
+	{
+		commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
+	})
 
-        .Columns(columns =>
-        {
+		.Columns(columns =>
+		{
 
-            columns.Bound(o => o.name).Title("Name").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
-            <div class="display_menu" style="display: none;">
-                <ul>
-                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-                    <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
-                    <li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
-                    <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
-                    <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-                </ul>
-            </div>
-            </text>);
-            columns.Bound(o => o.Question).Title("Question").Width(800);
-            columns.Bound(o => o.title).Title("Title").Width(100);
-            columns.Bound(o => o.tag).Title("Tag").Width(100);
-            columns.Bound(o => o.responseType).Title("Response Type").Width(100);
-            columns.Bound(o => o.required).Title("Required").Width(100);
-            columns.Bound(o => o.weight).Title("Weight").Width(100);
-            columns.Bound(o => o.skipLogicAnswer).Title("Skipped Logic Answer").Width(100);
-            columns.Bound(o => o.skipLogicJump).Title("Skip Logic Jump").Width(100);
-            columns.Bound(o => o.accessLevel).Title("Access Level").Width(100);
-            columns.Bound(o => o.commentRequired).Title("Comment Required").Width(100);
+			columns.Bound(o => o.name).Title("Name").Width(800).Visible(false);
+			columns.Bound(o => o.Question).Title("Question").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+			<div class="display_menu" style="display: none;">
+				<ul>
+					<li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+					<li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
+					<li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
+					<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
+					<li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+				</ul>
+			</div>
+			</text>);
+			columns.Bound(o => o.title).Title("Title").Width(100).Visible(false);
+			columns.Bound(o => o.tag).Title("Tag").Width(100).Visible(false);
+			columns.Bound(o => o.responseType).Title("Response Type").Width(100).Visible(false);
+			columns.Bound(o => o.required).Title("Required").Width(100).Visible(false);
+			columns.Bound(o => o.weight).Title("Weight").Width(100).Visible(false);
+            columns.Bound(o => o.skipLogicAnswer).Title("Skipped Logic Answer").Width(100).Visible(false);
+			columns.Bound(o => o.skipLogicJump).Title("Skip Logic Jump").Width(100).Visible(false);
+			columns.Bound(o => o.accessLevel).Title("Access Level").Width(100).Visible(false);
+			columns.Bound(o => o.commentRequired).Title("Comment Required").Width(100).Visible(false);
             columns.Bound(o => o.commentBoxTxt).Title("Comment").Width(200);
-            columns.Bound(o => o.commentUploadTxt).Title("Upload Comment").Width(20);
+			columns.Bound(o => o.commentUploadTxt).Title("Upload Comment").Width(20).Visible(false);
             columns.Bound(o => o.commentType).Title("Comment Type").Width(100);
-            columns.Bound(o => o.spinOffQuestionnaire).Title("Spin Off Questionnaire").Width(100);
-            columns.Bound(o => o.spinOffQID).Title("Spin Off QID").Width(100);
+			columns.Bound(o => o.spinOffQuestionnaire).Title("Spin Off Questionnaire").Width(100).Visible(false);
+			columns.Bound(o => o.spinOffQID).Title("Spin Off QID").Width(100).Visible(false);
             columns.Bound(o => o.emailAlert).Title("Email Alert").Width(100);
             columns.Bound(o => o.emailAlertList).Title("Email Aler tList").Width(100);
-            columns.Bound(o => o.updated).Title("Updated").Width(100);
+			columns.Bound(o => o.updated).Title("Updated").Width(100).HeaderHtmlAttributes(new { style = "height:30px" });
 
 
         })
         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
         .Sortable(sorting => sorting.Enabled(true))
-
+		//	.h
         .Scrollable(scrolling => scrolling
            .Enabled(true)
            .Height(380))
