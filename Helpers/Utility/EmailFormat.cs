@@ -140,7 +140,32 @@ namespace Generic.Helpers.Utility
             return sEmailBody;
         }
 
+        public static string GetHintResult(string sEmailBody)
+        {
+            string sVariable = "";
+            string sValue = "";
+            var hintTagsRegex = new Regex(@"<[Hh][Ii][Nn][Tt]\b[^>]*>(.*?)</[Hh][Ii][Nn][Tt]>");
+            var hints = hintTagsRegex.Matches(sEmailBody);
+            foreach (var match in hints)
+            {
+                sVariable = match.ToString();
+                sValue = sVariable;
+                var attributesREgex = new Regex("(?<=text=[\"'])([\\s\\d\\w\\W\\S])+(?=['\"])");
+                var text = attributesREgex.Match(sVariable);
+                if (text.Success)
+                {
+                    var elementTextExpression = new Regex("(?<=>)([\\s\\d\\w\\W\\S])+(?=</)");
+                    var innerText = elementTextExpression.Match(sVariable);
+                    if (innerText.Success)
+                    {
+                        sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top' data-trigger='hover'>{0}</a>", innerText.Value, HttpUtility.HtmlEncode(text.Value));
+                    }
+                }
+                sEmailBody = sEmailBody.Replace(sVariable, sValue);
 
+            }
+            return sEmailBody;
+        }
 
         private string sGetResult(string sEmailBody, person sender, person receiver, partner partner, enterprise enterprise, touchpoint touchpoint, int ptq = 0, person systemmaster = null)
         {
@@ -154,31 +179,32 @@ namespace Generic.Helpers.Utility
             MatchCollection collection = regex.Matches(sEmailBody);
             string sVariable = "";
             string sValue = "";
-            var hintTagsRegex = new Regex(@"<[Hh][Ii][Nn][Tt]\b[^>]*>(.*?)</[Hh][Ii][Nn][Tt]>");
-            var hints = hintTagsRegex.Matches(sEmailBody);
-            foreach(var match in hints)
-            {
-                sVariable = match.ToString();
-                sValue = sVariable;
-                var attributesREgex = new Regex("(?<=text=[\"'])([\\s\\d\\w\\W\\S])+(?=['\"])");
-                var text = attributesREgex.Match(sVariable);
-                if(text.Success)
-                {
-                    var elementTextExpression = new Regex("(?<=>)([\\s\\d\\w\\W\\S])+(?=</)");
-                    var innerText = elementTextExpression.Match(sVariable);
-                    if(innerText.Success)
-                    {
-						sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top' data-trigger='hover'>{0}</a>", innerText.Value, HttpUtility.HtmlEncode(text.Value));
-                    }
-                }
+            //var hintTagsRegex = new Regex(@"<[Hh][Ii][Nn][Tt]\b[^>]*>(.*?)</[Hh][Ii][Nn][Tt]>");
+            //var hints = hintTagsRegex.Matches(sEmailBody);
+            //foreach(var match in hints)
+            //{
+            //    sVariable = match.ToString();
+            //    sValue = sVariable;
+            //    var attributesREgex = new Regex("(?<=text=[\"'])([\\s\\d\\w\\W\\S])+(?=['\"])");
+            //    var text = attributesREgex.Match(sVariable);
+            //    if(text.Success)
+            //    {
+            //        var elementTextExpression = new Regex("(?<=>)([\\s\\d\\w\\W\\S])+(?=</)");
+            //        var innerText = elementTextExpression.Match(sVariable);
+            //        if(innerText.Success)
+            //        {
+            //            sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top' data-trigger='hover'>{0}</a>", innerText.Value, HttpUtility.HtmlEncode(text.Value));
+            //        }
+            //    }
 
 
 
-                sEmailBody = sEmailBody.Replace(sVariable, sValue);
+            //    sEmailBody = sEmailBody.Replace(sVariable, sValue);
 
-            }
-             sVariable = "";
-             sValue = "";
+            //}
+            // sVariable = "";
+            // sValue = "";
+            sEmailBody = EmailFormat.GetHintResult(sEmailBody);
             //iterate each variale found
             foreach (Match match in collection)
             {

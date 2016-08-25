@@ -23,6 +23,9 @@
         width: 99% !important;
         left: 0;
     }
+    .model-body{
+        padding:25px;
+    }
 </style>
 
 
@@ -47,20 +50,20 @@
                     <form id="modalGetPassword">
                         <div class="form-group">
                             @*<div class="row">
-                            <div class="col-sm-8"></div>
-                <div class="col-sm-3">
-                            <input id="responseZCode" name="responseZCode" class="form-control" type="text" placeholder="ZCode" data-val-required="*" data-val="true" />
+                                            <div class="col-sm-8"></div>
+                                <div class="col-sm-3">
+                                            <input id="responseZCode" name="responseZCode" class="form-control" type="text" placeholder="ZCode" data-val-required="*" data-val="true" />
 
 
-                              </div>
-                        </div>*@
+                                              </div>
+                                        </div>*@
                             <div class="input-group">
                                 <input id="responseText" name="responseText" class="form-control" type="text" placeholder="Response text" data-val-required="*" data-val="true" />
 
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="submit" title="Add new response">Add</button>
                                 </span>
-                           </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
@@ -97,29 +100,58 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="editQuestion" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span> 
+                    </button>
+                           
+                    <h4 class="modal-title" id="gpsLabel">Edit question </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="editQuestionForm" class="form">
+                        <div class="form-group">
+                            <label>HTML Text</label>
+                            <textarea class="form-control" id="openHtmlText" rows="10"></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="button">Convert to HTML</button>
+                        <div class="form-group" >
+                            <label>Text</label>
+                            <div style="background:whitesmoke;height:300px;" id="text"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" id="btnSaveQuestionText">Save</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
+            @( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
-	{
-		commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
-	})
+    {
+        commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
+    })
 
-		.Columns(columns =>
-		{
+        .Columns(columns =>
+        {
 
-			columns.Bound(o => o.name).Title("Name").Width(800).Visible(false);
-			columns.Bound(o => o.Question).Title("Question").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
-			<div class="display_menu" style="display: none;">
-				<ul>
-					<li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-					<li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
-					<li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
-					<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
-					<li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-				</ul>
-			</div>
-			</text>);
+            columns.Bound(o => o.name).Title("Name").Width(800).Visible(false);
+            columns.Bound(o => o.Question).Title("Question").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+            <div class="display_menu" style="display: none;">
+                <ul>
+                    <li><a href="javascript:openEditPopup(@item.id,'@item.name')">Edit/Correct</a></li>
+                    @*<li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>*@
+                    <li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
+                    @*<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>*@
+                    <li><a href="javascript:openViewDetailPopup(@item.id)">View HTML</a></li>
+                </ul>
+            </div>
+            </text>);
 			columns.Bound(o => o.title).Title("Title").Width(100).Visible(false);
 			columns.Bound(o => o.tag).Title("Tag").Width(100).Visible(false);
 			columns.Bound(o => o.responseType).Title("Response Type").Width(100).Visible(false);
@@ -151,225 +183,241 @@
 
 
 
-)
-<div id="EmailDialog" title="Questionnaire Routing Form">
-    <p>Email dialog</p>
-</div>
-<div id="genericPopup" title=""></div>
-<style>
-    .t-grid-content tr > td:hover .menu_block + .display_menu {
-        display: block !important;
-    }
-
-    .display_menu {
-        left: 65px;
-        overflow: visible;
-        position: absolute;
-        top: -5px;
-        background: #fff;
-        border: 1px solid #ddd;
-        z-index: 100;
-    }
-
-    .t-grid-content tr > td {
-        overflow: visible !important;
-        position: relative;
-    }
-
-    .display_menu > ul {
-        padding: 0 16px;
-    }
-
-    .display_menu li {
-        list-style: none outside none;
-        width: 143px;
-    }
-</style>
-
-<script type="text/javascript">
-    var currentQuestionId;
-    function editResponse(question,name) {
-        currentQuestionId=question;
-        var questionnaireId = @ViewBag.questionnaireId;
-        $.post('@Url.Action("GetQuestionnaireResponsesWithSelectedQuestion","Questionnaire")',{questionnaire:questionnaireId,question:question}).done(function(result) {
-            if(result.error) {
-                alertify.alert("Sorry you can't change response for this question");
-            } else {
-                $("#responseList").html('');
-                for(var i=0;i<result.length;i++){
-                    var element = "<option value='"+result[i].value+"' "+(result[i].selected?"selected='selected'":"")+">"+result[i].text+"</option>";
-                    $("#responseList").append(element);
+            )
+            <div id="EmailDialog" title="Questionnaire Routing Form">
+                <p>Email dialog</p>
+            </div>
+            <div id="genericPopup" title=""></div>
+            <style>
+                .t-grid-content tr > td:hover .menu_block + .display_menu {
+                    display: block !important;
                 }
-                responseListDualListBox.bootstrapDualListbox('refresh');
-                $("#nurturePartner").modal("toggle");
-            }
-        });
-    }
-    @if(Request["ModifyResponse"]!=null)
+
+                .display_menu {
+                    left: 65px;
+                    overflow: visible;
+                    position: absolute;
+                    top: -5px;
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    z-index: 100;
+                }
+
+                .t-grid-content tr > td {
+                    overflow: visible !important;
+                    position: relative;
+                }
+
+                .display_menu > ul {
+                    padding: 0 16px;
+                }
+
+                .display_menu li {
+                    list-style: none outside none;
+                    width: 143px;
+                }
+            </style>
+
+            <script type="text/javascript">
+                var currentQuestionId;
+                function editResponse(question,name) {
+                    currentQuestionId=question;
+                    var questionnaireId = @ViewBag.questionnaireId;
+                    $.post('@Url.Action("GetQuestionnaireResponsesWithSelectedQuestion","Questionnaire")',{questionnaire:questionnaireId,question:question}).done(function(result) {
+                        if(result.error) {
+                            alertify.alert("Sorry you can't change response for this question");
+                        } else {
+                            $("#responseList").html('');
+                            for(var i=0;i<result.length;i++){
+                                var element = "<option value='"+result[i].value+"' "+(result[i].selected?"selected='selected'":"")+">"+result[i].text+"</option>";
+                                $("#responseList").append(element);
+                            }
+                            responseListDualListBox.bootstrapDualListbox('refresh');
+                            $("#nurturePartner").modal("toggle");
+                        }
+                    });
+                }
+                @if(Request["ModifyResponse"]!=null)
     {
         <text>
-    $(function(){
-        editResponse(@Request["ModifyResponse"].ToString(),'');
-    });
-    </text>
+                $(function(){
+                    editResponse(@Request["ModifyResponse"].ToString(),'');
+                });
+                </text>
     }
-    $(function () {
-        //jQuery.noConflict();
-        $("#EmailDialog").dialog({
-            autoOpen: false
-        });
-        $('#popup').bind('dialogclose', function (event) {
-            window.location.replace(window.location.href);
-        });
+                $(function () {
+                    //jQuery.noConflict();
+                    $("#EmailDialog").dialog({
+                        autoOpen: false
+                    });
+                    $('#popup').bind('dialogclose', function (event) {
+                        window.location.replace(window.location.href);
+                    });
+                    ////////////////////////////////
+                    $("#editQuestion form button").click(function(){
+                        $.post("@Url.Content("~/Questionnaire/GetHtmlText")",{question:$("#editQuestion textarea").val()}, function (data) {
+                            if(data){
+                                $("#text").html(data);
+                            }
+                        });
+                    });
+                    $("#btnSaveQuestionText").click(function(e){
+                        e.preventDefault();
+                        alertify.confirm("Please confirm the changes",function(result){
+                            if(result){                               
+                                $.post('@Url.Action("SaveQuestion","Questionnaire")',{question:questionId,text:$("#editQuestion textarea").val()}).done(function(resultInner){
+                                    $("#editQuestion").modal("toggle");
+                                    window.location.reload();
+                                });
+                            }
+                        });
+                    })
+                    ///////////////////////////////////////////////
+                    $("#modalGetPassword").submit(function(e){
+                        e.preventDefault();
+                        $.post('@Url.Action("AddNewResponse","Questionnaire")',{text:$("#responseText").val(),code:$("#responseZCode").val(),question:currentQuestionId}).done(function(result){
+                            if(result.error){
+                                alertify.alert(result.error);
+                            } else {
+                                var element = "<option value='"+result.id+"'>"+result.text+"</option>";
+                                $("#responseList").append(element);
+                                responseListDualListBox.bootstrapDualListbox('refresh');
+                                $("#responseText").val("");
+                                $("#responseZCode").val("");
+                            }
+                        });
+                    });
+                    $("#saveResponseList").click(function(){
+                        var list = [];
+                        $("#bootstrap-duallistbox-selected-list_responseList option").each(function(){
+                            list.push($(this).val());
+                        });
+                        $.post('@Url.Action("SaveQuestionResponses","Questionnaire")',{currentValues:list, question:currentQuestionId}).done(function(result){
+                            if(result.error){
+                                alertify.alert(result.error);
+                                if(!result.hasError){
+                                    $("#nurturePartner").modal("toggle");
+                                }
+                            }
+                        });
+                    });
+                });
 
-        $("#modalGetPassword").submit(function(e){
-            e.preventDefault();
-            $.post('@Url.Action("AddNewResponse","Questionnaire")',{text:$("#responseText").val(),code:$("#responseZCode").val(),question:currentQuestionId}).done(function(result){
-                if(result.error){
-                    alertify.alert(result.error);
-                } else {
-                    var element = "<option value='"+result.id+"'>"+result.text+"</option>";
-                    $("#responseList").append(element);
-                    responseListDualListBox.bootstrapDualListbox('refresh');
-                    $("#responseText").val("");
-                    $("#responseZCode").val("");
+                //function CloseMe() {
+                //    $("#genericPopup").dialog('close');
+                //    //$(".t-icon .t-refresh").trigger('click');
+
+                //    window.location.replace(window.location.href);
+                //}
+                //function OpenEmailDialog(ac) {
+                //    //jQuery.noConflict();
+
+                //    $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
+
+                //        $("#EmailDialog").html(data);
+                //        $("#EmailDialog").dialog({
+                //            width: 1200,
+                //            height: 1000,
+                //        });
+                //        $("#EmailDialog").dialog('open');
+                //    });
+                //}
+                //$('#menu_block').hover(function () {
+                //    // alert("call");
+                //    $('#display_menu').show();
+                //}, function () {
+                //    $('#display_menu').hide();
+                //})
+
+                //$('#menu_block').mouseenter(function () {
+                //    $('#display_menu').show();
+                //}).mouseleave(function () {
+
+                //    $('#display_menu').hide();
+
+                //});
+                var questionId=0;
+                function openEditPopup(id,text) {
+                    $("#editQuestion").modal("toggle");
+                    $("#editQuestion textarea").val(text);
+                    questionId = id;
+                    $("#text").html("");
+
                 }
-            });
-        });
-        $("#saveResponseList").click(function(){
-            var list = [];
-            $("#bootstrap-duallistbox-selected-list_responseList option").each(function(){
-                list.push($(this).val());
-            });
-            $.post('@Url.Action("SaveQuestionResponses","Questionnaire")',{currentValues:list, question:currentQuestionId}).done(function(result){
-                if(result.error){
-                    alertify.alert(result.error);
-                    if(!result.hasError){
-                        $("#nurturePartner").modal("toggle");
+
+                function openRemovePopup(id, name) {
+                    alertify.set({
+                        labels: {
+                            ok: "No",
+                            cancel: "Yes"
+                        },
+                        buttonFocus: "cancel"
+                    });
+                    // button labels will be "Accept" and "Deny"
+                    alertify.confirm("You are about to Remove : " + name + ". Are you sure you want to do this?", function (e) {
+                        if (e) {
+                            // Click no
+                        } else {
+                            // click yes
+
+                            $.get("@Url.Content("~/Questionnaire/ArchiveQuestionDetail/")" + id, function (data) {
+                                // $(".t-icon .t-refresh").trigger('click');
+                                window.location.replace(window.location.href);
+                            });
+
+                        }
+                    });
+                }
+
+
+                function openArchivePopup(id, name) {
+                    alertify.set({
+                        labels: {
+                            ok: "No",
+                            cancel: "Yes"
+                        },
+                        buttonFocus: "cancel"
+                    });
+                    // button labels will be "Accept" and "Deny"
+                    alertify.confirm("You are about to Archive : " + name + ". Are you sure you want to do this?", function (e) {
+                        if (e) {
+                            // Click no
+                        } else {
+                            // click yes
+
+                            $.get("@Url.Content("~/Questionnaire/ArchiveQuestionDetail/")" + id, function (data) {
+                                // $(".t-icon .t-refresh").trigger('click');
+                                window.location.replace(window.location.href);
+                            });
+
+                        }
+                    });
+
+
+                }
+
+                function openViewDetailPopup(id) {
+                    $("#genericPopup").html("<p>Loading Data...</p>");
+                    $.get("@Url.Content("~/Questionnaire/QuestionDetail/")" + id, function (data) {
+                        $("#genericPopup").html(data);
+                    });
+                    $("#genericPopup").dialog({ height: 600, title: "View Detail" });
+                    $("#genericPopup").dialog('open');
+                }
+
+                $(function () {
+                    $('#btn-upload').click(function (e) {
+                        e.preventDefault();
+                        $('#file').click();
                     }
-                }
-            });
-        });
-    });
-
-    //function CloseMe() {
-    //    $("#genericPopup").dialog('close');
-    //    //$(".t-icon .t-refresh").trigger('click');
-
-    //    window.location.replace(window.location.href);
-    //}
-    //function OpenEmailDialog(ac) {
-    //    //jQuery.noConflict();
-
-    //    $.get("/WrongContact/Index", { accessCode: ac }, function (data) {
-
-    //        $("#EmailDialog").html(data);
-    //        $("#EmailDialog").dialog({
-    //            width: 1200,
-    //            height: 1000,
-    //        });
-    //        $("#EmailDialog").dialog('open');
-    //    });
-    //}
-    //$('#menu_block').hover(function () {
-    //    // alert("call");
-    //    $('#display_menu').show();
-    //}, function () {
-    //    $('#display_menu').hide();
-    //})
-
-    //$('#menu_block').mouseenter(function () {
-    //    $('#display_menu').show();
-    //}).mouseleave(function () {
-
-    //    $('#display_menu').hide();
-
-    //});
-
-    function openEditPopup(id) {
-        $.get("@Url.Content("~/Questionnaire/EditQuestionDetail/")" + id, function (data) {
-            $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-            $("#genericPopup").dialog('open');
-            $("#genericPopup").html(data);
-        });
-
-
-    }
-
-    function openRemovePopup(id, name) {
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
-
-                $.get("@Url.Content("~/Questionnaire/ArchiveQuestionDetail/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
+                   );
                 });
 
+            </script>
+            @section scripts{
+                @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+                <script src="/Scripts/bootstrap.js"></script>
+                <script src="/Scripts/validator.js"></script>
+                <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
             }
-        });
-    }
-
-
-    function openArchivePopup(id, name) {
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Archive : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
-
-                $.get("@Url.Content("~/Questionnaire/ArchiveQuestionDetail/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
-
-            }
-        });
-
-
-    }
-
-    function openViewDetailPopup(id) {
-        $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("@Url.Content("~/Questionnaire/QuestionDetail/")" + id, function (data) {
-            $("#genericPopup").html(data);
-        });
-        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
-        $("#genericPopup").dialog('open');
-    }
-
-    $(function () {
-        $('#btn-upload').click(function (e) {
-            e.preventDefault();
-            $('#file').click();
-        }
-       );
-    });
-
-</script>
-
-@section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-    <script src="/Scripts/bootstrap.js"></script>
-    <script src="/Scripts/validator.js"></script>
-    <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
-}
 

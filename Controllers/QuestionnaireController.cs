@@ -221,6 +221,29 @@ namespace Generic.Controllers
             {
                 return Json(new { error = "" });
             }
+        
+        }
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult GetHtmlText(string question)
+        {
+
+            return Json(EmailFormat.GetHintResult(question));
+            //EmailFormat
+        }
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult SaveQuestion(int question, string text)
+        {
+            var questionObj = db.pr_getQuestion(question).FirstOrDefault();
+            if (questionObj != null)
+            {
+                questionObj.Question = questionObj.name = text;
+                db.Entry(questionObj).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json("done");
+            }
+            return Json("");
         }
         [HttpPost]
         public ActionResult AddNewResponse(string text, string code, int question)
