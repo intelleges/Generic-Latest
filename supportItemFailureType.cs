@@ -14,9 +14,9 @@ namespace Generic
     
     public partial class supportItemFailureType
     {
+        public int id { get; set; }
         public int supportItem { get; set; }
         public int failureType { get; set; }
-        public int id { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
     }

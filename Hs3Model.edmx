@@ -14791,7 +14791,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <EntitySet Name="failureType" EntityType="hs3MVCMTQa2Model.failureType" />
           <EntitySet Name="supportItem" EntityType="hs3MVCMTQa2Model.supportItem" />
-          <EntitySet Name="supportItemFailureType" EntityType="hs3MVCMTQa2Model.supportItemFailureType" />
           <EntitySet Name="team" EntityType="hs3MVCMTQa2Model.team" />
           <FunctionImport Name="pr_getFailureType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getFailureType_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -14900,6 +14899,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_removeTeam">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="supportItemFailureType" EntityType="hs3MVCMTQa2Model.supportItemFailureType" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -23847,18 +23847,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="supportItemFailureType">
-          <Key>
-            <PropertyRef Name="supportItem" />
-            <PropertyRef Name="failureType" />
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="supportItem" Type="Int32" Nullable="false" />
-          <Property Name="failureType" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="sortOrder" Type="Int32" />
-          <Property Name="active" Type="Boolean" />
-        </EntityType>
         <EntityType Name="team">
           <Key>
             <PropertyRef Name="id" />
@@ -23969,6 +23957,16 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="supportItemFailureType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supportItem" Type="Int32" Nullable="false" />
+          <Property Name="failureType" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -31687,17 +31685,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="supportItemFailureType">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.supportItemFailureType">
-              <MappingFragment StoreEntitySet="supportItemFailureType">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="failureType" ColumnName="failureType" />
-                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="team">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.team">
               <MappingFragment StoreEntitySet="team">
@@ -31879,6 +31866,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_removeSupportItem" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSupportItem" />
           <FunctionImportMapping FunctionImportName="pr_removeSupportItemFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeSupportItemFailureType" />
           <FunctionImportMapping FunctionImportName="pr_removeTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTeam" />
+          <EntitySetMapping Name="supportItemFailureType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.supportItemFailureType">
+              <MappingFragment StoreEntitySet="supportItemFailureType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="failureType" ColumnName="failureType" />
+                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           
         </EntityContainerMapping>
       </Mapping>

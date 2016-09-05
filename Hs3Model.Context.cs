@@ -202,9 +202,9 @@ namespace Generic
         public virtual DbSet<siteIP> siteIP { get; set; }
         public virtual DbSet<failureType> failureType { get; set; }
         public virtual DbSet<supportItem> supportItem { get; set; }
-        public virtual DbSet<supportItemFailureType> supportItemFailureType { get; set; }
         public virtual DbSet<team> team { get; set; }
         public virtual DbSet<severityType> severityType { get; set; }
+        public virtual DbSet<supportItemFailureType> supportItemFailureType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
