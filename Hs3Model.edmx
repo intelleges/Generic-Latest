@@ -1970,11 +1970,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a pr
         </EntityType>
         <EntityType Name="supportItemFailureType">
           <Key>
-            <PropertyRef Name="supportItem" />
-            <PropertyRef Name="failureType" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="supportItem" Type="int" Nullable="false" />
           <Property Name="failureType" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <EntityType Name="survey">
           <Key>
@@ -14844,19 +14846,19 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="failuretype" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveSeverityType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveSupportItem">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveTeam">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSeverityType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSeverityType_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSeverityTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSeverityTypeAll_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSupportItemByName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSupportItemByName_Result)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
@@ -14886,17 +14888,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeSeverityType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeSupportItem">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeSupportItemFailureType">
             <Parameter Name="supportItem" Mode="In" Type="Int32" />
             <Parameter Name="failureType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeTeam">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -23849,9 +23851,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Key>
             <PropertyRef Name="supportItem" />
             <PropertyRef Name="failureType" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="supportItem" Type="Int32" Nullable="false" />
           <Property Name="failureType" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
         </EntityType>
         <EntityType Name="team">
           <Key>
@@ -31684,6 +31690,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="supportItemFailureType">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.supportItemFailureType">
               <MappingFragment StoreEntitySet="supportItemFailureType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="failureType" ColumnName="failureType" />
                 <ScalarProperty Name="supportItem" ColumnName="supportItem" />
               </MappingFragment>
