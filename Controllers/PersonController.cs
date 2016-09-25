@@ -274,7 +274,7 @@ namespace Generic.Controllers
                             context.pr_modifyPersonTouchpoint(person.id, int.Parse(touchpoint.ToString()));
                             context.pr_addPersonGroup(int.Parse(group.ToString()), person.id);
                             var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o=>o.enterprise==person.enterprise);
-                            context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise);
+							context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise, sysinfo.credit, sysinfo.sortOrder, sysinfo.active);
                         }
                         else context.pr_addPersonGroup(person.GroupId, person.id); 
                     }
@@ -421,7 +421,7 @@ Intelleges Team";
 
                 enterprise objEnterprise = db.pr_getEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault();
 
-                db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, true, SessionSingleton.EnterPriseId);
+				db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, true, SessionSingleton.EnterPriseId, 0, 0, true);
 
 
 

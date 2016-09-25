@@ -525,7 +525,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseObjectName", enterpriseParameter, objectNameParameter, aliasParameter, deviceParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseSystemInfo(Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise)
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseSystemInfo(Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise, Nullable<int> credit, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var systemExpiryParameter = systemExpiry.HasValue ?
                 new ObjectParameter("systemExpiry", systemExpiry) :
@@ -567,7 +567,19 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseSystemInfo", systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter);
+            var creditParameter = credit.HasValue ?
+                new ObjectParameter("credit", credit) :
+                new ObjectParameter("credit", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseSystemInfo", systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter, creditParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addEsignature(string firstName, string lastName, string title, string email, string affirmation, string officer, string phone, Nullable<System.DateTime> completeDate, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
@@ -2862,24 +2874,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfo", mergeOption, idParameter);
-        }
-    
-        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(Nullable<int> enterprise, MergeOption mergeOption)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", mergeOption, enterpriseParameter);
         }
     
         public virtual ObjectResult<eSignature> pr_getEsignature(Nullable<int> id)
@@ -5469,7 +5463,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseObjectName", idParameter, enterpriseParameter, objectNameParameter, aliasParameter, deviceParameter);
         }
     
-        public virtual int pr_modifyEnterpriseSystemInfo(Nullable<int> id, Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise)
+        public virtual int pr_modifyEnterpriseSystemInfo(Nullable<int> id, Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise, Nullable<int> credit, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5515,7 +5509,19 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseSystemInfo", idParameter, systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter);
+            var creditParameter = credit.HasValue ?
+                new ObjectParameter("credit", credit) :
+                new ObjectParameter("credit", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseSystemInfo", idParameter, systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter, creditParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_modifyEsignature(Nullable<int> id, string firstName, string lastName, string title, string email, string affirmation, string officer, string phone, Nullable<System.DateTime> completeDate, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
@@ -17796,6 +17802,245 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTeam", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonSiteNickNameAndLocationAll_Result> pr_getPersonSiteNickNameAndLocationAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonSiteNickNameAndLocationAll_Result>("pr_getPersonSiteNickNameAndLocationAll");
+        }
+    
+        public virtual ObjectResult<pr_getPersonSupportItemFailureType_Result> pr_getPersonSupportItemFailureType(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonSupportItemFailureType_Result>("pr_getPersonSupportItemFailureType", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonSupportItemFailureTypeAll_Result> pr_getPersonSupportItemFailureTypeAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonSupportItemFailureTypeAll_Result>("pr_getPersonSupportItemFailureTypeAll");
+        }
+    
+        public virtual ObjectResult<pr_getPersonSupportItemFailureTypeAllDetail_Result> pr_getPersonSupportItemFailureTypeAllDetail()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonSupportItemFailureTypeAllDetail_Result>("pr_getPersonSupportItemFailureTypeAllDetail");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartnerStatus(string description, Nullable<System.Guid> notebook, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var notebookParameter = notebook.HasValue ?
+                new ObjectParameter("notebook", notebook) :
+                new ObjectParameter("notebook", typeof(System.Guid));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartnerStatus", descriptionParameter, notebookParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addIterateStatus1(string code, string description, string nextAction, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var nextActionParameter = nextAction != null ?
+                new ObjectParameter("nextAction", nextAction) :
+                new ObjectParameter("nextAction", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateStatus1", codeParameter, descriptionParameter, nextActionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPersonByExternalID_Result> pr_getIteratePartnerPersonByExternalID(Nullable<int> externalID)
+        {
+            var externalIDParameter = externalID.HasValue ?
+                new ObjectParameter("externalID", externalID) :
+                new ObjectParameter("externalID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPersonByExternalID_Result>("pr_getIteratePartnerPersonByExternalID", externalIDParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIterateStatus1_Result> pr_getIterateStatus1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIterateStatus1_Result>("pr_getIterateStatus1", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIterateStatusAll1_Result> pr_getIterateStatusAll1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIterateStatusAll1_Result>("pr_getIterateStatusAll1");
+        }
+    
+        public virtual ObjectResult<pr_getPartnerSiteTeamByPartner_Result> pr_getPartnerSiteTeamByPartner(Nullable<int> partner)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerSiteTeamByPartner_Result>("pr_getPartnerSiteTeamByPartner", partnerParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEnterpriseSystemInfoByEnterprise_Result> pr_getEnterpriseSystemInfoByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseSystemInfoByEnterprise_Result>("pr_getEnterpriseSystemInfoByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEnterpriseSystemInfo1(Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise, Nullable<int> credit, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var systemExpiryParameter = systemExpiry.HasValue ?
+                new ObjectParameter("systemExpiry", systemExpiry) :
+                new ObjectParameter("systemExpiry", typeof(System.DateTime));
+    
+            var licenseLimitParameter = licenseLimit.HasValue ?
+                new ObjectParameter("licenseLimit", licenseLimit) :
+                new ObjectParameter("licenseLimit", typeof(int));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var contractCoordinatorParameter = contractCoordinator != null ?
+                new ObjectParameter("contractCoordinator", contractCoordinator) :
+                new ObjectParameter("contractCoordinator", typeof(string));
+    
+            var companyWebSiteParameter = companyWebSite != null ?
+                new ObjectParameter("companyWebSite", companyWebSite) :
+                new ObjectParameter("companyWebSite", typeof(string));
+    
+            var coordinatorEmailParameter = coordinatorEmail != null ?
+                new ObjectParameter("coordinatorEmail", coordinatorEmail) :
+                new ObjectParameter("coordinatorEmail", typeof(string));
+    
+            var isCurrentDataBaseParameter = isCurrentDataBase.HasValue ?
+                new ObjectParameter("isCurrentDataBase", isCurrentDataBase) :
+                new ObjectParameter("isCurrentDataBase", typeof(int));
+    
+            var logoImageParameter = logoImage != null ?
+                new ObjectParameter("logoImage", logoImage) :
+                new ObjectParameter("logoImage", typeof(string));
+    
+            var configuredParameter = configured.HasValue ?
+                new ObjectParameter("configured", configured) :
+                new ObjectParameter("configured", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var creditParameter = credit.HasValue ?
+                new ObjectParameter("credit", credit) :
+                new ObjectParameter("credit", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEnterpriseSystemInfo1", systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter, creditParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyEnterpriseSystemInfo1(Nullable<int> id, Nullable<System.DateTime> systemExpiry, Nullable<int> licenseLimit, string companyName, string contractCoordinator, string companyWebSite, string coordinatorEmail, Nullable<int> isCurrentDataBase, string logoImage, Nullable<bool> configured, Nullable<int> enterprise, Nullable<int> credit, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var systemExpiryParameter = systemExpiry.HasValue ?
+                new ObjectParameter("systemExpiry", systemExpiry) :
+                new ObjectParameter("systemExpiry", typeof(System.DateTime));
+    
+            var licenseLimitParameter = licenseLimit.HasValue ?
+                new ObjectParameter("licenseLimit", licenseLimit) :
+                new ObjectParameter("licenseLimit", typeof(int));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var contractCoordinatorParameter = contractCoordinator != null ?
+                new ObjectParameter("contractCoordinator", contractCoordinator) :
+                new ObjectParameter("contractCoordinator", typeof(string));
+    
+            var companyWebSiteParameter = companyWebSite != null ?
+                new ObjectParameter("companyWebSite", companyWebSite) :
+                new ObjectParameter("companyWebSite", typeof(string));
+    
+            var coordinatorEmailParameter = coordinatorEmail != null ?
+                new ObjectParameter("coordinatorEmail", coordinatorEmail) :
+                new ObjectParameter("coordinatorEmail", typeof(string));
+    
+            var isCurrentDataBaseParameter = isCurrentDataBase.HasValue ?
+                new ObjectParameter("isCurrentDataBase", isCurrentDataBase) :
+                new ObjectParameter("isCurrentDataBase", typeof(int));
+    
+            var logoImageParameter = logoImage != null ?
+                new ObjectParameter("logoImage", logoImage) :
+                new ObjectParameter("logoImage", typeof(string));
+    
+            var configuredParameter = configured.HasValue ?
+                new ObjectParameter("configured", configured) :
+                new ObjectParameter("configured", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var creditParameter = credit.HasValue ?
+                new ObjectParameter("credit", credit) :
+                new ObjectParameter("credit", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEnterpriseSystemInfo1", idParameter, systemExpiryParameter, licenseLimitParameter, companyNameParameter, contractCoordinatorParameter, companyWebSiteParameter, coordinatorEmailParameter, isCurrentDataBaseParameter, logoImageParameter, configuredParameter, enterpriseParameter, creditParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll");
+        }
+    
+        public virtual ObjectResult<enterpriseSystemInfo> pr_getEnterpriseSystemInfoAll(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", mergeOption);
         }
     }
 }

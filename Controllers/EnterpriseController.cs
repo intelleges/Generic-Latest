@@ -102,8 +102,8 @@ namespace Generic.Controllers
                     if (result.HasValue)
                     {
                         SessionSingleton.EnterPriseId = (int)result.Value;
-                        enterprise.id = (int)result.Value;                        
-                        db.pr_addEnterpriseSystemInfo(enterprise.systemExpiry, enterprise.licenseLimit, enterprise.companyName, string.Empty, enterprise.companyWebSite, string.Empty, 1, string.Empty, false, SessionSingleton.EnterPriseId);
+                        enterprise.id = (int)result.Value;
+						db.pr_addEnterpriseSystemInfo(enterprise.systemExpiry, enterprise.licenseLimit, enterprise.companyName, string.Empty, enterprise.companyWebSite, string.Empty, 1, string.Empty, false, SessionSingleton.EnterPriseId, 0, 0, true);
                         using (var context = new EntitiesDBContext())
                         {
                             Session["pr_bootstrapAgencyId"] = context.pr_bootstrapAgency(SessionSingleton.EnterPriseId).FirstOrDefault();

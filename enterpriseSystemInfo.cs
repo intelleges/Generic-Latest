@@ -25,6 +25,9 @@ namespace Generic
         public string logoImage { get; set; }
         public bool configured { get; set; }
         public Nullable<int> enterprise { get; set; }
+        public Nullable<int> credit { get; set; }
+        public Nullable<int> sortOrder { get; set; }
+        public Nullable<bool> active { get; set; }
     
         public virtual enterprise enterprise1 { get; set; }
     }

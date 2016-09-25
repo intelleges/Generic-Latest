@@ -304,7 +304,7 @@ namespace Generic.Helpers
             }
             //  string extension = mail.AddFileAttachment(email.attachment);
 
-            enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll(enterpriseId).FirstOrDefault();
+            enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o=>o.enterprise == enterpriseId).FirstOrDefault();
 
             mail.From = new MailAddress(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
 

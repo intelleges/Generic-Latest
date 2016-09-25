@@ -337,6 +337,9 @@
           <Property Name="logoImage" Type="varchar" MaxLength="100" />
           <Property Name="configured" Type="bit" Nullable="false" />
           <Property Name="enterprise" Type="int" />
+          <Property Name="credit" Type="int" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
         </EntityType>
         <EntityType Name="eSignature">
           <Key>
@@ -4392,6 +4395,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="logoImage" Type="varchar" Mode="In" />
           <Parameter Name="configured" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="credit" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addEsignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstName" Type="varchar" Mode="In" />
@@ -4519,6 +4525,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="accessCode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_addIteratePartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="notebook" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstname" Type="varchar" Mode="In" />
           <Parameter Name="lastname" Type="varchar" Mode="In" />
@@ -4537,6 +4549,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="nextAction" Type="int" Mode="In" />
           <Parameter Name="nextActionDate" Type="date" Mode="In" />
           <Parameter Name="notes" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addIterateStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="nextAction" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="object" Type="varchar" Mode="In" />
@@ -5834,7 +5853,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getEnterpriseSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getEnterpriseSystemInfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_getEnterpriseSystemInfoAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getEnterpriseSystemInfoByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getEsignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5975,6 +5995,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getIteratePartnerPerson4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getIteratePartnerPersonByExternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="externalID" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIteratePartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5989,10 +6012,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getIteratePersonAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratePersonNextAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="pr_getIteratestatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_getIterateStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getIteratestatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIterateStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6193,6 +6216,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnerSiteTeamByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnerStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -6471,12 +6497,18 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPersonRoleByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonSiteNickNameAndLocationAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPersonStuff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPersonStuffScript" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonSupportItemFailureType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonSupportItemFailureTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPersonSupportItemFailureTypeAllDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPPTQautoMailMessagelog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7099,6 +7131,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="logoImage" Type="varchar" Mode="In" />
           <Parameter Name="configured" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="credit" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyEsignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -10060,6 +10095,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="logoImage" Mode="In" Type="String" />
             <Parameter Name="configured" Mode="In" Type="Boolean" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="credit" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_addEsignature" ReturnType="Collection(Decimal)">
             <Parameter Name="firstName" Mode="In" Type="String" />
@@ -10664,9 +10702,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getEnterpriseSystemInfo" EntitySet="enterpriseSystemInfo" ReturnType="Collection(hs3MVCMTQa2Model.enterpriseSystemInfo)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getEnterpriseSystemInfoAll" EntitySet="enterpriseSystemInfo" ReturnType="Collection(hs3MVCMTQa2Model.enterpriseSystemInfo)">
-          <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getEsignature" EntitySet="eSignature" ReturnType="Collection(hs3MVCMTQa2Model.eSignature)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -11194,6 +11229,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="logoImage" Mode="In" Type="String" />
             <Parameter Name="configured" Mode="In" Type="Boolean" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="credit" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyEsignature">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -14900,6 +14938,70 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="supportItemFailureType" EntityType="hs3MVCMTQa2Model.supportItemFailureType" />
+          <FunctionImport Name="pr_getPersonSiteNickNameAndLocationAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSiteNickNameAndLocationAll_Result)" />
+          <FunctionImport Name="pr_getPersonSupportItemFailureType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSupportItemFailureType_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonSupportItemFailureTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSupportItemFailureTypeAll_Result)" />
+          <FunctionImport Name="pr_getPersonSupportItemFailureTypeAllDetail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSupportItemFailureTypeAllDetail_Result)" />
+          <FunctionImport Name="pr_addIteratePartnerStatus" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="notebook" Mode="In" Type="Guid" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addIterateStatus1" ReturnType="Collection(Decimal)">
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="nextAction" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerPersonByExternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPersonByExternalID_Result)">
+          <Parameter Name="externalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateStatus1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateStatus1_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIterateStatusAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIterateStatusAll1_Result)" />
+          <FunctionImport Name="pr_getPartnerSiteTeamByPartner" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerSiteTeamByPartner_Result)">
+          <Parameter Name="partner" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEnterpriseSystemInfoByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseSystemInfoByEnterprise_Result)">
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addEnterpriseSystemInfo1" ReturnType="Collection(Decimal)">
+            <Parameter Name="systemExpiry" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseLimit" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="contractCoordinator" Mode="In" Type="String" />
+            <Parameter Name="companyWebSite" Mode="In" Type="String" />
+            <Parameter Name="coordinatorEmail" Mode="In" Type="String" />
+            <Parameter Name="isCurrentDataBase" Mode="In" Type="Int32" />
+            <Parameter Name="logoImage" Mode="In" Type="String" />
+            <Parameter Name="configured" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="credit" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyEnterpriseSystemInfo1">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="systemExpiry" Mode="In" Type="DateTime" />
+            <Parameter Name="licenseLimit" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="contractCoordinator" Mode="In" Type="String" />
+            <Parameter Name="companyWebSite" Mode="In" Type="String" />
+            <Parameter Name="coordinatorEmail" Mode="In" Type="String" />
+            <Parameter Name="isCurrentDataBase" Mode="In" Type="Int32" />
+            <Parameter Name="logoImage" Mode="In" Type="String" />
+            <Parameter Name="configured" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="credit" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEnterpriseSystemInfoAll" EntitySet="enterpriseSystemInfo" ReturnType="Collection(hs3MVCMTQa2Model.enterpriseSystemInfo)" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -15097,6 +15199,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="configured" Nullable="false" Type="Boolean" />
           <Property Name="enterprise" Type="Int32" />
           <NavigationProperty Name="enterprise1" Relationship="hs3MVCMTQa2Model.FK_enterpriseSystemInfo_enterprise" FromRole="enterpriseSystemInfo" ToRole="enterprise" />
+          <Property Name="credit" Type="Int32" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
         </EntityType>
         <EntityType Name="eSignature">
           <Key>
@@ -17184,19 +17289,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="device" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getEnterpriseSystemInfo_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="DateTime" Name="systemExpiry" Nullable="true" Precision="16" />
-          <Property Type="Int32" Name="licenseLimit" Nullable="true" />
-          <Property Type="String" Name="companyName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="contractCoordinator" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="companyWebSite" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="coordinatorEmail" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="isCurrentDataBase" Nullable="true" />
-          <Property Type="String" Name="logoImage" Nullable="true" MaxLength="100" />
-          <Property Type="Boolean" Name="configured" Nullable="false" />
-          <Property Type="Int32" Name="enterprise" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="pr_getEnterpriseSystemInfoAll_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="DateTime" Name="systemExpiry" Nullable="true" Precision="16" />
           <Property Type="Int32" Name="licenseLimit" Nullable="true" />
@@ -23967,6 +24059,138 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="pr_getPersonSiteNickNameAndLocationAll_Result">
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="nickname" Nullable="true" />
+          <Property Type="Int32" Name="site" Nullable="false" />
+          <Property Type="String" Name="location" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonSupportItemFailureType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="supportItemFailureType" Nullable="false" />
+          <Property Type="Int32" Name="supportLevel" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonSupportItemFailureTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="supportItemFailureType" Nullable="false" />
+          <Property Type="Int32" Name="supportLevel" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonSupportItemFailureTypeAllDetail_Result">
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="nickname" Nullable="true" />
+          <Property Type="Int32" Name="supportItem" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="failureType" Nullable="false" />
+          <Property Type="Int32" Name="supportLevel" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="failureTypeText" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="supportLevelText" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerPersonByExternalID_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="166" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dunsnumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="numberOfEmployees" Nullable="true" />
+          <Property Type="Int32" Name="annualRevenue" Nullable="true" />
+          <Property Type="Guid" Name="note" Nullable="true" />
+          <Property Type="String" Name="objection" Nullable="false" MaxLength="66" />
+          <Property Type="String" Name="owner" Nullable="false" MaxLength="401" />
+          <Property Type="String" Name="author" Nullable="false" MaxLength="401" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="dateAdded" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="emailLastUpdate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="iteratePartnerStatus" Nullable="true" />
+          <Property Type="String" Name="iteratePartnerStatusDescription" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="personID" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="personActive" Nullable="false" />
+          <Property Type="DateTime" Name="personDateAdded" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="personLastModified" Nullable="true" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="String" Name="lastContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="lastContactDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="previousContact" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="previousContactDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="nextActionID" Nullable="false" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="101" />
+          <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getIterateStatus1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIterateStatusAll1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="nextAction" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnerSiteTeamByPartner_Result">
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="site" Nullable="false" />
+          <Property Type="Int32" Name="team" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getEnterpriseSystemInfoAll1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="DateTime" Name="systemExpiry" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="licenseLimit" Nullable="true" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="contractCoordinator" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="companyWebSite" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="coordinatorEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="isCurrentDataBase" Nullable="true" />
+          <Property Type="String" Name="logoImage" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="configured" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="credit" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getEnterpriseSystemInfoByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="DateTime" Name="systemExpiry" Nullable="true" Precision="16" />
+          <Property Type="Int32" Name="licenseLimit" Nullable="true" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="contractCoordinator" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="companyWebSite" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="coordinatorEmail" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="isCurrentDataBase" Nullable="true" />
+          <Property Type="String" Name="logoImage" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="configured" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="credit" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -24318,6 +24542,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="enterpriseSystemInfo">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseSystemInfo">
               <MappingFragment StoreEntitySet="enterpriseSystemInfo">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="credit" ColumnName="credit" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="systemExpiry" ColumnName="systemExpiry" />
                 <ScalarProperty Name="licenseLimit" ColumnName="licenseLimit" />
@@ -24333,32 +24560,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.enterpriseSystemInfo">
               <ModificationFunctionMapping>
-                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo">
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" />
-                  <ScalarProperty Name="configured" ParameterName="configured" />
-                  <ScalarProperty Name="logoImage" ParameterName="logoImage" />
-                  <ScalarProperty Name="isCurrentDataBase" ParameterName="isCurrentDataBase" />
-                  <ScalarProperty Name="coordinatorEmail" ParameterName="coordinatorEmail" />
-                  <ScalarProperty Name="companyWebSite" ParameterName="companyWebSite" />
-                  <ScalarProperty Name="contractCoordinator" ParameterName="contractCoordinator" />
-                  <ScalarProperty Name="companyName" ParameterName="companyName" />
-                  <ScalarProperty Name="licenseLimit" ParameterName="licenseLimit" />
-                  <ScalarProperty Name="systemExpiry" ParameterName="systemExpiry" />
-                  <ResultBinding Name="id" ColumnName="id" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseSystemInfo">
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
-                  <ScalarProperty Name="configured" ParameterName="configured" Version="Current" />
-                  <ScalarProperty Name="logoImage" ParameterName="logoImage" Version="Current" />
-                  <ScalarProperty Name="isCurrentDataBase" ParameterName="isCurrentDataBase" Version="Current" />
-                  <ScalarProperty Name="coordinatorEmail" ParameterName="coordinatorEmail" Version="Current" />
-                  <ScalarProperty Name="companyWebSite" ParameterName="companyWebSite" Version="Current" />
-                  <ScalarProperty Name="contractCoordinator" ParameterName="contractCoordinator" Version="Current" />
-                  <ScalarProperty Name="companyName" ParameterName="companyName" Version="Current" />
-                  <ScalarProperty Name="licenseLimit" ParameterName="licenseLimit" Version="Current" />
-                  <ScalarProperty Name="systemExpiry" ParameterName="systemExpiry" Version="Current" />
-                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-                </UpdateFunction>
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeEnterpriseSystemInfo">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
@@ -26459,7 +26660,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_addEmailTemplate" FunctionName="hs3MVCMTQa2Model.Store.pr_addEmailTemplate" />
           <FunctionImportMapping FunctionImportName="pr_addEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_addEmailTemplateType" />
           <FunctionImportMapping FunctionImportName="pr_addEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseObjectName" />
-          <FunctionImportMapping FunctionImportName="pr_addEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo" />
           <FunctionImportMapping FunctionImportName="pr_addEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_addEsignature" />
           <FunctionImportMapping FunctionImportName="pr_addEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotification" />
           <FunctionImportMapping FunctionImportName="pr_addEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotificationBounce" />
@@ -26593,8 +26793,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getEnterpriseObjectNameAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseObjectNameAll">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfo">
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfoAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfoAll">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_getEsignature">
           </FunctionImportMapping>
@@ -26931,7 +27129,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_modifyEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEmailTemplateType" />
           <FunctionImportMapping FunctionImportName="pr_modifyEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise" />
           <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseObjectName" />
-          <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseSystemInfo" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseSystemInfo" />
           <FunctionImportMapping FunctionImportName="pr_modifyEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEsignature" />
           <FunctionImportMapping FunctionImportName="pr_modifyEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotification" />
           <FunctionImportMapping FunctionImportName="pr_modifyEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotificationBounce" />
@@ -29802,30 +29999,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratestatus">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratestatus_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratestatusAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratestatusAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratestatusAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratestatus" />
           <FunctionImportMapping FunctionImportName="pr_removeIteratestatus" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratestatus" />
           <FunctionImportMapping FunctionImportName="pr_addEvernoteNotebook" FunctionName="hs3MVCMTQa2Model.Store.pr_addEvernoteNotebook" />
@@ -31877,6 +32050,163 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonSiteNickNameAndLocationAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonSiteNickNameAndLocationAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonSiteNickNameAndLocationAll_Result">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="location" ColumnName="location" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonSupportItemFailureType" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonSupportItemFailureType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonSupportItemFailureType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="supportItemFailureType" ColumnName="supportItemFailureType" />
+                <ScalarProperty Name="supportLevel" ColumnName="supportLevel" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonSupportItemFailureTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonSupportItemFailureTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonSupportItemFailureTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="supportItemFailureType" ColumnName="supportItemFailureType" />
+                <ScalarProperty Name="supportLevel" ColumnName="supportLevel" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonSupportItemFailureTypeAllDetail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonSupportItemFailureTypeAllDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonSupportItemFailureTypeAllDetail_Result">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="supportItem" ColumnName="supportItem" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="failureType" ColumnName="failureType" />
+                <ScalarProperty Name="supportLevel" ColumnName="supportLevel" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="failureTypeText" ColumnName="failureTypeText" />
+                <ScalarProperty Name="supportLevelText" ColumnName="supportLevelText" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addIteratePartnerStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePartnerStatus" />
+          <FunctionImportMapping FunctionImportName="pr_addIterateStatus1" FunctionName="hs3MVCMTQa2Model.Store.pr_addIterateStatus" />
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerPersonByExternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerPersonByExternalID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerPersonByExternalID_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="dunsnumber" ColumnName="dunsnumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="numberOfEmployees" ColumnName="numberOfEmployees" />
+                <ScalarProperty Name="annualRevenue" ColumnName="annualRevenue" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="objection" ColumnName="objection" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="emailLastUpdate" ColumnName="emailLastUpdate" />
+                <ScalarProperty Name="iteratePartnerStatus" ColumnName="iteratePartnerStatus" />
+                <ScalarProperty Name="iteratePartnerStatusDescription" ColumnName="iteratePartnerStatusDescription" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="personID" ColumnName="personID" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="personActive" ColumnName="personActive" />
+                <ScalarProperty Name="personDateAdded" ColumnName="personDateAdded" />
+                <ScalarProperty Name="personLastModified" ColumnName="personLastModified" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="lastContact" ColumnName="lastContact" />
+                <ScalarProperty Name="lastContactDate" ColumnName="lastContactDate" />
+                <ScalarProperty Name="previousContact" ColumnName="previousContact" />
+                <ScalarProperty Name="previousContactDate" ColumnName="previousContactDate" />
+                <ScalarProperty Name="nextActionID" ColumnName="nextActionID" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIterateStatus1" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateStatus1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIterateStatusAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getIterateStatusAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIterateStatusAll1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="nextAction" ColumnName="nextAction" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerSiteTeamByPartner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerSiteTeamByPartner">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerSiteTeamByPartner_Result">
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="team" ColumnName="team" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfoByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfoByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseSystemInfoByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="systemExpiry" ColumnName="systemExpiry" />
+                <ScalarProperty Name="licenseLimit" ColumnName="licenseLimit" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="contractCoordinator" ColumnName="contractCoordinator" />
+                <ScalarProperty Name="companyWebSite" ColumnName="companyWebSite" />
+                <ScalarProperty Name="coordinatorEmail" ColumnName="coordinatorEmail" />
+                <ScalarProperty Name="isCurrentDataBase" ColumnName="isCurrentDataBase" />
+                <ScalarProperty Name="logoImage" ColumnName="logoImage" />
+                <ScalarProperty Name="configured" ColumnName="configured" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="credit" ColumnName="credit" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addEnterpriseSystemInfo1" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo" />
+          <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseSystemInfo1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseSystemInfo" />
+          <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfoAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfoAll" />
           
         </EntityContainerMapping>
       </Mapping>
