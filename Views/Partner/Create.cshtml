@@ -312,15 +312,47 @@
     });
 </script>
 <script>
+
+	function onchangeProtocol()
+	{
+		if ($("#protocol option:selected").text() == 'PODS') {
+			alertify.set({
+				labels: {
+					ok: "PODS",
+					cancel: "Cancel"
+				}
+			});
+			alertify.confirm("Please be advised that you are completing Certs & Reps Manual form but you have selected PODS protocol. If you wish to continue with this form, click Cancel, otherwise, select PODS?", function (res, value) {
+				if (!res) {
+					$("#protocol").val('')
+				}
+			});
+		}
+	}
+
+	function submitForm() {
+		
+		$("form").submit();
+	}
+
+
     //#region First declaration
     $(document).ready(function () {
         $("form").submit(function () {
             return validateControl();
 
         });
+
         //#endregion
         //#region validation
         function validateControl() {
+
+        	alertify.set({
+        		labels: {
+        			ok: "OK",
+        			cancel: "Cancel"
+        		}
+        	});
 
             if ($("#name").val() == "") {
                 alertify.alert("Name is required");
@@ -405,6 +437,7 @@
                 alertify.alert("DUNS Number is required");
                 return false;
             }
+
         }
     });
 </script>
@@ -686,7 +719,7 @@
                     @Html.Label("Protocol")
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownList("protocol", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.DropDownList("protocol", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", onchange="onchangeProtocol();" })
                     <span class="field-validation-valid" data-valmsg-for="protocol" data-valmsg-replace="true"></span>
                 </div>
                 <div class="editor-label">
@@ -761,7 +794,7 @@
             </div>
             <p style="float: right; width: 20%;">
                 @*<input type="submit" value="Save" />*@
-                <input type="submit" value="Save" class="btn" />
+                <input type="button" value="Save" class="btn" onclick="submitForm();"/>
                 <input type="button" value="Clear" class="btn" id="btnClear" />
                 @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
             </p>
