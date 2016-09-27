@@ -95,22 +95,6 @@
                     return false;
                 }
             });
-            $("#address2").keypress(function (e) {
-                //if the letter is not digit then display error and don't type anything
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    //display error message
-                    $("#errmsgaddress2").html("Digits Only").show().fadeOut("slow");
-                    return false;
-                }
-            });
-            $("#city").keypress(function (e) {
-                //if the letter is not digit then display error and don't type anything
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    //display error message
-                    $("#errmsgcity").html("Digits Only").show().fadeOut("slow");
-                    return false;
-                }
-            });
         });
 
         $("#touchpoint").change(function () {
@@ -306,9 +290,9 @@
             success: function (data) {
                 var len = data.Data.length;
                 var i = 0;
-                var groupSelectList = "<option value=''>Select Group</option>";
-                for (i = 0; i < len; i++) {
-                    groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+                var groupSelectList = "<option disabled value=''>Select Group</option>";
+                for (i = 0; i < 1; i++) {
+                    groupSelectList += "<option selected value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
                 }
 
                 $('#group').html(groupSelectList);
@@ -342,6 +326,21 @@
             return validateControl();
 
         });
+
+        document.getElementById("address2").onblur = function () {
+        	this.value = parseFloat(this.value.replace(/,/g, ""))
+							.toFixed(2)
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        document.getElementById("city").onblur = function () {
+        	this.value = parseFloat(this.value.replace(/,/g, ""))
+							.toFixed(2)
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         //#endregion
         //#region validation
         function validateControl() {
@@ -421,10 +420,7 @@
                 alertify.alert("PO Version# is required");
                 return false;
             }
-            if ($("#title").val() === "") {
-                alertify.alert("Approving S&P Compliance Manager Email is required");
-                return false;
-            }
+           
             if ($("#dunsNumber").val() === "") {
                 alertify.alert("PN Description is required");
                 return false;
@@ -513,7 +509,7 @@
         }
 </style>
 <div class="addPartnerDiv">
-    <h2>Create POD</h2>
+    <h2>Create PODS</h2>
 </div>
 
 @using (Html.BeginForm())
@@ -568,7 +564,7 @@
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.address2)*@
-                    @Html.TextBoxFor(model => model.address2, new { @class = "txtClass numberText" })
+                    @Html.TextBoxFor(model => model.address2, new { @class = "txtClass numberText", pattern = "[0-9]*" })
                     <span style="color:red;" id="errmsgaddress2"></span>
                     @Html.ValidationMessageFor(model => model.address2)
                 </div>
@@ -579,7 +575,7 @@
                 </div>
                 <div class="editor-field">
 
-                    @Html.TextBoxFor(model => model.city, new { @class = "txtClass numberText" })
+                    @Html.TextBoxFor(model => model.city, new { @class = "txtClass numberText", pattern = "[0-9]*" })
                     <span style="color:red;" id="errmsgcity"></span>
                     @Html.ValidationMessageFor(model => model.city)
                 </div>
@@ -590,7 +586,7 @@
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.phone)*@
-                    @Html.TextBoxFor(model => model.phone, new { @class = "txtClass" })
+                    @Html.TextBoxFor(model => model.phone, new { @class = "txtClass", @maxlength = "3" })
                     @Html.ValidationMessageFor(model => model.phone)
                 </div>
 
@@ -709,16 +705,15 @@
 
               <div class="editor-label">
                     @*@Html.LabelFor(model => model.title)*@
-                    @Html.Label("Approving S&P Compliance Manager Email")
+                    @Html.Label("Approving S&P Compliance Manager Email (Optional)")
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.title)*@
                     @Html.TextBoxFor(model => model.title, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.title)
                 </div>
 
                 <div class="editor-label">
-                    @Html.Label("Global Sourcing Manager Email")
+                    @Html.Label("Global Sourcing Manager Email (Optional)")
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
@@ -727,57 +722,13 @@
 
                 <div class="editor-label">
                     @*@Html.LabelFor(model => model.federalID)*@
-                    @Html.Label("Federal ID")
+                    @Html.Label("Federal ID (Optional)")
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.federalID)*@
                     @Html.TextBoxFor(model => model.federalID, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.federalID)
                 </div>
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.state)*@
-                    @Html.Label("State")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass" })
-
-                    @Html.ValidationMessageFor(model => model.state)
-                </div>
-
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.zipcode)*@
-                    @Html.Label("Zip Code")
-                </div>
-                <div class="editor-field">
-                    @*@Html.EditorFor(model => model.zipcode)*@
-                    @Html.TextBoxFor(model => model.zipcode, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.zipcode)
-                </div>
-
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.country)*@
-                    @Html.Label("Country")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("country", null, String.Empty, new { @class = "ddlClass" })
-                    @Html.ValidationMessageFor(model => model.country)
-                </div>
-
-                <div class="editor-label">
-                  
-                </div>
-                <div class="editor-field">
-                 
-                </div>
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.province)*@
-                    @Html.Label("Province")
-                </div>
-                <div class="editor-field">
-                    @*@Html.EditorFor(model => model.province)*@
-                    @Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.province)
-                </div>
+                
                 @*<div class="editor-label">
 
                     </div>
