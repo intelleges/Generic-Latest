@@ -324,7 +324,10 @@
 			});
 			alertify.confirm("Please be advised that you are completing Certs & Reps Manual form but you have selected PODS protocol. If you wish to continue with this form, click Cancel, otherwise, select PODS?", function (res, value) {
 				if (!res) {
-					$("#protocol").val('')
+					$("#protocol").val('1056');
+				}
+				else {
+					window.location = '/POD/Create?supplierName=' + $('#name').val() + '&supplierNumber=' + $('#internalID').val() + '&buyerFirstName=' + $('#firstName').val() + '&buyerLastName=' + $('#lastName').val() + '&buyerEmail=' + $('#email').val() + '&protocol=' + $('#protocol').val();
 				}
 			});
 		}

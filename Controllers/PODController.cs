@@ -14,10 +14,16 @@ namespace Generic.Controllers
       
         private EntitiesDBContext db = new EntitiesDBContext(); 
         // GET: POD
-        public ActionResult Create()
+		public ActionResult Create(string supplierName, string supplierNumber, string buyerFirstName, string buyerLastName, string buyerEmail, int? protocol)
         {
+			partner model = new partner();
+			model.internalID = supplierNumber;
+			model.name = supplierName;
+			model.firstName = buyerFirstName;
+			model.lastName = buyerLastName;
+			model.email = buyerEmail;
             GenerateCreateDropDownLists();
-            return View();
+            return View(model);
         }
         protected void GenerateCreateDropDownLists()
         {
