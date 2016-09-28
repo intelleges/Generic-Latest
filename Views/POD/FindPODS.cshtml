@@ -1,0 +1,191 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.FindPODSViewModel>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+
+@{
+	#region My
+	Layout = LayoutHelper.GetLayout();
+	ViewBag.Title = "Partner";
+	#endregion
+}
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
+
+
+<style>
+	#panelFind select {
+		width: 210px;
+	}
+
+	.txtBox1 {
+		width: 205px;
+		border-style: inset;
+		border-left-width: 2px;
+		border-top-width: 2px;
+		height: 15px;
+		border-bottom: none;
+		border-right: none;
+		margin: 0 0 0 0;
+	}
+
+	.txtBox {
+		width: 205px;
+		border-style: inset;
+		border-left-width: 2px;
+		border-top-width: 2px;
+		height: 15px;
+		border-bottom: none;
+		border-right: none;
+	}
+
+	.t-input {
+		height: 16px;
+	}
+
+	#panelFind td {
+		padding: 0 0 0 0;
+	}
+</style>
+
+
+
+<script>
+	//#region First declaration
+	$(document).ready(function () {
+		
+
+		document.getElementById("PoValue").onblur = function () {
+			this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
+							.toFixed(2)
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+		document.getElementById("ChangeAmt").onblur = function () {
+			this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
+							.toFixed(2)
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+	});
+
+
+
+</script>
+
+
+	<h2>Find PODS</h2>
+
+
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true)
+
+
+	<div id="panelFind">
+
+		<input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+
+		<table width="70%; " style="float:left" border="0">
+			<tbody>
+				
+				<tr>
+					<td class="tLeftColumn">Internal ID</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.InternalID, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">Partner Name</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.Name, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">PO #</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.PoNumber, new { @class = "txtBox1" })
+					</td>
+				</tr>
+
+				<tr>
+					<td class="tLeftColumn">PO Value (Accounting format)</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.PoValue, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">Change Amt (Accounting format)</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.ChangeAmt, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">PO Version #</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.PoVersion, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">Part Number (PN)</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.PartNumber, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">Buyer Email</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.TextBoxFor(model => model.BuyerEmail, new { @class = "txtBox1" })
+					</td>
+				</tr>
+				<tr>
+					<td class="tLeftColumn">Partner Type</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.DropDownList("partnertype", (System.Web.Mvc.SelectList)ViewBag.PT, String.Empty, new {  })
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td class="tLeftColumn"></td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<table style="float:left">
+			<tr>
+				<td></td>
+				<td>
+
+					<input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height:28px" name="btnFind">
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height:28px" name="btnCancel">
+
+
+
+				</td>
+			</tr>
+
+		</table>
+
+	</div>
+
+}
+
+@section scripts{
+	@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}

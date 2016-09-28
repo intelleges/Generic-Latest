@@ -1,5 +1,6 @@
 ﻿using Generic.Helpers;
 using Generic.Helpers.PartnerHelper;
+using Generic.Models;
 using Generic.SessionClass;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,24 @@ namespace Generic.Controllers
             GenerateCreateDropDownLists();
             return View(model);
         }
+
+
+		public ActionResult FindPODS()
+		{
+			ViewBag.PT = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+			return View();
+		}
+
+		[HttpPost]
+
+		public ActionResult FindPODS(FindPODSViewModel model)
+		{
+			ViewBag.PT = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+			return View();
+		}
+
         protected void GenerateCreateDropDownLists()
         {
             ViewBag.state = new SelectList(db.state, "id", "name");

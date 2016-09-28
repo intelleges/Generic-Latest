@@ -829,6 +829,7 @@
     <Compile Include="Models\ContractModel.cs" />
     <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
+    <Compile Include="Models\FindPODSViewModel.cs" />
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -3177,8 +3178,8 @@
     <Content Include="Content\kendo\2015.2.624\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\tw-bs.css" />
-    <Content Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
-    <Content Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Contents\images\MOOG_Logo.png" />
     <Content Include="packages.config">
@@ -3281,8 +3282,8 @@
     <Content Include="DummyData\dummyData.xlsx" />
     <Content Include="allow more then 255 symbols%28x64%29.reg" />
     <Content Include="allow more then 255 symbols%28x86%29.reg" />
-    <Content Include="Areas\RegistrationArea\Views\Home\SaveForLaterConfirm.cshtml" />
-    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\SaveForLaterConfirm.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload.cshtml" />
     <Content Include="Contents\js\jquery.min.js.map">
       <DependentUpon>jquery.min.js</DependentUpon>
     </Content>
@@ -3296,9 +3297,9 @@
       <DependentUpon>jquery-1.9.1.min.js</DependentUpon>
     </Content>
     <Content Include="Areas\RegistrationArea\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\RegistrationArea\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\RegistrationArea\Views\Shared\_BottomSection.cshtml" />
-    <Content Include="Areas\RegistrationArea\Views\Shared\_TopSection.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Shared\_Layout.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Shared\_BottomSection.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Shared\_TopSection.cshtml" />
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.woff" />
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-BlackOblique.woff" />
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Book.woff" />
@@ -3336,7 +3337,7 @@
     <Content Include="Contents\AdminStyle\fonts\AvenirLTStd-Black.ttf" />
     <Content Include="Contents\AdminStyle\fonts\Avenir-Roman-webfont.otf" />
     <Content Include="Contents\AdminStyle\fonts\Avenir-Roman-webfont.woff" />
-    <Content Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -4698,7 +4699,7 @@
     <Content Include="Scripts\2013.2.611\telerik.window.min.js" />
     <Content Include="Scripts\alertify.js" />
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\QuestionnaireResponsePdfDownload.cshtml" />
-    <Content Include="Areas\RegistrationArea\Views\Home\CustomizedQuestionnaireSurveyPdfDownload.cshtml" />
+    <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\CustomizedQuestionnaireSurveyPdfDownload.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -4851,7 +4852,7 @@
     <EmbeddedResource Include="Views\Agency\Edit.cshtml" />
     <EmbeddedResource Include="Views\Agency\Delete.cshtml" />
     <EmbeddedResource Include="Views\Admin\DashboardPartners.cshtml" />
-    <Content Include="Views\Shared\_reportsDropdownPartial.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_reportsDropdownPartial.cshtml" />
     <EmbeddedResource Include="Views\Partner\FindPartner.cshtml" />
     <EmbeddedResource Include="Views\Enterprise\FindEnterprise.cshtml" />
     <EmbeddedResource Include="Views\Group\FindGroup.cshtml" />
@@ -4891,7 +4892,7 @@
     <Content Include="UploadTemplates\addQuestionnaireTemplate.xlsx" />
     <Content Include="UploadTemplates\addUserTemplate.xlsx" />
     <Content Include="UploadTemplates\addQuestionnaireCMSTemplate.xlsx" />
-    <Content Include="Views\Shared\_jsTreeDemo.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_jsTreeDemo.cshtml" />
     <Content Include="Views\jsTree3\Demo.cshtml" />
     <Content Include="Views\jsTree3\AJAXDemo.cshtml" />
     <Content Include="Views\Ivr\Index.cshtml" />
@@ -4910,9 +4911,10 @@
     <Content Include="Views\CampaignRule\Edit.cshtml" />
     <Content Include="Views\ZCodeCheck\Create.cshtml" />
     <Content Include="Views\ZCodeCheck\Index.cshtml" />
-    <Content Include="Views\Shared\_NewAdminLayout.cshtml" />
-    <Content Include="Views\Shared\_NewRegistrationLayout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_NewAdminLayout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_NewRegistrationLayout.cshtml" />
     <Content Include="Views\POD\Create.cshtml" />
+    <Content Include="Views\POD\FindPODS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
@@ -5109,7 +5111,7 @@
     <Content Include="Views\Admin\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_adminLayout2.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_adminLayout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Test.cshtml" />
@@ -5259,7 +5261,7 @@
     <Content Include="Views\UserHome\SelectedProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_HomeSiteLayout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_HomeSiteLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UserHome\Index.cshtml" />
