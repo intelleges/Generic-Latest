@@ -328,14 +328,14 @@
         });
 
         document.getElementById("address2").onblur = function () {
-        	this.value = parseFloat(this.value.replace(/,/g, ""))
+        	this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
 							.toFixed(2)
 							.toString()
 							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         document.getElementById("city").onblur = function () {
-        	this.value = parseFloat(this.value.replace(/,/g, ""))
+        	this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
 							.toFixed(2)
 							.toString()
 							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
