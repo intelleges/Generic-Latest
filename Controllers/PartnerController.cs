@@ -1156,19 +1156,19 @@ namespace Generic.Controllers
 
 					var map = new Dictionary<string, string>();
 					map.Add("PARTNER_INTERNAL_ID", "internalID");
-					map.Add("dunsNumber", "PARTNER_SAP_ID");
-					map.Add("name", "PARTNER_NAME");
-					map.Add("address1", "PARTNER_ADDRESS_ONE");
-					map.Add("address2", "PARTNER_ADDRESS_TWO");
-					map.Add("city", "PARTNER_CITY");
-					map.Add("StateName", "PARTNER_STATE");
-					map.Add("zipcode", "PARTNER_ZIPCODE");
-					map.Add("CountryName", "PARTNER_COUNTRY");
-					map.Add("phone", "PARTNER_POC_PHONE_NUMBER");
-					map.Add("email", "PARTNER_POC_EMAIL_ADDRESS");
-					map.Add("firstName", "PARTNER_POC_FIRST_NAME");
-					map.Add("lastName", "PARTNER_POC_LAST_NAME");
-					map.Add("title", "PARTNER_POC_TITLE");
+					map.Add("PARTNER_SAP_ID", "dunsNumber");
+					map.Add("PARTNER_NAME", "name");
+					map.Add("PARTNER_ADDRESS_ONE", "address1");
+					map.Add("PARTNER_ADDRESS_TWO", "address2");
+					map.Add("PARTNER_CITY", "city");
+					map.Add("PARTNER_STATE", "StateName");
+					map.Add("PARTNER_ZIPCODE", "zipcode");
+					map.Add("PARTNER_COUNTRY", "CountryName");
+					map.Add("PARTNER_POC_PHONE_NUMBER", "phone");
+					map.Add("PARTNER_POC_EMAIL_ADDRESS", "email");
+					map.Add("PARTNER_POC_FIRST_NAME", "firstName");
+					map.Add("PARTNER_POC_LAST_NAME", "lastName");
+					map.Add("PARTNER_POC_TITLE", "title");
 					map.Add("PARTNUMBER_DETAIL", "PARTNUMBER_DETAIL");
 
 
@@ -1197,7 +1197,7 @@ namespace Generic.Controllers
                     {
                         if (partnumbers.internalID != null)
                         {
-                            if (partnumbers.PARTNER_SAP_ID == null || partnumbers.dunsNumber == null || partnumbers.PART_NUMBER_INTERNAL == null || partnumbers.PART_NUMBER_SAP == null)
+                            if (partnumbers.dunsNumber == null || partnumbers.PART_NUMBER_INTERNAL == null || partnumbers.PART_NUMBER_SAP == null)
                             {
                                 ErrorView objerrorView = new ErrorView();
                                 objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
@@ -1227,7 +1227,7 @@ namespace Generic.Controllers
                                 //using (var context = new EntitiesDBContext())
                                 //{
                                     var PartnerID = db.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partnumbers.DUE_DATE, group, partnumbers.PARTNUMBER_DETAIL).ToList().FirstOrDefault();
-                                    uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.PARTNER_SAP_ID));
+                                    uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.dunsNumber));
                                // }
                             }
                             recordNumber++;
