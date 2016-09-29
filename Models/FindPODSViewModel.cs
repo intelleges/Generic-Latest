@@ -7,9 +7,9 @@ namespace Generic.Models
 {
 	public class FindPODSViewModel
 	{
-		public string InternalID { get; set; }
+		public string SupplierNumber { get; set; }
 
-		public string Name { get; set; }
+		public string SupplierName { get; set; }
 
 		public string PoNumber { get; set; }
 

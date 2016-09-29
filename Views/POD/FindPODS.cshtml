@@ -51,32 +51,6 @@
 
 
 
-<script>
-	//#region First declaration
-	$(document).ready(function () {
-		
-
-		document.getElementById("PoValue").onblur = function () {
-			this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
-							.toFixed(2)
-							.toString()
-							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-
-		document.getElementById("ChangeAmt").onblur = function () {
-			this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
-							.toFixed(2)
-							.toString()
-							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		}
-
-	});
-
-
-
-</script>
-
-
 	<h2>Find PODS</h2>
 
 
@@ -93,17 +67,17 @@
 			<tbody>
 				
 				<tr>
-					<td class="tLeftColumn">Internal ID</td>
+					<td class="tLeftColumn">Supplier #</td>
 					<td class="tCenterColumn"></td>
 					<td class="tRightColumn">
-						@Html.TextBoxFor(model => model.InternalID, new { @class = "txtBox1" })
+						@Html.TextBoxFor(model => model.SupplierNumber, new { @class = "txtBox1" })
 					</td>
 				</tr>
 				<tr>
-					<td class="tLeftColumn">Partner Name</td>
+					<td class="tLeftColumn">Supplier Name</td>
 					<td class="tCenterColumn"></td>
 					<td class="tRightColumn">
-						@Html.TextBoxFor(model => model.Name, new { @class = "txtBox1" })
+						@Html.TextBoxFor(model => model.SupplierName, new { @class = "txtBox1" })
 					</td>
 				</tr>
 				<tr>
@@ -114,20 +88,6 @@
 					</td>
 				</tr>
 
-				<tr>
-					<td class="tLeftColumn">PO Value (Accounting format)</td>
-					<td class="tCenterColumn"></td>
-					<td class="tRightColumn">
-						@Html.TextBoxFor(model => model.PoValue, new { @class = "txtBox1" })
-					</td>
-				</tr>
-				<tr>
-					<td class="tLeftColumn">Change Amt (Accounting format)</td>
-					<td class="tCenterColumn"></td>
-					<td class="tRightColumn">
-						@Html.TextBoxFor(model => model.ChangeAmt, new { @class = "txtBox1" })
-					</td>
-				</tr>
 				<tr>
 					<td class="tLeftColumn">PO Version #</td>
 					<td class="tCenterColumn"></td>

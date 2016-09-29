@@ -143,48 +143,49 @@
             debugger;
             alertify.set({
                 labels: {
-                    ok: "Invite Later", cancel: "Invite Now"
+                	ok: "Invite Now", cancel: "Cancel"
                 }
             });
             alertify.confirm("", function (e) {
                 if (e) {
-                    // Click no
+                	// Click no
+                	$.ajax({
+                		url: "@Url.Content("~/partner/InvitePartners")",
+                		type: "post",
+                	success: function (data) {
+
+                		alertify.set({
+                			labels: {
+                				ok: "ok", cancel: "cancel"
+                			}
+                		});
+
+                		//dataClear();
+                		alertify.alert(data.Data.message);
+                		$('#alertify-ok').text('OK');
+                		var len = data.EventNotification.length;
+                		$('#btnInviteList').show();
+                		if (len == 0) {
+                			alertify.alert("Please wait, data processing");
+                			$('#alertify-ok').text('OK');
+                		} else {
+
+                			var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                			for (i = 0; i < len; i++)
+                				events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                			$('#DivEventNotification').html(events);
+                		}
+
+                	},
+                	error: function (data) {
+
+                	}
+                });
                 } else {
                     // click yes
-                    $.ajax({
-                        url: "@Url.Content("~/partner/InvitePartners")",
-                        type: "post",
-                        success: function (data) {
-
-                            alertify.set({
-                                labels: {
-                                    ok: "ok", cancel: "cancel"
-                                }
-                            });
-
-                            //dataClear();
-                            alertify.alert(data.Data.message);
-                            $('#alertify-ok').text('OK');
-                            var len = data.EventNotification.length;
-                            $('#btnInviteList').show();
-                            if (len == 0) {
-                                alertify.alert("Please wait, data processing");
-                                $('#alertify-ok').text('OK');
-                            } else {
-
-                                var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-                                for (i = 0; i < len; i++)
-                                    events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-                                $('#DivEventNotification').html(events);
-                            }
-
-                        },
-                        error: function (data) {
-
-                        }
-                    });
+                   
                 }
             });
         }
@@ -322,7 +323,7 @@
 					cancel: "Cancel"
 				}
 			});
-			alertify.confirm("Please be advised that you are completing Certs & Reps Manual form but you have selected PODS protocol. If you wish to continue with this form, click Cancel, otherwise, select PODS?", function (res, value) {
+			alertify.confirm("Please be advised you’re currently completing the Certs-Reps Manual add form, but selected the PODS protocol.  If you wish to continue with the Certs-Reps add form, click Cancel and select Certs-Reps as the protocol, otherwise if you’d like to be redirected to the PODS add form, click PODS.", function (res, value) {
 				if (!res) {
 					$("#protocol").val('1056');
 				}
