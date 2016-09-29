@@ -1306,24 +1306,32 @@ namespace Generic.Controllers
 
         public void ResponsesByProtocolTouchpointGroupPartnertype2Download()
         {
-            int qId = 0;
-            try
-            {
-                qId = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().questionnaire;
-            }
-            catch { }
-            int levelType = 1;
-            try
-            {
-                levelType = int.Parse(db.pr_getQuestionnaire(qId).FirstOrDefault().levelType.ToString());
-            }
-            catch { }
-			if ( levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+			//if this is BAA project then use getCustomizedLSMWReport
+			if (Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2)
 			{
-				ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpoint(SessionSingleton.Touchpoint));
-			} else if(levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
-				ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypeByTouchpoint(SessionSingleton.Touchpoint));
-			else ExportToExcel(getCustomizedLSMWReport());		
+				ExportToExcel(getCustomizedLSMWReport());
+			}
+			else
+			{	
+				int qId = 0;
+				try
+				{
+					qId = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().questionnaire;
+				}
+				catch { }
+				int levelType = 1;
+				try
+				{
+					levelType = int.Parse(db.pr_getQuestionnaire(qId).FirstOrDefault().levelType.ToString());
+				}
+				catch { }
+				if (levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+				{
+					ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpoint(SessionSingleton.Touchpoint));
+				}
+				else if (levelType == Generic.Helpers.Questionnaire.LevelType.COMPANY_LEVEL)
+					ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypeByTouchpoint(SessionSingleton.Touchpoint));				
+			}
 			
 
         }

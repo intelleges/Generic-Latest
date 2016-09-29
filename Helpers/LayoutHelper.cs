@@ -24,6 +24,23 @@ namespace Generic.Helpers
 
             return layoutName;
         }
+		public static string GetNewLayout()
+		{
+			// Default to the generic layout 
+			// Note the output will be in the tmp folder when published. 
+			string layoutName = "~/tmp/Views/Shared/_GenericLayoutPage.cshtml";
+
+			if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+			{
+				layoutName = "~/Views/Shared/_NewAdminLayout.cshtml";
+			}
+			else
+			{
+				layoutName = "~/tmp/Views/Shared/_NewAdminLayout.cshtml";
+			}
+
+			return layoutName;
+		}
         public static string GetRegistrationLayout()
         {
             if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
@@ -35,17 +52,17 @@ namespace Generic.Helpers
                 return "~/tmp/Views/Shared/_LayoutMasterPartner.cshtml";
             }
         }
-        //public static string GetRegistrationLayout()
-        //{
-        //    if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
-        //    {
-        //        return "~/Views/Shared/_NewRegistrationLayout.cshtml";
-        //    }
-        //    else
-        //    {
-        //        return "~/tmp/Views/Shared/_NewRegistrationLayout.cshtml";
-        //    }
-        //}
+		public static string GetNewRegistrationLayout()
+		{
+			if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+			{
+				return "~/Views/Shared/_NewRegistrationLayout.cshtml";
+			}
+			else
+			{
+				return "~/tmp/Views/Shared/_NewRegistrationLayout.cshtml";
+			}
+		}
 
         public static string GetMasterLayout()
         {
@@ -56,6 +73,17 @@ namespace Generic.Helpers
             else
             {
                 return "~/tmp/Views/Shared/_LayoutMaster.cshtml";
+            }
+        }
+public static string GetMasterLayoutAdmin()
+        {
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                return "~/Views/Shared/_LayoutMasterAdmin.cshtml";
+            }
+            else
+            {
+                return "~/tmp/Views/Shared/_LayoutMasterAdmin.cshtml";
             }
         }
 

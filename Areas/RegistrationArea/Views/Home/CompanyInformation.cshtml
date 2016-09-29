@@ -2,10 +2,12 @@
 @using System.Web.Mvc.Html
 @using Generic.Areas.RegistrationArea.Models
 @using Generic.Helpers
+@using System.Web.Optimization;
 @{
+	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
     ViewBag.Title = "Company Infomation";
   //  Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
-    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {

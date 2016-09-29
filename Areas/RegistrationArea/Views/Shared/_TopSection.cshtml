@@ -1,4 +1,5 @@
-﻿@using Generic.Areas.RegistrationArea.Models
+﻿@inherits System.Web.Mvc.WebViewPage
+@using Generic.Areas.RegistrationArea.Models
 @{
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
@@ -7,110 +8,7 @@
     }
 }
 
-@*<table class="table-full" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td class="topsec1" valign="top">
-            <table class="table-full" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td class="topsec2 supplytitleblueone" align="center" valign="top" >
-                        <span class="topsecfont" id="ctl00_lblSurvey">
 
-
-                            @{
-
-                                @Html.Raw(formData.CMS_PAGE_TITLE)
-
-                                <span>
-                                    @Html.Raw(formData.CMS_PAGE_SUBTITLE)
-                                </span>
-
-
-                            }
-
-                        </span>
-                    </td>
-                    <td class="topsec3" valign="bottom">
-                        
-                    </td>
-                </tr>
-            </table>
-        </td>
-
-    </tr>
-    <tr>
-        <td class="tabsec4" valign="top">
-            <table class="table-full" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td valign="top">
-                        <table class="topsectioninner" border="0" align="center" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td class="supplyleft">
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td class="supplyleft">
-
-                                    <div id="ctl00_RegistrationPageText">
-
-
-
-                                        @Html.Raw(formData.CMS_PAGE_PANEL_ONE)
-
-
-
-
-                                    </div>
-
-
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td valign="top">
-
-                        <table class="topsectioninner" border="0" align="center" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td class="supplyright">
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="supplyright">
-
-                                    @Html.Raw(formData.CMS_PAGE_PANEL_TWO)
-
-
-
-
-                                    <span style="color: #0096c9;">Instructions:</span> Enter your access code (found in your invitation email) below to complete Honeywell’s Site Security Survey.
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @if (formData.ENTERPRISE_ID == 1)
-                        {
-                            <div id="languageSelection">
-                                <img src="~/Contents/images/us.jpg" data-language="en" title="English" />
-                                <img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic" />
-                                <img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
-                                <img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
-                                <img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
-                                <img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
-                                <img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
-                                <img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
-                            </div>
-                        }
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>*@
 <div class="honeywell-hd text-center">@Html.Raw(formData.CMS_PAGE_TITLE)</div>
 <div class="text-center">@Html.Raw(formData.CMS_PAGE_SUBTITLE)</div>
 <p>&nbsp;</p>

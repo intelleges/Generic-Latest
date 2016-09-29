@@ -4,8 +4,8 @@
 @using Generic.Helpers
 @{
     ViewBag.Title = "Index";
-    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
-    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
@@ -28,9 +28,9 @@ Html.RenderPartial("_TestPartialArea",null);
 
 *@
 
-@Styles.Render("~/bundles/alertifyCss")
-@Styles.Render("~/bundles/registrationCss")
-@Scripts.Render("~/bundles/jquery")
+@System.Web.Optimization.Styles.Render("~/bundles/alertifyCss")
+@System.Web.Optimization.Styles.Render("~/bundles/registrationCss")
+@System.Web.Optimization.Scripts.Render("~/bundles/jquery")
 <script>
     $(document).ready(function () {
         var message = '@ViewBag.message';

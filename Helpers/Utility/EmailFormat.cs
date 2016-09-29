@@ -76,6 +76,12 @@ namespace Generic.Helpers.Utility
                 sVariable = match.ToString();
                 switch (sVariable.ToLower())
                 {
+					case "[purchase order version number]":
+						sValue = person.phone;
+						break;
+					case "[purchase order number]":
+						sValue = partner.address2;
+						break;
                     case "[personfirstname]":
                         sValue = currentPerson.firstName;
                         break;
@@ -212,6 +218,12 @@ namespace Generic.Helpers.Utility
 
                 switch (sVariable.ToLower())
                 {
+					case "[purchase order version number]":
+						sValue = partner.phone;
+						break;
+					case "[purchase order number]":
+						sValue = partner.address2;
+						break;
                     case "[receiver full name]":
                         sValue = this.sGetpersonFullName(receiver);
                         break;

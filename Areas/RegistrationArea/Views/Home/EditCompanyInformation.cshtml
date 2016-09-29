@@ -5,9 +5,11 @@
 @using Telerik.Web.Mvc.UI.Html;
 @using Generic.Areas.RegistrationArea.Models
 @using Generic;
+@using System.Web.Optimization;
 @{
+	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
     //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
-    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     ViewBag.Title = "Edit Company Infomation";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)

@@ -2,14 +2,16 @@
 @using System.Web.Mvc.Html
 @using System.Web.Mvc
 @using Generic.Helpers
+@using System.Web.Optimization;
 @using Generic.Areas.RegistrationArea.Models
 @{
-    Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     ViewBag.Title = "Questionnaire Response";
-    var formData = new ViewBagModel();
+    var formData = new Generic.Areas.RegistrationArea.Models.ViewBagModel();
     if (ViewBag.FormData != null)
     {
-        formData = ViewBag.FormData as ViewBagModel;
+        formData = ViewBag.FormData as Generic.Areas.RegistrationArea.Models.ViewBagModel;
     }
 }
 

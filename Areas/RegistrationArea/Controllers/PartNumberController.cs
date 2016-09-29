@@ -26,9 +26,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
         private EntitiesDBContext db = new EntitiesDBContext();
         IGoogleTranslatorHelper _translator;
 
-        public PartNumberController(IGoogleTranslatorHelper translator)
+        public PartNumberController()
         {
-            _translator = translator;
+			_translator = new GoogleTranslatorHelper(new DatabaseTranslationService());
             
         }
 

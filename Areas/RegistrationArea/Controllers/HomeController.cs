@@ -65,9 +65,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return View();
         }
 
-        public HomeController(IGoogleTranslatorHelper translator)
+        public HomeController()
         {
-            _translator = translator;
+            _translator = new GoogleTranslatorHelper( new DatabaseTranslationService());
         }
         public ActionResult SetLanguage(string language)
         {
