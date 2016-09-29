@@ -327,14 +327,14 @@
 					$("#protocol").val('1056');
 				}
 				else {
-					window.location = '/POD/Create?supplierName=' + $('#name').val() + '&supplierNumber=' + $('#internalID').val() + '&buyerFirstName=' + $('#firstName').val() + '&buyerLastName=' + $('#lastName').val() + '&buyerEmail=' + $('#email').val() + '&protocol=' + $('#protocol').val();
+					window.location = '@Url.Content("~/POD/Create")'+'?supplierName=' + $('#name').val() + '&supplierNumber=' + $('#internalID').val() + '&buyerFirstName=' + $('#firstName').val() + '&buyerLastName=' + $('#lastName').val() + '&buyerEmail=' + $('#email').val() + '&protocol=' + $('#protocol').val();
 				}
 			});
 		}
 	}
 
 	function submitForm() {
-		
+
 		$("form").submit();
 	}
 
