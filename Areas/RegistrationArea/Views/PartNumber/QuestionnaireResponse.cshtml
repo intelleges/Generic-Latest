@@ -16,10 +16,12 @@
     }
 }
 
-<script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>
+@*<script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>*@
 <script src="~/Scripts/jquery.blockUI.js"></script>
-@Scripts.Render("~/bundles/jquery")
-
+@*@Scripts.Render("~/bundles/jquery")*@
+@Styles.Render("~/bundles/registrationCss")
+@Styles.Render("~/bundles/progressBarCss")
+@Scripts.Render("~/bundles/animatedCollapseJs")
 
 <script type="text/javascript">
 
@@ -321,8 +323,7 @@
 
 
 
-@using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+
  
     <div class="top-margin">
 
@@ -330,72 +331,75 @@
 
 
     <section class="page-inner">
-        <div class="container">
-            @Html.Partial("_TopSection")            
-                <div class="questionaire-table">
-                   
-                    <div class="shadow-outer">
-                        <div class="shadow-box">
+	<div class="container">
+		@Html.Partial("_TopSection")
+		@using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
+		{
+			<div class="questionaire-table">
 
-                            <div class="box-shadow-dropdown shd-box-btn pre-next-btn">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        @Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
-                                        <br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
-                                    </div>
+				<div class="shadow-outer">
+					<div class="shadow-box">
 
-                                    <div class="col-md-3">
-                                        <span style="font-size: 12px;">
+						<div class="box-shadow-dropdown shd-box-btn pre-next-btn">
+							<div class="row">
+								<div class="col-md-2">
+									@Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+									<br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
+								</div>
 
-                                            @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
+								<div class="col-md-3">
+									<span style="font-size: 12px;">
 
-                                        </span>
-                                        @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
-                                        <br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
-                                    </div>
+										@Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
 
-                                    <div class="col-md-4">
-                                        <span style="font-size: 12px;">
-                                            @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_SITE)
-                                        </span>
-                                        @Html.DropDownList("siteSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Site is required." })
-                                        <br />     <span class="field-validation-valid" data-valmsg-for="siteSelectList" data-valmsg-replace="true"></span>
-                                    </div>
+									</span>
+									@Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+									<br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
+								</div>
 
-                                    <div class="col-md-3 text-right">
-                                        <button class="btn btn-default" id="imgBtnPrevious" type="button"><i class="fa fa-angle-double-left"></i></button>
-                                        <button class="btn btn-default" id="imgBtnNext" type="button"><i class="fa fa-angle-double-right"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+								<div class="col-md-4">
+									<span style="font-size: 12px;">
+										@Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_SITE)
+									</span>
+									@Html.DropDownList("siteSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Site is required." })
+									<br />     <span class="field-validation-valid" data-valmsg-for="siteSelectList" data-valmsg-replace="true"></span>
+								</div>
 
-                            @Html.Raw(ViewBag.questions)
-                        </div>
+								<div class="col-md-3 text-right">
+									<button class="btn btn-default" id="imgBtnPrevious" type="button"><i class="fa fa-angle-double-left"></i></button>
+									<button class="btn btn-default" id="imgBtnNext" type="button"><i class="fa fa-angle-double-right"></i></button>
+								</div>
+							</div>
+						</div>
 
-                    </div>
-                    <div class="hiddenValues">
-                        <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
-                        <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
-                        <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+						@Html.Raw(ViewBag.questions)
+					</div>
 
-                        <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
-                        <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
-                       
-                    </div>
+				</div>
+				<div class="hiddenValues">
+					<input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+					<input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+					<input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
 
+					<input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+					<input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
 
-                    <div class="pre-next-btn">
-                        <button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
-                        <button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
-                    </div>
-
-                </div>
-            
-        </div>
+				</div>
 
 
+				<div class="pre-next-btn">
+					<button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
+					<button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+				</div>
 
-    </section>
+			</div>
+		}
+	</div>
 
-}
+
+
+</section>
+
+
+
 

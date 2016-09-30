@@ -26,24 +26,20 @@
 
 <section class="page-inner">
     <div class="container">
-       @Html.Partial("_TopSection")
-        @*@Html.Raw(ViewBag.zcodeList)*@
+       @Html.Partial("_TopSection")        
         @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
         {
             <div class="progress-sub">
                 <div class="progress">
                     <div class="progress-bar" id="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                         <span class="sr-only">@ViewBag.percentageProgressbar Complete</span>
-                    </div>
-                    @*<div id="progressBar" class="tiny-green progressQstn">
-                            <div></div>
-                        </div>*@
+                    </div>                   
                     <input id="barpercent" type="hidden" value="@ViewBag.percentageProgressbar" />
 
                 </div>
                 <div class=" Later-button">
                     <input type="button" value="@formData.SAVE_FOR_LATER_TEXT" form="QuestionnaireResponse" id="saveforLater" formnovalidate class="btn btn-default pull-right cancel" onclick="submitForm()"/>
-                    @*<button class="btn btn-default pull-right cancel" type="submit" form="QuestionnaireResponse" id="saveforLater" formnovalidate>@formData.SAVE_FOR_LATER_TEXT</button>*@
+                    
                 </div>
             </div>
             <div class="questionaire-table">
@@ -53,7 +49,7 @@
 
                         <div class="shadow-box-hd">
 
-                            @*<button class="btn btn-default pull-right" type="submit" form="QuestionnaireResponse" id="saveforLater" formnovalidate >@formData.SAVE_FOR_LATER_TEXT</button>*@
+                            
 
                         </div>
 
