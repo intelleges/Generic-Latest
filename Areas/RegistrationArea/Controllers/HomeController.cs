@@ -2991,7 +2991,7 @@ Intelleges Team";
                 // fileName = CMSName;
 
                 //return file and provide byte file content and file name --application/pdf
-                return File(fileData, fileName);
+                return File(fileData, fileName??"file.pdf");
             }
             catch
             {

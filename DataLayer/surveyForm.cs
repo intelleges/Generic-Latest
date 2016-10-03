@@ -1105,7 +1105,8 @@ namespace Generic.DataLayer
                     HtmlGenericControl div = new HtmlGenericControl();
                     div.ID = "yDiv_" + question.id.ToString();
                     //div.Visible = false;
-                    div.Style.Add("display", "none");
+					if (pptqResponse == null || (pptqResponse != null && pptqResponse.response == 75))
+						div.Style.Add("display", "none");
                     div.InnerHtml = incldComment + " ";//"Include comments here: ";
                     tableCell.Controls.AddAt(0, div);
                 }
@@ -1113,7 +1114,14 @@ namespace Generic.DataLayer
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
+					Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
                     //divn.Visible = false;
+					if (checkCOde.IsMatch(incldComment))
+					{
+						divn.Attributes["data-code"] = checkCOde.Match(incldComment).Value;
+						incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
+					}
+					if (!(pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode))
                     divn.Style.Add("display", "none");
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                     tableCell.Controls.AddAt(0, divn);
@@ -1880,7 +1888,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     radioButtonList.Font.Size = 10;
                     //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
                     radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id);showDivByCode(this) ");
-
+					radioButtonList.Attributes.Add("onChange", "showdropdowndiv(this,radioListShowIfNeeded)");
 
 
 

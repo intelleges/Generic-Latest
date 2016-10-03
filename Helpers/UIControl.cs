@@ -45,6 +45,11 @@ System.Web.UI.WebControls.RadioButtonList
                             writer.WriteAttribute("onclick", attr["onclick"]);
                         }
                         catch { }
+						try
+						{
+							writer.WriteAttribute("onchange", attr["onchange"]);
+						}
+						catch { }
                         try
                         {
                             writer.WriteAttribute("checked", attr["checked"]);

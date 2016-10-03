@@ -91,21 +91,24 @@ function showIfNeeded(divname, id, code) {
         $(divname).hide();
     }
 }
-function showdropdowndiv(sender) {
-    var expr = new RegExp("\\([A-Z][A-Z]\\)");
-    var s = $(sender).prop("id");
-    var parts = s.split("_");
-    var result = parts[parts.length - 2];
-    var divname = "#nDiv_" + result;
+function showdropdowndiv(sender, showIfNeededFuntion) {
+	if (!showIfNeededFuntion) {
+		showIfNeededFuntion = showIfNeeded;
+	}
+	var expr = new RegExp("\\([A-Z][A-Z]\\)");
+	var s = $(sender).prop("id");
+	var parts = s.split("_");
+	var result = parts[parts.length - 2];
+	var divname = "#nDiv_" + result;
 
-    var arr = expr.exec($(divname).data("code"));
-    if (arr && arr.length > 0) {
-        showIfNeeded(divname, s, arr[0]);
-    } else {
-        if ($(divname).data("code")) {
-            showIfNeeded(divname, s, "(" + $(divname).data("code") + ")");
-        }
-    }
+	var arr = expr.exec($(divname).data("code"));
+	if (arr && arr.length > 0) {
+		showIfNeededFuntion(divname, s, arr[0]);
+	} else {
+		if ($(divname).data("code")) {
+			showIfNeededFuntion(divname, s, "(" + $(divname).data("code") + ")");
+		}
+	}
 }
 function showdivnew(sender) {
     //alert("Hello");
@@ -300,3 +303,10 @@ function showDivByCode(sender) {
         $(divname).hide();
     }
 }
+var radioListShowIfNeeded = function (divname, id, code) {
+	if ($("#" + id + " input:checked").data("code") === code) {
+		$(divname).show();
+	} else {
+		$(divname).hide();
+	}
+};
