@@ -5014,6 +5014,12 @@ Intelleges Team";
 				ViewName = "MoogCustomizedQuestionnaireSurveyPdfDownload";
 				return ViewCustomizedPdf(pptqID, ViewName);
 			}
+			else if (question != null && (question.footer == "6"))
+			{
+				pptqID = FillMOOGPdfHtml6(ViewBag, db, Session, Server);
+				ViewName = "MoogCustomizedQuestionnaireSurveyPdfDownload6";
+				return ViewCustomizedPdf(pptqID, ViewName);
+			}
 
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
@@ -5794,6 +5800,248 @@ Intelleges Team";
 					case 22130:
 						ViewBag.Value_22130 = item.response == _responseYES ? _chacked : "";
 						
+						break;
+					case 22131:
+						ViewBag.Value_22131 = item.response == _responseYES ? _chacked : "";
+
+						break;
+					case 22132:
+						ViewBag.Value_22132 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22132_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22133:
+						ViewBag.Value_22133 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22133_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22134:
+						ViewBag.Value_22134 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22134_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22135:
+						ViewBag.Value_22135 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22135_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22137:
+						ViewBag.Value_22137 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22137_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22138:
+						ViewBag.Value_22138 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22138_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22139:
+						ViewBag.Value_22139 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22139_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22140:
+						ViewBag.Value_22140 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22140_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22141:
+						ViewBag.Value_22141 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22141_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22143:
+						ViewBag.Value_22143 = item.comment;
+						//ViewBag.Value_22141_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22145:
+						switch (item.response)
+						{
+							case 45310:
+								ViewBag.Value_22145_45310 = _chacked;
+								break;
+							case 45311: ViewBag.Value_22145_45311 = _chacked; break;
+							case 45312: ViewBag.Value_22145_45312 = _chacked; break;
+							case 45313: ViewBag.Value_22145_45313 = _chacked; break;
+							case 45314: ViewBag.Value_22145_45314 = _chacked; break;
+							case 45315: ViewBag.Value_22145_45315 = _chacked; break;
+						}
+						break;
+				}
+			}
+			return pptqID;
+		}
+
+		public static int FillMOOGPdfHtml6(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+		{
+			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+			ViewBag.accessCode = accessCode;
+			ViewBag.partnerHeader = _partnerHeader;
+			List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+			var partnerId = pptq != null ? pptq.partner : -1;
+			eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
+			var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+			eSignature objeSignature =
+					db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptqID).FirstOrDefault();
+			var state = db.pr_getState(_partner.state ?? -1).FirstOrDefault();
+			ViewBag.Offerer = _partner.FullName;
+			ViewBag.Date = pptq.completedDate;
+			ViewBag.Address1 = _partner.address1 + " " + _partner.address2 + ",";
+			ViewBag.Address2 = _partner.city + ", " + (state != null ? state.name : "") + ", " + _partner.zipcode;
+			if (objeSignature != null)
+			{
+				ViewBag.eSig_Email = objeSignature.email;
+				ViewBag.eSig_Date = objeSignature.completeDate;
+				ViewBag.eSig_Name = _partner.firstName + " " + _partner.lastName;
+				ViewBag.eSig_Title = _partner.title;
+				ViewBag.eSig_Company = _partner.name;
+				ViewBag.eSig_phone = _partner.phone;
+
+			}
+			//  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+			var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+			var _responseYES = 74;
+			var _responseNO = 75;
+			var _chacked = "checked";
+			Regex codeRegex = new Regex("\\([A-Z][A-Z]\\)");
+
+			foreach (var item in _PPTQQuestionResponse)
+			{
+				switch (item.question)
+				{
+					case 22111:
+						ViewBag.Value_22111 = item.response == _responseYES ? _chacked : "";
+						if (!string.IsNullOrEmpty(ViewBag.Value_22111))
+							ViewBag.Value_22111_comment = item.comment;
+						break;
+					case 22112:
+						ViewBag.Value_22112 = item.response == _responseYES ? _chacked : "";
+						if (!string.IsNullOrEmpty(ViewBag.Value_22112))
+							ViewBag.Value_22112_comment = item.comment;
+						break;
+					case 22113:
+						ViewBag.Value_22113 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22114:
+						//var wasChecked = false;
+						if (string.IsNullOrEmpty(ViewBag.Value_22112) && string.IsNullOrEmpty(ViewBag.Value_22113))
+						{
+							switch (item.response)
+							{
+								case 45286:
+									ViewBag.Value_22114_45286 = _chacked;
+									//wasChecked = true;
+									break;
+								case 45287:
+									ViewBag.Value_22114_45287 = _chacked;
+									//wasChecked = true;
+									break;
+								case 45288:
+									ViewBag.Value_22114_45288 = _chacked;
+									//wasChecked = true;
+									break;
+								case 45289:
+									ViewBag.Value_22114_45289 = _chacked;
+									//wasChecked = true;
+									break;
+								default:
+
+									break;
+							}
+
+							ViewBag.Value_22114 = _chacked;
+						}
+						//ViewBag.Value_22114_Comment = item.comment;
+						break;
+					case 22115:
+						switch (item.response)
+						{
+							case 45290:
+								ViewBag.Value_22115_45290 = _chacked;
+								break;
+							case 45291:
+								ViewBag.Value_22115_45291 = _chacked;
+								break;
+							case 45292:
+								ViewBag.Value_22115_45292 = _chacked;
+								break;
+							case 45293:
+								ViewBag.Value_22115_45293 = _chacked;
+								break;
+							case 45294:
+								ViewBag.Value_22115_45294 = _chacked;
+								break;
+							case 45295:
+								ViewBag.Value_22115_45295 = _chacked;
+								break;
+							case 45296:
+								ViewBag.Value_22115_45296 = _chacked;
+								break;
+							//case 4529:
+							//	ViewBag.Value_22114_45296 = _chacked;
+							//	break;
+						}
+						ViewBag.Value_22115 = item.comment;
+						break;
+					case 22116:
+						ViewBag.Value_22116 = item.response == _responseNO ? _chacked : "";
+						ViewBag.Value_22116_Name = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22117:
+						ViewBag.Value_22117 = item.comment;
+						break;
+					case 22118:
+						ViewBag.Value_22118 = item.comment;
+						break;
+					case 22119:
+						ViewBag.Value_22119 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22120:
+						ViewBag.Value_22120 = item.comment;
+						//ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22121:
+
+						var responseObj = db.pr_getResponse(item.response ?? -1).FirstOrDefault();
+						if (responseObj != null)
+						{
+							ViewBag.Value_22121 = codeRegex.Replace(responseObj.description, "");
+						}
+						//ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22122:
+						ViewBag.Value_22122 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22122_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22128:
+						ViewBag.Value_22128 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22128_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22123:
+						ViewBag.Value_22123 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22123_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22124:
+						ViewBag.Value_22124 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22124_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22125:
+						ViewBag.Value_22125 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22125_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22126:
+						ViewBag.Value_22126 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22126_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22127:
+						ViewBag.Value_22127 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22127_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22129:
+						ViewBag.Value_22129 = item.response == _responseYES ? _chacked : "";
+						ViewBag.Value_22129_oposite = item.response == _responseNO ? _chacked : "";
+						break;
+					case 22130:
+						ViewBag.Value_22130 = item.response == _responseYES ? _chacked : "";
+
 						break;
 					case 22131:
 						ViewBag.Value_22131 = item.response == _responseYES ? _chacked : "";
