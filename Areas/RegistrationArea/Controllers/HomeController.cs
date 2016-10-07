@@ -5906,38 +5906,38 @@ Intelleges Team";
 			{
 				switch (item.question)
 				{
-					case 22111:
+					case 22826:
 						ViewBag.Value_22111 = item.response == _responseYES ? _chacked : "";
 						if (!string.IsNullOrEmpty(ViewBag.Value_22111))
 							ViewBag.Value_22111_comment = item.comment;
 						break;
-					case 22112:
+					case 22827:
 						ViewBag.Value_22112 = item.response == _responseYES ? _chacked : "";
 						if (!string.IsNullOrEmpty(ViewBag.Value_22112))
 							ViewBag.Value_22112_comment = item.comment;
 						break;
-					case 22113:
+					case 22828:
 						ViewBag.Value_22113 = item.response == _responseYES ? _chacked : "";
 						break;
-					case 22114:
+					case 22829:
 						//var wasChecked = false;
 						if (string.IsNullOrEmpty(ViewBag.Value_22112) && string.IsNullOrEmpty(ViewBag.Value_22113))
 						{
 							switch (item.response)
 							{
-								case 45286:
+								case 45815:
 									ViewBag.Value_22114_45286 = _chacked;
 									//wasChecked = true;
 									break;
-								case 45287:
+								case 45816:
 									ViewBag.Value_22114_45287 = _chacked;
 									//wasChecked = true;
 									break;
-								case 45288:
+								case 45817:
 									ViewBag.Value_22114_45288 = _chacked;
 									//wasChecked = true;
 									break;
-								case 45289:
+								case 45818:
 									ViewBag.Value_22114_45289 = _chacked;
 									//wasChecked = true;
 									break;
@@ -5950,28 +5950,28 @@ Intelleges Team";
 						}
 						//ViewBag.Value_22114_Comment = item.comment;
 						break;
-					case 22115:
+					case 22830:
 						switch (item.response)
 						{
-							case 45290:
+							case 45819:
 								ViewBag.Value_22115_45290 = _chacked;
 								break;
-							case 45291:
+							case 45820:
 								ViewBag.Value_22115_45291 = _chacked;
 								break;
-							case 45292:
+							case 45821:
 								ViewBag.Value_22115_45292 = _chacked;
 								break;
-							case 45293:
+							case 45822:
 								ViewBag.Value_22115_45293 = _chacked;
 								break;
-							case 45294:
+							case 45823:
 								ViewBag.Value_22115_45294 = _chacked;
 								break;
-							case 45295:
+							case 45824:
 								ViewBag.Value_22115_45295 = _chacked;
 								break;
-							case 45296:
+							case 45825:
 								ViewBag.Value_22115_45296 = _chacked;
 								break;
 							//case 4529:
@@ -5980,7 +5980,7 @@ Intelleges Team";
 						}
 						ViewBag.Value_22115 = item.comment;
 						break;
-					case 22116:
+					case 22831:
 						ViewBag.Value_22116 = item.response == _responseNO ? _chacked : "";
 						ViewBag.Value_22116_Name = item.response == _responseYES ? _chacked : "";
 						break;
@@ -5990,7 +5990,7 @@ Intelleges Team";
 					case 22118:
 						ViewBag.Value_22118 = item.comment;
 						break;
-					case 22119:
+					case 22834:
 						ViewBag.Value_22119 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
 						break;
@@ -5998,7 +5998,7 @@ Intelleges Team";
 						ViewBag.Value_22120 = item.comment;
 						//ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22121:
+					case 22836:
 
 						var responseObj = db.pr_getResponse(item.response ?? -1).FirstOrDefault();
 						if (responseObj != null)
@@ -6007,98 +6007,122 @@ Intelleges Team";
 						}
 						//ViewBag.Value_22119_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22122:
+					case 22837:
 						ViewBag.Value_22122 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22122_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22128:
+					case 22843:
 						ViewBag.Value_22128 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22128_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22123:
+					case 22838:
 						ViewBag.Value_22123 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22123_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22124:
+					case 22839:
 						ViewBag.Value_22124 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22124_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22125:
+					case 22840:
 						ViewBag.Value_22125 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22125_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22126:
+					case 22841:
 						ViewBag.Value_22126 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22126_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22127:
+					case 22842:
 						ViewBag.Value_22127 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22127_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22129:
+					case 22844:
 						ViewBag.Value_22129 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22129_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22130:
+					case 22845:
 						ViewBag.Value_22130 = item.response == _responseYES ? _chacked : "";
 
 						break;
-					case 22131:
+					case 22846:
 						ViewBag.Value_22131 = item.response == _responseYES ? _chacked : "";
 
 						break;
-					case 22132:
+					case 22847:
 						ViewBag.Value_22132 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22132_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22133:
+					case 22848:
 						ViewBag.Value_22133 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22133_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22134:
+					case 22849:
 						ViewBag.Value_22134 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22134_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22135:
+					case 22850:
 						ViewBag.Value_22135 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22135_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22137:
+					case 22852:
 						ViewBag.Value_22137 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22137_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22138:
+					case 22853:
 						ViewBag.Value_22138 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22138_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22139:
+					case 22854:
 						ViewBag.Value_22139 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22139_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22140:
+					case 22855:
 						ViewBag.Value_22140 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22140_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22141:
+					case 22856:
 						ViewBag.Value_22141 = item.response == _responseYES ? _chacked : "";
 						ViewBag.Value_22141_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22143:
+					case 22858:
 						ViewBag.Value_22143 = item.comment;
 						//ViewBag.Value_22141_oposite = item.response == _responseNO ? _chacked : "";
 						break;
-					case 22145:
+					case 22860:
 						switch (item.response)
 						{
-							case 45310:
+							case 45838:
 								ViewBag.Value_22145_45310 = _chacked;
 								break;
-							case 45311: ViewBag.Value_22145_45311 = _chacked; break;
-							case 45312: ViewBag.Value_22145_45312 = _chacked; break;
-							case 45313: ViewBag.Value_22145_45313 = _chacked; break;
-							case 45314: ViewBag.Value_22145_45314 = _chacked; break;
-							case 45315: ViewBag.Value_22145_45315 = _chacked; break;
+							case 45839: ViewBag.Value_22145_45311 = _chacked; break;
+							case 45840: ViewBag.Value_22145_45312 = _chacked; break;
+							case 45841: ViewBag.Value_22145_45313 = _chacked; break;
+							case 45842: ViewBag.Value_22145_45314 = _chacked; break;
+							case 45843: ViewBag.Value_22145_45315 = _chacked; break;
 						}
+						break;
+					case 22861:
+						ViewBag.Value_22861 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22862:
+						ViewBag.Value_22862 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22863:
+						ViewBag.Value_22863 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22864:
+						ViewBag.Value_22864 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22865:
+						ViewBag.Value_22865 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22866:
+						ViewBag.Value_22866 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22867:
+						ViewBag.Value_22867 = item.response == _responseYES ? _chacked : "";
+						break;
+					case 22868:
+						ViewBag.Value_22868 = item.response == _responseYES ? _chacked : "";
 						break;
 				}
 			}
@@ -6111,8 +6135,8 @@ Intelleges Team";
 		}
 		public ActionResult TestMOOGPage()
 		{
-			var pptqID = FillMOOGPdfHtml(ViewBag, db, Session, Server);
-			return View("MoogCustomizedQuestionnaireSurveyPdfDownload");
+			var pptqID = FillMOOGPdfHtml6(ViewBag, db, Session, Server);
+			return View("MoogCustomizedQuestionnaireSurveyPdfDownload6");
 		}
 
         protected ActionResult ViewCustomizedPdf(int pptqID, string ViewName)
