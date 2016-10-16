@@ -3339,6 +3339,7 @@
     <Content Include="Contents\AdminStyle\fonts\Avenir-Roman-webfont.woff" />
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload6.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
