@@ -65,7 +65,7 @@ namespace Generic.Controllers
             try
             {
 
-                int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.federalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city,partner.province??"", partner.fax, "", partner.firstName, partner.lastName, partner.title??"", partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
+				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.federalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, partner.title ?? "", partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                 Session["uploadedpartnerList"] = uploadedpartners;
                 Session["partnertype"] = partnertype;

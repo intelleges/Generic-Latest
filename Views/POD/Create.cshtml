@@ -713,13 +713,13 @@
                     @Html.TextBoxFor(model => model.title, new { @class = "txtClass" })
                 </div>
 
-                <div class="editor-label">
+                <div class="editor-label" style="display:none;">
                     @Html.Label("Global Sourcing Manager Email (Optional)")
                 </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.province)
-                </div>
+				<div class="editor-field" style="display:none;">
+					@Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.province)
+				</div>
 
                 <div class="editor-label">
                     @*@Html.LabelFor(model => model.federalID)*@

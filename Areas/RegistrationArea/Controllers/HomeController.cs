@@ -5058,7 +5058,7 @@ Intelleges Team";
 			ViewBag.ChangeAmount = _partner.city;
 			ViewBag.BuyerName = _partner.firstName + " " + _partner.lastName;
 			ViewBag.ComplienceAnalist = _partner.title;
-			ViewBag.GlobalSourcing = _partner.state;
+			ViewBag.GlobalSourcing = _partner.fax;
 			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
 			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
