@@ -1363,7 +1363,7 @@
 							</b>
 						</font><font size="1"> </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
 						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_Yes>YES</label><span style="background: #00ff00;font-size: 6pt"></span>
-						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_Yes>NO</label><span style="background: #00ff00;font-size: 6pt"></span>
+						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_No>NO</label><span style="background: #00ff00;font-size: 6pt"></span>
 					</p>
 					@if (!string.IsNullOrEmpty(ViewBag.Q24847_Yes))
 					{
@@ -1439,8 +1439,7 @@
 							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 						</p>
 					}
-					@if (!string.IsNullOrEmpty(ViewBag.Q24847_No))
-					{
+					
 						<p class="western" style="margin-top: 0.03in">
 							<font size="1">
 								<i>
@@ -1470,7 +1469,7 @@
 							<font size="1" style="font-size: 7pt">
 							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 						</p>
-					}
+					
 				</td>
 			</tr>
 			<tr>
@@ -1974,8 +1973,7 @@
 									<p lang="en-US" class="western" style="margin-bottom: 0.06in">
 										<font size="1">
 											<i>
-												Is
-												the cost-reimbursement contract flowing down FAR 52.244-2 Alt 1?
+												Is the customer contract cost-reimbursement and flowing down FAR 52.244-2 Alt 1?
 											</i>
 										</font>
 									</p>
@@ -2069,8 +2067,7 @@
 										<font size="1">
 											<span lang="en-US">
 												<i>
-													Is
-													the cost-reimbursement contract flowing down FAR 52.244-2?
+													Is the customer contract cost-reimbursement and flowing down FAR 52.244-2?
 												</i>
 											</span>
 										</font><font size="1">
@@ -2112,7 +2109,7 @@
 													TO PO FILE COMMENTS:
 												</span>
 											</font>
-										</span><font size="1"><span lang="en-US"><u><input type="text" class="textBox" @ViewBag.Q24920_Value /></u></span></font><font size="1">
+										</span><font size="1"><span lang="en-US"><u><input type="text" class="textBox" value="@ViewBag.Q24920_Value"  /></u></span></font><font size="1">
 											<span lang="en-US">
 											</span>
 										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
@@ -2259,7 +2256,7 @@
 												<i>
 													<b>
 														Annual
-														Cert, Item #10
+														Cert, Item #9
 													</b>
 												</i>
 											</span>
@@ -3695,7 +3692,7 @@
 						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
 							<font size="1"><b>DATE:</b></font>
 						</p>
-						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>MISSING</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>@ViewBag.completeDate</p>
 					</td>
 				</tr>
 				<tr valign="TOP">
@@ -3718,7 +3715,7 @@
 						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
 							<font size="1"><b>DATE:</b></font>
 						</p>
-						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>MISSING</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
 					</td>
 				</tr>
 				<tr valign="TOP">
@@ -3743,7 +3740,7 @@
 						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
 							<font size="1"><b>DATE:</b></font>
 						</p>
-						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>MISSING</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
 					</td>
 				</tr>
 				<tr valign="TOP">
@@ -3762,13 +3759,13 @@
 								</font>
 							</span>
 						</p>
-						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>MISSING</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
 					</td>
 					<td width="221" style="border: 1px solid #000000; padding: 0in 0.08in">
 						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
 							<font size="1"><b>DATE:</b></font>
 						</p>
-						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>MISSING</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
 					</td>
 				</tr>
 			</tbody>

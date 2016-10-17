@@ -5049,20 +5049,23 @@ Intelleges Team";
 			eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
 			var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
 			ViewBag.partner = _partner;
-			ViewBag.Supplyer = _partner.internalID;
+			ViewBag.Supplyer = _partner.name;
 			ViewBag.PurchaseOrderNumber = _partner.address1;
 			ViewBag.PurchaseOrderValue = "$" + new Regex("/\\B(?=(\\d{3})+(?!\\d))/g").Replace(_partner.address2.Replace(",", ""), ",");
-			ViewBag.PO_REVISION_NUMBER = "MISSING";
-			ViewBag.PartNumber = _partner.fax;
+			ViewBag.PO_REVISION_NUMBER = _partner.phone;
+			ViewBag.PartNumber = _partner.zipcode;
 			ViewBag.PnDescription = _partner.dunsNumber;
 			ViewBag.ChangeAmount = _partner.city;
 			ViewBag.BuyerName = _partner.firstName + " " + _partner.lastName;
 			ViewBag.ComplienceAnalist = _partner.title;
-			ViewBag.GlobalSourcing = _partner.province;
+			ViewBag.GlobalSourcing = _partner.state;
 			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
 			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
-
+			//_signature
+			ViewBag.signature = _signature;
+			ViewBag.personTitle = _partner != null ? _partner.title : "";
+			ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
 			//  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
 			var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
