@@ -5032,11 +5032,18 @@ Intelleges Team";
         }
 		private static decimal GetNumber(string value)
 		{
-			Regex decimalDeterminator = new Regex("\\d+(\\.\\d{1,2})?");
+			/*Regex decimalDeterminator = new Regex("\\d+(\\.\\d{1,2})?");
 			var match = decimalDeterminator.Match(value);
 			if (match.Success)
 				return decimal.Parse(match.Value);
-			else return 0;
+			else return 0;*/
+			try
+			{
+				return decimal.Parse(Regex.Match(value, @"-?\d{1,3}(,\d{3})*(\.\d+)?").Value);
+			}
+			catch {
+				return 0;
+			}
 		}
 		public static int FillPODPdfHtml(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
 		{
@@ -5146,16 +5153,22 @@ Intelleges Team";
 					case 23574:
 						ViewBag.Q23574_Yes = item.response == _responseYES ? _chacked : string.Empty;
 						ViewBag.Q23574_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 23575:		
 						ViewBag.Q23574_Comment = item.comment;
 						break;
 					case 23576:
 						ViewBag.Q23576_Yes = item.response == _responseYES ? _chacked : string.Empty;
 						ViewBag.Q23576_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 23577:
 						ViewBag.Q23576_Comment = item.comment;
 						break;
 					case 23578:
 						ViewBag.Q23578_Yes = item.response == _responseYES ? _chacked : string.Empty;
 						ViewBag.Q23578_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 23579:
 						ViewBag.Q23578_Comment = item.comment;
 						break;
 					case 23580:

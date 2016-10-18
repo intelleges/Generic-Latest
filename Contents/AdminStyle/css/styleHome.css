@@ -1299,7 +1299,7 @@ body .shadow-box li::before {
    vertical-align: top;
 }
 .questionaire-table table table tr td label {
-    width: 94%;
+   /* width: 94%;*/
     padding-left: 10px;
     /*vertical-align: top;
     display:inline-block;*/
