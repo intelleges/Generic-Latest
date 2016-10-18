@@ -6161,6 +6161,9 @@ Intelleges Team";
 					case 22860:
 						switch (item.response)
 						{
+							case 45838:
+								ViewBag.Value_22860_45838 = _chacked;
+								break;
 							case 45839:
 								ViewBag.Value_22145_45310 = _chacked;
 								break;
