@@ -51,10 +51,10 @@
 
 
 
-	<h2>Find PODS</h2>
+<h2>Find PODS</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("findpods", "pod", System.Web.Mvc.FormMethod.Post))
 {
 	@Html.ValidationSummary(true)
 
@@ -65,7 +65,7 @@
 
 		<table width="70%; " style="float:left" border="0">
 			<tbody>
-				
+
 				<tr>
 					<td class="tLeftColumn">Supplier #</td>
 					<td class="tCenterColumn"></td>
@@ -110,14 +110,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="tLeftColumn">Partner Type</td>
+					<td class="tLeftColumn">Access Code</td>
 					<td class="tCenterColumn"></td>
 					<td class="tRightColumn">
-						@Html.DropDownList("partnertype", (System.Web.Mvc.SelectList)ViewBag.PT, String.Empty, new {  })
+						@Html.TextBoxFor(model => model.AccessCode, new { @class = "txtBox1" })
 					</td>
 				</tr>
-				
-				
+				<tr>
+					<td class="tLeftColumn">Status</td>
+					<td class="tCenterColumn"></td>
+					<td class="tRightColumn">
+						@Html.DropDownList("partnerStatus", String.Empty)
+					</td>
+				</tr>
 				<tr>
 					<td class="tLeftColumn"></td>
 					<td class="tCenterColumn"></td>

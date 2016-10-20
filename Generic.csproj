@@ -4917,6 +4917,7 @@
     <EmbeddedResource Include="Views\Shared\_NewRegistrationLayout.cshtml" />
     <Content Include="Views\POD\Create.cshtml" />
     <Content Include="Views\POD\FindPODS.cshtml" />
+    <Content Include="Views\POD\FindPODSResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

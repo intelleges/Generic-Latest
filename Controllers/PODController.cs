@@ -30,8 +30,7 @@ namespace Generic.Controllers
 
 		public ActionResult FindPODS()
 		{
-			ViewBag.PT = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-
+			ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 			return View();
 		}
 
@@ -39,9 +38,49 @@ namespace Generic.Controllers
 
 		public ActionResult FindPODS(FindPODSViewModel model)
 		{
-			ViewBag.PT = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+			ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 
-			return View();
+			string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+
+			arguments += "touchpointID=4226;";
+			arguments += "partnertypeID=248;";
+
+			if (model.partnerStatus != null)
+				arguments += "StatusID=" + model.partnerStatus + ";";
+			if (model.SupplierNumber != "")
+				arguments += "InternalId=" + model.SupplierNumber + ";";
+			if (model.PoNumber != "")
+				arguments += "address=" + model.PoNumber + ";";
+			if (model.SupplierName != "")
+				arguments += "PartnerName=" + model.SupplierName + ";";
+			if (model.PoVersion != "")
+				arguments += "phone=" + model.PoVersion + ";";
+			if (model.AccessCode != "")
+				arguments += "accesscode=" + model.AccessCode + ";";
+			if (model.BuyerEmail != "")
+				arguments += "ContactEmail=" + model.BuyerEmail + ";";
+			if (model.PartNumber != "")
+				arguments += "zipcode=" + model.PartNumber + ";";
+
+			Session["podssearch"] = arguments;
+
+			return RedirectToAction("FindPODSResult");
+		}
+
+		public ActionResult FindPODSResult()
+		{
+			try
+			{
+				string arguments = Session["podssearch"].ToString() + "active=1;";
+				Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+				List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+				return View(abc);
+			}
+			catch
+			{
+				return RedirectToAction("FindPODS");
+
+			}
 		}
 
         protected void GenerateCreateDropDownLists()

@@ -23,9 +23,13 @@ namespace Generic.Models
 
 		public string BuyerEmail { get; set; }
 
+		public string AccessCode { get; set; }
+
 
 		public string touchpoint { get; set; }
 
 		public string partnertype { get; set; }
+
+		public string partnerStatus { get; set; }
 	}
 }
