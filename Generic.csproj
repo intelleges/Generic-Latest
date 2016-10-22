@@ -3340,6 +3340,7 @@
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload6.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload8.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
