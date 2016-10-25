@@ -2224,13 +2224,13 @@ namespace Generic.Controllers
 			var error = "";
 			EmailFormat formatter = new EmailFormat();
 			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-			if (!string.IsNullOrEmpty(accessCodes) && accessCodes.Contains(','))
+			if (!string.IsNullOrEmpty(accessCodes))
 			{
 				foreach (var accessCode in accessCodes.Split(",".ToArray(), StringSplitOptions.RemoveEmptyEntries))
 				{
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
-					var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1);
+					var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
 				}
 			}
