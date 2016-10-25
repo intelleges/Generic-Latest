@@ -3,490 +3,520 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-    Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "Partner";
+	Layout = LayoutHelper.GetLayout();
+	ViewBag.Title = "Partner";
 }
 
 <style>
-    div#PartnerGrid {
-        font-size: 11px;
-    }
+	div#PartnerGrid {
+		font-size: 11px;
+	}
 
-    #modal {
-        height: 489px;
-    }
+	#modal {
+		height: 489px;
+	}
 
-    .ui-dialog {
-        width: 99% !important;
-        left: 0;
-    }
+	.ui-dialog {
+		width: 99% !important;
+		left: 0;
+	}
 </style>
 
 
 
 
 <div class="tw-bs">
-    <div class="container">
-        <div class="modal fade" id="emailDialog" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" style="z-index:1041">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
-                        </button>
-                        <h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="madalEmailForm">
-                            <div class="form-group">
+	<div class="container">
+		<div class="modal fade" id="emailDialog" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" style="z-index:1041">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only"></span>
+						</button>
+						<h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
+					</div>
+					<div class="modal-body">
+						<form id="madalEmailForm">
+							@if (ViewBag.DropDownSubjects != null)
+							{
+								<div class="form-group">
 
-                                <label class="control-label" for="emailSubject">Subject</label>
-                                <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
-                                <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+									<label class="control-label" for="emailSubject">Automail</label>
 
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="emailText">Text</label>
-                                <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
-                                <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
-                                <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
-                                <script>
-                                    // Replace the <textarea id="editor1"> with a CKEditor
-                                    // instance, using default configuration.
-                                    CKEDITOR.replace('emailText');
-                                </script>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
-                                <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
-                            </div>
-                            <div class="form-group">
-                                <div class="row" style="height:34px;">
-                                    <div class="col-xs-9">
-                                        <button type="submit" class="btn btn-primary" name="submit">Send</button>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="checkbox">
-                                            <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									@Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+
+								</div>
+							}
+							<div class="form-group">
+
+								<label class="control-label" for="emailSubject">Subject</label>
+
+								<input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
+								<span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+
+
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="emailText">Text</label>
+								<input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
+								<textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true" ></textarea>
+								<span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
+								<script>
+									// Replace the <textarea id="editor1"> with a CKEditor
+									// instance, using default configuration.
+									CKEDITOR.replace('emailText');
+								</script>
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
+								<input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
+							</div>
+							<div class="form-group">
+								<div class="row" style="height:34px;">
+									<div class="col-xs-9">
+										<button type="submit" class="btn btn-primary" name="submit">Send</button>
+									</div>
+									<div class="col-xs-3">
+										<div class="checkbox">
+											<label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <form method="post" id="gridForm">
-    <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
-
-    
-    @*@if (ViewBag.searchType == "Invite")
-    {
-        @Html.Raw("Due Date :");
-        @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
-    }*@
-
-    @*.ToolBar(commands => commands
-        .Custom()
-            .HtmlAttributes(new { id = "go" })
-            .Text("Go")
-            .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+	<input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
 
-    @( Html.Telerik().Grid(Model).Name("PartnerGrid")
+	@*@if (ViewBag.searchType == "Invite")
+		{
+			@Html.Raw("Due Date :");
+			@Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
+		}*@
+
+	@*.ToolBar(commands => commands
+		.Custom()
+			.HtmlAttributes(new { id = "go" })
+			.Text("Go")
+			.Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+
+
+	@( Html.Telerik().Grid(Model).Name("PartnerGrid")
 
 
  .ToolBar(commands =>
-            {
-                commands.Template("<input style='width: 50px;' type='button' value='Go' id='btnGo' />");
-            })
+			{
+				commands.Template("<input style='width: 50px;' type='button' value='Go' id='btnGo' />");
+			})
 
-        .Columns(columns =>
-        {
+		.Columns(columns =>
+		{
 
-            columns.Bound(o => o.IsSelected)
+			columns.Bound(o => o.IsSelected)
 
-                   .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
-                   .Template(@<text>
-
-
-                    <input type='checkbox' id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
-
-                    <input type="hidden" name='partnertypeID' value='@item.partnertypeID' />
-
-                    <input type="hidden" name='touchpoint' value='@item.campaign' />
-
-                    <input type="hidden" name='AccessCode' value='@item.AccessCode' />
-
-                    <input type="hidden" name='ContactEmail' value='@item.ContactEmail' />
-
-                </text>)
-                   .Width(50)
-                   .HtmlAttributes(new { style = "text-align:center" }).Sortable(false);
+				   .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
+				   .Template(@<text>
 
 
-            columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
-            columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400).Template(@<text><a href='#' id='@item.PartnerName' class="menu_block">@item.PartnerName</a>
-            <div class="display_menu" style="display: none;">
-                <ul>
-                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-                    <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-                    <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
-                    <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-                    <li><a href="javascript:openCompletePopup()">Complete</a></li>
-                </ul>
-            </div>
-            </text>);
-            columns.Bound(o => o.Contact).Title("Contact").Width(100);
-            columns.Bound(o => o.phone).Title("Phone").Width(100);
-            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
-            // .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
+					<input type='checkbox' id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
 
-            columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(200);
+					<input type="hidden" name='partnertypeID' value='@item.partnertypeID' />
 
-            columns.Bound(o => o.owner).Title("Owner").Width(100);
-            columns.Bound(o => o.Country).Title("Country").Width(100);
-            columns.Bound(o => o.city).Title("City").Width(100);
-            columns.Bound(o => o.state).Title("State").Width(100);
+					<input type="hidden" name='touchpoint' value='@item.campaign' />
 
-            columns.Bound(o => o.address).Title("Address").Width(200);
-            columns.Bound(o => o.zipcode).Title("Zipcode").Width(100);
+					<input type="hidden" name='AccessCode' value='@item.AccessCode' />
 
-            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
-            columns.Bound(o => o.Partnertype).Title("Partnertype").Width(100);
-            columns.Bound(o => o.Group).Title("Group").Width(100);
-            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(100).Template(@<text><a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
-                <ul>
-                    <li>
-                        <a href="#">
-                            Remind
-                        </a>
-                    </li>
-                    <li><a href="#">Re-Invite (intelleges.com)</a></li>
-                    <li><a href="#">Re-Invite (racix.net)</a></li>
-                    <li><a href="#">Rescind</a></li>
-                    <li><a href="#">Remove</a></li>
-                    <li><a href="#">Retrieve</a></li>
-                </ul>
-            </div></text>);
-            columns.Bound(o => o.status).Title("Status").Width(200);
+					<input type="hidden" name='ContactEmail' value='@item.ContactEmail' />
+
+				</text>)
+				   .Width(50)
+				   .HtmlAttributes(new { style = "text-align:center" }).Sortable(false);
 
 
-        })
+			columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
+			columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400).Template(@<text><a href='#' id='@item.PartnerName' class="menu_block">@item.PartnerName</a>
+			<div class="display_menu" style="display: none;">
+				<ul>
+					<li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+					<li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+					<li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+					<li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+					<li><a href="javascript:openCompletePopup()">Complete</a></li>
+				</ul>
+			</div>
+			</text>);
+			columns.Bound(o => o.Contact).Title("Contact").Width(100);
+			columns.Bound(o => o.phone).Title("Phone").Width(100);
+			columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
+			// .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
 
-         //.ClientEvents(events => events.OnDataBound("onDataBound"))
-        .DataKeys(keys => keys.Add(o => o.internalID))
-        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(false))
-        .Sortable(sorting => sorting.Enabled(true))
+			columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(200);
 
-        .Scrollable(scrolling => scrolling
-           .Enabled(true)
-           .Height(380))
-           .HtmlAttributes(new { @class = "ra" })
+			columns.Bound(o => o.owner).Title("Owner").Width(100);
+			columns.Bound(o => o.Country).Title("Country").Width(100);
+			columns.Bound(o => o.city).Title("City").Width(100);
+			columns.Bound(o => o.state).Title("State").Width(100);
+
+			columns.Bound(o => o.address).Title("Address").Width(200);
+			columns.Bound(o => o.zipcode).Title("Zipcode").Width(100);
+
+			columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
+			columns.Bound(o => o.Partnertype).Title("Partnertype").Width(100);
+			columns.Bound(o => o.Group).Title("Group").Width(100);
+			columns.Bound(o => o.AccessCode).Title("AccessCode").Width(100).Template(@<text><a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
+				<ul>
+					<li>
+						<a href="#">
+							Remind
+						</a>
+					</li>
+					<li><a href="#">Re-Invite (intelleges.com)</a></li>
+					<li><a href="#">Re-Invite (racix.net)</a></li>
+					<li><a href="#">Rescind</a></li>
+					<li><a href="#">Remove</a></li>
+					<li><a href="#">Retrieve</a></li>
+				</ul>
+			</div></text>);
+			columns.Bound(o => o.status).Title("Status").Width(200);
+
+
+		})
+
+														 //.ClientEvents(events => events.OnDataBound("onDataBound"))
+														.DataKeys(keys => keys.Add(o => o.internalID))
+														.Pageable(pager => pager.PageSize(13).Total(200).Enabled(false))
+														.Sortable(sorting => sorting.Enabled(true))
+
+														.Scrollable(scrolling => scrolling
+														   .Enabled(true)
+														   .Height(380))
+														   .HtmlAttributes(new { @class = "ra" })
 
 
 
-    )
+	)
 </form>
 <div id="innerEmailDialog" title="Questionnaire Routing Form">
-    <p>Email dialog</p>
+	<p>Email dialog</p>
 </div>
 <div id="genericPopup" title=""></div>
 <style>
-    .t-grid-content tr > td:hover .menu_block + .display_menu {
-        display: block !important;
-    }
+	.t-grid-content tr > td:hover .menu_block + .display_menu {
+		display: block !important;
+	}
 
-    .display_menu {
-        left: 65px;
-        overflow: visible;
-        position: absolute;
-        top: -5px;
-        background: #fff;
-        border: 1px solid #ddd;
-        z-index: 100;
-    }
+	.display_menu {
+		left: 65px;
+		overflow: visible;
+		position: absolute;
+		top: -5px;
+		background: #fff;
+		border: 1px solid #ddd;
+		z-index: 100;
+	}
 
-    .t-grid-content tr > td {
-        overflow: visible !important;
-        position: relative;
-    }
+	.t-grid-content tr > td {
+		overflow: visible !important;
+		position: relative;
+	}
 
-    .display_menu > ul {
-        padding: 0 16px;
-    }
+	.display_menu > ul {
+		padding: 0 16px;
+	}
 
-    .display_menu li {
-        list-style: none outside none;
-        width: 143px;
-    }
+	.display_menu li {
+		list-style: none outside none;
+		width: 143px;
+	}
 </style>
 
 @section scripts{
-@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-@*<script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>*@
-<script src="~/Scripts/validator.js"></script>
-<script type="text/javascript">
-    var tipsShowed = false;
-    $(function () {
-      
-        //$("#innerEmailDialog").dialog({
-        //    autoOpen: false
-        //});
-        $("#emailDialog").submit(function (e) {
+	@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+	@*<script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>
+		<script src="~/Scripts/bootstrap.js"></script>*@
+	<script src="~/Scripts/validator.js"></script>
 
-            e.preventDefault();
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('EmailAttachmentUpload');
-            ////Iterating through each files selected in fileInput
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append("attachment", fileInput.files[i]);
-            }
-            var accessCodes = [];
-            $("input:checkbox[name$=chkSelect]:checked").each(function () {
-                accessCodes.push($(this).parent().children("input:hidden[name$=AccessCode]").val());
-            });
-            formdata.append("accessCodes", accessCodes);
-            formdata.append("subject", $("#emailSubject").val());
-            formdata.append("text", $("#emailText").val());
-            formdata.append("userDate", new Date().toISOString());
-            formdata.append("ccSender", $("#ccSender").prop("checked"));
-            $("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
-            $.ajax({
-                url: 'FindRemind',
-                type: 'POST',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                cache: false
-            }).done(function (result) {
-                $("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
-                if (result) {
-                    $("#emailDialog").modal("toggle");
-                    alertify.alert(result);
-                } else {
-                    $("#emailDialog").modal("toggle");
-                    alertify.alert("Reminders are sent");
-                }
-            });
-        });
+	<script type="text/javascript">
+		function dropDownSubjectsChanged() {
+			var control = $("#DropDownSubjects");
+			if (control.val()) {
+				$.get("@Url.Action("GetAutomail","Partner")"+"?id=" + control.val()).done(function (result) {
+					if (result) {
+						$("#emailSubject").val(result.subject);
+						CKEDITOR.instances["emailText"].setData(result.text + "<br> " + result.footer1)
+						//$("#emailText").val(result.text+"/n "+result.footer1);
+					}
+				})
+			} else {
+				$("#emailSubject").val("");
+				//$("#emailText").val("");
+				CKEDITOR.instances["emailText"].setData("");
+			}
+		}
+		var tipsShowed = false;
+		$(function () {
 
-        $("#btnGo").click(function (e) {
-           /// e.preventDefault();
-            if ($('input:checkbox[name$=chkSelect]:checked').length == 0) {
-                alertify.alert("Please select at least one partner");
-            } else {
-                $("#emailDialog").modal("toggle");
-            }
+			//$("#innerEmailDialog").dialog({
+			//    autoOpen: false
+			//});
+			$("#emailDialog").submit(function (e) {
 
-        });
+				e.preventDefault();
+				var formdata = new FormData(); //FormData object
+				var fileInput = document.getElementById('EmailAttachmentUpload');
+				////Iterating through each files selected in fileInput
+				for (i = 0; i < fileInput.files.length; i++) {
+					//Appending each file to FormData object
+					formdata.append("attachment", fileInput.files[i]);
+				}
+				var accessCodes = [];
+				$("input:checkbox[name$=chkSelect]:checked").each(function () {
+					accessCodes.push($(this).parent().children("input:hidden[name$=AccessCode]").val());
+				});
+				formdata.append("accessCodes", accessCodes);
+				formdata.append("subject", $("#emailSubject").val());
+				formdata.append("text", $("#emailText").val());
+				formdata.append("userDate", new Date().toISOString());
+				formdata.append("ccSender", $("#ccSender").prop("checked"));
+				$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+				$.ajax({
+					url: 'FindRemind',
+					type: 'POST',
+					data: formdata,
+					processData: false,
+					contentType: false,
+					cache: false
+				}).done(function (result) {
+					$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+					if (result) {
+						$("#emailDialog").modal("toggle");
+						alertify.alert(result);
+					} else {
+						$("#emailDialog").modal("toggle");
+						alertify.alert("Reminders are sent");
+					}
+				});
+			});
 
-        $("#btnTips").click(function () {
-            var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
-            if (!tipsShowed) {
-                CKEDITOR.instances.emailText.setData(tip);
-                tipsShowed = true;
-            } else {
-                CKEDITOR.instances.emailText.setData("");
-                tipsShowed = false;
-            }
-        });
+			$("#btnGo").click(function (e) {
+				/// e.preventDefault();
+				if ($('input:checkbox[name$=chkSelect]:checked').length == 0) {
+					alertify.alert("Please select at least one partner");
+				} else {
+					$("#emailDialog").modal("toggle");
+				}
 
-    });
+			});
 
-    function resotreMultiple(event) {
-        event.preventDefault();
-        var arr = [];
-        $(".chkPartners:checked").each(function (idx, item) {
-            arr.push(parseInt(item.value));
-        });
-        if (arr.length > 0) {
-            $.ajaxSettings.traditional = true
-            $.get('@Url.Action("UnArchievePartners", "Partner")', { items: arr }, function (data) {
-                if (data == true) {
-                    window.location.replace(window.location.href);
-                }
-            });
-        }
+			$("#btnTips").click(function () {
+				var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
+				if (!tipsShowed) {
+					CKEDITOR.instances.emailText.setData(tip);
+					tipsShowed = true;
+				} else {
+					CKEDITOR.instances.emailText.setData("");
+					tipsShowed = false;
+				}
+			});
 
-    }
+		});
 
-    function CloseMe() {
-        $("#genericPopup").dialog('close');
-        //$(".t-icon .t-refresh").trigger('click');
+		function resotreMultiple(event) {
+			event.preventDefault();
+			var arr = [];
+			$(".chkPartners:checked").each(function (idx, item) {
+				arr.push(parseInt(item.value));
+			});
+			if (arr.length > 0) {
+				$.ajaxSettings.traditional = true
+				$.get('@Url.Action("UnArchievePartners", "Partner")', { items: arr }, function (data) {
+					if (data == true) {
+						window.location.replace(window.location.href);
+					}
+				});
+			}
 
-        window.location.replace(window.location.href);
-    }
+		}
+
+		function CloseMe() {
+			$("#genericPopup").dialog('close');
+			//$(".t-icon .t-refresh").trigger('click');
+
+			window.location.replace(window.location.href);
+		}
 
 
-    function 
+		function
         OpenEmailDialog(ac) {
-       
-
-        $.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
-
-            $("#innerEmailDialog").html(data);
-            $("#innerEmailDialog").dialog({
-                width: 1200,
-                height: 1000,
-            });
-            $("#innerEmailDialog").dialog('open');
-        });
-    }
-    $('#menu_block').hover(function () {
-        alert("call");
-        $('#display_menu').show();
-    }, function () {
-        $('#display_menu').hide();
-    })
-
-    $('#menu_block').mouseenter(function () {
-        $('#display_menu').show();
-    }).mouseleave(function () {
-
-        $('#display_menu').hide();
-
-    });
-
-    function openEditPopup(id) {
-        $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
-            $("#genericPopup").html(data);
-        });
-
-        $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-        $("#genericPopup").dialog('open');
-    }
-
-    function openRemovePopup(id, internalid, name) {
 
 
+			$.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
 
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
+				$("#innerEmailDialog").html(data);
+				$("#innerEmailDialog").dialog({
+					width: 1200,
+					height: 1000,
+				});
+				$("#innerEmailDialog").dialog('open');
+			});
+		}
+		$('#menu_block').hover(function () {
+			alert("call");
+			$('#display_menu').show();
+		}, function () {
+			$('#display_menu').hide();
+		})
 
-                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
+		$('#menu_block').mouseenter(function () {
+			$('#display_menu').show();
+		}).mouseleave(function () {
 
-            }
-        });
+			$('#display_menu').hide();
 
+		});
 
-    }
+		function openEditPopup(id) {
+			$.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
+				$("#genericPopup").html(data);
+			});
 
+			$("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+			$("#genericPopup").dialog('open');
+		}
 
-    function openArchivePopup(id, internalid, name) {
+		function openRemovePopup(id, internalid, name) {
 
 
 
-        alertify.set({
-            labels: {
-                ok: "No",
-                cancel: "Yes"
-            },
-            buttonFocus: "cancel"
-        });
-        // button labels will be "Accept" and "Deny"
-        alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
-            if (e) {
-                // Click no
-            } else {
-                // click yes
+			alertify.set({
+				labels: {
+					ok: "No",
+					cancel: "Yes"
+				},
+				buttonFocus: "cancel"
+			});
+			// button labels will be "Accept" and "Deny"
+			alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+				if (e) {
+					// Click no
+				} else {
+					// click yes
 
-                $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
-                    // $(".t-icon .t-refresh").trigger('click');
-                    window.location.replace(window.location.href);
-                });
+					$.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+						// $(".t-icon .t-refresh").trigger('click');
+						window.location.replace(window.location.href);
+					});
 
-            }
-        });
+				}
+			});
 
 
-    }
+		}
 
-    function openViewDetailPopup(id) {
-        $("#genericPopup").html("<p>Loading Data...</p>");
-        $.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
-            $("#genericPopup").html(data);
-        });
-        $("#genericPopup").dialog({ height: 600, title: "View Detail" });
-        $("#genericPopup").dialog('open');
-    }
 
-    function openCompletePopup() {
-        $("#genericPopup").html("<h1>Your Complete content goes here</h1>");
-        $("#genericPopup").dialog({ height: 500, title: "Complete" });
-        $("#genericPopup").dialog('open');
-    }
+		function openArchivePopup(id, internalid, name) {
 
 
 
+			alertify.set({
+				labels: {
+					ok: "No",
+					cancel: "Yes"
+				},
+				buttonFocus: "cancel"
+			});
+			// button labels will be "Accept" and "Deny"
+			alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+				if (e) {
+					// Click no
+				} else {
+					// click yes
+
+					$.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+						// $(".t-icon .t-refresh").trigger('click');
+						window.location.replace(window.location.href);
+					});
+
+				}
+			});
 
 
-    function Selectall() {
-        // if check all is checked, all checkboxes are checked
-        // if check all is unchecked, all checkboxes are cleared
+		}
 
-        if ($('#chkSelectAll').is(':checked')) {
-            $('input:checkbox[name$=chkSelect]').each(
-                function () {
-                    $(this).attr('checked', 'checked');
-                });
-        }
-        else {
-            $('input:checkbox[name$=chkSelect]').each(
-                function () {
-                    $(this).removeAttr('checked');
-                });
-        }
-    }
+		function openViewDetailPopup(id) {
+			$("#genericPopup").html("<p>Loading Data...</p>");
+			$.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
+				$("#genericPopup").html(data);
+			});
+			$("#genericPopup").dialog({ height: 600, title: "View Detail" });
+			$("#genericPopup").dialog('open');
+		}
 
-    $('input:checkbox[name$=chkSelect]').click(
-    function (event) {
+		function openCompletePopup() {
+			$("#genericPopup").html("<h1>Your Complete content goes here</h1>");
+			$("#genericPopup").dialog({ height: 500, title: "Complete" });
+			$("#genericPopup").dialog('open');
+		}
 
-        // event.preventDefault();
 
-        // if any of the checkbox is unchecked
-        // check all checkbox should be cleared
-        if (!$(this).is(':checked')) {
-            $('#chkSelectAll').removeAttr('checked');
-        }
-        else {
-            // if all of the checkbox is checked
-            // check all checkbox should be checked
-            if ($('input:checkbox[name$=chkSelect]').length ==
-            $('input:checkbox[name$=chkSelect]:checked').length) {
-                $('#chkSelectAll').attr('checked', 'checked');
-            }
-        }
-    });
 
-</script>
+
+
+		function Selectall() {
+			// if check all is checked, all checkboxes are checked
+			// if check all is unchecked, all checkboxes are cleared
+
+			if ($('#chkSelectAll').is(':checked')) {
+				$('input:checkbox[name$=chkSelect]').each(
+					function () {
+						$(this).attr('checked', 'checked');
+					});
+			}
+			else {
+				$('input:checkbox[name$=chkSelect]').each(
+					function () {
+						$(this).removeAttr('checked');
+					});
+			}
+		}
+
+		$('input:checkbox[name$=chkSelect]').click(
+		function (event) {
+
+			// event.preventDefault();
+
+			// if any of the checkbox is unchecked
+			// check all checkbox should be cleared
+			if (!$(this).is(':checked')) {
+				$('#chkSelectAll').removeAttr('checked');
+			}
+			else {
+				// if all of the checkbox is checked
+				// check all checkbox should be checked
+				if ($('input:checkbox[name$=chkSelect]').length ==
+				$('input:checkbox[name$=chkSelect]:checked').length) {
+					$('#chkSelectAll').attr('checked', 'checked');
+				}
+			}
+		});
+
+	</script>
 }
 
 @section header{
-<script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
-<link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
-    }
+	<script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+	<link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+}
 
 

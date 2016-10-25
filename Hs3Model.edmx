@@ -5701,6 +5701,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="mailtype" Type="int" Mode="In" />
           <Parameter Name="partnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutoMailMessageByPartnerTypeAndTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
@@ -15002,6 +15006,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_getEnterpriseSystemInfoAll" EntitySet="enterpriseSystemInfo" ReturnType="Collection(hs3MVCMTQa2Model.enterpriseSystemInfo)" />
+          <FunctionImport Name="pr_getAutoMailMessageByPartnerTypeAndTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -24191,6 +24199,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32207,6 +32226,21 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_addEnterpriseSystemInfo1" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseSystemInfo" />
           <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseSystemInfo1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseSystemInfo" />
           <FunctionImportMapping FunctionImportName="pr_getEnterpriseSystemInfoAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseSystemInfoAll" />
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailMessageByPartnerTypeAndTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailMessageByPartnerTypeAndTouchpoint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           
         </EntityContainerMapping>
       </Mapping>

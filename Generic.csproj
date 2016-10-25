@@ -1034,6 +1034,9 @@
     <Compile Include="pr_getAutoMailmessageByMailtypeandPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -3341,6 +3344,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\MoogCustomizedQuestionnaireSurveyPdfDownload6.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload8.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload9.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

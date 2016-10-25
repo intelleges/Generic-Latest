@@ -18042,5 +18042,18 @@ namespace Generic
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enterpriseSystemInfo>("pr_getEnterpriseSystemInfoAll", mergeOption);
         }
+    
+        public virtual ObjectResult<pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result> pr_getAutoMailMessageByPartnerTypeAndTouchpoint(Nullable<int> partnertype, Nullable<int> touchpoint)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result>("pr_getAutoMailMessageByPartnerTypeAndTouchpoint", partnertypeParameter, touchpointParameter);
+        }
     }
 }

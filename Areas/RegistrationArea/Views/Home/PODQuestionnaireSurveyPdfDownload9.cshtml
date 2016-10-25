@@ -1,0 +1,3789 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<!-- saved from url=(0088)file:///C:/Users/pavla/Downloads/AF-0062_Aerospace_Purchase_Order_Documentation_Sum.html -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title></title>
+	<meta name="GENERATOR" content="LibreOffice 4.1.6.2 (Linux)">
+	<meta name="AUTHOR" content="peggy.burdick@honeywell.com">
+	<meta name="CREATED" content="20160610;65600000000000">
+	<meta name="CHANGEDBY" content="John Loaf">
+	<meta name="CHANGED" content="20160610;65600000000000">
+	<style type="text/css">
+        .vertical {
+            -ms-writing-mode: tb-rl;
+            writing-mode: tb-rl;
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            white-space: nowrap;
+            display: block;
+            bottom: 0;
+            width: 20px;
+        }
+	
+	</style>
+	@*<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".input-symbol-euro > input").each(function () {
+				//number-format the user input
+				try {
+					this.value = parseFloat(this.value.replace(/,/g, ""))
+									.toFixed(2)
+									.toString()
+									.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					if (this.value === "NaN") {
+						$("#" + this.id + " + input").val("");
+						this.value = "";
+						return;
+					}
+					//set the numeric value to a number input
+					//$("#" + this.id + " + input").val(this.value.replace(/,/g, ""));
+				}
+				catch (ex) {
+					this.value = "";
+				}
+			});
+		});
+		
+	</script>*@
+</head>
+<body lang="en-US" text="#000000" link="#0000ff" dir="LTR">
+	
+	<style>
+		/*.input-symbol-euro {
+     position: relative;
+ }
+ .input-symbol-euro input {
+    padding-left:18px;
+	width: 84% !important;
+ }
+  
+ .input-symbol-euro:before  {
+     position: absolute;
+     top: 0;
+     content:"$";
+     left: 5px;
+ }*/
+		.inputUpper {
+			margin-top: 11px;
+		}
+
+		.inputBottom {
+			margin-bottom: 1px;
+		}
+
+		.underCheckbox {
+			margin-left: 20px;
+		}
+
+		.yesNoBlock {
+			margin-left: 15px;
+			padding-right: 45px;
+		}
+		.fullWidth{
+			width:100%;
+		}
+
+		.halfWidth{
+			width:50%;
+		}
+	</style>
+	
+	<table cellpadding="7" cellspacing="0" style="page-break-before: always;width:100%;">
+		<colgroup>
+			<col width="15">
+			<col width="241">
+			<col width="20">
+			<col width="28">
+			<col width="99">
+			<col width="124">
+			<col width="118">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td colspan="8">
+
+					<p style="margin-bottom: 0;font-size:16pt;text-align: center;">
+						<b>
+							AEROSPACE
+							PURCHASE ORDER DOCUMENTATION SUMMARY
+						</b>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				
+				<td colspan="7" width="729" height="8" bgcolor="#404040" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER" style="margin-right: -0.01in">
+						<font color="#ffffff">
+							<i>
+								<b>
+									USE
+									FOR BOTH GOVERNMENT ($3500 AND GREATER) AND COMMERCIAL ($100K AND
+									GREATER)
+								</b>
+							</i>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" width="729" height="4" valign="TOP" bgcolor="#bfbfbf" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.01in;font-size: 9pt;text-align:center">
+						<b>
+							HEADER	COMPLETE
+							ON ALL ORDERS
+						</b>
+					</p>
+				</td>
+			</tr>
+			<tr valign="TOP">
+				<td colspan="3" width="304" height="13" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">SUPPLIER</font>
+					</p>
+					<input type="text" class="inputUpper" style="width:300px;" value="@ViewBag.Supplyer">
+				</td>
+				<td colspan="2" width="141" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">PURCHASE ORDER NUMBER</font>
+					</p>
+					<input type="text" style="margin-bottom:1px; width:100px; " value="@ViewBag.PurchaseOrderNumber" class="inputUpper">
+				</td>
+				<td width="124" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">PURCHASE ORDER VALUE</font>
+					</p>
+					<span class="input-symbol-euro">
+						<input type="text" style="width:100px; " class="inputUpper" value="@ViewBag.PurchaseOrderValue">
+					</span>
+</td>
+				<td width="118" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">PO REVISION NUMBER</font>
+					</p>
+					<input type="text" style="width:100px; " class="inputUpper" value="@ViewBag.PO_REVISION_NUMBER">
+				</td>
+			</tr>
+			<tr valign="TOP">
+				<td colspan="2" width="270" height="13" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">PART NUMBER</font>
+					</p>
+					<input type="text" style="width:300px; " class="inputBottom" value="@ViewBag.PartNumber">
+				</td>
+				<td colspan="4" width="313" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">DESCRIPTION</font>
+					</p>
+					<input type="text" style="width:300px; " class="inputBottom" value="@ViewBag.PnDescription">
+				</td>
+				<td width="118" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.01in">
+						<font size="1">CHANGE AMOUNT</font>
+					</p>
+					<input type="text" style="width:100px; " class="inputBottom" value="@ViewBag.ChangeAmount">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" width="729" height="4" valign="TOP" bgcolor="#bfbfbf" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.01in;text-align:center">
+						<font size="2" style="font-size: 9pt">
+							<b>
+								SECTION
+								1	GENERAL PO INFORMATION – COMPLETE ON ALL ORDERS
+							</b>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr valign="TOP">
+				<td colspan="4" width="346" height="34" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>PURCHASE ORDER ISSUED AS:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"></font></font></font>
+					</p>
+					<div style="margin-top: 0.03in; font-size:10px" class="western">
+						<label style="margin-right: 50px;"><input type="checkbox" @ViewBag.Q23675_No> *Commercial</label>
+						<label><input type="checkbox" @ViewBag.Q23675_Yes> **Government</label>
+					</div>
+
+				</td>
+				<td colspan="3" width="369" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>PURCHASE ORDER PRICE TYPE (SELECT ONE)   </b></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font>
+					</p>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label class="western" style="font-size:10px">
+										<input type="checkbox" @ViewBag.Q24812_FirmFixedPrice>	 Firm Fixed Price (FFP)
+									</label>
+									<p class="western underCheckbox" style="margin-top: 0.03in; margin-bottom: 0.06in">
+
+									</p>
+								</td>
+								<td>
+									<label class="western" style="font-size:10px">
+										<input type="checkbox" @ViewBag.Q24812_CostReimbursement>	Cost Reimbursement (CXXX)
+									</label>
+									<p class="western underCheckbox" style="margin-top: 0.03in; margin-bottom: 0.06in">
+
+									</p>
+								</td>
+								<td>
+									<label class="western" style="font-size:10px">
+										<input type="checkbox" @ViewBag.Q24812_Other>Other
+									</label>
+									<p class="western underCheckbox" style="margin-top: 0.03in; margin-bottom: 0.06in">
+
+									</p>
+								</td>
+							</tr>
+							@if (ViewBag.Q24812_Other != "")
+							{
+								<tr>
+									<td colspan="3">
+										<span class="western" style="margin-top: 0.04in">
+											<span style="text-transform: uppercase">
+												<font size="1">if	other, explain:	</font>
+											</span>
+										</span> <div style="font-size:x-small">
+	@ViewBag.Q24812_Comment</div>
+										<span class="western" style="margin-top: 0.04in">
+											<font color="#000000">
+												<font face="Calibri, sans-serif">
+													<font size="1" style="font-size: 6pt">
+
+													</font>
+												</font>
+											</font>
+											<p></p>
+										</span>
+</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+
+
+
+				</td>
+			</tr>
+			<tr valign="TOP">
+				<td colspan="4" width="346" height="48" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>DEBARMENT, SUSPENSION, PROPOSED DEBARMENT AND OTHER RESPONSIBILITY MATTERS:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Required by PL 101-355 & FAR 9.400)</span></font></font></font>
+					</p>
+					<p class="western" style="margin-bottom: 0.03in">
+						<font size="1">
+							<i>
+								Will
+								supplier receive PO through HASP?  If not, AF-0658 must be signed
+								and presented to Compliance prior to Government POs $35,000 and
+								above being released.
+							</i>
+						</font>
+					</p>
+
+
+					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_Yes >YES</label>
+					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_No>NO</label>
+					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_NA>N/A (Non-SAP Sites only)</label>
+
+				</td>
+				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
+
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1">
+							<b>
+								IF GOVERNMENT, PRIME CONTRACT PRICE TYPE (SELECT
+								ONE)
+							</b>
+						</font>
+					</p>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46420 >Firm Fixed Price (FFP)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46421 >Cost Reimbursement (CXXX)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46422 >N/R (Commercial PO $100K or greater)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46423 >Other</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					@if (ViewBag.Q23572_46423 != null)
+	 { 
+					<span class="western" style="margin-top: 0.04in">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								if
+								other, explain:
+							</font>
+						</span>
+					</span>
+					<div style="font-size:x-small">
+						@ViewBag.Q23572_Comment </div>
+					}
+</td>
+			</tr>
+
+			<tr valign="TOP">
+				<td colspan="4" width="346" height="48" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>PURCHASE REQUISITION ASSIGNED TO ALL LINE ITEMS:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-29)</span></font></font></font>
+					</p>
+					<p class="western" style="margin-bottom: 0.03in">
+						<font size="1">
+							<i>
+								Purchase requisition is required for each line item
+							</i>
+						</font>
+					</p>
+
+
+					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23573_Yes>YES</label>
+					
+
+				</td>
+				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
+
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>WRITTEN RFQ(S) AND SUPPLIER QUOTE(S) FILED IN PO DOC FILE:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1606)</span></font></font></font>
+					</p>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23574_Yes>Yes</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23574_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+								</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+					
+						<span class="western" style="margin-top: 0.04in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									If NO, provide detailed explanation Memo to PO File Comments
+								</font>
+							</span>
+						</span>
+					<div style="font-size:x-small">
+						@ViewBag.Q23574_Comment" </div>
+					
+</td>
+			</tr>
+
+
+
+
+
+			<tr valign="TOP">
+				<td colspan="4" width="346" height="48" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>DEVIATION FROM STANDARD TERMS AND CONDITIONS:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-27)</span></font></font></font>
+					</p>
+
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23576_Yes>Yes</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23576_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+								</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+					
+						<span class="western" style="margin-top: 0.04in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									(If YES, Legal concurrence must be obtained and filed in PO doc file)
+								</font>
+							</span>
+						</span>
+					<div style="font-size:x-small">
+						@ViewBag.Q23576_Comment </div>
+					
+
+
+</td>
+				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
+
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>CURRENT ANNUAL CERTIFICATION IN FILE: </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1574)</span></font></font></font>
+					</p>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23578_Yes>Yes</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23578_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+								</td>
+
+							</tr>
+
+						</tbody>
+					</table>
+					@if (ViewBag.Q23578_No != "")
+					{
+						<span class="western" style="margin-top: 0.04in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									(If NO, either obtain completed Cert from supplier prior to PO award OR explain in Memo to PO File Comments)
+								</font>
+							</span>
+						</span>
+					<div style="font-size:x-small">
+						@ViewBag.Q23578_Comment"</div>
+					}
+</td>
+			</tr>
+
+
+
+
+
+
+
+
+			<tr valign="TOP">
+				<td colspan="4" width="346" height="39" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>COUNTERFEIT PARTS PREVENTION:  </b></font>
+					</p>
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1">
+							<i>
+								Objective evidence of authorized source obtained
+								per AP-1064-2, Table 3.1
+							</i>
+						</font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</p>
+					<div class="western" style="margin-bottom: 0in;font-size:10px">
+						<label><input type="checkbox" @ViewBag.Q23580_46424>YES</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
+						<label><input type="checkbox" @ViewBag.Q23580_46425>NO</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
+						<label><input type="checkbox" @ViewBag.Q23580_46426 >N/R	(OEM/OCM) or Service</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
+					</div>
+
+					@if (!string.IsNullOrEmpty(ViewBag.Q23580_46424))
+	 { 
+		 <text>
+					<span class="western" style="margin-bottom: 0.03in">
+						<span style="text-transform: uppercase"><font size="1"><i>i</i></font></span><font size="1">
+							<i>
+								f
+							</i>
+						</font><font size="1"><i><b>YES</b></i></font><font size="1">
+							<i>
+								,
+								type of objective evidence obtained:
+							</i>
+						</font><font size="1">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</span>
+	</text>
+						@Html.DropDownList("Q24816_DropDown", (SelectList)ViewBag.Q24816_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+				<text>	
+					<span class="western" style="margin-bottom: 0.03in">
+						
+						<br>
+						<span class="western" style="margin-bottom: 0.03in;margin-left: 15px;">
+							<font size="1">	</font><font size="1">
+								<i>
+									Location
+									of objective evidence:
+								</i>
+							</font><font size="1"> </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+						</span>
+				</text>
+						@Html.DropDownList("Q24817_DropDown", (SelectList)ViewBag.Q24817_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+						
+						
+		 if (ViewBag.Q24817_DropDownValues_Response == 46915)
+						{
+		   <text>
+								<br>
+								<span class="western" style="margin-bottom: 0.03in;margin-left: 15px;">
+									<font size="1">	</font><font size="1">
+										<i>
+											If
+											Other selected, please specify:
+										</i>
+									</font>
+								</span>
+						<div style="font-size:x-small">
+							@ViewBag.Q24817_Comment</div>
+					</text>
+						}
+
+	 }
+
+					@if (!string.IsNullOrEmpty(ViewBag.Q23580_46425))
+					{
+						<p>
+							<span class="western" style="margin-bottom: 0in">
+								<font size="1">
+									<i>
+										If
+									</i>
+								</font><font size="1"><i><b>NO</b></i></font><font size="1">
+									<i>
+										,
+										provide detailed explanation and initiate CAWS per
+										AP-1064-2:
+									</i>
+								</font><font size="1">	</font>
+							</span>
+							<div style="font-size:x-small">@ViewBag.Q24815_Comment</div>
+
+</p><p class="western">
+							<font size="1"><i><u><b>NOTE:</b></u></i></font><font size="1">
+							</font><font size="1"><u>DO NOT</u></font><font size="1">
+								upload
+								drawings or technical data to SAP.
+							</font>
+						</p>
+					}
+</span>
+				</td>
+				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>BUY AMERICAN ACT (BAA) CERTIFICATION:  </b></font>
+					</p>
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1">
+							<i>
+								Is there a Completed (signed/dated) BAA
+								Certification included in the PO file?
+							</i>
+						</font><font size="1">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</p>
+
+					<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46072 >YES</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
+					<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46073 >NO</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
+					<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46074 >N/R</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
+
+
+
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><i><b>If NO,</b></i></font><font size="1">
+							<i>
+								obtain
+								completed BAA Certification from supplier prior to PO award per
+								Aero procedure (AP-1841)
+							</i>
+						</font>
+					</p>
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><i><u><b>NOTE:</b></u></i></font><font size="1">	</font><font size="1">
+							<i>
+								N/R
+								is only applicable to Commercial POs.
+							</i>
+						</font>
+					</p>
+					<p class="western" style="margin-top: 0.03in">
+						<br>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="7" width="729" height="4" valign="TOP" bgcolor="#bfbfbf" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.01in;text-align:center">
+						<font size="2" style="font-size: 9pt">
+							<b>
+								SECTION
+								2	SOURCE SELECTION – COMPLETE ON ALL ORDERS
+							</b>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td width="15" height="102" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in;">
+						<font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1633.htm"><font size="1"><b>AP-1633</b></font></a></u></font>
+					</p>
+				</td>
+				<td colspan="6" width="700" valign="TOP" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1"><b>SOURCE SELECTION BASED ON:</b></font>
+					</p>
+					<span class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
+						<span style="text-transform: uppercase"><font size="1" style="font-size: 8pt"></font></span><span style="text-transform: uppercase">
+							<input type="checkbox" @ViewBag.Q24819_Checked><font size="1">
+								AWARD
+								AS A RESULT OF ADEQUATE PRICE COMPETITION
+							</font>
+						</span><font size="1" style="font-size: 7pt">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</span>
+
+
+
+					<br>
+					<span class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
+						<font size="1"></font><span style="text-transform: uppercase">
+							<input type="checkbox" @ViewBag.Q24820_Checked><font size="1">
+								SINGLE/SOLE
+								SOURCE AWARDS (SSJ (AF-0099)
+							</font>
+						</span><font size="1">
+							required)
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</span>
+
+
+
+					<br>
+					@if (!string.IsNullOrEmpty(ViewBag.Q24820_Checked))
+					{
+						<span class="western" style="margin-top: 0.04in; margin-bottom: 0.06in; margin-left:15px">
+
+							<input type="checkbox" @ViewBag.Q24821_Checked><font size="1">Competition Attempted </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font>
+
+							<input type="checkbox" @ViewBag.Q24822_Checked><font size="1">
+								Competition
+								Not Attempted
+							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font>
+						</span>
+
+					}
+
+					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24824_Checked><font size="1"></font><span style="text-transform: uppercase">
+							<font size="1">
+								AWARD
+								AS DUAL SOURCE (
+							</font>
+						</span><span style="text-transform: uppercase"><font size="1"><i><b>N</b></i></font></span><font size="1"><i><b>ote</b></i></font><font size="1">
+							<i>
+								Pricing must still be justified between multiple suppliers using
+								methods in Section 3)
+							</i>
+						</font><font size="1">  </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font>
+					</p>
+
+
+					@if (!string.IsNullOrEmpty(ViewBag.Q24824_Checked))
+					{
+						<p class="western" style="margin-top: 0.04in; margin-bottom: 0.06in">
+							<font size="1">
+								<b>
+									If award as dual source is checked, source
+									selection is justified based upon the following Dual Source
+									Requirements (check all that apply).
+								</b>
+							</font>
+						</p>
+
+
+
+						<p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in;margin-left:15px;">
+							<input type="checkbox" @ViewBag.Q24825_Checked><font size="1">Continuity of Supply </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font>
+
+
+							<input type="checkbox" @ViewBag.Q24826_Checked><font size="1">
+								Develop
+								Alternate Source
+							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font>
+
+							<input type="checkbox" @ViewBag.Q24827_Checked><font size="1">
+								Quality
+								Performance
+							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font>
+
+
+						</p>
+
+
+
+						<p class="western yesNoBlock" style="margin-top: 0.04in">
+							<input type="checkbox" @ViewBag.Q24828_Checked><font size="1">
+								Delivery
+								Performance
+							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font><input type="checkbox" @ViewBag.Q24829_Checked><font size="1">
+								Financial
+								Risk/Instability
+							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font><input type="checkbox" @ViewBag.Q24830_Checked><font size="1">
+								Incumbent
+								Capacity Issue
+							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font>
+						</p>
+					}
+
+
+
+					@if (!string.IsNullOrEmpty(ViewBag.Q24824_Checked))
+					{
+						<p class="western yesNoBlock" style="margin-top: 0.04in">
+							<font size="1">
+								OTHER
+								PO# / SUPPLIER:
+							</font>
+							<input type="text" style="width:100px" value="@ViewBag.Q24824_Value">
+							<span style="text-transform: uppercase">
+								<font size="1" style="font-size: 7pt">
+								</font>
+							</span>
+							<font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1" style="font-size: 6pt">
+										<span style="background: #ffff00">
+
+										</span>
+									</font>
+								</font>
+							</font>
+
+						</p>
+					}
+
+
+					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
+						<span style="text-transform: uppercase">
+							<input type="checkbox" @ViewBag.Q24823_Checked><font size="1">
+								AWARD
+								AGAINST
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									EXISTING
+									LTC/APC/FPA
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+
+					</p>
+
+					@if (!string.IsNullOrEmpty(ViewBag.Q24823_Checked))
+					{
+						<p class="western yesNoBlock" style="margin-top: 0.04in">
+							<font size="1"><b>	</b></font><font size="1">
+								If
+								awarded against
+							</font><span style="text-transform: uppercase">
+								<font size="1">
+									<b>
+										EXISTING
+										LTC/APC/FPA
+									</b>
+								</font>
+							</span><font size="1">
+								was selected above,
+								provide LTC/APC/FPA #
+							</font>
+							<div style="font-size:x-small">@ViewBag.Q24823_Comment</div>
+							<font size="1">
+							</font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1" style="font-size: 6pt">
+										<span style="background: #ffff00">
+
+										</span>
+									</font>
+								</font>
+							</font>
+						</p>
+					}
+
+					<p class="western" style="margin-top: 0.04in">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								memo
+								to po file comments:
+							</font>
+						</span>
+						<div style="font-size:x-small">@ViewBag.Q24831_Value</div>
+
+					</p>
+				</td>
+			</tr>
+			@*<tr>
+				<td style="padding-top:220px;"></td>
+			</tr>*@
+			<tr >
+				<td colspan="7" valign="TOP" bgcolor="#bfbfbf" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.01in;text-align:center">
+						<font size="2" style="font-size: 9pt">
+							<b>
+								SECTION
+								3	PRICE ANALYSIS – COMPLETE ON ALL ORDERS
+							</b>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr valign="TOP">
+				<td width="15" height="242" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-top: 200px; margin-bottom: 0in">
+						<font color="#0000ff">
+							<u>
+								<a href="http://farsite.hill.af.mil/reghtml/regs/far2afmcfars/fardfars/far/15.htm">
+									<font size="1">
+										<b>
+											FAR
+											15.404-1
+										</b>
+									</font>
+								</a>
+							</u>
+						</font><font size="1"><b> &amp; </b></font><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1503.htm"><font size="1"><b>AP-1503</b></font></a></u></font>
+					</p>
+					<p class="western" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-top: 0.03in">
+						<br>
+					</p>
+				</td>
+				<td colspan="6" width="700" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+						<font size="1">
+							<b>
+								PRICE IS CONSIDERED REASONABLE BASED ON THE
+								FOLLOWING:
+							</b>
+						</font><font size="1">  </font><font size="1">
+							<i>
+								(Provide
+								detailed explanation in Memo to PO File Comments below)
+							</i>
+						</font>
+					</p>
+
+					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24832_Checked ><span style="text-transform: uppercase"><font size="1" style="font-size: 8pt"></font></span><span style="text-transform: uppercase">
+							<font size="1">
+								ADEQUATE
+								PRICE COMPETITION
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font>
+					</p>
+
+
+					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24833_Checked >
+						<span style="text-transform: uppercase">
+							<font size="1">
+								price
+								compares favorably to
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									other
+									bids
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								received in the absence of adequate price competition
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font>
+					</p>
+
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.06in">
+						<input type="checkbox" @ViewBag.Q24834_Checked ><span style="text-transform: uppercase">
+							<font size="1">
+								price
+								compares favorably to
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									prior
+									purchase price
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								FOR SAME ITEM/SERVICE (
+							</font>
+						</span><span style="text-transform: uppercase"><font size="1" style="font-size: 7pt"><i>p</i></font></span><font size="1" style="font-size: 7pt">
+							<i>
+								rior
+								price deemed reasonable
+							</i>
+						</font><font size="1" style="font-size: 7pt">
+							)
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font>
+					</p>
+
+					
+@if(!string.IsNullOrEmpty(ViewBag.Q24834_Checked))
+{ 
+					<p class="western yesNoBlock" style="margin-bottom: 0in">
+						
+						<div style="font-size:x-small;">
+							<span style="text-transform: uppercase">
+	<font size="1">
+		PRIOR
+		PO #
+	</font>
+	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
+		<font size="1">
+			QUANTITY
+		</font>
+	</span>@ViewBag.Q24837_Value<span style="text-transform: uppercase">
+		<font size="1">
+			UNIT
+			PRICE	$
+		</font>
+	</span>@ViewBag.Q24838_Value
+</div>
+						
+</p>
+
+
+
+
+					<div class="western " style="margin-bottom: 0in;margin-left:80px;">
+						<span style="text-transform: uppercase"><font size="1">		</font></span>
+						<span style="text-transform: uppercase">
+							<font size="1" style="font-size: 6pt">
+								<span style="background: #ff00ff;"></span>
+							</font>
+						</span>
+						<span style="text-transform: uppercase">
+							<font size="1" style="font-size: 6pt">				</font>
+						</span>
+						<span style="text-transform: uppercase">
+							<font size="1" style="font-size: 6pt">
+								<span style="background: #ff00ff;margin-left:85px;"></span>
+							</font>
+						</span>
+						<span style="text-transform: uppercase">
+							<font size="1" style="font-size: 6pt">			</font>
+						</span>
+						<span style="text-transform: uppercase">
+							<font size="1" style="font-size: 6pt">
+								<span style="background: #ff00ff;margin-left:110px;"></span>
+							</font>
+						</span>
+						<span style="text-transform: uppercase"><font size="1" style="font-size: 6pt">				</font></span>
+						<span style="text-transform: uppercase">
+							<font size="1" style="font-size: 6pt">
+								<span style="background: #ff00ff;margin-left:125px;"></span>
+							</font>
+						</span>
+					</div>
+
+}
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24839_Checked /><span style="text-transform: uppercase">
+							<font size="1">
+								price
+								compares favorably to
+							</font>
+						</span><span style="text-transform: uppercase"><font size="1"><b>similar-item</b></font></span><span style="text-transform: uppercase">
+							<font size="1">
+								(
+							</font>
+						</span><font size="1">
+							<i>
+								Validity of comparison and
+								reasonableness of similar-item price established
+							</i>
+						</font><span style="text-transform: uppercase">
+							<font size="1">
+								)
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+					</p>
+
+@if(string.IsNullOrEmpty(ViewBag.Q24839_Checked))
+{ 
+					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.06in;margin-left:15px;">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								part
+								number/description
+							</font>
+						</span>
+						<div style="font-size:x-small">
+							@ViewBag.Q24839_Comment</div>
+						<span style="text-transform: uppercase"><font size="1"><u>		</u></font></span><span style="text-transform: uppercase">
+							<font size="1">
+							</font>
+						</span><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1" style="font-size: 6pt">
+									<span style="background: #ffff00">
+
+									</span>
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1">	</font></span>
+</p>
+}
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24840_Checked />
+						<span style="text-transform: uppercase"><font size="1"></font></span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									published
+									catalog/market price
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								(specific identification, title page, date, number, index, etc.)
+							</font>
+						</span><font size="1" style="font-size: 7pt">(</font><font size="1" style="font-size: 7pt">
+							<i>
+								Copy
+								of info must be in PO doc file
+							</i>
+						</font><font size="1" style="font-size: 7pt">
+							)
+						</font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+									<span style="background: #00ffff">
+										
+									</span>
+								</font>
+							</font>
+						</font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+					</p>
+
+
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24841_Checked />
+						<span style="text-transform: uppercase">
+							<font size="1">
+								price
+								compares favorably to
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									in-house
+									price estimate
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								(
+							</font>
+						</span><font size="1" style="font-size: 7pt">
+							<i>
+								Basis of
+								estimate must be in PO doc file
+							</i>
+						</font><span style="text-transform: uppercase">
+							<font size="1">
+								)
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+					</p>
+
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24842_Checked />
+						<span style="text-transform: uppercase">
+							<font size="1">
+								price
+								compares favorably to results of
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									market
+									survey
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+								(M
+							</font>
+						</span><font size="1" style="font-size: 7pt">
+							<i>
+								arket
+								survey quote documentation must be in PO doc file
+							</i>
+						</font><span style="text-transform: uppercase">
+							<font size="1">
+								)
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+					</p>
+
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24843_Checked />
+						<span style="text-transform: uppercase"><font size="1"></font></span><span style="text-transform: uppercase">
+							<font size="1">
+								<b>
+									cost
+									analysis
+								</b>
+							</font>
+						</span><span style="text-transform: uppercase">
+							<font size="1">
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+					</p>
+
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in; margin-bottom: 0.03in">
+						<input type="checkbox" @ViewBag.Q24844_Checked />
+						<span style="text-transform: uppercase">
+							<font size="1">
+								price
+								analysis based on current ltc/apc/fpa:
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+							<font size="1">
+								ltc/apc/fpa/MSA
+								#
+							</font>
+						</span>
+												@if (!string.IsNullOrEmpty(ViewBag.Q24844_Checked))
+	  {
+													<div style="font-size:x-small">
+														@ViewBag.Q24844_Comment</div>
+													<span style="text-transform: uppercase">
+														<font size="1" style="font-size: 7pt">
+														</font>
+													</span><font color="#000000">
+														<font face="Calibri, sans-serif">
+															<font size="1" style="font-size: 6pt">
+																<span style="background: #ffff00">
+
+																</span>
+															</font>
+														</font>
+													</font>
+													}
+</p>
+
+
+					<p class="western" style="margin-left: 0.18in; text-indent: -0.18in; margin-top: 0.04in">
+						<input type="checkbox" @ViewBag.Q24845_Checked />
+						<span style="text-transform: uppercase">
+							<font size="1">
+								other
+							</font>
+						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+							<font face="Calibri, sans-serif">
+								<font size="1">
+								</font>
+							</font>
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+						@if (!string.IsNullOrEmpty(ViewBag.Q24845_Checked))
+						{
+							<span class="western" style="margin-top: 0.04in">
+								<span style="text-transform: uppercase">
+									<font size="1">
+										If Other, provide which Price Analysis technique was used:
+									</font>
+								</span>
+							</span>
+							<div style="font-size:x-small">
+								@ViewBag.Q24845_Comment
+							</div>
+						}
+					</p>
+					<p class="western">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								memo
+								to po file comments:
+							</font>
+						</span>
+						<div style="font-size:x-small">
+							@ViewBag.Q24846_Comment </div>
+							<font size="1" style="font-size: 7pt">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table cellpadding="7" cellspacing="1" class="fullWidth">
+		<colgroup>
+			<col width="14">
+			<col width="15">
+			<col width="63">
+			<col width="85">
+			<col width="94">
+			<col width="92">
+			<col width="78">
+			<col width="94">
+			<col width="73">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td colspan="9" width="727" height="1" valign="TOP" bgcolor="#bfbfbf" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.01in;text-align:center">
+						<font size="2" style="font-size: 9pt">
+							<b>
+								SECTION
+								4	NEGOTIATION SUMMARY – COMPLETE ON ALL ORDERS
+							</b>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td width="14" height="619" valign="BOTTOM" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-top: -400px">
+						<font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1642.htm"><font size="1"><b>AP-1642</b></font></a></u></font>
+					</p>
+				</td>
+				<td colspan="8" width="698" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.03in">
+						<font size="1">
+							<b>
+								NEGOTIATION
+								HELD:
+							</b>
+						</font><font size="1"> </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_Yes>YES</label><span style="background: #00ff00;font-size: 6pt"></span>
+						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_No>NO</label><span style="background: #00ff00;font-size: 6pt"></span>
+					</p>
+					@if (!string.IsNullOrEmpty(ViewBag.Q24847_Yes))
+					{
+						<p class="western" style="margin-top: 0.03in">
+							<font size="1">
+								<i>
+									<b>
+										If
+										YES,
+									</b>
+								</i>
+							</font><font size="1">
+								<i>
+									provide detailed summary of
+									negotiation – Include:  Date(s) of negotiation, parties
+									involved, along with titles; items discussed; and Results of
+									Negotiation).
+								</i>
+							</font>
+						</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1">	Date(s) of Negotiation:</font>
+						</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.03in">
+							<font size="1">			Start Date:	</font>
+							<div style="font-size:x-small">
+								@ViewBag.Q24848_Value</div>
+							<font size="1">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
+							<font size="1">			End Date:	</font>
+							<div style="font-size:x-small">
+								@ViewBag.Q24849_Value</div>
+							<font size="1">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1">	Parties Involved (names, titles, company):</font>
+						</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
+							<font size="1">			</font>
+							<div style="font-size:x-small">
+								@ViewBag.Q24850_Value</div>
+							<font size="1">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1">
+								Purpose of Negotiation and Objectives (list all
+								items discussed during negotiation):
+							</font>
+						</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
+							<font size="1">			</font>
+							<div style="font-size:x-small">
+								@ViewBag.Q24851_Value</div>
+							<font size="1">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1">	Negotiation Results/Summary:</font>
+						</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
+							<font size="1">			</font>
+							<div style="font-size:x-small">
+								@ViewBag.Q24852_Value</div>
+								<font size="1">
+								</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1">	Cost Savings/Avoidance:</font>
+						</p>
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1">			</font>
+							<div style="font-size:x-small">
+								@ViewBag.Q24853_Value</div>
+							<font size="1">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+					}
+					
+						<p class="western" style="margin-top: 0.03in">
+							<font size="1">
+								<i>
+									<b>
+										If
+										NO
+									</b>
+								</i>
+							</font><font size="1">
+								<i>
+									, provide detailed summary as to
+									why negotiations did not take place (Not required for awards based
+									on Adequate Price Competition or Award Against Existing
+									LTC/APC/FPA)
+								</i>
+							</font>
+						</p>
+
+						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.13in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									memo to po
+									file comments:
+								</font>
+							</span>
+							<div style="font-size:x-small">
+								@ViewBag.Q24854_Value </div>
+							<font size="1" style="font-size: 7pt">
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+					
+				</td>
+			</tr>
+			<tr>
+				<td style="padding-top:80px"></td>
+			</tr>
+			<tr>
+				<td colspan="9" width="727" height="3" valign="TOP" bgcolor="#bfbfbf" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" style="margin-top: 0.01in;text-align:center">
+						<font size="2" style="font-size: 9pt">
+							<b>
+								SECTION
+								5	RECORD OF QUOTES / BID ANALYSIS – COMPLETE ON ALL ORDERS
+							</b>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" width="122" height="7" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western"><span class="sd-abs-pos" style="position: absolute; top: 0.35in; left: 0.67in; width: 19px"></span><font size="1">SUPPLIER</font></p>
+				</td>
+				<td colspan="2" width="194" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox1" value="@ViewBag.Q24862_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="184" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox1" value="@ViewBag.Q24878_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="182" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox1" value="@ViewBag.Q23659_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" width="122" height="9" style="border-top: 1px solid #000000; border-bottom: 1.50pt solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western">
+						<font size="1">
+							<span lang="en-US">
+								BUSINESS SIZE
+								AND TYPE CLASSIFICATION
+							</span>
+						</font>
+					</p>
+				</td>
+				<td colspan="2" width="194" style="border-top: 1px solid #000000; border-bottom: 1.50pt solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox1" value="@ViewBag.Q24863_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="184" style="border-top: 1px solid #000000; border-bottom: 1.50pt solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt">
+							<span lang="en-US">
+								<input type="text" class="textBox1" value="@ViewBag.Q24879_Value">
+							</span>
+						</font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="182" style="border-top: 1px solid #000000; border-bottom: 1.50pt solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt">
+							<span lang="en-US">
+								<input type="text" class="textBox1" value="@ViewBag.Q24895_Value">
+							</span>
+						</font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<style>
+				.textBox2 {
+					width: 60px;
+				}
+
+				.textBox1 {
+					width:100px;
+				}
+			</style>
+			<tr>
+				<td colspan="2" width="44" height="1" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1">
+							<span lang="en-US">
+								<b>
+									PO
+									ITEM
+								</b>
+							</span>
+						</font>
+					</p>
+				</td>
+				<td width="63" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER"><font size="1"><b>QUANTITY</b></font></p>
+				</td>
+				<td width="85" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER"><font size="1"><b>PRICE</b></font></p>
+				</td>
+				<td width="94" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER"><font size="1"><b>DELIVERY DATE</b></font></p>
+				</td>
+				<td width="92" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER"><font size="1"><b>PRICE</b></font></p>
+				</td>
+				<td width="78" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER"><font size="1"><b>DELIVERY DATE</b></font></p>
+				</td>
+				<td width="94" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER"><font size="1"><b>PRICE</b></font></p>
+				</td>
+				<td width="73" style="border-top: 1.50pt solid #000000; border-bottom: 2.25pt double #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER"><font size="1"><b>DELIVERY DATE</b></font></p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="44" height="4" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p lang="en-US" class="western" align="CENTER"><font size="1"><b>01</b></font></p>
+				</td>
+				<td width="63" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24855_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="85" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q23629_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24865_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="92" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24880_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="78" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24881_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24896_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="73" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24897_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="44" height="4" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p lang="en-US" class="western" align="CENTER"><font size="1"><b>02</b></font></p>
+				</td>
+				<td width="63" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24857_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="85" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24867_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24868_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="92" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24883_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="78" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24884_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24899_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="73" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24900_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="44" height="4" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p lang="en-US" class="western" align="CENTER"><font size="1"><b>03</b></font></p>
+				</td>
+				<td width="63" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24859_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="85" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24870_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24871_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="92" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24886_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="78" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24887_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24902_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="73" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24903_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" width="44" height="4" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p lang="en-US" class="western" align="CENTER"><font size="1"><b>04</b></font></p>
+				</td>
+				<td width="63" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24861_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="85" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24873_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24874_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="92" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24889_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="78" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24890_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="94" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER" style="margin-right: 0.1in">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24905_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td width="73" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24906_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" width="122" height="4" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p lang="en-US" class="western"><font size="1">OTHER CHARGES</font></p>
+				</td>
+				<td colspan="2" width="194" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24875_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="184" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24891_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="182" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q24907_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" width="122" height="4" style="border-top: 1px solid #000000; border-bottom: none; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p lang="en-US" class="western"><font size="1">TOOLING</font></p>
+				</td>
+				<td colspan="2" width="194" style="border-top: 1px solid #000000; border-bottom: none; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q2424876_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="184" style="border-top: 1px solid #000000; border-bottom: none; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q2424892_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+				<td colspan="2" width="182" style="border-top: 1px solid #000000; border-bottom: none; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<font size="1" style="font-size: 7pt"><span lang="en-US"></span></font><font size="1" style="font-size: 7pt"><span lang="en-US"><input type="text" class="textBox2" value="@ViewBag.Q2424908_Value"></span></font><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" width="122" height="4" style="border-top: 1.50pt solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="RIGHT">     <font size="1"><span lang="en-US"><b>TOTAL</b></span></font></p>
+				</td>
+				<td colspan="2" width="194" style="border-top: 1.50pt solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<input type="text" class="textBox2" value="@ViewBag.sumOfFirst"><font size="1" style="font-size: 6pt">
+							<span style="background: #ff0000">
+
+							</span>
+						</font>
+					</p>
+				</td>
+				<td colspan="2" width="184" style="border-top: 1.50pt solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+					<p class="western" align="CENTER">
+						<input type="text" class="textBox2" value="@ViewBag.sumOfSecond"><font size="1" style="font-size: 6pt">
+							<span style="background: #ff0000">
+
+
+							</span>
+						</font>
+					</p>
+				</td>
+				<td colspan="2" width="182" style="border-top: 1.50pt solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western" align="CENTER">
+						<input type="text" class="textBox2" value="@ViewBag.sumOfThird"><font size="1" style="font-size: 6pt">
+							<span style="background: #ff0000">
+
+							</span>
+						</font>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="9" width="727" height="17" style="border: 1px solid #000000; padding: 0in 0.08in">
+					<p class="western">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								memo
+								to po file comments:
+							</font>
+						</span><div style="font-size:x-small">
+	@ViewBag.Q24909_Value </div><font size="1" style="font-size: 7pt">
+						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div id="Section2" dir="LTR" class="fullWidth">
+		<table class="fullWidth" cellpadding="7" cellspacing="0">
+			
+			<tbody>
+				<tr>
+					<td width="729" height="18" valign="TOP" bgcolor="#ffff99" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-top: 0.01in; margin-bottom: 0in">
+							<span style="text-transform: uppercase;text-align:center">
+								<font size="2" style="font-size: 9pt">
+									<b>
+										SECTION
+										6	GOVERNMENT ORDERS – COMPLETE SUBPART(S) BASED ON ORDER VALUE
+									</b>
+								</font>
+							</span>
+						</p>
+						<p class="western" style="margin-top: 0.01in">
+							<span style="text-transform: uppercase">
+								<font size="2" style="font-size: 9pt">
+									<b>
+										
+									</b>
+								</font>
+							</span>
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="Section3" dir="LTR" class="fullWidth">
+		<table class="fullWidth">
+			<tr>
+				<td>
+					<table class="fullWidth" cellpadding="7" cellspacing="0" style="margin-left: -3px; margin-top: -3px;">
+						<colgroup>
+							<col width="16">
+							<col width="330">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td colspan="2" width="360" bgcolor="#dbe5f1" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" align="CENTER">
+										<span style="text-transform: uppercase">
+											<font size="2" style="font-size: 9pt">
+												<b>
+													$3,500
+													AND ABOVE
+												</b>
+											</font>
+										</span>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="102" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															far
+															52.244-2
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															&amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1643.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1643</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														ADVANCE
+														NOTIFICATION:
+													</b>
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+												</span>
+											</font>
+										</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p lang="en-US" class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<i>
+												Is the customer contract cost-reimbursement and flowing down FAR 52.244-2 Alt 1?
+											</i>
+										</font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES <input type="checkbox" @ViewBag.Q24917_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24917_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<font size="1">
+											<i>
+												If
+											</i>
+										</font><font size="1"><i><b>YES,</b></i></font><font size="1">
+											<i>
+												notification submitted and a copy included in PO doc file.
+											</i>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><font size="1"><span lang="en-US"><div style="font-size:x-small">@ViewBag.Q24918_Value" </div></span></font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="105" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															far
+															52.244-2
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															&amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1643.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1643</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														PRIOR
+														CONSENT:
+													</b>
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													Is the customer contract cost-reimbursement and flowing down FAR 52.244-2?
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES<input type="checkbox" @ViewBag.Q24919_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24919_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<font size="1">
+											<i>
+												If
+											</i>
+										</font><font size="1"><i><b>YES,</b></i></font><font size="1">
+											<i>
+												consent from ACO required and included in PO doc file.
+											</i>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><font size="1"><span lang="en-US"><div style="font-size:x-small">@ViewBag.Q24920_Value"  </div></span></font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="171" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1632.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1632</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														cost-reimbursement
+														PURCHASE ORDERS:
+													</b>
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													Is
+													the PO cost-reimbursement?
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES<input type="checkbox" @ViewBag.Q24921_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24921_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													If
+												</i>
+											</span>
+										</font><font size="1"><span lang="en-US"><i><b>YES</b></i></span></font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													obtain approval per AP-1632, and ensure the “General and FAR
+													Flowdown Provisions for Cost Reimbursement Subcontracts and
+													Purchase Orders for Non-Commercial Items Under U.S. Government
+													Contracts” (GCRP) are flowed down to the supplier via the PO
+													Header text.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													If
+													U.S. Government property is involved, submit completed Government
+													Checklist for Cost-Reimbursement POs (AF-0494) per AP-1632.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><font size="1"><span lang="en-US"><div style="font-size:x-small">@ViewBag.Q24922_Value</div></span></font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" width="360" height="1" bgcolor="#dbe5f1" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p lang="en-US" class="western" align="CENTER" style="text-transform: uppercase">
+										<font size="2" style="font-size: 9pt"><b>$150,000 and above</b></font>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="110" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 100px; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-top: 0.03in; margin-bottom: 0in">
+										<font size="1"><span lang="en-US"><i><b>PL 101-121 &amp;</b></i></span></font>
+									</p>
+									<p lang="en-US" class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in;margin-top:50px ">
+										<font size="1"><i><b>FAR 52.203-11</b></i></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														certification
+														and disclosure regarding payments to influence certain federal
+														transactions:
+													</b>
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													On
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														Annual
+														Cert, Item #9
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													did supplier check YES or NO
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												?
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES<input type="checkbox" @ViewBag.Q24923_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24923_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														supplier checked NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												,
+												Standard Form LLL (SF LLL) must be obtained from supplier and
+												filed in PO doc file prior to award and notify Sourcing
+												Compliance.
+											</span>
+										</font>
+									</p>
+									<p lang="en-US" class="western" style="margin-top: 0.03in; text-transform: uppercase">
+										<br>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="315" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top:100px; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/Policies/ISC/APOL-32.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>APOL-32</b></i></span></font></span></a></u></font><span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															&amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1488.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1488</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														small
+														business program:
+													</b>
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													Were
+													the following socioeconomic businesses
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													included in the solicitation?
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												Small
+												Business
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1">
+
+											<span lang="en-US">	YES</span>
+										</font><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<input type="checkbox" @ViewBag.Q24925_Yes />
+
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24925_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									@if (!string.IsNullOrEmpty(ViewBag.Q24925_No))
+									{
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													Small Business not solicited due to:
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+											<span lang="en-US">
+												<u>
+													@Html.DropDownList("Q24926_DropDown", (SelectList)ViewBag.Q24926_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+												</u>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+												<span style="background: #00ff00">
+
+												</span>
+											</b>
+										</font>
+									</p>
+									}
+									<p class="western" style="margin-bottom: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												Small
+												Disadvantaged Business
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1"><span lang="en-US">	YES</span></font><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<input type="checkbox" @ViewBag.Q24927_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24927_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									@if (!string.IsNullOrEmpty(ViewBag.Q24927_No))
+									{
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													Disadvantaged Business not solicited due to:
+												</i>
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+											<span lang="en-US">
+												<u>
+
+													@Html.DropDownList("Q24928_DropDown", (SelectList)ViewBag.Q24928_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+
+												</u>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+
+											</b>
+										</font>
+									</p>
+									}
+									<p class="western" style="margin-bottom: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												Woman-Owned
+												Small Business
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1"><span lang="en-US">	YES</span></font><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<input type="checkbox" @ViewBag.Q24929_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO<input type="checkbox" @ViewBag.Q24929_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									@if (!string.IsNullOrEmpty(ViewBag.Q24929_No))
+									{
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													Woman-Owned Business not solicited due to:
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+											<span lang="en-US">
+												<u>
+
+													@Html.DropDownList("Q24930_DropDown", (SelectList)ViewBag.Q24930_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+
+												</u>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+
+											</b>
+										</font>
+									</p>
+									}
+									<p class="western" style="margin-bottom: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												HUBZone
+												Small Business
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1"><span lang="en-US">	YES</span></font><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<input type="checkbox" @ViewBag.Q24931_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO				<input type="checkbox" @ViewBag.Q24931_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+
+									@if (!string.IsNullOrEmpty(ViewBag.Q24931_No))
+									{
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													HUBZone Business not solicited due to:
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+											<span lang="en-US">
+												<u>
+
+													@Html.DropDownList("Q24932_DropDown", (SelectList)ViewBag.Q24932_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+
+
+												</u>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+
+											</b>
+										</font>
+									</p>
+									}
+									<p class="western" style="margin-bottom: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												Veteran-Owned
+												Small Business
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1"><span lang="en-US">	YES</span></font><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+
+													<input type="checkbox" @ViewBag.Q24933_Yes />
+
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+
+													NO <input type="checkbox" @ViewBag.Q24933_No />
+
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									@if (!string.IsNullOrEmpty(ViewBag.Q24933_No))
+									{
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													Veteran-Owned Business not solicited due to:
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+											<span lang="en-US">
+												<u>
+													@Html.DropDownList("Q24934_DropDown", (SelectList)ViewBag.Q24934_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+
+												</u>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+
+											</b>
+										</font>
+									</p>
+									}
+
+									<p class="western" style="margin-bottom: 0in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												Service
+												Disabled
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												Veteran-Owned
+												Small Business	YES <input type="checkbox" @ViewBag.Q24935_Yes />
+											</span>
+										</font><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	 <input type="checkbox" @ViewBag.Q24935_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></p>
+									@if (!string.IsNullOrEmpty(ViewBag.Q24935_No))
+									{
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													Service Disabled Veteran-Owned Business not solicited due to:
+												</i>
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1"><span lang="en-US"><u></u></span></font><font size="1">
+											<span lang="en-US">
+												@Html.DropDownList("Q24936_DropDown", (SelectList)ViewBag.Q24936_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+
+											</b>
+										</font>
+									</p>
+									}
+									<p class="western" style="margin-bottom: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												If
+												applicable, reason award was not made to a Small or Diverse
+												business:
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1"><span lang="en-US"><u></u></span></font><font size="1">
+											<span lang="en-US">
+												@Html.DropDownList("Q24937_DropDown", (SelectList)ViewBag.Q24937_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+											</span>
+										</font><font size="1" style="font-size: 6pt">
+											<b>
+												<span style="background: #00ff00">
+
+												</span>
+											</b>
+										</font>
+									</p>
+									@if (ViewBag.Q24937_DropDownValues_Response == 47001)
+									{
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	I</span></font></span>
+										<font size="1">
+											<span lang="en-US">
+												f
+												“OTHER” selected, explain
+											</span>
+										</font>
+										<div style="font-size:x-small">@ViewBag.Q24937_Value" </div>
+</p>
+									}
+								</td>
+							</tr>
+
+
+						</tbody>
+					</table>
+					<table class="fullWidth" cellpadding="7" cellspacing="0" style="margin-left: -4px;
+    ">
+						<colgroup>
+							<col width="16">
+							<col width="330">
+						</colgroup>
+						<tbody>
+							<tr>
+								<td colspan="2" width="360" height="1" bgcolor="#dbe5f1" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p lang="en-US" class="western" align="CENTER" style="text-transform: uppercase">
+										<font size="2" style="font-size: 9pt"><b>$700,000 and above</b></font>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="87" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p lang="en-US" class="western vertical " align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-top: 0.03in; text-transform: uppercase">
+										<font size="1" style="font-size: 6pt"><i><b>FAR 52.219-9</b></i></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														small
+														business subcontracting plan:
+													</b>
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													Subcontracting plan approved by SBLO and a copy filed in PO doc file?
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES	<input type="checkbox" @ViewBag.Q24938_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	<input type="checkbox" @ViewBag.Q24938_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												(If NO, please explain in Memo to PO File Comments)
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+												<div style="font-size:x-small">@ViewBag.Q24939_Value </div>
+</font>
+										</span><font size="1"><span lang="en-US"><u>     </u></span></font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" width="360" height="1" bgcolor="#dbe5f1" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p lang="en-US" class="western" align="CENTER" style="text-transform: uppercase">
+										<font size="2" style="font-size: 9pt"><b>$750,000 and above</b></font>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="78" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p lang="en-US" class="western" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; text-transform: uppercase">
+										<br>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-right: 0.07in; margin-top: 0.03in; margin-bottom: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														FAR
+														DETERMINATION:
+													</b>
+												</span>
+											</font>
+										</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<input type="checkbox" @ViewBag.Q24940_46123 />	<span lang="en-US">
+												Government-Unique
+												FAR Part 15 customer contract
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.03in">
+										<font size="1">
+											<input type="checkbox" @ViewBag.Q24940_46124 />
+											<span lang="en-US">
+													Government Commercial Item FAR
+												Part 12 customer contract
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.03in">
+										<font size="1"><span lang="en-US">			</span></font><font size="1">
+
+
+											<span lang="en-US">
+												<i>
+													Evidence
+													from customer contract must be included in PO file
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<input type="checkbox" @ViewBag.Q24940_46125 />
+										<font size="1">
+											<span lang="en-US">
+													Government
+												CSSO or Forecast only
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+												<div style="font-size:x-small">@ViewBag.Q23681_Comment </div>
+</font>
+										</span><font size="1"><span lang="en-US"><u>     </u></span></font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="140" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical " align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															far
+															52.230-1 &amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1631.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1631</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														COST
+														ACCOUNTING STANDARDS (CAS) APPLY:
+													</b>
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													CAS
+													Certification filed
+												</i>
+											</span>
+										</font><font size="1"><span lang="en-US"><i><u><b>in</b></u></i></span></font><font size="1">
+											<span lang="en-US">
+												<i>
+													PO doc file?
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+
+												<span lang="en-US">
+													YES	
+												</span><input type="checkbox" @ViewBag.Q24941_46126 />
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	
+												</span><input type="checkbox" @ViewBag.Q24941_46127 />
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									@if (!string.IsNullOrEmpty(ViewBag.Q24941_46127))
+									{
+										<p class="western" style="margin-top: 0.03in">
+											<font size="1">
+												<span lang="en-US">
+													<i>
+														<b>
+															If
+															NO
+														</b>
+													</i>
+												</span>
+											</font><font size="1">
+												<span lang="en-US">
+													<i>
+														,
+														must note which exemption applies in Memo to PO File Comments
+														below and provide supporting evidence.
+													</i>
+												</span>
+											</font>
+										</p>
+										<p class="western" style="margin-top: 0.03in">
+											<span style="text-transform: uppercase">
+												<font size="1">
+													<span lang="en-US">
+														MEMO
+														TO PO FILE COMMENTS:
+													</span>
+												</font>
+											</span>
+											<div style="font-size:x-small">@ViewBag.Q24941_comment </div>
+</p>
+									}
+									<p class="western">
+										<font size="1"><span lang="en-US"><i><b>If YES</b></i></span></font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													notification provided to ACO within 30 days after issuance of CAS
+													covered PO as prescribed in FAR 52.230-6(e)(1).
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														Copy
+														of notification to ACO filed in PO doc file?
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES	<input type="checkbox" @ViewBag.Q24942_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	<input type="checkbox" @ViewBag.Q24942_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													provide detailed explanation below.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><div style="font-size:x-small">@ViewBag.Q24942_Comment </div>
+</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="117" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p lang="en-US" class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-bottom: 0in; text-transform: uppercase">
+										<font size="1" style="font-size: 6pt"><i><b>Far 15.403-4</b></i></font>
+									</p>
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															&amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1529.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1529</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														cost
+														or pricing data required:
+													</b>
+												</span>
+											</font>
+										</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES	<input type="checkbox" @ViewBag.Q24943_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	<input type="checkbox" @ViewBag.Q24943_No />
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western" style="margin-bottom: 0in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If NO</b>, note
+														exemption in Memo to PO File Comments below and provide
+														supporting evidence
+</i>
+											</span>
+										</font>
+									</p>
+								
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														YES
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													Cost or Pricing Data obtained from supplier and filed in PO doc
+													file
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														YES
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													copy of Cost Analysis completed by Global Sourcing Proposal Cost
+													Analysis Team along with supporting data must be submitted to
+													Compliance for review.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														NOTE:
+														DO NOT UPLOAD
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													Cost Analysis documents to SAP electronic file.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p lang="en-US" class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<i>
+												If
+												supplier declines to submit Cost or Pricing data, contact
+												Compliance Analyst
+											</i>
+										</font>
+									</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font color="#ff0000">
+											<font size="1">
+												<span lang="en-US">
+													<i>
+														<b>
+															If
+															YES
+														</b>
+													</i>
+												</span>
+											</font>
+										</font><font color="#ff0000">
+											<font size="1">
+												<span lang="en-US">
+													above,
+													TINA Standard Text “SC_AERO_COMP_001” is required on PO
+												</span>
+											</font>
+										</font>
+									</p>
+									<p class="western">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><div style="font-size:x-small">@ViewBag.Q24943_Comment</div>
+</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="164" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															FAR
+															15.404 &amp; 15.403-4 &amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1529.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1529</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														cost
+														analysis requirements:
+													</b>
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													(
+												</span>
+											</font>
+										</span><font size="1">
+											<span lang="en-US">
+												<i>
+													FAR
+													15.404 – applicable only if Cost or Pricing Data required)
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												Cost
+												Analysis performed by:  (
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													File
+													results in PO doc file
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												)
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												<input type="checkbox" @ViewBag.Q24944_46128 />	DCMA
+												/ DCAA
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-bottom: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												<input type="checkbox" @ViewBag.Q24944_46129 />	Internal
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												<input type="checkbox" @ViewBag.Q24944_46130 />	Other
+												(
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													Explain in
+													Memo to PO File Comments below
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												)
+											</span>
+										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><div style="font-size:x-small">@ViewBag.Q24944_Comment </div>
+</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														Certificate
+														of Current Cost or Pricing Data:
+													</b>
+												</span>
+											</font>
+										</span><font size="1">
+											<span lang="en-US">
+												(
+											</span>
+										</font><font size="1"><span lang="en-US"><i>FAR 15.406-2</i></span></font><font size="1">
+											<span lang="en-US">
+												)
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													Copy of
+													Certificate of Cost or Pricing Data filed in PO doc file
+												</i>
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES	<input type="checkbox" @ViewBag.Q24945_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	<input type="checkbox" @ViewBag.Q24945_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												<i>
+													If
+												</i>
+											</span>
+										</font><font size="1"><span lang="en-US"><i><b>NO</b></i></span></font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													provide detailed explanation below.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><div style="font-size:x-small">@ViewBag.Q24945_Comment </div>
+</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" width="360" height="1" bgcolor="#dbe5f1" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p lang="en-US" class="western" align="CENTER" style="text-transform: uppercase">
+										<font size="2" style="font-size: 9pt"><b>$10,000,000 and above</b></font>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td width="16" height="137" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in; margin-bottom: 0in">
+										<span style="text-transform: uppercase">
+											<font size="1" style="font-size: 6pt">
+												<span lang="en-US">
+													<i>
+														<b>
+															far
+															22.805 &amp;
+														</b>
+													</i>
+												</span>
+											</font>
+										</span>
+									</p>
+									<p class="western vertical" align="CENTER" style="margin-left: 0.08in; margin-right: 0.08in">
+										<font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1644.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1644</b></i></span></font></span></a></u></font>
+									</p>
+								</td>
+								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+										<span style="text-transform: uppercase"><font size="1"><span lang="en-US"><b>EEO</b></span></font></span>
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													<b>
+														PRE-AWARD
+														CLEARANCE REQUIRED:
+													</b>
+												</span>
+											</font>
+										</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES	<input type="checkbox" @ViewBag.Q24946_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt">	</font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	<input type="checkbox" @ViewBag.Q24946_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													provide detailed explanation below.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														YES
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													and
+													supplier is listed on National Pre-Award Registry  include
+													screenshot in PO doc file
+												</i>
+											</span>
+										</font><font color="#0000ff"><u><a href="http://www.dol-esa.gov/preaward/pa_reg.html"><font size="1"><span lang="en-US"><i>http://www.dol-esa.gov/preaward/pa_reg.html</i></span></font></a></u></font><font size="1">
+											<span lang="en-US">
+												<i>
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><div style="font-size:x-small">@ViewBag.Q24946_Comment </div>
+</p>
+									<p class="western" style="margin-bottom: 0.06in">
+										<font size="1">
+											<span lang="en-US">
+												If
+												not on Registry, has request letter been forwarded to ACO and
+												ACO’s response filed in PO doc file?
+											</span>
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</p>
+									<p class="western" style="margin-top: 0.03in">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													YES	<input type="checkbox" @ViewBag.Q24947_Yes />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													NO	<input type="checkbox" @ViewBag.Q24947_No />
+												</span>
+											</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
+											<span lang="en-US">
+												<i>
+													<b>
+														If
+														NO
+													</b>
+												</i>
+											</span>
+										</font><font size="1">
+											<span lang="en-US">
+												<i>
+													,
+													provide detailed explanation below.
+												</i>
+											</span>
+										</font>
+									</p>
+									<p class="western">
+										<span style="text-transform: uppercase">
+											<font size="1">
+												<span lang="en-US">
+													MEMO
+													TO PO FILE COMMENTS:
+												</span>
+											</font>
+										</span><div style="font-size:x-small">@ViewBag.Q24947_Comment </div>
+</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+
+			</tr>
+		</table>
+
+	</div>
+	<div id="Section4" dir="LTR" class="fullWidth">
+		<table class="fullWidth" cellpadding="7" cellspacing="0">
+			<colgroup>
+				<col width="494">
+				<col width="221">
+			</colgroup>
+			<tbody>
+				<tr>
+					<td colspan="2" width="729" height="3" valign="TOP" bgcolor="#bfbfbf" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-top: 0.01in;text-align:center">
+							<font size="2" style="font-size: 9pt">
+								<b>
+									SECTION
+									7
+								</b>
+							</font><span style="text-transform: uppercase">
+								<font size="2" style="font-size: 9pt">
+									<b>
+										signature
+										– complete on all orders
+									</b>
+								</font>
+							</span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" width="729" height="17" bgcolor="#ffe599" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-left: 0.24in; text-indent: -0.24in; margin-top: 0.03in">
+							<span style="text-transform: uppercase"><font size="1"><span lang="en-US"><b>	</b></span></font></span><span style="text-transform: uppercase">
+								<font size="1">
+									<input type="checkbox" @ViewBag.Q23709_Yes /><span lang="en-US">
+										<i>
+											<b>
+												buyer
+												aTtests the information provided on this form is true and
+												accurate AND IS compliant WITH AEROSPACE POLICIES AND PROCEDURES.
+											</b>
+										</i>
+									</span>
+								</font>
+							</span><span style="text-transform: uppercase">
+								<font size="1">
+									<span lang="en-US">
+									</span>
+								</font>
+							</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+								<font face="Calibri, sans-serif">
+									<font size="1">
+									</font>
+								</font>
+							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+						</p>
+					</td>
+				</tr>
+				<tr valign="TOP">
+					<td width="494" height="24" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1"><b>BUYER:</b></font><font size="1"> (PRINT NAME)</font>
+						</p>
+
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt"> @ViewBag.BuyerName    </font></p>
+					</td>
+					<td width="221" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1"><b>DATE:</b></font>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>@ViewBag.completeDate</p>
+					</td>
+				</tr>
+				<tr valign="TOP">
+					<td width="494" height="24" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									<b>
+										sourcing
+										compliance (if applicable)
+									</b>
+								</font>
+							</span><font size="1"><b>:</b></font><font size="1">
+								(PRINT NAME)
+							</font>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>@ViewBag.ComplienceAnalist</p>
+					</td>
+					<td width="221" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1"><b>DATE:</b></font>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
+					</td>
+				</tr>
+				<!--tr valign="TOP">
+					<td width="494" height="24" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									<b>
+										global
+										sourcing manager:
+									</b>
+								</font>
+							</span><span style="text-transform: uppercase">
+								<font size="1">
+									(PRINT NAME)
+								</font>
+							</span>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font>@ViewBag.GlobalSourcing</p>
+					</td>
+					<td width="221" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1"><b>DATE:</b></font>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
+					</td>
+				</tr-->
+				<tr valign="TOP">
+					<td width="494" height="23" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									<b>
+										additional
+										approval(s) (if required):
+									</b>
+								</font>
+							</span><span style="text-transform: uppercase">
+								<font size="1">
+									(PRINT NAME)
+								</font>
+							</span>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
+					</td>
+					<td width="221" style="border: 1px solid #000000; padding: 0in 0.08in">
+						<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+							<font size="1"><b>DATE:</b></font>
+						</p>
+						<p lang="en-US" class="western" align="CENTER"><font size="1" style="font-size: 8pt">     </font></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="western" style="margin-bottom: 0in">
+			<br>
+		</p>
+	</div>
+
+</body>
+</html>

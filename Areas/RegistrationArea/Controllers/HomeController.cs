@@ -5032,6 +5032,12 @@ Intelleges Team";
 				ViewName = "PODQuestionnaireSurveyPdfDownload8";
 				return ViewCustomizedPdf(pptqID, ViewName);
 			}
+			else if (question != null && question.footer == "9")
+			{
+				pptqID = FillPODPdfHtml9(ViewBag, db, Session, Server);
+				ViewName = "PODQuestionnaireSurveyPdfDownload9";
+				return ViewCustomizedPdf(pptqID, ViewName);
+			}
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
             return ViewCustomPdf(pptqID);
@@ -5712,6 +5718,630 @@ Intelleges Team";
 			return pptqID;
 		}
 
+
+		public static int FillPODPdfHtml9(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+		{
+			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+			ViewBag.partnerHeader = _partnerHeader;
+			List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+			var partnerId = pptq != null ? pptq.partner : -1;
+			eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
+			var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+			ViewBag.partner = _partner;
+			ViewBag.Supplyer = _partner.name;
+			ViewBag.PurchaseOrderNumber = _partner.address1;
+			ViewBag.PurchaseOrderValue = "$" + new Regex("/\\B(?=(\\d{3})+(?!\\d))/g").Replace(_partner.address2.Replace(",", ""), ",");
+			ViewBag.PO_REVISION_NUMBER = _partner.phone;
+			ViewBag.PartNumber = _partner.zipcode;
+			ViewBag.PnDescription = _partner.dunsNumber;
+			ViewBag.ChangeAmount = _partner.city;
+			ViewBag.BuyerName = _partner.firstName + " " + _partner.lastName;
+			ViewBag.ComplienceAnalist = _partner.title;
+			ViewBag.GlobalSourcing = _partner.fax;
+			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+			//_signature
+			ViewBag.signature = _signature;
+			ViewBag.personTitle = _partner != null ? _partner.title : "";
+			ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+			//  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+			var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+			var _responseYES = 74;
+			var _responseNO = 75;
+			var _chacked = "checked";
+			decimal sumofFirst = 0;
+			decimal sumOfSecond = 0;
+			decimal sumOfThird = 0;
+			Regex codeRegex = new Regex("\\([A-Z][A-Z]\\)");
+
+			foreach (var item in _PPTQQuestionResponse)
+			{
+				switch (item.question)
+				{
+					#region Question1
+					case 24213:
+						ViewBag.Q23675_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q23675_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24123:
+						switch (item.response)
+						{
+							case 46888:
+								ViewBag.Q24812_FirmFixedPrice = "checked";
+								break;
+							case 46889:
+								ViewBag.Q24812_CostReimbursement = "checked";
+								break;
+							case 46890:
+								ViewBag.Q24812_Other = "checked";
+								break;
+							default: break;
+
+						}
+						ViewBag.Q24812_Comment = item.comment;
+						break;
+					case 24124:
+						switch (item.response)
+						{
+							case 46891:
+								ViewBag.Q23571_Yes = "checked";
+								break;
+							case 46892:
+								ViewBag.Q23571_No = "checked";
+								break;
+							case 46893:
+								ViewBag.Q23571_NA = "checked";
+								break;
+							default: break;
+						}
+						break;
+					case 24125:
+						switch (item.response)
+						{
+							case 46894:
+								ViewBag.Q23572_46420 = _chacked;
+								break;
+							case 46895:
+								ViewBag.Q23572_46421 = _chacked;
+								break;
+							case 46896:
+								ViewBag.Q23572_46422 = _chacked;
+								break;
+							case 46897:
+								ViewBag.Q23572_46423 = _chacked;
+								break;
+							default: break;
+
+						}
+						ViewBag.Q23572_Comment = item.comment;
+						break;
+					case 24126:
+						ViewBag.Q23573_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24127:
+						ViewBag.Q23574_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q23574_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24128:
+						ViewBag.Q23574_Comment = item.comment;
+						break;
+					case 24129:
+						ViewBag.Q23576_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q23576_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24130:
+						ViewBag.Q23576_Comment = item.comment;
+						break;
+					case 24131:
+						ViewBag.Q23578_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q23578_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24132:
+						ViewBag.Q23578_Comment = item.comment;
+						break;
+					case 24133:
+						ViewBag.Q24815_Comment = item.comment;
+						switch (item.response)
+						{
+							case 46898:
+								ViewBag.Q23580_46424 = _chacked;
+								break;
+							case 46899:
+								ViewBag.Q23580_46425 = _chacked;
+								break;
+							case 46900:
+								ViewBag.Q23580_46426 = _chacked;
+								break;
+							default: break;
+
+						}
+						break;
+
+					case 24134:
+						ViewBag.Q24816_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24816_DropDownValues_Response = item.response;
+						break;
+
+					case 24135:
+						ViewBag.Q24817_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24817_DropDownValues_Response = item.response;
+						ViewBag.Q24817_Comment = item.comment;
+						break;
+					case 24136:
+						switch (item.response)
+						{
+							case 46916:
+								ViewBag.Q24818_46072 = _chacked;
+								break;
+							case 46917:
+								ViewBag.Q24818_46073 = _chacked;
+								break;
+							case 46918:
+								ViewBag.Q24818_46074 = _chacked;
+								break;
+							default: break;
+						}
+						break;
+					#endregion
+					#region Section 2-3
+					case 24142:
+						ViewBag.Q24819_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24137:
+						ViewBag.Q24820_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24138:
+						ViewBag.Q24821_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24139:
+						ViewBag.Q24822_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+
+					case 24141:
+						ViewBag.Q24824_Value = item.comment;
+						switch (item.response)
+						{
+							case 46919:
+								ViewBag.Q24825_Checked = _chacked;
+								ViewBag.Q24824_Checked = _chacked;
+								break;
+							case 46920:
+								ViewBag.Q24826_Checked = _chacked;
+								ViewBag.Q24824_Checked = _chacked;
+								break;
+							case 46921:
+								ViewBag.Q24827_Checked = _chacked;
+								ViewBag.Q24824_Checked = _chacked;
+								break;
+							case 46922:
+								ViewBag.Q24828_Checked = _chacked;
+								ViewBag.Q24824_Checked = _chacked;
+								break;
+							case 46923:
+								ViewBag.Q24829_Checked = _chacked;
+								ViewBag.Q24824_Checked = _chacked;
+								break;
+							case 46924:
+								ViewBag.Q24830_Checked = _chacked;
+								ViewBag.Q24824_Checked = _chacked;
+								break;
+							default: break;
+						}
+						break;
+					case 24140:
+						ViewBag.Q24823_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24823_Comment = item.comment;
+						break;
+					case 24189:
+						ViewBag.Q24831_Value = item.comment;
+						break;
+
+					case 24190:
+						ViewBag.Q24832_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24191:
+						ViewBag.Q24833_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24192:
+						ViewBag.Q24834_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24193:
+						ViewBag.Q24835_Value = item.comment;
+						break;
+					case 24194:
+						ViewBag.Q24836_Value = item.comment;
+						break;
+					case 24195:
+						ViewBag.Q24837_Value = item.comment;
+						break;
+					case 24196:
+						ViewBag.Q24838_Value = item.comment;
+						break;
+					case 24197:
+						ViewBag.Q24839_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24839_Comment = item.comment;
+						break;
+					case 24198:
+						ViewBag.Q24840_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24199:
+						ViewBag.Q24841_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24200:
+						ViewBag.Q24842_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24201:
+						ViewBag.Q24843_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 24202:
+						ViewBag.Q24844_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24844_Comment = item.comment;
+						break;
+					case 24203:
+						ViewBag.Q24845_Checked = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24845_Comment = item.comment;
+						break;
+					case 24204:
+						ViewBag.Q24846_Comment = item.comment;
+						break;
+					#endregion
+
+
+
+					#region Section 4
+					case 24205:
+						ViewBag.Q24847_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24847_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24206:
+						ViewBag.Q24848_Value = item.comment;
+						break;
+					case 24207:
+						ViewBag.Q24849_Value = item.comment;
+						break;
+					case 24208:
+						ViewBag.Q24850_Value = item.comment;
+						break;
+					case 24209:
+						ViewBag.Q24851_Value = item.comment;
+						break;
+					case 24210:
+						ViewBag.Q24852_Value = item.comment;
+						break;
+					case 24211:
+						ViewBag.Q24853_Value = item.comment;
+						break;
+					case 24212:
+						ViewBag.Q24854_Value = item.comment;
+						break;
+					#endregion
+
+					#region Section 5
+					case 24147:
+						ViewBag.Q24862_Value = item.comment;
+						break;
+					case 24161:
+						ViewBag.Q24878_Value = item.comment;
+						break;
+					case 24175:
+						ViewBag.Q23659_Value = item.comment;
+						break;
+					case 24148:
+						ViewBag.Q24863_Value = item.comment;
+						break;
+					case 24162:
+						ViewBag.Q24879_Value = item.comment;
+						break;
+					case 24176:
+						ViewBag.Q24895_Value = item.comment;
+						break;
+					//Sum of 24149+24151+24153+24155+24158+24159
+					case 24149:
+						ViewBag.Q23629_Value = item.comment;
+						sumofFirst += GetNumber(item.comment);
+						break;
+					case 24151:
+						ViewBag.Q24867_Value = item.comment;
+						sumofFirst += GetNumber(item.comment);
+						break;
+					case 24153:
+						ViewBag.Q24870_Value = item.comment;
+						sumofFirst += GetNumber(item.comment);
+						break;
+					case 24155:
+						ViewBag.Q24873_Value = item.comment;
+						sumofFirst += GetNumber(item.comment);
+						break;
+					case 24158:
+						ViewBag.Q24875_Value = item.comment;
+						sumofFirst += GetNumber(item.comment);
+						break;
+					case 24159:
+						ViewBag.Q2424876_Value = item.comment;
+						sumofFirst += GetNumber(item.comment);
+						break;
+					//Sum of 24163+24165+24167+24169+24172+24173
+					case 24163:
+						ViewBag.Q24880_Value = item.comment;
+						sumOfSecond += GetNumber(item.comment);
+						break;
+					case 24165:
+						ViewBag.Q24883_Value = item.comment;
+						sumOfSecond += GetNumber(item.comment);
+						break;
+					case 24167:
+						ViewBag.Q24886_Value = item.comment;
+						sumOfSecond += GetNumber(item.comment);
+						break;
+					case 24169:
+						ViewBag.Q24889_Value = item.comment;
+						sumOfSecond += GetNumber(item.comment);
+						break;
+					case 24172:
+						ViewBag.Q24891_Value = item.comment;
+						sumOfSecond += GetNumber(item.comment);
+						break;
+					case 24173:
+						ViewBag.Q2424892_Value = item.comment;
+						sumOfSecond += GetNumber(item.comment);
+						break;
+					//Sum of 24177+24179+24181+24183+24186+24187
+					case 24177:
+						ViewBag.Q24896_Value = item.comment;
+						sumOfThird += GetNumber(item.comment);
+						break;
+					case 24179:
+						ViewBag.Q24899_Value = item.comment;
+						sumOfThird += GetNumber(item.comment);
+						break;
+					case 24181:
+						ViewBag.Q24902_Value = item.comment;
+						sumOfThird += GetNumber(item.comment);
+						break;
+					case 24183:
+						ViewBag.Q24905_Value = item.comment;
+						sumOfThird += GetNumber(item.comment);
+						break;
+					case 24186:
+						ViewBag.Q24907_Value = item.comment;
+						sumOfThird += GetNumber(item.comment);
+						break;
+					case 24187:
+						ViewBag.Q2424908_Value = item.comment;
+						sumOfThird += GetNumber(item.comment);
+						break;
+					//0.1
+					case 24150:
+						ViewBag.Q24865_Value = item.comment;
+						break;
+					case 24143:
+						ViewBag.Q24855_Value = item.comment;
+						break;
+					case 24164:
+						ViewBag.Q24881_Value = item.comment;
+						break;
+					case 24178:
+						ViewBag.Q24897_Value = item.comment;
+						break;
+
+					//0.2
+					case 24144:
+						ViewBag.Q24857_Value = item.comment;
+						break;
+					case 24152:
+						ViewBag.Q24868_Value = item.comment;
+						break;
+					case 24166:
+						ViewBag.Q24884_Value = item.comment;
+						break;
+					case 24180:
+						ViewBag.Q24900_Value = item.comment;
+						break;
+
+					//0.3
+					case 24145:
+						ViewBag.Q24859_Value = item.comment;
+						break;
+					case 24154:
+						ViewBag.Q24871_Value = item.comment;
+						break;
+					case 24168:
+						ViewBag.Q24887_Value = item.comment;
+						break;
+					case 24182:
+						ViewBag.Q24903_Value = item.comment;
+						break;
+
+					//0.4
+					case 24146:
+						ViewBag.Q24861_Value = item.comment;
+						break;
+					case 24156:
+						ViewBag.Q24874_Value = item.comment;
+						break;
+					case 24170:
+						ViewBag.Q24890_Value = item.comment;
+						break;
+					case 24184:
+						ViewBag.Q24906_Value = item.comment;
+						break;
+
+
+					case 24188:
+						ViewBag.Q24909_Value = item.comment;
+						break;
+
+
+					//section 6
+					case 24240:
+						ViewBag.Q24917_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24917_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24241:
+						ViewBag.Q24918_Value = item.comment;
+						break;
+					case 24242:
+						ViewBag.Q24919_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24919_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24243:
+						ViewBag.Q24920_Value = item.comment;
+						break;
+					case 24244:
+						ViewBag.Q24921_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24921_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24245:
+						ViewBag.Q24922_Value = item.comment;
+						break;
+					case 24225:
+						ViewBag.Q24923_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24923_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24227:
+						ViewBag.Q24925_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24925_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24228:
+						ViewBag.Q24926_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24926_DropDownValues_Response = item.response;
+						break;
+					case 24229:
+						ViewBag.Q24927_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24927_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+
+					case 24230:
+						ViewBag.Q24928_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24928_DropDownValues_Response = item.response;
+						break;
+					case 24231:
+						ViewBag.Q24929_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24929_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24232:
+						ViewBag.Q24930_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24930_DropDownValues_Response = item.response;
+						break;
+					case 24233:
+						ViewBag.Q24931_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24931_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24234:
+						ViewBag.Q24932_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24932_DropDownValues_Response = item.response;
+						break;
+					case 24235:
+						ViewBag.Q24933_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24933_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24236:
+						ViewBag.Q24934_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24934_DropDownValues_Response = item.response;
+						break;
+					case 24237:
+						ViewBag.Q24935_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24935_No = item.response == _responseNO ? _chacked : string.Empty;
+						break;
+					case 24238:
+						ViewBag.Q24936_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24936_DropDownValues_Response = item.response;
+						break;
+					case 24239:
+						ViewBag.Q24937_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
+						ViewBag.Q24937_DropDownValues_Response = item.response;
+						ViewBag.Q24937_Value = item.comment;
+						break;
+					case 24224:
+						ViewBag.Q24938_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24938_No = item.response == _responseNO ? _chacked : string.Empty;
+						ViewBag.Q24939_Value = item.comment;
+						break;
+					#endregion
+					#region 77
+					case 24217:
+						switch (item.response)
+						{
+							case 46931:
+								ViewBag.Q24940_46123 = _chacked;
+								break;
+							case 46932:
+								ViewBag.Q24940_46124 = _chacked;
+								break;
+							case 46933:
+								ViewBag.Q24940_46125 = _chacked; break;
+							default: break;
+
+						}
+						break;
+					case 24218:
+						ViewBag.Q23681_Comment = item.comment;
+						break;
+					case 24219:
+						ViewBag.Q24941_46126 = item.response == 46934 ? _chacked : string.Empty;
+						ViewBag.Q24941_46127 = item.response == 46935 ? _chacked : string.Empty;
+						ViewBag.Q24941_comment = item.comment;
+						break;
+					case 24220:
+						ViewBag.Q24942_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24942_No = item.response == _responseNO ? _chacked : string.Empty;
+						ViewBag.Q24942_Comment = item.comment;
+						break;
+					case 24221:
+						ViewBag.Q24943_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24943_No = item.response == _responseNO ? _chacked : string.Empty;
+						ViewBag.Q24943_Comment = item.comment;
+						break;
+					case 24222:
+						switch (item.response)
+						{
+							case 46936:
+								ViewBag.Q24944_46128 = _chacked;
+								break;
+							case 46937:
+								ViewBag.Q24944_46129 = _chacked;
+								break;
+							case 46938:
+								ViewBag.Q24944_46130 = _chacked; break;
+							default: break;
+
+						}
+						ViewBag.Q24944_Comment = item.comment;
+						break;
+					case 24223:
+						ViewBag.Q24945_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24945_No = item.response == _responseNO ? _chacked : string.Empty;
+						ViewBag.Q24945_Comment = item.comment;
+						break;
+					case 24215:
+						ViewBag.Q24946_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24946_No = item.response == _responseNO ? _chacked : string.Empty;
+						ViewBag.Q24946_Comment = item.comment;
+						break;
+					case 24216:
+						ViewBag.Q24947_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						ViewBag.Q24947_No = item.response == _responseNO ? _chacked : string.Empty;
+						ViewBag.Q24947_Comment = item.comment;
+						break;
+					case 24246:
+						ViewBag.Q23709_Yes = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					#endregion
+					default: break;
+				}
+			}
+			ViewBag.sumOfFirst = sumofFirst;
+			ViewBag.sumOfSecond = sumOfSecond;
+			ViewBag.sumOfThird = sumOfThird;
+			return pptqID;
+		}
+
+
 		public static int FillPODPdfHtml8(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
 		{
 			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
@@ -5837,6 +6467,7 @@ Intelleges Team";
 						ViewBag.Q23578_Comment = item.comment;
 						break;
 					case 24133:
+						ViewBag.Q24815_Comment = item.comment;
 						switch (item.response)
 						{
 							case 46898:

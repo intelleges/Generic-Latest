@@ -552,7 +552,7 @@
 
 	 }
 
-					@if (!string.IsNullOrEmpty(ViewBag.Q24815_46056))
+					@if (!string.IsNullOrEmpty(ViewBag.Q23580_46425))
 					{
 						<p>
 							<span class="western" style="margin-bottom: 0in">
@@ -1011,30 +1011,26 @@
 @if(!string.IsNullOrEmpty(ViewBag.Q24834_Checked))
 { 
 					<p class="western yesNoBlock" style="margin-bottom: 0in">
-						<span style="text-transform: uppercase">
-							<font size="1">
-								PRIOR
-								PO #
-							</font>
-						</span><span style="text-transform: uppercase"><font size="1"><u>	</u></font></span>
-						<input type="text" class="textBox1" value="@ViewBag.Q24835_Value">
-						<span style="text-transform: uppercase"><font size="1"><u>	</u></font></span><span style="text-transform: uppercase"><font size="1">	DATE	</font></span><span style="text-transform: uppercase"><font size="1"><u>	</u></font></span>
-						<input type="text" class="textBox1" value="@ViewBag.Q24836_Value">
-						<span style="text-transform: uppercase"><font size="1"><u>	</u></font></span><span style="text-transform: uppercase">
-							<font size="1">
-								QUANTITY
-							</font>
-						</span><span style="text-transform: uppercase"><font size="1"><u>	</u></font></span>
-						<input type="text" class="textBox1" value="@ViewBag.Q24837_Value">
-						<span style="text-transform: uppercase"><font size="1"><u>	</u></font></span><span style="text-transform: uppercase">
-							<font size="1">
-								UNIT
-								PRICE	$
-							</font>
-						</span><span style="text-transform: uppercase"><font size="1"><u>	</u></font></span>
-						<input type="text" class="textBox1" value="@ViewBag.Q24838_Value">
-						<span style="text-transform: uppercase"><font size="1"><u>	</u></font></span>
-					</p>
+						
+						<div style="font-size:x-small;">
+							<span style="text-transform: uppercase">
+	<font size="1">
+		PRIOR
+		PO #
+	</font>
+	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
+		<font size="1">
+			QUANTITY
+		</font>
+	</span>@ViewBag.Q24837_Value<span style="text-transform: uppercase">
+		<font size="1">
+			UNIT
+			PRICE	$
+		</font>
+	</span>@ViewBag.Q24838_Value
+</div>
+						
+</p>
 
 
 
