@@ -515,6 +515,24 @@
 					</span>
 	</text>
 						@Html.DropDownList("Q24816_DropDown", (SelectList)ViewBag.Q24816_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+
+		 if (ViewBag.Q24816_DropDownValues_Response == 47720)
+		 {
+			<text>
+				<br>
+				<span class="western" style="margin-bottom: 0.03in;margin-left: 15px;">
+					<font size="1">	</font><font size="1">
+						<i>
+							If
+							Other selected, please specify:
+						</i>
+					</font>
+				</span>
+				<div style="font-size:x-small">
+					@ViewBag.Q24816_Comment
+				</div>
+			</text>
+		 }
 				<text>	
 					<span class="western" style="margin-bottom: 0.03in">
 						
@@ -531,7 +549,7 @@
 						@Html.DropDownList("Q24817_DropDown", (SelectList)ViewBag.Q24817_DropDownValues, new { @style = "width:180px;font-size:10px;" })
 						
 						
-		 if (ViewBag.Q24817_DropDownValues_Response == 47720)
+		 if (ViewBag.Q24817_DropDownValues_Response == 47725)
 						{
 		   <text>
 								<br>
@@ -1091,7 +1109,7 @@ If award as dual source is checked, source selection is justified based on one t
 						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
 					</p>
 
-@if(string.IsNullOrEmpty(ViewBag.Q24839_Checked))
+@if(!string.IsNullOrEmpty(ViewBag.Q24839_Checked))
 { 
 					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.06in;margin-left:15px;">
 						<span style="text-transform: uppercase">
@@ -2281,7 +2299,7 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													did supplier check YES or NO
+													did supplier check YES
 												</i>
 											</span>
 										</font><font size="1">
