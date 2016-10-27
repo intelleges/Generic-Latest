@@ -1145,55 +1145,57 @@ namespace Generic.Controllers
                                 objQuestion.subCheckBoxChoice = excelQuestionnaire.SubCheckBoxChoice;
                                 if(!string.IsNullOrEmpty(excelQuestionnaire.CommentType))
                                 excelQuestionnaire.CommentType = excelQuestionnaire.CommentType.ToUpper();
-                                if (excelQuestionnaire.CommentType == "YN_WARNING_N")
-                                {
-                                    objQuestion.commentType = CommentType.YN_WARNING_N;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
-                                {
-                                    objQuestion.commentType = CommentType.YN_WARNING_Y;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
-                                {
-                                    objQuestion.commentType = CommentType.YN_COMMENT_Y;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
-                                {
-                                    objQuestion.commentType = CommentType.YN_COMMENT_N;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
-                                {
-                                    objQuestion.commentType = CommentType.YN_UPLOAD_Y;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
-                                {
-                                    objQuestion.commentType = CommentType.YN_UPLOAD_N;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
-                                {
-                                    objQuestion.commentType = CommentType.YN_NO_COMMENT;
-                                }
-                                else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
-                                    objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
-                                else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
-                                    objQuestion.commentType = CommentType.YN_DUEDATE_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
-                                    objQuestion.commentType = CommentType.YN_DUEDATE_N;
-                                else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
-                                    objQuestion.commentType = CommentType.YN_ALERT_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
-                                    objQuestion.commentType = CommentType.YN_ALERT_N;
-                                else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_Y")
-                                    objQuestion.commentType = CommentType.YN_CHECKBOX_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_N")
-                                    objQuestion.commentType = CommentType.YN_CHECKBOX_N;
-                                else if (excelQuestionnaire.CommentType == "XX_CHECKBOX_X")
-                                    objQuestion.commentType = CommentType.XX_CHECKBOX_X;
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_Y")
-                                    objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
-                                    objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
-								else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType)&& excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
+								if (excelQuestionnaire.CommentType == "YN_WARNING_N")
+								{
+									objQuestion.commentType = CommentType.YN_WARNING_N;
+								}
+								else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
+								{
+									objQuestion.commentType = CommentType.YN_WARNING_Y;
+								}
+								else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
+								{
+									objQuestion.commentType = CommentType.YN_COMMENT_Y;
+								}
+								else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
+								{
+									objQuestion.commentType = CommentType.YN_COMMENT_N;
+								}
+								else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
+								{
+									objQuestion.commentType = CommentType.YN_UPLOAD_Y;
+								}
+								else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
+								{
+									objQuestion.commentType = CommentType.YN_UPLOAD_N;
+								}
+								else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
+								{
+									objQuestion.commentType = CommentType.YN_NO_COMMENT;
+								}
+								else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
+									objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
+								else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
+									objQuestion.commentType = CommentType.YN_DUEDATE_Y;
+								else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
+									objQuestion.commentType = CommentType.YN_DUEDATE_N;
+								else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
+									objQuestion.commentType = CommentType.YN_ALERT_Y;
+								else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
+									objQuestion.commentType = CommentType.YN_ALERT_N;
+								else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_Y")
+									objQuestion.commentType = CommentType.YN_CHECKBOX_Y;
+								else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_N")
+									objQuestion.commentType = CommentType.YN_CHECKBOX_N;
+								else if (excelQuestionnaire.CommentType == "XX_CHECKBOX_X")
+									objQuestion.commentType = CommentType.XX_CHECKBOX_X;
+								else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_Y")
+									objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
+								else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
+									objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
+								else if (excelQuestionnaire.CommentType == "XX_COMMENT_ALL")
+									objQuestion.commentType = CommentType.XX_COMMENT_ALL;
+								else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
 								{
 									try
 									{

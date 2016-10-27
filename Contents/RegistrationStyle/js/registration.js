@@ -33,6 +33,9 @@ function progressBar(percent, $element) {
 
 
 function showdiv(sender) {
+	if ($("#AllDiv_" + result).length > 0) {
+		$("#AllDiv_" + result).show();
+	}
     alert(sender.name);
 
     var s = sender.id;
@@ -109,6 +112,9 @@ function showdropdowndiv(sender, showIfNeededFuntion) {
 			showIfNeededFuntion(divname, s, "(" + $(divname).data("code") + ")");
 		}
 	}
+	if ($("#AllDiv_" + result).length > 0) {
+		$("#AllDiv_" + result).show();
+	}
 }
 function showdivnew(sender) {
     //alert("Hello");
@@ -122,7 +128,9 @@ function showdivnew(sender) {
     var result = parts[parts.length - 2];
 
     var divname = "Div_" + result;
-
+    if ($("#All" + divname).length > 0) {
+    	$("#All" + divname).show();
+    }
     for (i = 0; i < allInputs.length; i++) {
         //            animatedcollapse.addDiv('y' + divname, 'fade=1,height=50px');
         //            animatedcollapse.addDiv('n' + divname, 'fade=1,height=20px');
@@ -214,7 +222,10 @@ function showdivRadioList(sender) {
     var result = parts[parts.length - 2];
 
     var divname = "Div_" + result;
-
+	
+    if ($("#All" + divname).length > 0) {
+    	$("#All" + divname).show();
+    }
     for (i = 0; i < allInputs.length; i++) {
         //            animatedcollapse.addDiv('y' + divname, 'fade=1,height=50px');
         //            animatedcollapse.addDiv('n' + divname, 'fade=1,height=20px');
@@ -301,6 +312,9 @@ function showDivByCode(sender) {
         $(divname).show();
     } else {
         $(divname).hide();
+    }
+    if ($("#AllDiv_" + result).length > 0) {
+    	$("#AllDiv_" + result).show();
     }
 }
 var radioListShowIfNeeded = function (divname, id, code) {

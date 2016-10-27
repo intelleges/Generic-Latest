@@ -1230,6 +1230,28 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
                 }
             }
+			if(question.commentType==CommentType.XX_COMMENT_ALL)
+			{
+				HtmlGenericControl divn = new HtmlGenericControl();
+				divn.ID = "AllDiv_" + question.id.ToString();
+				//divn.Visible = false;
+				if (pptqResponse != null)
+				{
+					txtbox.Text = pptqResponse.comment;
+				}
+				else
+					divn.Style.Add("display", "none");
+				txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+				txtbox.Width = 600;
+				divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
+				txtbox.Attributes.Add("required", "");
+				txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+				txtbox.Attributes.Add("data-val", "true");
+				divn.Controls.Add(txtbox);
+
+				tableCell.Controls.AddAt(0, divn);
+				addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
+			}
             #endregion
             if (question.commentType == CommentType.XX_CHECKBOX_X || question.commentType == CommentType.YN_CHECKBOX_N || question.commentType == CommentType.YN_CHECKBOX_Y)
             {
