@@ -87,14 +87,7 @@
         //    }
         //});
         $(document).ready(function () {
-            $("#address1").keypress(function (e) {
-                //if the letter is not digit then display error and don't type anything
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    //display error message
-                    $("#errmsgaddress1").html("Digits Only").show().fadeOut("slow");
-                    return false;
-                }
-            });
+          
         });
 
         $("#touchpoint").change(function () {
@@ -329,14 +322,14 @@
         });
 
         document.getElementById("address2").onblur = function () {
-        	this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
+        	this.value = '$'+ parseFloat(this.value.replace('$', "").replace(/,/g, ""))
 							.toFixed(2)
 							.toString()
 							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         document.getElementById("city").onblur = function () {
-        	this.value = parseFloat(this.value.replace('$', "").replace(/,/g, ""))
+        	this.value ='$'+ parseFloat(this.value.replace('$', "").replace(/,/g, ""))
 							.toFixed(2)
 							.toString()
 							.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -554,7 +547,7 @@
                     @Html.Label("Purchase Order#")
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass numberText", @maxlength = "10" })
+                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", pattern = "[a-zA-Z0-9]+" })
                     <span style="color:red;" id="errmsgaddress1"></span>
                     @Html.ValidationMessageFor(model => model.address1)
                 </div>

@@ -15,14 +15,50 @@ namespace Generic.Controllers
       
         private EntitiesDBContext db = new EntitiesDBContext(); 
         // GET: POD
-		public ActionResult Create(string supplierName, string supplierNumber, string buyerFirstName, string buyerLastName, string buyerEmail, int? protocol)
+		public ActionResult Create()
         {
 			partner model = new partner();
-			model.internalID = supplierNumber;
-			model.name = supplierName;
-			model.firstName = buyerFirstName;
-			model.lastName = buyerLastName;
-			model.email = buyerEmail;
+			if (Request.Cookies["supplierName"] != null)
+			{
+				model.name = Request.Cookies["supplierName"].Value;
+				var c = new HttpCookie("supplierName");
+				c.Expires = DateTime.Now.AddDays(-1);
+				Response.Cookies.Add(c);
+			}
+
+			if (Request.Cookies["supplierNumber"] != null)
+			{
+				model.internalID = Request.Cookies["supplierNumber"].Value;
+				var c = new HttpCookie("supplierNumber");
+				c.Expires = DateTime.Now.AddDays(-1);
+				Response.Cookies.Add(c);
+			}
+
+			if (Request.Cookies["buyerFirstName"] != null)
+			{
+				model.firstName = Request.Cookies["buyerFirstName"].Value;
+				var c = new HttpCookie("buyerFirstName");
+				c.Expires = DateTime.Now.AddDays(-1);
+				Response.Cookies.Add(c);
+			}
+
+			if (Request.Cookies["buyerLastName"] != null)
+			{
+				model.lastName = Request.Cookies["buyerLastName"].Value;
+				var c = new HttpCookie("buyerLastName");
+				c.Expires = DateTime.Now.AddDays(-1);
+				Response.Cookies.Add(c);
+			}
+
+			if (Request.Cookies["buyerEmail"] != null)
+			{
+				model.email = Request.Cookies["buyerEmail"].Value;
+				var c = new HttpCookie("buyerEmail");
+				c.Expires = DateTime.Now.AddDays(-1);
+				Response.Cookies.Add(c);
+			}
+
+
             GenerateCreateDropDownLists();
             return View(model);
         }

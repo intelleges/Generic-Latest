@@ -21,7 +21,7 @@ namespace Generic.Helpers.Questionnaire
         public const int YN_WARNING_N = 1;
         public const int YN_WARNING_Y = 2;
         public const int YN_COMMENT_Y = 3;
-        public const int YN_COMMENT_N = 4;
+        public const int			YN_COMMENT_N = 4;
         public const int YN_UPLOAD_Y = 5;
         public const int YN_UPLOAD_N = 6;
         public const int YN_NO_COMMENT = 7;
