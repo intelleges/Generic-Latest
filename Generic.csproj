@@ -571,6 +571,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Areas\RegistrationArea\Controllers\HomeController.cs" />
     <Compile Include="Areas\RegistrationArea\Controllers\PartNumberController.cs" />
+    <Compile Include="Areas\RegistrationArea\Models\PageDetails.cs" />
     <Compile Include="Areas\RegistrationArea\Models\ValidatezCode.cs" />
     <Compile Include="Areas\RegistrationArea\Models\ViewBagModel.cs" />
     <Compile Include="Areas\RegistrationArea\Models\ViewBagPdfModel.cs" />
@@ -1527,6 +1528,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerQuestionResponseByAccessCode5_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerQuestionResponseByAccessCode_Result.cs">

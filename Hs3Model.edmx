@@ -6219,6 +6219,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPartnerQuestionResponseByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerQuestionResponseByAccessCode5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerrRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -15009,6 +15012,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getAutoMailMessageByPartnerTypeAndTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result)">
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerQuestionResponseByAccessCode5" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerQuestionResponseByAccessCode5_Result)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24210,6 +24216,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="mailType" Nullable="false" />
           <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerQuestionResponseByAccessCode5_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="id1" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="String" Name="question1" Nullable="true" />
+          <Property Type="Int32" Name="response" Nullable="false" />
+          <Property Type="String" Name="description1" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32238,6 +32256,22 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
                 <ScalarProperty Name="mailType" ColumnName="mailType" />
                 <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerQuestionResponseByAccessCode5" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerQuestionResponseByAccessCode5">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerQuestionResponseByAccessCode5_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="id1" ColumnName="id1" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="question1" ColumnName="question1" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="description1" ColumnName="description1" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -18055,5 +18055,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutoMailMessageByPartnerTypeAndTouchpoint_Result>("pr_getAutoMailMessageByPartnerTypeAndTouchpoint", partnertypeParameter, touchpointParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerQuestionResponseByAccessCode5_Result> pr_getPartnerQuestionResponseByAccessCode5(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCode5_Result>("pr_getPartnerQuestionResponseByAccessCode5", accesscodeParameter);
+        }
     }
 }
