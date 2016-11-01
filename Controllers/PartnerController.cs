@@ -2200,7 +2200,7 @@ namespace Generic.Controllers
 		}
 		public ActionResult FindRemind()
         {
-            string arguments = Session["partnersearch"].ToString() + "active=1;statusID=6";
+            string arguments = Session["partnersearch"].ToString() + "active=1;";
 
             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
 			int partnerType = -1, touchpoint = -1;
