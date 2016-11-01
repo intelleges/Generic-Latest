@@ -2188,8 +2188,7 @@ namespace Generic.Controllers
 			{
 				int.TryParse(parsedParams["touchpointID"], out touchpoint);
 				int.TryParse(parsedParams["partnertypeID"], out partnerType);
-				if (partnerType == 32 && touchpoint == 4181)
-					result = true;
+				result = true;
 			}
 			return result;
 		}
