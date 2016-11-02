@@ -834,6 +834,9 @@
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="narrativePPTQ.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="numberSeed.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1027,6 +1030,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailAttachment_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutomailMessageAllByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutomailMessageByMailtypeandPTQ1_Result.cs">
@@ -1414,6 +1420,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getMultiTenantProjectType_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getNarrativePPTQAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getNarrativePPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getNextPageByQuestionnairePreviousPage_Result.cs">
@@ -4927,6 +4939,7 @@
     <Content Include="Views\POD\Create.cshtml" />
     <Content Include="Views\POD\FindPODS.cshtml" />
     <Content Include="Views\POD\FindPODSResult.cshtml" />
+    <Content Include="Views\POD\NarrativeEmailPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

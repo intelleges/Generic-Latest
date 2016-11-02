@@ -4,7 +4,7 @@
 @using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "Partner";
+    ViewBag.Title = "PODS";
 }
 
 <style>
@@ -33,6 +33,19 @@
             padding: .8em .8em !important;
         }
 </style>
+
+
+<div class="tw-bs">
+	<div class="container">
+		<div class="modal fade" id="emailDialog1" role="dialog" aria-hidden="true">
+			
+		</div>
+	</div>
+</div>
+
+
+
+
 <div class="tw-bs">
     <div class="container">
         <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
@@ -82,6 +95,7 @@
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
 						<li style='display:inherit'><a href="@item.Expr1" target="_blank">Complete</a></li>
+						<li style='display:inherit'><a href="javascript:openNarrativePopup(@item.pptq,'@item.AccessCode')" target="_blank">Narrative</a></li>
 
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq)">Print PDF</a></li>
 
@@ -295,6 +309,8 @@
            // }
         });*@
 	}
+	var tipsShowed = false;
+
 	$(function () {
 		//jQuery.noConflict();
 		$("#EmailDialog").dialog({
@@ -306,6 +322,17 @@
 		});
 
 
+
+		$("#btnTips").click(function () {
+			var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
+			if (!tipsShowed) {
+				CKEDITOR.instances.emailText.setData(tip);
+				tipsShowed = true;
+			} else {
+				CKEDITOR.instances.emailText.setData("");
+				tipsShowed = false;
+			}
+		});
 
 	});
 
@@ -449,6 +476,110 @@
 		$("#genericPopup").dialog('open');
 	}
 
+	function openNarrativePopup(id, accessCode) {
+
+		$.get("@Url.Content("~/POD/NarrativeEmailPopup/")" + id + "?accessCode=" + accessCode, function (data) {
+			$("#emailDialog1").html(data);
+			$("#emailDialog1").modal("toggle");
+		});
+	}
+
+	function removeNarrative(id) {
+		$.get("@Url.Content("~/POD/RemoveNarrative?pptq=")" + id, function (data) {
+			$('.btn-hidden').hide();
+			alertify.alert("Narrative removed");
+		});
+	}
+
+	function baseNarrative() {
+		var id = $("#emailDialog1 #id").val();
+
+		$.get("@Url.Content("~/POD/BaseNarrative?pptq=")" + id, function (data) {
+			CKEDITOR.instances["emailText"].setData(data.content);
+		});
+	}
+
+	function getNarrative() {
+		var id = $("#emailDialog1 #id").val();
+
+		$.get("@Url.Content("~/POD/GetNarrative?pptq=")" + id, function (data) {
+			CKEDITOR.instances["emailText"].setData(data.content);
+		});
+
+	}
+
+	function saveNarrative() {
+		var id = $("#emailDialog1 #id").val();
+
+		var formdata = new FormData(); //FormData object
+		formdata.append("pptq", id);
+		formdata.append("text", CKEDITOR.instances["emailText"].getData());
+		$.ajax({
+			url: 'SaveNarrative',
+			type: 'POST',
+			data: formdata,
+			processData: false,
+			contentType: false,
+			cache: false
+		}).done(function (result) {
+			$('.btn-hidden').show();
+		});
+	}
+
+
+	$("#emailDialog1").submit(function (e) {
+
+		e.preventDefault();
+		var formdata = new FormData(); //FormData object
+		var fileInput = document.getElementById('EmailAttachmentUpload');
+		////Iterating through each files selected in fileInput
+		for (i = 0; i < fileInput.files.length; i++) {
+			//Appending each file to FormData object
+			formdata.append("attachment", fileInput.files[i]);
+		}
+
+		formdata.append("accessCode", $("#emailDialog1 #accessCode").val());
+		formdata.append("subject", $("#emailSubject").val());
+		formdata.append("text", $("#emailText").val());
+		formdata.append("userDate", new Date().toISOString());
+		formdata.append("ccSender", $("#ccSender").prop("checked"));
+		$("#emailDialog1 input[type='submit'], #emailDialog1 input[type='button']").prop("disabled", true);
+		$.ajax({
+			url: 'EmailSend',
+			type: 'POST',
+			data: formdata,
+			processData: false,
+			contentType: false,
+			cache: false
+		}).done(function (result) {
+			$("#emailDialog1 button[type='submit'], #emailDialog1 button[type='button']").prop("disabled", false);
+			if (result) {
+				$("#emailDialog1").modal("toggle");
+				alertify.alert(result);
+			} else {
+				$("#emailDialog1").modal("toggle");
+				alertify.alert("Reminders are sent");
+			}
+		});
+	});
+
+	function dropDownSubjectsChanged() {
+		var control = $("#DropDownSubjects");
+		if (control.val()) {
+			$.get("@Url.Action("GetAutomail","POD")" + "?id=" + control.val() + "&pptq=" + $("#emailDialog1 #id").val()).done(function (result) {
+				if (result) {
+					$("#emailSubject").val(result.subject);
+					CKEDITOR.instances["emailText"].setData(result.text + "<br> " + result.footer1)
+					//$("#emailText").val(result.text+"/n "+result.footer1);
+				}
+			})
+		} else {
+			$("#emailSubject").val("");
+			//$("#emailText").val("");
+			CKEDITOR.instances["emailText"].setData("");
+		}
+	}
+
 	function openCompletePopup(accesscode) {
 		$("#genericPopup").html("<p>Loading Data...</p>");
 		$.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
@@ -558,12 +689,12 @@
 		});
 	}
 
-    $(function () {
-        $(".t-widget.t-dropdown.t-header").css("width", "100%");
-    });
-    $("#changePtqBtn").click(function () {
+	$(function () {
+		$(".t-widget.t-dropdown.t-header").css("width", "100%");
+	});
+	$("#changePtqBtn").click(function () {
 
-    })
+	})
 </script>
 <div class="tw-bs">
     <div class="container-fluid">
@@ -607,4 +738,8 @@
     </script>
     
             Session["ACNewEmail"] = null;
+}
+@section header{
+	<script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+	<link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
 }

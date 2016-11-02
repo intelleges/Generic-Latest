@@ -1,5 +1,6 @@
 ﻿using Generic.Helpers;
 using Generic.Helpers.PartnerHelper;
+using Generic.Helpers.Utility;
 using Generic.Models;
 using Generic.SessionClass;
 using System;
@@ -10,13 +11,13 @@ using System.Web.Mvc;
 
 namespace Generic.Controllers
 {
-    public class PODController : Controller
-    {
-      
-        private EntitiesDBContext db = new EntitiesDBContext(); 
-        // GET: POD
+	public class PODController : Controller
+	{
+
+		private EntitiesDBContext db = new EntitiesDBContext();
+		// GET: POD
 		public ActionResult Create()
-        {
+		{
 			partner model = new partner();
 			if (Request.Cookies["supplierName"] != null)
 			{
@@ -59,9 +60,9 @@ namespace Generic.Controllers
 			}
 
 
-            GenerateCreateDropDownLists();
-            return View(model);
-        }
+			GenerateCreateDropDownLists();
+			return View(model);
+		}
 
 
 		public ActionResult FindPODS()
@@ -119,68 +120,128 @@ namespace Generic.Controllers
 			}
 		}
 
-        protected void GenerateCreateDropDownLists()
-        {
-            ViewBag.state = new SelectList(db.state, "id", "name");
-            ViewBag.country = new SelectList(db.country, "id", "name");
-            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
-            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).Take(1).ToList(), "id", "name");
-            ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname");
-            ViewBag.owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
-        }
+		protected void GenerateCreateDropDownLists()
+		{
+			ViewBag.state = new SelectList(db.state, "id", "name");
+			ViewBag.country = new SelectList(db.country, "id", "name");
+			ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+			ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).Take(1).ToList(), "id", "name");
+			ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname");
+			ViewBag.owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
+		}
 
-        [HttpPost]
-        public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
-        {
-            List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+		public ActionResult NarrativeEmailPopup(int id, string accessCode)
+		{
+			ViewBag.Id = id;
+			ViewBag.AccessCode = accessCode;
+			ViewBag.DropDownSubjects = new SelectList(db.pr_getAutomailMessageAllByPPTQ(id).ToList(), "id", "subject").ToList();
 
-            string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-            partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-            GenerateCreateDropDownLists();
-            try
-            {
+			ViewBag.IsShowGetRemoveBtns = db.pr_getNarrativePPTQ(id).FirstOrDefault() == null ? false : true;
+			return View();
+		}
+
+		public ActionResult GetAutomail(int id, int pptq)
+		{
+			return Json(db.pr_getAutomailMessageAllByPPTQ(pptq).ToList().FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost, ValidateInput(false)]
+		public ActionResult EmailSend(string accessCode, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
+		{
+			var error = "";
+			EmailFormat formatter = new EmailFormat();
+			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+
+			var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+			SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+			return Json(error);
+		}
+
+		public ActionResult RemoveNarrative(int pptq)
+		{
+			db.pr_removeNarrativePPTQ(pptq);
+			return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+		}
+
+		public ActionResult BaseNarrative(int pptq)
+		{
+			string content = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ(pptq).FirstOrDefault();
+			return Json(new { success = true, content = content }, JsonRequestBehavior.AllowGet);
+		}
+
+		public ActionResult GetNarrative(int pptq)
+		{
+			var content = db.pr_getNarrativePPTQ(pptq).FirstOrDefault();
+			return Json(new { success = true, content = content != null ? content.narrative : "" }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult SaveNarrative(int pptq, string text) {
+
+			var content = db.pr_getNarrativePPTQ(pptq).FirstOrDefault();
+			if (content == null)
+				db.pr_addNarrativePPTQ(pptq, text);
+			else db.pr_modifyNarrativePPTQ(pptq, text);
+				
+
+			return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+		}
+
+
+		[HttpPost]
+		public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
+		{
+			List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+
+			string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+			partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+			GenerateCreateDropDownLists();
+			try
+			{
 
 				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.federalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, partner.title ?? "", partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
-                uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
-                Session["uploadedpartnerList"] = uploadedpartners;
-                Session["partnertype"] = partnertype;
-                Session["touchpoint"] = touchpoint;
-                Session["loadGroup"] = loadGroup;
-                //    var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
-                //   ViewBag.Message = Target[0].ToString();
-                //ViewBag.Message = "1";
+				uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
+				Session["uploadedpartnerList"] = uploadedpartners;
+				Session["partnertype"] = partnertype;
+				Session["touchpoint"] = touchpoint;
+				Session["loadGroup"] = loadGroup;
+				//    var Target = db.touchpoint.Where(x => x.id == touchpoint).Select(x => x.target).ToList();
+				//   ViewBag.Message = Target[0].ToString();
+				//ViewBag.Message = "1";
 
-                var Target = db.touchpoint.Where(x => x.id == (touchpoint)).ToList();
-                ViewBag.Message = Target[0].target.ToString();
-                if (Target[0].target.ToString() == "2")
-                {
-                    ViewBag.MessageDetail = "Congratulations, you just added  " + partner.name + " to " + Target[0].title;
-                }
-                ModelState.Clear();
-                return View();
-            }
-            catch (Exception ex)
-            {
+				var Target = db.touchpoint.Where(x => x.id == (touchpoint)).ToList();
+				ViewBag.Message = Target[0].target.ToString();
+				if (Target[0].target.ToString() == "2")
+				{
+					ViewBag.MessageDetail = "Congratulations, you just added  " + partner.name + " to " + Target[0].title;
+				}
+				ModelState.Clear();
+				return View();
+			}
+			catch (Exception ex)
+			{
 
-                ViewBag.Message = "error";
-                ViewBag.MessageDetail = ex.ToString();
-                //  alertify-ok"
-                //ViewBag.state = new SelectList(db.state.ToList(), "id", "name", partner.state);
-                //ViewBag.country = new SelectList(db.country.ToList(), "id", "name", partner.country);
-                //ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name", protocol);
-                //ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name", partnertype);
-                //ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name", group);
-                //ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname", partner.owner);
-                //ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname", partner.author);
-                return View(partner);
-            }
+				ViewBag.Message = "error";
+				ViewBag.MessageDetail = ex.ToString();
+				//  alertify-ok"
+				//ViewBag.state = new SelectList(db.state.ToList(), "id", "name", partner.state);
+				//ViewBag.country = new SelectList(db.country.ToList(), "id", "name", partner.country);
+				//ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name", protocol);
+				//ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name", partnertype);
+				//ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name", group);
+				//ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname", partner.owner);
+				//ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname", partner.author);
+				return View(partner);
+			}
 
 
-        }
+		}
 
-        public ActionResult GetPartnerTypes(int id)
-        {
-            return Json(db.pr_getPartnertypeByTouchpoint(id).ToList(), JsonRequestBehavior.AllowGet);
-        }
-    }
+		public ActionResult GetPartnerTypes(int id)
+		{
+			return Json(db.pr_getPartnertypeByTouchpoint(id).ToList(), JsonRequestBehavior.AllowGet);
+		}
+	}
 }

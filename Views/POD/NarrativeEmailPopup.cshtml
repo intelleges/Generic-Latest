@@ -1,0 +1,78 @@
+﻿@{
+	Layout = null;
+	string acs = ViewBag.AccessCode;
+	int id = ViewBag.Id;
+}
+
+
+<div class="modal-dialog" style="z-index:1041">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">
+				<span aria-hidden="true">&times;</span><span class="sr-only"></span>
+			</button>
+			<h4 class="modal-title" id="gpsLabel">Narrative for PODS</h4>
+		</div>
+		<div class="modal-body">
+			<form id="madalEmailForm">
+				@Html.Hidden("accessCode", acs)
+				@Html.Hidden("id", id)
+				<div class="form-group">
+
+					<label class="control-label" for="emailSubject">Automail</label>
+
+					@Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+
+				</div>
+
+				<div class="form-group">
+
+					<label class="control-label" for="emailSubject">Subject</label>
+
+					<input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
+					<span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+
+
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="emailText">Text</label>
+					<input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
+					<textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+					<span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
+					<script>
+						// Replace the <textarea id="editor1"> with a CKEditor
+						// instance, using default configuration.
+						CKEDITOR.replace('emailText');
+					</script>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
+					<input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
+				</div>
+				<div class="form-group">
+					<div class="row" style="height:34px;">
+						<div class="col-xs-9">
+							<button type="button" class="btn btn-primary" onclick="baseNarrative();">Base</button>
+							
+							<button type="button" class="btn btn-primary btn-hidden" style="@(ViewBag.IsShowGetRemoveBtns == true?"":"display:none;")" onclick="getNarrative();">Get</button>
+							
+							<button type="submit" class="btn btn-primary" name="submit">Send</button>
+							
+							<button type="button" class="btn btn-primary btn-hidden" style="@(ViewBag.IsShowGetRemoveBtns == true?"":"display:none;")" onclick="removeNarrative(@id);">Remove</button>
+							
+							<button type="button" class="btn btn-primary" onclick="saveNarrative();">Save</button>
+						</div>
+						<div class="col-xs-3">
+							<div class="checkbox">
+								<label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</form>
+
+		</div>
+	</div>
+</div>

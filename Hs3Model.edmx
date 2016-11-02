@@ -681,6 +681,13 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="narrativePPTQ">
+          <Key>
+            <PropertyRef Name="pptq" />
+          </Key>
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="narrative" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="numberSeed">
           <Key>
             <PropertyRef Name="number" />
@@ -4593,6 +4600,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addNarrativePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="narrative" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_addPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -5697,6 +5708,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutomailMessageAllByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutomailMessageByMailtypeandPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mailtype" Type="int" Mode="In" />
           <Parameter Name="partnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -6072,6 +6086,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getMultiTenantProjectTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getNarrativePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getNarrativePPTQAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getNextPageByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
           <Parameter Name="previousPage" Type="int" Mode="In" />
@@ -6212,6 +6230,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -7342,6 +7363,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyNarrativePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="narrative" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -8118,6 +8143,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_removeMultiTenantProjectType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeNarrativePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8746,6 +8774,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="menuAccessLevel" EntityType="Self.menuAccessLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="menuGroup" EntityType="Self.menuGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="multiTenantProjectType" EntityType="Self.multiTenantProjectType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="narrativePPTQ" EntityType="Self.narrativePPTQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="numberSeed" EntityType="Self.numberSeed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="page" EntityType="Self.page" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pageSurveyset" EntityType="Self.pageSurveyset" Schema="dbo" store:Type="Tables" />
@@ -15014,7 +15043,29 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerQuestionResponseByAccessCode5" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerQuestionResponseByAccessCode5_Result)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageAllByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageAllByPPTQ_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="narrativePPTQ" EntityType="hs3MVCMTQa2Model.narrativePPTQ" />
+          <FunctionImport Name="pr_addNarrativePPTQ">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="narrative" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getNarrativePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getNarrativePPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getNarrativePPTQAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getNarrativePPTQAll_Result)" />
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" ReturnType="Collection(String)">
+            <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyNarrativePPTQ">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="narrative" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeNarrativePPTQ">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24228,6 +24279,32 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="response" Nullable="false" />
           <Property Type="String" Name="description1" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageAllByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="narrativePPTQ">
+          <Key>
+            <PropertyRef Name="pptq" />
+          </Key>
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="narrative" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="pr_getNarrativePPTQ_Result">
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="String" Name="narrative" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getNarrativePPTQAll_Result">
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="String" Name="narrative" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32275,6 +32352,49 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageAllByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageAllByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageAllByPPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="narrativePPTQ">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.narrativePPTQ">
+              <MappingFragment StoreEntitySet="narrativePPTQ">
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_addNarrativePPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_getNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getNarrativePPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getNarrativePPTQ_Result">
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getNarrativePPTQAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getNarrativePPTQAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getNarrativePPTQAll_Result">
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_modifyNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyNarrativePPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_removeNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeNarrativePPTQ" />
           
         </EntityContainerMapping>
       </Mapping>

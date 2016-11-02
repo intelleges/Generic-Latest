@@ -205,6 +205,7 @@ namespace Generic
         public virtual DbSet<team> team { get; set; }
         public virtual DbSet<severityType> severityType { get; set; }
         public virtual DbSet<supportItemFailureType> supportItemFailureType { get; set; }
+        public virtual DbSet<narrativePPTQ> narrativePPTQ { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18063,6 +18064,73 @@ namespace Generic
                 new ObjectParameter("accesscode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCode5_Result>("pr_getPartnerQuestionResponseByAccessCode5", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAutomailMessageAllByPPTQ_Result> pr_getAutomailMessageAllByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageAllByPPTQ_Result>("pr_getAutomailMessageAllByPPTQ", pptqParameter);
+        }
+    
+        public virtual int pr_addNarrativePPTQ(Nullable<int> pptq, string narrative)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var narrativeParameter = narrative != null ?
+                new ObjectParameter("narrative", narrative) :
+                new ObjectParameter("narrative", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addNarrativePPTQ", pptqParameter, narrativeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getNarrativePPTQ_Result> pr_getNarrativePPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getNarrativePPTQ_Result>("pr_getNarrativePPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getNarrativePPTQAll_Result> pr_getNarrativePPTQAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getNarrativePPTQAll_Result>("pr_getNarrativePPTQAll");
+        }
+    
+        public virtual ObjectResult<string> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual int pr_modifyNarrativePPTQ(Nullable<int> pptq, string narrative)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var narrativeParameter = narrative != null ?
+                new ObjectParameter("narrative", narrative) :
+                new ObjectParameter("narrative", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyNarrativePPTQ", pptqParameter, narrativeParameter);
+        }
+    
+        public virtual int pr_removeNarrativePPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeNarrativePPTQ", pptqParameter);
         }
     }
 }
