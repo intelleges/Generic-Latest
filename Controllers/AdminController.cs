@@ -294,6 +294,7 @@ namespace Generic.Controllers
 
                             SessionSingleton.LoggedInUserId = resultPerson.id;
                             SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
+							SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(resultPerson.id).First() == 1 ? true : false;
                             SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                             SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
@@ -357,6 +358,7 @@ namespace Generic.Controllers
 
                 SessionSingleton.LoggedInUserId = resultPerson.id;
                 SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
+				SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(resultPerson.id).First() == 1 ? true : false;
                 SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                 SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
@@ -419,6 +421,7 @@ namespace Generic.Controllers
 
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
+					SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     SessionSingleton.Touchpoint = (int)person.campaign;
 

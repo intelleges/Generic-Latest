@@ -125,11 +125,23 @@ namespace Generic.SessionClass
             }
         }
 
+		public static bool IsSystemMaster
+		{
+			get
+			{
+				return Convert.ToBoolean(System.Web.HttpContext.Current.Session["IsSystemMaster"]);
+			}
+			set
+			{
+				System.Web.HttpContext.Current.Session["IsSystemMaster"] = value;
+			}
+		}
+
         public static bool ShouldDisplayMenu
         {
             get
             {
-                return LoggedInUserRole == 350 || LoggedInUserRole == 351;
+				return !IsSystemMaster;
             }
         }
         public static bool ShouldDisplayMenuBAA
@@ -138,16 +150,17 @@ namespace Generic.SessionClass
             {
                 if (Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2)
                 {
-                    return LoggedInUserRole == 1383;
+					return !IsSystemMaster;
                 }
                 else return false;
+				
             }
         }
         public static bool ShouldDisplayMenuBAAFull
         {
             get
             {
-                return Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2 && LoggedInUserRole == 1383 && Generic.Helpers.CurrentInstance.EnterpriseID == 2;
+                return Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2 && !IsSystemMaster && Generic.Helpers.CurrentInstance.EnterpriseID == 2;
             }
         }
 
