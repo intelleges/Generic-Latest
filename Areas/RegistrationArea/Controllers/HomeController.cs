@@ -1068,7 +1068,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 							var p = pages.Where(o => o.Page == page).FirstOrDefault();
 							totalCount = pages.Count();
 							int currentIndex = 0;
-							if (p != null){
+							if (p != null)
+							{
 								currentIndex = pages.IndexOf(p);
 							}
 
@@ -6131,78 +6132,176 @@ Intelleges Team";
 						break;
 					//Sum of  25004+25006+25008+25010+25013+25014
 					case 25004:
-						ViewBag.Q23629_Value = item.comment;
-						sumofFirst += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q23629_Value = string.Format("{0:C}", v);
+							else ViewBag.Q23629_Value = item.comment;
+							sumofFirst += v;
+						}
 						break;
 					case 25006:
-						ViewBag.Q24867_Value = item.comment;
-						sumofFirst += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24867_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24867_Value = item.comment;
+							sumofFirst += v;
+						}
 						break;
 					case 25008:
-						ViewBag.Q24870_Value = item.comment;
-						sumofFirst += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24870_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24870_Value = item.comment;
+							sumofFirst += v;
+						}
 						break;
 					case 25010:
-						ViewBag.Q24873_Value = item.comment;
-						sumofFirst += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24873_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24873_Value = item.comment;
+							sumofFirst += v;
+						}
 						break;
 					case 25013:
-						ViewBag.Q24875_Value = item.comment;
-						sumofFirst += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24875_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24875_Value = item.comment;
+							sumofFirst += v;
+						}
 						break;
 					case 25014:
-						ViewBag.Q2424876_Value = item.comment;
-						sumofFirst += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q2424876_Value = string.Format("{0:C}", v);
+							else ViewBag.Q2424876_Value = item.comment;
+							sumofFirst += v;
+						}
 						break;
 					//Sum of 25018+25020+25022+25024+25027+25028
 					case 25018:
-						ViewBag.Q24880_Value = item.comment;
-						sumOfSecond += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24880_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24880_Value = item.comment;
+							sumOfSecond += v;
+						}
 						break;
 					case 25020:
-						ViewBag.Q24883_Value = item.comment;
-						sumOfSecond += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24883_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24883_Value = item.comment;
+							sumOfSecond += v;
+						}
 						break;
 					case 25022:
-						ViewBag.Q24886_Value = item.comment;
-						sumOfSecond += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24886_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24886_Value = item.comment;
+							sumOfSecond += v;
+						}
+						
 						break;
 					case 25024:
-						ViewBag.Q24889_Value = item.comment;
-						sumOfSecond += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24889_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24889_Value = item.comment;
+							sumOfSecond += v;
+						}
+						
 						break;
 					case 25027:
-						ViewBag.Q24891_Value = item.comment;
-						sumOfSecond += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24891_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24891_Value = item.comment;
+							sumOfSecond += v;
+						}
+
 						break;
 					case 25028:
-						ViewBag.Q2424892_Value = item.comment;
-						sumOfSecond += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q2424892_Value = string.Format("{0:C}", v);
+							else ViewBag.Q2424892_Value = item.comment;
+							sumOfSecond += v;
+						}
+
 						break;
 					//Sum of 25032+25034+25036+25038+25041+25042
 					case 25032:
-						ViewBag.Q24896_Value = item.comment;
-						sumOfThird += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24896_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24896_Value = item.comment;
+							sumOfThird += v;
+						}
+
 						break;
 					case 25034:
-						ViewBag.Q24899_Value = item.comment;
-						sumOfThird += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24899_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24899_Value = item.comment;
+							sumOfThird += v;
+						}
+
 						break;
 					case 25036:
-						ViewBag.Q24902_Value = item.comment;
-						sumOfThird += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24902_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24902_Value = item.comment;
+							sumOfThird += v;
+						}
 						break;
 					case 25038:
-						ViewBag.Q24905_Value = item.comment;
-						sumOfThird += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24905_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24905_Value = item.comment;
+							sumOfThird += v;
+						}
+						
 						break;
 					case 25041:
-						ViewBag.Q24907_Value = item.comment;
-						sumOfThird += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q24907_Value = string.Format("{0:C}", v);
+							else ViewBag.Q24907_Value = item.comment;
+							sumOfThird += v;
+						}
 						break;
 					case 25042:
-						ViewBag.Q2424908_Value = item.comment;
-						sumOfThird += GetNumber(item.comment);
+						if (!string.IsNullOrEmpty(item.comment))
+						{
+							decimal v = GetNumber(item.comment);
+							if (v != 0) ViewBag.Q2424908_Value = string.Format("{0:C}", v);
+							else ViewBag.Q2424908_Value = item.comment;
+							sumOfThird += v;
+						}
+						
 						break;
 					//0.1
 
@@ -6424,9 +6523,9 @@ Intelleges Team";
 					default: break;
 				}
 			}
-			ViewBag.sumOfFirst = sumofFirst;
-			ViewBag.sumOfSecond = sumOfSecond;
-			ViewBag.sumOfThird = sumOfThird;
+			ViewBag.sumOfFirst = string.Format("{0:C}", sumofFirst);
+			ViewBag.sumOfSecond = string.Format("{0:C}", sumOfSecond);
+			ViewBag.sumOfThird = string.Format("{0:C}", sumOfThird);
 			return pptqID;
 		}
 
