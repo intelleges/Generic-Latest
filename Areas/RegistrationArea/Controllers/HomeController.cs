@@ -5100,6 +5100,12 @@ Intelleges Team";
 			if (match.Success)
 				return decimal.Parse(match.Value);
 			else return 0;*/
+
+			decimal val = -1;
+
+			if (decimal.TryParse(value, out val))
+				return val;
+
 			try
 			{
 				return decimal.Parse(Regex.Match(value, @"-?\d{1,3}(,\d{3})*(\.\d+)?").Value);
