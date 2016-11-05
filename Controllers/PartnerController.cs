@@ -2239,6 +2239,29 @@ namespace Generic.Controllers
 			return Json(error);
 		}
 
+		[HttpPost, ValidateInput(false)]
+		public ActionResult SendEmailByAccessCode(string accessCode, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
+		{
+			var message = "";
+			EmailFormat formatter = new EmailFormat();
+			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+
+			var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+
+			try
+			{
+				SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+
+				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
+			}
+			catch {
+				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") NOT SENT!";
+			}
+
+			return Json(new { message = message });
+		}
+
 		[HttpPost]
 		public string Remind(string accessCode)
 		{

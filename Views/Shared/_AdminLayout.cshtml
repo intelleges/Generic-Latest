@@ -51,6 +51,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
+	<link href="@Url.Content("~/Content/jquery.fancybox.css")" rel="stylesheet" />
     @*@Scripts.Render("~/bundles/jquery")*@
     <script src="~/Scripts/kendo/2015.2.624/jquery.min.js"></script>
     <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
@@ -61,6 +62,7 @@
 
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
+	<script src="~/Scripts/jquery.fancybox.pack.js"></script>
     @RenderSection("header", false)
     <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
     <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />

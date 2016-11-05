@@ -20,6 +20,29 @@
 		width: 99% !important;
 		left: 0;
 	}
+
+	.ui-progressbar {
+    position: relative;
+  }
+  .progress-label {
+    position: absolute;
+        width: 100%;
+    text-align: center;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+  }
+	.fancybox-inner .buttons {
+		float: right!important;
+	}
+
+	.fancybox-inner .buttons .btn {
+		width: 100px;
+	}
+
+	.fancybox-inner p {
+		min-height:40px;
+	}
 </style>
 
 
@@ -60,7 +83,7 @@
 							<div class="form-group">
 								<label class="control-label" for="emailText">Text</label>
 								<input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
-								<textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true" ></textarea>
+								<textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
 								<span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
 								<script>
 									// Replace the <textarea id="editor1"> with a CKEditor
@@ -91,6 +114,16 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div id="send-email-progress" style="display:none;">
+	<div style="padding: 10px 20px;">
+		<div id="progressbar"><div class="progress-label">Loading...</div></div>
+		<p id="progress-note"></p>
+		<div class="tw-bs buttons">
+			<button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
 		</div>
 	</div>
 </div>
@@ -193,15 +226,15 @@
 
 		})
 
-														 //.ClientEvents(events => events.OnDataBound("onDataBound"))
-														.DataKeys(keys => keys.Add(o => o.internalID))
-														.Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
-														.Sortable(sorting => sorting.Enabled(true))
+																		 //.ClientEvents(events => events.OnDataBound("onDataBound"))
+																		.DataKeys(keys => keys.Add(o => o.internalID))
+																		.Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+																		.Sortable(sorting => sorting.Enabled(true))
 
-														.Scrollable(scrolling => scrolling
-														   .Enabled(true)
-														   .Height(380))
-														   .HtmlAttributes(new { @class = "ra" })
+																		.Scrollable(scrolling => scrolling
+																		   .Enabled(true)
+																		   .Height(380))
+																		   .HtmlAttributes(new { @class = "ra" })
 
 
 
@@ -239,6 +272,8 @@
 		list-style: none outside none;
 		width: 143px;
 	}
+
+	  
 </style>
 
 @section scripts{
@@ -251,7 +286,7 @@
 		function dropDownSubjectsChanged() {
 			var control = $("#DropDownSubjects");
 			if (control.val()) {
-				$.get("@Url.Action("GetAutomail","Partner")"+"?id=" + control.val()).done(function (result) {
+				$.get("@Url.Action("GetAutomail","Partner")" + "?id=" + control.val()).done(function (result) {
 					if (result) {
 						$("#emailSubject").val(result.subject);
 						CKEDITOR.instances["emailText"].setData(result.text + "<br> " + result.footer1)
@@ -265,6 +300,7 @@
 			}
 		}
 		var tipsShowed = false;
+		var accessCodes = [];
 		$(function () {
 
 			//$("#innerEmailDialog").dialog({
@@ -273,40 +309,40 @@
 			$("#emailDialog").submit(function (e) {
 
 				e.preventDefault();
-				var formdata = new FormData(); //FormData object
-				var fileInput = document.getElementById('EmailAttachmentUpload');
-				////Iterating through each files selected in fileInput
-				for (i = 0; i < fileInput.files.length; i++) {
-					//Appending each file to FormData object
-					formdata.append("attachment", fileInput.files[i]);
-				}
-				var accessCodes = [];
+				$("#emailDialog").modal("toggle");
+
 				$("input:checkbox[name$=chkSelect]:checked").each(function () {
 					accessCodes.push($(this).parent().children("input:hidden[name$=AccessCode]").val());
 				});
-				formdata.append("accessCodes", accessCodes);
-				formdata.append("subject", $("#emailSubject").val());
-				formdata.append("text", $("#emailText").val());
-				formdata.append("userDate", new Date().toISOString());
-				formdata.append("ccSender", $("#ccSender").prop("checked"));
-				$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
-				$.ajax({
-					url: 'FindRemind',
-					type: 'POST',
-					data: formdata,
-					processData: false,
-					contentType: false,
-					cache: false
-				}).done(function (result) {
-					$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
-					if (result) {
-						$("#emailDialog").modal("toggle");
-						alertify.alert(result);
-					} else {
-						$("#emailDialog").modal("toggle");
-						alertify.alert("Reminders are sent");
-					}
-				});
+
+				if (accessCodes.length > 0) {
+					$.fancybox({
+						'content': $('#send-email-progress').html(),
+						closeBtn: false,
+						closeClick: false,
+						modal: true,
+						type: 'html',
+						minWidth: 400,
+						minHeight: 150
+					});
+
+					var progressbar = $(".fancybox-inner #progressbar"),
+					progressLabel = $(".fancybox-inner .progress-label");
+
+					progressbar.progressbar({
+						value: false,
+						change: function () {
+							progressLabel.text(Number( progressbar.progressbar("value")).toFixed(2) + "%");
+						},
+						complete: function () {
+							progressLabel.text("Complete!");
+						}
+					});
+
+					sendEmailByAccessCode(0, progressbar, progressLabel);
+				}
+
+				
 			});
 
 			$("#btnGo").click(function (e) {
@@ -331,6 +367,43 @@
 			});
 
 		});
+
+		function sendEmailByAccessCode(nextIndex, progressbar, progressLabel)
+		{
+			var formdata = new FormData(); //FormData object
+			var fileInput = document.getElementById('EmailAttachmentUpload');
+			////Iterating through each files selected in fileInput
+			for (i = 0; i < fileInput.files.length; i++) {
+				//Appending each file to FormData object
+				formdata.append("attachment", fileInput.files[i]);
+			}
+
+			formdata.append("accessCode", accessCodes[nextIndex]);
+			formdata.append("subject", $("#emailSubject").val());
+			formdata.append("text", $("#emailText").val());
+			formdata.append("userDate", new Date().toISOString());
+			formdata.append("ccSender", $("#ccSender").prop("checked"));
+
+			$.ajax({
+				url: 'SendEmailByAccessCode',
+				type: 'POST',
+				data: formdata,
+				processData: false,
+				contentType: false,
+				cache: false
+			}).done(function (result) {
+
+				var val = progressbar.progressbar("value") || 0;
+				var v = (nextIndex + 1 )/ accessCodes.length * 100;
+				progressbar.progressbar("value", v);
+
+				$('.fancybox-inner #progress-note').html(result.message)
+
+				if (accessCodes.length > nextIndex + 1) {
+					sendEmailByAccessCode(nextIndex + 1, progressbar, progressLabel);
+				}
+			});
+		}
 
 		function resotreMultiple(event) {
 			event.preventDefault();
@@ -510,6 +583,7 @@
 				}
 			}
 		});
+
 
 	</script>
 }
