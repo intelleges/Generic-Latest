@@ -85,7 +85,7 @@ namespace Generic.Controllers
 			if (model.partnerStatus != null)
 				arguments += "StatusID=" + model.partnerStatus + ";";
 			if (model.SupplierNumber != "")
-				arguments += "InternalId=" + model.SupplierNumber + ";";
+				arguments += "dunsNumber=" + model.SupplierNumber + ";";
 			if (model.PoNumber != "")
 				arguments += "address=" + model.PoNumber + ";";
 			if (model.SupplierName != "")
@@ -202,7 +202,7 @@ namespace Generic.Controllers
 			try
 			{
 
-				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.address1 + " " + partner.phone, partner.internalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, "", "", partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
+				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.address1 + " " + partner.phone, partner.dunsNumber, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, "", "", partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
 				uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
 				Session["uploadedpartnerList"] = uploadedpartners;
 				Session["partnertype"] = partnertype;

@@ -5794,7 +5794,7 @@ Intelleges Team";
 			ViewBag.PurchaseOrderValue = "$" + new Regex("/\\B(?=(\\d{3})+(?!\\d))/g").Replace(_partner.address2.Replace(",", ""), ",");
 			ViewBag.PO_REVISION_NUMBER = _partner.phone;
 			ViewBag.PartNumber = _partner.zipcode;
-			ViewBag.PnDescription = _partner.dunsNumber;
+			ViewBag.PnDescription = _partner.internalID;
 			ViewBag.ChangeAmount = _partner.city;
 			ViewBag.BuyerName = _partner.firstName + " " + _partner.lastName;
 			ViewBag.ComplienceAnalist = _partner.title;
