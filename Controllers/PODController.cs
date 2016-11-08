@@ -178,15 +178,16 @@ namespace Generic.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public ActionResult SaveNarrative(int pptq, string text) {
+		public ActionResult SaveNarrative(int pptq, string text)
+		{
 
 			var content = db.pr_getNarrativePPTQ(pptq).FirstOrDefault();
 			if (content == null)
 				db.pr_addNarrativePPTQ(pptq, text);
 			else db.pr_modifyNarrativePPTQ(pptq, text);
-				
 
-			return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+
+			return Json(new { success = true }, JsonRequestBehavior.AllowGet);
 		}
 
 
@@ -201,7 +202,7 @@ namespace Generic.Controllers
 			try
 			{
 
-				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, partner.federalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, partner.title ?? "", partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
+				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.address1 + " " + partner.phone, partner.internalID, partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, "", "", partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
 				uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
 				Session["uploadedpartnerList"] = uploadedpartners;
 				Session["partnertype"] = partnertype;

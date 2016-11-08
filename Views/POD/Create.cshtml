@@ -696,32 +696,7 @@
                 <div class="editor-field">
                     @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100%;" })
                 </div>
-
-              <div class="editor-label">
-                    @*@Html.LabelFor(model => model.title)*@
-                    @Html.Label("Approving S&P Compliance Manager Email (Optional)")
-                </div>
-                <div class="editor-field">
-                    @*@Html.EditorFor(model => model.title)*@
-                    @Html.TextBoxFor(model => model.title, new { @class = "txtClass" })
-                </div>
-
-                <div class="editor-label" style="display:none;">
-                    @Html.Label("Global Sourcing Manager Email (Optional)")
-                </div>
-				<div class="editor-field" style="display:none;">
-					@Html.TextBoxFor(model => model.province, new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.province)
-				</div>
-
-                <div class="editor-label">
-                    @*@Html.LabelFor(model => model.federalID)*@
-                    @Html.Label("Federal ID (Optional)")
-                </div>
-                <div class="editor-field">
-                    @*@Html.EditorFor(model => model.federalID)*@
-                    @Html.TextBoxFor(model => model.federalID, new { @class = "txtClass" })
-                </div>
+           
                 
                 @*<div class="editor-label">
 
