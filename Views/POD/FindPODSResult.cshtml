@@ -74,7 +74,7 @@
 
         .Columns(columns =>
         {
-			columns.Bound(o => o.internalID).Title("Supplier #").Width(150).Encoded(false);
+			columns.Bound(o => o.dunsNumber).Title("Supplier #").Width(150).Encoded(false);
 			columns.Bound(o => o.PartnerName).Title("Supplier Name").Width(250).Template(@<text>
                 @{
 
