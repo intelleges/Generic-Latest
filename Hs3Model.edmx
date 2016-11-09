@@ -8032,6 +8032,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_partnerAddDuplicateCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internalID" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_PerformSelectedActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inputList" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -15054,18 +15060,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="narrative" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getNarrativePPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getNarrativePPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getNarrativePPTQAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getNarrativePPTQAll_Result)" />
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" ReturnType="Collection(String)">
-            <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyNarrativePPTQ">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="narrative" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_removeNarrativePPTQ">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_partnerAddDuplicateCheck" ReturnType="Collection(String)">
+            <Parameter Name="internalID" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -32395,6 +32407,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseCommentByPPTQ" />
           <FunctionImportMapping FunctionImportName="pr_modifyNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyNarrativePPTQ" />
           <FunctionImportMapping FunctionImportName="pr_removeNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeNarrativePPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_partnerAddDuplicateCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_partnerAddDuplicateCheck" />
           
         </EntityContainerMapping>
       </Mapping>

@@ -18132,5 +18132,26 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeNarrativePPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<string> pr_partnerAddDuplicateCheck(string internalID, string email, Nullable<int> partnertype, Nullable<int> touchpoint)
+        {
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_partnerAddDuplicateCheck", internalIDParameter, emailParameter, partnertypeParameter, touchpointParameter);
+        }
     }
 }

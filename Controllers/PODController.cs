@@ -202,6 +202,16 @@ namespace Generic.Controllers
 			try
 			{
 
+				var o = db.pr_partnerAddDuplicateCheck(partner.address1 + " " + partner.phone, partner.email, partnertype, touchpoint).FirstOrDefault();
+
+				if (o != null) {
+					ViewBag.Message = "duplicates";
+					ViewBag.MessageDuplicates = "This PO " + partner.address1 + " and Version # " + partner.phone + "  have already been entered. Please check this accesscode <a href='" + Url.Content("~/Registration?Accesscode=" + o) + "'>" + o + "</a>.";
+					ModelState.Clear();
+					return View();
+				}
+
+
 				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.address1 + " " + partner.phone, partner.dunsNumber, partner.internalID, partner.name, partner.address1, partner.address2, partner.city, "", partner.fax ?? "", "", partner.firstName, partner.lastName, "", "", partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
 				uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
 				Session["uploadedpartnerList"] = uploadedpartners;
