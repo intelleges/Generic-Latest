@@ -1254,6 +1254,9 @@
     <Compile Include="pr_getGroupByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getGroupByPersonforPODS_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getGroupByPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

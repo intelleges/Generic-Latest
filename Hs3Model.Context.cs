@@ -18153,5 +18153,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_partnerAddDuplicateCheck", internalIDParameter, emailParameter, partnertypeParameter, touchpointParameter);
         }
+    
+        public virtual ObjectResult<pr_getGroupByPersonforPODS_Result> pr_getGroupByPersonforPODS(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByPersonforPODS_Result>("pr_getGroupByPersonforPODS", personParameter);
+        }
     }
 }

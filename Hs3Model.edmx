@@ -5952,6 +5952,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getGroupByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getGroupByPersonforPODS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getGroupByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
         </Function>
@@ -15078,6 +15081,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGroupByPersonforPODS" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupByPersonforPODS_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24317,6 +24323,20 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="pptq" Nullable="false" />
           <Property Type="String" Name="narrative" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getGroupByPersonforPODS_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="groupCollection" Nullable="false" />
+          <Property Type="Int32" Name="groupType" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="dateCreated" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32408,6 +32428,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_modifyNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyNarrativePPTQ" />
           <FunctionImportMapping FunctionImportName="pr_removeNarrativePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeNarrativePPTQ" />
           <FunctionImportMapping FunctionImportName="pr_partnerAddDuplicateCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_partnerAddDuplicateCheck" />
+          <FunctionImportMapping FunctionImportName="pr_getGroupByPersonforPODS" FunctionName="hs3MVCMTQa2Model.Store.pr_getGroupByPersonforPODS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGroupByPersonforPODS_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="groupCollection" ColumnName="groupCollection" />
+                <ScalarProperty Name="groupType" ColumnName="groupType" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           
         </EntityContainerMapping>
       </Mapping>

@@ -307,7 +307,7 @@
 		}
 
 		$.ajax({
-			url: "@Url.Content("~/touchpoint/GetGroupByPerson")",
+			url: "@Url.Content("~/touchpoint/GetGroupByPersonForPODS")",
 			type: "GET",
 			success: function (data) {
 				var len = data.Data.length;
@@ -584,7 +584,7 @@
                     @Html.Label("Purchase Order#")
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", pattern = "[a-zA-Z0-9]+" })
+                    @Html.TextBoxFor(model => model.address1, new { @class = "txtClass", pattern = "[a-zA-Z0-9]+", maxlength = "10" })
                     <span style="color:red;" id="errmsgaddress1"></span>
                     @Html.ValidationMessageFor(model => model.address1)
                 </div>

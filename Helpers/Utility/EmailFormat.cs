@@ -222,7 +222,7 @@ namespace Generic.Helpers.Utility
 						sValue = partner.phone;
 						break;
 					case "[purchase order number]":
-						sValue = partner.address2;
+						sValue = partner.address1;
 						break;
                     case "[receiver full name]":
                         sValue = this.sGetpersonFullName(receiver);

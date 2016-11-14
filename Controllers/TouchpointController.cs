@@ -505,5 +505,13 @@ namespace Generic.Controllers
             return Json(new { Data = group.Select(o=>new {id=o.id, title=o.name}).ToList() }, JsonRequestBehavior.AllowGet);
 
         }
+
+		public ActionResult GetGroupByPersonForPODS()
+		{
+
+			var group = db.pr_getGroupByPersonforPODS(SessionSingleton.LoggedInUserId);
+			return Json(new { Data = group.Select(o => new { id = o.id, title = o.name }).ToList() }, JsonRequestBehavior.AllowGet);
+
+		}
     }
 }
