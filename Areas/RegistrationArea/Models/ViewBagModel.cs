@@ -72,6 +72,9 @@ namespace Generic.Areas.RegistrationArea.Models
         public Nullable<int> ENTERPRISE_ID { get;set; }
         ////
         public string SAVE_FOR_LATER_TEXT { get; set; }
+
+
+		public bool IsPODS { get; set; }
     }
 
    

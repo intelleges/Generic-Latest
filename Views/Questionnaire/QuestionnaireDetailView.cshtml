@@ -144,9 +144,9 @@
             columns.Bound(o => o.Question).Title("Question").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
             <div class="display_menu" style="display: none;">
                 <ul>
-                    <li><a href="javascript:openEditPopup(@item.id,'@item.name')">Edit/Correct</a></li>
+                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
                     @*<li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>*@
-                    <li><a href="javascript:editResponse(@item.id,'@item.name')">Edit Response</a></li>
+                    <li><a href="javascript:editResponse(@item.id)">Edit Response</a></li>
                     @*<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>*@
                     <li><a href="javascript:openViewDetailPopup(@item.id)">View HTML</a></li>
                 </ul>
@@ -220,7 +220,7 @@
 
             <script type="text/javascript">
                 var currentQuestionId;
-                function editResponse(question,name) {
+                function editResponse(question) {
                     currentQuestionId=question;
                     var questionnaireId = @ViewBag.questionnaireId;
                     $.post('@Url.Action("GetQuestionnaireResponsesWithSelectedQuestion","Questionnaire")',{questionnaire:questionnaireId,question:question}).done(function(result) {
@@ -337,13 +337,7 @@
 
                 //});
                 var questionId=0;
-                function openEditPopup(id,text) {
-                    $("#editQuestion").modal("toggle");
-                    $("#editQuestion textarea").val(text);
-                    questionId = id;
-                    $("#text").html("");
-
-                }
+                
 
                 function openRemovePopup(id, name) {
                     alertify.set({
@@ -396,10 +390,23 @@
 
                 }
 
+				function openEditPopup(id) {
+					$("#editQuestion").modal("toggle");
+					//$("#editQuestion textarea").val(text);
+					questionId = id;
+					$("#text").html("");
+
+					$.get("@Url.Content("~/Questionnaire/QuestionDetailView/")" + id, function (data) {
+						//$("#genericPopup").html(data);
+						$("#editQuestion textarea").val(data.text);
+					});
+
+				}
+
                 function openViewDetailPopup(id) {
                     $("#genericPopup").html("<p>Loading Data...</p>");
-                    $.get("@Url.Content("~/Questionnaire/QuestionDetail/")" + id, function (data) {
-                        $("#genericPopup").html(data);
+                    $.get("@Url.Content("~/Questionnaire/QuestionDetailView/")" + id, function (data) {
+                        $("#genericPopup").html(data.text);
                     });
                     $("#genericPopup").dialog({ height: 600, title: "View Detail" });
                     $("#genericPopup").dialog('open');

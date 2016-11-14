@@ -595,6 +595,13 @@ namespace Generic.Controllers
             LoadResponseTypes(question.responseType);
             return View(question);
         }
+
+		public ActionResult QuestionDetailView(int? id)
+		{
+			var question = db.pr_getQuestion(id).FirstOrDefault();
+			return Json(new { text = question.name }, JsonRequestBehavior.AllowGet);
+		}
+
         [HttpPost]
         public ActionResult EditQuestionDetail(question question)
         {

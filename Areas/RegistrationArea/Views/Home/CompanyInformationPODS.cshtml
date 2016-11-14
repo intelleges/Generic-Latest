@@ -1,0 +1,84 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+@using System.Web.Mvc.Html
+@using Generic.Areas.RegistrationArea.Models
+@using Generic.Helpers
+@using System.Web.Optimization;
+@{
+	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    ViewBag.Title = "Company Infomation";
+  //  Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
+}
+
+@Styles.Render("~/bundles/registrationCss")
+
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <div class="shadow-box padding-none full-width">
+                <div class="black-box-hd">@formData.COMPANY_INFORMATION_TEXT (@formData.VERIFY_COMPANY_INFO)</div>
+                <div class="row main-content">
+                    <div class="col-md-12 padding-bottom">
+
+
+                        <h4><span id="ctl00_contentQuestionnaireBody_lblCompanyName">@Model.dunsNumber</span></h4>
+
+                    </div>
+                    <div id="ctl00_contentQuestionnaireBody_lblAddress">
+						<div class="col-md-12 padding-bottom">
+							<p>@Model.name</p>
+						</div>
+						<div class="col-sm-6">
+							<p>@Model.internalID<br/>@Model.address2<br />@Model.city<br />@Model.zipcode<br />@Model.title</p>
+						</div>
+                     </div>
+                    <!-- show remit address -->
+                    <span id="ctl00_contentQuestionnaireBody_lblRemitAddress"></span>
+                    <!-- end show remit address -->
+                    <!-- show federalId -->
+                    <span id="ctl00_contentQuestionnaireBody_lblFederalId"></span>
+                    <!-- end show federalId -->
+                    <!-- show dunsNumber -->
+                    <span id="ctl00_contentQuestionnaireBody_lblDunsNumber"></span>
+                    <!-- end show dunsNumber -->
+                    <!-- show naicsCode -->
+                    <span id="ctl00_contentQuestionnaireBody_lblNaicsCode"></span>
+                    <!-- end show naicsCode -->
+                    <!-- show businessDescription -->
+                    <span id="ctl00_contentQuestionnaireBody_lblBusinessDescription"></span>
+                    <!-- end show businessDescription -->
+                    <!-- end show content -->
+                        <div class="col-sm-6">
+                            <form action="@Url.Action("CorrectCompanyInformation")">
+                                
+                                <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            </form>
+                            
+                           
+                            <button type="submit" name="btnEdit" id="btnEdit" onclick="window.location = 'EditCompanyInformation';" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                        </div>
+
+
+
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+

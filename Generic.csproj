@@ -3374,6 +3374,10 @@
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload8.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload9.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CompanyInformationPODS.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\EditCompanyInformationPODS.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\ContactInformationPODS.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\EditContactInformationPODS.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

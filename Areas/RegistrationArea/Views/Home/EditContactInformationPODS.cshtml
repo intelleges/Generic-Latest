@@ -1,0 +1,108 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+@using System.Web.Mvc.Html
+@using Generic.Areas.RegistrationArea.Models
+@using System.Web.Optimization;
+@{
+	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();  
+    // Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    //ViewBag.Title = "CompanyInfomation";
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
+}
+
+@Styles.Render("~/bundles/registrationCss")
+@Styles.Render("~/bundles/alertifyCss")
+@Scripts.Render("~/bundles/jquery")
+
+
+
+
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+       @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <div class="shadow-box padding-none full-width">
+                <div class="black-box-hd">@formData.CONTACT_INFORMATION_TEXT (@formData.VERIFY_CONTACT_TEXT_INFORMATION)</div>
+                <div class="row main-content">
+                @using (Html.BeginForm())
+				{
+					@Html.Hidden("ispods", formData.IsPODS)
+                    <div class="form-horizontal black-box-form">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.FIRST_NAME:<i class="fa fa-asterisk"></i> </label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.firstName,new{@class="form-control"})
+                                    @Html.ValidationMessageFor(model => model.firstName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.LAST_NAME:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.lastName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.EMAIL_TEXT:<i class="fa fa-asterisk"></i></label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control", @type = "email" })
+                                    @Html.ValidationMessageFor(model => model.email)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            <button type="submit" name="btnCancel" id="btnCancel" onclick="javascrit: history.go(-1); return false;" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                        </div>
+                    </div>
+                }
+
+
+                </div>
+            </div>
+            <div class="sub-honeywell text-center">
+                <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.REQUIRED_FIELDS</label>
+            </div>
+        </div>
+
+</section>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ('@ViewBag.isEmailChanged' == "1") {
+            alertify.set({
+                labels: {
+                    ok: "No",
+                    cancel: "Yes"
+                },
+                buttonFocus: "cancel"
+            });
+            // button labels will be "Accept" and "Deny"
+            alertify.confirm("you have changed email address this requires redirect, would you like to redirect this questionnaire to someone else?", function (e) {
+                if (e) {
+                    $('#email').val('@Session["currentEmail"].ToString()');
+
+                } else {
+                    // user clicked "cancel"
+                    window.location.replace("@Url.Content("~/wrongContact?AccessCode="+ViewBag.accessCode)");
+                }
+            });
+        }
+    });
+</script>

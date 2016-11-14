@@ -35,11 +35,24 @@ namespace Generic.Areas.RegistrationArea.Controllers
 		const string PLEASE_ENTER_ACCESS_CODE = "Please enter your access code:";
 		const string ACCESS_CODE_SIPLE_TEXT = "Access Code:";
 		const string VERIFY_COMPANY_INFO = "Please verify that your company information is correct";
+		const string VERIFY_Purchase_INFO = "Please verify that your purchase order information is correct";
 		const string COMPANY_INFORMATION_TEXT = "Company Information";
 		const string CONTACT_INFORMATION_TEXT = "Contact Information";
+		const string BUYER_INFORMATION_TEXT = "Buyer Information";
+		const string Purchase_Order_INFORMATION_TEXT = "Purchase Order Information";
 		const string VERIFY_CONTACT_TEXT_INFORMATION = "Please verify that your contact information is correct";
+		const string VERIFY_BUYER_TEXT_INFORMATION = "Please verify that your buyer information is correct";
 
 		const string Company = "Company";
+		const string Supplier_Number = "Supplier";
+		const string Supplier_Name = "Supplier Name";
+		const string Purchase_Order = "Purchase Order";
+		const string Purchase_Order_Value = "Purchase Order Value";
+		const string Change_Amount = "Change Amount";
+		const string PO_Version = "PO Version";
+		const string Part_Number = "Part Number";
+		const string Part_Number_Description = "Part Number Description";
+
 		const string PHYSYCAL_ADDRESS = "Physical Address";
 		const string ADDRESS_ONE = "Address One";
 		const string ADDRESS_TWO = "Address Two";
@@ -743,7 +756,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
 					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
 					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
-
+					var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 
 					try
 					{
@@ -758,7 +771,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					}
 					catch { }
 
+					//PODS //Purchase_Order_INFORMATION_TEXT
+					if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+					{
+						objViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_Purchase_INFO, CurrentLanguage);
+						objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(Purchase_Order_INFORMATION_TEXT, CurrentLanguage);
+
+						ViewBag.FormData = objViewBag;
+						return View("CompanyInformationPODS", objPartner);
+					}
 				}
+
 				ViewBag.FormData = objViewBag;
 				return View(objPartner);
 			}
@@ -806,32 +829,66 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				//objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 				var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
 				var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+
+				var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+
+
 				var cmsId = 0;
 				if (ppptq != null)
 				{
-					_translator.PPTQ = ppptq;
-					objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
-					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
-					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
-					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
-					try
+					//PODS //Purchase_Order_INFORMATION_TEXT
+					if (question.footer == "7" || question.footer == "8" || question.footer == "9")
 					{
-						var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
-						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
-						objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
-						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
-						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
-						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
-						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
-						objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
+						_translator.PPTQ = ppptq;
+						objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(BUYER_INFORMATION_TEXT, CurrentLanguage);
+						objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_BUYER_TEXT_INFORMATION, CurrentLanguage);
+						var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+						var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+						var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+						try
+						{
+							var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
+							objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+							objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+							objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+							objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+							objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+							objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+							objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
 
 
+						}
+						catch { }
 					}
-					catch { }
+					else
+					{
+						_translator.PPTQ = ppptq;
+						objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
+						objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+						var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+						var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+						var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+						try
+						{
+							var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
+							objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+							objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+							objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+							objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+							objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+							objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+							objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
+
+
+						}
+						catch { }
+					}
 				}
 				ViewBag.FormData = objViewBag;
-				return View(objPartner);
+				if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+					return View("ContactInformationPODS", objPartner);
+				else
+					return View(objPartner);
 			}
 			catch (Google.GoogleApiException ex)
 			{
@@ -848,6 +905,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 		{
 			return RedirectToAction("ContactInformation");
 		}
+
+
 		public virtual ActionResult CorrectContactInformation()
 		{
 
@@ -2036,7 +2095,62 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			//objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 
 
+			partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+			if (partner == null)
+			{
+				return HttpNotFound();
+			}
+
+
 			int cmsId = 0;
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			//PODS //Purchase_Order_INFORMATION_TEXT
+			if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+			{
+				if (ppptq_cms != null)
+				{
+					objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(Purchase_Order_INFORMATION_TEXT, CurrentLanguage);
+					objViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_Purchase_INFO, CurrentLanguage);
+					objViewBag.Company = _translator.Translate(Supplier_Number, CurrentLanguage) + "#";
+					objViewBag.PHYSYCAL_ADDRESS = _translator.Translate(Supplier_Name, CurrentLanguage);
+					objViewBag.ADDRESS_ONE = _translator.Translate(Purchase_Order, CurrentLanguage) + "#";
+
+					objViewBag.ADDRESS_TWO = _translator.Translate(Purchase_Order_Value, CurrentLanguage);
+					objViewBag.CITY = _translator.Translate(Change_Amount, CurrentLanguage);
+					objViewBag.STATE_TEXT = _translator.Translate(PO_Version, CurrentLanguage) + "#";
+					objViewBag.POSTAL_CODE = _translator.Translate(Part_Number, CurrentLanguage);
+					objViewBag.PROVINCE = _translator.Translate(Part_Number_Description, CurrentLanguage);
+					objViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+
+
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+					try
+					{
+						int questionnaire = ptq != null ? ptq.questionnaire : 0;
+						var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditCompanyInformation");
+						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+						objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+
+						objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, questionnaire, objViewBag);
+					}
+					catch { }
+				}
+
+
+				partner.province = partner.internalID.Replace(partner.address1 + " ", "");
+				objViewBag.IsPODS = true;
+				ViewBag.FormData = objViewBag;
+				return View("EditCompanyInformationPODS", partner);
+			}
+
+
+
 			if (ppptq_cms != null)
 			{
 				objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
@@ -2070,11 +2184,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				catch { }
 			}
 
-			partner partner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
-			if (partner == null)
-			{
-				return HttpNotFound();
-			}
 			if (partner.state == null)
 			{
 				ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().AsEnumerable(), "id", "stateCode");
@@ -2118,7 +2227,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			return View(partner);
 		}
 		[HttpPost]
-		public ActionResult EditCompanyInformation(partner partner)
+		public ActionResult EditCompanyInformation(partner partner, bool? ispods)
 		{
 			if (Session["hs3Registration"] == null)
 			{
@@ -2128,19 +2237,41 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			partner objpartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
 			if (objpartner != null)
 			{
-				objpartner.name = partner.name;
-				objpartner.address1 = partner.address1;
-				objpartner.address2 = partner.address2;
-				objpartner.city = partner.city;
-				objpartner.state = partner.state;
-				objpartner.zipcode = partner.zipcode;
-				objpartner.province = partner.province;
-				objpartner.country = partner.country;
-				if (ModelState.IsValid)
+				if (ispods == null)
 				{
-					db.Entry(objpartner).State = EntityState.Modified;
-					db.SaveChanges();
-					return RedirectToAction("CompanyInformation");
+					objpartner.name = partner.name;
+					objpartner.address1 = partner.address1;
+					objpartner.address2 = partner.address2;
+					objpartner.city = partner.city;
+					objpartner.state = partner.state;
+					objpartner.zipcode = partner.zipcode;
+					objpartner.province = partner.province;
+					objpartner.country = partner.country;
+					if (ModelState.IsValid)
+					{
+						db.Entry(objpartner).State = EntityState.Modified;
+						db.SaveChanges();
+						return RedirectToAction("CompanyInformation");
+					}
+				}
+				else
+				{
+
+					objpartner.dunsNumber = partner.dunsNumber;
+					objpartner.name = partner.name;
+					objpartner.address1 = partner.address1;
+					objpartner.address2 = partner.address2;
+					objpartner.city = partner.city;
+					objpartner.zipcode = partner.zipcode;
+					objpartner.province = partner.province;
+					objpartner.internalID = partner.address1 + " " + partner.province;
+					objpartner.title = partner.title;
+					if (ModelState.IsValid)
+					{
+						db.Entry(objpartner).State = EntityState.Modified;
+						db.SaveChanges();
+						return RedirectToAction("CompanyInformation");
+					}
 				}
 			}
 
@@ -2164,6 +2295,53 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			//objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
 
 			int cmsId = 0;
+
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			//PODS //Purchase_Order_INFORMATION_TEXT
+			if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+			{
+				if (ppptq_cms != null)
+				{
+					objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(Purchase_Order_INFORMATION_TEXT, CurrentLanguage);
+					objViewBag.VERIFY_COMPANY_INFO = _translator.Translate(VERIFY_Purchase_INFO, CurrentLanguage);
+					objViewBag.Company = _translator.Translate(Supplier_Number, CurrentLanguage) + "#";
+					objViewBag.PHYSYCAL_ADDRESS = _translator.Translate(Supplier_Name, CurrentLanguage);
+					objViewBag.ADDRESS_ONE = _translator.Translate(Purchase_Order, CurrentLanguage) + "#";
+
+					objViewBag.ADDRESS_TWO = _translator.Translate(Purchase_Order_Value, CurrentLanguage);
+					objViewBag.CITY = _translator.Translate(Change_Amount, CurrentLanguage);
+					objViewBag.STATE_TEXT = _translator.Translate(PO_Version, CurrentLanguage) + "#";
+					objViewBag.POSTAL_CODE = _translator.Translate(Part_Number, CurrentLanguage);
+					objViewBag.PROVINCE = _translator.Translate(Part_Number_Description, CurrentLanguage);
+					objViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+
+
+					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : 0).ToList();
+					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
+					try
+					{
+						int questionnaire = ptq != null ? ptq.questionnaire : 0;
+						var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditCompanyInformation");
+						objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
+						objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
+						objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
+						objViewBag.CMS_PAGE_PANEL_TWO = model.CMS_PAGE_PANEL_TWO;
+						objViewBag.CMS_PAGE_PREVIOUS_TEXT = model.CMS_PAGE_PREVIOUS_TEXT;
+						objViewBag.CMS_PAGE_NEXT_TEXT = model.CMS_PAGE_NEXT_TEXT;
+
+						objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, questionnaire, objViewBag);
+					}
+					catch { }
+				}
+
+				partner.province = partner.internalID.Replace(partner.address1 + " ", "");
+				objViewBag.IsPODS = true;
+				ViewBag.FormData = objViewBag;
+				return View("EditCompanyInformationPODS", partner);
+			}
+
+
 			if (ppptq_cms != null)
 			{
 				objViewBag.COMPANY_INFORMATION_TEXT = _translator.Translate(COMPANY_INFORMATION_TEXT, CurrentLanguage);
@@ -2233,13 +2411,26 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 			var cmsId = 0;
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 			if (ppptq_cms != null)
 			{
+				
 				_translator.PPTQ = ppptq_cms;
-				objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
-				objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+				
 				objViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
 
+				//PODS //Purchase_Order_INFORMATION_TEXT
+				if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+				{
+					objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(BUYER_INFORMATION_TEXT, CurrentLanguage);
+					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_BUYER_TEXT_INFORMATION, CurrentLanguage);
+					objViewBag.IsPODS = true;
+				}
+				else {
+					objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
+					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+					
+				}
 
 				objViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
 				objViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
@@ -2268,11 +2459,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				catch { }
 			}
 			ViewBag.FormData = objViewBag;
-			return View(partner);
+			if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+				return View("EditContactInformationPODS", partner);
+			else
+				return View(partner);
 		}
 
 		[HttpPost]
-		public ActionResult EditContactInformation(partner partner)
+		public ActionResult EditContactInformation(partner partner, bool? ispods)
 		{
 			if (Session["hs3Registration"] == null)
 			{
@@ -2284,10 +2478,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			{
 				objpartner.firstName = partner.firstName;
 				objpartner.lastName = partner.lastName;
-				objpartner.title = partner.title;
 				objpartner.email = partner.email;
-				objpartner.phone = partner.phone;
-				objpartner.fax = partner.fax;
+				if (ispods != true) {
+					objpartner.title = partner.title;
+					objpartner.phone = partner.phone;
+					objpartner.fax = partner.fax;
+				}
 			}
 			if (objpartner != null && Session["currentEmail"].ToString() == objpartner.email)
 			{
@@ -2315,13 +2511,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				objViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONTACT_EDIT_PAGE_NEXT_TEXT;
 				var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
 				var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-
+				var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 				if (ppptq_cms != null)
 				{
 					_translator.PPTQ = ppptq_cms;
 					objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
-					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
-					objViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
+					if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+					{
+						objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(BUYER_INFORMATION_TEXT, CurrentLanguage);
+						objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_BUYER_TEXT_INFORMATION, CurrentLanguage);
+						objViewBag.IsPODS = true;
+					}
+					else
+					{
+						objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
+						objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
+					}
 
 
 					objViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
@@ -2351,6 +2556,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					}
 					catch { }
 				}
+
+				ViewBag.FormData = objViewBag;
+
+				if (question.footer == "7" || question.footer == "8" || question.footer == "9")
+					return View("EditContactInformationPODS", partner);
+				else
+					return View(partner);
 			}
 			ViewBag.FormData = objViewBag;
 			return View(partner);
@@ -5791,13 +6003,20 @@ Intelleges Team";
 			ViewBag.partner = _partner;
 			ViewBag.Supplyer = _partner.name;
 			ViewBag.PurchaseOrderNumber = _partner.address1;
-			ViewBag.PurchaseOrderValue = "$" + new Regex("/\\B(?=(\\d{3})+(?!\\d))/g").Replace(_partner.address2.Replace(",", ""), ",");
-			ViewBag.PO_REVISION_NUMBER = _partner.phone;
+
+
+			decimal v1 = 0;
+			if (decimal.TryParse((_partner.address2 ?? "").Trim().Replace("$", ""), out v1))
+				ViewBag.PurchaseOrderValue = string.Format("{0:C}", v1);
+			else
+				ViewBag.PurchaseOrderValue = _partner.address2;  /*"$" + new Regex("/\\B(?=(\\d{3})+(?!\\d))/g").Replace(_partner.address2.Replace(",", ""), ",");*/
+
+			ViewBag.PO_REVISION_NUMBER = _partner.internalID.Replace(_partner.address1 + " ", "");
 			ViewBag.PartNumber = _partner.zipcode;
-			ViewBag.PnDescription = _partner.internalID;
+			ViewBag.PnDescription = _partner.title;
 			ViewBag.ChangeAmount = _partner.city;
 			ViewBag.BuyerName = _partner.firstName + " " + _partner.lastName;
-			ViewBag.ComplienceAnalist = _partner.title;
+			ViewBag.ComplienceAnalist = _partner.firstName + " " + _partner.lastName;
 			ViewBag.GlobalSourcing = _partner.fax;
 
 			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
@@ -6212,7 +6431,7 @@ Intelleges Team";
 							else ViewBag.Q24886_Value = item.comment;
 							sumOfSecond += v;
 						}
-						
+
 						break;
 					case 25024:
 						if (!string.IsNullOrEmpty(item.comment))
@@ -6222,7 +6441,7 @@ Intelleges Team";
 							else ViewBag.Q24889_Value = item.comment;
 							sumOfSecond += v;
 						}
-						
+
 						break;
 					case 25027:
 						if (!string.IsNullOrEmpty(item.comment))
@@ -6282,7 +6501,7 @@ Intelleges Team";
 							else ViewBag.Q24905_Value = item.comment;
 							sumOfThird += v;
 						}
-						
+
 						break;
 					case 25041:
 						if (!string.IsNullOrEmpty(item.comment))
@@ -6301,7 +6520,7 @@ Intelleges Team";
 							else ViewBag.Q2424908_Value = item.comment;
 							sumOfThird += v;
 						}
-						
+
 						break;
 					//0.1
 
