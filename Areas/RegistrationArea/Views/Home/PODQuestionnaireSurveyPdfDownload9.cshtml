@@ -264,8 +264,14 @@
 								<tr>
 									<td colspan="3">
 										<span class="western" style="margin-top: 0.04in">
+											<span >
+												<font size="1">If</font>
+											</span>
 											<span style="text-transform: uppercase">
-												<font size="1">if	other, explain:	</font>
+												<font size="1"> <strong>other</strong></font>
+											</span>
+											<span>
+												<font size="1">, explain:	</font>
 											</span>
 										</span> <div style="font-size:x-small">
 	@ViewBag.Q24812_Comment</div>
@@ -298,15 +304,24 @@
 						<font size="1">
 							<i>
 								Will
-								supplier receive PO through HASP?  If NO or N/A, AF-0658 must be signed and presented to Compliance prior to Government POs $35,000 and above being released.
+								supplier receive PO through HASP? 
 							</i>
 						</font>
 					</p>
 
 
 					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_Yes >YES</label>
-					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_No>NO</label>
-					<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_NA>N/A (Non-SAP Sites only)</label>
+					&nbsp;&nbsp;&nbsp;<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_No>NO</label>
+					&nbsp;&nbsp;&nbsp;<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_NA>N/A (Non-SAP Sites only)</label>
+
+					<p class="western" style="margin-bottom: 0.03in">
+						<font size="1">
+							<i>
+								If NO or N/A, AF-0658 must be signed and presented to Compliance prior to Government POs $35,000 and above being released.
+							</i>
+						</font>
+					</p>
+
 
 				</td>
 				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
@@ -324,7 +339,7 @@
 							<tr>
 								<td>
 									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46420 >Firm Fixed Price (FFP)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
-									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46421 >Cost Reimbursement (CXXX)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									&nbsp;&nbsp;&nbsp;<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46421 >Cost Reimbursement (CXXX)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
 								</td>
 
 							</tr>
@@ -332,21 +347,24 @@
 							<tr>
 								<td>
 									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46422 >N/R (Commercial PO $100K or greater)</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
-									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46423 >Other</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									&nbsp;&nbsp;&nbsp;<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23572_46423 >Other</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					@if (ViewBag.Q23572_46423 != null)
-	 { 
-					<span class="western" style="margin-top: 0.04in">
-						<span style="text-transform: uppercase">
-							<font size="1">
-								if
-								other, explain:
-							</font>
+					{
+						<span class="western" style="margin-top: 0.04in">
+							<span>
+								<font size="1">If</font>
+							</span>
+							<span style="text-transform: uppercase">
+								<font size="1"> <strong>other</strong></font>
+							</span>
+							<span>
+								<font size="1">, explain:	</font>
+							</span>
 						</span>
-					</span>
 					<div style="font-size:x-small">
 						@ViewBag.Q23572_Comment </div>
 					}
@@ -356,8 +374,11 @@
 			<tr valign="TOP">
 				<td colspan="4" width="346" height="48" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-						<font size="1"><b>PURCHASE REQUISITION ASSIGNED TO ALL LINE ITEMS:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-29)</span></font></font></font>
+						<font size="1"><b>PURCHASE REQUISITION ASSIGNED TO ALL LINE ITEMS:  </b></font>
+						<br/>
+						<font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-29)</span></font></font></font>
 					</p>
+				
 					<p class="western" style="margin-bottom: 0.03in">
 						<font size="1">
 							<i>
@@ -374,14 +395,31 @@
 				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
 
 					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-						<font size="1"><b>WRITTEN RFQ(S) AND SUPPLIER QUOTE(S) FILED IN PO DOC FILE:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1606)</span></font></font></font>
+						<font size="1"><b>WRITTEN RFQ(S) AND SUPPLIER QUOTE(S) FILED IN PO DOC FILE:  </b></font><br /><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1606)</span></font></font></font>
 					</p>
 					<table>
 						<tbody>
 							<tr>
 								<td>
 									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23574_Yes>Yes</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
-									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23574_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									&nbsp;&nbsp;&nbsp;<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23574_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+
+									&nbsp;&nbsp;&nbsp;
+									<span class="western" style="margin-top: 0.04in">
+										<span style="text-transform: uppercase"><font size="1"><i>I</i></font></span><font size="1">
+											<i>
+												f
+											</i>
+										</font><font size="1"><i><b>NO</b></i></font><font size="1">
+											<i>
+												,
+												provide detailed explanation Memo to PO File Comments
+											</i>
+										</font><font size="1">
+										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+									</span>
+
+									
 								</td>
 
 							</tr>
@@ -389,15 +427,20 @@
 						</tbody>
 					</table>
 					
-						<span class="western" style="margin-top: 0.04in">
-							<span style="text-transform: uppercase">
-								<font size="1">
-									If NO, provide detailed explanation Memo to PO File Comments
-								</font>
-							</span>
+					<p class="western" style="margin-top: 0.04in">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								memo
+								to po file comments:
+							</font>
 						</span>
-					<div style="font-size:x-small">
-						@ViewBag.Q23574_Comment" </div>
+						<span>
+							<font size="1">
+								@ViewBag.Q23574_Comment
+							</font>
+						</span>
+					</p>
+					
 					
 </td>
 			</tr>
@@ -409,7 +452,7 @@
 			<tr valign="TOP">
 				<td colspan="4" width="346" height="48" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
 					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-						<font size="1"><b>DEVIATION FROM STANDARD TERMS AND CONDITIONS:  </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-27)</span></font></font></font>
+						<font size="1"><b>DEVIATION FROM STANDARD TERMS AND CONDITIONS:  </b></font><br/><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-27)</span></font></font></font>
 					</p>
 
 					<table>
@@ -417,23 +460,41 @@
 							<tr>
 								<td>
 									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23576_Yes>Yes</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
-									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23576_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									&nbsp;&nbsp;&nbsp;<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23576_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
 								</td>
 
 							</tr>
 
 						</tbody>
 					</table>
-					
-						<span class="western" style="margin-top: 0.04in">
-							<span style="text-transform: uppercase">
-								<font size="1">
-									(If YES, Legal concurrence must be obtained and filed in PO doc file)
-								</font>
-							</span>
+					<span class="western" style="margin-bottom: 0.03in">
+						<span style="text-transform: uppercase"><font size="1"><i>I</i></font></span><font size="1">
+							<i>
+								f
+							</i>
+						</font><font size="1"><i><b>YES</b></i></font><font size="1">
+							<i>
+								,
+								Legal concurrence must be obtained and filed in PO doc file
+							</i>
+						</font><font size="1">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</span>
+						
+					<p class="western" style="margin-top: 0.04in">
+						<span style="text-transform: uppercase">
+							<font size="1">
+								memo
+								to po file comments: 
+							</font>
 						</span>
-					<div style="font-size:x-small">
-						@ViewBag.Q23576_Comment </div>
+						<span>
+						<font size="1">
+							@ViewBag.Q23576_Comment
+						</font>
+						</span>
+</p>
+					
 					
 
 
@@ -441,14 +502,14 @@
 				<td colspan="3" width="369" style="border: 1px solid #000000; padding: 0in 0.08in">
 
 					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-						<font size="1"><b>CURRENT ANNUAL CERTIFICATION IN FILE: </b></font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1574)</span></font></font></font>
+						<font size="1"><b>CURRENT ANNUAL CERTIFICATION IN FILE: </b></font><br/><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1574)</span></font></font></font>
 					</p>
 					<table>
 						<tbody>
 							<tr>
 								<td>
 									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23578_Yes>Yes</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
-									<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23578_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
+									&nbsp;&nbsp;&nbsp;<label style="font-size:10px;"><input type="checkbox" @ViewBag.Q23578_No>No</label><font size="1" style="font-size: 6pt"><span style="background: #00ff00;margin-left:2px;"></span></font>
 								</td>
 
 							</tr>
@@ -457,15 +518,41 @@
 					</table>
 					@if (ViewBag.Q23578_No != "")
 					{
-						<span class="western" style="margin-top: 0.04in">
-							<span style="text-transform: uppercase">
-								<font size="1">
-									(If NO, either obtain completed Cert from supplier prior to PO award OR explain in Memo to PO File Comments)
-								</font>
-							</span>
-						</span>
-					<div style="font-size:x-small">
-						@ViewBag.Q23578_Comment"</div>
+
+
+	<span class="western" style="margin-bottom: 0.03in">
+		<span style="text-transform: uppercase"><font size="1"><i>I</i></font></span><font size="1">
+			<i>
+				f
+			</i>
+		</font><font size="1"><i><b>NO</b></i></font><font size="1">
+			<i>
+				,
+				either obtain completed Cert from supplier prior to PO award OR explain in Memo to PO File Comments
+			</i>
+		</font><font size="1">
+		</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+	</span>
+
+
+
+
+	<p class="western" style="margin-top: 0.04in">
+		<span style="text-transform: uppercase">
+			<font size="1">
+				memo
+				to po file comments:
+			</font>
+		</span>
+		<span>
+			<font size="1">
+				@ViewBag.Q23578_Comment
+			</font>
+		</span>
+	</p>
+
+
+					
 					}
 </td>
 			</tr>
@@ -497,8 +584,8 @@
 					</p>
 					<div class="western" style="margin-bottom: 0in;font-size:10px">
 						<label><input type="checkbox" @ViewBag.Q23580_46424>YES</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
-						<label><input type="checkbox" @ViewBag.Q23580_46425>NO</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
-						<label><input type="checkbox" @ViewBag.Q23580_46426 >N/R	(OEM/OCM) or Service</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
+						&nbsp;&nbsp;&nbsp;<label><input type="checkbox" @ViewBag.Q23580_46425>NO</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
+						&nbsp;&nbsp;&nbsp;<label><input type="checkbox" @ViewBag.Q23580_46426 >N/R	(OEM/OCM) or Service</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
 					</div>
 
 					@if (!string.IsNullOrEmpty(ViewBag.Q23580_46424))
@@ -533,25 +620,30 @@
 							If
 							Other selected, please specify:
 						</i>
+										 	@ViewBag.Q24816_Comment
 					</font>
 				</span>
-				<div style="font-size:x-small">
-					@ViewBag.Q24816_Comment
-				</div>
+
 			</text>
 		 }
 				<text>	
+					<br/>
 					<span class="western" style="margin-bottom: 0.03in">
-						
-						<br>
-						<span class="western" style="margin-bottom: 0.03in;margin-left: 15px;">
-							<font size="1">	</font><font size="1">
-								<i>
-									Location
-									of objective evidence:
-								</i>
-							</font><font size="1"> </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-						</span>
+						<span style="text-transform: uppercase"><font size="1"><i>i</i></font></span><font size="1">
+							<i>
+								f
+							</i>
+						</font><font size="1"><i><b>YES</b></i></font><font size="1">
+							<i>
+								,
+								location
+								of objective evidence:
+							</i>
+						</font><font size="1">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+					</span>
+
+
 				</text>
 						if (ViewBag.Q24817_DropDownValues != null) { 
 						@Html.DropDownList("Q24817_DropDown", (SelectList)ViewBag.Q24817_DropDownValues, new { @style = "width:180px;font-size:10px;" })
@@ -567,10 +659,10 @@
 											If
 											Other selected, please specify:
 										</i>
+													 	@ViewBag.Q24817_Comment
 									</font>
 								</span>
-						<div style="font-size:x-small">
-							@ViewBag.Q24817_Comment</div>
+						
 					</text>
 						}
 
@@ -619,8 +711,8 @@
 					</p>
 
 					<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46072 >YES</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
-					<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46073 >NO</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
-					<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46074 >N/R</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
+					&nbsp;&nbsp;&nbsp;<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46073 >NO</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
+					&nbsp;&nbsp;&nbsp;<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46074 >N/R</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
 
 
 
@@ -1012,15 +1104,15 @@ If award as dual source is checked, source selection is justified based on one t
 							</font>
 						</span><span style="text-transform: uppercase">
 							<font size="1">
-								FOR SAME ITEM/SERVICE (
+								FOR SAME ITEM/SERVICE 
 							</font>
-						</span><span style="text-transform: uppercase"><font size="1" style="font-size: 7pt"><i>p</i></font></span><font size="1" style="font-size: 7pt">
+						</span>&nbsp;<font size="1" style="font-size: 7pt">
 							<i>
-								rior
-								price deemed reasonable
+								(Prior
+								price deemed reasonable)
 							</i>
 						</font><font size="1" style="font-size: 7pt">
-							)
+							
 						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
 								<font size="1">
@@ -1037,17 +1129,17 @@ If award as dual source is checked, source selection is justified based on one t
 						<div style="font-size:x-small;">
 							<span style="text-transform: uppercase">
 	<font size="1">
-		PRIOR
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIOR
 		PO #
 	</font>
-	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
+	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	&nbsp;&nbsp;&nbsp;DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
 		<font size="1">
-			QUANTITY
+			&nbsp;&nbsp;&nbsp;QUANTITY
 		</font>
 	</span>@ViewBag.Q24837_Value<span style="text-transform: uppercase">
 		<font size="1">
-			UNIT
-			PRICE	$
+			&nbsp;&nbsp;&nbsp;UNIT
+			PRICE
 		</font>
 	</span>@ViewBag.Q24838_Value
 </div>
@@ -1096,20 +1188,12 @@ If award as dual source is checked, source selection is justified based on one t
 								price
 								compares favorably to
 							</font>
-						</span><span style="text-transform: uppercase"><font size="1"><b>similar-item</b></font></span><span style="text-transform: uppercase">
-							<font size="1">
-								(
-							</font>
-						</span><font size="1">
+						</span><span style="text-transform: uppercase"><font size="1"><b>similar-item</b></font></span><font size="1">
 							<i>
-								Validity of comparison and
-								reasonableness of similar-item price established
+								(Validity of comparison and
+								reasonableness of similar-item price established)
 							</i>
-						</font><span style="text-transform: uppercase">
-							<font size="1">
-								)
-							</font>
-						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
 								<font size="1">
 								</font>
@@ -1120,13 +1204,14 @@ If award as dual source is checked, source selection is justified based on one t
 @if(!string.IsNullOrEmpty(ViewBag.Q24839_Checked))
 { 
 					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.06in;margin-left:15px;">
-						<span style="text-transform: uppercase">
-							<font size="1">
-								part
-								number/description
-							</font>
-						</span>
+						
 						<div style="font-size:x-small">
+							<span style="text-transform: uppercase">
+								<font size="1">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;part
+									number/description
+								</font>
+							</span>&nbsp;&nbsp;&nbsp;
 							@ViewBag.Q24839_Comment</div>
 						<span style="text-transform: uppercase"><font size="1"><u>		</u></font></span><span style="text-transform: uppercase">
 							<font size="1">
@@ -1195,20 +1280,12 @@ If award as dual source is checked, source selection is justified based on one t
 									price estimate
 								</b>
 							</font>
-						</span><span style="text-transform: uppercase">
-							<font size="1">
-								(
-							</font>
 						</span><font size="1" style="font-size: 7pt">
 							<i>
-								Basis of
-								estimate must be in PO doc file
+								(Basis of
+								estimate must be in PO doc file)
 							</i>
-						</font><span style="text-transform: uppercase">
-							<font size="1">
-								)
-							</font>
-						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
 								<font size="1">
 								</font>
@@ -1231,20 +1308,12 @@ If award as dual source is checked, source selection is justified based on one t
 									survey
 								</b>
 							</font>
-						</span><span style="text-transform: uppercase">
-							<font size="1">
-								(M
-							</font>
 						</span><font size="1" style="font-size: 7pt">
 							<i>
-								arket
-								survey quote documentation must be in PO doc file
+								(Market
+								survey quote documentation must be in PO doc file)
 							</i>
-						</font><span style="text-transform: uppercase">
-							<font size="1">
-								)
-							</font>
-						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
 								<font size="1">
 								</font>
@@ -1279,7 +1348,7 @@ If award as dual source is checked, source selection is justified based on one t
 						<span style="text-transform: uppercase">
 							<font size="1">
 								price
-								analysis based on current ltc/apc/fpa:
+								analysis based on current ltc/apc/fpa:&nbsp;&nbsp;&nbsp;
 							</font>
 						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
@@ -1288,27 +1357,11 @@ If award as dual source is checked, source selection is justified based on one t
 							</font>
 						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
 							<font size="1">
-								ltc/apc/fpa/MSA
-								#
+								ltc/apc/fpa/POPA
+								# &nbsp;&nbsp; @ViewBag.Q24844_Comment
 							</font>
 						</span>
-												@if (!string.IsNullOrEmpty(ViewBag.Q24844_Checked))
-	  {
-													<div style="font-size:x-small">
-														@ViewBag.Q24844_Comment</div>
-													<span style="text-transform: uppercase">
-														<font size="1" style="font-size: 7pt">
-														</font>
-													</span><font color="#000000">
-														<font face="Calibri, sans-serif">
-															<font size="1" style="font-size: 6pt">
-																<span style="background: #ffff00">
-
-																</span>
-															</font>
-														</font>
-													</font>
-													}
+												
 </p>
 
 
@@ -1327,15 +1380,18 @@ If award as dual source is checked, source selection is justified based on one t
 						@if (!string.IsNullOrEmpty(ViewBag.Q24845_Checked))
 						{
 							<span class="western" style="margin-top: 0.04in">
-								<span style="text-transform: uppercase">
+								<span>
 									<font size="1">
-										If Other, provide which Price Analysis technique was used:
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If Other, provide which Price Analysis technique was used:
+									</font>
+								</span>
+								<span>
+									<font size="1">
+										@ViewBag.Q24845_Comment
 									</font>
 								</span>
 							</span>
-							<div style="font-size:x-small">
-								@ViewBag.Q24845_Comment
-							</div>
+
 						}
 					</p>
 					<p class="western">
