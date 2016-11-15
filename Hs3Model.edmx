@@ -1710,6 +1710,19 @@
           <Property Name="question" Type="int" Nullable="false" />
           <Property Name="response" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="questionResponseNarrativeSelectionList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question" Type="int" Nullable="false" />
+          <Property Name="questionReference" Type="int" Nullable="false" />
+          <Property Name="questionReferenceResponse" Type="int" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="narrative" Type="varchar(max)" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="questionTranslation">
           <Key>
             <PropertyRef Name="question" />
@@ -5150,6 +5163,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="questionReference" Type="int" Mode="In" />
+          <Parameter Name="questionReferenceResponse" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar" Mode="In" />
+          <Parameter Name="narrative" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addQuestionRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="rule" Type="int" Mode="In" />
@@ -5489,6 +5511,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6695,6 +6720,16 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireRuleTargetTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionResponseNarrativeSelectionListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionResponseNarrativeSelectionListByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionResponseNarrativeSelectionListByQuestionReference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionReference" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionRowIDByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
@@ -7837,6 +7872,16 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="questionReference" Type="int" Mode="In" />
+          <Parameter Name="questionReferenceResponse" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar" Mode="In" />
+          <Parameter Name="narrative" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyQuestionSkipLogicJump" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="jumpTo" Type="int" Mode="In" />
@@ -8293,6 +8338,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeQuestionRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="rule" Type="int" Mode="In" />
@@ -8555,6 +8603,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8856,6 +8907,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="questionnaireRuleActionDateType" EntityType="Self.questionnaireRuleActionDateType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireRuleTargetType" EntityType="Self.questionnaireRuleTargetType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionResponse" EntityType="Self.questionResponse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionResponseNarrativeSelectionList" EntityType="Self.questionResponseNarrativeSelectionList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionTranslation" EntityType="Self.questionTranslation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ratingType" EntityType="Self.ratingType" Schema="dbo" store:Type="Tables" />
@@ -15083,7 +15135,46 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getGroupByPersonforPODS" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupByPersonforPODS_Result)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="questionResponseNarrativeSelectionList" EntityType="hs3MVCMTQa2Model.questionResponseNarrativeSelectionList" />
+          <FunctionImport Name="pr_addQuestionResponseNarrativeSelectionList" ReturnType="Collection(Decimal)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="questionReference" Mode="In" Type="Int32" />
+            <Parameter Name="questionReferenceResponse" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="narrative" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveQuestionResponseNarrativeSelectionList">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionList" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionList_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListAll_Result)" />
+          <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionListByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListByQuestion_Result)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionListByQuestionReference" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListByQuestionReference_Result)">
+            <Parameter Name="questionReference" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionResponseNarrativeSelectionList">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="questionReference" Mode="In" Type="Int32" />
+            <Parameter Name="questionReferenceResponse" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="narrative" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionResponseNarrativeSelectionList">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveQuestionResponseNarrativeSelectionList">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24337,6 +24428,59 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Int32" Name="active" Nullable="true" />
         </ComplexType>
+        <EntityType Name="questionResponseNarrativeSelectionList">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question" Type="Int32" Nullable="false" />
+          <Property Name="questionReference" Type="Int32" Nullable="false" />
+          <Property Name="questionReferenceResponse" Type="Int32" Nullable="false" />
+          <Property Name="subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="narrative" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getQuestionResponseNarrativeSelectionList_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="questionReference" Nullable="false" />
+          <Property Type="Int32" Name="questionReferenceResponse" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="narrative" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionResponseNarrativeSelectionListAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="questionReference" Nullable="false" />
+          <Property Type="Int32" Name="questionReferenceResponse" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="narrative" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionResponseNarrativeSelectionListByQuestion_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="questionReference" Nullable="false" />
+          <Property Type="Int32" Name="questionReferenceResponse" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="narrative" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionResponseNarrativeSelectionListByQuestionReference_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="questionReference" Nullable="false" />
+          <Property Type="Int32" Name="questionReferenceResponse" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="narrative" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32446,6 +32590,81 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="questionResponseNarrativeSelectionList">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionResponseNarrativeSelectionList">
+              <MappingFragment StoreEntitySet="questionResponseNarrativeSelectionList">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="questionReferenceResponse" ColumnName="questionReferenceResponse" />
+                <ScalarProperty Name="questionReference" ColumnName="questionReference" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionResponseNarrativeSelectionList" />
+          <FunctionImportMapping FunctionImportName="pr_archiveQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionResponseNarrativeSelectionList" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionResponseNarrativeSelectionList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionList_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="questionReference" ColumnName="questionReference" />
+                <ScalarProperty Name="questionReferenceResponse" ColumnName="questionReferenceResponse" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionResponseNarrativeSelectionListAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionResponseNarrativeSelectionListAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="questionReference" ColumnName="questionReference" />
+                <ScalarProperty Name="questionReferenceResponse" ColumnName="questionReferenceResponse" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionResponseNarrativeSelectionListByQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionResponseNarrativeSelectionListByQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListByQuestion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="questionReference" ColumnName="questionReference" />
+                <ScalarProperty Name="questionReferenceResponse" ColumnName="questionReferenceResponse" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionResponseNarrativeSelectionListByQuestionReference" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionResponseNarrativeSelectionListByQuestionReference">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListByQuestionReference_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="questionReference" ColumnName="questionReference" />
+                <ScalarProperty Name="questionReferenceResponse" ColumnName="questionReferenceResponse" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="narrative" ColumnName="narrative" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionResponseNarrativeSelectionList" />
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionResponseNarrativeSelectionList" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionResponseNarrativeSelectionList" />
           
         </EntityContainerMapping>
       </Mapping>

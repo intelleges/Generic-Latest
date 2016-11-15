@@ -206,6 +206,7 @@ namespace Generic
         public virtual DbSet<severityType> severityType { get; set; }
         public virtual DbSet<supportItemFailureType> supportItemFailureType { get; set; }
         public virtual DbSet<narrativePPTQ> narrativePPTQ { get; set; }
+        public virtual DbSet<questionResponseNarrativeSelectionList> questionResponseNarrativeSelectionList { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18161,6 +18162,135 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByPersonforPODS_Result>("pr_getGroupByPersonforPODS", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionResponseNarrativeSelectionList(Nullable<int> question, Nullable<int> questionReference, Nullable<int> questionReferenceResponse, string subject, string narrative, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var questionReferenceParameter = questionReference.HasValue ?
+                new ObjectParameter("questionReference", questionReference) :
+                new ObjectParameter("questionReference", typeof(int));
+    
+            var questionReferenceResponseParameter = questionReferenceResponse.HasValue ?
+                new ObjectParameter("questionReferenceResponse", questionReferenceResponse) :
+                new ObjectParameter("questionReferenceResponse", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var narrativeParameter = narrative != null ?
+                new ObjectParameter("narrative", narrative) :
+                new ObjectParameter("narrative", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionResponseNarrativeSelectionList", questionParameter, questionReferenceParameter, questionReferenceResponseParameter, subjectParameter, narrativeParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveQuestionResponseNarrativeSelectionList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionResponseNarrativeSelectionList", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionResponseNarrativeSelectionList_Result> pr_getQuestionResponseNarrativeSelectionList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseNarrativeSelectionList_Result>("pr_getQuestionResponseNarrativeSelectionList", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionResponseNarrativeSelectionListAll_Result> pr_getQuestionResponseNarrativeSelectionListAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseNarrativeSelectionListAll_Result>("pr_getQuestionResponseNarrativeSelectionListAll");
+        }
+    
+        public virtual ObjectResult<pr_getQuestionResponseNarrativeSelectionListByQuestion_Result> pr_getQuestionResponseNarrativeSelectionListByQuestion(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseNarrativeSelectionListByQuestion_Result>("pr_getQuestionResponseNarrativeSelectionListByQuestion", questionParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionResponseNarrativeSelectionListByQuestionReference_Result> pr_getQuestionResponseNarrativeSelectionListByQuestionReference(Nullable<int> questionReference)
+        {
+            var questionReferenceParameter = questionReference.HasValue ?
+                new ObjectParameter("questionReference", questionReference) :
+                new ObjectParameter("questionReference", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseNarrativeSelectionListByQuestionReference_Result>("pr_getQuestionResponseNarrativeSelectionListByQuestionReference", questionReferenceParameter);
+        }
+    
+        public virtual int pr_modifyQuestionResponseNarrativeSelectionList(Nullable<int> id, Nullable<int> question, Nullable<int> questionReference, Nullable<int> questionReferenceResponse, string subject, string narrative, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var questionReferenceParameter = questionReference.HasValue ?
+                new ObjectParameter("questionReference", questionReference) :
+                new ObjectParameter("questionReference", typeof(int));
+    
+            var questionReferenceResponseParameter = questionReferenceResponse.HasValue ?
+                new ObjectParameter("questionReferenceResponse", questionReferenceResponse) :
+                new ObjectParameter("questionReferenceResponse", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var narrativeParameter = narrative != null ?
+                new ObjectParameter("narrative", narrative) :
+                new ObjectParameter("narrative", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionResponseNarrativeSelectionList", idParameter, questionParameter, questionReferenceParameter, questionReferenceResponseParameter, subjectParameter, narrativeParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeQuestionResponseNarrativeSelectionList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionResponseNarrativeSelectionList", idParameter);
+        }
+    
+        public virtual int pr_unArchiveQuestionResponseNarrativeSelectionList(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionResponseNarrativeSelectionList", idParameter);
         }
     }
 }
