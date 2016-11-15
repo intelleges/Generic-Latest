@@ -1450,7 +1450,7 @@ If award as dual source is checked, source selection is justified based on one t
 							</b>
 						</font><font size="1"> </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
 						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_Yes>YES</label><span style="background: #00ff00;font-size: 6pt"></span>
-						<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_No>NO</label><span style="background: #00ff00;font-size: 6pt"></span>
+						&nbsp;&nbsp;&nbsp;<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q24847_No>NO</label><span style="background: #00ff00;font-size: 6pt"></span>
 					</p>
 					@if (!string.IsNullOrEmpty(ViewBag.Q24847_Yes))
 					{
@@ -2477,34 +2477,22 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													Small Business not solicited due to:
+													Small Business not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
-											<span lang="en-US">
-												<u>
-													@if (ViewBag.Q24926_DropDownValues != null) { 
-													@Html.DropDownList("Q24926_DropDown", (SelectList)ViewBag.Q24926_DropDownValues, new { @style = "width:180px;font-size:10px;" })
-													}
-												</u>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
-												<span style="background: #00ff00">
+										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+	<span lang="en-US">
+		<u>
+			@if (ViewBag.Q24926_DropDownValues != null)
+			{
+				@Html.DropDownList("Q24926_DropDown", (SelectList)ViewBag.Q24926_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+			}
+		</u>
+	</span>
+</font>
 
-												</span>
-											</b>
-										</font>
 									</p>
+									
 									}
 									<p class="western" style="margin-bottom: 0.03in">
 										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
@@ -2542,30 +2530,23 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													Disadvantaged Business not solicited due to:
+													Disadvantaged Business not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
-											<span lang="en-US">
-												<u>
-													@if (ViewBag.Q24928_DropDownValues != null) { 
-													@Html.DropDownList("Q24928_DropDown", (SelectList)ViewBag.Q24928_DropDownValues, new { @style = "width:180px;font-size:10px;" })
-													}
+										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+	<span lang="en-US">
+		<u>
+			@if (ViewBag.Q24928_DropDownValues != null)
+			{
+				@Html.DropDownList("Q24928_DropDown", (SelectList)ViewBag.Q24928_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+			}
 
-												</u>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
+		</u>
+	</span>
+</font>
 
-											</b>
-										</font>
 									</p>
+									
 									}
 									<p class="western" style="margin-bottom: 0.03in">
 										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
@@ -2603,33 +2584,26 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													Woman-Owned Business not solicited due to:
+													Woman-Owned Business not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1">
 											<span lang="en-US">
 											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
-											<span lang="en-US">
-												<u>
-													@if (ViewBag.Q24930_DropDownValues != null) { 
-													@Html.DropDownList("Q24930_DropDown", (SelectList)ViewBag.Q24930_DropDownValues, new { @style = "width:180px;font-size:10px;" })
-													}
+										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+	<span lang="en-US">
+		<u>
+			@if (ViewBag.Q24930_DropDownValues != null)
+			{
+				@Html.DropDownList("Q24930_DropDown", (SelectList)ViewBag.Q24930_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+			}
 
-												</u>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
+		</u>
+	</span>
+</font>
 
-											</b>
-										</font>
 									</p>
+									
 									}
 									<p class="western" style="margin-bottom: 0.03in">
 										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
@@ -2668,33 +2642,26 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													HUBZone Business not solicited due to:
+													HUBZone Business not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1">
 											<span lang="en-US">
 											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
-											<span lang="en-US">
-												<u>
-													@if (ViewBag.Q24932_DropDownValues != null) { 
-													@Html.DropDownList("Q24932_DropDown", (SelectList)ViewBag.Q24932_DropDownValues, new { @style = "width:180px;font-size:10px;" })
-													}
+										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+	<span lang="en-US">
+		<u>
+			@if (ViewBag.Q24932_DropDownValues != null)
+			{
+				@Html.DropDownList("Q24932_DropDown", (SelectList)ViewBag.Q24932_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+			}
 
-												</u>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
+		</u>
+	</span>
+</font>
 
-											</b>
-										</font>
 									</p>
+									
 									}
 									<p class="western" style="margin-bottom: 0.03in">
 										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
@@ -2736,33 +2703,23 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													Veteran-Owned Business not solicited due to:
+													Veteran-Owned Business not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
-											<span lang="en-US">
-												<u>
-													@if (ViewBag.Q24934_DropDownValues != null) { 
-													@Html.DropDownList("Q24934_DropDown", (SelectList)ViewBag.Q24934_DropDownValues, new { @style = "width:180px;font-size:10px;" })
-													}
+										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
+	<span lang="en-US">
+		<u>
+			@if (ViewBag.Q24934_DropDownValues != null)
+			{
+				@Html.DropDownList("Q24934_DropDown", (SelectList)ViewBag.Q24934_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+			}
 
-												</u>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
+		</u>
+	</span>
+</font>
 
-											</b>
-										</font>
 									</p>
+									
 									}
 
 									<p class="western" style="margin-bottom: 0in">
@@ -2807,24 +2764,20 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													,
-													Service Disabled Veteran-Owned Business not solicited due to:
+													Service Disabled Veteran-Owned Business not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1"><span lang="en-US"><i>		</i></span></font><font size="1"><span lang="en-US"><u></u></span></font><font size="1">
-											<span lang="en-US">
-												@if (ViewBag.Q24936_DropDownValues!=null) { 
-												@Html.DropDownList("Q24936_DropDown", (SelectList)ViewBag.Q24936_DropDownValues, new { @style = "width:180px;font-size:10px;" })
-												}
-											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
+										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1"><span lang="en-US"><u></u></span></font><font size="1">
+	<span lang="en-US">
+		@if (ViewBag.Q24936_DropDownValues != null)
+		{
+			@Html.DropDownList("Q24936_DropDown", (SelectList)ViewBag.Q24936_DropDownValues, new { @style = "width:180px;font-size:10px;" })
+		}
+	</span>
+</font>
 
-											</b>
-										</font>
 									</p>
+									
 									}
 									<p class="western" style="margin-bottom: 0.03in">
 										<font size="1">
@@ -2839,25 +2792,19 @@ If award as dual source is checked, source selection is justified based on one t
 												@Html.DropDownList("Q24937_DropDown", (SelectList)ViewBag.Q24937_DropDownValues, new { @style = "width:180px;font-size:10px;" })
 												}
 											</span>
-										</font><font size="1" style="font-size: 6pt">
-											<b>
-												<span style="background: #00ff00">
-
-												</span>
-											</b>
 										</font>
 									</p>
 									@if (ViewBag.Q24937_DropDownValues_Response == 47815)
 									{
 									<p class="western" style="margin-top: 0.03in">
-										<span style="text-transform: uppercase"><font size="1"><span lang="en-US">	I</span></font></span>
+
 										<font size="1">
 											<span lang="en-US">
-												f
-												“OTHER” selected, explain
+												If
+												<strong> OTHER</strong> selected, explain
 											</span>
 										</font>
-										<div style="font-size:x-small">@ViewBag.Q24937_Value" </div>
+										<div style="font-size:x-small">@ViewBag.Q24937_Value </div>
 </p>
 									}
 								</td>
