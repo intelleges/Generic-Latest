@@ -6035,6 +6035,10 @@ Intelleges Team";
 			decimal sumofFirst = 0;
 			decimal sumOfSecond = 0;
 			decimal sumOfThird = 0;
+			int qty1 = 0;
+			int qty2 = 0;
+			int qty3 = 0;
+			int qty4 = 0;
 			Regex codeRegex = new Regex("\\([A-Z][A-Z]\\)");
 
 			foreach (var item in _PPTQQuestionResponse)
@@ -6364,7 +6368,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q23629_Value = string.Format("{0:C}", v);
 							else ViewBag.Q23629_Value = item.comment;
-							sumofFirst += v;
+							sumofFirst += v * qty1;
 						}
 						break;
 					case 25006:
@@ -6373,7 +6377,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24867_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24867_Value = item.comment;
-							sumofFirst += v;
+							sumofFirst += v * qty2;
 						}
 						break;
 					case 25008:
@@ -6382,7 +6386,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24870_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24870_Value = item.comment;
-							sumofFirst += v;
+							sumofFirst += v * qty3;
 						}
 						break;
 					case 25010:
@@ -6391,7 +6395,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24873_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24873_Value = item.comment;
-							sumofFirst += v;
+							sumofFirst += v * qty4;
 						}
 						break;
 					case 25013:
@@ -6419,7 +6423,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24880_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24880_Value = item.comment;
-							sumOfSecond += v;
+							sumOfSecond += v * qty1;
 						}
 						break;
 					case 25020:
@@ -6428,7 +6432,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24883_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24883_Value = item.comment;
-							sumOfSecond += v;
+							sumOfSecond += v * qty2;
 						}
 						break;
 					case 25022:
@@ -6437,7 +6441,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24886_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24886_Value = item.comment;
-							sumOfSecond += v;
+							sumOfSecond += v * qty3;
 						}
 
 						break;
@@ -6447,7 +6451,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24889_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24889_Value = item.comment;
-							sumOfSecond += v;
+							sumOfSecond += v * qty4;
 						}
 
 						break;
@@ -6478,7 +6482,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24896_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24896_Value = item.comment;
-							sumOfThird += v;
+							sumOfThird += v * qty1;
 						}
 
 						break;
@@ -6488,7 +6492,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24899_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24899_Value = item.comment;
-							sumOfThird += v;
+							sumOfThird += v * qty2;
 						}
 
 						break;
@@ -6498,7 +6502,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24902_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24902_Value = item.comment;
-							sumOfThird += v;
+							sumOfThird += v * qty3;
 						}
 						break;
 					case 25038:
@@ -6507,7 +6511,7 @@ Intelleges Team";
 							decimal v = GetNumber(item.comment);
 							if (v != 0) ViewBag.Q24905_Value = string.Format("{0:C}", v);
 							else ViewBag.Q24905_Value = item.comment;
-							sumOfThird += v;
+							sumOfThird += v * qty4;
 						}
 
 						break;
@@ -6533,7 +6537,10 @@ Intelleges Team";
 					//0.1
 
 					case 24998:
-						ViewBag.Q24855_Value = item.comment;
+						if (int.TryParse((item.comment ?? "").Trim(), out qty1))
+						{
+							ViewBag.Q24855_Value = item.comment;
+						}
 						break;
 					case 25005:
 						ViewBag.Q24865_Value = item.comment;
@@ -6547,7 +6554,10 @@ Intelleges Team";
 
 					//0.2
 					case 24999:
-						ViewBag.Q24857_Value = item.comment;
+						if (int.TryParse((item.comment ?? "").Trim(), out qty2))
+						{
+							ViewBag.Q24857_Value = item.comment;
+						}
 						break;
 					case 25007:
 						ViewBag.Q24868_Value = item.comment;
@@ -6561,7 +6571,10 @@ Intelleges Team";
 
 					//0.3
 					case 25000:
-						ViewBag.Q24859_Value = item.comment;
+						if (int.TryParse((item.comment ?? "").Trim(), out qty3))
+						{
+							ViewBag.Q24859_Value = item.comment;
+						}
 						break;
 					case 25009:
 						ViewBag.Q24871_Value = item.comment;
@@ -6575,7 +6588,10 @@ Intelleges Team";
 
 					//0.4
 					case 25001:
-						ViewBag.Q24861_Value = item.comment;
+						if (int.TryParse((item.comment ?? "").Trim(), out qty4))
+						{
+							ViewBag.Q24861_Value = item.comment;
+						}			
 						break;
 					case 25011:
 						ViewBag.Q24874_Value = item.comment;
