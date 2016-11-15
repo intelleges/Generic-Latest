@@ -219,7 +219,7 @@ namespace Generic.Helpers.Utility
                 switch (sVariable.ToLower())
                 {
 					case "[purchase order version number]":
-						sValue = partner.phone;
+						sValue = (partner.internalID??"").Replace(partner.address1 + " ", "");
 						break;
 					case "[purchase order number]":
 						sValue = partner.address1;
