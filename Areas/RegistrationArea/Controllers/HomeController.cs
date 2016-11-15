@@ -6308,10 +6308,18 @@ Intelleges Team";
 						ViewBag.Q24847_No = item.response == _responseNO ? _chacked : string.Empty;
 						break;
 					case 25061:
-						ViewBag.Q24848_Value = item.comment;
+						//Start Date
+						DateTime dttm = DateTime.MinValue;
+						if (DateTime.TryParse(item.comment,out dttm))
+							ViewBag.Q24848_Value = dttm.ToString("MM/dd/yyyy");
+						else ViewBag.Q24848_Value = item.comment;
 						break;
 					case 25062:
-						ViewBag.Q24849_Value = item.comment;
+						//End Date
+						DateTime dttm1 = DateTime.MinValue;
+						if (DateTime.TryParse(item.comment,out dttm1))
+							ViewBag.Q24849_Value = dttm1.ToString("MM/dd/yyyy");
+						else ViewBag.Q24849_Value = item.comment;						
 						break;
 					case 25063:
 						ViewBag.Q24850_Value = item.comment;
