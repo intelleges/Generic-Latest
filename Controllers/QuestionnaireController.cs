@@ -1586,13 +1586,13 @@ namespace Generic.Controllers
                         else
                         {
                             var responses = db.pr_getResponseByQuestion(question.id).ToList();
-                            if (responses.Count > 2)
-                            {
-
+							//there can be an error in the future, I've commented next rows because there was  an error for questions with 2 answers
+							//if (responses.Count > 2)
+							//{
                                 var response = responses.FirstOrDefault(o => o.description.Contains("(" + value + ")"));
                                 if (response != null)
                                     value = response.id.ToString();
-                            }
+                            //}
                         }
                         if (j != subSrting.Length - 1)
                         {
