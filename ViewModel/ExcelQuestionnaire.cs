@@ -37,6 +37,7 @@ namespace Generic.ViewModel
         public string Surveyset { get; set; }
         public string Survey { get; set; }
         public string Response { get; set; }
+		public string NarrativeHint { get; set; }
 
     }
 
