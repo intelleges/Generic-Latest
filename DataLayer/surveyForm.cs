@@ -642,29 +642,29 @@ namespace Generic.DataLayer
                 divn.ID = "commentedDiv_" + question.id.ToString();
                 //divn.Visible = false;
                 divn.Style.Add("display", "none");
-                txtbox = new TextBox();
+                var txtbox1 = new HtmlTextArea();
 
-                txtbox.Width = 600;
-                txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                //txtbox1.Width = 600;
+                txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                 divn.InnerHtml = incldComment + " ";
                 if (pptqResponse != null && !string.IsNullOrEmpty(pptqResponse.comment) && pptqResponse.response1.description.Contains("????"))
                 {                    
                      divn.Style.Clear();
-                     txtbox.Text = convertLanguageApi(pptqResponse.comment);                    
+                     txtbox1.InnerText = convertLanguageApi(pptqResponse.comment);                    
                     if (question.commentBoxTxt == "" || question.commentBoxTxt == null)
                         divn.InnerHtml = convertLanguageApi("<span style='font-size:13px'> " + _translator.Translate(pptqResponse.response1.id, TranslationType.Response, _currentLanguage).Replace("????", "") + ": </span>") + " ";
                     
                 }
                 else divn.InnerHtml = incldComment + " ";//"Include comments here: ";
-                txtbox.Attributes.Add("required", "");
-                txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                txtbox.Attributes.Add("data-val", "true");
+                txtbox1.Attributes.Add("required", "");
+                txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                txtbox1.Attributes.Add("data-val", "true");
                
 
-                divn.Controls.Add(txtbox);
+                divn.Controls.Add(txtbox1);
 
                 tableCell.Controls.AddAt(0, divn);
-                addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
+                addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
             }
             #region comment required
             if (question.commentRequired == CommentType.YN_COMMENT_REQUIRED_Y)
@@ -778,12 +778,12 @@ namespace Generic.DataLayer
                     divn.ID = "nDiv_" + question.id.ToString();
                     //divn.Visible = false;
                     divn.Style.Add("display", "none");
-                    txtbox = new TextBox();
-                    txtbox.Width = 600;
+					var txtbox1 = new HtmlTextArea();
+                    //txtbox1.Width = 600;
                     //fileupload = new FileUpload();
-                    txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";
-                    divn.Controls.Add(txtbox);
+                    divn.Controls.Add(txtbox1);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
                         question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
                         tableCell.Controls.AddAt(1, divn);
@@ -880,12 +880,12 @@ namespace Generic.DataLayer
                     divn.ID = "nDiv_" + question.id.ToString();
                     //divn.Visible = true;
                     divn.Style.Add("display", "block");
-                    txtbox = new TextBox();
-                    txtbox.Width = 600;
-                    txtbox.Text = convertLanguageApi(pptqResponse.comment.ToString());
-                    txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+					var txtbox1 = new HtmlTextArea();
+                    //txtbox.Width = 600;
+                    txtbox1.InnerText = convertLanguageApi(pptqResponse.comment.ToString());
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
-                    divn.Controls.Add(txtbox);
+                    divn.Controls.Add(txtbox1);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
                         tableCell.Controls.AddAt(1, divn);
@@ -982,11 +982,11 @@ namespace Generic.DataLayer
                     divn.ID = "nDiv_" + question.id.ToString();
                     //divn.Visible = true;
                     divn.Style.Add("display", "none");
-                    txtbox = new TextBox();
-                    txtbox.Width = 600;
-                    txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+					var txtbox1 = new HtmlTextArea();
+                    //txtbox.Width = 600;
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " ";  //"Include comments here: ";
-                    divn.Controls.Add(txtbox);
+                    divn.Controls.Add(txtbox1);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
                         question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
                         tableCell.Controls.AddAt(1, divn);
@@ -1074,13 +1074,13 @@ namespace Generic.DataLayer
                     //divn.Visible = false;
                     divn.Style.Add("display", "none");
 
-                    txtbox = new TextBox();
+					var txtbox1 = new HtmlTextArea();
                     //fileupload = new FileUpload();
-                    txtbox.Width = 600;
-                    txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                    //txtbox.Width = 600;
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
 
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
-                    divn.Controls.Add(txtbox);
+                    divn.Controls.Add(txtbox1);
                     //divn.Controls.Add(fileupload);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
                     question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
@@ -1134,8 +1134,8 @@ namespace Generic.DataLayer
                     //divn.Visible = false;
                     Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
 
-                    
-                    txtbox = new TextBox();
+
+					var txtbox1 = new HtmlTextArea();
                     if (checkCOde.IsMatch(incldComment))
                     {
 divn.Attributes["data-code"]=checkCOde.Match(incldComment).Value;
@@ -1143,22 +1143,22 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     }
                     if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode)
                     {
-                        txtbox.Text = pptqResponse.comment;
+                        txtbox1.InnerText = pptqResponse.comment;
 
                     }
                     else
                         divn.Style.Add("display", "none");
-                    txtbox.Width = 600;
-                    txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
-                    txtbox.Attributes.Add("required", "");
-                    txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    txtbox.Attributes.Add("data-val", "true");
+                   // txtbox.Width = 600;
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                    txtbox1.Attributes.Add("required", "");
+                    txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    txtbox1.Attributes.Add("data-val", "true");
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
 
-                    divn.Controls.Add(txtbox);
+                    divn.Controls.Add(txtbox1);
 
                     tableCell.Controls.AddAt(0, divn);
-                    addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
+                    addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
 
                 }
                 else if (question.commentType == CommentType.YN_UPLOAD_Y)
@@ -1212,45 +1212,47 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
                     //divn.Visible = false;
+					var txtbox1 = new HtmlTextArea();
                     if (pptqResponse != null&&pptqResponse.response==74)
                     {
-                        txtbox.Text = pptqResponse.comment;
+						txtbox1.InnerText = pptqResponse.comment;
                         
                     }else
                     divn.Style.Add("display", "none");
-                    txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
-                    txtbox.Width = 600;
+					txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
+                    
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
-                    txtbox.Attributes.Add("required", "");
-                    txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    txtbox.Attributes.Add("data-val", "true");
-                    divn.Controls.Add(txtbox);
+					txtbox1.Attributes.Add("required", "");
+					txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+					txtbox1.Attributes.Add("data-val", "true");
+					divn.Controls.Add(txtbox1);
 
                     tableCell.Controls.AddAt(0, divn);
-                    addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
+					addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
                 }
             }
 			if(question.commentType==CommentType.XX_COMMENT_ALL)
 			{
 				HtmlGenericControl divn = new HtmlGenericControl();
 				divn.ID = "AllDiv_" + question.id.ToString();
+				var txtbox1 = new HtmlTextArea();
 				//divn.Visible = false;
 				if (pptqResponse != null)
 				{
-					txtbox.Text = pptqResponse.comment;
+					txtbox1.InnerText = pptqResponse.comment;
 				}
 				else
 					divn.Style.Add("display", "none");
-				txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
-				txtbox.Width = 600;
+				txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+				//txtbox.Width = 600;
 				divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
-				txtbox.Attributes.Add("required", "");
-				txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-				txtbox.Attributes.Add("data-val", "true");
-				divn.Controls.Add(txtbox);
+				txtbox1.Attributes.Add("required", "");
+				txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+				txtbox1.Attributes.Add("data-val", "true");
+				divn.Controls.Add(txtbox1);
 
 				tableCell.Controls.AddAt(0, divn);
-				addControlValidator(txtbox.ID, "requiredFieldValidator", tableCell);
+				addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
 			}
             #endregion
             if (question.commentType == CommentType.XX_CHECKBOX_X || question.commentType == CommentType.YN_CHECKBOX_N || question.commentType == CommentType.YN_CHECKBOX_Y)
@@ -1572,6 +1574,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
             DropDownList dropDownList = new DropDownList();
             FileUpload fileUpload = new FileUpload();
             CheckBox checkBox = new CheckBox();
+			HtmlTextArea textBox1 = new HtmlTextArea();
             TableRow tableRow = new TableRow();
             TableCell tableCell = new TableCell();
             survey survey = new survey();
@@ -1717,21 +1720,24 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                         break;
                 }
             } else
+
+		   
+
             switch (responseType)
             {
                 case "textComment":
-                    textBox = new TextBox();
-                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                    textBox.Width = 600;
+                    textBox1 = new HtmlTextArea();
+                    textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                   // textBox.Width = 600;
                     if (question.required > 0)
                     {
-                        textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";                        
-                        textBox.Attributes["data-val-required"] = "Required";
+                        textBox1.Attributes["required"] = textBox.Attributes["data-val"] = "true";                        
+                        textBox1.Attributes["data-val-required"] = "Required";
                     }
                     if (pptqResponse != null)
                     {
                         //textBox.Text = response.description;
-                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                        textBox1.InnerText = convertLanguageApi(pptqResponse.comment);
                     }
 
                     //add empty cell
@@ -1744,7 +1750,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
 
                     tableCell = new TableCell();
                     tableCell.ColumnSpan = 2;
-                    tableCell.Controls.Add(textBox);
+                    tableCell.Controls.Add(textBox1);
                     tableRow.Controls.Add(tableCell);
                     break;
                 case "textInteger":
@@ -1808,12 +1814,12 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     tableRow.Controls.Add(tableCell);
                     break;
                 case "textarea":
-                    textBox = new TextBox();
+                    textBox1 = new HtmlTextArea();
 
-                    textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                    textBox.Width = 600;
-                    textBox.TextMode = TextBoxMode.MultiLine;
-                    textBox.Rows = 3;
+                    textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                    //textBox1.Width = 600;
+                    //textBox1.TextMode = TextBoxMode.MultiLine;
+                    textBox1.Rows = 3;
 
                     //add empty cell
                     tableCell = new TableCell();
@@ -1826,11 +1832,11 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     if (pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                     {
                         //textBox.Text = response.description;
-                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                        textBox1.InnerText = convertLanguageApi(pptqResponse.comment);
                     }
 
                     tableCell = new TableCell();
-                    tableCell.Controls.Add(textBox);
+                    tableCell.Controls.Add(textBox1);
                     tableCell.ColumnSpan = 2;
                     tableRow.Controls.Add(tableCell);
                     break;

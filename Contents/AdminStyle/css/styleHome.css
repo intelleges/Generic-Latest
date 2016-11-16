@@ -1775,3 +1775,8 @@ div#lblThankYou p {
 	.progress {
 		overflow:visible;
 	}
+
+	textarea{
+		width:100%;
+
+	}

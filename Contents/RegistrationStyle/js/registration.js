@@ -118,7 +118,7 @@ function showdropdowndiv(sender, showIfNeededFuntion) {
 }
 function showdivnew(sender) {
     //alert("Hello");
-    var allInputs = document.getElementsByTagName("input");
+	var allInputs = document.querySelectorAll("input,textarea");
     var last = "NameUnlikelyToBeUsedAsAnElementName";
 
     var s = sender.id;
@@ -211,8 +211,8 @@ function showdivnew(sender) {
 }
 
 function showdivRadioList(sender) {
-    //alert("Hello");
-    var allInputs = document.getElementsByTagName("input");
+  
+	var allInputs = document.querySelectorAll("input,textarea");
     var last = "NameUnlikelyToBeUsedAsAnElementName";
 
     var s = sender.id;
@@ -226,6 +226,7 @@ function showdivRadioList(sender) {
     if ($("#All" + divname).length > 0) {
     	$("#All" + divname).show();
     }
+
     for (i = 0; i < allInputs.length; i++) {
         //            animatedcollapse.addDiv('y' + divname, 'fade=1,height=50px');
         //            animatedcollapse.addDiv('n' + divname, 'fade=1,height=20px');
@@ -236,6 +237,7 @@ function showdivRadioList(sender) {
 
             // checks to see if any  one of  similarly named radiobuttons is checked 
         else if (input.type == "radio") {
+        	
             last = input.name;
             // alert(last);
             var radios = document.getElementsByName(input.name);
