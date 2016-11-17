@@ -6222,7 +6222,7 @@ Intelleges Team";
 						ViewBag.Q24828_Checked = string.Empty;
 						ViewBag.Q24829_Checked = string.Empty;
 						ViewBag.Q24830_Checked = string.Empty;
-
+						ViewBag.Q24824_Value = item.comment;
 						switch (item.response)
 						{
 							case 47735:
