@@ -10,6 +10,8 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Iterate";
     #endregion
+
+	List<Generic.person> persons = ViewBag.PersonAll as List<Generic.person>;
 }
 
 <style type="text/css">
@@ -132,6 +134,15 @@
         list-style: none outside none;
         width: 143px;
     }
+
+
+	.display_menu .sub-items {
+		display:none;
+	}
+
+	.display_menu > ul > li:hover > .sub-items {
+		display:block;
+	}
 </style>
 
 
@@ -2033,34 +2044,49 @@
             }
         });
     }
-    function changeLastContact(id, lastContact) {
-        $.post("ChangeIteratePartnerLastContact", {
-            partnerId: id,
-            lastContactId: lastContact
-        }).done(function (result) {
-            if (result === true) {
-                $("#IteratePartners").data("tGrid").ajaxRequest();
-                $("#evernotesDiv").jstree(true).refresh();
-                clearFields();
-            }
-            else {
-                window.location.href = result;
-            }
-        });
+
+    function transfer(id, ownerid, element) {
+    	$.post("Transfer", {
+    		partnerId: id,
+    		ownerId: ownerid
+    	}).done(function (result) {
+    		if (result) {
+    			$("#IteratePartners").data("tGrid").ajaxRequest();
+    			clearFields();
+    		}
+    	});
+
     }
-    function callIfNeed(partnerId, nextActionId, row) {
-        if (nextActionId === 1 || nextActionId === 15) {
-            TwilioCall(partnerId, row);
-        }
-    }
-    function shownote(sender, partnerId) {
-        var partnerGrid = $("#IteratePartners").data("tGrid");
-        var rowData = partnerGrid.dataItem($(sender).parents("tr")[0]);
-        //data can be used for whatever it needed
-        iterate.selectedPartnerId = rowData.id;
-        iterate.selectedPartner = rowData.name;
-        showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
-    }
+
+
+    	function changeLastContact(id, lastContact) {
+    		$.post("ChangeIteratePartnerLastContact", {
+    			partnerId: id,
+    			lastContactId: lastContact
+    		}).done(function (result) {
+    			if (result === true) {
+    				$("#IteratePartners").data("tGrid").ajaxRequest();
+    				$("#evernotesDiv").jstree(true).refresh();
+    				clearFields();
+    			}
+    			else {
+    				window.location.href = result;
+    			}
+    		});
+    	}
+    	function callIfNeed(partnerId, nextActionId, row) {
+    		if (nextActionId === 1 || nextActionId === 15) {
+    			TwilioCall(partnerId, row);
+    		}
+    	}
+    	function shownote(sender, partnerId) {
+    		var partnerGrid = $("#IteratePartners").data("tGrid");
+    		var rowData = partnerGrid.dataItem($(sender).parents("tr")[0]);
+    		//data can be used for whatever it needed
+    		iterate.selectedPartnerId = rowData.id;
+    		iterate.selectedPartner = rowData.name;
+    		showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
+    	}
 </script>
 
 @section leftSplitter{
@@ -2520,6 +2546,12 @@
 @section splitterTop {
     @{
         var counter = 1;
+
+		string subItemsPersons = "";
+		foreach (Generic.person item in persons) {
+			subItemsPersons += "<li><a onclick='transfer(<#=id#>," + item.id + ",this);' href='#'>" + item.nickName + "</a></li>";
+		}
+			
     }
     @Html.DropDownList("iterateObjections", (SelectList)ViewBag.iterateObjections, new { @style = "display:none" });
     @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
@@ -2554,9 +2586,8 @@
 <li><a href='#' onclick='changeNextAction(<#=id#>,5);'>Email Follow-up</a></li>
 <li><a href='#' onclick='changeNextAction(<#=id#>,9);'>Update POC</a></li>
 <li><a href='#' onclick='changeNextAction(<#=id#>,15);'>Call</a></li>
-        </ul>
-    </div>
-");
+<li><a href='#'>Transfer</a>
+<ul class='sub-items'>"+subItemsPersons+"</ul></li></ul></div>");
     columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
     columns.Bound(o => o.lastname).Title("Last name").Width(100);
     columns.Bound(o => o.title).Title("Title").Width(90).Filterable(false).ClientTemplate(@"

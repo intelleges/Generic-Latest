@@ -2454,6 +2454,9 @@ namespace Generic.Controllers
 			if (currentPerson != null)
 				ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(currentPerson.campaign).ToList(), "id", "name");
 
+
+			ViewBag.PersonAll = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
 			//Scheduler Initializeer
 			//var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
 			// ViewBag.Scheduler = scheduler.Render();
@@ -3747,6 +3750,18 @@ namespace Generic.Controllers
 					db.Entry(iPerson).State = EntityState.Modified;
 					db.SaveChanges();
 				}
+			}
+			return Json(true);
+		}
+
+
+		[HttpPost]
+		public ActionResult Transfer(int partnerId, int ownerId)
+		{
+			var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();// iteratePartners.FirstOrDefault(o => o.id == );
+			if (iPartner != null)
+			{
+				db.pr_modifyIteratePartner(partnerId, iPartner.internalID, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, iPartner.state, iPartner.zipcode, iPartner.country, iPartner.dunsnumber, iPartner.federalID, iPartner.numberOfEmployees, iPartner.annualRevenue, iPartner.status, ownerId, ownerId, iPartner.dateApproved, iPartner.active, iPartner.dateAdded, null, iPartner.lastModified, iPartner.person, iPartner.note);
 			}
 			return Json(true);
 		}
