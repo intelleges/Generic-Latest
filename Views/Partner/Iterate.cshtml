@@ -632,7 +632,7 @@
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
                 CKEDITOR.instances.emailText.setData("");
-                if (!checkoAuth()) return;
+                //if (!checkoAuth()) return;
                 $("#emailDialog").modal("toggle");
             }
             if ($(this).text() === "Nurture/Remind") {
