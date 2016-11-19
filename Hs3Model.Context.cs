@@ -207,6 +207,7 @@ namespace Generic
         public virtual DbSet<supportItemFailureType> supportItemFailureType { get; set; }
         public virtual DbSet<narrativePPTQ> narrativePPTQ { get; set; }
         public virtual DbSet<questionResponseNarrativeSelectionList> questionResponseNarrativeSelectionList { get; set; }
+        public virtual DbSet<iterateEmailText> iterateEmailText { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18291,6 +18292,105 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionResponseNarrativeSelectionList", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_additerateEmailText(Nullable<int> person, string subject, string text, Nullable<int> sortOrder, string active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active != null ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_additerateEmailText", personParameter, subjectParameter, textParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveiterateEmailText(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveiterateEmailText", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getiterateEmailText_Result> pr_getiterateEmailText(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getiterateEmailText_Result>("pr_getiterateEmailText", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getiterateEmailTextAll_Result> pr_getiterateEmailTextAll(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getiterateEmailTextAll_Result>("pr_getiterateEmailTextAll", personParameter);
+        }
+    
+        public virtual int pr_modifyiterateEmailText(Nullable<int> id, Nullable<int> person, string subject, string text, Nullable<int> sortOrder, string active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active != null ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyiterateEmailText", idParameter, personParameter, subjectParameter, textParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeiterateEmailText(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeiterateEmailText", idParameter);
+        }
+    
+        public virtual int pr_unArchiveiterateEmailText(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveiterateEmailText", idParameter);
         }
     }
 }

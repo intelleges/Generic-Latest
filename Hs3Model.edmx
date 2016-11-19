@@ -497,6 +497,17 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="iterateEmailText">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="text" Type="varchar(max)" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="iterateObjection">
           <Key>
             <PropertyRef Name="id" />
@@ -725,7 +736,7 @@
           <Property Name="city" Type="varchar" MaxLength="255" />
           <Property Name="state" Type="int" />
           <Property Name="province" Type="varchar" MaxLength="50" />
-          <Property Name="zipcode" Type="varchar" MaxLength="20" />
+          <Property Name="zipcode" Type="varchar" MaxLength="200" />
           <Property Name="country" Type="int" />
           <Property Name="phone" Type="varchar" MaxLength="100" />
           <Property Name="fax" Type="varchar" MaxLength="100" />
@@ -1034,7 +1045,7 @@
           <Property Name="partner_address_two" Type="varchar(max)" />
           <Property Name="partner_city" Type="varchar(max)" />
           <Property Name="partner_state" Type="varchar" MaxLength="2" />
-          <Property Name="partner_zipcode" Type="varchar" MaxLength="15" />
+          <Property Name="partner_zipcode" Type="varchar" MaxLength="200" />
           <Property Name="partner_country" Type="varchar" MaxLength="300" />
           <Property Name="partner_poc_first_name" Type="varchar" MaxLength="300" />
           <Property Name="partner_poc_last_name" Type="varchar" MaxLength="300" />
@@ -4513,6 +4524,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_additerateEmailText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="nchar" Mode="In" />
+        </Function>
         <Function Name="pr_addIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="code" Type="nchar" Mode="In" />
@@ -5423,6 +5441,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveiterateEmailText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6015,6 +6036,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIterateActionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getiterateEmailText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getiterateEmailTextAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIterateNextAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7289,6 +7316,14 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyiterateEmailText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="nchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyIterateObjection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -8173,6 +8208,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_removeIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeiterateEmailText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8518,6 +8556,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_unArchiveIterateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveiterateEmailText" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8819,6 +8860,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="industry" EntityType="Self.industry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invalidZcode" EntityType="Self.invalidZcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateAction" EntityType="Self.iterateAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="iterateEmailText" EntityType="Self.iterateEmailText" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateObjection" EntityType="Self.iterateObjection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePartner" EntityType="Self.iteratePartner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePerson" EntityType="Self.iteratePerson" Schema="dbo" store:Type="Tables" />
@@ -15148,17 +15190,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveQuestionResponseNarrativeSelectionList">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionList" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionList_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListAll_Result)" />
           <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionListByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListByQuestion_Result)">
-            <Parameter Name="question" Mode="In" Type="Int32" />
+          <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionResponseNarrativeSelectionListByQuestionReference" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionResponseNarrativeSelectionListByQuestionReference_Result)">
-            <Parameter Name="questionReference" Mode="In" Type="Int32" />
+          <Parameter Name="questionReference" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyQuestionResponseNarrativeSelectionList">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -15171,9 +15213,40 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeQuestionResponseNarrativeSelectionList">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveQuestionResponseNarrativeSelectionList">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="iterateEmailText" EntityType="hs3MVCMTQa2Model.iterateEmailText" />
+          <FunctionImport Name="pr_additerateEmailText" ReturnType="Collection(Decimal)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveiterateEmailText">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getiterateEmailText" ReturnType="Collection(hs3MVCMTQa2Model.pr_getiterateEmailText_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getiterateEmailTextAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getiterateEmailTextAll_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyiterateEmailText">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeiterateEmailText">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveiterateEmailText">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -15627,7 +15700,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="city" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="state" Type="Int32" />
           <Property Name="province" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="zipcode" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="zipcode" MaxLength="200" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="country" Type="Int32" />
           <Property Name="phone" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="fax" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
@@ -23649,7 +23722,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="partner_address_two" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="partner_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="partner_state" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="partner_zipcode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="partner_zipcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="partner_country" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="partner_poc_first_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="partner_poc_last_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -24480,6 +24553,33 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="narrative" Nullable="false" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="iterateEmailText">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="pr_getiterateEmailText_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="String" Name="active" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="pr_getiterateEmailTextAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="String" Name="active" Nullable="false" MaxLength="10" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -32665,6 +32765,47 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_modifyQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionResponseNarrativeSelectionList" />
           <FunctionImportMapping FunctionImportName="pr_removeQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionResponseNarrativeSelectionList" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionResponseNarrativeSelectionList" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionResponseNarrativeSelectionList" />
+          <EntitySetMapping Name="iterateEmailText">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateEmailText">
+              <MappingFragment StoreEntitySet="iterateEmailText">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_additerateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_additerateEmailText" />
+          <FunctionImportMapping FunctionImportName="pr_archiveiterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveiterateEmailText" />
+          <FunctionImportMapping FunctionImportName="pr_getiterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_getiterateEmailText">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getiterateEmailText_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getiterateEmailTextAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getiterateEmailTextAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getiterateEmailTextAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyiterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyiterateEmailText" />
+          <FunctionImportMapping FunctionImportName="pr_removeiterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_removeiterateEmailText" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveiterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveiterateEmailText" />
           
         </EntityContainerMapping>
       </Mapping>
