@@ -3758,10 +3758,10 @@ namespace Generic.Controllers
 		[HttpPost]
 		public ActionResult Transfer(int partnerId, int ownerId)
 		{
-			var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();// iteratePartners.FirstOrDefault(o => o.id == );
+			var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();
 			if (iPartner != null)
 			{
-				db.pr_modifyIteratePartner(partnerId, iPartner.internalID, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, iPartner.state, iPartner.zipcode, iPartner.country, iPartner.dunsnumber, iPartner.federalID, iPartner.numberOfEmployees, iPartner.annualRevenue, iPartner.status, ownerId, ownerId, iPartner.dateApproved, iPartner.active, iPartner.dateAdded, null, iPartner.lastModified, iPartner.person, iPartner.note);
+				db.pr_modifyIteratePartner(partnerId, iPartner.internalID, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, iPartner.state, iPartner.zipcode, iPartner.country, iPartner.dunsnumber, iPartner.federalID, iPartner.numberOfEmployees, iPartner.annualRevenue, iPartner.status, ownerId, iPartner.author, iPartner.dateApproved, iPartner.active, iPartner.dateAdded, null, iPartner.lastModified, ownerId, iPartner.note);
 			}
 			return Json(true);
 		}
