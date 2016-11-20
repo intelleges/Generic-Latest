@@ -5249,6 +5249,1757 @@ Intelleges Team";
 			return pptqID;
 		}
 
+		public static int FillCustomPdfHtml11(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+		{
+			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+			ViewBag.partnerHeader = _partnerHeader;
+			List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+			var partnerId = pptq != null ? pptq.partner : -1;
+			eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
+			var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+			ViewBag.partner = _partner;
+
+			//_signature
+			ViewBag.signature = _signature;
+			ViewBag.personTitle = _partner != null ? _partner.title : "";
+			if (pptq != null)
+				ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+			var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+			if (_country != null)
+				ViewBag.country = _country.name;
+			else
+				ViewBag.country = string.Empty;
+
+			var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+			if (_state != null)
+				ViewBag.state = _state.stateCode;
+			else
+				ViewBag.state = string.Empty;
+			if (question.footer == "4")
+			{
+				ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+			}
+			else
+				if (enterprise != null && enterprise.Any())
+				{
+					var enterpriseLogo = enterprise.FirstOrDefault();
+					byte[] logoBytes = new byte[0];
+					var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+					string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+					if (Directory.Exists(Server.MapPath(dirname)))
+					{
+						var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+						var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+						if (!System.IO.File.Exists(physicalPath))
+						{
+							var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+							fs.Write(logo);
+							fs.Close();
+						}
+						ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+					}
+				}
+
+			ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+			//  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+			var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+
+
+			var _responseYES = 74;
+			var _responseNO = 75;
+			var _chacked = "checked";
+			var _responseSplitter = "--";
+
+			//Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+
+
+			foreach (var item in _PPTQQuestionResponse)
+			{
+
+				var comments = new string[10];
+				switch (item.question)
+				{
+					#region NEW ITEMS
+					case 18978:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox77 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox78 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//if (comments.Length =1)
+							//    ViewBag.Input0 = comments[1];
+
+							//  ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
+						}
+						break;
+
+					case 26520:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox71 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox72 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input38 = (comments.Length > 1 ? comments[1] : comments[0]);// comments[1];
+						}
+						break;
+
+
+					case 18981:
+						if (item.response == _responseYES)
+						{
+							//  ViewBag.Checkbox60 = _chacked;
+
+							// ViewBag.Checkbox59 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox60 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 18984:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox61 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox62 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input34 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 18985:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox63 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox64 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input35 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 18986:
+						//if (item.response == _responseYES)
+						//{
+						//    ViewBag.Checkbox65 = _chacked;
+						//}
+						//else if (item.response == _responseNO)
+						//{
+						//    ViewBag.Checkbox66 = _chacked;
+						//    comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty:item.comment), _responseSplitter);
+						//    if (comments.Length > 1)
+						//        ViewBag.Input36 = comments[1];
+						//}
+						switch (item.response)
+						{
+							case 37520:
+								ViewBag.Checkbox65 = _chacked;
+								break;
+							case 37521:
+								ViewBag.Checkbox66 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								// if (comments.Length > 1)
+								ViewBag.Input36 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+								break;
+							case 37522:
+								ViewBag.Checkbox75 = _chacked;
+								break;
+						}
+						break;
+
+
+					case 18987:
+						switch (item.response)
+						{
+							case 37523:
+								ViewBag.Checkbox67 = _chacked;
+								break;
+							case 37524:
+								ViewBag.Checkbox68 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								//if (comments.Length > 1)
+								ViewBag.Input37 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+								break;
+							case 37525:
+								ViewBag.Checkbox76 = _chacked;
+								break;
+						}
+						break;
+
+					case 18988:
+						//if (item.response == _responseYES)
+						//{
+						//    ViewBag.Checkbox60 = _chacked;
+						//}
+						//else if (item.response == _responseNO)
+						//{
+						//    ViewBag.Checkbox61 = _chacked;
+						//    comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty:item.comment), _responseSplitter);
+						//    if (comments.Length > 1)
+						//        ViewBag.Input0 = comments[1];
+						//}
+						//if (item.response == _responseYES)
+						//{
+						//    ViewBag.Checkbox69 = _chacked;
+						//}
+						//else if (item.response == _responseNO)
+						//{
+						//    ViewBag.Checkbox70 = _chacked;                        
+						//}
+						switch (item.response)
+						{
+							case 37526:
+								ViewBag.Checkbox69 = _chacked;
+								break;
+							case 37527:
+								ViewBag.Checkbox70 = _chacked;
+								break;
+						}
+						break;
+
+					case 18992:
+						if (item.response == _responseYES)
+						{
+							//ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+					case 18990:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input5 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+
+
+						break;
+
+					case 18991:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						if (item.response == _responseYES)
+						{
+							//  ViewBag.Checkbox60 = _chacked;
+							//if (comments.Length > 1)
+							ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							// if (comments.Length > 1)
+							ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 26542:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox53 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							ViewBag.Checkbox54 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//   if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						switch (item.response)
+						{
+							case 48722:
+								ViewBag.Checkbox53 = _chacked;
+								break;
+						}
+						break;
+
+
+					case 26543:
+						if (item.response == _responseYES)
+						{
+							//ViewBag.Checkbox60 = _chacked;
+							// ViewBag.Checkbox53 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+						
+							ViewBag.Checkbox54 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							///if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						switch (item.response)
+						{
+							case 48723:
+								ViewBag.Checkbox54 = _chacked;
+								break;
+						}
+						break;
+					case 26544:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input15 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26545:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						ViewBag.Input16 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26546:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						ViewBag.Input17 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+
+					case 26547:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26548:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input18 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[0];
+						break;
+					case 26549:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input19 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26550:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input20 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26551:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26552:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input21 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26553:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input22 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26554:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input23 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26555:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//  if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26556:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input24 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26557:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input25 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26558:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input26 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26559:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26560:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input27 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26561:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input28 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26562:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input29 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26563:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+							ViewBag.Checkbox55 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//  ViewBag.Checkbox61 = _chacked;
+							// ViewBag.Checkbox56 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 26564:
+						if (item.response == _responseYES)
+						{
+							//ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//  if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+					case 26565:
+						ViewBag.Input30 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+					case 26566:
+						ViewBag.Input31 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+					case 26567:
+						ViewBag.Input32 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+					case 26568:
+						ViewBag.Input33 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+
+					#endregion
+					#region 1 Question
+					case 26577:
+						ViewBag.CheckboxSmall = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 26569:
+						ViewBag.CheckboxLarge = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26582:
+						if (ViewBag.CheckboxLarge == _chacked)
+						{
+							ViewBag.Checkbox1 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						else if (ViewBag.CheckboxSmall == _chacked)
+						{
+							ViewBag.Checkbox3 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						break;
+
+					case 26584:
+						if (ViewBag.CheckboxLarge == _chacked)
+						{
+							ViewBag.Checkbox2 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						else if (ViewBag.CheckboxSmall == _chacked)
+						{
+							ViewBag.Checkbox4 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						break;
+					case 26579:
+						ViewBag.Checkbox5 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26580:
+						ViewBag.Checkbox6 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26581:
+						ViewBag.Checkbox7 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26572:
+						ViewBag.Checkbox8 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26573:
+						ViewBag.Checkbox9 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26574:
+						ViewBag.Checkbox10 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26534:
+						ViewBag.Checkbox11 = item.response == _responseYES ? _chacked : string.Empty;
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						if (comments.Length > 1 && comments[1].Contains("Yes"))
+							ViewBag.Checkbox11_comment = _responseYES;
+
+						switch (item.response)
+						{
+							case 48725:
+								ViewBag.Checkbox11 = _chacked;
+								break;
+							case 48726:
+								ViewBag.Checkbox11 = _chacked;
+								ViewBag.Checkbox11_comment = _chacked;
+								break;
+							default:
+								ViewBag.Checkbox11 = string.Empty;
+								ViewBag.Checkbox11_comment = string.Empty;
+								break;
+
+						}
+
+					
+						ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
+						
+						break;
+
+					case 26571:
+						ViewBag.Checkbox12 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 26570:
+						ViewBag.Checkbox13 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 26576:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox14 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+					//case 26534:
+					//	ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
+					//	break;
+
+					case 26535:
+						ViewBag.Checkbox16 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26536:
+						ViewBag.Checkbox17 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+
+
+					case 26578:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox18 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox19 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input1 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26583:
+						switch (item.response)
+						{
+							case 48728:
+								ViewBag.Checkbox20 = _chacked;
+								break;
+							case 48729:
+								ViewBag.Checkbox21 = _chacked;
+								break;
+							case 48730:
+								ViewBag.Checkbox22 = _chacked;
+								break;
+							case 48731:
+								ViewBag.Checkbox23 = _chacked;
+								break;
+							case 48732:
+								ViewBag.Checkbox24 = _chacked;
+								break;
+							case 48733:
+								ViewBag.Checkbox25 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								// if (comments.Length >= 1)
+								ViewBag.Input2 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+								break;
+						}
+						break;
+
+					#endregion
+
+					#region 2 Question
+					case 26519:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox26 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox27 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//if (comments.Length >= 1)
+							ViewBag.Input4 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						}
+						break;
+
+					#endregion
+
+					#region 3 Question
+					case 26531:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						if (item.response == _responseYES)
+						{
+							//  if (comments.Length >= 1)
+							ViewBag.Input5 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						}
+						else if (item.response == _responseNO)
+						{
+							// if (comments.Length >= 1)
+							ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						}
+						break;
+					case 26532:
+						ViewBag.Input6 = item.comment; //comments[0];
+						break;
+					#endregion
+
+					#region 4 Question
+					case 26537:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox28 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox29 = _chacked;
+						}
+						break;
+					case 26538:
+						switch (item.response)
+						{
+							case 48712:
+								ViewBag.Checkbox28_1 = _chacked;
+								break;
+							case 48713:
+								ViewBag.Checkbox29_1 = _chacked;
+								ViewBag.Input7_1 = item.comment;
+								break;
+							case 48714:
+								ViewBag.Checkbox29_2 = _chacked;
+								break;
+						}
+						break;
+
+					#endregion
+
+					#region 5 Question
+
+					case 26539:
+						switch (item.response)
+						{
+							case 48715:
+								ViewBag.Checkbox30_1 = _chacked;
+								break;
+							case 48716:
+								ViewBag.Checkbox31_1 = _chacked;
+								break;
+							case 48717:
+								ViewBag.Checkbox32_1 = _chacked;
+								break;
+
+						}
+						break;
+
+					#endregion
+
+					#region 6 Question
+
+					case 26540:
+						switch (item.response)
+						{
+							case 48718:
+								ViewBag.Checkbox30 = _chacked;
+								break;
+							case 48719:
+								ViewBag.Checkbox31 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								ViewBag.Input7 = (comments.Length > 1 ? comments[1] : comments[0]);
+								break;
+							case 48720:
+								ViewBag.Checkbox73 = _chacked;
+								break;
+						}
+						break;
+					#endregion
+
+					#region 7 Question
+					case 26522:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox35 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox36 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input8 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					#endregion
+
+					#region 8 Question
+					case 26523:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox41 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox42 = _chacked;
+						}
+						break;
+						
+					#endregion
+
+					#region 9 Question
+					case 26524:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox43 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox44 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//  if (comments.Length > 1)
+							ViewBag.Input10 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					#endregion
+
+					#region 10 Question
+					case 26541:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox45 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox46 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input11 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					#endregion
+
+					#region 11 Question
+					case 26585:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox47 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input12 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox48 = _chacked;
+
+						}
+						break;
+
+					case 26586:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox49 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//   if (comments.Length > 1)
+							ViewBag.Input13 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox50 = _chacked;
+
+						}
+						break;
+
+					case 26587:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox51 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//   if (comments.Length > 1)
+							ViewBag.Input14 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox52 = _chacked;
+						}
+						break;
+
+					#endregion
+
+					#region 14 Question
+					//When 19049 =75 then 19050 is skipped and should have no checkmarks at all
+
+					case 26588:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox57 = _chacked;
+							// ViewBag.Checkbox58 = string.Empty;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox58 = _chacked;
+							ViewBag.case19049 = 75;
+						}
+						break;
+
+					case 26589:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox59 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox60 = _chacked;
+						}
+						break;
+
+					#endregion
+
+					#region ADDITIONAL SUPPLIER COMMENTS
+					case 26590:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						ViewBag.Input391 = (comments.Length > 1 ? comments[1] : comments[0]);
+						break;
+
+					#endregion
+
+
+					#region CERTIFICATION
+					case 26592:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox77 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox78 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+							ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
+
+
+						}
+						break;
+
+					#endregion
+				}
+			}
+			return pptqID;
+		}
+
+		public static int FillCustomPdfHtml10(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+		{
+			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+			ViewBag.partnerHeader = _partnerHeader;
+			List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+			var partnerId = pptq != null ? pptq.partner : -1;
+			eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
+			var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+			ViewBag.partner = _partner;
+
+			//_signature
+			ViewBag.signature = _signature;
+			ViewBag.personTitle = _partner != null ? _partner.title : "";
+			if (pptq != null)
+				ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+			var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+			if (_country != null)
+				ViewBag.country = _country.name;
+			else
+				ViewBag.country = string.Empty;
+
+			var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+			if (_state != null)
+				ViewBag.state = _state.stateCode;
+			else
+				ViewBag.state = string.Empty;
+			if (question.footer == "4")
+			{
+				ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+			}
+			else
+				if (enterprise != null && enterprise.Any())
+				{
+					var enterpriseLogo = enterprise.FirstOrDefault();
+					byte[] logoBytes = new byte[0];
+					var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+					string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+					if (Directory.Exists(Server.MapPath(dirname)))
+					{
+						var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+						var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+						if (!System.IO.File.Exists(physicalPath))
+						{
+							var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+							fs.Write(logo);
+							fs.Close();
+						}
+						ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+					}
+				}
+
+			ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+			var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+			var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+			var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+			//  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+			var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+
+
+			var _responseYES = 74;
+			var _responseNO = 75;
+			var _chacked = "checked";
+			var _responseSplitter = "--";
+
+			//Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+
+
+			foreach (var item in _PPTQQuestionResponse)
+			{
+
+				var comments = new string[10];
+				switch (item.question)
+				{
+					#region NEW ITEMS
+					case 26520:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox71 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox72 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input38 = (comments.Length > 1 ? comments[1] : comments[0]);// comments[1];
+						}
+						break;
+
+
+					case 26525:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox61 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox62 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input34 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 26526:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox63 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox64 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input35 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 26527:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox65 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox66 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							if (comments.Length > 1)
+								ViewBag.Input36 = comments[1];
+						}
+						
+						break;
+
+
+					case 26528:
+						switch (item.response)
+						{
+							case 48707:
+								ViewBag.Checkbox67 = _chacked;
+								break;
+							case 48708:
+								ViewBag.Checkbox68 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								//if (comments.Length > 1)
+								ViewBag.Input37 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+								break;
+							case 48709:
+								ViewBag.Checkbox76 = _chacked;
+								break;
+						}
+						break;
+
+					case 26529:
+						
+						switch (item.response)
+						{
+							case 48710:
+								ViewBag.Checkbox69 = _chacked;
+								break;
+							case 48711:
+								ViewBag.Checkbox70 = _chacked;
+								break;
+						}
+						break;
+
+					
+					case 26531:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input5 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+
+
+						break;
+
+					case 26532:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						if (item.response == _responseYES)
+						{
+							//  ViewBag.Checkbox60 = _chacked;
+							//if (comments.Length > 1)
+							ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							// if (comments.Length > 1)
+							ViewBag.Input6 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 26542:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox53 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							ViewBag.Checkbox54 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//   if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						switch (item.response)
+						{
+							case 48722:
+								ViewBag.Checkbox53 = _chacked;
+								break;
+						}
+						break;
+
+
+					case 26543:
+						if (item.response == _responseYES)
+						{
+							//ViewBag.Checkbox60 = _chacked;
+							// ViewBag.Checkbox53 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+
+							ViewBag.Checkbox54 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							///if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						switch (item.response)
+						{
+							case 48723:
+								ViewBag.Checkbox54 = _chacked;
+								break;
+						}
+						break;
+					case 26544:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input15 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26545:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						ViewBag.Input16 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26546:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						ViewBag.Input17 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+
+					case 26547:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26548:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input18 = (comments.Length > 1 ? comments[1] : comments[0]); // comments[0];
+						break;
+					case 26549:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input19 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26550:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input20 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26551:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26552:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input21 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26553:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input22 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26554:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input23 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26555:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//  if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26556:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input24 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26557:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input25 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26558:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input26 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26559:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26560:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input27 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26561:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input28 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26562:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+						ViewBag.Input29 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						break;
+					case 26563:
+						if (item.response == _responseYES)
+						{
+							// ViewBag.Checkbox60 = _chacked;
+							ViewBag.Checkbox55 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							//  ViewBag.Checkbox61 = _chacked;
+							// ViewBag.Checkbox56 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+
+					case 26564:
+						if (item.response == _responseYES)
+						{
+							//ViewBag.Checkbox60 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							// ViewBag.Checkbox61 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//  if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+					case 26565:
+						ViewBag.Input30 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+					case 26566:
+						ViewBag.Input31 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+					case 26567:
+						ViewBag.Input32 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+					case 26568:
+						ViewBag.Input33 = String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment;
+						break;
+
+					#endregion
+					#region 1 Question
+					case 26577:
+						ViewBag.CheckboxSmall = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 26569:
+						ViewBag.CheckboxLarge = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26582:
+						if (ViewBag.CheckboxLarge == _chacked)
+						{
+							ViewBag.Checkbox1 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						else if (ViewBag.CheckboxSmall == _chacked)
+						{
+							ViewBag.Checkbox3 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						break;
+
+					case 26584:
+						if (ViewBag.CheckboxLarge == _chacked)
+						{
+							ViewBag.Checkbox2 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						else if (ViewBag.CheckboxSmall == _chacked)
+						{
+							ViewBag.Checkbox4 = item.response == _responseYES ? _chacked : string.Empty;
+						}
+						break;
+					case 26579:
+						ViewBag.Checkbox5 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26580:
+						ViewBag.Checkbox6 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26581:
+						ViewBag.Checkbox7 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26572:
+						ViewBag.Checkbox8 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26573:
+						ViewBag.Checkbox9 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26574:
+						ViewBag.Checkbox10 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26534:
+						ViewBag.Checkbox11 = item.response == _responseYES ? _chacked : string.Empty;
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						if (comments.Length > 1 && comments[1].Contains("Yes"))
+							ViewBag.Checkbox11_comment = _responseYES;
+
+						switch (item.response)
+						{
+							case 48725:
+								ViewBag.Checkbox11 = _chacked;
+								break;
+							case 48726:
+								ViewBag.Checkbox11 = _chacked;
+								ViewBag.Checkbox11_comment = _chacked;
+								break;
+							default:
+								ViewBag.Checkbox11 = string.Empty;
+								ViewBag.Checkbox11_comment = string.Empty;
+								break;
+
+						}
+
+
+						ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
+
+						break;
+
+					case 26571:
+						ViewBag.Checkbox12 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 26570:
+						ViewBag.Checkbox13 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+					case 26576:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox14 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+					//case 26534:
+					//	ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
+					//	break;
+
+					case 26535:
+						ViewBag.Checkbox16 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+					case 26536:
+						ViewBag.Checkbox17 = item.response == _responseYES ? _chacked : string.Empty;
+						break;
+
+
+
+					case 26578:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox18 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox19 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input1 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					case 26583:
+						switch (item.response)
+						{
+							case 48728:
+								ViewBag.Checkbox20 = _chacked;
+								break;
+							case 48729:
+								ViewBag.Checkbox21 = _chacked;
+								break;
+							case 48730:
+								ViewBag.Checkbox22 = _chacked;
+								break;
+							case 48731:
+								ViewBag.Checkbox23 = _chacked;
+								break;
+							case 48732:
+								ViewBag.Checkbox24 = _chacked;
+								break;
+							case 48733:
+								ViewBag.Checkbox25 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								// if (comments.Length >= 1)
+								ViewBag.Input2 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+								break;
+						}
+						break;
+
+					#endregion
+
+					#region 2 Question
+					case 26519:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox26 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox27 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//if (comments.Length >= 1)
+							ViewBag.Input4 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
+						}
+						break;
+
+					#endregion
+
+					#region 4 Question
+					case 26537:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox28 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox29 = _chacked;
+						}
+						break;
+					case 26538:
+						switch (item.response)
+						{
+							case 48712:
+								ViewBag.Checkbox28_1 = _chacked;
+								break;
+							case 48713:
+								ViewBag.Checkbox29_1 = _chacked;
+								ViewBag.Input7_1 = item.comment;
+								break;
+							case 48714:
+								ViewBag.Checkbox29_2 = _chacked;
+								break;
+						}
+						break;
+
+					#endregion
+
+					#region 5 Question
+
+					case 26539:
+						switch (item.response)
+						{
+							case 48715:
+								ViewBag.Checkbox30_1 = _chacked;
+								break;
+							case 48716:
+								ViewBag.Checkbox31_1 = _chacked;
+								break;
+							case 48717:
+								ViewBag.Checkbox32_1 = _chacked;
+								break;
+
+						}
+						break;
+
+					#endregion
+
+					#region 6 Question
+
+					case 26540:
+						switch (item.response)
+						{
+							case 48718:
+								ViewBag.Checkbox30 = _chacked;
+								break;
+							case 48719:
+								ViewBag.Checkbox31 = _chacked;
+								comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+								ViewBag.Input7 = (comments.Length > 1 ? comments[1] : comments[0]);
+								break;
+							case 48720:
+								ViewBag.Checkbox73 = _chacked;
+								break;
+						}
+						break;
+					#endregion
+
+					#region 7 Question
+					case 26522:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox35 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox36 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input8 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					#endregion
+
+					#region 8 Question
+					case 26523:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox41 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox42 = _chacked;
+						}
+						break;
+
+					#endregion
+
+					#region 9 Question
+					case 26524:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox43 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox44 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//  if (comments.Length > 1)
+							ViewBag.Input10 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					#endregion
+
+					#region 10 Question
+					case 26541:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox45 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox46 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input11 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						break;
+
+					#endregion
+
+					#region 11 Question
+					case 26585:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox47 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							// if (comments.Length > 1)
+							ViewBag.Input12 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox48 = _chacked;
+
+						}
+						break;
+
+					case 26586:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox49 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//   if (comments.Length > 1)
+							ViewBag.Input13 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox50 = _chacked;
+
+						}
+						break;
+
+					case 26587:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox51 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+							//   if (comments.Length > 1)
+							ViewBag.Input14 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox52 = _chacked;
+						}
+						break;
+
+					#endregion
+
+					#region 14 Question
+					//When 19049 =75 then 19050 is skipped and should have no checkmarks at all
+
+					case 26588:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox57 = _chacked;
+							// ViewBag.Checkbox58 = string.Empty;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox58 = _chacked;
+							ViewBag.case19049 = 75;
+						}
+						break;
+
+					case 26589:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox59 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox60 = _chacked;
+						}
+						break;
+
+					#endregion
+
+					#region ADDITIONAL SUPPLIER COMMENTS
+					case 26590:
+						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+						ViewBag.Input391 = (comments.Length > 1 ? comments[1] : comments[0]);
+						break;
+
+					#endregion
+
+
+					#region CERTIFICATION
+					case 26592:
+						if (item.response == _responseYES)
+						{
+							ViewBag.Checkbox77 = _chacked;
+						}
+						else if (item.response == _responseNO)
+						{
+							ViewBag.Checkbox78 = _chacked;
+							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
+
+							ViewBag.Input39 = (comments.Length > 1 ? comments[1] : comments[0]);
+
+
+						}
+						break;
+
+					#endregion
+				}
+			}
+			return pptqID;
+		}
 
 		public ActionResult CustomizedPDFConfirmation()
 		{
@@ -5300,6 +7051,18 @@ Intelleges Team";
 			{
 				pptqID = FillPODPdfHtml9(ViewBag, db, Session, Server);
 				ViewName = "PODQuestionnaireSurveyPdfDownload9";
+				return ViewCustomizedPdf(pptqID, ViewName);
+			}
+			else if (question != null && (question.footer == "10"))
+			{
+				pptqID = FillCustomPdfHtml10(ViewBag, db, Session, Server);
+				ViewName = "CustomQuestionnaireSurveyPdfDownload10";
+				return ViewCustomizedPdf(pptqID, ViewName);
+			}
+			else if (question != null && (question.footer == "11"))
+			{
+				pptqID = FillCustomPdfHtml11(ViewBag, db, Session, Server);
+				ViewName = "CustomQuestionnaireSurveyPdfDownload11";
 				return ViewCustomizedPdf(pptqID, ViewName);
 			}
 			// else return PDFConfirmation();
@@ -7637,6 +9400,7 @@ Intelleges Team";
 			return pptqID;
 		}
 
+
 		public static int FillMOOGPdfHtml6(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
 		{
 			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
@@ -7912,7 +9676,7 @@ Intelleges Team";
 		}
 		public ActionResult TestMOOGPage()
 		{
-			var pptqID = FillMOOGPdfHtml6(ViewBag, db, Session, Server);
+			var pptqID = FillMOOGPdfHtml(ViewBag, db, Session, Server);
 			return View("MoogCustomizedQuestionnaireSurveyPdfDownload6");
 		}
 
