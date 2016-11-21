@@ -5385,7 +5385,7 @@ Intelleges Team";
 						{
 							ViewBag.Checkbox66 = _chacked;
 							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-							ViewBag.Input36 = item.comment;	
+							ViewBag.Input36 = (comments.Length > 1 ? comments[1] : comments[0]);
 						}
 
 						break;
@@ -6208,7 +6208,7 @@ Intelleges Team";
 						{
 							ViewBag.Checkbox66 = _chacked;
 							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-							ViewBag.Input36 = item.comment;		
+							ViewBag.Input36 = (comments.Length > 1 ? comments[1] : comments[0]);	
 						}
 						
 						break;

@@ -199,7 +199,7 @@
 
        
     </div>
-    <p style="margin-top:260px; color:gray">
+    <p style="margin-top:160px; color:gray">
         <b>
             <i style="text-align:left">Page 1 of 5</i>
             <i style="margin-left:250px">Supplier Certifications and Representations</i>
@@ -314,7 +314,7 @@
         <p><b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input7 ?? String.Empty)</b></p>
     </div>
    
-    <p style="margin-top:160px;color:gray">
+    <p style="margin-top:100px;color:gray">
         <b>
             <i style="text-align:left">Page 2 of 5</i>
             <i style="margin-left:250px">Supplier Certifications and Representations</i>
@@ -412,29 +412,30 @@
         </p>
         <p style="margin-left:60px"><b>If YES</b>, Alcohol Misuse Prevention Program Plan #: <input type="text" style="width:450px; height:20px" value="@(ViewBag.Input14 ?? String.Empty)" /></p>
 
+		<p style="margin-top:90px; color:gray">
+			<b>
+				<i style="text-align:left">Page 3 of 5</i>
+				<i style="margin-left:250px">Supplier Certifications and Representations</i>
+				<i style="margin-left:200px">AF 0014J (2017)</i>
+			</b>
+		</p>
     </div>
 
     <div>
-        <p><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10(d)(3)</a>)</i></b></p>
+         
+		<p><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10(d)(3)</a>)</i></b></p>
 
-        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is <b><u>not</u></b> available to the public through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934(15 U.S.C. 78m(a), 78o(d)) or under Section 6104 of the Internal Revenue Code of 1986.</p>
-
-      
-            <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;B. <i>SUPPLIER</i> derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year.</p>
+		<p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is <b><u>not</u></b> available to the public through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934(15 U.S.C. 78m(a), 78o(d)) or under Section 6104 of the Internal Revenue Code of 1986.</p>
 
 
-      
+		<p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;B. <i>SUPPLIER</i> derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year.</p>
 
-        <i>NOTE:</i>  If A and B are checked, Honeywell is required to report SUPPLIER's executive compensation to the Government and this information will be made public.  Completion of below is required.
-        </p>
-        <p style="margin-top:50px; color:gray">
-            <b>
-                <i style="text-align:left">Page 3 of 5</i>
-                <i style="margin-left:250px">Supplier Certifications and Representations</i>
-                <i style="margin-left:200px">AF 0014J (2017)</i>
-            </b>
-        </p>
-        <p style="margin-top:60px"><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10(d)(3)</a>) Continued</i></b></p>
+
+
+		<p>
+			<i>NOTE:</i>  If A and B are checked, Honeywell is required to report SUPPLIER's executive compensation to the Government and this information will be made public.  Completion of below is required.
+		</p>
+       
         <p>Total Compensation <i>(as defined in FAR 52.204-10(a)):</i>, if <b><u>both</u></b>A and B are checked, Honeywell is required to report the earnings of the five (5) most highly compensated executives, during the preceding fiscal year, to the Government: </p>
         <table width="100%" cellpadding="0" cellspacing="0" border="1">
             <tr>
@@ -511,9 +512,9 @@
     </div>
 
     <div>
-        <p><b>13. <i>FIRST-TIER SUBCONTRACT AWARDS REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>)</i></b></p>
+        <p><b>13. <i>FIRST-TIER SUBCONTRACT AWARDS REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10(d)(2)</a>)</i></b></p>
 
-        <p><i>SUPPLIER</i>, in the previous tax year, had a gross income from all sources over $300,000 ?</p>
+        <p>Did subcontractor in the previous tax year have a gross income, from <b><u>all</u></b> sources, over $300,000?</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox55 /> YES </b>
@@ -521,10 +522,10 @@
         </p>
 
         <p>
-            <b><i>NOTE</i></b>:  If yes, Honeywell is required to report to the Government 1st tier subcontract awards, valued $30,000 or more, that peg to prime contracts containing FAR 52.204-10.  Information pertaining to the subcontract award, along with the following information required by FAR 52.204-10(c)(1), will be made public.
+            <b><i>NOTE</i></b>:  If yes, Honeywell is required to report to the U.S. Government any subcontract award(s) issued to supplier, valued at $30,000 or more, that peg to prime contracts containing FAR 52.204-10. Information pertaining to the subcontract award(s), along with the following information required by FAR 52.204-10(d)(2), will be made public.
         </p>
         <p>
-            To comply with FAR 52.204-10, please provide the place of performance address if different than this Certification.  SUPPLIER certifies the physical place of performance is:
+            To comply with FAR FAR 52.204-10(d)(2), please provide the place of performance address if different than this Certification.  SUPPLIER certifies the physical place of performance is:
         </p>
         <p>
             <table>
@@ -587,34 +588,34 @@
     <div>
         <p><b>15. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - REQUIREMENTS</i></b></p>
         <p>
-            <i>SUPPLIER</i> has notified its employees and agents of the U.S. Government's policy regarding Combating Trafficking in Persons as described in 52.222-50(b), as well as those resulting actions that may be taken against employees or agents for violations of this policy.
+            <i>SUPPLIER</i> has notified its employees and agents of the U.S. Government’s policy prohibiting trafficking in persons as described in 52.222-50(b), as well as those resulting actions that may be taken against employees or agents for violations of this policy.
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox61 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox62 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input34 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input34 ?? String.Empty)</b>
         </p>
     </div>
-
+	<p style="margin-top:60px; color:gray">
+		<b>
+			<i style="text-align:left">Page 4 of 5</i>
+			<i style="margin-left:250px">Supplier Certifications and Representations</i>
+			<i style="margin-left:200px">AF 0014J (2017)</i>
+		</b>
+	</p>
 
     <div>
         <p><b>16. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - NOTIFICATION</i></b></p>
         <p>
-            <i>SUPPLIER</i> will inform Honeywell, and applicable Government officials, of any credible information received from any source alleging an employee, subcontractor, subcontractor employee, or agent has engaged in conduct that violates 52.222-50(b), along with the actions taken against said employee, subcontractor, subcontractor employee or agent.
+            <i>SUPPLIER</i> will inform Honeywell, and applicable Government officials, of any credible information received from any source alleging an employee, subcontractor, subcontractor employee, or agent has engaged in conduct that violates the policy in 52.222-50(b), along with the actions taken against said employee, subcontractor, subcontractor employee or agent.
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox63 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox64 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input35 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input35 ?? String.Empty)</b>
         </p>
     </div>
-    <p style="margin-top:100px; color:gray">
-        <b>
-            <i style="text-align:left">Page 4 of 5</i>
-            <i style="margin-left:250px">Supplier Certifications and Representations</i>
-            <i style="margin-left:200px">AF 0014J (2017)</i>
-        </b>
-    </p>
+   
     <div style="margin-top:60px">
         <p><b>17. <i>COMBATING TRAFFICKING IN PERSONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-50</a>) - COMPLIANCE PLAN</i></b></p>
         <p>
@@ -622,29 +623,31 @@
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox65 /> YES </b>
-            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox66 /> NO </b>
-          <br />
-            <b>If NO, comment required: <input type="text" value="@(ViewBag.Input36 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox66 /> NO </b>   
+			<b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input36 ?? String.Empty)</b>
         </p>
     </div>
 
     <div>
         <p><b>18. <i>CERTIFICATION REGARDING TRAFFICKING IN PERSONS COMPLIANCE PLAN (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137583'>FAR 52.222-56</a>)</i></b></p>
+		<p>
+			<i>SUPPLIER </i>certifies:
+		</p>
         <p>
-            A. <i>SUPPLIER</i> Contracts/subcontracts awarded by Honeywell-Aerospace, it has implemented a compliance plan to prevent any prohibited activities defined in 52.222-50(b) and to monitor, detect and terminate the contract with a subcontractor engaging in prohibited activities defined in 52.222-50(b); and
+            1. Contracts/subcontracts awarded by Honeywell-Aerospace, it has implemented a compliance plan to prevent any prohibited activities defined in 52.222-50(b) and to monitor, detect and terminate the contract with a subcontractor engaging in prohibited activities defined in 52.222-50(b); and
         </p>
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox67 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox68 /> NO </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox76 /> Will comply when awarded contract/subcontract flowing down 52.222-56 </b><br />
-            <b>If NO, comment required: <input type="text" value="@(ViewBag.Input37 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b>If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input37 ?? String.Empty)</b>
         </p>
         <p>
-            B. After conducting due diligence, either:
+            2. After conducting due diligence, either:
         </p>
         <p>
-            <span style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox69 /> To the best of SUPPLIER's knowledge and belief, neither it nor any of its agents, subcontractors, or their agents is engaged in any such activities; OR</span><br />
-            <span style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox70 /> If abuses relating to any of the prohibited activities identified in 52.222-50(b) have been found, SUPPLIER or its subcontractor has taken the appropriate remedial and referral actions.</span>
+            <span style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox69 />(i)  To the best of SUPPLIER's knowledge and belief, neither it nor any of its agents, subcontractors, or their agents is engaged in any such activities; OR</span><br />
+            <span style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox70 />(ii)  If abuses relating to any of the prohibited activities identified in 52.222-50(b) have been found, SUPPLIER or its subcontractor has taken the appropriate remedial and referral actions.</span>
         </p>
     </div>
 
@@ -656,7 +659,7 @@
         <p>
             <b><input type="checkbox" @ViewBag.Checkbox71 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox72 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input38 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input38 ?? String.Empty)</b>
         </p>
     </div>
 	<div>
@@ -672,7 +675,7 @@
     <p>
         <b><input type="checkbox" @ViewBag.Checkbox77 /> YES </b>
         <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox78 /> NO </b>
-        <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input39 ?? String.Empty)" style="width:450px; height:20px" /></b>
+        <b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input39 ?? String.Empty)</b>
     </p>
 
     <table width="100%" cellpadding="0" cellspacing="0" border="1">
@@ -694,7 +697,7 @@
         </tr>
     </table>
    
-    <p style="margin-top:525px;color:gray">
+    <p style="margin-top:250px;color:gray">
         <b>
             <i style="text-align:left">Page 5 of 5</i>
             <i style="margin-left:250px">Supplier Certifications and Representations</i>
