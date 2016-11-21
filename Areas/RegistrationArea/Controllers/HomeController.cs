@@ -6956,7 +6956,7 @@ Intelleges Team";
 			else if (question != null && (question.footer == "11"))
 			{
 				pptqID = FillCustomPdfHtml11(ViewBag, db, Session, Server);
-				ViewName = "CustomQuestionnaireSurveyPdfDownload11";
+				ViewName = "CustomQuestionnaireSurveyPdfDownload10";
 				return ViewCustomizedPdf(pptqID, ViewName);
 			}
 			// else return PDFConfirmation();

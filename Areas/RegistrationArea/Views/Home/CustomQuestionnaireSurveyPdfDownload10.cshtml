@@ -167,7 +167,7 @@
 
 
         <p style="height:4px">
-            <input type="checkbox" @ViewBag.Checkbox14 /> Government Agency / Entity: Explain:
+            <input type="checkbox" @ViewBag.Checkbox14 /> Government Agency / Entity: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explain:
             <input type="text" style="width:450px; height:20px" value="@(ViewBag.Input0 ?? String.Empty)" />
         </p>
 
@@ -184,7 +184,7 @@
                 </td>
                 <td valign="top">
                     <p>
-                        Supplier understands, under 15 U.S.C. 645(d), any person who misrepresents a firm's status that is small, HUBZone small, small disadvantaged, service-disabled veteran-owned small, economically disadvantaged women-owned small, or women-owned small eligible under the WOSB Program in order to obtain a contract to be awarded under the preference programs established pursuant to section 8, 9, 15, 31 and 36 of the Small Business Act or any other provision of Federal law that specifically references section 8(d) for a definition of program eligibility, shall (i) be punished by imposition of fine, imprisonment, or both; (ii) be subject to administrative remedies, including suspension and debarment; and (iii) be ineligible for participation in programs conducted under the authority of the Act (FAR 52.219-1(d)(2)).
+						Supplier understands, under 15 U.S.C. 645(d), any person who misrepresents a firm’s status as a small business concern, a qualified HUBZone small business concern, a small business concern owned and controlled by socially and economically disadvantaged individuals, or a small business concern owned and controlled by women in order to obtain for oneself or another any: (a) prime contract to be awarded pursuant to Section 638, 644 or 657a of this title; (b) subcontract to be awarded pursuant to Section 637(a)of this title; (c) subcontract that is to be included as part or all of a goal contained in a subcontracting plan required pursuant to section 637(d) of this title; or (d) prime or subcontract to be awarded as a result, or in furtherance, of any other provision of Federal law that specifically references Section 637(d) of this title for a definition of program eligibility, shall be:  (a)punished by a fine of not more than $500,000 or by imprisonment for not more than 10 years, or both; (b) subject to the administrative remedies prescribed by the Program Fraud Civil Remedies Act of 1986 (31 U.S.C. 3801-3812); (c) subject to suspension and debarment as specified in subpart 9.4 of title 48, Code of Federal Regulations (or any successor regulation); and (d) ineligible for participation in any program or activity conducted under the authority of this chapter or the Small Business Investment Act of 1958 (15 U.S.C. 661 et seq) for a period not to exceed 3 years.
                     </p>
                 </td>
             </tr>
@@ -193,7 +193,6 @@
                 <td>
                     <b><input type="checkbox" @ViewBag.Checkbox18 /> YES </b>
                     <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox19 /> NO </b>
-                    <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input2 ?? String.Empty)" style="width:450px; height:20px" /></b>
                 </td>
             </tr>
         </table>
@@ -218,8 +217,7 @@
 		E. Subcontinent Asian (Asian-Indian) American: persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands, or Nepal
 	</p>
 	<p style="height:3px;">
-		<input type="checkbox" @ViewBag.Checkbox25 /> F. Individual/concern, other than one of the preceding. Explain:
-		<input type="text" value="@(ViewBag.Input3 ?? String.Empty)" style="width:450px; height:20px" />
+		<input type="checkbox" @ViewBag.Checkbox25 /> F. Individual/concern, other than one of the preceding. 
 	</p>
 
     <div style="margin-top:35px">
@@ -236,7 +234,7 @@
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox26 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox27 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input4 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Input4 ?? String.Empty)</b>
         </p>
 
     </div>
@@ -288,7 +286,7 @@
 			<b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox29_1 /> NO </b>
 			<b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox29_2 /> Less than 50 employees, therefore exempt </b>
 		</p>
-		<p><b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input7_1 ?? String.Empty)" style="width:450px; height:20px" /></b></p>
+		<p><b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input7_1 ?? String.Empty)</b></p>
     </div>
 	<div>
 		<p><b> 5. <i>CERTIFICATION OF AFFIRMATIVE ACTION PROGRAM COMPLIANCE (FAR 52.222-25)<b><i style="color:blue;">(Check ONLY one)</i></b></i></b></p>
@@ -296,7 +294,7 @@
 		<p>
 		<p><input type="checkbox" @ViewBag.Checkbox30_1 /> A. Supplier has developed and has on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2); OR
 
-		<p><input type="checkbox" @ViewBag.Checkbox31_1 /> B. Supplier has not previously had contracts subject to the written affirmative action program requirement of the rules and regulations of the Secretary of Labor.
+		<p><input type="checkbox" @ViewBag.Checkbox31_1 /> B. Supplier has <strong>NOT</strong> previously had contracts subject to the written affirmative action program requirement of the rules and regulations of the Secretary of Labor.
 		<p>
 			<input type="checkbox" @ViewBag.Checkbox32_1 /> C. Supplier has less than 50 employees, therefore exempt.
 
@@ -304,16 +302,16 @@
 	</div>
 
     <div>
-        <p><b> 6. <i>CERTIFICATION OF COMPLIANCE WITH VETERANS’ EMPLOYMENT REPORTING REQUIREMENTS (FAR 52.222-38)</i></b></p>
+        <p><b> 6. <i>CERTIFICATION OF COMPLIANCE WITH VETERANS' EMPLOYMENT REPORTING REQUIREMENTS (FAR 52.222-38)</i></b></p>
 
-        <p><i>SUPPLIER</i> has filed all required Compliance reports.</p>
+        <p><i>SUPPLIER</i> certifies for any Honeywell award subject to the reporting requirements of 38 U.S.C. 4212(d) (i.e., contracts containing FAR Clause 52.222-37, Employment Reports on Veterans) it has filed the most recent VETS-4212 Report required by 52.222-37.</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox30 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox31 />NO&nbsp;&nbsp;<input type="checkbox" @ViewBag.Checkbox73 />Less than 50 employees, therefore exempt</b>
 
         </p>
-        <p><b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input7 ?? String.Empty)" style="width:450px; height:20px" /></b></p>
+        <p><b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input7 ?? String.Empty)</b></p>
     </div>
    
     <p style="margin-top:160px;color:gray">
@@ -338,14 +336,13 @@
 
         <p style="margin-left:40px">1. Is the person in the offeror's organization responsible for determining the prices being offered in any bid or proposal, and that the signatory has not participated and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; or</p>
 
-        <p style="margin-left:40px">2. (i) Has been authorized, in writing, to act as agent for the principals involved in certifying that those principals have not participated, and will not participate in any action contrary to subparagraphs A.1 through A.3 of this Section; (ii) As an authorized agent, does certify that such principals have not participated, and will not participate, in any action contrary to subparagraphs A.1 through A.3 of this Section; and (iii) As an agent, has not personally participated, and will not participate, in any action contrary to subparagraphs A.1 through A.3 of this Section.</p>
+        <p style="margin-left:40px">(i) Has been authorized, in writing, to act as agent for the principals involved in certifying that those principals have not participated, and will not participate in any action contrary to subparagraphs a(1) through a(3) of this provision; (ii) as an authorized agent, does certify that such principals have not participated, and will not participate, in any action contrary to subparagraphs a(1) through a(3) of this provision; and (iii) as an agent, has not personally participated, and will not participate, in any action contrary to subparagraphs a(1) through a(3) of this provision.</p>
 
-        <p>C. If <i>SUPPLIER</i> deletes or modifies subparagraph A.2 of this Section, <i>SUPPLIER</i> must furnish with its offer a signed statement setting forth in detail the circumstances of the disclosure.</p>
-
+        <p>C. If <i>SUPPLIER</i> deletes or modifies subparagraph a(2) of this provision, <i>SUPPLIER</i> must furnish with its offer a signed statement setting forth, in detail,the circumstances of the disclosure.</p>
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox35 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox36 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input8 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input8 ?? String.Empty)</b>
         </p>
 
     </div>
@@ -353,7 +350,7 @@
     <div>
         <p><b>8. <i>CERTIFICATION REGARDING PAYMENTS TO INFLUENCE CERTAIN FEDERAL TRANSACTIONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.203-11</a>)</i></b></p>
 
-        <p><i>SUPPLIER</i> certifies, to the best of its knowledge and belief, <b><u>NO</u></b> Federal appropriated funds have been paid or will be paid to any person to influence or attempt to influence certain Government officials to award or modify a Federal contract.</p>
+        <p><i>SUPPLIER</i> certifies, to the best of its knowledge and belief, <b><u>NO</u></b> Federal appropriated funds have been paid or will be paid to any person for influencing or attempting to influence an officer or employee of any agency, a member of Congress, an officer or employee of Congress, or an employee of a member of Congress on its behalf in connection with the award of a Federal contract.</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox41 /> YES </b>
@@ -365,12 +362,12 @@
     <div>
         <p><b>9. <i>DISCLOSURE REGARDING PAYMENTS TO INFLUENCE CERTAIN FEDERAL TRANSACTIONS (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.203-11</a>)</i></b></p>
 
-        <p><i>SUPPLIER</i> agrees to submit to Honeywell OMB Standard Form LLL prior to any contract award of $150,000 or greater when supplier has paid or will pay Federal appropriated funds to influence certain Government officials to award or modify a Federal contract.</p>
+        <p><i>SUPPLIER</i> agrees to complete and submit to Honeywell Standard Form (SF) LLL, Disclosure of Lobbying Activities, prior to any contract award with a value of $150,000 or greater, when supplier has paid or will pay Federal appropriated funds to influence an officer or employee of any agency, a member of Congress, an officer or employee of Congress, or an employee of a member of Congress in the award of a Federal contract.</p>
 
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox43 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox44 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input10 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input10 ?? String.Empty)</b>
         </p>
 
     </div>
@@ -382,7 +379,7 @@
         <p>
             <b style="margin-left:40px"><input type="checkbox" @ViewBag.Checkbox45 /> YES </b>
             <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox46 /> NO </b>
-            <b style="margin-left:20px">If NO, comment required: <input type="text" value="@(ViewBag.Input11 ?? String.Empty)" style="width:450px; height:20px" /></b>
+            <b style="margin-left:20px">If NO, comment required: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@(ViewBag.Input11 ?? String.Empty)</b>
         </p>
 
     </div>
@@ -418,12 +415,12 @@
     </div>
 
     <div>
-        <p><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>)</i></b></p>
+        <p><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10(d)(3)</a>)</i></b></p>
 
-        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is <b><u>not</u></b> available to the public through period reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 or under Section 6104 of the Internal Revenue Code of 1986.</p>
+        <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox53 />&nbsp;A. <i>SUPPLIER's</i> executive compensation is <b><u>not</u></b> available to the public through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934(15 U.S.C. 78m(a), 78o(d)) or under Section 6104 of the Internal Revenue Code of 1986.</p>
 
       
-            <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;B. SUPPLIER derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants) and cooperative agreements in the preceding fiscal year.</p>
+            <p style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox54 />&nbsp;B. <i>SUPPLIER</i> derived 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year.</p>
 
 
       
@@ -437,8 +434,8 @@
                 <i style="margin-left:200px">AF 0014J (2017)</i>
             </b>
         </p>
-        <p style="margin-top:60px"><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10</a>) Continued</i></b></p>
-        <p>Total Compensation, as defined in FAR 52.204-10(a), for the five (5) most highly compensated executives earned during the preceding fiscal year is: </p>
+        <p style="margin-top:60px"><b>12. <i>EXECUTIVE COMPENSATION REPORTING (<a href='https://www.acquisition.gov/far/current/html/52_200_206.html#wp1137568'>FAR 52.204-10(d)(3)</a>) Continued</i></b></p>
+        <p>Total Compensation <i>(as defined in FAR 52.204-10(a)):</i>, if <b><u>both</u></b>A and B are checked, Honeywell is required to report the earnings of the five (5) most highly compensated executives, during the preceding fiscal year, to the Government: </p>
         <table width="100%" cellpadding="0" cellspacing="0" border="1">
             <tr>
                 <td style="font-size: 15px; padding-left: 5px; padding-bottom:5px;">
