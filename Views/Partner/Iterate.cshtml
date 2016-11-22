@@ -646,6 +646,22 @@
                 //if (!checkoAuth()) return;
                 $("#emailDialog").modal("toggle");
             }
+            if ($(this).text() === "Update") {
+            	e.preventDefault();
+            	var partnerGrid = $("#IteratePartners").data("tGrid");
+            	var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+            	//data can be used for whatever it needed
+            	iterate.selectedPartnerId = rowData.id;
+            	iterate.selectedPartner = rowData.name;
+            	$("#updateDialog #id").val(rowData.id);
+            	$("#updateDialog #name").val(rowData.name);
+            	$("#updateDialog #firstName").val(rowData.firstname);
+            	$("#updateDialog #lastName").val(rowData.lastname);
+            	$("#updateDialog #title").val(rowData.title);
+            	$("#updateDialog #email").val(rowData.email);
+            	$("#updateDialog #phone").val(rowData.phone);
+            	$("#updateDialog").modal("toggle");
+            }
             if ($(this).text() === "Nurture/Remind") {
                 e.preventDefault();
                 var partnerGrid = $("#IteratePartners").data("tGrid");
@@ -708,6 +724,15 @@
             iterate.selectedPartnerId = 0;
             clearFields();
         }
+    }
+
+    function updateDialogClear() {
+    	$("#updateDialog #name").val('');
+    	$("#updateDialog #firstName").val('');
+    	$("#updateDialog #lastName").val('');
+    	$("#updateDialog #title").val('');
+    	$("#updateDialog #email").val('');
+    	$("#updateDialog #phone").val('');
     }
 
     function showNoteEditor(partnerId, partnerName) {
@@ -812,6 +837,44 @@
                 $("#emailFooterDialog").modal("toggle");
             });
         });
+
+        $("#updateDialog").submit(function (e) {
+        	e.preventDefault();
+        	var formdata = new FormData(); //FormData object
+		
+        	formdata.append("id", $("#updateDialog #id").val());
+        	formdata.append("name", $("#updateDialog #name").val());
+        	formdata.append("firstName", $("#updateDialog #firstName").val());
+        	formdata.append("lastName", $("#updateDialog #lastName").val());
+        	formdata.append("title", $("#updateDialog #title").val());
+        	formdata.append("email", $("#updateDialog #email").val());
+        	formdata.append("phone", $("#updateDialog #phone").val());
+        
+        	$.ajax({
+        		url: 'UpdateIterate',
+        		type: 'POST',
+        		data: formdata,
+        		processData: false,
+        		contentType: false,
+        		cache: false
+        	}).done(function (result) {
+        		$("#updateDialog button[type='submit'], #updateDialog button[type='button']").prop("disabled", false);
+        		if (result.error) {
+        			$("#updateDialog").modal("toggle");
+        			alertify.alert(result.error);
+        		} else {
+        				$("#IteratePartners").data("tGrid").ajaxRequest();
+        				$("#evernotesDiv").jstree(true).refresh();
+        				$("#updateDialog").modal("toggle");
+        			
+        		}
+
+        	});
+        });
+
+
+
+
         //send email to partner
         $("#emailDialog").submit(function (e) {
             
@@ -1384,6 +1447,62 @@
             </div>
         </div>
     </div>
+	<div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+		<div class="modal-dialog">
+
+			<input id="id" name="id" class="form-control" type="hidden" />
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only"></span>
+					</button>
+					<h4 class="modal-title" id="gpsLabel">Update</h4>
+				</div>
+				<div class="modal-body">
+					<form id="madalEmailForm">
+						<div class="form-group">
+
+							<label class="control-label" for="name">Name</label>
+							<input id="name" name="name" class="form-control" type="text" placeholder="Please Enter name" data-val-required="*" data-val="true" />
+						</div>
+						<div class="form-group">
+
+							<label class="control-label" for="firstName">First Name</label>
+							<input id="firstName" name="firstName" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" />
+						</div>
+						<div class="form-group">
+
+							<label class="control-label" for="lastName">Last Name</label>
+							<input id="lastName" name="lastName" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" />
+						</div>
+						<div class="form-group">
+
+							<label class="control-label" for="email">Email</label>
+							<input id="email" name="email" class="form-control" type="text" placeholder="Please Enter email" data-val-required="*" data-val="true" />
+						</div>
+						<div class="form-group">
+
+							<label class="control-label" for="phone">Phone</label>
+							<input id="phone" name="phone" class="form-control" type="text" placeholder="Please Enter phone" data-val-required="*" data-val="true" />
+						</div>
+						<div class="form-group">
+
+							<label class="control-label" for="title">Title</label>
+							<input id="title" name="title" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" />
+						</div>
+						<div class="form-group text-right">
+							<button type="button" class="btn btn-primary" name="submit" onclick="updateDialogPrevious();">Previous</button>
+							<button type="button" class="btn btn-primary" name="submit" onclick="updateDialogNext();">Next</button>
+							<button type="button" class="btn btn-primary" name="submit" onclick="updateDialogClear();">Clear</button>
+							<button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
+							<button type="submit" class="btn btn-primary" name="submit">Save</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
     <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
