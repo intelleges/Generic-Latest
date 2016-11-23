@@ -79,6 +79,13 @@ namespace Generic.Helpers.Utility
 					case "[purchase order version number]":
 						sValue = person.phone;
 						break;
+					case "[firstname]":
+						sValue = person.firstname;
+						break;
+					case "[partner name]":
+					case "[partnername]":
+						sValue = partner.name;
+						break;
 					case "[purchase order number]":
 						sValue = partner.address2;
 						break;
