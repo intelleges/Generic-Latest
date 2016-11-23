@@ -635,9 +635,30 @@
                 showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
             }
             if ($(this).text() === "Email") {
-                e.preventDefault();
-                var partnerGrid = $("#IteratePartners").data("tGrid");
-                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+            	e.preventDefault();
+            	var partnerGrid = $("#IteratePartners").data("tGrid");
+            	var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+            	var pptq = rowData.pptq;
+            	if (pptq === undefined)
+            		pptq = null;
+
+            	$.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + rowData.person + "&pptq=" + pptq).done(function (result) {
+            		if (result) {
+
+            			$('#DropDownSubjects')
+							.empty()
+							.append('<option selected="selected">Please select automail</option>');
+
+
+            			$.each(result.list, function (index, val) {
+            				$('#DropDownSubjects')
+		.append($("<option></option>")
+				   .attr("value", val.id)
+				   .text(val.subject));
+            			});
+            		}
+            	});
+             
                 //data can be used for whatever it needed
                 iterate.selectedPartnerId = rowData.id;
                 iterate.selectedPartner = rowData.name;
@@ -1407,6 +1428,12 @@
                 </div>
                 <div class="modal-body">
                     <form id="madalEmailForm" >
+						<div class="form-group">
+
+							<label class="control-label" for="emailSubject">Automail</label>
+							@Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+
+						</div>
                         <div class="form-group">
                            
                             <label class="control-label" for="emailSubject">Subject</label>
@@ -2014,6 +2041,22 @@
 
 
 <script type="text/javascript">
+	function dropDownSubjectsChanged() {
+		var control = $("#DropDownSubjects");
+		if (control.val()) {
+			$.get("@Url.Action("GetAutomailIterate","Partner")" + "?id=" + control.val()).done(function (result) {
+				if (result) {
+					$("#emailSubject").val(result.subject);
+					CKEDITOR.instances["emailText"].setData(result.text + '<br/>'+result.footer1)
+				}
+			})
+		} else {
+			$("#emailSubject").val("");
+			CKEDITOR.instances["emailText"].setData("");
+		}
+	}
+
+
     function editEmailFooter() {
         $.post("getEmailFooter").done(function (result) {
             if (result) {

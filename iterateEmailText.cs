@@ -20,5 +20,7 @@ namespace Generic
         public string text { get; set; }
         public int sortOrder { get; set; }
         public string active { get; set; }
+        public string footer1 { get; set; }
+        public string footer2 { get; set; }
     }
 }

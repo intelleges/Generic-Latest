@@ -1053,6 +1053,9 @@
     <Compile Include="pr_getAutomailMessageByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getAutomailMessageByPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getAutomailMessageByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1299,7 +1302,7 @@
     <Compile Include="pr_getIterateAction_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getiterateEmailTextAll_Result.cs">
+    <Compile Include="pr_getIterateEmailTextAll1_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getiterateEmailText_Result.cs">

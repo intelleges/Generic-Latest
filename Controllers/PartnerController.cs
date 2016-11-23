@@ -2192,6 +2192,20 @@ namespace Generic.Controllers
 			}
 			return result;
 		}
+
+		public ActionResult GetSubjectsIterateByPerson(int personId, int? pptq)
+		{
+			/*if (pptq.HasValue) {
+				return Json(new { list = db.pr_getAutomailMessagePPTQ(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
+			}*/
+			return Json(new { list = db.pr_getIterateEmailTextAll1(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
+		}
+
+		public ActionResult GetAutomailIterate(int id)
+		{
+			return Json(db.pr_getIterateEmailText(id).FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
+		}
+
 		public ActionResult GetAutomail(int id)
 		{
 			var partnerType = (int)Session["automail_partnerType"];
@@ -2199,23 +2213,23 @@ namespace Generic.Controllers
 			return Json(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
 		}
 		public ActionResult FindRemind()
-        {
-            string arguments = Session["partnersearch"].ToString() + "active=1;";
+		{
+			string arguments = Session["partnersearch"].ToString() + "active=1;";
 
-            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+			List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
 			int partnerType = -1, touchpoint = -1;
 
-			if(ShouldUseDropdownSubject(arguments, out partnerType, out touchpoint))
+			if (ShouldUseDropdownSubject(arguments, out partnerType, out touchpoint))
 			{
 				Session["automail_partnerType"] = partnerType;
 				Session["automail_touchpoint"] = touchpoint;
 				ViewBag.DropDownSubjects = new SelectList(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).ToList(), "id", "subject").ToList();
 			}
-            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
-            ViewBag.searchType = "Remind";
-            return View(objPartnerViewModelList);
-            //return View();
-        }
+			List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+			ViewBag.searchType = "Remind";
+			return View(objPartnerViewModelList);
+			//return View();
+		}
 
 		[HttpPost, ValidateInput(false)]
 		public ActionResult FindRemind(string accessCodes, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
@@ -2255,7 +2269,8 @@ namespace Generic.Controllers
 
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
 			}
-			catch {
+			catch
+			{
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") NOT SENT!";
 			}
 
@@ -2454,8 +2469,9 @@ namespace Generic.Controllers
 			if (currentPerson != null)
 				ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(currentPerson.campaign).ToList(), "id", "name");
 
-
 			ViewBag.PersonAll = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
+			ViewBag.DropDownSubjects = new SelectList(new List<iterateEmailText>(), "id", "subject").ToList();
 
 			//Scheduler Initializeer
 			//var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
@@ -3795,12 +3811,12 @@ namespace Generic.Controllers
 		[HttpPost]
 		[ValidateInput(false)]
 		public ActionResult UpdateIterate(int id, string name, string firstName, string lastName, string phone, string title, string email)
-		{ 
+		{
 			try
 			{
 				var ip = db.pr_getIteratePartner(id).First();
-				var ipr = db.pr_getIteratePersonAll().Where(o=>o.iteratePartner == ip.id).First();
-				
+				var ipr = db.pr_getIteratePersonAll().Where(o => o.iteratePartner == ip.id).First();
+
 				db.pr_modifyIteratePartner(ip.id, ip.internalID, name, ip.address1, ip.address2, ip.city, ip.state, ip.zipcode, ip.country, ip.dunsnumber, ip.federalID, ip.numberOfEmployees, ip.annualRevenue, ip.status, ip.owner, ip.author, ip.dateApproved, ip.active, ip.dateAdded, null, ip.lastModified, ip.person, ip.note);
 
 				db.pr_modifyIteratePerson(ipr.id, firstName, lastName, title, email, phone, ipr.fax, ipr.active, ipr.dateAdded, ipr.lastModified, ipr.iteratePartner, ipr.lastContact, ipr.lastContactDate, ipr.previousContact, ipr.previousContactDate, ipr.nextAction, ipr.nextActionDate, ipr.notes, null);
