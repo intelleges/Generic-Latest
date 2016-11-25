@@ -18324,31 +18324,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionResponseNarrativeSelectionList", idParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_additerateEmailText(Nullable<int> person, string subject, string text, Nullable<int> sortOrder, string active)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var subjectParameter = subject != null ?
-                new ObjectParameter("subject", subject) :
-                new ObjectParameter("subject", typeof(string));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active != null ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_additerateEmailText", personParameter, subjectParameter, textParameter, sortOrderParameter, activeParameter);
-        }
-    
         public virtual int pr_archiveiterateEmailText(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -18405,39 +18380,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveiterateEmailText", idParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addIterateEmailText1(Nullable<int> person, string subject, string text, string footer1, string footer2, Nullable<int> sortOrder, string active)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var subjectParameter = subject != null ?
-                new ObjectParameter("subject", subject) :
-                new ObjectParameter("subject", typeof(string));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var footer1Parameter = footer1 != null ?
-                new ObjectParameter("footer1", footer1) :
-                new ObjectParameter("footer1", typeof(string));
-    
-            var footer2Parameter = footer2 != null ?
-                new ObjectParameter("footer2", footer2) :
-                new ObjectParameter("footer2", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active != null ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateEmailText1", personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, sortOrderParameter, activeParameter);
-        }
-    
         public virtual int pr_archiveIterateEmailText1(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -18484,6 +18426,120 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText1", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, sortOrderParameter, activeParameter);
         }
     
+        public virtual ObjectResult<pr_getAutomailMessageByPTQ_Result> pr_getAutomailMessageByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByPTQ_Result>("pr_getAutomailMessageByPTQ", ptqParameter);
+        }
+    
+        public virtual int pr_archiveIterateEmailText2(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIterateEmailText2", idParameter);
+        }
+    
+        public virtual int pr_modifyIterateEmailText2(Nullable<int> id, Nullable<int> person, string subject, string text, string footer1, string footer2, byte[] attachment, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText2", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, attachmentParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeIterateEmailText1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeIterateEmailText1", idParameter);
+        }
+    
+        public virtual int pr_unArchiveIterateEmailText1(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIterateEmailText1", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addIterateEmailText(Nullable<int> person, string subject, string text, string footer1, string footer2, byte[] attachment, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateEmailText", personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, attachmentParameter, sortOrderParameter, activeParameter);
+        }
+    
         public virtual ObjectResult<iterateEmailText> pr_getIterateEmailText(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -18502,31 +18558,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailText", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<pr_getAutomailMessageByPTQ_Result> pr_getAutomailMessageByPTQ(Nullable<int> ptq)
-        {
-            var ptqParameter = ptq.HasValue ?
-                new ObjectParameter("ptq", ptq) :
-                new ObjectParameter("ptq", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByPTQ_Result>("pr_getAutomailMessageByPTQ", ptqParameter);
-        }
-    
-        public virtual ObjectResult<iterateEmailText> pr_getIterateEmailTextAll1(Nullable<int> person)
+        public virtual ObjectResult<iterateEmailText> pr_getIterateEmailTextAll(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailTextAll1", personParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailTextAll", personParameter);
         }
     
-        public virtual ObjectResult<iterateEmailText> pr_getIterateEmailTextAll1(Nullable<int> person, MergeOption mergeOption)
+        public virtual ObjectResult<iterateEmailText> pr_getIterateEmailTextAll(Nullable<int> person, MergeOption mergeOption)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailTextAll1", mergeOption, personParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailTextAll", mergeOption, personParameter);
         }
     }
 }

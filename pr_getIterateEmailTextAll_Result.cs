@@ -11,13 +11,16 @@ namespace Generic
 {
     using System;
     
-    public partial class pr_getiterateEmailText_Result
+    public partial class pr_getIterateEmailTextAll_Result
     {
         public int id { get; set; }
         public int person { get; set; }
         public string subject { get; set; }
         public string text { get; set; }
+        public string footer1 { get; set; }
+        public string footer2 { get; set; }
+        public byte[] attachment { get; set; }
         public int sortOrder { get; set; }
-        public string active { get; set; }
+        public bool active { get; set; }
     }
 }

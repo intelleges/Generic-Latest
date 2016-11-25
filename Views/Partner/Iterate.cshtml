@@ -938,6 +938,11 @@
 
             });
         });
+
+        
+
+
+
         $("#nurturePartner").submit(function (e) {
             e.preventDefault();
             $.post("CreateAndInviteIteratePartner", {
@@ -1183,6 +1188,47 @@
         });
         //#endregion
     });
+
+    function emailDialogSendTest() {
+    	var formdata = new FormData(); //FormData object
+    	var fileInput = document.getElementById('EmailAttachmentUpload');
+    	////Iterating through each files selected in fileInput
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		//Appending each file to FormData object
+    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    	}
+    	formdata.append("partnerId", iterate.selectedPartnerId);
+    	formdata.append("subject", $("#emailSubject").val());
+    	formdata.append("text", CKEDITOR.instances["emailText"].getData());
+    	formdata.append("userDate", new Date().toISOString());
+    	formdata.append("ccSender", $("#ccSender").prop("checked"));
+    	$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+    	$.ajax({
+    		url: 'SendIteratePartnerEmailTest',
+    		type: 'POST',
+    		data: formdata,
+    		processData: false,
+    		contentType: false,
+    		cache: false
+    	}).done(function (result) {
+    		$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+    		if (result.error) {
+    			$("#emailDialog").modal("toggle");
+    			alertify.alert(result.error);
+    		} else {
+    			alertify.alert('Done');
+    			/*if (result === "done") {
+					$("#IteratePartners").data("tGrid").ajaxRequest();
+					$("#evernotesDiv").jstree(true).refresh();
+					$("#emailDialog").modal("toggle");
+				}
+				else {
+					window.location.href = result;
+				}*/
+    		}
+
+    	});
+    }
 </script>
 
 <style type="text/css">
@@ -1460,7 +1506,7 @@
                             <div class="row">
                                 <div class="col-xs-9">
                                     <button type="submit" class="btn btn-primary" name="submit">Send</button>
-									<button type="button" class="btn btn-primary" name="submit">Test</button>
+									<button type="button" class="btn btn-primary" name="submit" onclick="emailDialogSendTest();">Test</button>
 									<button type="button" class="btn btn-primary" name="submit">Edit</button>
 									<button type="button" class="btn btn-primary" name="submit">Save</button>
 									<button type="button" class="btn btn-primary" name="submit">Add</button>

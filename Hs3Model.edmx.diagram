@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="150">
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.5" PointY="1.125" Width="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.5" PointY="1.125" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailMessage" PointX="30.75" PointY="62" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailType" PointX="28.5" PointY="58.375" Width="1.5" IsExpanded="false" />

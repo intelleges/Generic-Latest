@@ -11,7 +11,7 @@ namespace Generic
 {
     using System;
     
-    public partial class pr_getIterateEmailTextAll1_Result
+    public partial class pr_getIterateEmailText_Result
     {
         public int id { get; set; }
         public int person { get; set; }
@@ -19,7 +19,8 @@ namespace Generic
         public string text { get; set; }
         public string footer1 { get; set; }
         public string footer2 { get; set; }
+        public byte[] attachment { get; set; }
         public int sortOrder { get; set; }
-        public string active { get; set; }
+        public bool active { get; set; }
     }
 }

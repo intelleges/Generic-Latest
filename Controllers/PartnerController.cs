@@ -2198,7 +2198,7 @@ namespace Generic.Controllers
 			/*if (pptq.HasValue) {
 				return Json(new { list = db.pr_getAutomailMessagePPTQ(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
 			}*/
-			return Json(new { list = db.pr_getIterateEmailTextAll1(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
+			return Json(new { list = db.pr_getIterateEmailTextAll(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
 		}
 
 		public ActionResult GetAutomailIterate(int id)
@@ -3827,6 +3827,37 @@ namespace Generic.Controllers
 			}
 			return Json("done");
 		}
+
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public async Task<ActionResult> SendIteratePartnerEmailTest(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
+		{
+			try
+			{
+				var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
+				var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
+				var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
+				var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+				var currentEnterprise = db.enterprise.FirstOrDefault(o => o.id == SessionSingleton.MyEnterPriseId);
+				if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
+				{
+					EmailFormat formatter = new EmailFormat();
+
+					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
+					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
+					SchedulerServiceHelper.sendEmail(subject, resultBody, currentPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files);
+
+					return Json("done");
+				}
+			}
+			catch (Exception ex)
+			{
+				return Json(new { error = ex.Message });
+			}
+			return Json("done");
+		}
+
 
 		[HttpPost]
 		[ValidateInput(false)]

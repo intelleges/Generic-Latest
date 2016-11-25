@@ -1302,10 +1302,10 @@
     <Compile Include="pr_getIterateAction_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getIterateEmailTextAll1_Result.cs">
+    <Compile Include="pr_getIterateEmailTextAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="pr_getiterateEmailText_Result.cs">
+    <Compile Include="pr_getIterateEmailText_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIterateNextAction_Result.cs">
