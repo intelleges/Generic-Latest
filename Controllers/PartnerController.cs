@@ -2948,34 +2948,10 @@ namespace Generic.Controllers
 			if (list.Count == 0)
 				return Json(new { text = "none", email = currentPerson.email });
 			else
-				return Json(new { text = list[0].note, email = currentPerson.email });
+			{
+				return Json(new { text = db.pr_getIteratePartnerNoteAllCoalesced(partnerId).First().notes, email = currentPerson.email });
+			}
 
-			//return Json(new { text = db.pr_getIteratePartnerNoteAllCoalesced(partnerId) });
-			/*if (SessionHelper.EvernoteCredentials != null)
-			{
-				var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-				var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
-				if (iPartner != null && iPartner.note.HasValue)
-				{
-					var note = GetNoteStore().getNote(SessionHelper.EvernoteCredentials.AuthToken, iPartner.note.Value.ToString(), true, false, false, false);
-					if (note != null)
-					{
-						var doc = XDocumentExtension.LoadWithLocalXhtmlXmlResolver(note.Content);
-						//var doc = XDocument.Parse(.Replace("&nbsp;", "&#160;").Replace("&lrm;","&#8206;"));
-						return Json(new { text = doc.Element(XName.Get("en-note", "http://xml.evernote.com/pub/enml2.dtd")).ToString().Replace("<en-note>", "").Replace("</en-note>", ""), email = currentPerson.email });
-					}
-					else return Json(new { text = "none", email = currentPerson.email });
-				}
-				else return Json(new { text = "none", email = currentPerson.email });
-				SessionSingleton.NeedGetEvernoteText = false;
-			}
-			else
-			{
-				TempData["partnerId"] = partnerId;
-				SessionSingleton.NeedGetEvernoteText = true;
-				return AuthorizeEverNote();
-			}
-			return Json("");*/
 		}
 
 		[HttpPost]
@@ -3565,7 +3541,7 @@ namespace Generic.Controllers
 				NEXT_ACTION = o.nextAction,
 				NEXT_ACTION_DATE = o.nextActionDate.ToString(),
 				EMPLOYEE_COUNT = o.numberOfEmployees.ToString(),
-				NOTES = o.notes.HasValue ? (o.notes.Value ? "Y" : "N") : "N",
+				NOTES = o.Note1 > 0 ? "Y" : "N",
 				PARTNER_CITY = o.city,
 				PARTNER_ADDRESS_ONE = o.address1,
 				PARTNER_ADDRESS_TWO = o.address2,

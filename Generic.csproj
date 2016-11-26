@@ -1332,6 +1332,9 @@
     <Compile Include="pr_getIteratePartnerByPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getIteratePartnerNoteAllCoalesced_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getIteratePartnerNoteAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

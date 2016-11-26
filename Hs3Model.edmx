@@ -15348,7 +15348,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getIteratePartnerNoteAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAll_Result)">
             <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getIteratePartnerNoteAllCoalesced">
+          <FunctionImport Name="pr_getIteratePartnerNoteAllCoalesced" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllCoalesced_Result)">
             <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyIteratePartnerNote">
@@ -23629,7 +23629,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="iteratePartnerStatus" Nullable="true" />
           <Property Type="String" Name="iteratePartnerStatusDescription" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="person" Nullable="false" />
-          <Property Type="String" Name="objection" Nullable="false" MaxLength="66" />
+          <Property Type="String" Name="objection" Nullable="false" MaxLength="63" />
           <Property Type="Int32" Name="personID" Nullable="false" />
           <Property Type="String" Name="firstname" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="lastname" Nullable="true" MaxLength="100" />
@@ -23648,7 +23648,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="nextActionID" Nullable="false" />
           <Property Type="String" Name="nextAction" Nullable="true" MaxLength="101" />
           <Property Type="DateTime" Name="nextActionDate" Nullable="true" Precision="23" />
-          <Property Type="Boolean" Name="notes" Nullable="true" />
+          <Property Type="Int32" Name="Note1" Nullable="false" />
         </ComplexType>
         <EntityType Name="iteratePartner">
           <Key>
@@ -24747,6 +24747,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="iteratePartner" Nullable="false" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerNoteAllCoalesced_Result">
+          <Property Type="String" Name="notes" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -31739,7 +31742,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="nextActionID" ColumnName="nextActionID" />
                 <ScalarProperty Name="nextAction" ColumnName="nextAction" />
                 <ScalarProperty Name="nextActionDate" ColumnName="nextActionDate" />
-                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="Note1" ColumnName="Note" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -33004,7 +33007,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerNoteAllCoalesced" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerNoteAllCoalesced" />
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerNoteAllCoalesced" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerNoteAllCoalesced" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllCoalesced_Result">
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePartnerNote" />
           <FunctionImportMapping FunctionImportName="pr_removeIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePartnerNote" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIteratePartnerNote" />

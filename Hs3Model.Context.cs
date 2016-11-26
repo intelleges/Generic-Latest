@@ -18567,13 +18567,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerNoteAll_Result>("pr_getIteratePartnerNoteAll", iteratePartnerParameter);
         }
     
-        public virtual int pr_getIteratePartnerNoteAllCoalesced(Nullable<int> iteratePartner)
+        public virtual ObjectResult<pr_getIteratePartnerNoteAllCoalesced_Result> pr_getIteratePartnerNoteAllCoalesced(Nullable<int> iteratePartner)
         {
             var iteratePartnerParameter = iteratePartner.HasValue ?
                 new ObjectParameter("iteratePartner", iteratePartner) :
                 new ObjectParameter("iteratePartner", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getIteratePartnerNoteAllCoalesced", iteratePartnerParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerNoteAllCoalesced_Result>("pr_getIteratePartnerNoteAllCoalesced", iteratePartnerParameter);
         }
     
         public virtual int pr_modifyIteratePartnerNote(Nullable<int> id, string note, Nullable<System.DateTime> datetime, Nullable<int> author, Nullable<int> iteratePartner, Nullable<int> sortOrder, Nullable<bool> active)

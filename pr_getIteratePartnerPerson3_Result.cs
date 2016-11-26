@@ -56,6 +56,6 @@ namespace Generic
         public int nextActionID { get; set; }
         public string nextAction { get; set; }
         public Nullable<System.DateTime> nextActionDate { get; set; }
-        public Nullable<bool> notes { get; set; }
+        public int Note1 { get; set; }
     }
 }

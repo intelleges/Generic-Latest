@@ -5,21 +5,21 @@ using System.Web;
 
 namespace Generic
 {
-    public partial class pr_getIteratePartnerPerson3_Result
-    {
-        public string NotesDescription
-        {
-            get
-            {
-                return notes.HasValue && notes.Value ? "Y" : "N";
-            }
-        }
-        public string NextActionDateDisplay
-        {
-            get
-            {
-                return nextActionDate.HasValue ? nextActionDate.Value.ToShortDateString() + " " + nextActionDate.Value.ToLongTimeString() : "";
-            }
-        }
-    }
+	public partial class pr_getIteratePartnerPerson3_Result
+	{
+		public string NotesDescription
+		{
+			get
+			{
+				return Note1 > 0 ? "Y" : "N";
+			}
+		}
+		public string NextActionDateDisplay
+		{
+			get
+			{
+				return nextActionDate.HasValue ? nextActionDate.Value.ToShortDateString() + " " + nextActionDate.Value.ToLongTimeString() : "";
+			}
+		}
+	}
 }
