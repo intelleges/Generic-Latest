@@ -551,6 +551,18 @@
           <Property Name="note" Type="uniqueidentifier" />
           <Property Name="pptq" Type="int" />
         </EntityType>
+        <EntityType Name="IteratePartnerNote">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="note" Type="varchar(max)" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+          <Property Name="author" Type="int" Nullable="false" />
+          <Property Name="iteratePartner" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="iteratePerson">
           <Key>
             <PropertyRef Name="id" />
@@ -4569,6 +4581,14 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="accessCode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_addIteratePartnerNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="note" Type="varchar(max)" Mode="In" />
+          <Parameter Name="datetime" Type="datetime" Mode="In" />
+          <Parameter Name="author" Type="int" Mode="In" />
+          <Parameter Name="iteratePartner" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addIteratePartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="notebook" Type="uniqueidentifier" Mode="In" />
@@ -5456,6 +5476,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archiveIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveIteratePartnerNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6067,6 +6090,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getIteratePartnerByPersonLatest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIteratePartnerNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIteratePartnerNoteAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iteratePartner" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getIteratePartnerNoteAllCoalesced" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iteratePartner" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePartnerPerson2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
@@ -7369,6 +7401,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="note" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="pr_modifyIteratePartnerNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="note" Type="varchar(max)" Mode="In" />
+          <Parameter Name="datetime" Type="datetime" Mode="In" />
+          <Parameter Name="author" Type="int" Mode="In" />
+          <Parameter Name="iteratePartner" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyIteratePartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -8226,6 +8267,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_removeIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeIteratePartnerNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8574,6 +8618,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_unArchiveIteratePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveIteratePartnerNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8875,6 +8922,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="iterateEmailText" EntityType="Self.iterateEmailText" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateObjection" EntityType="Self.iterateObjection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePartner" EntityType="Self.iteratePartner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IteratePartnerNote" EntityType="Self.IteratePartnerNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePerson" EntityType="Self.iteratePerson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateStatus" EntityType="Self.iterateStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="key" EntityType="Self.key" Schema="dbo" store:Type="Tables" />
@@ -15233,14 +15281,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_archiveiterateEmailText">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_modifyiterateEmailText">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="subject" Mode="In" Type="String" />
-            <Parameter Name="text" Mode="In" Type="String" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="pr_removeiterateEmailText">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -15250,32 +15290,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_archiveIterateEmailText1">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_modifyIterateEmailText1">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="subject" Mode="In" Type="String" />
-            <Parameter Name="text" Mode="In" Type="String" />
-            <Parameter Name="footer1" Mode="In" Type="String" />
-            <Parameter Name="footer2" Mode="In" Type="String" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="pr_getAutomailMessageByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByPTQ_Result)">
           <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveIterateEmailText2">
           <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyIterateEmailText2">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="subject" Mode="In" Type="String" />
-            <Parameter Name="text" Mode="In" Type="String" />
-            <Parameter Name="footer1" Mode="In" Type="String" />
-            <Parameter Name="footer2" Mode="In" Type="String" />
-            <Parameter Name="attachment" Mode="In" Type="Binary" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeIterateEmailText1">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -15300,6 +15319,53 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="iterateEmailText" EntityType="hs3MVCMTQa2Model.iterateEmailText" />
+          <FunctionImport Name="pr_modifyIterateEmailText">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="footer1" Mode="In" Type="String" />
+            <Parameter Name="footer2" Mode="In" Type="String" />
+            <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="IteratePartnerNote" EntityType="hs3MVCMTQa2Model.IteratePartnerNote" />
+          <FunctionImport Name="pr_addIteratePartnerNote" ReturnType="Collection(Decimal)">
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="datetime" Mode="In" Type="DateTime" />
+            <Parameter Name="author" Mode="In" Type="Int32" />
+            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveIteratePartnerNote">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerNote" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNote_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerNoteAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAll_Result)">
+            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerNoteAllCoalesced">
+            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyIteratePartnerNote">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="datetime" Mode="In" Type="DateTime" />
+            <Parameter Name="author" Mode="In" Type="Int32" />
+            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeIteratePartnerNote">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveIteratePartnerNote">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -24652,6 +24718,36 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="IteratePartnerNote">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="author" Type="Int32" Nullable="false" />
+          <Property Name="iteratePartner" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getIteratePartnerNote_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="note" Nullable="false" />
+          <Property Type="DateTime" Name="datetime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="author" Nullable="false" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerNoteAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="note" Nullable="false" />
+          <Property Type="DateTime" Name="datetime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="author" Nullable="false" />
+          <Property Type="Int32" Name="iteratePartner" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32844,7 +32940,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_archiveIterateEmailText2" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIterateEmailText" />
-          <FunctionImportMapping FunctionImportName="pr_modifyIterateEmailText2" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIterateEmailText" />
           <FunctionImportMapping FunctionImportName="pr_removeIterateEmailText1" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIterateEmailText" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveIterateEmailText1" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIterateEmailText" />
           <FunctionImportMapping FunctionImportName="pr_addIterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_addIterateEmailText" />
@@ -32867,6 +32962,52 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyIterateEmailText" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIterateEmailText" />
+          <EntitySetMapping Name="IteratePartnerNote">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.IteratePartnerNote">
+              <MappingFragment StoreEntitySet="IteratePartnerNote">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_addIteratePartnerNote" />
+          <FunctionImportMapping FunctionImportName="pr_archiveIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveIteratePartnerNote" />
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerNote">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerNote_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerNoteAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerNoteAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerNoteAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="iteratePartner" ColumnName="iteratePartner" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerNoteAllCoalesced" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerNoteAllCoalesced" />
+          <FunctionImportMapping FunctionImportName="pr_modifyIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePartnerNote" />
+          <FunctionImportMapping FunctionImportName="pr_removeIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePartnerNote" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIteratePartnerNote" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

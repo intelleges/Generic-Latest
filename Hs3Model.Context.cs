@@ -208,6 +208,7 @@ namespace Generic
         public virtual DbSet<narrativePPTQ> narrativePPTQ { get; set; }
         public virtual DbSet<questionResponseNarrativeSelectionList> questionResponseNarrativeSelectionList { get; set; }
         public virtual DbSet<iterateEmailText> iterateEmailText { get; set; }
+        public virtual DbSet<IteratePartnerNote> IteratePartnerNote { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18333,35 +18334,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveiterateEmailText", idParameter);
         }
     
-        public virtual int pr_modifyiterateEmailText(Nullable<int> id, Nullable<int> person, string subject, string text, Nullable<int> sortOrder, string active)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var subjectParameter = subject != null ?
-                new ObjectParameter("subject", subject) :
-                new ObjectParameter("subject", typeof(string));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active != null ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyiterateEmailText", idParameter, personParameter, subjectParameter, textParameter, sortOrderParameter, activeParameter);
-        }
-    
         public virtual int pr_removeiterateEmailText(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -18389,43 +18361,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIterateEmailText1", idParameter);
         }
     
-        public virtual int pr_modifyIterateEmailText1(Nullable<int> id, Nullable<int> person, string subject, string text, string footer1, string footer2, Nullable<int> sortOrder, string active)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var subjectParameter = subject != null ?
-                new ObjectParameter("subject", subject) :
-                new ObjectParameter("subject", typeof(string));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var footer1Parameter = footer1 != null ?
-                new ObjectParameter("footer1", footer1) :
-                new ObjectParameter("footer1", typeof(string));
-    
-            var footer2Parameter = footer2 != null ?
-                new ObjectParameter("footer2", footer2) :
-                new ObjectParameter("footer2", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active != null ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText1", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, sortOrderParameter, activeParameter);
-        }
-    
         public virtual ObjectResult<pr_getAutomailMessageByPTQ_Result> pr_getAutomailMessageByPTQ(Nullable<int> ptq)
         {
             var ptqParameter = ptq.HasValue ?
@@ -18442,47 +18377,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIterateEmailText2", idParameter);
-        }
-    
-        public virtual int pr_modifyIterateEmailText2(Nullable<int> id, Nullable<int> person, string subject, string text, string footer1, string footer2, byte[] attachment, Nullable<int> sortOrder, Nullable<bool> active)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var subjectParameter = subject != null ?
-                new ObjectParameter("subject", subject) :
-                new ObjectParameter("subject", typeof(string));
-    
-            var textParameter = text != null ?
-                new ObjectParameter("text", text) :
-                new ObjectParameter("text", typeof(string));
-    
-            var footer1Parameter = footer1 != null ?
-                new ObjectParameter("footer1", footer1) :
-                new ObjectParameter("footer1", typeof(string));
-    
-            var footer2Parameter = footer2 != null ?
-                new ObjectParameter("footer2", footer2) :
-                new ObjectParameter("footer2", typeof(string));
-    
-            var attachmentParameter = attachment != null ?
-                new ObjectParameter("attachment", attachment) :
-                new ObjectParameter("attachment", typeof(byte[]));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText2", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, attachmentParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_removeIterateEmailText1(Nullable<int> id)
@@ -18574,6 +18468,163 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailTextAll", mergeOption, personParameter);
+        }
+    
+        public virtual int pr_modifyIterateEmailText(Nullable<int> id, Nullable<int> person, string subject, string text, string footer1, string footer2, byte[] attachment, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var subjectParameter = subject != null ?
+                new ObjectParameter("subject", subject) :
+                new ObjectParameter("subject", typeof(string));
+    
+            var textParameter = text != null ?
+                new ObjectParameter("text", text) :
+                new ObjectParameter("text", typeof(string));
+    
+            var footer1Parameter = footer1 != null ?
+                new ObjectParameter("footer1", footer1) :
+                new ObjectParameter("footer1", typeof(string));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            var attachmentParameter = attachment != null ?
+                new ObjectParameter("attachment", attachment) :
+                new ObjectParameter("attachment", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, attachmentParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartnerNote(string note, Nullable<System.DateTime> datetime, Nullable<int> author, Nullable<int> iteratePartner, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var datetimeParameter = datetime.HasValue ?
+                new ObjectParameter("datetime", datetime) :
+                new ObjectParameter("datetime", typeof(System.DateTime));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var iteratePartnerParameter = iteratePartner.HasValue ?
+                new ObjectParameter("iteratePartner", iteratePartner) :
+                new ObjectParameter("iteratePartner", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIteratePartnerNote", noteParameter, datetimeParameter, authorParameter, iteratePartnerParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveIteratePartnerNote(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveIteratePartnerNote", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerNote_Result> pr_getIteratePartnerNote(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerNote_Result>("pr_getIteratePartnerNote", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerNoteAll_Result> pr_getIteratePartnerNoteAll(Nullable<int> iteratePartner)
+        {
+            var iteratePartnerParameter = iteratePartner.HasValue ?
+                new ObjectParameter("iteratePartner", iteratePartner) :
+                new ObjectParameter("iteratePartner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerNoteAll_Result>("pr_getIteratePartnerNoteAll", iteratePartnerParameter);
+        }
+    
+        public virtual int pr_getIteratePartnerNoteAllCoalesced(Nullable<int> iteratePartner)
+        {
+            var iteratePartnerParameter = iteratePartner.HasValue ?
+                new ObjectParameter("iteratePartner", iteratePartner) :
+                new ObjectParameter("iteratePartner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getIteratePartnerNoteAllCoalesced", iteratePartnerParameter);
+        }
+    
+        public virtual int pr_modifyIteratePartnerNote(Nullable<int> id, string note, Nullable<System.DateTime> datetime, Nullable<int> author, Nullable<int> iteratePartner, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var datetimeParameter = datetime.HasValue ?
+                new ObjectParameter("datetime", datetime) :
+                new ObjectParameter("datetime", typeof(System.DateTime));
+    
+            var authorParameter = author.HasValue ?
+                new ObjectParameter("author", author) :
+                new ObjectParameter("author", typeof(int));
+    
+            var iteratePartnerParameter = iteratePartner.HasValue ?
+                new ObjectParameter("iteratePartner", iteratePartner) :
+                new ObjectParameter("iteratePartner", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePartnerNote", idParameter, noteParameter, datetimeParameter, authorParameter, iteratePartnerParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeIteratePartnerNote(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeIteratePartnerNote", idParameter);
+        }
+    
+        public virtual int pr_unArchiveIteratePartnerNote(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIteratePartnerNote", idParameter);
         }
     }
 }

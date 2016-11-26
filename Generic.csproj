@@ -784,6 +784,9 @@
     <Compile Include="iteratePartner.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="IteratePartnerNote.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="iteratePerson.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1327,6 +1330,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIteratePartnerByPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getIteratePartnerNoteAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getIteratePartnerNote_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIteratePartnerPerson2_Result.cs">

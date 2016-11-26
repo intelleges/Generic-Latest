@@ -406,6 +406,7 @@
         return {
             data: [],
             selectedPartner: "",
+			person: null,
             globalVars: {
                 allNotesIds: []
             },
@@ -642,6 +643,8 @@
             	if (pptq === undefined)
             		pptq = null;
 
+            	person = rowData.person;
+
             	$.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + rowData.person + "&pptq=" + pptq).done(function (result) {
             		if (result) {
 
@@ -660,7 +663,8 @@
             	});
              
                 //data can be used for whatever it needed
-                iterate.selectedPartnerId = rowData.id;
+            	iterate.selectedPartnerId = rowData.id;
+            	iterate.person = rowData.person;
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
                 CKEDITOR.instances.emailText.setData("");
@@ -757,7 +761,7 @@
     }
 
     function showNoteEditor(partnerId, partnerName) {
-        if (!checkoAuth()) return;
+        //if (!checkoAuth()) return;
         $.post("GetEvernoteText", { partnerId: partnerId }).done(function (e) {
             if (e.text) {
                 var date = new Date();
@@ -1189,6 +1193,101 @@
         //#endregion
     });
 
+    var iterateEmailTextId = -1;
+
+    function editIterateEmailText() {
+    	iterateEmailTextId = $("#DropDownSubjects").val();
+    	$("#DropDownSubjects").parent().hide();
+    	$('#text1').parent().removeClass('hidden');
+    	$('#footer1').parent().removeClass('hidden');
+    	$('#emailText').parent().addClass('hidden');
+    	$('#sendButton').addClass('hidden');
+    	$('#testButton').addClass('hidden');
+    	$('#addButton').addClass('hidden');
+    	$('#editButton').addClass('hidden');
+    	$('#saveButton').removeClass('hidden');
+    	$('#cancelButton').removeClass('hidden');
+    }
+
+    function addIterateEmailText() {
+    	$("#DropDownSubjects").parent().hide();
+    	$('#text1').parent().removeClass('hidden');
+    	$('#footer1').parent().removeClass('hidden');
+    	$('#emailText').parent().addClass('hidden');
+    	$('#sendButton').addClass('hidden');
+    	$('#testButton').addClass('hidden');
+    	$('#addButton').addClass('hidden');
+    	$('#editButton').addClass('hidden');
+    	$('#saveButton').removeClass('hidden');
+    	$('#cancelButton').removeClass('hidden');
+
+    	CKEDITOR.instances["text1"].setData('');
+    	CKEDITOR.instances["footer1"].setData('');
+    	$('#emailSubject').val('');
+    }
+
+    function removeIterateEmailText() {
+    	var formdata = new FormData();
+    	formdata.append("id", $("#DropDownSubjects").val());
+    	$.ajax({
+    		url: 'RemoveIterateEmailText',
+    		type: 'POST',
+    		data: formdata,
+    		processData: false,
+    		contentType: false,
+    		cache: false
+    	}).done(function (result) {
+    		alertify.alert('Done');
+    	});
+    }
+
+    function cancelChangesIterateEmailText() {
+    	if (iterateEmailTextId != -1) {
+    		$('#editButton').removeClass('hidden');
+    	}
+
+    	$("#DropDownSubjects").parent().show();
+    	$('#text1').parent().addClass('hidden');
+    	$('#footer1').parent().addClass('hidden');
+    	$('#emailText').parent().removeClass('hidden');
+    	$('#saveButton').addClass('hidden');
+    	$('#cancelButton').addClass('hidden');
+    	$('#sendButton').removeClass('hidden');
+    	$('#testButton').removeClass('hidden');
+    	$('#addButton').removeClass('hidden');
+    }
+
+    function saveIterateEmailText() {
+    	var formdata = new FormData(); 
+    	var fileInput = document.getElementById('EmailAttachmentUpload');
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    	}
+    	formdata.append("id", iterateEmailTextId);
+    	formdata.append("person", iterate.person);
+    	formdata.append("subject", $("#emailSubject").val());
+    	formdata.append("text", CKEDITOR.instances["text1"].getData());
+    	formdata.append("footer1", CKEDITOR.instances["footer1"].getData());
+    	$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+    	$.ajax({
+    		url: 'SaveIterateEmailText',
+    		type: 'POST',
+    		data: formdata,
+    		processData: false,
+    		contentType: false,
+    		cache: false
+    	}).done(function (result) {
+    		$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+    		if (result.error) {
+    			$("#emailDialog").modal("toggle");
+    			alertify.alert(result.error);
+    		} else {
+    			alertify.alert('Done');
+    		}
+
+    	});
+    }
+
     function emailDialogSendTest() {
     	var formdata = new FormData(); //FormData object
     	var fileInput = document.getElementById('EmailAttachmentUpload');
@@ -1475,7 +1574,6 @@
                 <div class="modal-body">
                     <form id="madalEmailForm" >
 						<div class="form-group">
-
 							<label class="control-label" for="emailSubject">Automail</label>
 							@Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
 
@@ -1498,19 +1596,43 @@
                                 CKEDITOR.replace('emailText');
                             </script>
                         </div>
+						<div class="form-group hidden">
+							<label class="control-label" for="text1">Text</label>
+							<textarea id="text1" name="text1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+							<span data-valmsg-replace="true" data-valmsg-for="text1" class="field-validation-valid help-inline" />
+							<script>
+								// Replace the <textarea id="editor1"> with a CKEditor
+								// instance, using default configuration.
+								CKEDITOR.replace('text1');
+							</script>
+						</div>
+
+						<div class="form-group hidden">
+							<label class="control-label" for="footer1">Footer</label>
+							<textarea id="footer1" name="footer1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+							<span data-valmsg-replace="true" data-valmsg-for="footer1" class="field-validation-valid help-inline" />
+							<script>
+								// Replace the <textarea id="editor1"> with a CKEditor
+								// instance, using default configuration.
+								CKEDITOR.replace('footer1');
+							</script>
+						</div>
+
                         <div class="form-group">
                             <label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
-                            <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply/>                                   
+                            <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload"/>                                   
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-9">
-                                    <button type="submit" class="btn btn-primary" name="submit">Send</button>
-									<button type="button" class="btn btn-primary" name="submit" onclick="emailDialogSendTest();">Test</button>
-									<button type="button" class="btn btn-primary" name="submit">Edit</button>
-									<button type="button" class="btn btn-primary" name="submit">Save</button>
-									<button type="button" class="btn btn-primary" name="submit">Add</button>
-									<button type="button" class="btn btn-primary" name="submit">Remove</button>
+									<button type="submit" class="btn btn-primary" name="submit" id="sendButton">Send</button>
+									<button type="button" class="btn btn-primary" name="submit" id="testButton" onclick="emailDialogSendTest();">Test</button>
+									<button type="button" class="btn btn-primary hidden" name="submit" onclick="editIterateEmailText();" id="editButton">Edit</button>
+									<button type="button" class="btn btn-primary hidden" name="submit" id="saveButton" onclick="saveIterateEmailText();">Save</button>
+									<button type="button" class="btn btn-primary" name="submit" onclick="addIterateEmailText();" id="addButton">Add</button>
+									<button type="button" class="btn btn-primary hidden" name="submit" id="removeButton" onclick="removeIterateEmailText();">Remove</button>
+									<button type="button" class="btn btn-primary hidden" name="submit" id="cancelButton" onclick="cancelChangesIterateEmailText();">Cancel</button>
+									
 									<button type="button" class="btn btn-primary" name="submit">Tags</button>
                                 </div>
                                 <div class="col-xs-3">
@@ -2095,16 +2217,25 @@
 <script type="text/javascript">
 	function dropDownSubjectsChanged() {
 		var control = $("#DropDownSubjects");
-		if (control.val()) {
+		if (control.val() && control.val() != 'Please select automail') {
 			$.get("@Url.Action("GetAutomailIterate","Partner")" + "?id=" + control.val()).done(function (result) {
 				if (result) {
 					$("#emailSubject").val(result.subject);
-					CKEDITOR.instances["emailText"].setData(result.text + '<br/>'+result.footer1)
+					CKEDITOR.instances["emailText"].setData(result.text + '<br/>'+result.footer1);
+					CKEDITOR.instances["text1"].setData(result.text);
+					CKEDITOR.instances["footer1"].setData(result.footer1);
+					
+					$('#editButton').removeClass('hidden');
+					$('#removeButton').removeClass('hidden');
 				}
 			})
+
 		} else {
 			$("#emailSubject").val("");
 			CKEDITOR.instances["emailText"].setData("");
+			
+			$('#editButton').addClass('hidden');
+			$('#removeButton').addClass('hidden');
 		}
 	}
 

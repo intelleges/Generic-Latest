@@ -2943,7 +2943,15 @@ namespace Generic.Controllers
 		[HttpPost]
 		public ActionResult GetEvernoteText(int partnerId)
 		{
-			if (SessionHelper.EvernoteCredentials != null)
+			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+			var list = db.pr_getIteratePartnerNoteAll(partnerId).ToList();
+			if (list.Count == 0)
+				return Json(new { text = "none", email = currentPerson.email });
+			else
+				return Json(new { text = list[0].note, email = currentPerson.email });
+
+			//return Json(new { text = db.pr_getIteratePartnerNoteAllCoalesced(partnerId) });
+			/*if (SessionHelper.EvernoteCredentials != null)
 			{
 				var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
 				var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
@@ -2967,7 +2975,7 @@ namespace Generic.Controllers
 				SessionSingleton.NeedGetEvernoteText = true;
 				return AuthorizeEverNote();
 			}
-			return Json("");
+			return Json("");*/
 		}
 
 		[HttpPost]
@@ -3260,8 +3268,10 @@ namespace Generic.Controllers
 		[ValidateInput(false)]
 		public async Task<ActionResult> AddNote(string partnerName, string noteTitle, string noteText, string partnerId)
 		{
-
-			if (SessionHelper.EvernoteCredentials != null)
+			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+			db.pr_addIteratePartnerNote(noteText, DateTime.Now, currentPerson.id, Convert.ToInt32(partnerId), 0, true);
+			return Json("done");
+			/*if (SessionHelper.EvernoteCredentials != null)
 			{
 				var googleResult = await new IntellegesAuthorizationCodeMvcApp(this, new AppFlowMetadata(), Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("Iterate", "Partner")).AuthorizeAsync(CancellationToken.None);
 				if (googleResult.Credential != null)
@@ -3311,7 +3321,7 @@ namespace Generic.Controllers
 				TempData["partnerId"] = partnerId;
 				SessionSingleton.NeedAddEverNote = true;
 				return AuthorizeEverNote();
-			}
+			}*/
 		}
 
 		public ActionResult Unauthorized()
@@ -3856,6 +3866,49 @@ namespace Generic.Controllers
 				return Json(new { error = ex.Message });
 			}
 			return Json("done");
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult SaveIterateEmailText(int id, int person, string subject, string text, string footer1)
+		{
+			var iet = db.pr_getIterateEmailText(id).FirstOrDefault();
+			if (iet != null)
+				db.pr_modifyIterateEmailText(id, person, subject, text, footer1, iet.footer2, iet.attachment, iet.sortOrder, iet.active);
+			else
+				db.pr_addIterateEmailText(person, subject, text, footer1, "", null, 0, true);
+			return Json(new { success = true });
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult AddAttachment(int id)
+		{
+			var iet = db.pr_getIterateEmailText(id).First();
+			if (Request.Files != null || Request.Files.Count != 0)
+			{
+				byte[] uploadedFile = new byte[Request.Files[0].InputStream.Length];
+				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, Request.Files[0].FileName, uploadedFile, iet.sortOrder, iet.active);
+			}
+			return Json(new { success = true });
+		}
+
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult RemoveAttachment(int id, int person, string subject, string text)
+		{
+			db.pr_modifyIterateEmailText(id, person, subject, text, "", "", null, null, true);
+			return Json(new { success = true });
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult RemoveIterateEmailText(int id)
+		{
+			db.pr_removeiterateEmailText(id);
+			return Json(new { success = true });
 		}
 
 

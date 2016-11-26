@@ -307,6 +307,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.narrativePPTQ" Width="1.5" PointX="15.375" PointY="18.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionResponseNarrativeSelectionList" Width="1.5" PointX="17.375" PointY="23.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.iterateEmailText" Width="1.5" PointX="19.375" PointY="23.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.IteratePartnerNote" Width="1.5" PointX="24.375" PointY="16.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
