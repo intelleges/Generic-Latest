@@ -2471,6 +2471,8 @@ namespace Generic.Controllers
 
 			ViewBag.PersonAll = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 
+			ViewBag.PersonAllDropDown = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "nickName");
+
 			ViewBag.DropDownSubjects = new SelectList(new List<iterateEmailText>(), "id", "subject").ToList();
 
 			//Scheduler Initializeer

@@ -692,7 +692,10 @@
              
                 //data can be used for whatever it needed
             	iterate.selectedPartnerId = rowData.id;
+            	iterate.selectedPartnerId1 = rowData.id;
             	iterate.person = rowData.person;
+            	iterate.email = rowData.email;
+
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
                 CKEDITOR.instances.emailText.setData("");
@@ -967,44 +970,73 @@
         //send email to partner
         $("#emailDialog").submit(function (e) {
             
-            e.preventDefault();
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('EmailAttachmentUpload');
-            ////Iterating through each files selected in fileInput
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append(fileInput.files[i].name, fileInput.files[i]);
-            }
-            formdata.append("partnerId",iterate.selectedPartnerId);
-            formdata.append("subject",$("#emailSubject").val());
-            formdata.append("text",$("#emailText").val());
-            formdata.append("userDate",new Date().toISOString());
-            formdata.append("ccSender",$("#ccSender").prop("checked"));
-            $("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
-            $.ajax({
-                url: 'SendIteratePartnerEmail',
-                type: 'POST',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                cache: false
-            }).done(function (result) {
-                $("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
-                if (result.error) {
-                    $("#emailDialog").modal("toggle");
-                    alertify.alert(result.error);
-                } else {
-                    if (result === "done") {
-                        $("#IteratePartners").data("tGrid").ajaxRequest();
-                        $("#evernotesDiv").jstree(true).refresh();
-                        $("#emailDialog").modal("toggle");
-                    }
-                    else {
-                        window.location.href = result;
-                    }
-                }
+        	e.preventDefault();
+        	//Email Sent to {IteatePartner.Email]
 
-            });
+        	alertify.set({
+        		labels: {
+        			ok: "Yes", cancel: "No"
+        		}
+        	});
+
+        	alertify.confirm("Please confirm you want to send '" + $("#emailSubject").val() + "' to "+iterate.email, function (e) {
+        		if (e) {
+
+        			var formdata = new FormData(); //FormData object
+        			var fileInput = document.getElementById('EmailAttachmentUpload');
+        			////Iterating through each files selected in fileInput
+        			for (i = 0; i < fileInput.files.length; i++) {
+        				//Appending each file to FormData object
+        				formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        			}
+        			formdata.append("partnerId", iterate.selectedPartnerId);
+        			formdata.append("subject", $("#emailSubject").val());
+        			formdata.append("text", $("#emailText").val());
+        			formdata.append("userDate", new Date().toISOString());
+        			formdata.append("ccSender", $("#ccSender").prop("checked"));
+
+
+        			$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+        			$.ajax({
+        				url: 'SendIteratePartnerEmail',
+        				type: 'POST',
+        				data: formdata,
+        				processData: false,
+        				contentType: false,
+        				cache: false
+        			}).done(function (result) {
+        				$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+        				if (result.error) {
+        					$("#emailDialog").modal("toggle");
+        					alertify.alert(result.error);
+        				} else {
+        					if (result === "done") {
+        						$("#IteratePartners").data("tGrid").ajaxRequest();
+        						$("#emailDialog").modal("toggle");
+
+        						alertify.confirm("Email Sent to " + iterate.email + ". Would you like to transfer to Intelleges colleague?", function (e) {
+        							if (e) {
+        								alertify.set({
+        									labels: {
+        										ok: "Ok", cancel: "Cancel"
+        									}
+        								});
+
+        								$('#transferDialog').modal("toggle");
+
+        							}
+        						});
+
+        					}
+        					else {
+        						window.location.href = result;
+        					}
+        				}
+
+        			});
+        		}
+        	});
+
         });
 
         
@@ -1022,7 +1054,7 @@
                 if (result) {
                     $("#nurturePartner").modal("toggle");
                     $("#IteratePartners").data("tGrid").ajaxRequest();
-                    $("#evernotesDiv").jstree(true).refresh();
+                    //$("#evernotesDiv").jstree(true).refresh();
                     alertify.alert(result);
                 }
             });
@@ -1751,6 +1783,38 @@
             </div>
         </div>
     </div>
+
+
+	<div class="modal fade" id="transferDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only"></span>
+					</button>
+					<h4 class="modal-title" id="gpsLabel">Transfer</h4>
+				</div>
+				<div class="modal-body">
+					<form id="madalEmailForm">
+						<div class="form-group">
+							@Html.DropDownList("DropDownTransfer", (IEnumerable<SelectListItem>)ViewBag.PersonAllDropDown, htmlAttributes: new { @class = "form-control" })
+						</div>
+
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-9">
+									<button type="button" class="btn btn-primary" name="submit" onclick="transfer2();">Ok</button>
+									<button type="button" class="btn btn-primary" name="submit" onclick="$('#transferDialog').modal('toggle');">Cancel</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 
 
@@ -2499,7 +2563,7 @@
         }).done(function (result) {
             if (result === true) {
                 $("#IteratePartners").data("tGrid").ajaxRequest();
-                $("#evernotesDiv").jstree(true).refresh();
+               // $("#evernotesDiv").jstree(true).refresh();
                 clearFields();
             }
             else {
@@ -2547,6 +2611,21 @@
 
     }
 
+    function transfer2() {
+    	$('#transferDialog').modal("toggle");
+    	$.post("Transfer", {
+    		partnerId: iterate.selectedPartnerId1,
+    		ownerId: $('#DropDownTransfer').val()
+    	}).done(function (result) {
+    		if (result) {
+    			alertify.alert("This confirms that you have transferred " + iterate.selectedPartner + " to " + $('#DropDownTransfer  option:selected').text());
+    			$("#IteratePartners").data("tGrid").ajaxRequest();
+    		}
+    	});
+
+    	
+    }
+
 
     	function changeLastContact(id, lastContact) {
     		$.post("ChangeIteratePartnerLastContact", {
@@ -2555,7 +2634,7 @@
     		}).done(function (result) {
     			if (result === true) {
     				$("#IteratePartners").data("tGrid").ajaxRequest();
-    				$("#evernotesDiv").jstree(true).refresh();
+    				//$("#evernotesDiv").jstree(true).refresh();
     				clearFields();
     			}
     			else {
