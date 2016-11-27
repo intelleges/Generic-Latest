@@ -490,6 +490,8 @@
     }
 
     function AddNote(title, text, partner, partnerId) {
+    	$.fancybox.showLoading();
+
         $("#addNoteDialog button[type='submit'], #addNoteDialog button[type='button']").prop("disabled", true);
         $.post("AddNote", {
             partnerName: partner,
@@ -499,16 +501,37 @@
         }).done(function (result) {
             $("#addNoteDialog button[type='submit'], #addNoteDialog button[type='button']").prop("disabled", false);
             if (result !== "done") {
-                window.location.href = result;
+                //window.location.href = result;
             }
             else {
-                $("#addNoteDialog").modal("hide");
-                $("#evernotesDiv").jstree(true).refresh();
-                //var evernotestree = $('#evernotesTree').data('tTreeView');
-                //refresh data
+
+            	$.post("GetEvernoteText", { partnerId: partnerId }).done(function (e) {
+            		if (e.text) {
+            			var date = new Date();
+            			if (e.text !== "none") {
+
+            				CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
+            					callback: function () {
+            					
+            					}
+            				});
+
+            				$('#noteText1').html(e.text);
+            			} else {
+            				CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
+            					callback: function () {
+            					}
+            				});
+            			}
+            		} else {
+            			window.location.href = e;
+            		}
+
+            		$.fancybox.hideLoading();
+
+            	});
+
                 $("#IteratePartners").data("tGrid").ajaxRequest();
-                showNotesPanel();
-                loadNotesIds();
             }
         });
         //$.ajax({
