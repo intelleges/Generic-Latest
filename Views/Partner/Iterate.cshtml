@@ -1291,17 +1291,51 @@
     }
 
     function removeIterateEmailText() {
-    	var formdata = new FormData();
-    	formdata.append("id", $("#DropDownSubjects").val());
-    	$.ajax({
-    		url: 'RemoveIterateEmailText',
-    		type: 'POST',
-    		data: formdata,
-    		processData: false,
-    		contentType: false,
-    		cache: false
-    	}).done(function (result) {
-    		alertify.alert('Done');
+    	alertify.set({
+    		labels: {
+    			ok: "Yes", cancel: "No"
+    		}
+    	});
+
+    	alertify.confirm("You are about to remove '" + $("#emailSubject").val() + "' Are you sure? ", function (e) {
+    		if (e) {
+    			var formdata = new FormData();
+    			formdata.append("id", $("#DropDownSubjects").val());
+    			$.ajax({
+    				url: 'RemoveIterateEmailText',
+    				type: 'POST',
+    				data: formdata,
+    				processData: false,
+    				contentType: false,
+    				cache: false
+    			}).done(function (obj) {
+    				refreshPopup();
+    			});
+    		} else {
+    			
+    		}
+    	});	
+    }
+
+    function refreshPopup() {
+    	$.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + iterate.person + "&pptq=").done(function (result) {
+    		if (result) {
+
+    			$('#DropDownSubjects')
+					.empty()
+					.append('<option selected="selected">Please select automail</option>');
+
+
+    			$.each(result.list, function (index, val) {
+    				$('#DropDownSubjects')
+.append($("<option></option>")
+		   .attr("value", val.id)
+		   .text(val.subject));
+    			});
+
+    			dropDownSubjectsChanged();
+    			cancelChangesIterateEmailText();
+    		}
     	});
     }
 
@@ -1346,7 +1380,7 @@
     			$("#emailDialog").modal("toggle");
     			alertify.alert(result.error);
     		} else {
-    			alertify.alert('Done');
+    			refreshPopup();
     		}
 
     	});
@@ -1380,14 +1414,6 @@
     			alertify.alert(result.error);
     		} else {
     			alertify.alert('Done');
-    			/*if (result === "done") {
-					$("#IteratePartners").data("tGrid").ajaxRequest();
-					$("#evernotesDiv").jstree(true).refresh();
-					$("#emailDialog").modal("toggle");
-				}
-				else {
-					window.location.href = result;
-				}*/
     		}
 
     	});

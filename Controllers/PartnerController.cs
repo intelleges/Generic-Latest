@@ -3922,7 +3922,7 @@ namespace Generic.Controllers
 		[ValidateInput(false)]
 		public ActionResult RemoveIterateEmailText(int id)
 		{
-			db.pr_removeiterateEmailText(id);
+			db.pr_removeIterateEmailText1(id);
 			return Json(new { success = true });
 		}
 
