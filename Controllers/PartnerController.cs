@@ -2955,6 +2955,13 @@ namespace Generic.Controllers
 
 		}
 
+		[HttpGet]
+		public ActionResult ArchiveIterateNotes(int partnerId)
+		{
+			db.pr_archiveIteratePartnerNote(partnerId);
+			return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+		}
+
 
 		[HttpGet]
 		public ActionResult GetIterateNotes(int partnerId)

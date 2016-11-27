@@ -3222,6 +3222,12 @@
 			minHeight: 150
 		});
 	}
+
+	function archiveNote() {
+		$.get("@Url.Action("ArchiveIterateNotes", "Partner")" + "?partnerId=" + selectedItemNote.iteratePartnerNote).done(function (result) {
+			$("#iterateNotesGrid").data("tGrid").ajaxRequest();
+		});
+	}
 </script>
 }
 
