@@ -572,6 +572,11 @@
         });
     }
 
+    function Grid1_onDataBound(e) {
+    	$('#buttons-panel .btn-primary').addClass('disabled');
+    	$('#closeNoteHistoryPopup').removeClass('disabled');
+    }
+
     function Grid_onDataBound(e) {
         $("td a.menu_block.title").each(function () {
             if ($(this).text().length > 13) {
@@ -3195,6 +3200,29 @@
         }
 
     </script>
+
+<script type="text/javascript">
+
+	var selectedItemNote = null;
+	function setSelectedRowData(e) {
+		var partnerGrid = $("#iterateNotesGrid").data("tGrid");
+		var row = e.row;
+		selectedItemNote = partnerGrid.dataItem(row);
+		$('#buttons-panel .btn-primary').removeClass('disabled');
+	}
+
+	function viewNote() {
+		$.fancybox({
+			closeBtn: true,
+			closeClick: true,
+			modal: false,
+			content: selectedItemNote.note,
+			type: 'html',
+			minWidth: 400,
+			minHeight: 150
+		});
+	}
+</script>
 }
 
 @section header{

@@ -18,19 +18,21 @@
 
 <div style="padding: 10px 20px;">
 
-	@Html.Telerik().Grid((IEnumerable<Generic.pr_getIteratePartnerNoteAllGrid_Result>)Model).Name("iterateNotesGrid").DataBinding(binding => binding.Ajax().Select("GetIterateNotesGrid", "Partner", new { partnerId = partnerId })).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.iteratePartnerNote)).Columns(col =>
+	@Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerNoteAllGrid_Result>()).Name("iterateNotesGrid").DataBinding(binding => binding.Ajax().Select("GetIterateNotesGrid", "Partner", new { partnerId = partnerId })).DataKeys(o => o.Add(p => p.iteratePartnerNote)).Columns(col =>
 {
 	col.Bound(o => o.iteratePartnerNote).Title("Id").Hidden(true);
 	col.Bound(o => o.name).Title("Name");
 	col.Bound(o => o.datetime).Title("Date Time");
-	col.Bound(o => o.note).Width(400).ClientTemplate(@"kendo.htmlEncode(<#=note#>)").Title("Note");
+	col.Bound(o => o.note).Template(item => Html.Raw(item.note)).ClientTemplate("<#= note #>").Width(400).Title("Note").Encoded(false);
 	col.Bound(o => o.nickname).Title("Nickname");
-}).Selectable(o => o.Enabled(true)).HtmlAttributes(new { style = "font-size:10px;" })
+}).Selectable(o => o.Enabled(true)).ClientEvents(e => e.OnRowSelect("setSelectedRowData").OnDataBound("Grid1_onDataBound")).HtmlAttributes(new { style = "font-size:10px;" })
 	<br/>
-	<div class="tw-bs buttons">
-		<button type="button" class="btn btn-primary" onclick="editNote();">Edit</button>
-		<button type="button" class="btn btn-primary" onclick="archiveNote();">Archive</button>
-		<button type="button" class="btn btn-primary" onclick="viewNote();">View</button>
-		<button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
+	<div class="tw-bs buttons" id="buttons-panel">
+		<button type="button" class="btn btn-primary disabled" onclick="editNote();">Edit</button>
+		<button type="button" class="btn btn-primary disabled" onclick="archiveNote();">Archive</button>
+		<button type="button" class="btn btn-primary disabled" onclick="viewNote();">View</button>
+		<button type="button" class="btn btn-primary" id="closeNoteHistoryPopup" onclick="$.fancybox.close();">Close</button>
 	</div>
 </div>
+
+
