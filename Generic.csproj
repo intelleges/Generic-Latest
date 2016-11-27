@@ -1335,6 +1335,9 @@
     <Compile Include="pr_getIteratePartnerNoteAllCoalesced_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getIteratePartnerNoteAllGrid_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getIteratePartnerNoteAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -5004,6 +5007,7 @@
     <Content Include="Views\POD\FindPODS.cshtml" />
     <Content Include="Views\POD\FindPODSResult.cshtml" />
     <Content Include="Views\POD\NarrativeEmailPopup.cshtml" />
+    <Content Include="Views\Partner\GetIterateNotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

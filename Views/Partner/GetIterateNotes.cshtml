@@ -1,0 +1,36 @@
+﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.pr_getIteratePartnerNoteAllGrid_Result>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI
+@using Generic.ViewModel
+@{
+	Layout = null;
+	
+	
+	int partnerId = ViewBag.partnerId;
+}
+<style>
+	#iterateNotesGrid table {
+		    margin-top: 0;
+	}
+</style>
+
+
+<div style="padding: 10px 20px;">
+
+	@Html.Telerik().Grid((IEnumerable<Generic.pr_getIteratePartnerNoteAllGrid_Result>)Model).Name("iterateNotesGrid").DataBinding(binding => binding.Ajax().Select("GetIterateNotesGrid", "Partner", new { partnerId = partnerId })).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.iteratePartnerNote)).Columns(col =>
+{
+	col.Bound(o => o.iteratePartnerNote).Title("Id").Hidden(true);
+	col.Bound(o => o.name).Title("Name");
+	col.Bound(o => o.datetime).Title("Date Time");
+	col.Bound(o => o.note).Width(400).ClientTemplate(@"kendo.htmlEncode(<#=note#>)").Title("Note");
+	col.Bound(o => o.nickname).Title("Nickname");
+}).Selectable(o => o.Enabled(true)).HtmlAttributes(new { style = "font-size:10px;" })
+	<br/>
+	<div class="tw-bs buttons">
+		<button type="button" class="btn btn-primary" onclick="editNote();">Edit</button>
+		<button type="button" class="btn btn-primary" onclick="archiveNote();">Archive</button>
+		<button type="button" class="btn btn-primary" onclick="viewNote();">View</button>
+		<button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
+	</div>
+</div>

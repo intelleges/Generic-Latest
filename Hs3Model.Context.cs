@@ -18626,5 +18626,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIteratePartnerNote", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getIteratePartnerNoteAllGrid_Result> pr_getIteratePartnerNoteAllGrid(Nullable<int> iteratePartner)
+        {
+            var iteratePartnerParameter = iteratePartner.HasValue ?
+                new ObjectParameter("iteratePartner", iteratePartner) :
+                new ObjectParameter("iteratePartner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerNoteAllGrid_Result>("pr_getIteratePartnerNoteAllGrid", iteratePartnerParameter);
+        }
     }
 }

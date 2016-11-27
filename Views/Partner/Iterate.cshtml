@@ -2447,6 +2447,23 @@
     		iterate.selectedPartner = rowData.name;
     		showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
     	}
+
+    	function showgridnotes(sender, partnerId) {
+    		var partnerGrid = $("#IteratePartners").data("tGrid");
+    		var rowData = partnerGrid.dataItem($(sender).parents("tr")[0]);
+    		//data can be used for whatever it needed
+    		var url = '@Url.Action("GetIterateNotes", "Partner")' + '?partnerId=' + rowData.id;
+    		iterate.selectedPartnerId = rowData.id;
+    		$.fancybox({
+    			closeBtn: false,
+    			closeClick: false,
+    			modal: true,
+    			href: url,
+    			type: 'ajax',
+    			minWidth: 400,
+    			minHeight: 150
+    		});
+    	}
 </script>
 
 @section leftSplitter{
@@ -2983,32 +3000,16 @@
     columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
     columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
     columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
-        @*Template(@<text>
-    <a href='#' id='@("PS" + item.id)' class='menu_block'>@item.iteratePartnerStatusDescription</a>
-<div class='display_menu_right' style='display: none;'>
-    @(((SelectList)ViewBag.partnerstatus).Aggregate("", (total, next) => total += "<li><a href='#' onclick='changeStatus(" + item.id + "," + next.Value + ");'>" + next.Text + "</a></li>"))
-</div>
-
-</text>)*@
-
-//        result =>
-
-//       @"
-//<a href='#' id='PS" + result.id + "' class='menu_block'>" + result.iteratePartnerStatusDescription + @"</a>
-//            <div class='display_menu_right' style='display: none;'>
-//                <ul>"+((SelectList)ViewBag.partnerstatus).Aggregate("",(total,next)=>total+="<li><a href='#' onclick='changeStatus("+result.id+","+next.Value+");'>"+next.Text+"</a></li>")
-//                +@"</ul>
-//            </div>"
-//    )
-        //        ClientTemplate(@"
-
-        //")
- 
-
-
-    columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate("<a href='#' id='note<#=id#>' class='menu_block' onclick='shownote(this,<#=id#>)'><#=Note1#></a>").Filterable(false);
-    ////columns.Bound(o => o.StatusDescription).Title("New Status").Width(200).ClientTemplate(Html.Telerik().DropDownList().Name("RoleList<#=Id#>").DropDownHtmlAttributes(new { style = "width:200px;font-size:10px;" }).BindTo(new System.Web.Mvc.SelectList(Generic.Controllers.PartnerController.GetIteratePartnerStatusList())).ToHtmlString());
-    ////columns.Bound(o => o.NewContact).Title("Next Contact").Width(100);
+     
+	columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
+<a href='#' id='note<#=id#>' class='menu_block'><#=Note1#></a>
+    <div class='display_menu_right' style='display: none;'>
+        <ul>
+          <li><a href='#' onclick='shownote(this,<#=id#>);'>Add</a></li>
+          <li><a href='#' onclick='showgridnotes(this,<#=id#>);'>Edit</a></li>
+        </ul>
+    </div>
+").Filterable(false);
 }
                                             ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound").OnRowDataBound("Grid_onRowDataBound")).HtmlAttributes(new { style = "font-size:10px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
 

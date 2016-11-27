@@ -2940,6 +2940,7 @@ namespace Generic.Controllers
 			// attributes such as the new note's unique GUID.
 			return GetNoteStore().createNote(authToken, note);
 		}
+		
 		[HttpPost]
 		public ActionResult GetEvernoteText(int partnerId)
 		{
@@ -2952,6 +2953,21 @@ namespace Generic.Controllers
 				return Json(new { text = db.pr_getIteratePartnerNoteAllCoalesced(partnerId).First().notes, email = currentPerson.email });
 			}
 
+		}
+
+
+		[HttpGet]
+		public ActionResult GetIterateNotes(int partnerId)
+		{
+			ViewBag.partnerId = partnerId;
+			return View(db.pr_getIteratePartnerNoteAllGrid(partnerId).ToList());
+		}
+
+		[GridAction]
+		public ActionResult GetIterateNotesGrid(int partnerId)
+		{
+			var result = db.pr_getIteratePartnerNoteAllGrid(partnerId).ToList();
+			return Json(new GridModel(result), JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]

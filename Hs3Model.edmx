@@ -6100,6 +6100,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getIteratePartnerNoteAllCoalesced" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="iteratePartner" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getIteratePartnerNoteAllGrid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iteratePartner" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getIteratePartnerPerson2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
@@ -15340,16 +15343,16 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveIteratePartnerNote">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartnerNote" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNote_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartnerNoteAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAll_Result)">
-            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+          <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartnerNoteAllCoalesced" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllCoalesced_Result)">
-            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+          <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyIteratePartnerNote">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -15361,10 +15364,13 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeIteratePartnerNote">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveIteratePartnerNote">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePartnerNoteAllGrid" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllGrid_Result)">
+            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24751,6 +24757,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
         <ComplexType Name="pr_getIteratePartnerNoteAllCoalesced_Result">
           <Property Type="String" Name="notes" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getIteratePartnerNoteAllGrid_Result">
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="datetime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="iteratePartnerNote" Nullable="false" />
+          <Property Type="String" Name="note" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="nickname" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33017,6 +33032,19 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_modifyIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyIteratePartnerNote" />
           <FunctionImportMapping FunctionImportName="pr_removeIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_removeIteratePartnerNote" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveIteratePartnerNote" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveIteratePartnerNote" />
+          <FunctionImportMapping FunctionImportName="pr_getIteratePartnerNoteAllGrid" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePartnerNoteAllGrid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllGrid_Result">
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="iteratePartnerNote" ColumnName="iteratePartnerNote" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
