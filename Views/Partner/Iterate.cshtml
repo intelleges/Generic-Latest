@@ -927,6 +927,40 @@
         	});
         });
 
+    	//send email to partner
+        $("#noteUpdateDialog").submit(function (e) {
+        	e.preventDefault();
+        	var formdata = new FormData(); 
+        	formdata.append("id", selectedItemNote.iteratePartnerNote);
+        	formdata.append("text", $("#noteUpdateText").val());
+
+        	$("#noteUpdateDialog input[type='submit'], #noteUpdateDialog input[type='button']").prop("disabled", true);
+
+        	$.ajax({
+        		url: 'UpdateIterateNote',
+        		type: 'POST',
+        		data: formdata,
+        		processData: false,
+        		contentType: false,
+        		cache: false
+        	}).done(function (result) {
+        		$("#noteUpdateDialog input[type='submit'], #noteUpdateDialog input[type='button']").prop("disabled", false);
+
+        		$("#noteUpdateDialog").modal("toggle");
+
+        		var url = '@Url.Action("GetIterateNotes", "Partner")' + '?partnerId=' + iterate.selectedPartnerId;
+        		$.fancybox({
+        			closeBtn: false,
+        			closeClick: false,
+        			modal: true,
+        			href: url,
+        			type: 'ajax',
+        			minWidth: 400,
+        			minHeight: 150
+        		});
+        	});
+        });
+
 
 
 
@@ -1691,6 +1725,47 @@
             </div>
         </div>
     </div>
+
+
+
+	<div class="modal fade" id="noteUpdateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only"></span>
+					</button>
+					<h4 class="modal-title" id="gpsLabel">Edit note</h4>
+				</div>
+				<div class="modal-body">
+					<form id="madalEmailForm">
+						<div class="form-group">
+							<label class="control-label" for="noteUpdateText">Text</label>
+							<textarea id="noteUpdateText" name="noteUpdateText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+							<span data-valmsg-replace="true" data-valmsg-for="noteUpdateText" class="field-validation-valid help-inline" />
+							<script>
+								CKEDITOR.replace('noteUpdateText');
+							</script>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-9">
+									<button type="submit" class="btn btn-primary" name="submit">Update</button>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 	<div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
 		<div class="modal-dialog">
 
@@ -3242,13 +3317,35 @@
 			content: selectedItemNote.note,
 			type: 'html',
 			minWidth: 400,
-			minHeight: 150
+			minHeight: 150,
+			afterClose: function () {
+
+				var url = '@Url.Action("GetIterateNotes", "Partner")' + '?partnerId=' + iterate.selectedPartnerId;
+				$.fancybox({
+					closeBtn: false,
+					closeClick: false,
+					modal: true,
+					href: url,
+					type: 'ajax',
+					minWidth: 400,
+					minHeight: 150
+				});
+			}
 		});
 	}
 
 	function archiveNote() {
-		$.get("@Url.Action("ArchiveIterateNotes", "Partner")" + "?partnerId=" + selectedItemNote.iteratePartnerNote).done(function (result) {
+		$.get("@Url.Action("ArchiveIterateNote", "Partner")" + "?id=" + selectedItemNote.iteratePartnerNote).done(function (result) {
 			$("#iterateNotesGrid").data("tGrid").ajaxRequest();
+		});
+	}
+
+	function editNote()
+	{
+		$.get("@Url.Action("EditIterateNote", "Partner")" + "?id=" + selectedItemNote.iteratePartnerNote).done(function (result) {
+			CKEDITOR.instances["noteUpdateText"].setData(result.text);
+			$.fancybox.close();
+			$("#noteUpdateDialog").modal("toggle");
 		});
 	}
 </script>

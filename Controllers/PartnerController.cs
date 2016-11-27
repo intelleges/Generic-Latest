@@ -2956,10 +2956,26 @@ namespace Generic.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult ArchiveIterateNotes(int partnerId)
+		public ActionResult ArchiveIterateNote(int id)
 		{
-			db.pr_archiveIteratePartnerNote(partnerId);
+			db.pr_archiveIteratePartnerNote(id);
 			return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		public ActionResult EditIterateNote(int id)
+		{
+			return Json(new { text = db.pr_getIteratePartnerNote(id).First().note }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult UpdateIterateNote(int id, string text)
+		{
+			var itp =  db.pr_getIteratePartnerNote(id).First();
+			db.pr_modifyIteratePartnerNote(id, text, itp.datetime, itp.author, itp.iteratePartner, itp.sortOrder, itp.active);
+
+			return Json(new { success = true });
 		}
 
 
