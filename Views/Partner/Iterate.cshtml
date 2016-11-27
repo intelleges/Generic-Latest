@@ -702,6 +702,11 @@
                 //if (!checkoAuth()) return;
                 $("#emailDialog").modal("toggle");
             }
+        	if ($(this).text() === "Meet") {
+        		e.preventDefault();
+        		alertify.alert('Functionality not available yet.');
+        	}
+
             if ($(this).text() === "Update") {
             	e.preventDefault();
             	var partnerGrid = $("#IteratePartners").data("tGrid");
