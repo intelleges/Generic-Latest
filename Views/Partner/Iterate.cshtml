@@ -84,7 +84,7 @@
     }
 
     #IteratePartners tr > td:hover .menu_block + .display_menu {
-        display: block !important;
+        /*display: block !important;*/
     }
 
     #IteratePartners tr > td:hover .menu_block + .display_menu_right {
@@ -94,7 +94,7 @@
     .display_menu {
         left: 65px;
         overflow: visible;
-        position: absolute;
+        position: fixed;
         top: -5px;
         background: #fff;
         border: 1px solid #ddd;
@@ -104,7 +104,7 @@
     .display_menu_right {
         left: -178px;
         overflow: visible;
-        position: absolute;
+        position: fixed;
         top: -5px;
         background: #fff;
         border: 1px solid #ddd;
@@ -150,7 +150,9 @@
 <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 
 <script>
-    jQuery(document).ready(function () {
+	
+	jQuery(document).ready(function () {
+
         $("#tabstrip a.t-link[href='#tabstrip-5']").append("<i class='glyphicon glyphicon-cog'></i>");
         $("#touchpoint").change(function () {
             var touchpoint = $("#touchpoint").val();
@@ -601,6 +603,24 @@
     }
 
     function Grid_onDataBound(e) {
+    	$("#IteratePartners td").mouseover(function () {
+    		if ($(this).find('.display_menu').length > 0) {
+    			var offset = $(this).find('.menu_block').offset();
+    			$(this).find('.display_menu').css({ position: 'fixed', left: offset.left + 40, top: offset.top });
+    			$(this).find('.display_menu').show();
+    		}
+
+    		if ($(this).find('.display_menu_right').length > 0) {
+    			var offset = $(this).find('.menu_block').offset();
+    			$(this).find('.display_menu_right').css({ position: 'fixed', left: offset.left - 178, top: offset.top });
+    			$(this).find('.display_menu_right').show();
+    		}
+    		
+    	}).mouseout(function () {
+    		$(this).find('.display_menu').hide();
+    		$(this).find('.display_menu_right').hide();
+    	});  	
+
         $("td a.menu_block.title").each(function () {
             if ($(this).text().length > 13) {
                 $(this).text($(this).text().substr(0, 13) + "...");
