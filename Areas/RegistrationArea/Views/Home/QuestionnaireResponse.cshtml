@@ -21,31 +21,31 @@
 
 <style>
 	.txtstuff {
-    resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
-    overflow: hidden;
-}
+		resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
+		overflow: hidden;
+	}
 
-.hiddendiv {
-    display: none;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
-}
+	.hiddendiv {
+		display: none;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+	}
 
-/* the styles for 'commmon' are applied to both the textarea and the hidden clone */
-/* these must be the same for both */
-.common {
-    width: 500px;
-    min-height: 32px;
-    overflow: hidden;
-}
+	/* the styles for 'commmon' are applied to both the textarea and the hidden clone */
+	/* these must be the same for both */
+	.common {
+		width: 500px;
+		min-height: 32px;
+		overflow: hidden;
+	}
 
-.lbr {
-    line-height: 3px;
-}
+	.lbr {
+		line-height: 3px;
+	}
 
 	textarea {
-		width:100%;
+		width: 100%;
 	}
 </style>
 
@@ -62,7 +62,7 @@
 		{
 			<div class="progress-sub">
 				<div class="progress">
-					
+
 					<div class="progress-bar" id="progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
 						<span class="sr-only">@ViewBag.percentageProgressbar Complete</span>
 					</div>
@@ -71,7 +71,7 @@
 					{
 						List<PageDetails> pages = ViewBag.Pages as List<PageDetails>;
 						decimal v = (decimal)1 / pages.Count * 100;
-						
+
 						<div class="tooltip-container">
 							@foreach (PageDetails item in pages)
 							{
@@ -97,12 +97,13 @@
 
 
 						</div>
-
+						<!--shadow-box-hd-->
 						@Html.Raw(ViewBag.questions)
 					</div>
-
+					<!-- shadow-box -->
 				</div>
-				<div>
+				<!-- shadow-outer-->
+				<div data-name="hidden-elements">
 					<input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
 					<input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
 					<input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
@@ -111,15 +112,63 @@
 					<input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
 					<input type="hidden" value="false" id="btnSaveForLater" name="btnSaveForLater" />
 				</div>
-
+				<!--hidden-elements-->
 
 				<div class="pre-next-btn">
 					<button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
 					<button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
 				</div>
+				<!--pre-next-btn-->
 
 			</div>
+			<!--questionaire-table-->
 		}
+		<!-- #region Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">PODS NARRATIVE HINTS</h4>
+					</div>
+					<div class="modal-body">
+						<form method="post">
+							<div class="form-group">
+								<label for="subjects-field">
+									Subjects
+								</label>
+								<select class="form-control" id="subjects-field">
+									
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="text-field">
+									Text
+								</label>
+								<textarea class="form-control" rows="8" id="text-field" style="height: auto;"></textarea>
+								<script>
+									// Replace the <textarea id="editor1"> with a CKEditor
+									// instance, using default configuration.
+									CKEDITOR.replace('text-field');
+								</script>
+
+							</div>
+							<div class="form-group">
+								<label for="attachment_opional">Attachment (optional)</label>
+								<input type="file" class="form-control" id="attachment_opional" name="attachment_opional" />
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary">Ok</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--#endregion Modal-->
+
+
 	</div>
 
 

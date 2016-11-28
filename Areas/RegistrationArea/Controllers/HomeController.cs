@@ -9691,5 +9691,12 @@ Intelleges Team";
 			}
 			return RedirectToAction("~/Registration/Home");
 		}
+
+		public ActionResult GetSubjectsByQuestion(int question)
+		{
+			//270740JR
+			return Json(db.pr_getQuestionResponseNarrativeSelectionListByQuestion(question).ToList(), JsonRequestBehavior.AllowGet);
+
+		}
 	}
 }

@@ -399,14 +399,52 @@ namespace Generic.DataLayer
             }
 
             //show question 
-            tableCell = new TableCell();
-            tableCell.CssClass = cssClass;
-            tableCell.HorizontalAlign = HorizontalAlign.Left;
-            tableCell.VerticalAlign = VerticalAlign.Top;
-            tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
-            tableCell.Controls.Add(label);
-            tableRow.Controls.Add(tableCell);
-
+            
+			//determine is there should be displayed HINT link
+			var hits = db.pr_getQuestionResponseNarrativeSelectionListByQuestion(question.id).FirstOrDefault();
+			if (hits!=null)
+			{
+				tableCell = new TableCell();
+				tableCell.CssClass = cssClass;
+				tableCell.HorizontalAlign = HorizontalAlign.Left;
+				tableCell.VerticalAlign = VerticalAlign.Top;
+				tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+				Table innerTable = new Table();
+				innerTable.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+				TableRow innerRow = new TableRow();
+				innerRow.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+				TableCell firstInnerCell = new TableCell();
+				firstInnerCell.HorizontalAlign = HorizontalAlign.Left;
+				firstInnerCell.VerticalAlign = VerticalAlign.Top;
+				firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+				firstInnerCell.Controls.Add(label);
+				innerRow.Controls.Add(firstInnerCell);
+				firstInnerCell = new TableCell();
+				firstInnerCell.HorizontalAlign = HorizontalAlign.Left;
+				firstInnerCell.VerticalAlign = VerticalAlign.Top;
+				firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+				//tableCell.Controls.Add(label);
+				HyperLink link = new HyperLink();
+				link.ID = "narrative-hint-" + question.id.ToString();
+				link.CssClass = "btn btn-default narrative-hint";
+				//link.NavigateUrl = "#";
+				link.Text = "HINT";
+				firstInnerCell.Controls.Add(link);
+				innerRow.Controls.Add(firstInnerCell);
+				innerTable.Controls.Add(innerRow);
+				tableCell.Controls.Add(innerTable);
+			}
+			else
+			{
+				tableCell = new TableCell();
+				tableCell.CssClass = cssClass;
+				tableCell.HorizontalAlign = HorizontalAlign.Left;
+				tableCell.VerticalAlign = VerticalAlign.Top;
+				tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+				tableCell.Controls.Add(label);
+				//tableRow.Controls.Add(tableCell);
+			}
+			tableRow.Controls.Add(tableCell);
             string controlId = "";
 
             string responseTypeDescription = db.pr_getResponseType(question.responseType).FirstOrDefault().description;
@@ -554,8 +592,8 @@ namespace Generic.DataLayer
                 tableCell = getAnswerCell(survey.id, question.id, responseTypeDescription, answerCssClass, table);
                 divflag = 1;
                 tableRow.Controls.Add(tableCell);
-            }
-
+            }		
+			
             table.Controls.Add(tableRow);
 
             //add an empty space between questions
@@ -2225,7 +2263,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     tableCell = new TableCell();
 
                     tableCell.HorizontalAlign = HorizontalAlign.Right;
-                    tableCell.CssClass = cssClass;
+                    tableCell.CssClass = cssClass+" yes-no-answers";
                     tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(15);
                     for (int i = 0; i < responseCollection.Count; i++)
                     {
