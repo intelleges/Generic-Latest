@@ -19,9 +19,11 @@ namespace Generic
         public string subject { get; set; }
         public string text { get; set; }
         public string footer1 { get; set; }
-        public string footer2 { get; set; }
-        public byte[] attachment { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
+        public string attachmentOneName { get; set; }
+        public byte[] attachementOne { get; set; }
+        public string attachmentTwoName { get; set; }
+        public byte[] attachementTwo { get; set; }
     }
 }

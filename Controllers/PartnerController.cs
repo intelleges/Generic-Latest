@@ -3891,9 +3891,9 @@ namespace Generic.Controllers
 		{
 			var iet = db.pr_getIterateEmailText(id).FirstOrDefault();
 			if (iet != null)
-				db.pr_modifyIterateEmailText(id, person, subject, text, footer1, iet.footer2, iet.attachment, iet.sortOrder, iet.active);
+				db.pr_modifyIterateEmailText(id, person, subject, text, footer1, iet.attachmentOneName, iet.attachementOne, iet.attachmentTwoName, iet.attachementTwo, iet.sortOrder, iet.active);
 			else
-				db.pr_addIterateEmailText(person, subject, text, footer1, "", null, 0, true);
+				db.pr_addIterateEmailText(person, subject, text, footer1, "", null, "", null, 0, true);
 			return Json(new { success = true });
 		}
 
@@ -3906,7 +3906,21 @@ namespace Generic.Controllers
 			{
 				byte[] uploadedFile = new byte[Request.Files[0].InputStream.Length];
 				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, Request.Files[0].FileName, uploadedFile, iet.sortOrder, iet.active);
+				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, Request.Files[0].FileName, uploadedFile,iet.attachmentTwoName,iet.attachementTwo, iet.sortOrder, iet.active);
+			}
+			return Json(new { success = true });
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult AddAttachment2(int id)
+		{
+			var iet = db.pr_getIterateEmailText(id).First();
+			if (Request.Files != null || Request.Files.Count != 0)
+			{
+				byte[] uploadedFile = new byte[Request.Files[0].InputStream.Length];
+				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, iet.attachmentOneName, iet.attachementOne, Request.Files[0].FileName, uploadedFile, iet.sortOrder, iet.active);
 			}
 			return Json(new { success = true });
 		}
@@ -3914,9 +3928,19 @@ namespace Generic.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public ActionResult RemoveAttachment(int id, int person, string subject, string text)
+		public ActionResult RemoveAttachment(int id)
 		{
-			db.pr_modifyIterateEmailText(id, person, subject, text, "", "", null, null, true);
+			var iet = db.pr_getIterateEmailText(id).First();
+			db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, "", null, iet.attachmentTwoName, iet.attachementTwo, iet.sortOrder, iet.active);
+			return Json(new { success = true });
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult RemoveAttachment2(int id)
+		{
+			var iet = db.pr_getIterateEmailText(id).First();
+			db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, iet.attachmentOneName, iet.attachementOne, "", null, iet.sortOrder, iet.active);
 			return Json(new { success = true });
 		}
 

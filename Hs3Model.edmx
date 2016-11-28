@@ -506,8 +506,10 @@
           <Property Name="subject" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="text" Type="varchar(max)" Nullable="false" />
           <Property Name="footer1" Type="varchar(max)" />
-          <Property Name="footer2" Type="varchar(max)" />
-          <Property Name="attachment" Type="varbinary(max)" />
+          <Property Name="attachmentOneName" Type="varchar" MaxLength="100" />
+          <Property Name="attachementOne" Type="varbinary(max)" />
+          <Property Name="attachmentTwoName" Type="varchar" MaxLength="100" />
+          <Property Name="attachementTwo" Type="varbinary(max)" />
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
@@ -4544,8 +4546,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="subject" Type="varchar" Mode="In" />
           <Parameter Name="text" Type="varchar(max)" Mode="In" />
           <Parameter Name="footer1" Type="varchar(max)" Mode="In" />
-          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
-          <Parameter Name="attachment" Type="varbinary" Mode="In" />
+          <Parameter Name="attachmentOneName" Type="varchar" Mode="In" />
+          <Parameter Name="attachementOne" Type="varbinary" Mode="In" />
+          <Parameter Name="attachmentTwoName" Type="varchar" Mode="In" />
+          <Parameter Name="attachementTwo" Type="varbinary" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -7366,8 +7370,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="subject" Type="varchar" Mode="In" />
           <Parameter Name="text" Type="varchar(max)" Mode="In" />
           <Parameter Name="footer1" Type="varchar(max)" Mode="In" />
-          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
-          <Parameter Name="attachment" Type="varbinary" Mode="In" />
+          <Parameter Name="attachmentOneName" Type="varchar" Mode="In" />
+          <Parameter Name="attachementOne" Type="varbinary" Mode="In" />
+          <Parameter Name="attachmentTwoName" Type="varchar" Mode="In" />
+          <Parameter Name="attachementTwo" Type="varbinary" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -15310,8 +15316,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="subject" Mode="In" Type="String" />
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="footer1" Mode="In" Type="String" />
-            <Parameter Name="footer2" Mode="In" Type="String" />
-            <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="attachmentOneName" Mode="In" Type="String" />
+            <Parameter Name="attachementOne" Mode="In" Type="Binary" />
+            <Parameter Name="attachmentTwoName" Mode="In" Type="String" />
+            <Parameter Name="attachementTwo" Mode="In" Type="Binary" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -15328,8 +15336,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="subject" Mode="In" Type="String" />
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="footer1" Mode="In" Type="String" />
-            <Parameter Name="footer2" Mode="In" Type="String" />
-            <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="attachmentOneName" Mode="In" Type="String" />
+            <Parameter Name="attachementOne" Mode="In" Type="Binary" />
+            <Parameter Name="attachmentTwoName" Mode="In" Type="String" />
+            <Parameter Name="attachementTwo" Mode="In" Type="Binary" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -15370,7 +15380,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartnerNoteAllGrid" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllGrid_Result)">
-            <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
+          <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24719,10 +24729,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="subject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="footer1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="footer2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="attachment" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="attachmentOneName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="attachementOne" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="attachmentTwoName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="attachementTwo" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="IteratePartnerNote">
           <Key>
@@ -32968,10 +32980,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="iterateEmailText">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateEmailText">
               <MappingFragment StoreEntitySet="iterateEmailText">
+                <ScalarProperty Name="attachementTwo" ColumnName="attachementTwo" />
+                <ScalarProperty Name="attachmentTwoName" ColumnName="attachmentTwoName" />
+                <ScalarProperty Name="attachementOne" ColumnName="attachementOne" />
+                <ScalarProperty Name="attachmentOneName" ColumnName="attachmentOneName" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="attachment" ColumnName="attachment" />
-                <ScalarProperty Name="footer2" ColumnName="footer2" />
                 <ScalarProperty Name="footer1" ColumnName="footer1" />
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="subject" ColumnName="subject" />

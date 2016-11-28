@@ -751,7 +751,9 @@
                 $("#newIteratePartner").modal("toggle");
             }
             if ($(this).text() === "Sample\\Subscribe") {
-                var partnerGrid = $("#IteratePartners").data("tGrid");
+            	alertify.alert('Functionality not available yet.');
+
+                /*var partnerGrid = $("#IteratePartners").data("tGrid");
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
                 iterate.selectedPartnerId = rowData.id;
@@ -765,7 +767,7 @@
                             }
                         });
                     }
-                });              
+                }); */             
                
             }
             if ($(this).text() === "Text") {

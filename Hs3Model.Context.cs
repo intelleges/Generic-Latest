@@ -18397,7 +18397,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveIterateEmailText1", idParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addIterateEmailText(Nullable<int> person, string subject, string text, string footer1, string footer2, byte[] attachment, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual ObjectResult<Nullable<decimal>> pr_addIterateEmailText(Nullable<int> person, string subject, string text, string footer1, string attachmentOneName, byte[] attachementOne, string attachmentTwoName, byte[] attachementTwo, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
@@ -18415,13 +18415,21 @@ namespace Generic
                 new ObjectParameter("footer1", footer1) :
                 new ObjectParameter("footer1", typeof(string));
     
-            var footer2Parameter = footer2 != null ?
-                new ObjectParameter("footer2", footer2) :
-                new ObjectParameter("footer2", typeof(string));
+            var attachmentOneNameParameter = attachmentOneName != null ?
+                new ObjectParameter("attachmentOneName", attachmentOneName) :
+                new ObjectParameter("attachmentOneName", typeof(string));
     
-            var attachmentParameter = attachment != null ?
-                new ObjectParameter("attachment", attachment) :
-                new ObjectParameter("attachment", typeof(byte[]));
+            var attachementOneParameter = attachementOne != null ?
+                new ObjectParameter("attachementOne", attachementOne) :
+                new ObjectParameter("attachementOne", typeof(byte[]));
+    
+            var attachmentTwoNameParameter = attachmentTwoName != null ?
+                new ObjectParameter("attachmentTwoName", attachmentTwoName) :
+                new ObjectParameter("attachmentTwoName", typeof(string));
+    
+            var attachementTwoParameter = attachementTwo != null ?
+                new ObjectParameter("attachementTwo", attachementTwo) :
+                new ObjectParameter("attachementTwo", typeof(byte[]));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -18431,7 +18439,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateEmailText", personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, attachmentParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addIterateEmailText", personParameter, subjectParameter, textParameter, footer1Parameter, attachmentOneNameParameter, attachementOneParameter, attachmentTwoNameParameter, attachementTwoParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual ObjectResult<iterateEmailText> pr_getIterateEmailText(Nullable<int> id)
@@ -18470,7 +18478,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<iterateEmailText>("pr_getIterateEmailTextAll", mergeOption, personParameter);
         }
     
-        public virtual int pr_modifyIterateEmailText(Nullable<int> id, Nullable<int> person, string subject, string text, string footer1, string footer2, byte[] attachment, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyIterateEmailText(Nullable<int> id, Nullable<int> person, string subject, string text, string footer1, string attachmentOneName, byte[] attachementOne, string attachmentTwoName, byte[] attachementTwo, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -18492,13 +18500,21 @@ namespace Generic
                 new ObjectParameter("footer1", footer1) :
                 new ObjectParameter("footer1", typeof(string));
     
-            var footer2Parameter = footer2 != null ?
-                new ObjectParameter("footer2", footer2) :
-                new ObjectParameter("footer2", typeof(string));
+            var attachmentOneNameParameter = attachmentOneName != null ?
+                new ObjectParameter("attachmentOneName", attachmentOneName) :
+                new ObjectParameter("attachmentOneName", typeof(string));
     
-            var attachmentParameter = attachment != null ?
-                new ObjectParameter("attachment", attachment) :
-                new ObjectParameter("attachment", typeof(byte[]));
+            var attachementOneParameter = attachementOne != null ?
+                new ObjectParameter("attachementOne", attachementOne) :
+                new ObjectParameter("attachementOne", typeof(byte[]));
+    
+            var attachmentTwoNameParameter = attachmentTwoName != null ?
+                new ObjectParameter("attachmentTwoName", attachmentTwoName) :
+                new ObjectParameter("attachmentTwoName", typeof(string));
+    
+            var attachementTwoParameter = attachementTwo != null ?
+                new ObjectParameter("attachementTwo", attachementTwo) :
+                new ObjectParameter("attachementTwo", typeof(byte[]));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -18508,7 +18524,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, footer2Parameter, attachmentParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIterateEmailText", idParameter, personParameter, subjectParameter, textParameter, footer1Parameter, attachmentOneNameParameter, attachementOneParameter, attachmentTwoNameParameter, attachementTwoParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addIteratePartnerNote(string note, Nullable<System.DateTime> datetime, Nullable<int> author, Nullable<int> iteratePartner, Nullable<int> sortOrder, Nullable<bool> active)
