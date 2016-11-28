@@ -141,7 +141,7 @@
 	}
 
 	.display_menu > ul > li:hover > .sub-items {
-		display:block;
+		/*display:block;*/
 	}
 </style>
 
@@ -619,7 +619,14 @@
     	}).mouseout(function () {
     		$(this).find('.display_menu').hide();
     		$(this).find('.display_menu_right').hide();
-    	});  	
+    	});
+
+    	$(".display_menu > ul > li").mouseover(function () {
+    		$(this).find('.sub-items').show();
+
+    	}).mouseout(function () {
+    		$(this).find('.sub-items').hide();
+    	});
 
         $("td a.menu_block.title").each(function () {
             if ($(this).text().length > 13) {
@@ -1011,6 +1018,12 @@
 
         			var formdata = new FormData(); //FormData object
         			var fileInput = document.getElementById('EmailAttachmentUpload');
+        			////Iterating through each files selected in fileInput
+        			for (i = 0; i < fileInput.files.length; i++) {
+        				//Appending each file to FormData object
+        				formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        			}
+        			fileInput = document.getElementById('EmailAttachmentUpload2');
         			////Iterating through each files selected in fileInput
         			for (i = 0; i < fileInput.files.length; i++) {
         				//Appending each file to FormData object
@@ -1420,6 +1433,10 @@
     	for (i = 0; i < fileInput.files.length; i++) {
     		formdata.append(fileInput.files[i].name, fileInput.files[i]);
     	}
+    	fileInput = document.getElementById('EmailAttachmentUpload2');
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    	}
     	formdata.append("id", iterateEmailTextId);
     	formdata.append("person", iterate.person);
     	formdata.append("subject", $("#emailSubject").val());
@@ -1448,6 +1465,12 @@
     function emailDialogSendTest() {
     	var formdata = new FormData(); //FormData object
     	var fileInput = document.getElementById('EmailAttachmentUpload');
+    	////Iterating through each files selected in fileInput
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		//Appending each file to FormData object
+    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    	}
+    	fileInput = document.getElementById('EmailAttachmentUpload2');
     	////Iterating through each files selected in fileInput
     	for (i = 0; i < fileInput.files.length; i++) {
     		//Appending each file to FormData object
@@ -1781,9 +1804,13 @@
 						</div>
 
                         <div class="form-group">
-                            <label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
+                            <label class="control-label" for="EmailAttachmentUpload">Attachment1 (optional)</label>
                             <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload"/>                                   
                         </div>
+						<div class="form-group">
+							<label class="control-label" for="EmailAttachmentUpload2">Attachment2 (optional)</label>
+							<input class="form-control" id="EmailAttachmentUpload2" type="file" name="EmailAttachmentUpload2" />
+						</div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-9">
