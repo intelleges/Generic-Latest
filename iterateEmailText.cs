@@ -22,8 +22,8 @@ namespace Generic
         public int sortOrder { get; set; }
         public bool active { get; set; }
         public string attachmentOneName { get; set; }
-        public byte[] attachementOne { get; set; }
         public string attachmentTwoName { get; set; }
-        public byte[] attachementTwo { get; set; }
+        public byte[] attachmentOne { get; set; }
+        public byte[] attachmentTwo { get; set; }
     }
 }

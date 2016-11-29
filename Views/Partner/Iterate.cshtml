@@ -91,6 +91,15 @@
         display: block !important;
     }
 
+	.remove-link {
+		color:red!important;
+		font-weight: bold;
+		font-size: 1.2em;
+		float:right;
+		margin-bottom: 5px;
+		margin-right: 20px;
+	}
+
     .display_menu {
         left: 65px;
         overflow: visible;
@@ -1330,6 +1339,8 @@
     });
 
     var iterateEmailTextId = -1;
+    var isoneattachremoved = false;
+    var istwoattachremoved = false;
 
     function editIterateEmailText() {
     	iterateEmailTextId = $("#DropDownSubjects").val();
@@ -1337,14 +1348,34 @@
     	$('#text1').parent().removeClass('hidden');
     	$('#footer1').parent().removeClass('hidden');
     	$('#emailText').parent().addClass('hidden');
+
+    	if ($('#EmailAttachmentUpload_attach2').hasClass('hidden')) 
+    		$('#EmailAttachmentUpload4').parent().removeClass('hidden');
+    	else
+    		$('#EmailAttachmentUpload_attach2').find('.remove-link').removeClass('hidden');
+    	
+    	if ($('#EmailAttachmentUpload_attach').hasClass('hidden'))
+    		$('#EmailAttachmentUpload3').parent().removeClass('hidden');
+    	else
+    		$('#EmailAttachmentUpload_attach').find('.remove-link').removeClass('hidden');
+    	
+    	$('#EmailAttachmentUpload').parent().addClass('hidden');
+    	$('#EmailAttachmentUpload2').parent().addClass('hidden');
+ 	
     	$('#sendButton').addClass('hidden');
     	$('#testButton').addClass('hidden');
     	$('#addButton').addClass('hidden');
     	$('#editButton').addClass('hidden');
     	$('#saveButton').removeClass('hidden');
     	$('#cancelButton').removeClass('hidden');
+
+    	document.getElementById("EmailAttachmentUpload3").value = "";
+    	document.getElementById("EmailAttachmentUpload4").value = "";
+    	isoneattachremoved = false;
+    	istwoattachremoved = false;
     }
 
+   
     function addIterateEmailText() {
     	$("#DropDownSubjects").parent().hide();
     	$('#text1').parent().removeClass('hidden');
@@ -1357,9 +1388,25 @@
     	$('#saveButton').removeClass('hidden');
     	$('#cancelButton').removeClass('hidden');
 
+    	$('#EmailAttachmentUpload3').parent().removeClass('hidden');
+    	$('#EmailAttachmentUpload4').parent().removeClass('hidden');
+
+    	$('#EmailAttachmentUpload').parent().addClass('hidden');
+    	$('#EmailAttachmentUpload2').parent().addClass('hidden');
+
+    	$('#EmailAttachmentUpload_attach2').addClass('hidden');
+    	$('#EmailAttachmentUpload_attach').addClass('hidden');
+    	$('.remove-link').addClass('hidden');
+
     	CKEDITOR.instances["text1"].setData('');
     	CKEDITOR.instances["footer1"].setData('');
     	$('#emailSubject').val('');
+    	iterateEmailTextId = -1;
+    	isoneattachremoved = false;
+    	istwoattachremoved = false;
+
+    	document.getElementById("EmailAttachmentUpload3").value = "";
+    	document.getElementById("EmailAttachmentUpload4").value = "";
     }
 
     function removeIterateEmailText() {
@@ -1411,7 +1458,13 @@
     	});
     }
 
-    function cancelChangesIterateEmailText() {
+	function cancelChangesIterateEmailText() {
+
+		isoneattachremoved = false;
+		istwoattachremoved = false;
+		document.getElementById("EmailAttachmentUpload3").value = "";
+		document.getElementById("EmailAttachmentUpload4").value = "";
+
     	if (iterateEmailTextId != -1) {
     		$('#editButton').removeClass('hidden');
     	}
@@ -1419,21 +1472,46 @@
     	$("#DropDownSubjects").parent().show();
     	$('#text1').parent().addClass('hidden');
     	$('#footer1').parent().addClass('hidden');
+
+
+    	$('#EmailAttachmentUpload3').parent().addClass('hidden');
+    	$('#EmailAttachmentUpload4').parent().addClass('hidden');
+    	$('.remove-link').addClass('hidden');
+
+    	$('#EmailAttachmentUpload').parent().removeClass('hidden');
+    	$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+
     	$('#emailText').parent().removeClass('hidden');
     	$('#saveButton').addClass('hidden');
     	$('#cancelButton').addClass('hidden');
     	$('#sendButton').removeClass('hidden');
     	$('#testButton').removeClass('hidden');
     	$('#addButton').removeClass('hidden');
-    }
+
+    	dropDownSubjectsChanged();
+	}
+
+	
+	function removeAttachment(type, element) {
+		if (type == 'one') {
+			isoneattachremoved = true;
+			$('#EmailAttachmentUpload3').parent().removeClass('hidden');
+		}
+		else {
+			istwoattachremoved = true;
+			$('#EmailAttachmentUpload4').parent().removeClass('hidden');
+		}
+
+		$(element).parent().addClass('hidden');
+	}
 
     function saveIterateEmailText() {
     	var formdata = new FormData(); 
-    	var fileInput = document.getElementById('EmailAttachmentUpload');
+    	var fileInput = document.getElementById('EmailAttachmentUpload3');
     	for (i = 0; i < fileInput.files.length; i++) {
     		formdata.append(fileInput.files[i].name, fileInput.files[i]);
     	}
-    	fileInput = document.getElementById('EmailAttachmentUpload2');
+    	fileInput = document.getElementById('EmailAttachmentUpload4');
     	for (i = 0; i < fileInput.files.length; i++) {
     		formdata.append(fileInput.files[i].name, fileInput.files[i]);
     	}
@@ -1442,6 +1520,8 @@
     	formdata.append("subject", $("#emailSubject").val());
     	formdata.append("text", CKEDITOR.instances["text1"].getData());
     	formdata.append("footer1", CKEDITOR.instances["footer1"].getData());
+    	formdata.append("isoneattachremoved", isoneattachremoved);
+    	formdata.append("istwoattachremoved", istwoattachremoved);
     	$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
     	$.ajax({
     		url: 'SaveIterateEmailText',
@@ -1807,9 +1887,25 @@
                             <label class="control-label" for="EmailAttachmentUpload">Attachment1 (optional)</label>
                             <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload"/>                                   
                         </div>
+						<div class="form-group hidden" id="EmailAttachmentUpload_attach">
+							<label class="control-label"></label>
+							<a href="#" class="remove-link" onclick="removeAttachment('one', this); return false;">Remove</a>
+						</div>
 						<div class="form-group">
 							<label class="control-label" for="EmailAttachmentUpload2">Attachment2 (optional)</label>
 							<input class="form-control" id="EmailAttachmentUpload2" type="file" name="EmailAttachmentUpload2" />
+						</div>
+						<div class="form-group hidden" id="EmailAttachmentUpload_attach2">
+							<label class="control-label"></label>
+							<a href="#" class="remove-link" onclick="removeAttachment('two', this); return false;">Remove</a>
+						</div>
+						<div class="form-group hidden">
+							<label class="control-label" for="EmailAttachmentUpload3">Attachment1 (optional)</label>
+							<input class="form-control" id="EmailAttachmentUpload3" type="file" name="EmailAttachmentUpload3" />
+						</div>
+						<div class="form-group hidden">
+							<label class="control-label" for="EmailAttachmentUpload4">Attachment2 (optional)</label>
+							<input class="form-control" id="EmailAttachmentUpload4" type="file" name="EmailAttachmentUpload4" />
 						</div>
                         <div class="form-group">
                             <div class="row">
@@ -2487,8 +2583,30 @@
 					CKEDITOR.instances["text1"].setData(result.text);
 					CKEDITOR.instances["footer1"].setData(result.footer1);
 					
+					if (result.attachmentOneName!=null&& result.attachmentOneName.length > 0) {
+						$('#EmailAttachmentUpload').parent().addClass('hidden');
+						$('#EmailAttachmentUpload_attach label').html(result.attachmentOneName);
+						$('#EmailAttachmentUpload_attach').removeClass('hidden');
+					}
+					else {
+						$('#EmailAttachmentUpload').parent().removeClass('hidden');
+						$('#EmailAttachmentUpload_attach').addClass('hidden');
+					}
+
+
+					if (result.attachmentTwoName!=null&& result.attachmentTwoName.length > 0) {
+						$('#EmailAttachmentUpload2').parent().addClass('hidden');
+						$('#EmailAttachmentUpload_attach2 label').html(result.attachmentTwoName);
+						$('#EmailAttachmentUpload_attach2').removeClass('hidden');
+					}
+					else {
+						$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+						$('#EmailAttachmentUpload_attach2').addClass('hidden');
+					}
+
 					$('#editButton').removeClass('hidden');
 					$('#removeButton').removeClass('hidden');
+					$('.remove-link').addClass('hidden');
 				}
 			})
 
@@ -2498,6 +2616,13 @@
 			
 			$('#editButton').addClass('hidden');
 			$('#removeButton').addClass('hidden');
+
+			$('#EmailAttachmentUpload').parent().removeClass('hidden');
+			$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+			$('#EmailAttachmentUpload_attach2').addClass('hidden');
+			$('#EmailAttachmentUpload_attach').addClass('hidden');
+			$('.remove-link').addClass('hidden');
+
 		}
 	}
 

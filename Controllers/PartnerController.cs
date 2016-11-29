@@ -2203,7 +2203,9 @@ namespace Generic.Controllers
 
 		public ActionResult GetAutomailIterate(int id)
 		{
-			return Json(db.pr_getIterateEmailText(id).FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
+			var val = db.pr_getIterateEmailText(id).First(o => o.id == id);
+			return Json( new {val.active, val.attachmentOneName, val.attachmentTwoName, val.footer1, 
+				val.id, val.person, val.sortOrder, val.subject, val.text}, JsonRequestBehavior.AllowGet);
 		}
 
 		public ActionResult GetAutomail(int id)
@@ -3887,13 +3889,54 @@ namespace Generic.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public ActionResult SaveIterateEmailText(int id, int person, string subject, string text, string footer1)
+		public ActionResult SaveIterateEmailText(int id, int person, string subject, string text, 
+			string footer1, bool isoneattachremoved, bool istwoattachremoved)
 		{
+		
+			byte[] uploadedFile = null;
+			byte[] uploadedFile2 = null;
+			string uploadedFileName = "";
+			string uploadedFileName2 = "";
+
+			if (Request.Files != null && Request.Files.Count == 1)
+			{
+				uploadedFile = new byte[Request.Files[0].InputStream.Length];
+				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+				uploadedFileName = Request.Files[0].FileName;
+			}
+
+			if (Request.Files != null && Request.Files.Count > 1)
+			{
+				uploadedFile = new byte[Request.Files[0].InputStream.Length];
+				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+				uploadedFileName = Request.Files[0].FileName;
+
+				uploadedFile2 = new byte[Request.Files[1].InputStream.Length];
+				Request.Files[1].InputStream.Read(uploadedFile2, 0, uploadedFile.Length);
+				uploadedFileName2 = Request.Files[1].FileName;
+			}
+
 			var iet = db.pr_getIterateEmailText(id).FirstOrDefault();
 			if (iet != null)
-				db.pr_modifyIterateEmailText(id, person, subject, text, footer1, iet.attachmentOneName, iet.attachementOne, iet.attachmentTwoName, iet.attachementTwo, iet.sortOrder, iet.active);
+			{
+				if (isoneattachremoved) {
+					iet.attachmentOne = null;
+					iet.attachmentOneName = "";
+				}
+
+				if (istwoattachremoved){
+					iet.attachmentTwo = null;
+					iet.attachmentTwoName = "";
+				}
+
+				db.pr_modifyIterateEmailText(id, person, subject, text, footer1,
+					uploadedFile == null ? iet.attachmentOneName : uploadedFileName, uploadedFile ?? iet.attachmentOne,
+					uploadedFile2 == null ? iet.attachmentTwoName : uploadedFileName2, uploadedFile2 ?? iet.attachmentTwo,
+					iet.sortOrder, iet.active);
+			}
 			else
-				db.pr_addIterateEmailText(person, subject, text, footer1, "", null, "", null, 0, true);
+				db.pr_addIterateEmailText(person, subject, text, footer1, uploadedFileName,
+					uploadedFile, uploadedFileName2, uploadedFile2, 0, true);
 			return Json(new { success = true });
 		}
 
@@ -3906,7 +3949,7 @@ namespace Generic.Controllers
 			{
 				byte[] uploadedFile = new byte[Request.Files[0].InputStream.Length];
 				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, Request.Files[0].FileName, uploadedFile,iet.attachmentTwoName,iet.attachementTwo, iet.sortOrder, iet.active);
+				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, Request.Files[0].FileName, uploadedFile, iet.attachmentTwoName, iet.attachmentTwo, iet.sortOrder, iet.active);
 			}
 			return Json(new { success = true });
 		}
@@ -3920,7 +3963,7 @@ namespace Generic.Controllers
 			{
 				byte[] uploadedFile = new byte[Request.Files[0].InputStream.Length];
 				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, iet.attachmentOneName, iet.attachementOne, Request.Files[0].FileName, uploadedFile, iet.sortOrder, iet.active);
+				db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, iet.attachmentOneName, iet.attachmentOne, Request.Files[0].FileName, uploadedFile, iet.sortOrder, iet.active);
 			}
 			return Json(new { success = true });
 		}
@@ -3931,7 +3974,7 @@ namespace Generic.Controllers
 		public ActionResult RemoveAttachment(int id)
 		{
 			var iet = db.pr_getIterateEmailText(id).First();
-			db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, "", null, iet.attachmentTwoName, iet.attachementTwo, iet.sortOrder, iet.active);
+			db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, "", null, iet.attachmentTwoName, iet.attachmentTwo, iet.sortOrder, iet.active);
 			return Json(new { success = true });
 		}
 
@@ -3940,7 +3983,7 @@ namespace Generic.Controllers
 		public ActionResult RemoveAttachment2(int id)
 		{
 			var iet = db.pr_getIterateEmailText(id).First();
-			db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, iet.attachmentOneName, iet.attachementOne, "", null, iet.sortOrder, iet.active);
+			db.pr_modifyIterateEmailText(id, iet.person, iet.subject, iet.text, iet.footer1, iet.attachmentOneName, iet.attachmentOne, "", null, iet.sortOrder, iet.active);
 			return Json(new { success = true });
 		}
 
