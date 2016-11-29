@@ -11,6 +11,7 @@ using Generic.Models;
 using SendGridMail;
 using SendGridMail.Transport;
 using System.Diagnostics;
+using System.IO;
 
 namespace Generic.Helpers
 {
@@ -418,7 +419,7 @@ namespace Generic.Helpers
             transportSMTP.Deliver(mail);
 
         }
-        public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender, HttpFileCollectionBase attachments)
+		public static void sendEmail(string subject, string body, string sendto, MailAddress sendFrom, bool ccSender, HttpFileCollectionBase attachments, iterateEmailText iterateEmailText = null)
         {
             var mail = SendGrid.GetInstance();
 
@@ -447,6 +448,15 @@ namespace Generic.Helpers
             {
                 mail.AddAttachment(attachments[file].InputStream, attachments[file].FileName);
             }
+
+			if (iterateEmailText != null) { 
+				if(!string.IsNullOrEmpty(iterateEmailText.attachmentOneName))
+					mail.AddAttachment(new MemoryStream(iterateEmailText.attachmentOne), iterateEmailText.attachmentOneName);
+
+				if (!string.IsNullOrEmpty(iterateEmailText.attachmentTwoName))
+					mail.AddAttachment(new MemoryStream(iterateEmailText.attachmentTwo), iterateEmailText.attachmentTwoName);
+			}
+
 
             body = body.Replace("\n", "<br />");
             body = body.Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");

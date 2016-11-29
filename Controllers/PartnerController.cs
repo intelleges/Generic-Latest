@@ -2204,8 +2204,18 @@ namespace Generic.Controllers
 		public ActionResult GetAutomailIterate(int id)
 		{
 			var val = db.pr_getIterateEmailText(id).First(o => o.id == id);
-			return Json( new {val.active, val.attachmentOneName, val.attachmentTwoName, val.footer1, 
-				val.id, val.person, val.sortOrder, val.subject, val.text}, JsonRequestBehavior.AllowGet);
+			return Json(new
+			{
+				val.active,
+				val.attachmentOneName,
+				val.attachmentTwoName,
+				val.footer1,
+				val.id,
+				val.person,
+				val.sortOrder,
+				val.subject,
+				val.text
+			}, JsonRequestBehavior.AllowGet);
 		}
 
 		public ActionResult GetAutomail(int id)
@@ -2944,7 +2954,7 @@ namespace Generic.Controllers
 			// attributes such as the new note's unique GUID.
 			return GetNoteStore().createNote(authToken, note);
 		}
-		
+
 		[HttpPost]
 		public ActionResult GetEvernoteText(int partnerId)
 		{
@@ -2963,7 +2973,7 @@ namespace Generic.Controllers
 		public ActionResult ArchiveIterateNote(int id)
 		{
 			db.pr_archiveIteratePartnerNote(id);
-			return Json(new { success = true}, JsonRequestBehavior.AllowGet);
+			return Json(new { success = true }, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpGet]
@@ -2976,7 +2986,7 @@ namespace Generic.Controllers
 		[ValidateInput(false)]
 		public ActionResult UpdateIterateNote(int id, string text)
 		{
-			var itp =  db.pr_getIteratePartnerNote(id).First();
+			var itp = db.pr_getIteratePartnerNote(id).First();
 			db.pr_modifyIteratePartnerNote(id, text, itp.datetime, itp.author, itp.iteratePartner, itp.sortOrder, itp.active);
 
 			return Json(new { success = true });
@@ -3860,7 +3870,7 @@ namespace Generic.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public async Task<ActionResult> SendIteratePartnerEmailTest(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
+		public async Task<ActionResult> SendIteratePartnerEmailTest(int partnerId, string subject, string text, DateTime userDate, bool ccSender, string iterateTextId)
 		{
 			try
 			{
@@ -3871,11 +3881,18 @@ namespace Generic.Controllers
 				var currentEnterprise = db.enterprise.FirstOrDefault(o => o.id == SessionSingleton.MyEnterPriseId);
 				if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
 				{
+
+					int iteratetId = -1;
+					iterateEmailText iterateEmailText = null;
+					if(int.TryParse(iterateTextId, out iteratetId)){
+						iterateEmailText = db.pr_getIterateEmailText(iteratetId).FirstOrDefault();
+					}
+
 					EmailFormat formatter = new EmailFormat();
 
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
-					SchedulerServiceHelper.sendEmail(subject, resultBody, currentPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files);
+					SchedulerServiceHelper.sendEmail(subject, resultBody, currentPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
 
 					return Json("done");
 				}
@@ -3889,42 +3906,40 @@ namespace Generic.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public ActionResult SaveIterateEmailText(int id, int person, string subject, string text, 
+		public ActionResult SaveIterateEmailText(int id, int person, string subject, string text,
 			string footer1, bool isoneattachremoved, bool istwoattachremoved)
 		{
-		
+
 			byte[] uploadedFile = null;
 			byte[] uploadedFile2 = null;
 			string uploadedFileName = "";
 			string uploadedFileName2 = "";
 
-			if (Request.Files != null && Request.Files.Count == 1)
+			if (Request.Files["one"] != null)
 			{
-				uploadedFile = new byte[Request.Files[0].InputStream.Length];
-				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-				uploadedFileName = Request.Files[0].FileName;
+				uploadedFile = new byte[Request.Files["one"].InputStream.Length];
+				Request.Files["one"].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+				uploadedFileName = Request.Files["one"].FileName;
 			}
 
-			if (Request.Files != null && Request.Files.Count > 1)
+			if (Request.Files["two"] != null)
 			{
-				uploadedFile = new byte[Request.Files[0].InputStream.Length];
-				Request.Files[0].InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-				uploadedFileName = Request.Files[0].FileName;
-
-				uploadedFile2 = new byte[Request.Files[1].InputStream.Length];
-				Request.Files[1].InputStream.Read(uploadedFile2, 0, uploadedFile.Length);
-				uploadedFileName2 = Request.Files[1].FileName;
+				uploadedFile2 = new byte[Request.Files["two"].InputStream.Length];
+				Request.Files["two"].InputStream.Read(uploadedFile2, 0, uploadedFile2.Length);
+				uploadedFileName2 = Request.Files["two"].FileName;
 			}
 
 			var iet = db.pr_getIterateEmailText(id).FirstOrDefault();
 			if (iet != null)
 			{
-				if (isoneattachremoved) {
+				if (isoneattachremoved)
+				{
 					iet.attachmentOne = null;
 					iet.attachmentOneName = "";
 				}
 
-				if (istwoattachremoved){
+				if (istwoattachremoved)
+				{
 					iet.attachmentTwo = null;
 					iet.attachmentTwoName = "";
 				}
@@ -3933,10 +3948,29 @@ namespace Generic.Controllers
 					uploadedFile == null ? iet.attachmentOneName : uploadedFileName, uploadedFile ?? iet.attachmentOne,
 					uploadedFile2 == null ? iet.attachmentTwoName : uploadedFileName2, uploadedFile2 ?? iet.attachmentTwo,
 					iet.sortOrder, iet.active);
+
+				using (var context = new EntitiesDBContext())
+				{
+					var iet1 = context.pr_getIterateEmailText(id).FirstOrDefault();
+					iet1.attachmentOne = uploadedFile ?? iet.attachmentOne;
+					iet1.attachmentTwo = uploadedFile2 ?? iet.attachmentTwo;
+					context.Entry(iet1).State = EntityState.Modified;
+					context.SaveChanges();
+				}
 			}
 			else
-				db.pr_addIterateEmailText(person, subject, text, footer1, uploadedFileName,
-					uploadedFile, uploadedFileName2, uploadedFile2, 0, true);
+			{
+				var id1 = db.pr_addIterateEmailText(person, subject, text, footer1, uploadedFileName,
+					uploadedFile, uploadedFileName2, uploadedFile2, 0, true).First();
+				using (var context = new EntitiesDBContext())
+				{
+					var iet1 = context.pr_getIterateEmailText(Convert.ToInt32(id1)).FirstOrDefault();
+					iet1.attachmentOne = uploadedFile ?? iet.attachmentOne;
+					iet1.attachmentTwo = uploadedFile2 ?? iet.attachmentTwo;
+					context.Entry(iet1).State = EntityState.Modified;
+					context.SaveChanges();
+				}
+			}
 			return Json(new { success = true });
 		}
 
@@ -3998,7 +4032,7 @@ namespace Generic.Controllers
 
 		[HttpPost]
 		[ValidateInput(false)]
-		public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender)
+		public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender, string iterateTextId)
 		{
 			try
 			{
@@ -4010,11 +4044,17 @@ namespace Generic.Controllers
 				if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
 				{
 
+					int iteratetId = -1;
+					iterateEmailText iterateEmailText = null;
+					if (int.TryParse(iterateTextId, out iteratetId)){
+						iterateEmailText = db.pr_getIterateEmailText(iteratetId).FirstOrDefault();
+					}
+
 					EmailFormat formatter = new EmailFormat();
 
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
-					SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files);
+					SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
 
 					iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
 					iPerson.previousContact = iPerson.lastContact;

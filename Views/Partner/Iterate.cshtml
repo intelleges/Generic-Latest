@@ -1038,6 +1038,7 @@
         				//Appending each file to FormData object
         				formdata.append(fileInput.files[i].name, fileInput.files[i]);
         			}
+        			formdata.append("iterateTextId", $("#DropDownSubjects").val());
         			formdata.append("partnerId", iterate.selectedPartnerId);
         			formdata.append("subject", $("#emailSubject").val());
         			formdata.append("text", $("#emailText").val());
@@ -1509,11 +1510,11 @@
     	var formdata = new FormData(); 
     	var fileInput = document.getElementById('EmailAttachmentUpload3');
     	for (i = 0; i < fileInput.files.length; i++) {
-    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    		formdata.append('one', fileInput.files[i]);
     	}
     	fileInput = document.getElementById('EmailAttachmentUpload4');
     	for (i = 0; i < fileInput.files.length; i++) {
-    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    		formdata.append('two', fileInput.files[i]);
     	}
     	formdata.append("id", iterateEmailTextId);
     	formdata.append("person", iterate.person);
@@ -1556,6 +1557,7 @@
     		//Appending each file to FormData object
     		formdata.append(fileInput.files[i].name, fileInput.files[i]);
     	}
+    	formdata.append("iterateTextId", $("#DropDownSubjects").val());
     	formdata.append("partnerId", iterate.selectedPartnerId);
     	formdata.append("subject", $("#emailSubject").val());
     	formdata.append("text", CKEDITOR.instances["emailText"].getData());
@@ -2607,6 +2609,8 @@
 					$('#editButton').removeClass('hidden');
 					$('#removeButton').removeClass('hidden');
 					$('.remove-link').addClass('hidden');
+					document.getElementById("EmailAttachmentUpload").value = "";
+					document.getElementById("EmailAttachmentUpload2").value = "";
 				}
 			})
 
@@ -2619,6 +2623,8 @@
 
 			$('#EmailAttachmentUpload').parent().removeClass('hidden');
 			$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+			document.getElementById("EmailAttachmentUpload").value = "";
+			document.getElementById("EmailAttachmentUpload2").value = "";
 			$('#EmailAttachmentUpload_attach2').addClass('hidden');
 			$('#EmailAttachmentUpload_attach').addClass('hidden');
 			$('.remove-link').addClass('hidden');
