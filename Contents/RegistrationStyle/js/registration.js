@@ -364,16 +364,19 @@ var registration = (function ($) {
 				
 		});
 		$("#myModal #saveButton").click(function () {
-			$.post("SaveDataFromHint", {
-				questionId: _this.vars.currentQuestionId,
-				text: CKEDITOR.instances["text-field"].getData()
-			}, function (data) {
-				if (!data) {
-					$("#myModal").modal("toggle");
-				} else {
-					alertify.alert(data);
-				}
-			});
+			$("textarea[id^=question_" + _this.vars.currentQuestionId + "]").val(CKEDITOR.instances["text-field"].getData());
+			$("#myModal").modal("toggle");
+			//$("#question_" + _this.vars.currentQuestionId + "_" + "_text")
+			//$.post("SaveDataFromHint", {
+			//	questionId: _this.vars.currentQuestionId,
+			//	text: CKEDITOR.instances["text-field"].getData()
+			//}, function (data) {
+			//	if (!data) {
+			//		$("#myModal").modal("toggle");
+			//	} else {
+			//		alertify.alert(data);
+			//	}
+			//});
 			
 		});
 	});
