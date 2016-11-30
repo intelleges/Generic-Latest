@@ -338,7 +338,8 @@ var registration = (function ($) {
 		$(".narrative-hint").click(function () {
 			//alert();
 			CKEDITOR.instances["text-field"].setData("");
-			$.getJSON("GetSubjectsByQuestion?question=" + $(this).prop("id").split("-")[2], function (data) {
+			_this.vars.currentQuestionId = $(this).prop("id").split("-")[2];
+			$.getJSON("GetSubjectsByQuestion?question=" + _this.vars.currentQuestionId, function (data) {
 				
 				var options = "<option>Select subject...</option>";
 				if (data) {
@@ -361,6 +362,19 @@ var registration = (function ($) {
 				}
 			}
 				
+		});
+		$("#myModal #saveButton").click(function () {
+			$.post("SaveDataFromHint", {
+				questionId: _this.vars.currentQuestionId,
+				text: CKEDITOR.instances["text-field"].getData()
+			}, function (data) {
+				if (!data) {
+					$("#myModal").modal("toggle");
+				} else {
+					alertify.alert(data);
+				}
+			});
+			
 		});
 	});
 	return _this;

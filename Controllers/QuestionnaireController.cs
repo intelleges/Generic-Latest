@@ -192,6 +192,8 @@ namespace Generic.Controllers
 			return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
 		}
 
+		
+
 		[Authorize]
 		public ActionResult QuestionnaireDetailView(int id, int? ptqId, int? questionId, int? partnerId, int? responseId)
 		{

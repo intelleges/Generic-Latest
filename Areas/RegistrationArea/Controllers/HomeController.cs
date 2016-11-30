@@ -1755,7 +1755,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			// return View();
 		}
 
-
+		[ValidateInput(false)]
+		public ActionResult SaveDataFromHint(int questionid, string text)
+		{
+			var question = db.questions.FirstOrDefault(o => o.id == questionid);
+			if (question != null)
+			{
+				question.commentBoxTxt = text;
+				db.Entry(question).State = EntityState.Modified;
+				db.SaveChanges();
+			}
+			else
+			{
+				return Json("There is no a such question");
+			}
+			return Json(false);
+		}
 
 
 		private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int pageQ = 0, int pageNumberQ = 0)
