@@ -90,7 +90,7 @@
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
 
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq)">Print PDF</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID)">Print PDF</a></li>
 
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
                         @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
@@ -577,10 +577,13 @@
 			}
 		});
 	}
-	function checkToPrintPDF(pptqId) {
-		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId }, function (data) {
+	function checkToPrintPDF(pptqId, status) {
+		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status }, function (data) {
 
-			if (data.message.next == 6) {
+			if (data.rule != '') {
+				alertify.alert(data.rule);
+			}
+			else if (data.message.next == 6) {
 				alertify.alert(data[0].nextStep);
 			}
 			else if (data.message.next == 5) {
@@ -625,7 +628,7 @@
 			else {
 				alertify.alert(data.message.nextStep);
 				if (data.message.next > 6) {
-					checkToPrintPDF(data.message.next);
+					checkToPrintPDF(data.message.next, status);
 				}
 			}
 		}).fail(function (jqXHR, textStatus, errorThrown) {

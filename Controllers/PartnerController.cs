@@ -4419,11 +4419,35 @@ namespace Generic.Controllers
 			return Json(message, JsonRequestBehavior.AllowGet);
 
 		}
-		public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId)
+		public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId, int status)
 		{
 			var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
 			var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
-			return Json(new { accessCode = accessCode, message = message }, JsonRequestBehavior.AllowGet);
+
+			var rule = db.pr_getCampaignRuleByPPTQAndStatus(pptqId, status).FirstOrDefault();
+
+
+			string messageRule = "";
+			DateTime dttm = DateTime.Now;
+			if (rule != null)
+			{
+				messageRule = "Have Rule";
+
+				if (dttm > rule.switchOffDate && dttm > rule.hardEndDate)
+				{
+					messageRule += " Rule 2";
+				}
+				else if (dttm > rule.switchOffDate && dttm < rule.hardEndDate)
+				{
+					messageRule += " Rule 1";
+					if(status == 8)
+						messageRule += " print nextPTQ";
+					else
+						messageRule +="  print currentPTQ";
+				}
+			}
+
+			return Json(new { accessCode = accessCode, message = message, rule = messageRule }, JsonRequestBehavior.AllowGet);
 		}
 
 		private DataTable GetResponsesTable(int pptqId, int levelType)

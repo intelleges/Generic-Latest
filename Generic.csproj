@@ -1092,6 +1092,9 @@
     <Compile Include="pr_getCampaignRuleAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getCampaignRuleByPPTQAndStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getCampaignStatusAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

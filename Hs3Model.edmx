@@ -5846,6 +5846,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getCampaignRuleAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCampaignRuleByPPTQAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -15382,6 +15386,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_getIteratePartnerNoteAllGrid" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerNoteAllGrid_Result)">
           <Parameter Name="iteratePartner" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getCampaignRuleByPPTQAndStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRuleByPPTQAndStatus_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -24778,6 +24786,26 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="person" Nullable="false" />
           <Property Type="String" Name="nickname" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getCampaignRuleByPPTQAndStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="Int32" Name="initTest" Nullable="true" />
+          <Property Type="Int32" Name="ptqCurrent" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="statusLogic" Nullable="true" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="Int32" Name="scoreLogic" Nullable="true" />
+          <Property Type="Int32" Name="responseInterval" Nullable="true" />
+          <Property Type="Int32" Name="responseIntervalLogic" Nullable="true" />
+          <Property Type="Boolean" Name="straightline" Nullable="true" />
+          <Property Type="Int32" Name="delayInterval" Nullable="true" />
+          <Property Type="Int32" Name="delayIntervalLogic" Nullable="true" />
+          <Property Type="Int32" Name="ptqNext" Nullable="true" />
+          <Property Type="DateTime" Name="hardEndDate" Nullable="true" />
+          <Property Type="DateTime" Name="switchOffDate" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33056,6 +33084,30 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="person" ColumnName="person" />
                 <ScalarProperty Name="nickname" ColumnName="nickname" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCampaignRuleByPPTQAndStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getCampaignRuleByPPTQAndStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCampaignRuleByPPTQAndStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="initTest" ColumnName="initTest" />
+                <ScalarProperty Name="ptqCurrent" ColumnName="ptqCurrent" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="statusLogic" ColumnName="statusLogic" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="scoreLogic" ColumnName="scoreLogic" />
+                <ScalarProperty Name="responseInterval" ColumnName="responseInterval" />
+                <ScalarProperty Name="responseIntervalLogic" ColumnName="responseIntervalLogic" />
+                <ScalarProperty Name="straightline" ColumnName="straightline" />
+                <ScalarProperty Name="delayInterval" ColumnName="delayInterval" />
+                <ScalarProperty Name="delayIntervalLogic" ColumnName="delayIntervalLogic" />
+                <ScalarProperty Name="ptqNext" ColumnName="ptqNext" />
+                <ScalarProperty Name="hardEndDate" ColumnName="hardEndDate" />
+                <ScalarProperty Name="switchOffDate" ColumnName="switchOffDate" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
