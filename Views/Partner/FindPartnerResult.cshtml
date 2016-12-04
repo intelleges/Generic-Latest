@@ -581,7 +581,7 @@
 		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status }, function (data) {
 
 			if (data.iscanprintPdf == true) {
-				window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode + '&pptqId=' + data.pptqId;
+				window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
 			}
 			else if (data.message.next == 6) {
 				alertify.alert(data[0].nextStep);

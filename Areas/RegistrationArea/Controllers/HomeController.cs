@@ -9681,7 +9681,6 @@ Intelleges Team";
 		public ActionResult PDFCustomizedConfirmation()
 		{
 			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-			string pptqId = Session["pptqId"] != null ? Session["pptqId"].ToString() : "";
 			if (!String.IsNullOrEmpty(accessCode))
 			{
 				var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
@@ -9690,10 +9689,6 @@ Intelleges Team";
 					var _partnerId = _pptq.partner;
 					var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
 					var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
-					if (!String.IsNullOrEmpty(pptqId))
-					{
-						pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == Convert.ToInt32(pptqId)).FirstOrDefault().id;
-					}
 					var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
 					return new BinaryContentResult(pdf, "application/pdf");
 				}

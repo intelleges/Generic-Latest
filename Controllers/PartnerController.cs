@@ -1820,7 +1820,7 @@ namespace Generic.Controllers
 			return Json(false, JsonRequestBehavior.AllowGet);
 		}
 
-		public ActionResult PrintPDF(string accesscode, int? pptqId)
+		public ActionResult PrintPDF(string accesscode)
 		{
 			if (!string.IsNullOrEmpty(accesscode))
 			{
@@ -1831,11 +1831,6 @@ namespace Generic.Controllers
 					var _partnerId = _pptq.partner;
 					var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
 					partnerPartnertypeTouchpointQuestionnaire pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
-					if (pptqId.HasValue)
-					{
-						Session["pptqId"] = pptqId.Value;
-						pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == pptqId).FirstOrDefault();
-					}	
 
 					var pdf = db.pr_getPPTQpdf(pptq.id).FirstOrDefault();
 					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
@@ -4438,8 +4433,6 @@ namespace Generic.Controllers
 
 			string messageRule = "";
 			bool iscanprintPdf = false;
-			bool isreminder = false;
-			int pptqIdp = -1;
 			DateTime dttm = DateTime.Now;
 			if (rule != null)
 			{
@@ -4455,19 +4448,18 @@ namespace Generic.Controllers
 				var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqNext && o.status == 8).FirstOrDefault();
 
 				if (pptqCurrent == null && pptq == null) {
-					isreminder = true;
 					message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 				}
 
 				if (pptqCurrent != null)
 				{
 					iscanprintPdf = true;
-					pptqIdp = pptqCurrent.partnerTypeTouchpointQuestionnaire;
+					accessCode = pptqCurrent.accesscode;
 				}
 
 				if (pptq != null) {
 					iscanprintPdf = true;
-					pptqIdp = pptq.partnerTypeTouchpointQuestionnaire;
+					accessCode = pptqCurrent.accesscode;
 				}
 
 				messageRule = "Have Rule";
@@ -4492,7 +4484,7 @@ namespace Generic.Controllers
 				}
 			}
 
-			return Json(new { accessCode = accessCode, message = message, rule = messageRule, pptqId = pptqIdp, iscanprintPdf = iscanprintPdf, isreminder = isreminder }, JsonRequestBehavior.AllowGet);
+			return Json(new { accessCode = accessCode, message = message, rule = messageRule, iscanprintPdf = iscanprintPdf }, JsonRequestBehavior.AllowGet);
 		}
 
 		private DataTable GetResponsesTable(int pptqId, int levelType)

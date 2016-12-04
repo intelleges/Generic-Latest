@@ -6758,6 +6758,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getQuestionnaireByPartnumberSiteZcodePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionnaireByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionnaireByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
         </Function>
@@ -15399,6 +15402,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="ptq" Mode="In" Type="Int32" />
             <Parameter Name="partner" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByAccesscode_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24834,6 +24840,21 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="priority" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="locked" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="letter" Nullable="true" />
+          <Property Type="Int32" Name="levelType" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33158,6 +33179,25 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="score" ColumnName="score" />
                 <ScalarProperty Name="priority" ColumnName="priority" />
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByPPTQ">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireByAccesscode_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="footer" ColumnName="footer" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="letter" ColumnName="letter" />
+                <ScalarProperty Name="levelType" ColumnName="levelType" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
