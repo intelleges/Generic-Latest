@@ -589,8 +589,16 @@
 			else if (data.message.next == 4) {
 				alertify.alert(data.message.nextStep);
 			}
-			else if (data.rule != '') {
-				alertify.alert(data.rule);
+			else if (data.rule != '') {	
+				if (data.iscaprintPdf == true && data.isold == true) {
+					window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode + '&isold=true';
+				}
+				else if (data.iscaprintPdf == true) {
+					window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+				}
+				else {
+					alertify.alert(data.rule);
+				}
 			}
 			else if (data.message.next == 3) {
 				alertify.confirm(data.message.nextStep, function (e) {
@@ -672,12 +680,12 @@
 		});
 	}
 
-    $(function () {
-        $(".t-widget.t-dropdown.t-header").css("width", "100%");
-    });
-    $("#changePtqBtn").click(function () {
+	$(function () {
+		$(".t-widget.t-dropdown.t-header").css("width", "100%");
+	});
+	$("#changePtqBtn").click(function () {
 
-    })
+	})
 </script>
 <div class="tw-bs">
     <div class="container-fluid">

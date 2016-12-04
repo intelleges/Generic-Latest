@@ -2429,9 +2429,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 			if (ppptq_cms != null)
 			{
-				
+
 				_translator.PPTQ = ppptq_cms;
-				
+
 				objViewBag.REQUIRED_FIELDS = _translator.Translate(REQUIRED_FIELDS, CurrentLanguage);
 
 				//PODS //Purchase_Order_INFORMATION_TEXT
@@ -2441,10 +2441,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_BUYER_TEXT_INFORMATION, CurrentLanguage);
 					objViewBag.IsPODS = true;
 				}
-				else {
+				else
+				{
 					objViewBag.CONTACT_INFORMATION_TEXT = _translator.Translate(CONTACT_INFORMATION_TEXT, CurrentLanguage);
 					objViewBag.VERIFY_CONTACT_TEXT_INFORMATION = _translator.Translate(VERIFY_CONTACT_TEXT_INFORMATION, CurrentLanguage);
-					
+
 				}
 
 				objViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
@@ -2494,7 +2495,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				objpartner.firstName = partner.firstName;
 				objpartner.lastName = partner.lastName;
 				objpartner.email = partner.email;
-				if (ispods != true) {
+				if (ispods != true)
+				{
 					objpartner.title = partner.title;
 					objpartner.phone = partner.phone;
 					objpartner.fax = partner.fax;
@@ -6208,7 +6210,7 @@ Intelleges Team";
 						{
 							ViewBag.Checkbox64 = _chacked;
 							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-							
+
 							ViewBag.Input35 = item.comment;
 						}
 						break;
@@ -6223,9 +6225,9 @@ Intelleges Team";
 						{
 							ViewBag.Checkbox66 = _chacked;
 							comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-							ViewBag.Input36 = (comments.Length > 1 ? comments[1] : comments[0]);	
+							ViewBag.Input36 = (comments.Length > 1 ? comments[1] : comments[0]);
 						}
-						
+
 						break;
 
 
@@ -6248,7 +6250,7 @@ Intelleges Team";
 						break;
 
 					case 26604:
-						
+
 						switch (item.response)
 						{
 							case 48737:
@@ -6260,7 +6262,7 @@ Intelleges Team";
 						}
 						break;
 
-					
+
 					case 26606:
 						comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
 
@@ -7986,16 +7988,16 @@ Intelleges Team";
 					case 25061:
 						//Start Date
 						DateTime dttm = DateTime.MinValue;
-						if (DateTime.TryParse(item.comment,out dttm))
+						if (DateTime.TryParse(item.comment, out dttm))
 							ViewBag.Q24848_Value = dttm.ToString("MM/dd/yyyy");
 						else ViewBag.Q24848_Value = item.comment;
 						break;
 					case 25062:
 						//End Date
 						DateTime dttm1 = DateTime.MinValue;
-						if (DateTime.TryParse(item.comment,out dttm1))
+						if (DateTime.TryParse(item.comment, out dttm1))
 							ViewBag.Q24849_Value = dttm1.ToString("MM/dd/yyyy");
-						else ViewBag.Q24849_Value = item.comment;						
+						else ViewBag.Q24849_Value = item.comment;
 						break;
 					case 25063:
 						ViewBag.Q24850_Value = item.comment;
@@ -8263,7 +8265,7 @@ Intelleges Team";
 						if (int.TryParse((item.comment ?? "").Trim(), out qty4))
 						{
 							ViewBag.Q24861_Value = item.comment;
-						}			
+						}
 						break;
 					case 25011:
 						ViewBag.Q24874_Value = item.comment;
@@ -9676,7 +9678,7 @@ Intelleges Team";
 			return new BinaryContentResult(null, "application/pdf");
 		}
 
-		public ActionResult PDFCustomizedConfirmation()
+		public ActionResult PDFCustomizedConfirmation(bool? isold)
 		{
 			string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
 			if (!String.IsNullOrEmpty(accessCode))
@@ -9687,12 +9689,16 @@ Intelleges Team";
 					var _partnerId = _pptq.partner;
 					var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
 					var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+					if (isold == true) {
+						pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.status == 8).FirstOrDefault().id;
+					}
 					var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
 					return new BinaryContentResult(pdf, "application/pdf");
 				}
 			}
 			return RedirectToAction("~/Registration/Home");
 		}
+
 
 		public ActionResult PrintCustomizedPDFConfirmation(string accesscode)
 		{
