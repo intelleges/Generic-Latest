@@ -1851,7 +1851,7 @@ namespace Generic.Controllers
 					}
 					else
 					{
-							Response.Redirect("~/Registration/Home/PDFCustomizedConfirmation");
+						Response.Redirect("~/Registration/Home/PDFCustomizedConfirmation");
 					}
 				}
 				else
@@ -4429,40 +4429,44 @@ namespace Generic.Controllers
 			var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 
 			List<pr_getCampaignRuleByPPTQAndStatus_Result> rules = db.pr_getCampaignRuleByPPTQAndStatus(pptqId, status).ToList();
-			var rule = rules.FirstOrDefault();
 
 			string messageRule = "";
 			bool iscanprintPdf = false;
 			DateTime dttm = DateTime.Now;
-			if (rule != null)
+			if (rules.Count > 0)
 			{
 				var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
-				//var items = db.pr_getPPTQByPartnerPTQAndStatus(_pptq.id, _pptq.partner, status);
-				//int count = items.Count();
 				var _partnerId = _pptq.partner;
 				var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
 
-				var pptqCurrent = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqCurrent && o.status == 8).FirstOrDefault();
-
-				var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqNext && o.status == 8).FirstOrDefault();
-
-				if (pptqCurrent == null && pptq == null) {
-					message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
-				}
-
-				if (pptqCurrent != null)
+				partnerPartnertypeTouchpointQuestionnaire pptqCurrent = null;
+				
+				foreach (var rule in rules)
 				{
+					pptqCurrent = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqCurrent && o.status == 8).FirstOrDefault();
+					if (pptqCurrent != null)
+						break;
+				}
+
+				if (pptqCurrent != null){
 					iscanprintPdf = true;
 					accessCode = pptqCurrent.accesscode;
 				}
+				else
+				{
+					var rule = rules[0];
+					var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqNext && o.status == 8).FirstOrDefault();
 
-				if (pptq != null) {
-					iscanprintPdf = true;
-					accessCode = pptqCurrent.accesscode;
+					if (pptq != null)
+					{
+						iscanprintPdf = true;
+						accessCode = pptq.accesscode;
+					}
 				}
 
-				messageRule = "Have Rule";
+
+				/*messageRule = "Have Rule";
 				if (dttm > rule.switchOffDate && dttm > rule.hardEndDate)
 				{
 					messageRule += " Rule 2";
@@ -4481,7 +4485,7 @@ namespace Generic.Controllers
 
 				if (rule.ptqCurrent == rule.ptqNext){
 					messageRule = "";
-				}
+				}*/
 			}
 
 			return Json(new { accessCode = accessCode, message = message, rule = messageRule, iscanprintPdf = iscanprintPdf }, JsonRequestBehavior.AllowGet);
