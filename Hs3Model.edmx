@@ -2517,7 +2517,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a 
           <Property Name="city" Type="varchar" MaxLength="255" />
           <Property Name="state" Type="varchar" MaxLength="10" />
           <Property Name="address" Type="varchar" MaxLength="255" />
-          <Property Name="zipcode" Type="varchar" MaxLength="20" />
+          <Property Name="zipcode" Type="varchar" MaxLength="200" />
           <Property Name="touchpointID" Type="int" Nullable="false" />
           <Property Name="Touchpoint" Type="varchar" MaxLength="50" />
           <Property Name="partnertypeID" Type="int" Nullable="false" />
@@ -6652,6 +6652,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getPPTQByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQByPartnerPTQAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="partner" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPPTQByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -15388,6 +15393,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="pr_getCampaignRuleByPPTQAndStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCampaignRuleByPPTQAndStatus_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQByPartnerPTQAndStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQByPartnerPTQAndStatus_Result)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="partner" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -24249,7 +24259,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="city" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="state" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="zipcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="zipcode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="touchpointID" Type="Int32" Nullable="false" />
           <Property Name="Touchpoint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="partnertypeID" Type="Int32" Nullable="false" />
@@ -24805,6 +24815,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="DateTime" Name="switchOffDate" Nullable="true" />
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQByPartnerPTQAndStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="priority" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -33108,6 +33136,28 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="switchOffDate" ColumnName="switchOffDate" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQByPartnerPTQAndStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQByPartnerPTQAndStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQByPartnerPTQAndStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -1820,7 +1820,7 @@ namespace Generic.Controllers
 			return Json(false, JsonRequestBehavior.AllowGet);
 		}
 
-		public ActionResult PrintPDF(string accesscode, bool? isold)
+		public ActionResult PrintPDF(string accesscode, int? pptqId)
 		{
 			if (!string.IsNullOrEmpty(accesscode))
 			{
@@ -1831,8 +1831,10 @@ namespace Generic.Controllers
 					var _partnerId = _pptq.partner;
 					var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
 					partnerPartnertypeTouchpointQuestionnaire pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
-					if (isold == true) {
-						pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o=>o.status == 8).FirstOrDefault();
+					if (pptqId.HasValue)
+					{
+						Session["pptqId"] = pptqId.Value;
+						pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == pptqId).FirstOrDefault();
 					}	
 
 					var pdf = db.pr_getPPTQpdf(pptq.id).FirstOrDefault();
@@ -1854,10 +1856,7 @@ namespace Generic.Controllers
 					}
 					else
 					{
-						if(isold !=true)
 							Response.Redirect("~/Registration/Home/PDFCustomizedConfirmation");
-						else 
-							Response.Redirect("~/Registration/Home/PDFCustomizedConfirmation?isold=true");
 					}
 				}
 				else
@@ -4438,26 +4437,39 @@ namespace Generic.Controllers
 			var rule = rules.FirstOrDefault();
 
 			string messageRule = "";
-			bool iscaprintPdf = false;
-			bool isold = false;
+			bool iscanprintPdf = false;
+			bool isreminder = false;
+			int pptqIdp = -1;
 			DateTime dttm = DateTime.Now;
 			if (rule != null)
 			{
 				var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-				
+
+				//var items = db.pr_getPPTQByPartnerPTQAndStatus(_pptq.id, _pptq.partner, status);
+				//int count = items.Count();
 				var _partnerId = _pptq.partner;
 				var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-				var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o=>o.status ==8).FirstOrDefault();
-				if (pptq != null)
-				{
-					var pdf = db.pr_getPPTQpdf(pptq.id).FirstOrDefault();
 
-					if (pdf != null)
-					{
-						iscaprintPdf = true;
-						isold = true;
-					}
+				var pptqCurrent = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqCurrent && o.status == 8).FirstOrDefault();
+
+				var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqNext && o.status == 8).FirstOrDefault();
+
+				if (pptqCurrent == null && pptq == null) {
+					isreminder = true;
+					message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 				}
+
+				if (pptqCurrent != null)
+				{
+					iscanprintPdf = true;
+					pptqIdp = pptqCurrent.partnerTypeTouchpointQuestionnaire;
+				}
+
+				if (pptq != null) {
+					iscanprintPdf = true;
+					pptqIdp = pptq.partnerTypeTouchpointQuestionnaire;
+				}
+
 				messageRule = "Have Rule";
 				if (dttm > rule.switchOffDate && dttm > rule.hardEndDate)
 				{
@@ -4480,7 +4492,7 @@ namespace Generic.Controllers
 				}
 			}
 
-			return Json(new { accessCode = accessCode, message = message, rule = messageRule, iscaprintPdf = iscaprintPdf, isold = isold }, JsonRequestBehavior.AllowGet);
+			return Json(new { accessCode = accessCode, message = message, rule = messageRule, pptqId = pptqIdp, iscanprintPdf = iscanprintPdf, isreminder = isreminder }, JsonRequestBehavior.AllowGet);
 		}
 
 		private DataTable GetResponsesTable(int pptqId, int levelType)

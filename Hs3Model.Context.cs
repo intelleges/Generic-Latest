@@ -18664,5 +18664,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCampaignRuleByPPTQAndStatus_Result>("pr_getCampaignRuleByPPTQAndStatus", pptqParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<pr_getPPTQByPartnerPTQAndStatus_Result> pr_getPPTQByPartnerPTQAndStatus(Nullable<int> ptq, Nullable<int> partner, Nullable<int> status)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQByPartnerPTQAndStatus_Result>("pr_getPPTQByPartnerPTQAndStatus", ptqParameter, partnerParameter, statusParameter);
+        }
     }
 }
