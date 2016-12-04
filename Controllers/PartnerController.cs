@@ -3884,7 +3884,8 @@ namespace Generic.Controllers
 
 					int iteratetId = -1;
 					iterateEmailText iterateEmailText = null;
-					if(int.TryParse(iterateTextId, out iteratetId)){
+					if (int.TryParse(iterateTextId, out iteratetId))
+					{
 						iterateEmailText = db.pr_getIterateEmailText(iteratetId).FirstOrDefault();
 					}
 
@@ -4046,7 +4047,8 @@ namespace Generic.Controllers
 
 					int iteratetId = -1;
 					iterateEmailText iterateEmailText = null;
-					if (int.TryParse(iterateTextId, out iteratetId)){
+					if (int.TryParse(iterateTextId, out iteratetId))
+					{
 						iterateEmailText = db.pr_getIterateEmailText(iteratetId).FirstOrDefault();
 					}
 
@@ -4424,15 +4426,14 @@ namespace Generic.Controllers
 			var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
 			var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 
-			var rule = db.pr_getCampaignRuleByPPTQAndStatus(pptqId, status).FirstOrDefault();
-
+			List<pr_getCampaignRuleByPPTQAndStatus_Result> rules = db.pr_getCampaignRuleByPPTQAndStatus(pptqId, status).ToList();
+			var rule = rules.FirstOrDefault();
 
 			string messageRule = "";
 			DateTime dttm = DateTime.Now;
-			if (rule != null)
+			if (rule != null && rule.ptqNext != null)
 			{
 				messageRule = "Have Rule";
-
 				if (dttm > rule.switchOffDate && dttm > rule.hardEndDate)
 				{
 					messageRule += " Rule 2";
@@ -4440,10 +4441,17 @@ namespace Generic.Controllers
 				else if (dttm > rule.switchOffDate && dttm < rule.hardEndDate)
 				{
 					messageRule += " Rule 1";
-					if(status == 8)
+					if (status == 8)
 						messageRule += " print nextPTQ";
 					else
-						messageRule +="  print currentPTQ";
+						messageRule += " print currentPTQ";
+
+					messageRule += " switchOffDate:"+ rule.switchOffDate.ToString() + " hardEndDate:"+rule.hardEndDate.ToString();
+				}
+
+
+				if (rule.ptqCurrent == rule.ptqNext){
+					messageRule = "";
 				}
 			}
 
