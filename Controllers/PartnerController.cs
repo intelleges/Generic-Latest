@@ -4428,67 +4428,15 @@ namespace Generic.Controllers
 			var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
 			var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 
-			List<pr_getCampaignRuleByPPTQAndStatus_Result> rules = db.pr_getCampaignRuleByPPTQAndStatus(pptqId, status).ToList();
-
-			string messageRule = "";
+			var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(pptqId, status).ToList();
 			bool iscanprintPdf = false;
-			DateTime dttm = DateTime.Now;
-			if (rules.Count > 0)
+			if (pptqs.Count > 0)
 			{
-				var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-
-				var _partnerId = _pptq.partner;
-				var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
-
-				partnerPartnertypeTouchpointQuestionnaire pptqCurrent = null;
-				
-				foreach (var rule in rules)
-				{
-					pptqCurrent = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqCurrent && o.status == 8).FirstOrDefault();
-					if (pptqCurrent != null)
-						break;
-				}
-
-				if (pptqCurrent != null){
-					iscanprintPdf = true;
-					accessCode = pptqCurrent.accesscode;
-				}
-				else
-				{
-					var rule = rules[0];
-					var pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.partnerTypeTouchpointQuestionnaire == rule.ptqNext && o.status == 8).FirstOrDefault();
-
-					if (pptq != null)
-					{
-						iscanprintPdf = true;
-						accessCode = pptq.accesscode;
-					}
-				}
-
-
-				/*messageRule = "Have Rule";
-				if (dttm > rule.switchOffDate && dttm > rule.hardEndDate)
-				{
-					messageRule += " Rule 2";
-				}
-				else if (dttm > rule.switchOffDate && dttm < rule.hardEndDate)
-				{
-					messageRule += " Rule 1";
-					if (status == 8)
-						messageRule += " print nextPTQ";
-					else
-						messageRule += " print currentPTQ";
-
-					messageRule += " switchOffDate:"+ rule.switchOffDate.ToString() + " hardEndDate:"+rule.hardEndDate.ToString();
-				}
-
-
-				if (rule.ptqCurrent == rule.ptqNext){
-					messageRule = "";
-				}*/
+				iscanprintPdf = true;
+				accessCode = pptqs[0].accesscode;
 			}
 
-			return Json(new { accessCode = accessCode, message = message, rule = messageRule, iscanprintPdf = iscanprintPdf }, JsonRequestBehavior.AllowGet);
+			return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf }, JsonRequestBehavior.AllowGet);
 		}
 
 		private DataTable GetResponsesTable(int pptqId, int levelType)

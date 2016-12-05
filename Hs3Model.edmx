@@ -6683,6 +6683,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPPTQQuestionResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerpartnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPreviousPPTQByPPTQAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -15404,7 +15408,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByAccesscode_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPreviousPPTQByPPTQAndStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPreviousPPTQByPPTQAndStatus_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24855,6 +24863,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="letter" Nullable="true" />
           <Property Type="Int32" Name="levelType" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getPreviousPPTQByPPTQAndStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="priority" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33198,6 +33224,28 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="partnerType" ColumnName="partnerType" />
                 <ScalarProperty Name="letter" ColumnName="letter" />
                 <ScalarProperty Name="levelType" ColumnName="levelType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPreviousPPTQByPPTQAndStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPreviousPPTQByPPTQAndStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPreviousPPTQByPPTQAndStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

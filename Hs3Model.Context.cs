@@ -18690,5 +18690,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByAccesscode_Result>("pr_getQuestionnaireByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getPreviousPPTQByPPTQAndStatus_Result> pr_getPreviousPPTQByPPTQAndStatus(Nullable<int> pptq, Nullable<int> status)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPreviousPPTQByPPTQAndStatus_Result>("pr_getPreviousPPTQByPPTQAndStatus", pptqParameter, statusParameter);
+        }
     }
 }
