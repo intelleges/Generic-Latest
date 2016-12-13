@@ -3397,7 +3397,7 @@
     columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
     columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
     columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-    columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
+	columns.Bound(o => o.iteratePartnerStatus).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatus_Description#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
      
 	columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
 <a href='#' id='note<#=id#>' class='menu_block'><#=Note#></a>

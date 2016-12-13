@@ -21,5 +21,10 @@ namespace Generic
 				return nextActionDate.HasValue ? nextActionDate.Value.ToShortDateString() + " " + nextActionDate.Value.ToLongTimeString() : "";
 			}
 		}
+		public string iteratePartnerStatus_Description
+		{
+			get;
+			set;
+		}
 	}
 }

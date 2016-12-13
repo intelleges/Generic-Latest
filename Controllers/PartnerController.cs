@@ -2197,7 +2197,8 @@ namespace Generic.Controllers
 
 		public ActionResult GetSubjectsIterateByPerson(int personId, int? pptq)
 		{
-			if (pptq.HasValue) {
+			if (pptq.HasValue)
+			{
 				return Json(new { list = db.pr_getAutomailMessageAllByPPTQ(pptq).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
 			}
 			return Json(new { list = db.pr_getIterateEmailTextAll(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
@@ -2207,7 +2208,7 @@ namespace Generic.Controllers
 		{
 			if (pptq.HasValue)
 			{
-				return Json(db.pr_getAutomailMessageAllByPPTQ(pptq).FirstOrDefault(o=>o.id==id), JsonRequestBehavior.AllowGet);
+				return Json(db.pr_getAutomailMessageAllByPPTQ(pptq).FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
 			}
 			var val = db.pr_getIterateEmailText(id).First(o => o.id == id);
 			return Json(new
@@ -3531,7 +3532,21 @@ namespace Generic.Controllers
 		{
 			try
 			{
+				var ipsall = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
+				var psall = db.pr_getPartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
 				var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
+				result.ForEach(o =>
+				{
+					if (o.iteratePartnerStatus.HasValue)
+						if (o.pptq.HasValue)
+						{
+							o.iteratePartnerStatus_Description = psall.ContainsKey(o.iteratePartnerStatus.Value) ? psall[o.iteratePartnerStatus.Value] : "";
+						}
+						else
+						{
+							o.iteratePartnerStatus_Description = ipsall.ContainsKey(o.iteratePartnerStatus.Value) ? ipsall[o.iteratePartnerStatus.Value] : "";
+						}
+				});
 				if (SessionSingleton.AddIteratePartnerId.HasValue)
 				{
 					var topItem = result.FirstOrDefault(o => o.id == SessionSingleton.AddIteratePartnerId.Value);
