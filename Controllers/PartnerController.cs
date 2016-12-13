@@ -2197,14 +2197,18 @@ namespace Generic.Controllers
 
 		public ActionResult GetSubjectsIterateByPerson(int personId, int? pptq)
 		{
-			/*if (pptq.HasValue) {
-				return Json(new { list = db.pr_getAutomailMessagePPTQ(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
-			}*/
+			if (pptq.HasValue) {
+				return Json(new { list = db.pr_getAutomailMessageAllByPPTQ(pptq).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
+			}
 			return Json(new { list = db.pr_getIterateEmailTextAll(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
 		}
 
-		public ActionResult GetAutomailIterate(int id)
+		public ActionResult GetAutomailIterate(int id, int? pptq)
 		{
+			if (pptq.HasValue)
+			{
+				return Json(db.pr_getAutomailMessageAllByPPTQ(pptq).FirstOrDefault(o=>o.id==id), JsonRequestBehavior.AllowGet);
+			}
 			var val = db.pr_getIterateEmailText(id).First(o => o.id == id);
 			return Json(new
 			{
@@ -3596,7 +3600,7 @@ namespace Generic.Controllers
 				NEXT_ACTION = o.nextAction,
 				NEXT_ACTION_DATE = o.nextActionDate.ToString(),
 				EMPLOYEE_COUNT = o.numberOfEmployees.ToString(),
-				NOTES = o.Note1 > 0 ? "Y" : "N",
+				NOTES = o.Note > 0 ? "Y" : "N",
 				PARTNER_CITY = o.city,
 				PARTNER_ADDRESS_ONE = o.address1,
 				PARTNER_ADDRESS_TWO = o.address2,
@@ -4172,7 +4176,7 @@ namespace Generic.Controllers
 		{
 			var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
 			//var result = db.pr_getIteratePartnerByPersonLatest(SessionSingleton.LoggedInUserId).ToList();
-			return Json(result.Select(o => o.note).ToList().Distinct());
+			return Json(result.Select(o => o.Note).ToList().Distinct());
 		}
 
 		public ActionResult AddNewIteratePartner(int partnerId, string firstName, string lastName, string title, string phoneNumber, string email)

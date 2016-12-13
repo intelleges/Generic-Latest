@@ -11,7 +11,7 @@ namespace Generic
 		{
 			get
 			{
-				return Note1 > 0 ? "Y" : "N";
+				return  Note > 0 ? "Y" : "N";
 			}
 		}
 		public string NextActionDateDisplay

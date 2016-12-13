@@ -26,7 +26,6 @@ namespace Generic
         public string federalID { get; set; }
         public Nullable<int> numberOfEmployees { get; set; }
         public Nullable<int> annualRevenue { get; set; }
-        public Nullable<System.Guid> note { get; set; }
         public string owner { get; set; }
         public string author { get; set; }
         public Nullable<System.DateTime> dateApproved { get; set; }
@@ -56,6 +55,7 @@ namespace Generic
         public int nextActionID { get; set; }
         public string nextAction { get; set; }
         public Nullable<System.DateTime> nextActionDate { get; set; }
-        public int Note1 { get; set; }
+        public int Note { get; set; }
+        public Nullable<int> pptq { get; set; }
     }
 }

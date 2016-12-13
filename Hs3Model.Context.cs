@@ -16662,15 +16662,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyIteratePerson", idParameter, firstnameParameter, lastnameParameter, titleParameter, emailParameter, phoneParameter, faxParameter, activeParameter, dateAddedParameter, lastModifiedParameter, iteratePartnerParameter, lastContactParameter, lastContactDateParameter, previousContactParameter, previousContactDateParameter, nextActionParameter, nextActionDateParameter, notesParameter, objectionParameter);
         }
     
-        public virtual ObjectResult<pr_getIteratePartnerPerson3_Result> pr_getIteratePartnerPerson3(Nullable<int> person)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson3_Result>("pr_getIteratePartnerPerson3", personParameter);
-        }
-    
         public virtual ObjectResult<pr_getPartnerStatusAllByEnterprise_Result> pr_getPartnerStatusAllByEnterprise(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
@@ -18702,6 +18693,15 @@ namespace Generic
                 new ObjectParameter("status", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPreviousPPTQByPPTQAndStatus_Result>("pr_getPreviousPPTQByPPTQAndStatus", pptqParameter, statusParameter);
+        }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPerson3_Result> pr_getIteratePartnerPerson3(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson3_Result>("pr_getIteratePartnerPerson3", personParameter);
         }
     }
 }
