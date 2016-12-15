@@ -97,7 +97,7 @@
 						<li style='display:inherit'><a href="@item.Expr1" target="_blank">Complete</a></li>
 						<li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openNarrativePopup(@item.pptq,'@item.AccessCode')" target="_blank">Narrative</a></li>
 
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq)">Print PDF</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID)">Print PDF</a></li>
 
                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
                         @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
@@ -597,8 +597,8 @@
 			}
 		});
 	}
-	function checkToPrintPDF(pptqId) {
-		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId }, function (data) {
+	function checkToPrintPDF(pptqId,status) {
+		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status }, function (data) {
 
 			if (data.message.next == 6) {
 				alertify.alert(data[0].nextStep);
