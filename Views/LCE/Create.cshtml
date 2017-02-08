@@ -1,0 +1,271 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.LCEModel>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+
+@{
+	#region My
+	Layout = LayoutHelper.GetLayout();
+	ViewBag.Title = "LCE";
+	#endregion
+}
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#btnClear").click(function (e) {
+			alertify.confirm("Are you sure?", function (result) {
+				if (result) {
+					$("#addPartner input[type=text], #addPartner textarea").val("");
+					$("#addPartner textarea").text("");
+				}
+			});
+			
+		});
+	});
+	function submitForm() {
+		alertify.alert("Saved");
+	}
+</script>
+<style type="text/css">
+	.threecol, twocol {
+		width: 100%;
+		display: inline-block;
+	}
+
+	.twocol .editor-label {
+		width: 10%;
+		display: inline-block;
+		font-size: 11px;
+	}
+
+	.twocol .editor-field {
+		width: 35%;
+		display: inline-block;
+	}
+
+	.threecol .editor-label {
+		width: 10%;
+		display: inline-block;
+		font-size: 11px;
+	}
+
+	.threecol .editor-field {
+		width: 20%;
+		display: inline-block;
+	}
+
+		.threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+			width: 90%;
+			display: inline-block;
+			font-size: 11px;
+		}
+
+	.txtClass {
+		border-radius: 5px;
+		border-color: rgb(169, 169, 169);
+	}
+
+	.ddlClass {
+		height: 25px;
+		width: 96% !important;
+		border-radius: 5px;
+	}
+
+	#DueDate {
+		border-radius: 5px;
+		height: 18px;
+	}
+
+
+	.btn {
+		background: #3498db;
+		background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+		background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+		background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+		background-image: -o-linear-gradient(top, #3498db, #2980b9);
+		background-image: linear-gradient(to bottom, #3498db, #2980b9);
+		-webkit-border-radius: 12;
+		-moz-border-radius: 12;
+		border-radius: 28px;
+		font-family: Arial;
+		color: #ffffff;
+		font-size: 20px;
+		padding: 3px 20px 5px 20px !important;
+		text-decoration: none;
+	}
+
+		.btn:hover {
+			background: #3cb0fd;
+			background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+			text-decoration: none;
+		}
+</style>
+<div class="addPartnerDiv">
+	<h2>Create LCE</h2>
+</div>
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true)
+
+	<fieldset>
+		<legend>LCE</legend>
+		<div id="addPartner" class="addPartnerDiv">
+			<div class="twocol">
+				@*@Html.HiddenFor(model => model.id)*@
+				<!-- #region Name-->
+				<div class="editor-label">
+					@*@Html.LabelFor(model => model.internalID)*@
+					@Html.LabelFor(o => o.ProgramName)
+				</div>
+				<div class="editor-field">
+					@*@Html.EditorFor(model => model.internalID)*@
+					@Html.TextBoxFor(model => model.ProgramName, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ProgramName)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Designation)
+				</div>
+				<div class="editor-field">
+					@*@Html.EditorFor(model => model.name)*@
+					@Html.Telerik().AutoCompleteFor(o => o.Designation).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.Designation)
+				</div>
+				<!-- #endregion-->
+				<!-- #region Internal ID-->
+				<!-- #endregion-->
+
+			</div>
+
+
+			<div class="threecol">
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ProgramLeader)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ProgramLeader).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ProgramLeader)
+				</div>
+
+
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Coordinator)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.Coordinator).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.Coordinator)
+				</div>	
+				<div class="editor-label">
+					@Html.LabelFor(o => o.TACApprover)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.TACApprover).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.TACApprover)
+				</div>	
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecTwoTransitionsToChina)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecTwoTransitionsToChina).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecTwoTransitionsToChina)
+				</div><div class="editor-label">
+	@Html.LabelFor(o => o.ApproverSecThreeExport)
+</div>
+<div class="editor-field">
+	@Html.Telerik().AutoCompleteFor(o => o.ApproverSecThreeExport).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+	@Html.ValidationMessageFor(model => model.ApproverSecThreeExport)
+</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecFourIpCompliance)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFourIpCompliance).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecFourIpCompliance)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecFiveAChannelCustomerConstracts)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFiveAChannelCustomerConstracts).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecFiveAChannelCustomerConstracts)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecFiveBChannelCustomerConstracts)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFiveBChannelCustomerConstracts).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecFiveBChannelCustomerConstracts)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecFixBuyAmericanAct)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFixBuyAmericanAct).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecFixBuyAmericanAct)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecSevenBerryAmedment)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecSevenBerryAmedment).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecSevenBerryAmedment)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecEightSupplierContracts)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecEightSupplierContracts).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecEightSupplierContracts)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ApproverSecNineOffset)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecNineOffset).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ApproverSecNineOffset)
+				</div>
+				
+			</div>
+			<div class="editor-label">
+				@Html.LabelFor(o => o.ProjectDescription)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(o => o.ProjectDescription, new { rows = "5",@style="width:90%" })
+				@Html.ValidationMessageFor(model => model.ProjectDescription)
+			</div>
+			<p style="float: right; width: 20%;">
+				@*<input type="submit" value="Save" />*@
+				<input type="button" value="Save" class="btn" onclick="submitForm();" />
+				<input type="button" value="Clear" class="btn" id="btnClear" />
+				@*<input type="button" onclick="CloseMe()" value="Cancel" />*@
+			</p>
+		</div>
+		<p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
+		<div id="DivEventNotification">
+
+		</div>
+	</fieldset>
+
+	<div id="dvInvite" style="display:none">
+		<input type="submit" name="button" id="btnInvite" value="Send invites now" />
+		<input type="submit" name="button" id="btnInvitelater" value="Invite Later" />
+	</div>
+
+
+	<div id="dvConfirm" style="display:none">
+		@*For Confirm Now and later buttons*@
+		<input type="button" name="button" id="btnConfirm" value="Confirm Now" />
+		<input type="button" name="button" id="btnConfirmlater" value="Confirm Later" />
+	</div>
+
+}
