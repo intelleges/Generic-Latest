@@ -42,6 +42,8 @@ namespace Generic.Helpers.Questionnaire
 		public const int TEXT_NUMBER_N_X = 18;
 		public const int TEXT_NUMBER_Y_X = 19;
 		public const int XX_COMMENT_ALL = 20;
+		public const int YN_REFERENCE_Y = 21;
+		public const int YN_REFERENCE_N = 22;
         // old system
         //        commentType 4 = File  Upload
         //commentType 1 = Warning

@@ -14,125 +14,11 @@
     }
 }
 
-@*@section Bottom{
-    @Html.Partial("_BottomSection");
-}
 
-@section Top{
-    @Html.Partial("_TopSection");
-}*@
 
 @Styles.Render("~/bundles/registrationCss")
-@Scripts.Render("~/bundles/jquery")
-@*<table class="table-align" border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            <div class="supplycon">
-                <div class="commonh"></div>
-                <div class="redheader" align="center">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td align="center">
-                                  
-                                    <a id="IntLogo" href="#">
-                                        @{
-                                            if (@ViewBag.logoSrc != null)
-                                            {
-                                                string imageBase64 = Convert.ToBase64String(@ViewBag.logoSrc);
-                                                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-                                                <img src="@imageSrc" style="max-height: 50px;" />
-                                            }
-                                        }
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
 
-                </div>
-                <div align="center">
-                    <table class="tablewraper">
-                        <tbody>
-                            <tr class="wraptb6" valign="top">
-                                <td class="tdfont1" colspan="2" align="center">
-                                    <div id="lblThankYou">
 
-                                        @if (!((bool)formData.isCompletedSurvey))
-                                        {
-                                            @Html.Raw(formData.CONFIRMATION_PAGE_SIGNOFF_STATEMENT)
-                                        }
-                                        else
-                                        {
-                                            @Html.Raw(formData.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT)
-                                        }
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="tdfont" colspan="2"  align="center">
-                                    <span id="lblPrintAnswer">
-
-                                        @if (formData.CMS_PAGE_PREVIOUS_TEXT != null && formData.CMS_PAGE_PREVIOUS_TEXT.ToString().ToLower().Contains("pdf"))
-                                        {
-                                            <a href='@Url.Action("Finish", "/Home/PrintCustomizedPDFConfirmation/", new {accesscode = ViewBag.ACCESS_CODE}, Request.Url.Scheme)'>@formData.CMS_PAGE_PREVIOUS_TEXT</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="#" onclick="history.go(-1);">@formData.CMS_PAGE_PREVIOUS_TEXT</a>
-                                        }
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tdfont2"  align="left"></td>
-                                <td class="tdfont3"  align="left">
-                                    @{
-                                        string link = @formData.CMS_PAGE_NEXT_LINK;
-                                    }
-                                    <script>
-                                        function redirect(url) {
-                                            window.location.href = "http://" + url;
-                                            return false;
-                                        };
-
-                                        function checkToPrintPDF(accesscode) {
-                                            window.location.href = "@Url.Content("~/Registration/Home/PrintPDF/?accesscode=")" + accesscode;
-                                        };
-
-                                        function PrintCustomizedPDFConfirmation(accesscode) {
-                                            window.location.href = "@Url.Content("~/Registration/Home/PrintCustomizedPDFConfirmation/?accesscode=")" + accesscode;
-                                        };
-                                    </script>
-
-                                    <input type="button" name="btnNext" id="btnNext"
-                                           value="@formData.CMS_PAGE_NEXT_TEXT"
-                                           onclick="redirect('@link    ')"
-                                           style="border-width:0;" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td></td>
-    </tr>
-</table>*@
 
 <div class="top-margin">
 
@@ -207,20 +93,36 @@
 </section>
 
 
-@if(TempData["IncorrectZipCode"]!=null)
-{
-    <script>
-        $(document).ready(function () {
-            alertify.alert("@TempData["IncorrectZipCode"].ToString()");
-        });
-    </script>
-}
-@if (ViewBag.ErrorMessage != null)
+
+@if (Session["YN_REFERENCE"]!=null&&(bool)Session["YN_REFERENCE"])
 {
 	<script>
 		$(document).ready(function () {
-			alertify.alert("@ViewBag.ErrorMessage.ToString()");
+			alertify.confirm("@ViewBag.ErrorMessage.ToString()", function (result) {
+				if (result) {
+					$.get("/Registration/Home/SendInventation");
+				}
+			});
 		});
 	</script>
+}
+else
+{
+	if (TempData["IncorrectZipCode"] != null)
+	{
+		<script>
+			$(document).ready(function () {
+				alertify.alert("@TempData["IncorrectZipCode"].ToString()");
+			});
+		</script>
+	}
+	if (ViewBag.ErrorMessage != null)
+	{
+		<script>
+			$(document).ready(function () {
+				alertify.alert("@ViewBag.ErrorMessage.ToString()");
+			});
+		</script>
+	}
 }
 

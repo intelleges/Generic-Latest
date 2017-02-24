@@ -1504,6 +1504,14 @@
           <Property Name="partnertype" Type="int" Nullable="false" />
           <Property Name="goal" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ptqReferencePTQ">
+          <Key>
+            <PropertyRef Name="ptq" />
+            <PropertyRef Name="ptqReference" />
+          </Key>
+          <Property Name="ptq" Type="int" Nullable="false" />
+          <Property Name="ptqReference" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ptqSendDateReminderCount">
           <Key>
             <PropertyRef Name="id" />
@@ -5062,6 +5070,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="group" Type="int" Mode="In" />
           <Parameter Name="goal" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPTQreferencePTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="ptqReference" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addPTQSendDateReminderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="reminderCount" Type="int" Mode="In" />
@@ -6709,6 +6721,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPTQGroupByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPTQreferencePTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8413,6 +8428,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePTQreferencePTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9016,6 +9034,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="protocol" EntityType="Self.protocol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="protocolTouchpoint" EntityType="Self.protocolTouchpoint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ptqGroup" EntityType="Self.ptqGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ptqReferencePTQ" EntityType="Self.ptqReferencePTQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ptqSendDateReminderCount" EntityType="Self.ptqSendDateReminderCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="query" EntityType="Self.query" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="queryFieldQuestion" EntityType="Self.queryFieldQuestion" Schema="dbo" store:Type="Tables" />
@@ -15412,7 +15431,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getIteratePartnerPerson3" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePartnerPerson3_Result)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ptqReferencePTQ" EntityType="hs3MVCMTQa2Model.ptqReferencePTQ" />
+          <FunctionImport Name="pr_addPTQreferencePTQ" ReturnType="Collection(Int32)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="ptqReference" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPTQreferencePTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPTQreferencePTQ_Result)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePTQreferencePTQ">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24881,6 +24911,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="Note" Nullable="false" />
           <Property Type="Int32" Name="pptq" Nullable="true" />
         </ComplexType>
+        <EntityType Name="ptqReferencePTQ">
+          <Key>
+            <PropertyRef Name="ptq" />
+            <PropertyRef Name="ptqReference" />
+          </Key>
+          <Property Name="ptq" Type="Int32" Nullable="false" />
+          <Property Name="ptqReference" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPTQreferencePTQ_Result">
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="ptqReference" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33249,6 +33291,24 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ptqReferencePTQ">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.ptqReferencePTQ">
+              <MappingFragment StoreEntitySet="ptqReferencePTQ">
+                <ScalarProperty Name="ptqReference" ColumnName="ptqReference" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPTQreferencePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_addPTQreferencePTQ" />
+          <FunctionImportMapping FunctionImportName="pr_getPTQreferencePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPTQreferencePTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPTQreferencePTQ_Result">
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="ptqReference" ColumnName="ptqReference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_removePTQreferencePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removePTQreferencePTQ" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

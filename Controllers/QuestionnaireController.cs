@@ -1207,6 +1207,10 @@ namespace Generic.Controllers
 									objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
 								else if (excelQuestionnaire.CommentType == "XX_COMMENT_ALL")
 									objQuestion.commentType = CommentType.XX_COMMENT_ALL;
+								else if (excelQuestionnaire.CommentType == "YN_REFERENCE_Y")
+									objQuestion.commentType = CommentType.YN_REFERENCE_Y;
+								else if (excelQuestionnaire.CommentType == "YN_REFERENCE_N")
+									objQuestion.commentType = CommentType.YN_REFERENCE_N;
 								else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
 								{
 									try

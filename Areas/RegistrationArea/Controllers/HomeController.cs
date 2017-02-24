@@ -999,6 +999,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					}
 				}
 			}
+			if (question != null && answer != null && question.commentType.HasValue && (question.commentType.Value == CommentType.YN_REFERENCE_Y || question.commentType.Value == CommentType.YN_REFERENCE_N) && qresponse != null && !string.IsNullOrEmpty(qresponse.comment))
+			{
+				Session["YN_REFERENCE"] = question.commentType.Value == CommentType.YN_REFERENCE_Y && answer.id == 74;
+				if (!(bool)Session["YN_REFERENCE"])
+					Session["YN_REFERENCE"] = question.commentType.Value == CommentType.YN_REFERENCE_N && answer.id == 75;
+				Session["YN_REFERENCE_EMAIL"] = qresponse.comment;
+			}
 		}
 		private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo, int ptqId, int questionId, int responseId = -1)
 		{
@@ -2861,6 +2868,52 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			}
 		}
 
+		public ActionResult SendInventation()
+		{
+			var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+			var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+			if (ppptq_cms != null)
+			{
+				var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+				var pr = db.pr_getPTQreferencePTQ(ptq.id).FirstOrDefault();
+				var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaire(pr.ptqReference).FirstOrDefault();
+				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == Session["YN_REFERENCE_EMAIL"].ToString());
+				partner objPartner = pptq.partner1;
+				var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+				var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pr.ptqReference).FirstOrDefault();
+				if (amm != null)
+				{
+					//amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
+
+					//var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
+
+					//if (objpartnerByAccessCode != null)
+					//{
+
+					//    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
+					//}
+
+					var objtouchpoint = currentPtq.touchpoint1;
+					Email email = new Email(amm);
+
+					if (Session["loadgroup"] != null)
+					{
+						email.loadgroup = Session["loadgroup"].ToString();
+					}
+					email.accesscode = pptq.accesscode;
+					email.protocolTouchpoint = objtouchpoint.description;
+
+					EmailFormat emailFormat = new EmailFormat();
+					email.subject = emailFormat.sGetEmailBody(email.subject, person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
+					email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
+					email.emailTo = Session["YN_REFERENCE_EMAIL"].ToString();
+					SendEmail objSendEmail = new SendEmail();
+					objSendEmail.sendEmail(email);
+				}
+			}
+			return Json(true, JsonRequestBehavior.AllowGet);
+		}
+
 
 		public ActionResult Finish()
 		{
@@ -3053,8 +3106,6 @@ Intelleges Team";
 				}
 				else
 				{
-
-
 					var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, ptq.id).FirstOrDefault();
 
 					var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
@@ -3066,8 +3117,15 @@ Intelleges Team";
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
 				}
-
-
+				if (Session["YN_REFERENCE"] != null && (bool)Session["YN_REFERENCE"])
+				{
+					var pr = db.pr_getPTQreferencePTQ(ptq.id).FirstOrDefault();
+				var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaire(pr.ptqReference).FirstOrDefault();
+				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == Session["YN_REFERENCE_EMAIL"].ToString());
+				if (pptq != null)
+					ViewBag.ErrorMessage = @"We are about to send reference request  for " + pptq.partner1.name + " to this email address: " + Session["YN_REFERENCE_EMAIL"] + ". Is that OK?";
+				else Session["YN_REFERENCE"] = false;
+				}
 				objViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;
 				objViewBag.CMS_PAGE_SUBTITLE = CMS.CONFIRMATION_PAGE_SUBTITLE;
 				objViewBag.CMS_PAGE_PANEL_ONE = CMS.CONFIRMATION_PAGE_PANEL_ONE;

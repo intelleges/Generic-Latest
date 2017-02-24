@@ -209,6 +209,7 @@ namespace Generic
         public virtual DbSet<questionResponseNarrativeSelectionList> questionResponseNarrativeSelectionList { get; set; }
         public virtual DbSet<iterateEmailText> iterateEmailText { get; set; }
         public virtual DbSet<IteratePartnerNote> IteratePartnerNote { get; set; }
+        public virtual DbSet<ptqReferencePTQ> ptqReferencePTQ { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18702,6 +18703,37 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPerson3_Result>("pr_getIteratePartnerPerson3", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPTQreferencePTQ(Nullable<int> ptq, Nullable<int> ptqReference)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var ptqReferenceParameter = ptqReference.HasValue ?
+                new ObjectParameter("ptqReference", ptqReference) :
+                new ObjectParameter("ptqReference", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPTQreferencePTQ", ptqParameter, ptqReferenceParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPTQreferencePTQ_Result> pr_getPTQreferencePTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPTQreferencePTQ_Result>("pr_getPTQreferencePTQ", ptqParameter);
+        }
+    
+        public virtual int pr_removePTQreferencePTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePTQreferencePTQ", ptqParameter);
         }
     }
 }

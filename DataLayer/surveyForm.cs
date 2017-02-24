@@ -1165,7 +1165,7 @@ namespace Generic.DataLayer
                     tableCell.Controls.AddAt(0, divn);
 
                 }
-                else if (question.commentType == CommentType.YN_COMMENT_N)
+				else if (question.commentType == CommentType.YN_COMMENT_N )
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
@@ -1199,6 +1199,41 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
 
                 }
+				else if (question.commentType == CommentType.YN_REFERENCE_N)
+				{
+					HtmlGenericControl divn = new HtmlGenericControl();
+					divn.ID = "nDiv_" + question.id.ToString();
+					//divn.Visible = false;
+					Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+
+
+					var txtbox1 = new HtmlInputGenericControl("email");
+					//txtbox1.Type = ;
+					if (checkCOde.IsMatch(incldComment))
+					{
+						divn.Attributes["data-code"] = checkCOde.Match(incldComment).Value;
+						incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
+					}
+					if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode)
+					{
+						txtbox1.Value = pptqResponse.comment;
+
+					}
+					else
+						divn.Style.Add("display", "none");
+					// txtbox.Width = 600;
+					txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+					txtbox1.Attributes.Add("required", "");
+					txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+					txtbox1.Attributes.Add("data-val", "true");
+					divn.InnerHtml = incldComment + " ";//"Include comments here: ";
+
+					divn.Controls.Add(txtbox1);
+
+					tableCell.Controls.AddAt(0, divn);
+					addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
+
+				}
                 else if (question.commentType == CommentType.YN_UPLOAD_Y)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
@@ -1245,7 +1280,7 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     tableCell.Controls.AddAt(0, divn);
 
                 }
-                else if (question.commentType == CommentType.YN_COMMENT_Y)
+				else if (question.commentType == CommentType.YN_COMMENT_Y )
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
@@ -1268,6 +1303,30 @@ incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     tableCell.Controls.AddAt(0, divn);
 					addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
                 }
+				else if (question.commentType == CommentType.YN_REFERENCE_Y)
+				{
+					HtmlGenericControl divn = new HtmlGenericControl();
+					divn.ID = "yDiv_" + question.id.ToString();
+					//divn.Visible = false;
+					var txtbox1 = new HtmlInputGenericControl("email");
+					if (pptqResponse != null && pptqResponse.response == 74)
+					{
+						txtbox1.Value = pptqResponse.comment;
+
+					}
+					else
+						divn.Style.Add("display", "none");
+					txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
+
+					divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
+					txtbox1.Attributes.Add("required", "");
+					txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+					txtbox1.Attributes.Add("data-val", "true");
+					divn.Controls.Add(txtbox1);
+
+					tableCell.Controls.AddAt(0, divn);
+					addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
+				}
             }
 			if(question.commentType==CommentType.XX_COMMENT_ALL)
 			{

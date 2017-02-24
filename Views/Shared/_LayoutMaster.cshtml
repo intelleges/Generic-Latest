@@ -81,39 +81,39 @@ overflow:hidden;
 
 
 <script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAAb7eKW7nPsaL-v-t6-2_HghT-Eh8X4WApu9-Y6-QZ-lXcrTAzVBRyyAD1_fumqCdyAEz_W3KW9RWrOA"></script>
-<script type="text/javascript">        google.load("feeds", "1"); function initialize() {
-var feed = new google.feeds.Feed("https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss");
-feed.load(function (result) {
-    if (!result.error) {
-        var container = document.getElementById("feed"); for (var i = 0; i < result.feed.entries.length; i++) {
-            var entry = result.feed.entries[i];
-            var div = document.createElement("div"); div.appendChild(document.createTextNode(entry.title)); container.appendChild(div);
-        }
-    }
-});
-}
-google.setOnLoadCallback(initialize);     </script>     
-<script type="text/javascript">
- function LoadDynamicFeedControl() {
-     var feeds = [
-{ title: ' ',
-url: 'https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss'
-}];
-     var options = {
-         stacked: false,
-         horizontal: false,
-         title: "",
-         numResults: 8
+	<script type="text/javascript">        google.load("feeds", "1"); function initialize() {
+	var feed = new google.feeds.Feed("https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss");
+	feed.load(function (result) {
+		if (!result.error) {
+			var container = document.getElementById("feed"); for (var i = 0; i < result.feed.entries.length; i++) {
+				var entry = result.feed.entries[i];
+				var div = document.createElement("div"); div.appendChild(document.createTextNode(entry.title)); container.appendChild(div);
+			}
+		}
+	});
+	}
+	google.setOnLoadCallback(initialize);     </script>
+	<script type="text/javascript">
+	 function LoadDynamicFeedControl() {
+		 var feeds = [
+	{ title: ' ',
+	url: 'https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss'
+	}];
+		 var options = {
+			 stacked: false,
+			 horizontal: false,
+			 title: "",
+			 numResults: 8
 
-     }
+		 }
 
-     new GFdynamicFeedControl(feeds, 'feed-control', options);
- }
- // Load the feeds API and set the onload callback.
- google.load('feeds', '1');
- google.setOnLoadCallback(LoadDynamicFeedControl);
-</script>
-
+		 new GFdynamicFeedControl(feeds, 'feed-control', options);
+	 }
+	 // Load the feeds API and set the onload callback.
+	 google.load('feeds', '1');
+	 google.setOnLoadCallback(LoadDynamicFeedControl);
+	</script>
+  
 <script src="https://www.google.com/jsapi?key=notsupplied-wizard"
 type="text/javascript"></script>
 
