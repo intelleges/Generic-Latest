@@ -246,7 +246,7 @@
 	        <text>
 				alertify.confirm("@ViewBag.ErrorMessage.ToString()", function (result) {
 					if (result) {
-						$.get("/Registration/Home/SendInventation");
+						$.get('@Url.Action("SendInventation", "Home")');
 					}
 				});
 			</text>
