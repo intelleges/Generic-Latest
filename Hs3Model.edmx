@@ -7580,6 +7580,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="foreignGovernment" Type="bit" Mode="In" />
           <Parameter Name="naicsCode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPartnerInternalIDtoAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner" Type="int" Mode="In" />
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -15439,10 +15443,14 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="ptqReference" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPTQreferencePTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPTQreferencePTQ_Result)">
-            <Parameter Name="ptq" Mode="In" Type="Int32" />
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removePTQreferencePTQ">
-            <Parameter Name="ptq" Mode="In" Type="Int32" />
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPartnerInternalIDtoAccessCode" ReturnType="Collection(Int32)">
+            <Parameter Name="partner" Mode="In" Type="Int32" />
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -33309,6 +33317,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_removePTQreferencePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removePTQreferencePTQ" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPartnerInternalIDtoAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerInternalIDtoAccessCode" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

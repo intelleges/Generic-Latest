@@ -2904,21 +2904,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaire(pr.ptqReference).FirstOrDefault();
 				foreach (var newEmail in ReferenceEmails)
 				{
-
-
-					//var newEmail = Session["YN_REFERENCE_EMAIL"].ToString();
 					
-					//if(pptq!=null)
 					//creates new partner
 					var country = db.country.FirstOrDefault().id.ToString();
 					var state = db.state.FirstOrDefault().id.ToString();
-					//var personMail = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
+					
 					var group = db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault().id;
 					var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(newEmail, "", newEmail, newEmail, newEmail, newEmail, newEmail, state, "", country, newEmail, newEmail, "", newEmail, newEmail, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, currentPtq.partnerType, currentPtq.touchpoint, ppptq_cms.person.id, (int)PartnerStatus.Invited_NoResponse, "", DateTime.Now.AddDays(5), group).FirstOrDefault();
 
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == newEmail);
-					partner objPartner = pptq.partner1;
-					//var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+					db.pr_modifyPartnerInternalIDtoAccessCode(pptq.partner1.id, pptq.accesscode).FirstOrDefault();
+					partner objPartner = pptq.partner1;					
 					var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pr.ptqReference).FirstOrDefault();
 					if (amm != null)
 					{

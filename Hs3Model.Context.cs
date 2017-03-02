@@ -18735,5 +18735,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePTQreferencePTQ", ptqParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_modifyPartnerInternalIDtoAccessCode(Nullable<int> partner, string accesscode)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerInternalIDtoAccessCode", partnerParameter, accesscodeParameter);
+        }
     }
 }
