@@ -999,14 +999,30 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					}
 				}
 			}
+
 			if (question != null && answer != null && question.commentType.HasValue && (question.commentType.Value == CommentType.YN_REFERENCE_Y || question.commentType.Value == CommentType.YN_REFERENCE_N) && qresponse != null && !string.IsNullOrEmpty(qresponse.comment))
 			{
-				Session["YN_REFERENCE"] = question.commentType.Value == CommentType.YN_REFERENCE_Y && answer.id == 74;
-				if (!(bool)Session["YN_REFERENCE"])
-					Session["YN_REFERENCE"] = question.commentType.Value == CommentType.YN_REFERENCE_N && answer.id == 75;
-				Session["YN_REFERENCE_EMAIL"] = qresponse.comment;
+
+				if ((question.commentType.Value == CommentType.YN_REFERENCE_Y && answer.id == 74) || (question.commentType.Value == CommentType.YN_REFERENCE_N && answer.id == 75))
+					ReferenceEmails.Add(qresponse.comment);
+			
+				//if (!(bool)Session["YN_REFERENCE"])
+				//	Session["YN_REFERENCE"] = question.commentType.Value == CommentType.YN_REFERENCE_N && answer.id == 75;
+				//Session["YN_REFERENCE_EMAIL"] = qresponse.comment;
+
 			}
 		}
+
+		protected List<string> ReferenceEmails
+		{
+			get
+			{
+				if (Session["ReferenceEmails"] == null)
+					Session["ReferenceEmails"] = new List<string>();
+				return (List<string>)Session["ReferenceEmails"];
+			}
+		}
+		
 		private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo, int ptqId, int questionId, int responseId = -1)
 		{
 			autoMailMessage objamm = new autoMailMessage();
@@ -1155,7 +1171,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				touchpoint objtouchpoint = new touchpoint();
 				partner objpartner = new partner();
 				protocol objprotocol = new protocol();
+				if (ReferenceEmails.Count>0)
+				{
+					//var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+					var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+					var pr = db.pr_getPTQreferencePTQ(pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+					var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaire(pr.ptqReference).FirstOrDefault();
 
+					ViewBag.ErrorMessage = @"We are about to send reference request  for " + pptqObj.partner1.name + " to this email address: " + (ReferenceEmails.Count > 1 ? ReferenceEmails.Aggregate((o, p) => o += p + ", ") : ReferenceEmails[0]) + ". Is that OK?";
+					
+				}
 				surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire, _translator, CurrentLanguage);
 				objSurveyForm.questionIndex = questionIndex;
 				objSurveyForm.questionClass = "brownbg  brownbgarrow";
@@ -2877,39 +2902,47 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
 				var pr = db.pr_getPTQreferencePTQ(ptq.id).FirstOrDefault();
 				var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaire(pr.ptqReference).FirstOrDefault();
-				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == Session["YN_REFERENCE_EMAIL"].ToString());
-				partner objPartner = pptq.partner1;
-				var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
-				var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pr.ptqReference).FirstOrDefault();
-				if (amm != null)
+				foreach (var newEmail in ReferenceEmails)
 				{
-					//amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
 
-					//var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, loadGroup).FirstOrDefault();
 
-					//if (objpartnerByAccessCode != null)
-					//{
+					//var newEmail = Session["YN_REFERENCE_EMAIL"].ToString();
+					
+					//if(pptq!=null)
+					//creates new partner
+					var country = db.country.FirstOrDefault().id.ToString();
+					var state = db.state.FirstOrDefault().id.ToString();
+					//var personMail = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id;
+					var group = db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault().id;
+					var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(newEmail, "", newEmail, newEmail, newEmail, newEmail, newEmail, state, "", country, newEmail, newEmail, "", newEmail, newEmail, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, currentPtq.partnerType, currentPtq.touchpoint, ppptq_cms.person.id, (int)PartnerStatus.Invited_NoResponse, "", DateTime.Now.AddDays(5), group).FirstOrDefault();
 
-					//    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-					//}
-
-					var objtouchpoint = currentPtq.touchpoint1;
-					Email email = new Email(amm);
-
-					if (Session["loadgroup"] != null)
+					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == newEmail);
+					partner objPartner = pptq.partner1;
+					//var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+					var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pr.ptqReference).FirstOrDefault();
+					if (amm != null)
 					{
-						email.loadgroup = Session["loadgroup"].ToString();
-					}
-					email.accesscode = pptq.accesscode;
-					email.protocolTouchpoint = objtouchpoint.description;
 
-					EmailFormat emailFormat = new EmailFormat();
-					email.subject = emailFormat.sGetEmailBody(email.subject, person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
-					email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
-					email.emailTo = Session["YN_REFERENCE_EMAIL"].ToString();
-					SendEmail objSendEmail = new SendEmail();
-					objSendEmail.sendEmail(email);
+						var objtouchpoint = currentPtq.touchpoint1;
+						Email email = new Email(amm);
+
+						if (Session["loadgroup"] != null)
+						{
+							email.loadgroup = Session["loadgroup"].ToString();
+						}
+						email.accesscode = pptq.accesscode;
+						email.protocolTouchpoint = objtouchpoint.description;
+
+						EmailFormat emailFormat = new EmailFormat();
+						email.subject = emailFormat.sGetEmailBody(email.subject, ppptq_cms.person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
+						email.body = emailFormat.sGetEmailBody(email.body, ppptq_cms.person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
+						email.emailTo = newEmail;
+						SendEmail objSendEmail = new SendEmail();
+						objSendEmail.sendEmail(email);
+					}
+					
 				}
+				ReferenceEmails.Clear();
 			}
 			return Json(true, JsonRequestBehavior.AllowGet);
 		}
@@ -3117,15 +3150,7 @@ Intelleges Team";
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
 				}
-				if (Session["YN_REFERENCE"] != null && (bool)Session["YN_REFERENCE"])
-				{
-					var pr = db.pr_getPTQreferencePTQ(ptq.id).FirstOrDefault();
-				var currentPtq = db.pr_getPartnertypeTouchpointQuestionnaire(pr.ptqReference).FirstOrDefault();
-				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == Session["YN_REFERENCE_EMAIL"].ToString());
-				if (pptq != null)
-					ViewBag.ErrorMessage = @"We are about to send reference request  for " + pptq.partner1.name + " to this email address: " + Session["YN_REFERENCE_EMAIL"] + ". Is that OK?";
-				else Session["YN_REFERENCE"] = false;
-				}
+				
 				objViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;
 				objViewBag.CMS_PAGE_SUBTITLE = CMS.CONFIRMATION_PAGE_SUBTITLE;
 				objViewBag.CMS_PAGE_PANEL_ONE = CMS.CONFIRMATION_PAGE_PANEL_ONE;

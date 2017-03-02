@@ -79,9 +79,9 @@ overflow:hidden;
 	}
 </script>
 
-
-<script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAAb7eKW7nPsaL-v-t6-2_HghT-Eh8X4WApu9-Y6-QZ-lXcrTAzVBRyyAD1_fumqCdyAEz_W3KW9RWrOA"></script>
-	<script type="text/javascript">        google.load("feeds", "1"); function initialize() {
+@* Google Feed API was depricated by google - https://developers.google.com/feed/v1/devguide *@
+@*<script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAAb7eKW7nPsaL-v-t6-2_HghT-Eh8X4WApu9-Y6-QZ-lXcrTAzVBRyyAD1_fumqCdyAEz_W3KW9RWrOA" ></script>
+	<script type="text/javascript" async>        google.load("feeds", "1"); function initialize() {
 	var feed = new google.feeds.Feed("https://news.google.com/news?cf=all&ned=us&hl=en&q=Buy American Act&cf=all&output=rss");
 	feed.load(function (result) {
 		if (!result.error) {
@@ -112,7 +112,7 @@ overflow:hidden;
 	 // Load the feeds API and set the onload callback.
 	 google.load('feeds', '1');
 	 google.setOnLoadCallback(LoadDynamicFeedControl);
-	</script>
+	</script>*@
   
 <script src="https://www.google.com/jsapi?key=notsupplied-wizard"
 type="text/javascript"></script>

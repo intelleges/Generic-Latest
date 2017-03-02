@@ -241,7 +241,19 @@
 				$(this).css('height', hiddenDiv.height());
 			});
 
+			@if (Session["ReferenceEmails"] != null&&((List<string>)Session["ReferenceEmails"]).Count>0)
+			{
+	        <text>
+				alertify.confirm("@ViewBag.ErrorMessage.ToString()", function (result) {
+					if (result) {
+						$.get("/Registration/Home/SendInventation");
+					}
+				});
+			</text>
+			}
+
 		});
 	})(jQuery);
 </script>
+
 

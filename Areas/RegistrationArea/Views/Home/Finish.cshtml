@@ -94,21 +94,9 @@
 
 
 
-@if (Session["YN_REFERENCE"]!=null&&(bool)Session["YN_REFERENCE"])
-{
-	<script>
-		$(document).ready(function () {
-			alertify.confirm("@ViewBag.ErrorMessage.ToString()", function (result) {
-				if (result) {
-					$.get("/Registration/Home/SendInventation");
-				}
-			});
-		});
-	</script>
-}
-else
-{
-	if (TempData["IncorrectZipCode"] != null)
+
+
+	@if (TempData["IncorrectZipCode"] != null)
 	{
 		<script>
 			$(document).ready(function () {
@@ -116,7 +104,7 @@ else
 			});
 		</script>
 	}
-	if (ViewBag.ErrorMessage != null)
+	@if (ViewBag.ErrorMessage != null)
 	{
 		<script>
 			$(document).ready(function () {
@@ -124,5 +112,5 @@ else
 			});
 		</script>
 	}
-}
+
 
