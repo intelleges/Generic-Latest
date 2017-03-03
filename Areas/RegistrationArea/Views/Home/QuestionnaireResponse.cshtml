@@ -244,9 +244,11 @@
 			@if (Session["ReferenceEmails"] != null&&((List<string>)Session["ReferenceEmails"]).Count>0)
 			{
 	        <text>
-				alertify.confirm("@ViewBag.ErrorMessage.ToString()", function (result) {
-					if (result) {
-						$.get('@Url.Action("SendInventation", "Home")');
+			alertify.confirm("@ViewBag.ErrorMessage.ToString()", function (result) {
+				if (result) {
+					$.get('@Url.Action("SendInventation", "Home")');
+					} else {
+					$.get('@Url.Action("CancelInventation", "Home")');
 					}
 				});
 			</text>

@@ -2893,6 +2893,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			}
 		}
 
+		public ActionResult CancelInventation()
+		{
+			ReferenceEmails.Clear();
+			return Json(true, JsonRequestBehavior.AllowGet);
+		}
+
 		public ActionResult SendInventation()
 		{
 			var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
