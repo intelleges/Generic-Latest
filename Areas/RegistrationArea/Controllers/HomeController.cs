@@ -2918,7 +2918,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					var group = db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault().id;
 					var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(newEmail, "", newEmail, ppptq_cms.partner1.name, newEmail, newEmail, newEmail, state, "", country, newEmail, newEmail, "", newEmail, newEmail, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, currentPtq.partnerType, currentPtq.touchpoint, ppptq_cms.person.id, (int)PartnerStatus.Invited_NoResponse, "", DateTime.Now.AddDays(5), group).FirstOrDefault();
 
-					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == newEmail);
+					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == newEmail && o.partner1.internalID == newEmail);
 					var result = db.pr_modifyPartnerInternalIDtoAccessCode(pptq.partner1.id, pptq.accesscode).FirstOrDefault();
 					partner objPartner = db.pr_getPartner(pptq.partner1.id).FirstOrDefault();					
 					var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pr.ptqReference).FirstOrDefault();
