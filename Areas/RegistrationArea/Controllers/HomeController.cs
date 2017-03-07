@@ -956,7 +956,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 		private void ResolveAndSendEmailAlert(int questionId, int pptqId, int answerId = -1, string text = "")
 		{
+			
 			var question = db.pr_getQuestion(questionId).FirstOrDefault();
+			db.Entry<question>(question).Reload();
 			var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestion(question.id).FirstOrDefault();
 
 			var answer = db.pr_getResponse(answerId).FirstOrDefault();
@@ -1002,7 +1004,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 			if (question != null && answer != null && question.commentType.HasValue && (question.commentType.Value == CommentType.YN_REFERENCE_Y || question.commentType.Value == CommentType.YN_REFERENCE_N) && qresponse != null && !string.IsNullOrEmpty(qresponse.comment))
 			{
-
+				db.Entry<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>(qresponse).Reload();
 				if ((question.commentType.Value == CommentType.YN_REFERENCE_Y && answer.id == 74) || (question.commentType.Value == CommentType.YN_REFERENCE_N && answer.id == 75))
 					ReferenceEmails.Add(qresponse.comment);
 			
@@ -2916,10 +2918,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					var state = db.state.FirstOrDefault().id.ToString();
 					
 					var group = db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault().id;
-					var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(newEmail, "", newEmail, ppptq_cms.partner1.name, newEmail, newEmail, newEmail, state, "", country, newEmail, newEmail, "", newEmail, newEmail, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, currentPtq.partnerType, currentPtq.touchpoint, ppptq_cms.person.id, (int)PartnerStatus.Invited_NoResponse, "", ppptq_cms.dueDate, group).FirstOrDefault();
+					var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(newEmail, "", newEmail, ppptq_cms.partner1.name, newEmail, newEmail, newEmail, state, "", country, newEmail, newEmail, "", newEmail, newEmail, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, currentPtq.partnerType, currentPtq.touchpoint, ppptq_cms.person.id, (int)PartnerStatus.Invited_NoResponse, ppptq_cms.accesscode, ppptq_cms.dueDate, group).FirstOrDefault();
 
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire(pr.ptqReference).ToList().FirstOrDefault(o => o.partner1.email == newEmail && o.partner1.internalID == newEmail);
 					var result = db.pr_modifyPartnerInternalIDtoAccessCode(pptq.partner1.id, pptq.accesscode).FirstOrDefault();
+					db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup(pptq.id, ppptq_cms.dueDate, ppptq_cms.accesscode).FirstOrDefault();
 					partner objPartner = db.pr_getPartner(pptq.partner1.id).FirstOrDefault();					
 					var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pr.ptqReference).FirstOrDefault();
 					if (amm != null)

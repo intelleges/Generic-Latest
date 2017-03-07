@@ -7600,6 +7600,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="score" Type="decimal" Mode="In" />
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="duedate" Type="datetime" Mode="In" />
+          <Parameter Name="loadgroup" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="question" Type="int" Mode="In" />
@@ -15451,6 +15456,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_modifyPartnerInternalIDtoAccessCode" ReturnType="Collection(Int32)">
             <Parameter Name="partner" Mode="In" Type="Int32" />
             <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="duedate" Mode="In" Type="DateTime" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -33318,6 +33328,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_removePTQreferencePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removePTQreferencePTQ" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerInternalIDtoAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerInternalIDtoAccessCode" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

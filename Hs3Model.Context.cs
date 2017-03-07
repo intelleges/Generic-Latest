@@ -18748,5 +18748,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerInternalIDtoAccessCode", partnerParameter, accesscodeParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup(Nullable<int> id, Nullable<System.DateTime> duedate, string loadgroup)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var duedateParameter = duedate.HasValue ?
+                new ObjectParameter("duedate", duedate) :
+                new ObjectParameter("duedate", typeof(System.DateTime));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup", idParameter, duedateParameter, loadgroupParameter);
+        }
     }
 }
