@@ -623,6 +623,7 @@
     <Compile Include="Controllers\DomainController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FRPJController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IvrController .cs" />
@@ -838,6 +839,7 @@
     <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
     <Compile Include="Models\FindPODSViewModel.cs" />
+    <Compile Include="Models\FRPJModel.cs" />
     <Compile Include="Models\LCEModel.cs" />
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -5029,6 +5031,7 @@
     <Content Include="Views\POD\NarrativeEmailPopup.cshtml" />
     <Content Include="Views\Partner\GetIterateNotes.cshtml" />
     <Content Include="Views\LCE\Create.cshtml" />
+    <Content Include="Views\FRPJ\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

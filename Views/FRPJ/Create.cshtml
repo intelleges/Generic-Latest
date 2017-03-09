@@ -1,0 +1,327 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.FRPJModel>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+
+@{
+	#region My
+	Layout = LayoutHelper.GetLayout();
+	ViewBag.Title = "FRPJ";
+	#endregion
+}
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	function submitForm() {
+		alertify.alert("Saved");
+	}
+</script>
+<style type="text/css">
+	.threecol, twocol {
+		width: 100%;
+		display: inline-block;
+	}
+
+	.twocol .editor-label {
+		width: 10%;
+		display: inline-block;
+		font-size: 11px;
+	}
+
+	.twocol .editor-field {
+		width: 35%;
+		display: inline-block;
+	}
+
+	.threecol .editor-label {
+		width: 10%;
+		display: inline-block;
+		font-size: 11px;
+	}
+
+	.threecol .editor-field {
+		width: 20%;
+		display: inline-block;
+	}
+
+		.threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
+			width: 90%;
+			display: inline-block;
+			font-size: 11px;
+		}
+
+	.txtClass {
+		border-radius: 5px;
+		border-color: rgb(169, 169, 169);
+	}
+
+	.ddlClass {
+		height: 25px;
+		width: 96% !important;
+		border-radius: 5px;
+	}
+
+	#DueDate {
+		border-radius: 5px;
+		height: 18px;
+	}
+
+
+	.btn {
+		background: #3498db;
+		background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+		background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+		background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+		background-image: -o-linear-gradient(top, #3498db, #2980b9);
+		background-image: linear-gradient(to bottom, #3498db, #2980b9);
+		-webkit-border-radius: 12;
+		-moz-border-radius: 12;
+		border-radius: 28px;
+		font-family: Arial;
+		color: #ffffff;
+		font-size: 20px;
+		padding: 3px 20px 5px 20px !important;
+		text-decoration: none;
+	}
+
+		.btn:hover {
+			background: #3cb0fd;
+			background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+			background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+			text-decoration: none;
+		}
+</style>
+<div class="addPartnerDiv">
+	<h2>Create FRPJ</h2>
+</div>
+@section Scripts{
+	@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+<script>
+	$(document).ready(function () {
+		$('#Protocol').change(function () {
+			var objProtocolID = $('#Protocol').val();
+			formData = { protocolId: objProtocolID };
+			if (objProtocolID == "") {
+				var touchpointSelectList = "<option value=''>-Select-</option>";
+				$('#Touchpoint').html(touchpointSelectList);
+				return;
+			}
+			$.ajax({
+				url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
+				type: "post",
+			data: formData,
+			success: function (data) {
+				var len = data.Data.length;
+				var i = 0;
+				var touchpointSelectList = "<option value=''></option>";
+				for (i = 0; i < len; i++) {
+					touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+				}
+
+				$('#Touchpoint').html(touchpointSelectList);
+				//$('#touchpointDiv').show();
+
+			},
+			error: function (data) {
+				var touchpointSelectList = "<option value=''> -Select-</option>";
+				$('#Touchpoint').html(touchpointSelectList);
+			}
+		});
+		});
+	
+		
+		$("#btnClear").click(function (e) {
+			alertify.confirm("Are you sure?", function (result) {
+				if (result) {
+					$("#addPartner input[type=text], #addPartner textarea").val("");
+					$("#addPartner textarea").text("");
+				}
+			});
+
+		});
+
+		if ('@ViewBag.Message') {
+			alertify.alert('@ViewBag.MessageDetail');
+		}
+	});
+	</script>
+}
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true)
+
+	<fieldset>
+		<legend>FRPJ</legend>
+		<div id="addPartner" class="addPartnerDiv">
+			<div class="twocol">
+				@*@Html.HiddenFor(model => model.id)*@
+				<!-- #region Name-->
+				<div class="editor-label">
+					@*@Html.LabelFor(model => model.internalID)*@
+					@Html.LabelFor(o => o.SuplierName)
+				</div>
+				<div class="editor-field">
+					@*@Html.EditorFor(model => model.internalID)*@
+					@Html.TextBoxFor(model => model.SuplierName, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.SuplierName)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.DunsNumber)
+				</div>
+				<div class="editor-field">
+					@*@Html.EditorFor(model => model.name)*@
+					@Html.TextBoxFor(model => model.DunsNumber, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.DunsNumber)
+				</div>
+				<!-- #endregion-->
+				<!-- #region Internal ID-->
+				<!-- #endregion-->
+
+			</div>
+
+
+			<div class="threecol">
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ContractNumber)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.ContractNumber, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.ContractNumber)
+				</div>
+
+
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ContractStartDate)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().DatePickerFor(model => model.ContractStartDate).OpenOnFocus(true).InputHtmlAttributes(new { data_val = "true", data_val_required = "The Contract Start Date field is required." })
+					@Html.ValidationMessageFor(model => model.ContractStartDate)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ContractExpirationDate)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().DatePickerFor(model => model.ContractExpirationDate).OpenOnFocus(true).InputHtmlAttributes(new { data_val = "true", data_val_required = "The Expiration Start Date field is required." })
+					@Html.ValidationMessageFor(model => model.ContractExpirationDate)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.AmendmentNumber)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.AmendmentNumber, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.AmendmentNumber)
+				</div><div class="editor-label">
+					@Html.LabelFor(o => o.EstimatedUSDAnnualForcast)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.EstimatedUSDAnnualForcast, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.EstimatedUSDAnnualForcast)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.EstimatedUSDTotalForcast)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.EstimatedUSDTotalForcast, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.EstimatedUSDTotalForcast)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.CMFirstName)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.CMFirstName, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.CMFirstName)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.CMLastName)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.CMLastName, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.CMLastName)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.CMEmail)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(model => model.CMEmail, new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.CMEmail)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Protocol)
+				</div>
+				<div class="editor-field">
+					@Html.DropDownListFor(o => o.Protocol, null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+					@Html.ValidationMessageFor(model => model.Protocol)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Touchpoint)
+				</div>
+				<div class="editor-field">
+					<select id="Touchpoint" name="Touchpoint" class="ddlClass" data-val="true" data-val-required=""></select>
+					@Html.ValidationMessageFor(model => model.Touchpoint)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(o => o.ContractType)
+				</div>
+				<div class="editor-field">
+					<select id="ContractType" name="ContractType" class="ddlClass">
+						<option value="Dual use">
+							Dual use (CM, Far 12 parts)
+						</option>
+						<option value="Military">
+							Military (M, Far 15 parts)
+						</option>
+						<option value="Commercial &amp; Dual Use">
+							Commercial &amp; Dual Use (C and CM parts)
+						</option>
+					</select>
+					@*@Html.Telerik().AutoCompleteFor(o => o.ApproverSecNineOffset).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })*@
+					@Html.ValidationMessageFor(model => model.ContractType)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Group)
+				</div>
+				<div class="editor-field">
+					@Html.DropDownListFor(o => o.Group, null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+					@Html.ValidationMessageFor(model => model.Group)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Owner)
+				</div>
+				<div class="editor-field">
+					@Html.DropDownListFor(o => o.Owner, null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+					@Html.ValidationMessageFor(model => model.Owner)
+				</div>
+				<div class="editor-label">
+					@Html.LabelFor(o => o.Date)
+				</div>
+				<div class="editor-field">
+					@Html.Telerik().DatePickerFor(o => o.Date).OpenOnFocus(true).InputHtmlAttributes(new { data_val = "true", data_val_required = "The Date field is required." })
+					@Html.ValidationMessageFor(model => model.Date)
+				</div>
+			</div>
+			
+			<p style="float: right; width: 20%;">
+				@*<input type="submit" value="Save" />*@
+				<input type="submit" value="Save" class="btn" />
+				<input type="button" value="Clear" class="btn" id="btnClear" />
+				@*<input type="button" onclick="CloseMe()" value="Cancel" />*@
+			</p>
+		</div>
+		@*<p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
+		<div id="DivEventNotification">
+
+		</div>*@
+	</fieldset>
+
+	
+
+}
