@@ -44,6 +44,9 @@ namespace Generic.Helpers.Questionnaire
 		public const int XX_COMMENT_ALL = 20;
 		public const int YN_REFERENCE_Y = 21;
 		public const int YN_REFERENCE_N = 22;
+
+		public const int YN_COLORPICKER_Y = 23;
+		public const int YN_COLORPICKER_N = 24;
         // old system
         //        commentType 4 = File  Upload
         //commentType 1 = Warning
