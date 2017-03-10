@@ -836,7 +836,7 @@ namespace Generic.Controllers
 			, int partnertype, string partnertypeName, int level
 			)
 		{
-
+			int rowNumber = 0;
 			int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
 			if (ModelState.IsValid)
 			{
@@ -919,6 +919,7 @@ namespace Generic.Controllers
 
 						foreach (var excelQuestionnaire in questionnaireinExcel)
 						{
+							rowNumber++;
 							excelQuestionnaire.Page = GetPage(previosExcelRow, excelQuestionnaire, landingPages);
 							previosExcelRow = excelQuestionnaire;
 							responses = null; responseType = string.Empty;
@@ -1453,7 +1454,7 @@ namespace Generic.Controllers
 						ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
 						ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
 						ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
-						return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) });
+						return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) + " On row:" + rowNumber });
 					}
 
 				}
