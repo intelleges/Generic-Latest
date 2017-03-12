@@ -36,14 +36,14 @@ namespace Generic.Controllers
 		[HttpGet]
 		public IHttpActionResult AttachmentsByAccessCode(string accessCode)
 		{
-			return Ok(db.pr_getAttachmentsByAccessCode(accessCode).FirstOrDefault());
+			return Ok(db.pr_getAttachmentsByAccessCode(accessCode).ToList());
 		}
 
 		[Route("CommentByAccessCode")]
 		[HttpGet]
 		public IHttpActionResult CommentByAccessCode(string accessCode)
 		{
-			return Ok(db.pr_getCommentByAccessCode(accessCode).FirstOrDefault());
+			return Ok(db.pr_getCommentByAccessCode(accessCode).ToList());
 		}
 	}
 }
