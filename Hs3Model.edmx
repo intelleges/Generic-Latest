@@ -600,6 +600,15 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="iterateType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="key">
           <Key>
             <PropertyRef Name="id" />
@@ -5790,6 +5799,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAttachmentsByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5866,6 +5878,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCampaignStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCommentByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6522,6 +6537,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPasswordByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="emailAddress" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPDFByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7119,6 +7137,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getViewQuestionnaireCMSByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getZcodeByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8977,6 +8998,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="IteratePartnerNote" EntityType="Self.IteratePartnerNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iteratePerson" EntityType="Self.iteratePerson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="iterateStatus" EntityType="Self.iterateStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="iterateType" EntityType="Self.iterateType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="key" EntityType="Self.key" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="landingPage" EntityType="Self.landingPage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="language" EntityType="Self.language" Schema="dbo" store:Type="Tables" />
@@ -15461,6 +15483,22 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="duedate" Mode="In" Type="DateTime" />
             <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="iterateType" EntityType="hs3MVCMTQa2Model.iterateType" />
+          <FunctionImport Name="pr_getAttachmentsByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAttachmentsByAccessCode_Result)">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCommentByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCommentByAccessCode_Result)">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPDFByAccessCode" ReturnType="Collection(Binary)">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getZcodeByAccessCode" ReturnType="Collection(String)">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getZcodeByAccessCode1">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24941,6 +24979,23 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="ptq" Nullable="false" />
           <Property Type="Int32" Name="ptqReference" Nullable="false" />
         </ComplexType>
+        <EntityType Name="iterateType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getAttachmentsByAccessCode_Result">
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="Binary" Name="uploadedFile" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="pr_getCommentByAccessCode_Result">
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33329,6 +33384,35 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_removePTQreferencePTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removePTQreferencePTQ" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerInternalIDtoAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerInternalIDtoAccessCode" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup" />
+          <EntitySetMapping Name="iterateType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.iterateType">
+              <MappingFragment StoreEntitySet="iterateType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAttachmentsByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getAttachmentsByAccessCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAttachmentsByAccessCode_Result">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCommentByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getCommentByAccessCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCommentByAccessCode_Result">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPDFByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getPDFByAccessCode" />
+          <FunctionImportMapping FunctionImportName="pr_getZcodeByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getZcodeByAccessCode" />
+          <FunctionImportMapping FunctionImportName="pr_getZcodeByAccessCode1" FunctionName="hs3MVCMTQa2Model.Store.pr_getZcodeByAccessCode" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

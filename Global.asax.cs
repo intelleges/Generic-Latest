@@ -28,14 +28,15 @@ namespace Generic
             container.Register<IGoogleTranslatorHelper, GoogleTranslatorHelper>(new PerScopeLifetime());            
             container.EnablePerWebRequestScope();
             container.EnableMvc();
-
+			
             Helpers.CurrentInstance.IsGeneric = 1;
             AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+			GlobalConfiguration.Configuration.EnsureInitialized();
         }
 
         public static void RegisterRoutes(RouteCollection routes)

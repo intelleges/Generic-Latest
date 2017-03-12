@@ -210,6 +210,7 @@ namespace Generic
         public virtual DbSet<iterateEmailText> iterateEmailText { get; set; }
         public virtual DbSet<IteratePartnerNote> IteratePartnerNote { get; set; }
         public virtual DbSet<ptqReferencePTQ> ptqReferencePTQ { get; set; }
+        public virtual DbSet<iterateType> iterateType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18764,6 +18765,51 @@ namespace Generic
                 new ObjectParameter("loadgroup", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDateAndLoadGroup", idParameter, duedateParameter, loadgroupParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAttachmentsByAccessCode_Result> pr_getAttachmentsByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAttachmentsByAccessCode_Result>("pr_getAttachmentsByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCommentByAccessCode_Result> pr_getCommentByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCommentByAccessCode_Result>("pr_getCommentByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<byte[]> pr_getPDFByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<byte[]>("pr_getPDFByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getZcodeByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getZcodeByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual int pr_getZcodeByAccessCode1(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getZcodeByAccessCode1", accesscodeParameter);
         }
     }
 }
