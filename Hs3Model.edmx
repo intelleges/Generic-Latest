@@ -6890,6 +6890,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getResponseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getResponseByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getResponseByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="language" Type="int" Mode="In" />
         </Function>
@@ -15498,6 +15501,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getZcodeByAccessCode1">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getResponseByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByAccessCode_Result)">
             <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
@@ -24996,6 +25002,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="String" Name="title" Nullable="false" />
           <Property Type="String" Name="comment" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getResponseByAccessCode_Result">
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="2000" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33413,6 +33423,14 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_getPDFByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getPDFByAccessCode" />
           <FunctionImportMapping FunctionImportName="pr_getZcodeByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getZcodeByAccessCode" />
           <FunctionImportMapping FunctionImportName="pr_getZcodeByAccessCode1" FunctionName="hs3MVCMTQa2Model.Store.pr_getZcodeByAccessCode" />
+          <FunctionImportMapping FunctionImportName="pr_getResponseByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponseByAccessCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getResponseByAccessCode_Result">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

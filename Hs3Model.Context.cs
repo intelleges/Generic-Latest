@@ -18811,5 +18811,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getZcodeByAccessCode1", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<pr_getResponseByAccessCode_Result> pr_getResponseByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getResponseByAccessCode_Result>("pr_getResponseByAccessCode", accesscodeParameter);
+        }
     }
 }

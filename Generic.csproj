@@ -2046,6 +2046,9 @@
     <Compile Include="pr_getResponseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getResponseByAccessCode_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getResponseByLanguage_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

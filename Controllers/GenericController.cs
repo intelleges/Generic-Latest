@@ -45,5 +45,12 @@ namespace Generic.Controllers
 		{
 			return Ok(db.pr_getCommentByAccessCode(accessCode).ToList());
 		}
+
+		[Route("ResponseByAccessCode")]
+		[HttpGet]
+		public IHttpActionResult ResponseByAccessCode(string accessCode)
+		{
+			return Ok(db.pr_getResponseByAccessCode(accessCode).ToList());
+		}
 	}
 }
