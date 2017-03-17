@@ -492,13 +492,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             if (!string.IsNullOrEmpty(strDueDate))
                             {
                                 dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) : (DateTime?)null;
-                                string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
-                                if (!string.IsNullOrEmpty(stralert))
-                                {
-                                    responseComment = stralert;
-                                }
-                                else responseComment = null;
+								responseComment = strDueDate;
+                                
                             }
+
+							string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
+							if (!string.IsNullOrEmpty(stralert))
+							{
+								responseComment = stralert;
+							}
+							//else responseComment = null;
                              //var context = new EntitiesDBContext();
                             var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
 
