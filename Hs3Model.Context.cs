@@ -18820,5 +18820,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getResponseByAccessCode_Result>("pr_getResponseByAccessCode", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_EmailInviteSlackAlertByAccessCode(string accesscode, string email)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_EmailInviteSlackAlertByAccessCode", accesscodeParameter, emailParameter);
+        }
     }
 }

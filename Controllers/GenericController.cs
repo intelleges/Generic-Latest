@@ -52,5 +52,11 @@ namespace Generic.Controllers
 		{
 			return Ok(db.pr_getResponseByAccessCode(accessCode).ToList());
 		}
+		[Route("EmailInviteSlackAlertByAccessCode")]
+		[HttpGet]
+		public IHttpActionResult EmailInviteSlackAlertByAccessCode(string accessCode, string email)
+		{
+			return Ok(db.pr_EmailInviteSlackAlertByAccessCode(accessCode, email).ToList());
+		}
 	}
 }

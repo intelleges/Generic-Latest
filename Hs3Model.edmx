@@ -5759,6 +5759,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="table" Type="nvarchar" Mode="In" />
           <Parameter Name="argsList" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_EmailInviteSlackAlertByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -15504,7 +15508,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getResponseByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getResponseByAccessCode_Result)">
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_EmailInviteSlackAlertByAccessCode" ReturnType="Collection(Int32)">
             <Parameter Name="accesscode" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -33431,6 +33439,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_EmailInviteSlackAlertByAccessCode" FunctionName="hs3MVCMTQa2Model.Store.pr_EmailInviteSlackAlertByAccessCode" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
