@@ -95,12 +95,30 @@
 		}
 </style>
 <div class="addPartnerDiv">
-	<h2>Create FRPJ</h2>
+	<h2>CAS/FRPJ Create Page</h2>
 </div>
 @section Scripts{
 	@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 <script>
 	$(document).ready(function () {
+		$("#Touchpoint").change(function () {
+			var touchpoint = $("#Touchpoint").val();
+			var defaultOption = "<option value>Select Partner Type</option>";
+			if (touchpoint) {
+				$.getJSON("@Url.Content("~/Partner/GetPartnerTypes")" + "/"+touchpoint).done(function (result) {
+					if (result) {
+						var len = result.length;
+						var i = 0;
+						for (i = 0; i < len; i++) {
+							defaultOption += "<option value='" + result[i].id + "'>" + result[i].name + "</option>";
+						}
+
+						$('#PartnerType').html(defaultOption);
+					}
+				});
+			}
+			else $("#PartnerType").html(defaultOption);
+		});
 		$('#Protocol').change(function () {
 			var objProtocolID = $('#Protocol').val();
 			formData = { protocolId: objProtocolID };
@@ -112,27 +130,27 @@
 			$.ajax({
 				url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
 				type: "post",
-			data: formData,
-			success: function (data) {
-				var len = data.Data.length;
-				var i = 0;
-				var touchpointSelectList = "<option value=''></option>";
-				for (i = 0; i < len; i++) {
-					touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+				data: formData,
+				success: function (data) {
+					var len = data.Data.length;
+					var i = 0;
+					var touchpointSelectList = "<option value=''></option>";
+					for (i = 0; i < len; i++) {
+						touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+					}
+
+					$('#Touchpoint').html(touchpointSelectList);
+					//$('#touchpointDiv').show();
+
+				},
+				error: function (data) {
+					var touchpointSelectList = "<option value=''> -Select-</option>";
+					$('#Touchpoint').html(touchpointSelectList);
 				}
-
-				$('#Touchpoint').html(touchpointSelectList);
-				//$('#touchpointDiv').show();
-
-			},
-			error: function (data) {
-				var touchpointSelectList = "<option value=''> -Select-</option>";
-				$('#Touchpoint').html(touchpointSelectList);
-			}
+			});
 		});
-		});
-	
-		
+
+
 		$("#btnClear").click(function (e) {
 			alertify.confirm("Are you sure?", function (result) {
 				if (result) {
@@ -201,20 +219,21 @@
 					@Html.Telerik().DatePickerFor(model => model.ContractStartDate).OpenOnFocus(true).InputHtmlAttributes(new { data_val = "true", data_val_required = "The Contract Start Date field is required." })
 					@Html.ValidationMessageFor(model => model.ContractStartDate)
 				</div>
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ContractExpirationDate)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().DatePickerFor(model => model.ContractExpirationDate).OpenOnFocus(true).InputHtmlAttributes(new { data_val = "true", data_val_required = "The Expiration Start Date field is required." })
-					@Html.ValidationMessageFor(model => model.ContractExpirationDate)
-				</div>
+				@*<div class="editor-label">
+						@Html.LabelFor(o => o.ContractExpirationDate)
+					</div>
+					<div class="editor-field">
+						@Html.Telerik().DatePickerFor(model => model.ContractExpirationDate).OpenOnFocus(true).InputHtmlAttributes(new { data_val = "true", data_val_required = "The Expiration Start Date field is required." })
+						@Html.ValidationMessageFor(model => model.ContractExpirationDate)
+					</div>*@
 				<div class="editor-label">
 					@Html.LabelFor(o => o.AmendmentNumber)
 				</div>
 				<div class="editor-field">
 					@Html.TextBoxFor(model => model.AmendmentNumber, new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.AmendmentNumber)
-				</div><div class="editor-label">
+				</div>
+				@*<div class="editor-label">
 					@Html.LabelFor(o => o.EstimatedUSDAnnualForcast)
 				</div>
 				<div class="editor-field">
@@ -227,7 +246,7 @@
 				<div class="editor-field">
 					@Html.TextBoxFor(model => model.EstimatedUSDTotalForcast, new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.EstimatedUSDTotalForcast)
-				</div>
+				</div>*@
 
 				<div class="editor-label">
 					@Html.LabelFor(o => o.CMFirstName)
@@ -267,7 +286,13 @@
 					<select id="Touchpoint" name="Touchpoint" class="ddlClass" data-val="true" data-val-required=""></select>
 					@Html.ValidationMessageFor(model => model.Touchpoint)
 				</div>
-
+				<div class="editor-label">
+					@Html.LabelFor(o => o.PartnerType)
+				</div>
+				<div class="editor-field">
+					<select id="PartnerType" name="PartnerType" class="ddlClass" data-val="true" data-val-required=""></select>
+					@Html.ValidationMessageFor(model => model.PartnerType)
+				</div>
 				<div class="editor-label">
 					@Html.LabelFor(o => o.ContractType)
 				</div>
@@ -308,7 +333,7 @@
 					@Html.ValidationMessageFor(model => model.Date)
 				</div>
 			</div>
-			
+
 			<p style="float: right; width: 20%;">
 				@*<input type="submit" value="Save" />*@
 				<input type="submit" value="Save" class="btn" />
@@ -317,11 +342,11 @@
 			</p>
 		</div>
 		@*<p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
-		<div id="DivEventNotification">
+			<div id="DivEventNotification">
 
-		</div>*@
+			</div>*@
 	</fieldset>
 
-	
+
 
 }

@@ -25,11 +25,11 @@ namespace Generic.Controllers
 		{
 			GenerateCreateDropDownLists();
 			string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-			var defaultPartnerType = 223;
+			//var defaultPartnerType = 223;
 			try
 			{
 
-				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(model.ContractNumber, "", model.DunsNumber, model.SuplierName, "", "", "", "", model.CMEmail, "", model.CMFirstName, model.CMLastName, "", "", model.AmendmentNumber, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, defaultPartnerType, model.Touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, model.Date, model.Group).ToList().FirstOrDefault();
+				int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(model.ContractNumber, "", model.DunsNumber, model.SuplierName, "", "", "", "", model.CMEmail, "", model.CMFirstName, model.CMLastName, "", "", model.AmendmentNumber, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, model.PartnerType, model.Touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, model.Date, model.Group).ToList().FirstOrDefault();
 				var partner = db.pr_getPartnerByEmailAndInternalID(Generic.Helpers.CurrentInstance.EnterpriseID, model.AmendmentNumber, model.ContractNumber).FirstOrDefault();
 				
 				if (partner != null)
@@ -38,11 +38,11 @@ namespace Generic.Controllers
 					{
 						var pptq = innerDb.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).FirstOrDefault();
 						var partnerFromDb = innerDb.partner.FirstOrDefault(o => o.id == partner.id);
-						partnerFromDb.federalID = model.EstimatedUSDAnnualForcast;
-						partnerFromDb.fax = model.EstimatedUSDTotalForcast;
+						partnerFromDb.federalID = "0";
+						partnerFromDb.fax = "0";
 						partnerFromDb.owner = model.Owner;
 						partnerFromDb.dateApproved = model.ContractStartDate;
-						pptq.invitedDate = model.ContractExpirationDate ?? DateTime.Now;
+						pptq.invitedDate = DateTime.Parse("01.01.2017");
 						innerDb.Entry(pptq).State = System.Data.Entity.EntityState.Modified;
 						innerDb.Entry(partnerFromDb).State = System.Data.Entity.EntityState.Modified;
 						innerDb.SaveChanges();

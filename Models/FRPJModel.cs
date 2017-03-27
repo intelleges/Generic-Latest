@@ -13,34 +13,34 @@ namespace Generic.Models
 		[DisplayName("Suplier name")]
 		public string SuplierName { get; set; }
 		[Required]
-		[DisplayName("DUNS #")]
+		[DisplayName("Supplier Number")]
 		public string DunsNumber { get; set; }
 		[Required]
-		[DisplayName("Contract #")]
+		[DisplayName("Ariba Contract #")]
 		public string ContractNumber { get; set; }
 		[Required]
-		[DisplayName("Contract Start Date")]
+		[DisplayName("Contract Summary Date")]
 		public DateTime? ContractStartDate { get; set; }
-		[Required]
-		[DisplayName("Contract Expiration Date")]
-		public DateTime? ContractExpirationDate { get; set; }
+		//[Required]
+		//[DisplayName("Contract Expiration Date")]
+		//public DateTime? ContractExpirationDate { get; set; }
 		[Required]
 		[DisplayName("Amendment #")]
 		public string AmendmentNumber { get; set; }
+		//[Required]
+		//[DisplayName("Estimated USD Annual Forcast")]
+		//public string EstimatedUSDAnnualForcast { get; set; }
+		//[Required]
+		//[DisplayName("Estimated USD Total Forcast")]
+		//public string EstimatedUSDTotalForcast { get; set; }
 		[Required]
-		[DisplayName("Estimated USD Annual Forcast")]
-		public string EstimatedUSDAnnualForcast { get; set; }
-		[Required]
-		[DisplayName("Estimated USD Total Forcast")]
-		public string EstimatedUSDTotalForcast { get; set; }
-		[Required]
-		[DisplayName("CM First Name")]
+		[DisplayName("First Name")]
 		public string CMFirstName { get; set; }
 		[Required]
-		[DisplayName("CM Last Name")]
+		[DisplayName("Last Name")]
 		public string CMLastName { get; set; }
 		[Required]
-		[DisplayName("CM Email")]
+		[DisplayName("Email")]
 		public string CMEmail { get; set; }
 		[Required]
 		[DisplayName("Protocol")]
@@ -49,10 +49,13 @@ namespace Generic.Models
 		[DisplayName("Touchpoint")]
 		public int? Touchpoint { get; set; }
 		[Required]
+		[DisplayName("Direct/Indirect/Project: (HBT and PMT ONLY if Project and over $250K, complete Attachment B)")]
+		public int? PartnerType { get; set; }
+		[Required]
 		[DisplayName("ContractType")]
 		public string ContractType { get; set; }
 		[Required]
-		[DisplayName("Group")]
+		[DisplayName("Type of Agreement")]
 		public int? Group { get; set; }
 		[Required]
 		[DisplayName("Owner")]
