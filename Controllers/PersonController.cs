@@ -341,7 +341,7 @@ Intelleges Team";
                             email.emailTo = objSystemMaster.email;
                             SendEmail objSendEmail = new SendEmail();
                             objSendEmail.sendEmail(email);
-
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Intelleges Account Created", null, null, null, email.accesscode, null, "MVCMT", interpriseId, email.loadgroup);
 
 
 
@@ -464,7 +464,7 @@ Thanks in advance.<br>
                 email.emailTo = objSystemMaster.email;
                 SendEmail objSendEmail = new SendEmail();
                 objSendEmail.sendEmail(email);
-
+				db.pr_addEventNotification(email.emailTo, DateTime.Now, "Welcome to Intelleges", null, null, null, email.accesscode, null, "MVCMT", objEnterprise.id, email.loadgroup);
                 return RedirectToAction("AssignGroup", "Person");
             }
 

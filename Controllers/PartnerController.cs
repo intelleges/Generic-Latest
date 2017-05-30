@@ -890,6 +890,7 @@ namespace Generic.Controllers
 						email.emailTo = objpartner.email;
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
+						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
 					}
 
 
@@ -1085,7 +1086,7 @@ namespace Generic.Controllers
 			email.emailTo = objpartner.email;
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(email);
-
+			db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
 
 			string message = "Invite Sent";
 			ViewBag.Message = "2";
@@ -1653,6 +1654,7 @@ namespace Generic.Controllers
 					if (checkEventNotification == 0)
 					{
 						objSendEmail.sendEmail(email);
+						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
 					}
 
 

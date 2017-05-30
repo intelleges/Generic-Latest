@@ -253,7 +253,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 							Int32.Parse(enterPrise.enterprise.ToString());
 					}
 					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-					objViewBag.ENTERPRISE_ID = ptq != null ? ptq.questionnaire1.enterprise : -1;
+					objViewBag.ENTERPRISE_ID = Generic.Helpers.CurrentInstance.EnterpriseID;
 					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq != null ? ptq.questionnaire : -1).ToList();
 					var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
 					//try
@@ -326,7 +326,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					if (objPartner != null)
 						Generic.Helpers.CurrentInstance.EnterpriseID = Int32.Parse(objPartner.enterprise.ToString());
 
-
+					objViewBag.ENTERPRISE_ID = Generic.Helpers.CurrentInstance.EnterpriseID;
 					var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
 					int questionnaire = ptq != null ? ptq.questionnaire : -1;
 					var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaire).ToList();
@@ -1046,6 +1046,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			mail.emailTo = emailTo;
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(mail);
+			db.pr_addEventNotification(emailTo, DateTime.Now, "Intelleges: Email Alert", null, null, null, accessCode, null, "MVCMT", null, null);
 		}
 
 		public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
@@ -1770,6 +1771,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					email.emailTo = pptqObj.partner1.email;
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
+					db.pr_addEventNotification(pptqObj.partner1.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null);
 				}
 				return RedirectToAction("SaveForLaterConfirm");
 				//#region 20130222 new code
@@ -2945,6 +2947,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 						email.emailTo = newEmail;
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
+						db.pr_addEventNotification(newEmail, DateTime.Now, "Invitation", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", currentPtq.partnerType1.enterprise1.id, null);
 					}
 					
 				}
@@ -3100,6 +3103,7 @@ Intelleges Team";
 							mail.emailTo = objSystemMaster.email;
 							SendEmail objSendEmail = new SendEmail();
 							objSendEmail.sendEmail(mail);
+							db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, "Complete_Confirmation", null, null, null, null, objCurrentTouchpoint.description, "MVCMT", objEnterprise.id, null);
 						}
 					}
 					#endregion
@@ -3127,6 +3131,8 @@ Intelleges Team";
 							try
 							{
 								objSendEmail.sendEmail(email);
+								db.pr_addEventNotification(objPartner.email, DateTime.Now, _mailType.ToString(), null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", _enterprise.id, null);
+
 							}
 							catch (FormatException ex)
 							{
@@ -3155,6 +3161,7 @@ Intelleges Team";
 					email.emailTo = objPartner.email;
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
+					db.pr_addEventNotification(objPartner.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", _enterprise.id, null);
 				}
 				
 				objViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;

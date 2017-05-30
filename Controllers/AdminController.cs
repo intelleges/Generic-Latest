@@ -1209,6 +1209,7 @@ namespace Generic.Controllers
         {
             SendEmail objSendEmail = new SendEmail();
             objSendEmail.sendEmail(email);
+			db.pr_addEventNotification(email.emailTo, DateTime.Now, "SendGridTest", null, null, null, null, email.protocolTouchpoint, "MVCMT", null, null);
             return View();
         }
 

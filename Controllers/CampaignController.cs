@@ -174,6 +174,7 @@ namespace Generic.Controllers
                     email.emailTo = objpartner.email;
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email);
+					db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, email.protocolTouchpoint, "MVCMT", null, email.loadgroup);
                     var currentCompaign = db.pr_getCampaign(campaign).FirstOrDefault();
                     var cuurentTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1;
                     db.pr_addCampaignRule(campaign, cuurentTouchpoint.partnerTypeTouchpointQuestionnaire.FirstOrDefault().id, 0, 0, 0, 0, 0, 0, 0, true, 0, pptq.partnerTypeTouchpointQuestionnaire1.id, 1, DateTime.Now, DateTime.Now, 1, true).FirstOrDefault();                    
