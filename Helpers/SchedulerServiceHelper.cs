@@ -428,7 +428,7 @@ namespace Generic.Helpers
             {
                 objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
             }
-
+			
             var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
 
@@ -461,8 +461,7 @@ namespace Generic.Helpers
             body = body.Replace("\n", "<br />");
             body = body.Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
             mail.Html = body;
-            transportSMTP.Deliver(mail);
-
+            transportSMTP.Deliver(mail);			
         }
         public static void sendEmail(string subject, string body, string filepath, string sendto)
         {

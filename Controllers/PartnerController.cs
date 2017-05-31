@@ -2266,6 +2266,7 @@ namespace Generic.Controllers
 
 					var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "FindRemind", null, null, null, accessCodes, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 				}
 			}
 			//if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
@@ -2287,7 +2288,7 @@ namespace Generic.Controllers
 			try
 			{
 				SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
-
+				db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendEmailByAccessCode", null, null, null, accessCode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
 			}
 			catch
@@ -3899,6 +3900,7 @@ namespace Generic.Controllers
 			{
 				var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
 				var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
+				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
 				var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
 				var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
 				var currentEnterprise = db.enterprise.FirstOrDefault(o => o.id == SessionSingleton.MyEnterPriseId);
@@ -3917,6 +3919,7 @@ namespace Generic.Controllers
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, currentPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
+					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmailTest", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 
 					return Json("done");
 				}
@@ -4062,6 +4065,7 @@ namespace Generic.Controllers
 			{
 				var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
 				var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
+				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
 				var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
 				var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
 				var currentEnterprise = db.enterprise.FirstOrDefault(o => o.id == SessionSingleton.MyEnterPriseId);
@@ -4080,7 +4084,7 @@ namespace Generic.Controllers
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
-
+					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmail", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 					iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
 					iPerson.previousContact = iPerson.lastContact;
 					iPerson.lastContact = (int)InteratePartnerStatus.EmailSent;
