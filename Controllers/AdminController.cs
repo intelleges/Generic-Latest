@@ -1199,19 +1199,19 @@ namespace Generic.Controllers
             return View();
         }
 
-        public virtual ActionResult SendGridTest()
-        {
-            return View();
-        }
+		//public virtual ActionResult SendGridTest()
+		//{
+		//	return View();
+		//}
 
-        [HttpPost]
-        public virtual ActionResult SendGridTest(Email email)
-        {
-            SendEmail objSendEmail = new SendEmail();
-            objSendEmail.sendEmail(email);
-			db.pr_addEventNotification(email.emailTo, DateTime.Now, "SendGridTest", null, null, null, null, email.protocolTouchpoint, "MVCMT", null, null);
-            return View();
-        }
+		//[HttpPost]
+		//public virtual ActionResult SendGridTest(Email email)
+		//{
+		//	SendEmail objSendEmail = new SendEmail();
+		//	objSendEmail.sendEmail(email);
+		//	db.pr_addEventNotification(email.emailTo, DateTime.Now, "SendGridTest", null, null, null, null, email.protocolTouchpoint, "MVCMT", null, null);
+		//	return View();
+		//}
 
         public virtual ActionResult Menu(string animation, bool? enableOpacityAnimation, int? openDuration, int? closeDuration)
         {

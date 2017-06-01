@@ -3103,7 +3103,7 @@ Intelleges Team";
 							mail.emailTo = objSystemMaster.email;
 							SendEmail objSendEmail = new SendEmail();
 							objSendEmail.sendEmail(mail);
-							db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, "Complete_Confirmation", null, null, null, null, objCurrentTouchpoint.description, "MVCMT", objEnterprise.id, null);
+							db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, "Complete_Confirmation", null, null, null, accessCode, objCurrentTouchpoint.description, "MVCMT", objEnterprise.id, null);
 						}
 					}
 					#endregion
