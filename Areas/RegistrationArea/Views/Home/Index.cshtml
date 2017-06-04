@@ -46,7 +46,7 @@
 		}
 		var emailVerification = '@ViewBag.EmailVerification' === 'True';
 		var CheckEmailAccessCode = '@Session["CheckEmailAccessCode"].ToString()'==='False';
-		var pptq = @ViewBag.pptq;
+		var pptq = '@ViewBag.pptq';
     	if(emailVerification){
     		$('#textMessageDialog').modal('show');
     	}
@@ -60,10 +60,11 @@
     		$.post('Registration/Home/CheckEmailAccessCode', { pptq: pptq, email: $("#emailText").val() }, function (result) {
     			if (!result) {
     				alertify.alert("Email Verification FAILED", function(){
-    					window.location.reload();
+    					//window.location.reload();
     				});
     			} else {
     				$('#textMessageDialog').modal('hide');
+    				$('#btnlogin').click();
     			}
     		});
     	});
