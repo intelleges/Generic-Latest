@@ -238,7 +238,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 				var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-
+				
 				var cmsId = 0;
 				if (ppptq_cms != null)
 				{
@@ -401,7 +401,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			}
 			else
 			{
-				ViewBag.message = "expired";
+				ViewBag.message = "wrongstatus";
 			}
 
 			return View();
