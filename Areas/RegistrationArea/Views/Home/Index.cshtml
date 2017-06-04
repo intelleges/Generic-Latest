@@ -3,28 +3,28 @@
 @using Generic.Areas.RegistrationArea.Models
 @using Generic.Helpers
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
-    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
-    var formData = new ViewBagModel();
-    if (ViewBag.FormData != null)
-    {
-        formData = ViewBag.FormData as ViewBagModel;
-    }
+	//Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+	var formData = new ViewBagModel();
+	if (ViewBag.FormData != null)
+	{
+		formData = ViewBag.FormData as ViewBagModel;
+	}
 }
 
 
 
 @*@{
-Html.RenderPartial("_TestPartialArea",null);
-}
+	Html.RenderPartial("_TestPartialArea",null);
+	}
 
 
 
-@using (Html.BeginForm("Submit", "Home", new { Area = "RegistrationArea" }))
-{
-    <input type="submit" name="btn_test" value="Test Click" /> 
-}
+	@using (Html.BeginForm("Submit", "Home", new { Area = "RegistrationArea" }))
+	{
+		<input type="submit" name="btn_test" value="Test Click" />
+	}
 
 *@
 
@@ -32,20 +32,42 @@ Html.RenderPartial("_TestPartialArea",null);
 @System.Web.Optimization.Styles.Render("~/bundles/registrationCss")
 @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
 <script>
-    $(document).ready(function () {
-        var message = '@ViewBag.message';
-        switch (message) {
-            case "expired":
-                alertify.alert("The access code you entered is no longer valid. For more information, please contact the administrator listed in the email invitation/reminder you received. Thank you.");
-                break;
-            case "wrongstatus":
-                var satusCode = '@ViewBag.pptqaccesscode';
-                alertify.alert("Access Code \"" + satusCode.toUpperCase() + "\" is not currently active. Please contact the system administrator in the email you received for further information.\n Thank you.");
-                break;
-            default: break;
-        }
-       
-    });
+	$(document).ready(function () {
+		var message = '@ViewBag.message';
+		switch (message) {
+			case "expired":
+				alertify.alert("The access code you entered is no longer valid. For more information, please contact the administrator listed in the email invitation/reminder you received. Thank you.");
+				break;
+			case "wrongstatus":
+				var satusCode = '@ViewBag.pptqaccesscode';
+				alertify.alert("Access Code \"" + satusCode.toUpperCase() + "\" is not currently active. Please contact the system administrator in the email you received for further information.\n Thank you.");
+				break;
+			default: break;
+		}
+		var emailVerification = '@ViewBag.EmailVerification' === 'True';
+		var CheckEmailAccessCode = '@Session["CheckEmailAccessCode"].ToString()'==='False';
+		var pptq = @ViewBag.pptq;
+    	if(emailVerification){
+    		$('#textMessageDialog').modal('show');
+    	}
+    	//if(CheckEmailAccessCode){
+    	//	alertify.alert("Email Verification FAILED", function(){
+    	//		window.location.reload();
+    	//	});
+    	//}
+    	$('#textMessageDialogForm').submit(function (e) {
+    		e.preventDefault();
+    		$.post('Registration/Home/CheckEmailAccessCode', { pptq: pptq, email: $("#emailText").val() }, function (result) {
+    			if (!result) {
+    				alertify.alert("Email Verification FAILED", function(){
+    					window.location.reload();
+    				});
+    			} else {
+    				$('#textMessageDialog').modal('hide');
+    			}
+    		});
+    	});
+	});
 </script>
 
 
@@ -55,58 +77,87 @@ Html.RenderPartial("_TestPartialArea",null);
 </div>
 
 <section class="page-inner">
-    <div class="small-container">
-       @Html.Partial("_TopSection")
-
-        <div class="sub-box text-center">
-            @if (formData.ENTERPRISE_ID == 1)
-            {
-                <div id="languageSelection" class="languageSelection">
-                    <img src="~/Contents/images/us.jpg" data-language="en" title="English" />
-                    <img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic" />
-                    <img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
-                    <img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
-                    <img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
-                    <img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
-                    <img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
-                    <img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
-                </div>
-            }
-            <div class="shadow-box outer-shadow outer-popup text-center">
-                <h1>@Html.Action("InstanceLogo", "Admin", new { area = "" }) </h1>
-                <h4>@formData.ACCESS_CODE_PLEASE_ENTER</h4>
-                @*<form >*@
-                    <span id="ctl00_contentQuestionnaireBody_lblErrorMessage"></span>
-                <div class="form-inline">
-                    @using (Html.BeginForm())
-                    {
-                        <div class="form-group">
-                            <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.ACCESS_CODE_SIPLE_TEXT &nbsp;&nbsp; </label>
-                            <input type="text" class="form-control" name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode">
-                            <input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" />
-                            <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
-                            </div>
-                        </div>
-                    }
-                </div>
-                @*</form>*@
-                <hr>
-                <a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
-            </div>
-            <div class="sub-honeywell">
-                <label for="exampleInputName2"><i class="fa fa-asterisk"></i>Required Fields</label>
-            </div>
-        </div>
-    </div>
+	<div class="small-container">
+		@Html.Partial("_TopSection")
+		<div class="modal fade" id="textMessageDialog" role="dialog" aria-labelledby="gpsLabel" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only"></span>
+						</button>
+						<h4 class="modal-title" id="gpsLabel">@ViewBag.EmailVerificationLabel</h4>
+					</div>
+					<div class="modal-body">
+						<form id="textMessageDialogForm">
+							<div class="form-group">
+								<label class="control-label" for="msgText">@ViewBag.EmailVerificationLabel</label>
+								<input type="email" id="emailText" name="emailText" class="form-control" />
+								@*<textarea id="msgText" name="msgText" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>*@
+								<span data-valmsg-replace="true" data-valmsg-for="msgText" class="field-validation-valid help-inline" />
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary" name="submit">Send</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sub-box text-center">
+			@if (formData.ENTERPRISE_ID == 1)
+			{
+				<div id="languageSelection" class="languageSelection">
+					<img src="~/Contents/images/us.jpg" data-language="en" title="English" />
+					<img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic" />
+					<img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
+					<img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
+					<img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
+					<img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
+					<img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
+					<img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
+				</div>
+			}
+			<div class="shadow-box outer-shadow outer-popup text-center">
+				<h1>@Html.Action("InstanceLogo", "Admin", new { area = "" }) </h1>
+				<h4>@formData.ACCESS_CODE_PLEASE_ENTER</h4>
+				@*<form >*@
+				<span id="ctl00_contentQuestionnaireBody_lblErrorMessage"></span>
+				<div class="form-inline">
+					@using (Html.BeginForm())
+					{
+						<div class="form-group">
+							<label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.ACCESS_CODE_SIPLE_TEXT &nbsp;&nbsp; </label>
+							<input type="text" class="form-control" name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode">
+							@*@if (ViewBag.EmailVerification)
+							{
+								<label for="emailVerification"><i class="fa fa-asterisk"></i>@ViewBag.EmailVerificationLabel &nbsp;&nbsp; </label>
+								<input class="form-control" name="emailVerification" type="email" id="emailVerification">
+							}*@
+							<input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" />
+							<div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
+							</div>
+						</div>
+					}
+				</div>
+				@*</form>*@
+				<hr>
+				<a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
+			</div>
+			<div class="sub-honeywell">
+				<label for="exampleInputName2"><i class="fa fa-asterisk"></i>Required Fields</label>
+			</div>
+		</div>
+	</div>
 </section>
-     <script>
-                 $(document).ready(function () {
+<script>
+	$(document).ready(function () {
 
-                     $("#languageSelection img").click(function () {
-                         $.post("@Url.Action("SetLanguage")", { language: $(this).data("language") }).done(function (result) {
-                             if (result)
-                                 window.location.reload();
-                         });
-                     });
-                 });
-             </script>        
+		$("#languageSelection img").click(function () {
+			$.post("@Url.Action("SetLanguage")", { language: $(this).data("language") }).done(function (result) {
+				if (result)
+					window.location.reload();
+			});
+		});
+	});
+</script>        

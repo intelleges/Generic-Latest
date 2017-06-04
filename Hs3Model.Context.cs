@@ -18833,5 +18833,50 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_EmailInviteSlackAlertByAccessCode", accesscodeParameter, emailParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerByPPTQ_Result> pr_getPartnerByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByPPTQ_Result>("pr_getPartnerByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerByPPTQAndEmail_Result> pr_getPartnerByPPTQAndEmail(Nullable<int> pptq, string email)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByPPTQAndEmail_Result>("pr_getPartnerByPPTQAndEmail", pptqParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerClass_Result> pr_getPartnerClass(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerClass_Result>("pr_getPartnerClass", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerClassAll_Result> pr_getPartnerClassAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerClassAll_Result>("pr_getPartnerClassAll");
+        }
+    
+        public virtual ObjectResult<pr_getPartnertypeByPPTQ_Result> pr_getPartnertypeByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeByPPTQ_Result>("pr_getPartnertypeByPPTQ", pptqParameter);
+        }
     }
 }

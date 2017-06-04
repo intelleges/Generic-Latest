@@ -18,6 +18,8 @@ namespace Generic
         public int pptq { get; set; }
         public int autoMailMessage { get; set; }
         public System.DateTime sendDate { get; set; }
+        public bool isManual { get; set; }
+        public int sender { get; set; }
     
         public virtual autoMailMessage autoMailMessage1 { get; set; }
         public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire { get; set; }

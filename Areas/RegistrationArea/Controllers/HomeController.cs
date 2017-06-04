@@ -220,6 +220,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			return View();
 		}
 
+		[HttpPost]
+		public virtual ActionResult CheckEmailAccessCode(int pptq, string email)
+		{
+			var partner = db.pr_getPartnerByPPTQAndEmail(pptq, email).FirstOrDefault();
+			return Json((Session["CheckEmailAccessCode"] = partner != null));
+		}
+
 		public virtual ActionResult Index(string id = "", string accessCode = null, bool? advanced = null)
 		{
 			try
@@ -238,10 +245,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
 				var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-				
+				ViewBag.EmailVerification = false;
+				Session["CheckEmailAccessCode"] = true;
 				var cmsId = 0;
 				if (ppptq_cms != null)
 				{
+					ViewBag.pptq = ppptq_cms.id;
+					var partnerType = db.pr_getPartnertypeByPPTQ(ppptq_cms.id).FirstOrDefault();
+					if (partnerType.partnerClass != null && partnerType.partnerClass == 2)
+					{
+						ViewBag.EmailVerification = true;
+						ViewBag.EmailVerificationLabel = db.pr_getPartnerClass(partnerType.partnerClass).FirstOrDefault().description;
+						Session["CheckEmailAccessCode"] = false;
+					}
 					_translator.PPTQ = ppptq_cms;
 					objViewBag.ACCESS_CODE_PLEASE_ENTER = _translator.Translate(PLEASE_ENTER_ACCESS_CODE, CurrentLanguage);
 					objViewBag.ACCESS_CODE_SIPLE_TEXT = _translator.Translate(ACCESS_CODE_SIPLE_TEXT, CurrentLanguage);
@@ -411,6 +427,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 		{
 			try
 			{
+				if (Session["CheckEmailAccessCode"]!=null&&!(bool)Session["CheckEmailAccessCode"])
+				{					
+					return RedirectToAction("Index", new { accessCode = accessCode});
+				}
 				return GenerateIndex(accessCode, false);
 			}
 			catch (Google.GoogleApiException ex)
