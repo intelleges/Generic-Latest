@@ -1449,6 +1449,9 @@
     <Compile Include="pr_getLanguage_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getLCE_Special_Data_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getLogicAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

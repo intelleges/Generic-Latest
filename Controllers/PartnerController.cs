@@ -1604,61 +1604,64 @@ namespace Generic.Controllers
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accesscode).FirstOrDefault();
 
 					//var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, ptq).FirstOrDefault();
-					pptq.invitedDate = DateTime.Now;
-					var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
-					pptq.invitedBy = person.id;
-					pptq.status = (int)PartnerStatus.Invited_NoResponse;
-					db.Entry(pptq).State = EntityState.Modified;
-					db.SaveChanges();
-
-					var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
-					objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-					db.Entry(objpartner).State = EntityState.Modified;
-					db.SaveChanges();
-
-					var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
-					amm.text.Replace("[partner Access Code]", accesscode);
-
-					//  var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(accesscode, loadGroup).FirstOrDefault();
-
-					// if (objpartnerByAccessCode != null)
-					// {
-
-					// amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
-					// }
-
-					var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
-					Email email = new Email(amm);
-
-					if (Session["loadgroup"] != null)
+					if (pptq != null)
 					{
-						email.loadgroup = "";
+						pptq.invitedDate = DateTime.Now;
+						var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+						pptq.invitedBy = person.id;
+						pptq.status = (int)PartnerStatus.Invited_NoResponse;						
+						db.Entry(pptq).State = EntityState.Modified;
+						db.SaveChanges();
+
+						var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
+						objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+						db.Entry(objpartner).State = EntityState.Modified;
+						db.SaveChanges();
+
+						var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+						amm.text.Replace("[partner Access Code]", accesscode);
+
+						//  var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(accesscode, loadGroup).FirstOrDefault();
+
+						// if (objpartnerByAccessCode != null)
+						// {
+
+						// amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
+						// }
+
+						var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
+						Email email = new Email(amm);
+
+						if (Session["loadgroup"] != null)
+						{
+							email.loadgroup = "";
+						}
+						email.accesscode = accesscode;
+						email.protocolTouchpoint = objtouchpoint.description;
+
+						EmailFormat emailFormat = new EmailFormat();
+						email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+						email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+						email.emailTo = objpartner.email;
+						SendEmail objSendEmail = new SendEmail();
+
+						int checkEventNotification = 0;
+
+						try
+						{
+							checkEventNotification = db.pr_eventNotificationCheck(accesscode).FirstOrDefault().Value;
+						}
+						catch { }
+
+						if (checkEventNotification == 0)
+						{
+							objSendEmail.sendEmail(email);
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
+						}
+
 					}
-					email.accesscode = accesscode;
-					email.protocolTouchpoint = objtouchpoint.description;
-
-					EmailFormat emailFormat = new EmailFormat();
-					email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
-					email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
-					email.emailTo = objpartner.email;
-					SendEmail objSendEmail = new SendEmail();
-
-					int checkEventNotification = 0;
-
-					try
-					{
-						checkEventNotification = db.pr_eventNotificationCheck(accesscode).FirstOrDefault().Value;
-					}
-					catch { }
-
-					if (checkEventNotification == 0)
-					{
-						objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
-					}
-
-
 					index++;
+
 				}
 				ViewBag.searchType = "Invite";
 				return RedirectToAction("InvitePartner");

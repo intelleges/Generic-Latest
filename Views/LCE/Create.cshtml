@@ -132,17 +132,34 @@
 				</div>
 				<div class="editor-field">
 					@*@Html.EditorFor(model => model.name)*@
-					@Html.Telerik().AutoCompleteFor(o => o.Designation).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
+					@Html.TextBoxFor(model => model.Designation, new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.Designation)
 				</div>
 				<!-- #endregion-->
 				<!-- #region Internal ID-->
 				<!-- #endregion-->
-
+				<div class="editor-label">
+					@*@Html.LabelFor(model => model.internalID)*@
+					@Html.LabelFor(o => o.Owner)
+				</div>
+				<div class="editor-field">
+					@*@Html.EditorFor(model => model.internalID)*@
+					@Html.DropDownList("Owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+					@Html.ValidationMessageFor(model => model.Owner)
+				</div>
+				<div class="editor-label">
+					@*@Html.LabelFor(model => model.internalID)*@
+					@Html.LabelFor(o => o.Duedate)
+				</div>
+				<div class="editor-field">
+					@*@Html.EditorFor(model => model.internalID)*@
+					@Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "txtClass" })
+					@Html.ValidationMessageFor(model => model.Duedate)
+				</div>
 			</div>
 
 
-			<div class="threecol">
+			@*<div class="threecol">
 				<div class="editor-label">
 					@Html.LabelFor(o => o.ProgramLeader)
 				</div>
@@ -242,10 +259,10 @@
 			<div class="editor-field">
 				@Html.TextAreaFor(o => o.ProjectDescription, new { rows = "5",@style="width:90%" })
 				@Html.ValidationMessageFor(model => model.ProjectDescription)
-			</div>
+			</div>*@
 			<p style="float: right; width: 20%;">
-				@*<input type="submit" value="Save" />*@
-				<input type="button" value="Save" class="btn" onclick="submitForm();" />
+				<input type="submit" value="Save" class="btn" />
+				@*<input type="submit" value="Save" class="btn" onclick="submitForm();" />*@
 				<input type="button" value="Clear" class="btn" id="btnClear" />
 				@*<input type="button" onclick="CloseMe()" value="Cancel" />*@
 			</p>

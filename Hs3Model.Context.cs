@@ -1409,17 +1409,17 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPerson", enterpriseParameter, managerParameter, personStatusParameter, riskTypeParameter, loadHistoryParameter, campaignParameter, internalIdParameter, nmNumberParameter, socialSecurityParameter, firstNameParameter, lastNameParameter, titleParameter, suffixParameter, nickNameParameter, passWordParameter, emailParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, activeParameter, ismanagerParameter, partnerPerPageParameter, resetDateParameter, isArchivedParameter, archivedDateParameter);
         }
     
-        public virtual int pr_addPersonGroup(Nullable<int> group, Nullable<int> person)
+        public virtual int pr_addPersonGroup(Nullable<int> person, Nullable<int> group)
         {
-            var groupParameter = group.HasValue ?
-                new ObjectParameter("group", group) :
-                new ObjectParameter("group", typeof(int));
-    
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
                 new ObjectParameter("person", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPersonGroup", groupParameter, personParameter);
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPersonGroup", personParameter, groupParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> pr_addPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
@@ -18877,6 +18877,27 @@ namespace Generic
                 new ObjectParameter("pptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeByPPTQ_Result>("pr_getPartnertypeByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLCE_Special_Data_Result> pr_getLCE_Special_Data(Nullable<int> person, string designationNumber, string programName, Nullable<System.DateTime> dueDate)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var designationNumberParameter = designationNumber != null ?
+                new ObjectParameter("designationNumber", designationNumber) :
+                new ObjectParameter("designationNumber", typeof(string));
+    
+            var programNameParameter = programName != null ?
+                new ObjectParameter("programName", programName) :
+                new ObjectParameter("programName", typeof(string));
+    
+            var dueDateParameter = dueDate.HasValue ?
+                new ObjectParameter("dueDate", dueDate) :
+                new ObjectParameter("dueDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLCE_Special_Data_Result>("pr_getLCE_Special_Data", personParameter, designationNumberParameter, programNameParameter, dueDateParameter);
         }
     }
 }

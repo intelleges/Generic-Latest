@@ -12,6 +12,13 @@ namespace Generic.Models
 		public string ProgramName { get; set; }
 		[DisplayName("Designation")]
 		public string Designation { get; set; }
+
+		[DisplayName("Owner")]
+		public int Owner { get; set; }
+		[DisplayName("Due date")]
+		public DateTime? Duedate { get; set; }
+
+
 		[DisplayName("Program Leader/Manager")]
 		public string ProgramLeader { get; set; }
 		[DisplayName("Coordinator")]
