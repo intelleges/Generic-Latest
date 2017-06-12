@@ -6,13 +6,73 @@
 @{
 	#region My
 	Layout = LayoutHelper.GetLayout();
-	ViewBag.Title = "LCE";
+	ViewBag.Title = "LC & E Checklist";
 	#endregion
 }
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+		if ("@ViewBag.Message" == "1") {
+			debugger;
+			alertify.set({
+				labels: {
+					ok: "Invite Now", cancel: "Cancel"
+				}
+			});
+			alertify.confirm("", function (e) {
+				if (e) {
+					// Click no
+					$.ajax({
+						url: "@Url.Content("~/partner/InvitePartners")",
+						type: "post",
+					success: function (data) {
+
+						alertify.set({
+							labels: {
+								ok: "ok", cancel: "cancel"
+							}
+						});
+
+						//dataClear();
+						alertify.alert(data.Data.message);
+						$('#alertify-ok').text('OK');
+						var len = data.EventNotification.length;
+						$('#btnInviteList').show();
+						if (len == 0) {
+							alertify.alert("Please wait, data processing");
+							$('#alertify-ok').text('OK');
+						} else {
+
+							var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+							for (i = 0; i < len; i++)
+								events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+							$('#DivEventNotification').html(events);
+						}
+
+					},
+					error: function (data) {
+
+					}
+				});
+			} else {
+			// click yes
+                   
+		}
+	});
+	}
+	if ("@ViewBag.Message" == "2") {
+
+		alertify.alert('@ViewBag.MessageDetail');
+		dataClear();
+	}
+	if ("@ViewBag.Message" == "error") {
+
+		alertify.alert('@ViewBag.MessageDetail');
+		dataClear();
+	}
 		$("#btnClear").click(function (e) {
 			alertify.confirm("Are you sure?", function (result) {
 				if (result) {
@@ -106,14 +166,14 @@
 		}
 </style>
 <div class="addPartnerDiv">
-	<h2>Create LCE</h2>
+	<h2>LC &amp; E Checklist</h2>
 </div>
 @using (Html.BeginForm())
 {
 	@Html.ValidationSummary(true)
 
 	<fieldset>
-		<legend>LCE</legend>
+		<legend>LC&amp;E Checklist Form</legend>
 		<div id="addPartner" class="addPartnerDiv">
 			<div class="twocol">
 				@*@Html.HiddenFor(model => model.id)*@

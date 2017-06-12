@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,13 +9,16 @@ namespace Generic.Models
 {
 	public class LCEModel
 	{
+		[Required]
 		[DisplayName("Program Name")]
 		public string ProgramName { get; set; }
+		[Required]
 		[DisplayName("Designation")]
 		public string Designation { get; set; }
-
+		[Required]
 		[DisplayName("Owner")]
 		public int Owner { get; set; }
+		[Required]
 		[DisplayName("Due date")]
 		public DateTime? Duedate { get; set; }
 

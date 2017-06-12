@@ -32,8 +32,21 @@ namespace Generic.Controllers
 			GenerateOwner();
 			if (ModelState.IsValid)
 			{
-				db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
-				return View();
+				
+				var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
+				string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+				Session["partnertype"] = result.partnertype;
+				Session["touchpoint"] = result.touchpoint;
+				Session["loadGroup"] = loadGroup;
+				var f = result.partner_country;
+				var partnerId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, result.partner_name, result.partner_address_one, result.partner_address_two, result.partner_city, result.partner_state.ToString(), result.partner_zipcode, result.partner_country.ToString(), result.partner_poc_first_name, result.partner_poc_last_name, result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, result.partnertype, result.touchpoint, result.person, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
+				var Target = db.touchpoint.Where(x => x.id == result.touchpoint).ToList();
+				ViewBag.Message = Target[0].target.ToString();
+				if (Target[0].target.ToString() == "2")
+				{
+					ViewBag.MessageDetail = "Congratulations, you just added  " + result.partner_name + " to " + Target[0].title;
+				}
+				return View(new LCEModel());
 			}
 			return View(model);
 		}
