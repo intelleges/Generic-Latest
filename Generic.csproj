@@ -1887,6 +1887,9 @@
     <Compile Include="pr_getPPTQQuestionResponseByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPPTQTeamRacixByPPTQ_Grid_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPreviousPPTQByPPTQAndStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -5074,6 +5077,7 @@
     <Content Include="Views\Partner\GetIterateNotes.cshtml" />
     <Content Include="Views\LCE\Create.cshtml" />
     <Content Include="Views\FRPJ\Create.cshtml" />
+    <Content Include="Views\LCE\CreateResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

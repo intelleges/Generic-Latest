@@ -18899,5 +18899,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLCE_Special_Data_Result>("pr_getLCE_Special_Data", personParameter, designationNumberParameter, programNameParameter, dueDateParameter);
         }
+    
+        public virtual ObjectResult<pr_getPPTQTeamRacixByPPTQ_Grid_Result> pr_getPPTQTeamRacixByPPTQ_Grid(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_Result>("pr_getPPTQTeamRacixByPPTQ_Grid", pptqParameter);
+        }
     }
 }

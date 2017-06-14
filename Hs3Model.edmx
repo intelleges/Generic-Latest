@@ -6739,6 +6739,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPPTQQuestionResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerpartnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPPTQTeamRacixByPPTQ_Grid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPreviousPPTQByPPTQAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
@@ -15555,6 +15558,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="designationNumber" Mode="In" Type="String" />
             <Parameter Name="programName" Mode="In" Type="String" />
             <Parameter Name="dueDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQTeamRacixByPPTQ_Grid" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25165,6 +25171,35 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="group" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getPPTQTeamRacixByPPTQ_Grid_Result">
+          <Property Type="Int32" Name="pptqQR" Nullable="true" />
+          <Property Type="Int32" Name="section" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+          <Property Type="String" Name="Responsible_Edit_" Nullable="false" />
+          <Property Type="String" Name="Accountable_Approve_" Nullable="false" />
+          <Property Type="String" Name="Consulted__Approval_Alerts_" Nullable="false" />
+          <Property Type="String" Name="Informed__All_Alerts_" Nullable="false" />
+          <Property Type="String" Name="eXcluded" Nullable="false" />
+          <Property Type="String" Name="questionDesc" Nullable="true" />
+          <Property Type="String" Name="sectionDesc" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="responseDesc" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="Int32" Name="approval5" Nullable="true" />
+          <Property Type="String" Name="previousZcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="currentZcode" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="alertOn" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="lastModifedBy" Nullable="true" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="approvalDueDate" Nullable="true" />
+          <Property Type="Int32" Name="scoreNeeded" Nullable="true" />
+          <Property Type="Int32" Name="score6" Nullable="true" />
+          <Property Type="DateTime" Name="appovalDate" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33721,6 +33756,39 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
                 <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="group" ColumnName="group" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQTeamRacixByPPTQ_Grid" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQTeamRacixByPPTQ_Grid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_Result">
+                <ScalarProperty Name="pptqQR" ColumnName="pptqQR" />
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="Responsible_Edit_" ColumnName="Responsible(Edit)" />
+                <ScalarProperty Name="Accountable_Approve_" ColumnName="Accountable(Approve)" />
+                <ScalarProperty Name="Consulted__Approval_Alerts_" ColumnName="Consulted (Approval Alerts)" />
+                <ScalarProperty Name="Informed__All_Alerts_" ColumnName="Informed (All Alerts)" />
+                <ScalarProperty Name="eXcluded" ColumnName="eXcluded" />
+                <ScalarProperty Name="questionDesc" ColumnName="questionDesc" />
+                <ScalarProperty Name="sectionDesc" ColumnName="sectionDesc" />
+                <ScalarProperty Name="responseDesc" ColumnName="responseDesc" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="approval5" ColumnName="approval5" />
+                <ScalarProperty Name="previousZcode" ColumnName="previousZcode" />
+                <ScalarProperty Name="currentZcode" ColumnName="currentZcode" />
+                <ScalarProperty Name="alertOn" ColumnName="alertOn" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+                <ScalarProperty Name="lastModifedBy" ColumnName="lastModifedBy" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="approvalDueDate" ColumnName="approvalDueDate" />
+                <ScalarProperty Name="scoreNeeded" ColumnName="scoreNeeded" />
+                <ScalarProperty Name="score6" ColumnName="score6" />
+                <ScalarProperty Name="appovalDate" ColumnName="appovalDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
