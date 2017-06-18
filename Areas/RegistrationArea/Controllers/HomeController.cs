@@ -1127,7 +1127,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 				int questionnaireId = (int)Session["questionnaire"];
 
-				var sectionsWithPages = db.pr_getSurveySetByQuestionnaire(questionnaireId).ToList();
 				var sections = db.pr_getSurveySetMAXAndLastQuestionByQuestionnaire(questionnaireId).ToList();
 
 				var questioncount = db.pr_getQuestionCountByQuestionnaire(questionnaireId);
