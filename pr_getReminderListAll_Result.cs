@@ -13,17 +13,17 @@ namespace Generic
     
     public partial class pr_getReminderListAll_Result
     {
-        public Nullable<int> nextToSend_ptq { get; set; }
-        public int nextToSend_pptq { get; set; }
-        public Nullable<int> nextToSend_automailmessage { get; set; }
+        public Nullable<int> nextToSendPTQ { get; set; }
+        public int nextToSendPPTQ { get; set; }
+        public Nullable<int> nextToSendAutomailmessage { get; set; }
         public Nullable<int> sendDateCalcFactor { get; set; }
         public Nullable<System.DateTime> sendDate { get; set; }
         public string subject { get; set; }
-        public string h_automailType_desc { get; set; }
+        public string automailType { get; set; }
         public Nullable<int> automailMessage { get; set; }
         public string name { get; set; }
         public Nullable<int> country { get; set; }
-        public int sent_pptq { get; set; }
-        public int ptq { get; set; }
+        public int previousSentPPTQ { get; set; }
+        public int previousSentPTQ { get; set; }
     }
 }

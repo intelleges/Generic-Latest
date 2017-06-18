@@ -75,7 +75,7 @@
 						<div class="tooltip-container">
 							@foreach (PageDetails item in pages)
 							{
-								<a href="@item.Url" class="div-box" style="width:@v%">
+								<a href="@item.Url" class="div-box" style="width:@v%;background-color:@item.Color;">
 									<span class="tooltiptext">@Html.Raw(item.Title)</span>
 								</a>
 							}

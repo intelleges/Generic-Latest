@@ -12,5 +12,9 @@ namespace Generic.Areas.RegistrationArea.Models
 		public string Title { get; set; }
 
 		public int QuestionsCount { get; set; }
+
+		public string Section { get; set; }
+
+		public string Color { get; set; }
 	}
 }

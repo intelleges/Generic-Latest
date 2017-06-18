@@ -33,52 +33,34 @@ namespace Generic.Helpers
             {
                 var pingTimeStamp = DateTime.Now;
                 EntitiesDBContext db = new EntitiesDBContext();
-                //CurrentInstance.EnterpriseID = 2;
-               
-                //System.Web.HttpContext.Current.Session["EnterpriseId"] = 2;
-                // pr_getReminderListByCountryAll
-                // pr_getReminderListIncompleteByCountryAll
+                
 
-                var reminderList = db.pr_getReminderListByCountryAll(true).ToList();
-                var reminderIncompleteList = db.pr_getReminderListIncompleteByCountryAll().ToList();
+				var reminderList = db.pr_getReminderListAll();
+               
                 Dictionary<int?, int> countPtq = new Dictionary<int?, int>();
                 int pingRecordsProcessed = 0;
                 foreach (var item in reminderList)
                 {
-                    //  if (item.name == "Sukhbir Singh")
-                    //if (item.enterprise == 1) srdjan
-                    //{ srdjan
-                        //Console.WriteLine(item.name);
+                    
 
 
 
-                        var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.pptq).FirstOrDefault();
-                        // pptq.invitedDate = DateTime.Now;
-                        var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
-                        //pptq.invitedBy = person.id;
-                        //pptq.status = (int)PartnerStatus.Invited_NoResponse;
-                        //db.Entry(pptq).State = EntityState.Modified;
-                        //db.SaveChanges();
+                        var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.nextToSendPPTQ).FirstOrDefault();
+                        
 
                         var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
-                        //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                        //db.Entry(objpartner).State = EntityState.Modified;
-                        //db.SaveChanges();
+						var person = db.pr_getPerson(objpartner.owner).FirstOrDefault();
+                        
 
-                        var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
+                        var amm = db.pr_getAutomailMessage(item.nextToSendAutomailmessage).FirstOrDefault();
                     if(amm != null)
                     {
                         amm.text.Replace("[partner Access Code]", pptq.accesscode);
                     }
 
-                  // srdjan     var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
+                  
 
-                        //if (objpartnerByAccessCode != null)
-                        //{
-                        //    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-                        //}
-
-                        var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
+                        var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.nextToSendPTQ).FirstOrDefault();
 
                         var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
                         Email email = new Email(amm);
@@ -95,16 +77,16 @@ namespace Generic.Helpers
                        
                         try
                         {
-                          sendEmails(email, (int)item.enterprise, db);
-                          db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
+							sendEmails(email, (int)ptq.partnerType1.enterprise, db);
+                          db.pr_addPPTQautoMailMessageLog(item.nextToSendPPTQ, item.nextToSendAutomailmessage);
                           pingRecordsProcessed = pingRecordsProcessed + 1;
-                          if(!countPtq.ContainsKey(item.ptq))
+                          if(!countPtq.ContainsKey(item.nextToSendPTQ))
                           {
-                              countPtq.Add(item.ptq, 1);
+							  countPtq.Add(item.nextToSendPTQ, 1);
                           }
                           else
                           {
-                              countPtq[item.ptq] += 1;
+							  countPtq[item.nextToSendPTQ] += 1;
                           }
                         }
                         catch (Exception ex)
@@ -122,77 +104,7 @@ namespace Generic.Helpers
                         }
                      
                 }
-                #region Ignored
-                //   foreach (var item in reminderIncompleteList)
-             //   {
-             //       //  if (item.name == "Sukhbir Singh")
-             //////srdjan       if (item.enterprise == 1)
-             //   ////srdjan    {
-             //           //Console.WriteLine(item.name);
-
-
-
-             //           var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.pptq).FirstOrDefault();
-             //           // pptq.invitedDate = DateTime.Now;
-             //           var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
-             //           //pptq.invitedBy = person.id;
-             //           //pptq.status = (int)PartnerStatus.Invited_NoResponse;
-             //           //db.Entry(pptq).State = EntityState.Modified;
-             //           //db.SaveChanges();
-
-             //           var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
-             //           //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-             //           //db.Entry(objpartner).State = EntityState.Modified;
-             //           //db.SaveChanges();
-
-             //           var amm = db.pr_getAutomailMessage(item.automailmessage).FirstOrDefault();
-             //       if(amm != null)
-             //       {
-             //           amm.text.Replace("[partner Access Code]", pptq.accesscode);
-             //       }
-
-             //      // srdjan    var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(pptq.accesscode, pptq.loadGroup).FirstOrDefault();
-
-             //           //if (objpartnerByAccessCode != null)
-             //           //{
-             //           //    amm.text = amm.text.Replace("[Due Date]", objpartnerByAccessCode.Value.ToString("MMM, dd, yyyy"));
-             //           //}
-
-             //           var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(item.ptq).FirstOrDefault();
-
-             //           var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
-             //           Email email = new Email(amm);
-
-
-             //           email.accesscode = pptq.accesscode;
-             //           email.protocolTouchpoint = objtouchpoint.description;
-
-             //           EmailFormat emailFormat = new EmailFormat();
-             //           email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
-             //           email.emailTo = objpartner.email;
-
-             //           // email.emailTo = "goldykhurmi@gmail.com";
-
-             //           // SendEmail objSendEmail = new SendEmail();
-             //           //objSendEmail.sendEmail(email);
-             //           try
-             //           {
-             //            sendEmails(email, (int)item.enterprise, db);
-             //            db.pr_addPPTQautoMailMessageLog(item.pptq, item.automailmessage);
-             //            pingRecordsProcessed = pingRecordsProcessed + 1;
-             //           }
-             //           catch (Exception ex)
-             //           {
-
-             //               string text = "\r\n \r\n Error in SECOND foreach loop : " + ex.StackTrace;
-             //               System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
-
-             //           }
-             //           // sendEmail(item.subject, "", "", "john@intelleges.com");
-             //   ////srdjan    }
-
-                //   }
-                #endregion
+                
 
                 foreach (var o in countPtq)
                 {
@@ -216,26 +128,6 @@ namespace Generic.Helpers
                 
             }
 
-           
-            //DataTable dt = DataAccessScheduler.getDailyReport();
-
-            ////if the directory already exists
-            ////create a new directory name
-
-            //if (!Directory.Exists("c:/notRespondedlist/"))
-            //{
-            //    Directory.CreateDirectory("c:/notRespondedlist/");
-            //}
-            ////create the new directory and save the file in it
-
-            //string fileName = "notRespondedPartnersList.xls";
-            //string filePath = "c:/notRespondedlist/" + fileName;
-
-            //CreateExcelFile(dt, filePath);
-
-            //sendEmail("Not Responded partner List", "Here is the list of Partners who Not Responded yet.Please find the attachment for the same.", filePath, "john@intelleges.com");
-
-
         }
 
         public static string sendEmails(Email email, int enterpriseId, EntitiesDBContext db)
@@ -258,60 +150,44 @@ namespace Generic.Helpers
             additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);
 
             mail.AddUniqueIdentifiers(additionalArguments);
-
-
-            //mail.StreamedAttachments.Add(
-            //mail.CreateMimeMessage().AlternateViews.Add;
-
-
-
-          //  var transportSMTP = SMTP.GetInstance(credentials);
             var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
 
             if (email.type == "user")
             {
-                // mail.AddTo(email.user.email);
-                //   receiver = email.user.email;
+               
             }
             else if (email.type == "provider")
             {
-                //mail.AddTo(email.provider.contact.email);
-                //receiver = email.provider.contact.email;
+               
             }
             else if (email.type == "providerowner")
             {
-                //mail.AddTo(email.provider.contact.email);
-                //mail.AddCc(email.provider.owner.email);
-                //receiver = email.provider.contact.email;
+                
             }
             else if (email.type == "owner")
             {
-                //mail.AddTo(email.provider.owner.email);
-                //receiver = email.provider.owner.email;
+                
             }
 
             else if (email.type == "providerLogin")
             {
-                //mail.AddTo(email.providerLogin.email);
-                //receiver = email.providerLogin.email;
+                
             }
             else
             {
-               // email.emailTo = "office@softwarexpert.net";
+              
                 mail.AddTo(email.emailTo);
                 receiver = email.emailTo;
 
             }
-            //  string extension = mail.AddFileAttachment(email.attachment);
+           
 
             enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o=>o.enterprise == enterpriseId).FirstOrDefault();
 
             mail.From = new MailAddress(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
 
-            //mail.From = email.sender.email;
-            //mail.FromName = email.sender.firstName + " " + email.sender.lastName;
-            //mail.ReplyTo = email.sender.email;
+          
             mail.Subject = email.subject;
 
             //set body format
@@ -323,28 +199,7 @@ namespace Generic.Helpers
             try
             {
                 transportSMTP.Deliver(mail);
-             //   SendEmail objSendEmail = new SendEmail();
-               // objSendEmail.sendEmail(email);
-                //mail.SetHtmlBody(email.body);
-
-
-                //                Boolean x=true;
-
-                //  mailMan.SendEmail(mail);
-
-                //returnValue = receiver;
-
-                //if (!x)
-                // {
-                //                    string abg = "Message not sent to ";
-                // }
-                ////bye me
-                //if (!mailMan.SendEmail(mail))
-                //{
-                //    mailMan.SaveLastError("ErrorLog.xml");
-                //}
-
-                ////end 
+             
                 if (email.type == "user")
                 {
                     returnValue = receiver;
@@ -356,8 +211,7 @@ namespace Generic.Helpers
                 }
                 else
                 {
-                    //  Provider provider = new Provider(new Id(email.provider.id.id)).getProviderById();
-                    //   provider.addProviderLogLastContact(email);
+                  
                     returnValue = receiver;
                 }
             }
@@ -374,11 +228,11 @@ namespace Generic.Helpers
 
                 if (email.type == "provider")
                 {
-                    //        returnValue = receiver + ": " + addErrorMessage(ex.Message.ToString(), email.provider.id.id);
+                    
                 }
                 else if (email.type == "providerLogin")
                 {
-                    //         returnValue = receiver + ": " + addErrorMessage(ex.Message.ToString(), email.providerLogin.Id.id);
+                    
                 }
                 else
                 {

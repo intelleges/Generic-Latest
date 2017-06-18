@@ -10656,11 +10656,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireRuleTargetTypeAll_Result>("pr_getQuestionnaireRuleTargetTypeAll");
         }
     
-        public virtual ObjectResult<pr_getReminderListAll_Result> pr_getReminderListAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListAll_Result>("pr_getReminderListAll");
-        }
-    
         public virtual ObjectResult<pr_getReminderListByCountryAll2_Result> pr_getReminderListByCountryAll2()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListByCountryAll2_Result>("pr_getReminderListByCountryAll2");
@@ -18907,6 +18902,29 @@ namespace Generic
                 new ObjectParameter("pptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_Result>("pr_getPPTQTeamRacixByPPTQ_Grid", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getReminderListAll_Result> pr_getReminderListAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderListAll_Result>("pr_getReminderListAll");
+        }
+    
+        public virtual ObjectResult<pr_getSurveySetByQuestionnaire_Result> pr_getSurveySetByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetByQuestionnaire_Result>("pr_getSurveySetByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result> pr_getSurveySetMAXAndLastQuestionByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result>("pr_getSurveySetMAXAndLastQuestionByQuestionnaire", questionnaireParameter);
         }
     }
 }

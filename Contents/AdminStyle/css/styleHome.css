@@ -1725,10 +1725,10 @@ div#lblThankYou p {
 
 
 .div-box {
-		 height:20px;
+		 height:10px;
 		 float:left;
 		 cursor:pointer;
-		 margin-top: -13px;
+		 margin-top: -9px;
 		 z-index:1000000;
 		  position: relative;
     display: inline-block;
@@ -1740,7 +1740,7 @@ div#lblThankYou p {
 	
 .div-box .tooltiptext {
     visibility: hidden;
-    width: 120px;
+    width: 140px;
     background-color: #555;
     color: #fff;
     text-align: left;

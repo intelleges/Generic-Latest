@@ -7097,8 +7097,14 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getSurveysetByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSurveySetByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getSurveysetBySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="survey" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSurveySetMAXAndLastQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getSystemInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -13036,7 +13042,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireRuleTargetTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireRuleTargetTypeAll_Result)" />
-          <FunctionImport Name="pr_getReminderListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListAll_Result)" />
           <FunctionImport Name="pr_getReminderListByCountryAll2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListByCountryAll2_Result)" />
           <FunctionImport Name="pr_modifyQuestionnairerule">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -15560,7 +15565,14 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="dueDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQTeamRacixByPPTQ_Grid" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getReminderListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListAll_Result)" />
+          <FunctionImport Name="pr_getSurveySetByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetByQuestionnaire_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSurveySetMAXAndLastQuestionByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -20801,20 +20813,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="pr_getReminderListAll_Result">
-          <Property Type="Int32" Name="nextToSend_ptq" Nullable="true" />
-          <Property Type="Int32" Name="nextToSend_pptq" Nullable="false" />
-          <Property Type="Int32" Name="nextToSend_automailmessage" Nullable="true" />
-          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
-          <Property Type="DateTime" Name="sendDate" Nullable="true" />
-          <Property Type="String" Name="subject" Nullable="true" />
-          <Property Type="String" Name="h_automailType_desc" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="automailMessage" Nullable="true" />
-          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="country" Nullable="true" />
-          <Property Type="Int32" Name="sent_pptq" Nullable="false" />
-          <Property Type="Int32" Name="ptq" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="pr_getReminderListByCountryAll2_Result">
           <Property Type="Int32" Name="ptq" Nullable="true" />
           <Property Type="Int32" Name="pptq" Nullable="false" />
@@ -25200,6 +25198,33 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="score6" Nullable="true" />
           <Property Type="DateTime" Name="appovalDate" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getReminderListAll_Result">
+          <Property Type="Int32" Name="nextToSendPTQ" Nullable="true" />
+          <Property Type="Int32" Name="nextToSendPPTQ" Nullable="false" />
+          <Property Type="Int32" Name="nextToSendAutomailmessage" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="true" />
+          <Property Type="DateTime" Name="sendDate" Nullable="true" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="automailType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="automailMessage" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="Int32" Name="previousSentPPTQ" Nullable="false" />
+          <Property Type="Int32" Name="previousSentPTQ" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSurveySetByQuestionnaire_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="2000" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result">
+          <Property Type="Int32" Name="section" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="2000" />
+          <Property Type="Int32" Name="finalQuestion" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -29291,24 +29316,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getReminderListAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListAll_Result">
-                <ScalarProperty Name="nextToSend_ptq" ColumnName="nextToSend_ptq" />
-                <ScalarProperty Name="nextToSend_pptq" ColumnName="nextToSend_pptq" />
-                <ScalarProperty Name="nextToSend_automailmessage" ColumnName="nextToSend_automailmessage" />
-                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
-                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
-                <ScalarProperty Name="subject" ColumnName="subject" />
-                <ScalarProperty Name="h_automailType_desc" ColumnName="h_automailType_desc" />
-                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="country" ColumnName="country" />
-                <ScalarProperty Name="sent_pptq" ColumnName="sent_pptq" />
-                <ScalarProperty Name="ptq" ColumnName="ptq" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -33789,6 +33796,45 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="scoreNeeded" ColumnName="scoreNeeded" />
                 <ScalarProperty Name="score6" ColumnName="score6" />
                 <ScalarProperty Name="appovalDate" ColumnName="appovalDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getReminderListAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getReminderListAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getReminderListAll_Result">
+                <ScalarProperty Name="nextToSendPTQ" ColumnName="nextToSendPTQ" />
+                <ScalarProperty Name="nextToSendPPTQ" ColumnName="nextToSendPPTQ" />
+                <ScalarProperty Name="nextToSendAutomailmessage" ColumnName="nextToSendAutomailmessage" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDate" ColumnName="sendDate" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="automailType" ColumnName="automailType" />
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="previousSentPPTQ" ColumnName="previousSentPPTQ" />
+                <ScalarProperty Name="previousSentPTQ" ColumnName="previousSentPTQ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSurveySetByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getSurveySetByQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSurveySetByQuestionnaire_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSurveySetMAXAndLastQuestionByQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_getSurveySetMAXAndLastQuestionByQuestionnaire">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result">
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="finalQuestion" ColumnName="finalQuestion" />
+                <ScalarProperty Name="question" ColumnName="question" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
