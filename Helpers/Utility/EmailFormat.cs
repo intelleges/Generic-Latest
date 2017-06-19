@@ -121,7 +121,36 @@ namespace Generic.Helpers.Utility
                         break;
                     case "[iteratepartnername]":
                         sValue = partner.name;
-                        break;                   
+                        break;
+					case "[jobsnippet]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).jobSnippet;
+						break;
+					case "[searchterm]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
+						break;
+					case "[industrysector]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
+						break;
+
+
+					case "[owneremail]":
+						sValue = this.getRequiredPerson(partner.id).email;
+						break;
+					case "[ownerfirstname]":
+						sValue = this.getRequiredPerson(partner.id).firstName;
+						break;
+					case "[ownerlastname]":
+						sValue = this.getRequiredPerson(partner.id).lastName;
+						break;
+					case "[ownerfullName]":
+						sValue = this.getRequiredPerson(partner.id).FullName;
+						break;
+					case "[ownertitle]":
+						sValue = this.getRequiredPerson(partner.id).title;
+						break;
+					case "[ownerphonenumber]":
+						sValue = this.getRequiredPerson(partner.id).phone;
+						break;
                     default:
                         if (sVariable.Contains("[forward to"))
                         {
@@ -523,7 +552,7 @@ namespace Generic.Helpers.Utility
 					case "[ownerlastname]":
 						sValue = this.getRequiredPerson(partner.id).lastName;
 						break;
-					case "[ownerfullName]":
+					case "[ownerfullname]":
 						sValue = this.getRequiredPerson(partner.id).FullName;
 						break;
 					case "[ownertitle]":
@@ -531,6 +560,9 @@ namespace Generic.Helpers.Utility
 						break;
 					case "[ownerphonenumber]":
 						sValue = this.getRequiredPerson(partner.id).phone;
+						break;
+					case "[personfullname]":
+						sValue = partner.firstName + " " + partner.lastName;
 						break;
 
                     //case "[partner_state]":
