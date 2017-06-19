@@ -503,6 +503,36 @@ namespace Generic.Helpers.Utility
                     case "[company url]":
                         sValue = partner.dunsNumber;
                         break;
+					case "[jobsnippet]":						
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).jobSnippet;
+						break;
+					case "[searchterm]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
+						break;
+					case "[industrysector]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
+						break;
+
+
+					case "[owneremail]":
+						sValue = this.getRequiredPerson(partner.id).email;
+						break;
+					case "[ownerfirstname]":
+						sValue = this.getRequiredPerson(partner.id).firstName;
+						break;
+					case "[ownerlastname]":
+						sValue = this.getRequiredPerson(partner.id).lastName;
+						break;
+					case "[ownerfullName]":
+						sValue = this.getRequiredPerson(partner.id).FullName;
+						break;
+					case "[ownertitle]":
+						sValue = this.getRequiredPerson(partner.id).title;
+						break;
+					case "[ownerphonenumber]":
+						sValue = this.getRequiredPerson(partner.id).phone;
+						break;
+
                     //case "[partner_state]":
                     //    sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;
                     //    break;
@@ -549,6 +579,24 @@ namespace Generic.Helpers.Utility
             }
             return sEmailBody;
         }
+
+		private companyProfileDataLoad sGetResultCompanyProfileDataLoad(int partnerId)
+		{
+			using(var db  = new EntitiesDBContext()){
+				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+				return db.pr_getCompanyProfileDataLoadByPPTQ(pptq.id).FirstOrDefault();
+			}
+			 
+		}
+
+		private person getRequiredPerson(int partnerId)
+		{
+			using(var db = new EntitiesDBContext())
+			{
+				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+				return db.pr_getPPTQOwner(pptq.id).FirstOrDefault();
+			}
+		}
 
         public string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
         {

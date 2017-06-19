@@ -211,6 +211,7 @@ namespace Generic
         public virtual DbSet<IteratePartnerNote> IteratePartnerNote { get; set; }
         public virtual DbSet<ptqReferencePTQ> ptqReferencePTQ { get; set; }
         public virtual DbSet<iterateType> iterateType { get; set; }
+        public virtual DbSet<companyProfileDataLoad> companyProfileDataLoad { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -18925,6 +18926,42 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result>("pr_getSurveySetMAXAndLastQuestionByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<companyProfileDataLoad> pr_getCompanyProfileDataLoadByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<companyProfileDataLoad>("pr_getCompanyProfileDataLoadByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<companyProfileDataLoad> pr_getCompanyProfileDataLoadByPPTQ(Nullable<int> pptq, MergeOption mergeOption)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<companyProfileDataLoad>("pr_getCompanyProfileDataLoadByPPTQ", mergeOption, pptqParameter);
+        }
+    
+        public virtual ObjectResult<person> pr_getPPTQOwner(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPPTQOwner", pptqParameter);
+        }
+    
+        public virtual ObjectResult<person> pr_getPPTQOwner(Nullable<int> pptq, MergeOption mergeOption)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPPTQOwner", mergeOption, pptqParameter);
         }
     }
 }

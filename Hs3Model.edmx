@@ -151,6 +151,34 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="companyProfileDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyName" Type="varchar" MaxLength="500" />
+          <Property Name="jobAddress" Type="varchar" MaxLength="500" />
+          <Property Name="jobCity" Type="varchar" MaxLength="500" />
+          <Property Name="jobState" Type="varchar" MaxLength="100" />
+          <Property Name="jobZicode" Type="varchar" MaxLength="50" />
+          <Property Name="jobCountry" Type="varchar" MaxLength="50" />
+          <Property Name="jobSnippet" Type="varchar(max)" />
+          <Property Name="companyMainNumber" Type="varchar" MaxLength="50" />
+          <Property Name="companyURL" Type="varchar" MaxLength="500" />
+          <Property Name="searchterm" Type="varchar" MaxLength="500" />
+          <Property Name="pocPhoneNumber" Type="bigint" />
+          <Property Name="pocFirstName" Type="varchar" MaxLength="100" />
+          <Property Name="pocLastName" Type="varchar" MaxLength="100" />
+          <Property Name="pocTitle" Type="varchar" MaxLength="100" />
+          <Property Name="pocEmailAddress" Type="varchar" MaxLength="500" />
+          <Property Name="companyRevenue" Type="varchar" MaxLength="50" />
+          <Property Name="companyEmployeeCount" Type="varchar" MaxLength="50" />
+          <Property Name="industrySector" Type="varchar" MaxLength="500" />
+          <Property Name="relationshipOwner" Type="int" />
+          <Property Name="pptq" Type="int" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="confirmationSpreadsheetDataLoad">
           <Key>
             <PropertyRef Name="id" />
@@ -5887,6 +5915,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getCommentByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getCompanyProfileDataLoadByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6732,6 +6763,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getPPTQGroupByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PPTQ" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQOwner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getPPTQpdf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -9001,6 +9035,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="campaign" EntityType="Self.campaign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="campaignRule" EntityType="Self.campaignRule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="campaignStatus" EntityType="Self.campaignStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="companyProfileDataLoad" EntityType="Self.companyProfileDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="confirmationSpreadsheetDataLoad" EntityType="Self.confirmationSpreadsheetDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="Self.ConfirmPartnerActionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="country" EntityType="Self.country" Schema="dbo" store:Type="Tables" />
@@ -15569,10 +15604,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="pr_getReminderListAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReminderListAll_Result)" />
           <FunctionImport Name="pr_getSurveySetByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetByQuestionnaire_Result)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSurveySetMAXAndLastQuestionByQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByQuestionnaire_Result)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="companyProfileDataLoad" EntityType="hs3MVCMTQa2Model.companyProfileDataLoad" />
+          <FunctionImport Name="pr_getCompanyProfileDataLoadByPPTQ" EntitySet="companyProfileDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.companyProfileDataLoad)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQOwner" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25225,6 +25267,92 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="finalQuestion" Nullable="false" />
           <Property Type="String" Name="question" Nullable="true" />
         </ComplexType>
+        <EntityType Name="companyProfileDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="jobAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="jobCity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="jobState" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="jobZicode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobSnippet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="companyMainNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="companyURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="searchterm" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="pocPhoneNumber" Type="Int64" />
+          <Property Name="pocFirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="pocLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="pocTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="pocEmailAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="companyRevenue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="companyEmployeeCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="industrySector" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="relationshipOwner" Type="Int32" />
+          <Property Name="pptq" Type="Int32" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getCompanyProfileDataLoadByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobCity" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobState" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="jobZicode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobCountry" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobSnippet" Nullable="true" />
+          <Property Type="String" Name="companyMainNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="companyURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="searchterm" Nullable="true" MaxLength="500" />
+          <Property Type="Int64" Name="pocPhoneNumber" Nullable="true" />
+          <Property Type="String" Name="pocFirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocLastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocEmailAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyRevenue" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="companyEmployeeCount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="industrySector" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="relationshipOwner" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQOwner_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33837,6 +33965,39 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
                 <ScalarProperty Name="question" ColumnName="question" />
               </ComplexTypeMapping>
             </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="companyProfileDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.companyProfileDataLoad">
+              <MappingFragment StoreEntitySet="companyProfileDataLoad">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="relationshipOwner" ColumnName="relationshipOwner" />
+                <ScalarProperty Name="industrySector" ColumnName="industrySector" />
+                <ScalarProperty Name="companyEmployeeCount" ColumnName="companyEmployeeCount" />
+                <ScalarProperty Name="companyRevenue" ColumnName="companyRevenue" />
+                <ScalarProperty Name="pocEmailAddress" ColumnName="pocEmailAddress" />
+                <ScalarProperty Name="pocTitle" ColumnName="pocTitle" />
+                <ScalarProperty Name="pocLastName" ColumnName="pocLastName" />
+                <ScalarProperty Name="pocFirstName" ColumnName="pocFirstName" />
+                <ScalarProperty Name="pocPhoneNumber" ColumnName="pocPhoneNumber" />
+                <ScalarProperty Name="searchterm" ColumnName="searchterm" />
+                <ScalarProperty Name="companyURL" ColumnName="companyURL" />
+                <ScalarProperty Name="companyMainNumber" ColumnName="companyMainNumber" />
+                <ScalarProperty Name="jobSnippet" ColumnName="jobSnippet" />
+                <ScalarProperty Name="jobCountry" ColumnName="jobCountry" />
+                <ScalarProperty Name="jobZicode" ColumnName="jobZicode" />
+                <ScalarProperty Name="jobState" ColumnName="jobState" />
+                <ScalarProperty Name="jobCity" ColumnName="jobCity" />
+                <ScalarProperty Name="jobAddress" ColumnName="jobAddress" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCompanyProfileDataLoadByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getCompanyProfileDataLoadByPPTQ">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQOwner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQOwner">
           </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
