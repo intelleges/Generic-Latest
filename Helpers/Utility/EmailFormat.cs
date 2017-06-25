@@ -128,6 +128,15 @@ namespace Generic.Helpers.Utility
 					case "[searchterm]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
 						break;
+					case "[searchtermsmall]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
+						break;
+					case "[searchtermlarge]":
+						if(this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':').Count()>1)
+							sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[1];
+						break;
+					
+
 					case "[industrysector]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
 						break;
@@ -308,6 +317,7 @@ namespace Generic.Helpers.Utility
                     case "[partner encrypted Id]":
                         sValue = this.sGetEncryptedpartnerId(partner);
                         break;
+					case "[partnername]":
                     case "[partner name]":
                         sValue = this.sGetpartnerName(partner);
                         break;
@@ -538,6 +548,14 @@ namespace Generic.Helpers.Utility
 					case "[searchterm]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
 						break;
+					case "[searchtermsmall]":
+						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
+						break;
+					case "[searchtermlarge]":
+						if (this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':').Count() > 1)
+							sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[1];
+						break;
+					
 					case "[industrysector]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
 						break;
