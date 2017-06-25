@@ -450,6 +450,7 @@ namespace Generic.Helpers
                 EmailFormat emailFormat = new EmailFormat();
                 email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
 				email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, objtouchpoint, ptq.id);
+				//email.
                 email.emailTo = objpartner.email;
                 try
                 {

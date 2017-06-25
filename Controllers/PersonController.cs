@@ -276,7 +276,7 @@ namespace Generic.Controllers
                             var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o=>o.enterprise==person.enterprise);
 							context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise, sysinfo.credit, sysinfo.sortOrder, sysinfo.active);
                         }
-                        else context.pr_addPersonGroup(person.GroupId, person.id); 
+						else context.pr_addPersonGroup(person.id, person.GroupId); 
                     }
                     //if (!isInside)
                     //{
@@ -362,7 +362,13 @@ Intelleges Team";
                 }
                 catch (Exception exp)
                 {
-                    ViewBag.message = exp.Message;
+
+					string errors = "";
+					errors = exp.Message;
+					if (exp.InnerException != null)
+						errors += " ; " +exp.InnerException.Message;
+
+					ViewBag.message = errors;
                     return View(person);
                 }
             }
