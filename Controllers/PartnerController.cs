@@ -890,7 +890,7 @@ namespace Generic.Controllers
 						email.emailTo = objpartner.email;
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
+						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
 					}
 
 
@@ -1086,7 +1086,7 @@ namespace Generic.Controllers
 			email.emailTo = objpartner.email;
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(email);
-			db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
+			db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
 
 			string message = "Invite Sent";
 			ViewBag.Message = "2";
@@ -1656,7 +1656,7 @@ namespace Generic.Controllers
 						if (checkEventNotification == 0)
 						{
 							objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, email.loadgroup);
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
 						}
 
 					}
@@ -2269,7 +2269,7 @@ namespace Generic.Controllers
 
 					var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
-					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "FindRemind", null, null, null, accessCodes, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "FindRemind", null, null, null, accessCodes, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 				}
 			}
 			//if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
@@ -2293,7 +2293,7 @@ namespace Generic.Controllers
 			try
 			{
 				SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
-				db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendEmailByAccessCode", null, null, null, accessCode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+				db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendEmailByAccessCode", null, null, null, accessCode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
 			}
 			catch(Exception exp)
@@ -3924,7 +3924,7 @@ namespace Generic.Controllers
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, currentPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
-					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmailTest", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmailTest", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 
 					return Json("done");
 				}
@@ -4089,7 +4089,7 @@ namespace Generic.Controllers
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
 					SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
-					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmail", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmail", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 					iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
 					iPerson.previousContact = iPerson.lastContact;
 					iPerson.lastContact = (int)InteratePartnerStatus.EmailSent;

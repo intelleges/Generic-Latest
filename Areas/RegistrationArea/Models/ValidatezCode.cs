@@ -59,7 +59,7 @@ namespace Generic.Areas.RegistrationArea.Models
                         email.emailTo = _person != null ? _person.email : "";
                         SendEmail objSendEmail = new SendEmail();
                         objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(email.emailTo, DateTime.Now, " Email Alert for Invalid zCode", null, null, null, sessionAccessCode, email.protocolTouchpoint, "MVCMT", null, null);
+						db.pr_addEventNotification(email.emailTo, DateTime.Now, " Email Alert for Invalid zCode", null, null, null, sessionAccessCode, email.protocolTouchpoint, "MVCMT", null, null, null, null);
                     }
                     //else
                     //{

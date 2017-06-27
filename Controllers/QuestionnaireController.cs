@@ -529,7 +529,7 @@ namespace Generic.Controllers
 							email.emailTo = _partner.email;
 							SendEmail objSendEmail = new SendEmail();
 							objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "QuestionnaireQuestionnaireTestAutomailAll", null, null, null, email.accesscode, _touchpoint.description, "MVCMT", _enterprise.id, email.loadgroup);
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "QuestionnaireQuestionnaireTestAutomailAll", null, null, null, email.accesscode, _touchpoint.description, "MVCMT", null, null, _enterprise.id, email.loadgroup);
 						}
 					}
 				}

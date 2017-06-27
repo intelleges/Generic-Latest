@@ -26,5 +26,7 @@ namespace Generic
         public string applicationName { get; set; }
         public Nullable<int> enterprise { get; set; }
         public string loadgroup { get; set; }
+        public Nullable<int> reminderSource { get; set; }
+        public Nullable<int> automailMessage { get; set; }
     }
 }

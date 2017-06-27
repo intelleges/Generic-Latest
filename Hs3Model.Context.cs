@@ -212,6 +212,7 @@ namespace Generic
         public virtual DbSet<ptqReferencePTQ> ptqReferencePTQ { get; set; }
         public virtual DbSet<iterateType> iterateType { get; set; }
         public virtual DbSet<companyProfileDataLoad> companyProfileDataLoad { get; set; }
+        public virtual DbSet<partnerReminderType> partnerReminderType { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -628,55 +629,6 @@ namespace Generic
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEsignature", firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> pr_addEventNotification(string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise, string loadgroup)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var timestampParameter = timestamp.HasValue ?
-                new ObjectParameter("timestamp", timestamp) :
-                new ObjectParameter("timestamp", typeof(System.DateTime));
-    
-            var eventParameter = @event != null ?
-                new ObjectParameter("event", @event) :
-                new ObjectParameter("event", typeof(string));
-    
-            var reasonParameter = reason != null ?
-                new ObjectParameter("reason", reason) :
-                new ObjectParameter("reason", typeof(string));
-    
-            var urlParameter = url != null ?
-                new ObjectParameter("url", url) :
-                new ObjectParameter("url", typeof(string));
-    
-            var categoryParameter = category != null ?
-                new ObjectParameter("category", category) :
-                new ObjectParameter("category", typeof(string));
-    
-            var accesscodeParameter = accesscode != null ?
-                new ObjectParameter("accesscode", accesscode) :
-                new ObjectParameter("accesscode", typeof(string));
-    
-            var protocolTouchpointParameter = protocolTouchpoint != null ?
-                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
-                new ObjectParameter("protocolTouchpoint", typeof(string));
-    
-            var applicationNameParameter = applicationName != null ?
-                new ObjectParameter("applicationName", applicationName) :
-                new ObjectParameter("applicationName", typeof(string));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            var loadgroupParameter = loadgroup != null ?
-                new ObjectParameter("loadgroup", loadgroup) :
-                new ObjectParameter("loadgroup", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotification", emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter, loadgroupParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addEventNotificationBounce(string email, string error)
@@ -5574,59 +5526,6 @@ namespace Generic
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEsignature", idParameter, firstNameParameter, lastNameParameter, titleParameter, emailParameter, affirmationParameter, officerParameter, phoneParameter, completeDateParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
-        }
-    
-        public virtual int pr_modifyEventNotification(Nullable<int> id, string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> enterprise, string loadgroup)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            var timestampParameter = timestamp.HasValue ?
-                new ObjectParameter("timestamp", timestamp) :
-                new ObjectParameter("timestamp", typeof(System.DateTime));
-    
-            var eventParameter = @event != null ?
-                new ObjectParameter("event", @event) :
-                new ObjectParameter("event", typeof(string));
-    
-            var reasonParameter = reason != null ?
-                new ObjectParameter("reason", reason) :
-                new ObjectParameter("reason", typeof(string));
-    
-            var urlParameter = url != null ?
-                new ObjectParameter("url", url) :
-                new ObjectParameter("url", typeof(string));
-    
-            var categoryParameter = category != null ?
-                new ObjectParameter("category", category) :
-                new ObjectParameter("category", typeof(string));
-    
-            var accesscodeParameter = accesscode != null ?
-                new ObjectParameter("accesscode", accesscode) :
-                new ObjectParameter("accesscode", typeof(string));
-    
-            var protocolTouchpointParameter = protocolTouchpoint != null ?
-                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
-                new ObjectParameter("protocolTouchpoint", typeof(string));
-    
-            var applicationNameParameter = applicationName != null ?
-                new ObjectParameter("applicationName", applicationName) :
-                new ObjectParameter("applicationName", typeof(string));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            var loadgroupParameter = loadgroup != null ?
-                new ObjectParameter("loadgroup", loadgroup) :
-                new ObjectParameter("loadgroup", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, enterpriseParameter, loadgroupParameter);
         }
     
         public virtual int pr_modifyEventNotificationBounce(Nullable<int> id, string email, string error)
@@ -18962,6 +18861,124 @@ namespace Generic
                 new ObjectParameter("pptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getPPTQOwner", mergeOption, pptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addEventNotification(string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> reminderSource, Nullable<int> automailmessage, Nullable<int> enterprise, string loadgroup)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var eventParameter = @event != null ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(string));
+    
+            var reasonParameter = reason != null ?
+                new ObjectParameter("reason", reason) :
+                new ObjectParameter("reason", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var categoryParameter = category != null ?
+                new ObjectParameter("category", category) :
+                new ObjectParameter("category", typeof(string));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var protocolTouchpointParameter = protocolTouchpoint != null ?
+                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
+                new ObjectParameter("protocolTouchpoint", typeof(string));
+    
+            var applicationNameParameter = applicationName != null ?
+                new ObjectParameter("applicationName", applicationName) :
+                new ObjectParameter("applicationName", typeof(string));
+    
+            var reminderSourceParameter = reminderSource.HasValue ?
+                new ObjectParameter("reminderSource", reminderSource) :
+                new ObjectParameter("reminderSource", typeof(int));
+    
+            var automailmessageParameter = automailmessage.HasValue ?
+                new ObjectParameter("automailmessage", automailmessage) :
+                new ObjectParameter("automailmessage", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addEventNotification", emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, reminderSourceParameter, automailmessageParameter, enterpriseParameter, loadgroupParameter);
+        }
+    
+        public virtual int pr_modifyEventNotification(Nullable<int> id, string email, Nullable<System.DateTime> timestamp, string @event, string reason, string url, string category, string accesscode, string protocolTouchpoint, string applicationName, Nullable<int> reminderSource, Nullable<int> automailmessage, Nullable<int> enterprise, string loadgroup)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var eventParameter = @event != null ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(string));
+    
+            var reasonParameter = reason != null ?
+                new ObjectParameter("reason", reason) :
+                new ObjectParameter("reason", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var categoryParameter = category != null ?
+                new ObjectParameter("category", category) :
+                new ObjectParameter("category", typeof(string));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var protocolTouchpointParameter = protocolTouchpoint != null ?
+                new ObjectParameter("protocolTouchpoint", protocolTouchpoint) :
+                new ObjectParameter("protocolTouchpoint", typeof(string));
+    
+            var applicationNameParameter = applicationName != null ?
+                new ObjectParameter("applicationName", applicationName) :
+                new ObjectParameter("applicationName", typeof(string));
+    
+            var reminderSourceParameter = reminderSource.HasValue ?
+                new ObjectParameter("reminderSource", reminderSource) :
+                new ObjectParameter("reminderSource", typeof(int));
+    
+            var automailmessageParameter = automailmessage.HasValue ?
+                new ObjectParameter("automailmessage", automailmessage) :
+                new ObjectParameter("automailmessage", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, reminderSourceParameter, automailmessageParameter, enterpriseParameter, loadgroupParameter);
         }
     }
 }

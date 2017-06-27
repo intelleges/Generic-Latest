@@ -37,5 +37,8 @@ namespace Generic
         public Nullable<int> pptq { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
+        public string originalSnippet { get; set; }
+        public Nullable<System.DateTime> adDate { get; set; }
+        public string adSource { get; set; }
     }
 }

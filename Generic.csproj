@@ -906,6 +906,9 @@
     <Compile Include="partnerReminderStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="partnerReminderType.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="partnerReminder_DEPRECATED.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

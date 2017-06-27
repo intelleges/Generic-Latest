@@ -163,9 +163,12 @@
           <Property Name="jobZicode" Type="varchar" MaxLength="50" />
           <Property Name="jobCountry" Type="varchar" MaxLength="50" />
           <Property Name="jobSnippet" Type="varchar(max)" />
+          <Property Name="originalSnippet" Type="varchar(max)" />
           <Property Name="companyMainNumber" Type="varchar" MaxLength="50" />
           <Property Name="companyURL" Type="varchar" MaxLength="500" />
           <Property Name="searchterm" Type="varchar" MaxLength="500" />
+          <Property Name="adDate" Type="date" />
+          <Property Name="adSource" Type="varchar" MaxLength="100" />
           <Property Name="pocPhoneNumber" Type="bigint" />
           <Property Name="pocFirstName" Type="varchar" MaxLength="100" />
           <Property Name="pocLastName" Type="varchar" MaxLength="100" />
@@ -398,6 +401,8 @@
           <Property Name="accesscode" Type="varchar" MaxLength="50" />
           <Property Name="protocolTouchpoint" Type="varchar" MaxLength="50" />
           <Property Name="applicationName" Type="varchar" MaxLength="50" />
+          <Property Name="reminderSource" Type="int" />
+          <Property Name="automailMessage" Type="int" />
           <Property Name="enterprise" Type="int" />
           <Property Name="loadgroup" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -975,6 +980,15 @@
           <Property Name="description" Type="varchar" MaxLength="50" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="int" />
+        </EntityType>
+        <EntityType Name="partnerReminderType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="partnerRemitAddress">
           <Key>
@@ -4515,6 +4529,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
           <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
           <Parameter Name="applicationName" Type="varchar" Mode="In" />
+          <Parameter Name="reminderSource" Type="int" Mode="In" />
+          <Parameter Name="automailmessage" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
@@ -7423,6 +7439,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
           <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
           <Parameter Name="applicationName" Type="varchar" Mode="In" />
+          <Parameter Name="reminderSource" Type="int" Mode="In" />
+          <Parameter Name="automailmessage" Type="int" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
         </Function>
@@ -9102,6 +9120,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="partnerRelationshipOwner" EntityType="Self.partnerRelationshipOwner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerReminder_DEPRECATED" EntityType="Self.partnerReminder_DEPRECATED" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerReminderStatus" EntityType="Self.partnerReminderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="partnerReminderType" EntityType="Self.partnerReminderType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerRemitAddress" EntityType="Self.partnerRemitAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerReport" EntityType="Self.partnerReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerShadow" EntityType="Self.partnerShadow" Schema="dbo" store:Type="Tables" />
@@ -10457,19 +10476,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="completeDate" Mode="In" Type="DateTime" />
             <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addEventNotification" ReturnType="Collection(Decimal)">
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="timestamp" Mode="In" Type="DateTime" />
-            <Parameter Name="event" Mode="In" Type="String" />
-            <Parameter Name="reason" Mode="In" Type="String" />
-            <Parameter Name="url" Mode="In" Type="String" />
-            <Parameter Name="category" Mode="In" Type="String" />
-            <Parameter Name="accesscode" Mode="In" Type="String" />
-            <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
-            <Parameter Name="applicationName" Mode="In" Type="String" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="loadgroup" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="pr_addEventNotificationBounce" ReturnType="Collection(Decimal)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="error" Mode="In" Type="String" />
@@ -11591,20 +11597,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="phone" Mode="In" Type="String" />
             <Parameter Name="completeDate" Mode="In" Type="DateTime" />
             <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyEventNotification">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="email" Mode="In" Type="String" />
-            <Parameter Name="timestamp" Mode="In" Type="DateTime" />
-            <Parameter Name="event" Mode="In" Type="String" />
-            <Parameter Name="reason" Mode="In" Type="String" />
-            <Parameter Name="url" Mode="In" Type="String" />
-            <Parameter Name="category" Mode="In" Type="String" />
-            <Parameter Name="accesscode" Mode="In" Type="String" />
-            <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
-            <Parameter Name="applicationName" Mode="In" Type="String" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyEventNotificationBounce">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -15614,7 +15606,39 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQOwner" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="partnerReminderType" EntityType="hs3MVCMTQa2Model.partnerReminderType" />
+          <FunctionImport Name="pr_addEventNotification" ReturnType="Collection(Decimal)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="timestamp" Mode="In" Type="DateTime" />
+            <Parameter Name="event" Mode="In" Type="String" />
+            <Parameter Name="reason" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="category" Mode="In" Type="String" />
+            <Parameter Name="accesscode" Mode="In" Type="String" />
+            <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
+            <Parameter Name="applicationName" Mode="In" Type="String" />
+            <Parameter Name="reminderSource" Mode="In" Type="Int32" />
+            <Parameter Name="automailmessage" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyEventNotification">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="timestamp" Mode="In" Type="DateTime" />
+            <Parameter Name="event" Mode="In" Type="String" />
+            <Parameter Name="reason" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="category" Mode="In" Type="String" />
+            <Parameter Name="accesscode" Mode="In" Type="String" />
+            <Parameter Name="protocolTouchpoint" Mode="In" Type="String" />
+            <Parameter Name="applicationName" Mode="In" Type="String" />
+            <Parameter Name="reminderSource" Mode="In" Type="Int32" />
+            <Parameter Name="automailmessage" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -15849,6 +15873,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="applicationName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="enterprise" Type="Int32" />
           <Property Type="String" Name="loadgroup" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reminderSource" Type="Int32" />
+          <Property Name="automailMessage" Type="Int32" />
         </EntityType>
         <EntityType Name="eventNotificationBounce">
           <Key>
@@ -25294,6 +25320,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="pptq" Type="Int32" />
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="originalSnippet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="adDate" Type="DateTime" Precision="0" />
+          <Property Name="adSource" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="pr_getCompanyProfileDataLoadByPPTQ_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -25353,6 +25382,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Boolean" Name="IsArchived" Nullable="true" />
           <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="partnerReminderType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -25778,6 +25816,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="eventNotification">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
               <MappingFragment StoreEntitySet="eventNotification">
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="reminderSource" ColumnName="reminderSource" />
                 <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -25794,34 +25834,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
               <ModificationFunctionMapping>
-                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotification">
-                  <ScalarProperty Name="loadgroup" ParameterName="loadgroup" />
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" />
-                  <ScalarProperty Name="applicationName" ParameterName="applicationName" />
-                  <ScalarProperty Name="protocolTouchpoint" ParameterName="protocolTouchpoint" />
-                  <ScalarProperty Name="accesscode" ParameterName="accesscode" />
-                  <ScalarProperty Name="category" ParameterName="category" />
-                  <ScalarProperty Name="url" ParameterName="url" />
-                  <ScalarProperty Name="reason" ParameterName="reason" />
-                  <ScalarProperty Name="event" ParameterName="event" />
-                  <ScalarProperty Name="timestamp" ParameterName="timestamp" />
-                  <ScalarProperty Name="email" ParameterName="email" />
-                  <ResultBinding Name="id" ColumnName="id" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotification">
-                  <ScalarProperty Name="loadgroup" ParameterName="loadgroup" Version="Current" />
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
-                  <ScalarProperty Name="applicationName" ParameterName="applicationName" Version="Current" />
-                  <ScalarProperty Name="protocolTouchpoint" ParameterName="protocolTouchpoint" Version="Current" />
-                  <ScalarProperty Name="accesscode" ParameterName="accesscode" Version="Current" />
-                  <ScalarProperty Name="category" ParameterName="category" Version="Current" />
-                  <ScalarProperty Name="url" ParameterName="url" Version="Current" />
-                  <ScalarProperty Name="reason" ParameterName="reason" Version="Current" />
-                  <ScalarProperty Name="event" ParameterName="event" Version="Current" />
-                  <ScalarProperty Name="timestamp" ParameterName="timestamp" Version="Current" />
-                  <ScalarProperty Name="email" ParameterName="email" Version="Current" />
-                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-                </UpdateFunction>
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeEventNotification">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
@@ -27823,7 +27835,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_addEmailTemplateType" FunctionName="hs3MVCMTQa2Model.Store.pr_addEmailTemplateType" />
           <FunctionImportMapping FunctionImportName="pr_addEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_addEnterpriseObjectName" />
           <FunctionImportMapping FunctionImportName="pr_addEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_addEsignature" />
-          <FunctionImportMapping FunctionImportName="pr_addEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotification" />
           <FunctionImportMapping FunctionImportName="pr_addEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotificationBounce" />
           <FunctionImportMapping FunctionImportName="pr_addGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_addGroup" />
           <FunctionImportMapping FunctionImportName="pr_addGroupCollection" FunctionName="hs3MVCMTQa2Model.Store.pr_addGroupCollection" />
@@ -28292,7 +28303,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_modifyEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterprise" />
           <FunctionImportMapping FunctionImportName="pr_modifyEnterpriseObjectName" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEnterpriseObjectName" />
           <FunctionImportMapping FunctionImportName="pr_modifyEsignature" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEsignature" />
-          <FunctionImportMapping FunctionImportName="pr_modifyEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotification" />
           <FunctionImportMapping FunctionImportName="pr_modifyEventNotificationBounce" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotificationBounce" />
           <FunctionImportMapping FunctionImportName="pr_modifyGroup" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyGroup" />
           <FunctionImportMapping FunctionImportName="pr_modifyGroupCollection" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyGroupCollection" />
@@ -33969,6 +33979,9 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="companyProfileDataLoad">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.companyProfileDataLoad">
               <MappingFragment StoreEntitySet="companyProfileDataLoad">
+                <ScalarProperty Name="adSource" ColumnName="adSource" />
+                <ScalarProperty Name="adDate" ColumnName="adDate" />
+                <ScalarProperty Name="originalSnippet" ColumnName="originalSnippet" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="pptq" ColumnName="pptq" />
@@ -33999,6 +34012,18 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getPPTQOwner" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQOwner">
           </FunctionImportMapping>
+          <EntitySetMapping Name="partnerReminderType">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnerReminderType">
+              <MappingFragment StoreEntitySet="partnerReminderType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_addEventNotification" />
+          <FunctionImportMapping FunctionImportName="pr_modifyEventNotification" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyEventNotification" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
