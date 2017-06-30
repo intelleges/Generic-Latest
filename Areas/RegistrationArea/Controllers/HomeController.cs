@@ -1153,7 +1153,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 						{
 							Url = url,
 							QuestionsCount = p.Items.Count,
-							Title =section.description.Split(new string[] { "–" }, StringSplitOptions.None)[0] + "<br/>" + "Page " + (i + 1) + "<br/>" + string.Join("<br/>",
+							Title =section.description.Split(new string[] { ":","–" }, StringSplitOptions.None)[0] + "<br/>" + "Page " + (i + 1) + "<br/>" + string.Join("<br/>",
 							p.Items.Select(o => o.title).ToArray()),
 							Section = section.description,
 							Color = color
@@ -1800,7 +1800,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				{
 					Email email = new Email(amm);
 					var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
-					email.accesscode = pptqObj.accesscode;
+					email.accesscode = pptqObj.accesscode;					
+
 					email.protocolTouchpoint = objtouchpoint.description;
 					EmailFormat emailFormat = new EmailFormat();
 					email.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
