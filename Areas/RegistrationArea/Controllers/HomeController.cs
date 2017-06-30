@@ -1153,8 +1153,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 						{
 							Url = url,
 							QuestionsCount = p.Items.Count,
-							Title =section.description.Split(new string[] { ":","–" }, StringSplitOptions.None)[0] + "<br/>" + "Page " + (i + 1) + "<br/>" + string.Join("<br/>",
-							p.Items.Select(o => o.title).ToArray()),
+							Title =section.description.Split(new string[] { ":","–" }, StringSplitOptions.None)[0] /*+ "<br/>" + "Page " + (i + 1) + "<br/>" + string.Join("<br/>",
+							p.Items.Select(o => o.title).ToArray())*/,
 							Section = section.description,
 							Color = color
 						});
