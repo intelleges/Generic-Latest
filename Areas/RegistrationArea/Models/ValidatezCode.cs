@@ -11,7 +11,7 @@ namespace Generic.Areas.RegistrationArea.Models
     public class ValidatezCode
     {
         private EntitiesDBContext db = new EntitiesDBContext();
-        public string  ValidatezCodeFn(partnerPartnertypeTouchpointQuestionnaire pptq, int sessionTouchPoint, string sessionCurrentEmail, string sessionAccessCode)
+        public string  ValidatezCodeFn(partnerPartnertypeTouchpointQuestionnaire pptq, int sessionTouchPoint, string sessionCurrentEmail, string sessionAccessCode, string url)
         {
 
             var zCodeValidationResult = db.pr_checkForInvalidZcode(pptq != null ? pptq.id : 0, pptq != null ? pptq.zcode : "");
@@ -56,7 +56,11 @@ namespace Generic.Areas.RegistrationArea.Models
                         string strEmailBody = sessionCurrentEmail + " with Invalid zCode " + zCode + " for access code " + sessionAccessCode + ". The status has been reset to incomplete for this partner.";
                         email.subject = "Intelleges: Email Alert for Invalid zCode";
                         email.body = strEmailBody;
+						email.accesscode = sessionAccessCode;
+						email.category = SendGridCategory.ValdatezCodeFn;
+						email.url = url;
                         email.emailTo = _person != null ? _person.email : "";
+
                         SendEmail objSendEmail = new SendEmail();
                         objSendEmail.sendEmail(email);
 						db.pr_addEventNotification(email.emailTo, DateTime.Now, " Email Alert for Invalid zCode", null, null, null, sessionAccessCode, email.protocolTouchpoint, "MVCMT", null, null, null, null);

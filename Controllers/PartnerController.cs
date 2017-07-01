@@ -888,9 +888,13 @@ namespace Generic.Controllers
 						email.subject = emailFormat.sGetEmailBody(amm.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
 						email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
 						email.emailTo = objpartner.email;
+						email.url = Request.Url.ToString();
+						email.automailMessage = amm.id.ToString();
+						email.category = SendGridCategory.InvitePartnes;
+
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
+						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);
 					}
 
 
@@ -1084,9 +1088,16 @@ namespace Generic.Controllers
 			EmailFormat emailFormat = new EmailFormat();
 			email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
 			email.emailTo = objpartner.email;
+			email.url = Request.Url.ToString();
+			email.automailMessage = amm.id.ToString();
+			email.protocolTouchpoint = objtouchpoint.description;
+			email.accesscode = email.accesscode;
+			email.category = SendGridCategory.Invite;
+			email.automailMessage = amm.id.ToString();
+
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(email);
-			db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
+			db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);
 
 			string message = "Invite Sent";
 			ViewBag.Message = "2";
@@ -1609,7 +1620,7 @@ namespace Generic.Controllers
 						pptq.invitedDate = DateTime.Now;
 						var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
 						pptq.invitedBy = person.id;
-						pptq.status = (int)PartnerStatus.Invited_NoResponse;						
+						pptq.status = (int)PartnerStatus.Invited_NoResponse;
 						db.Entry(pptq).State = EntityState.Modified;
 						db.SaveChanges();
 
@@ -1643,6 +1654,11 @@ namespace Generic.Controllers
 						email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
 						email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
 						email.emailTo = objpartner.email;
+						email.url = Request.Url.ToString();
+						email.automailMessage = amm.id.ToString();
+						email.category = SendGridCategory.RemovePartner;
+						email.accesscode = accesscode;
+
 						SendEmail objSendEmail = new SendEmail();
 
 						int checkEventNotification = 0;
@@ -1656,7 +1672,7 @@ namespace Generic.Controllers
 						if (checkEventNotification == 0)
 						{
 							objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);
 						}
 
 					}
@@ -2263,12 +2279,23 @@ namespace Generic.Controllers
 			var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
 			if (!string.IsNullOrEmpty(accessCodes))
 			{
-				foreach (var accessCode in accessCodes.Split(",".ToArray(), StringSplitOptions.RemoveEmptyEntries))
+				foreach (string accessCode in accessCodes.Split(",".ToArray(), StringSplitOptions.RemoveEmptyEntries))
 				{
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
 					var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
-					SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+					SchedulerServiceHelper.sendEmail(
+						new Email()
+						{
+							accesscode = pptq.accesscode,
+							emailTo = pptq.partner1.email,
+							subject = subject,
+							url = Request.Url.ToString(),
+							body = resultBody,
+							protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+							category = SendGridCategory.FindRemind
+						}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+
 					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "FindRemind", null, null, null, accessCodes, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 				}
 			}
@@ -2292,11 +2319,21 @@ namespace Generic.Controllers
 
 			try
 			{
-				SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+				SchedulerServiceHelper.sendEmail(
+				new Email()
+				{
+					accesscode = accessCode,
+					emailTo = pptq.partner1.email,
+					subject = subject,
+					url = Request.Url.ToString(),
+					body = resultBody,
+					protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+					 category = SendGridCategory.SendEmailByAccessCode
+				}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
 				db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendEmailByAccessCode", null, null, null, accessCode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
 			}
-			catch(Exception exp)
+			catch (Exception exp)
 			{
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") NOT SENT!";
 			}
@@ -2473,7 +2510,16 @@ namespace Generic.Controllers
 				db.pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue(railId, statusId);
 				if (reponse.Sender.ToLower() != person.email.ToLower())
 				{
-					SchedulerServiceHelper.sendEmail("Intelleges RAIL Update Notice", "Please be advised that the status for '" + reponse.Comment + "' has been updated to '" + newStatus.description + "'. If you have any additional questions about this please contact your System Admin.<br> Thank you. <br> Intelleges Rapid Response Team", null, reponse.Sender);
+					SchedulerServiceHelper.sendEmail(
+						new Email()
+						{
+							subject = "Intelleges RAIL Update Notice",
+							accesscode = person.partnerPartnertypeTouchpointQuestionnaire.Last().accesscode,
+							body = "Please be advised that the status for '" + reponse.Comment + "' has been updated to '" + newStatus.description + "'. If you have any additional questions about this please contact your System Admin.<br> Thank you. <br> Intelleges Rapid Response Team",
+							emailTo = reponse.Sender,
+							url = Request.Url.ToString(),
+							category = SendGridCategory.ChangeRailsStatus
+						}, null);
 					return Json(reponse);
 				}
 				return Json(newStatus);
@@ -3923,7 +3969,18 @@ namespace Generic.Controllers
 
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
-					SchedulerServiceHelper.sendEmail(subject, resultBody, currentPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
+					SchedulerServiceHelper.sendEmail(
+				new Email()
+				{
+					accesscode = pptq.accesscode,
+					emailTo = currentPerson.email,
+					subject = subject,
+					url = Request.Url.ToString(),
+					body = resultBody,
+					protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+					category = SendGridCategory.SendIteratePartnerEmailTest
+				}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
+
 					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmailTest", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 
 					return Json("done");
@@ -4088,7 +4145,19 @@ namespace Generic.Controllers
 
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
-					SchedulerServiceHelper.sendEmail(subject, resultBody, iPerson.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
+					SchedulerServiceHelper.sendEmail(
+						new Email()
+						{
+							accesscode = pptq.accesscode,
+							emailTo = iPerson.email,
+							subject = subject,
+							url = Request.Url.ToString(),
+							body = resultBody,
+							protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+							category = SendGridCategory.SendIteratePartnerEmail
+						},
+						 new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
+
 					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmail", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 					iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
 					iPerson.previousContact = iPerson.lastContact;

@@ -858,6 +858,7 @@
     <Compile Include="Models\FindPODSViewModel.cs" />
     <Compile Include="Models\FRPJModel.cs" />
     <Compile Include="Models\LCEModel.cs" />
+    <Compile Include="Models\SendGridCategory.cs" />
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

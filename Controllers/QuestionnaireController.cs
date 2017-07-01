@@ -527,9 +527,15 @@ namespace Generic.Controllers
 							EmailFormat emailFormat = new EmailFormat();
 							email.body = emailFormat.sGetEmailBody(email.body, _currentPerson, _partner, _enterprise, _touchpoint, _ptq.id);
 							email.emailTo = _partner.email;
+							email.automailMessage = ammItem.id.ToString();
+							email.accesscode = email.accesscode;
+							email.protocolTouchpoint = _touchpoint.description;
+							email.url = Request.Url.ToString();
+							email.category = SendGridCategory.QuestionnaireQuestionnaireTestAutomailAll;
+
 							SendEmail objSendEmail = new SendEmail();
 							objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "QuestionnaireQuestionnaireTestAutomailAll", null, null, null, email.accesscode, _touchpoint.description, "MVCMT", null, null, _enterprise.id, email.loadgroup);
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "QuestionnaireQuestionnaireTestAutomailAll", null, null, null, email.accesscode, _touchpoint.description, "MVCMT", null, ammItem.id, _enterprise.id, email.loadgroup);
 						}
 					}
 				}

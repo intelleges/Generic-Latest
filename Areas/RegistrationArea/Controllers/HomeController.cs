@@ -1066,6 +1066,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
 			Email mail = new Email(objamm);
 			mail.type = "emailAlert";
 			mail.emailTo = emailTo;
+			mail.url = Request.Url.ToString();
+			mail.accesscode = accessCode;
+			mail.category = SendGridCategory.SendEmailAlert;
+			var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
+			if (pptq != null) {
+				var tp= db.pr_getTouchpoint(pptq.touchpoint).FirstOrDefault();
+				if (tp != null) {
+					mail.protocolTouchpoint = tp.description;
+				}
+			}
+
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(mail);
 			db.pr_addEventNotification(emailTo, DateTime.Now, "Intelleges: Email Alert", null, null, null, accessCode, null, "MVCMT", null, null, null, null);
@@ -1807,9 +1818,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					email.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
 					email.body = emailFormat.sGetEmailBody(email.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
 					email.emailTo = pptqObj.partner1.email;
+					email.url = Request.Url.ToString();
+					email.category = SendGridCategory.QuestionnaireResponse;
+					email.automailMessage = amm.id.ToString();
+
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
-					db.pr_addEventNotification(pptqObj.partner1.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, null, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null);
+					db.pr_addEventNotification(pptqObj.partner1.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null);
 				}
 				return RedirectToAction("SaveForLaterConfirm");
 				//#region 20130222 new code
@@ -2759,7 +2774,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 				// Validate the zCode.
 				ValidatezCode _objInvalidzcode = new ValidatezCode();
 
-				TempData["IncorrectZipCode"] = _objInvalidzcode.ValidatezCodeFn(pptq, sessionTouchPoint, currentEmail, accessCode);
+				TempData["IncorrectZipCode"] = _objInvalidzcode.ValidatezCodeFn(pptq, sessionTouchPoint, currentEmail, accessCode, Request.Url.ToString());
 
 				return RedirectToAction("Finish");
 			}
@@ -2976,16 +2991,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
 						{
 							email.loadgroup = Session["loadgroup"].ToString();
 						}
-						email.accesscode = pptq.accesscode;
-						email.protocolTouchpoint = objtouchpoint.description;
+						
 
 						EmailFormat emailFormat = new EmailFormat();
 						email.subject = emailFormat.sGetEmailBody(email.subject, ppptq_cms.person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
 						email.body = emailFormat.sGetEmailBody(email.body, ppptq_cms.person, objPartner, currentPtq.partnerType1.enterprise1, objtouchpoint, pr.ptqReference);
 						email.emailTo = newEmail;
+						email.category = SendGridCategory.SendInventation;
+						email.automailMessage = amm.id.ToString();
+						email.accesscode = pptq.accesscode;
+						email.protocolTouchpoint = objtouchpoint.description;
+						email.url = Request.Url.ToString();
+
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(newEmail, DateTime.Now, "Invitation", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, null, currentPtq.partnerType1.enterprise1.id, null);
+						db.pr_addEventNotification(newEmail, DateTime.Now, "Invitation", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, currentPtq.partnerType1.enterprise1.id, null);
 					}
 
 				}
@@ -3138,10 +3158,19 @@ Intelleges Team";
 							//   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
 							mail.body = emailFormat.sGetEmailBody(mail.body, objSystemMaster, objSystemMaster, ppptq_cms.partner1, objCurrentTouchpoint, objEnterprise, objSystemMaster, ptq.id);
 							//  email.body = objamm.text;
-							mail.emailTo = objSystemMaster.email;
+							mail.emailTo = objSystemMaster.email; 
+							mail.url = Request.Url.ToString();
+							mail.category = SendGridCategory.CompleteConfirmation;
+							mail.protocolTouchpoint = objCurrentTouchpoint.description;
+							mail.accesscode = accessCode;
+							if (amm != null) {
+								mail.automailMessage = amm.id.ToString();
+							}
+
+
 							SendEmail objSendEmail = new SendEmail();
 							objSendEmail.sendEmail(mail);
-							db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, "Complete_Confirmation", null, null, null, accessCode, objCurrentTouchpoint.description, "MVCMT", null, null, objEnterprise.id, null);
+							db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, "Complete_Confirmation", null, null, null, accessCode, objCurrentTouchpoint.description, "MVCMT", null, amm==null?null:(int?)amm.id, objEnterprise.id, null);
 						}
 					}
 					#endregion
@@ -3165,11 +3194,21 @@ Intelleges Team";
 							email.subject = emailFormat.sGetEmailBody(email.subject, person, objPartner, _enterprise, objtouchpoint, ptq.id);
 							email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
 							email.emailTo = objPartner.email;
+							email.url = Request.Url.ToString();
+							email.automailMessage = amm.id.ToString();
+
+							if (zCodeActionType.newStatus == 2)
+								email.category = SendGridCategory.Incomplete;
+							else
+								email.category = SendGridCategory.CompleteConfirmation;
+							email.accesscode = accessCode;
+							email.protocolTouchpoint = objtouchpoint.description;
+
 							SendEmail objSendEmail = new SendEmail();
 							try
 							{
 								objSendEmail.sendEmail(email);
-								db.pr_addEventNotification(objPartner.email, DateTime.Now, _mailType.ToString(), null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, null, _enterprise.id, null);
+								db.pr_addEventNotification(objPartner.email, DateTime.Now, _mailType.ToString(), null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, _enterprise.id, null);
 
 							}
 							catch (FormatException ex)
@@ -3197,9 +3236,15 @@ Intelleges Team";
 					email.subject = emailFormat.sGetEmailBody(email.subject, person, objPartner, _enterprise, objtouchpoint, ptq.id);
 					email.body = emailFormat.sGetEmailBody(email.body, person, objPartner, _enterprise, objtouchpoint, ptq.id);
 					email.emailTo = objPartner.email;
+					email.url = Request.Url.ToString();
+					email.automailMessage = amm.id.ToString();
+					email.category = SendGridCategory.Incomplete;
+					email.accesscode = accessCode;
+					email.protocolTouchpoint = objtouchpoint.description;
+
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
-					db.pr_addEventNotification(objPartner.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, null, _enterprise.id, null);
+					db.pr_addEventNotification(objPartner.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, _enterprise.id, null);
 				}
 
 				objViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;

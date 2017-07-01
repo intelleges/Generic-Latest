@@ -339,9 +339,13 @@ Intelleges Team";
                             email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
                             //  email.body = objamm.text;
                             email.emailTo = objSystemMaster.email;
+							email.protocolTouchpoint = objCurrentTouchpoint.description;
+							email.category = SendGridCategory.Create;
+							email.url = Request.Url.ToString();
+
                             SendEmail objSendEmail = new SendEmail();
                             objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Intelleges Account Created", null, null, null, email.accesscode, null, "MVCMT", null, null, interpriseId, email.loadgroup);
+							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Intelleges Account Created", null, null, null, email.accesscode, email.protocolTouchpoint, "MVCMT", null, null, interpriseId, email.loadgroup);
 
 
 
@@ -468,6 +472,11 @@ Thanks in advance.<br>
                 email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
                 //  email.body = objamm.text;
                 email.emailTo = objSystemMaster.email;
+				email.category = SendGridCategory.CreatePerson;
+				email.url = Request.Url.ToString();
+				email.accesscode = email.accesscode;
+				email.protocolTouchpoint = objCurrentTouchpoint.description;
+
                 SendEmail objSendEmail = new SendEmail();
                 objSendEmail.sendEmail(email);
 				db.pr_addEventNotification(email.emailTo, DateTime.Now, "Welcome to Intelleges", null, null, null, email.accesscode, null, "MVCMT", null, null, objEnterprise.id, email.loadgroup);

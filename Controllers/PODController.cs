@@ -154,7 +154,18 @@ namespace Generic.Controllers
 			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
 			var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
-			SchedulerServiceHelper.sendEmail(subject, resultBody, pptq.partner1.email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+			SchedulerServiceHelper.sendEmail(
+				new Email()
+				{
+					accesscode = accessCode,
+					emailTo = pptq.partner1.email,
+					subject = subject,
+					url = Request.Url.ToString(),
+					body = resultBody,
+					protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+					category  = SendGridCategory.EmailSend
+				}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+
 			db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "EmailSend", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
 			return Json(error);
 		}

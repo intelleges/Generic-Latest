@@ -142,8 +142,6 @@ namespace Generic.Controllers
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint((int)Session["partnerType"], (int)Session["touchpoint"]).FirstOrDefault().id;
                 var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(objpartner.id, ptq).FirstOrDefault();
 
-
-
                 //var objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
                 //objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
                 //db.Entry(objpartner).State = EntityState.Modified;
@@ -154,14 +152,20 @@ namespace Generic.Controllers
                 var objtouchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
                 Email email = new Email(amm);
                 EmailFormat emailFormat = new EmailFormat();
-
                 person objperson = new person();
 
                 email.body = emailFormat.sGetEmailBody(email.body, objperson, objpartner, objtouchpoint, ptq);
                 email.emailTo = objpartner.email;
+				email.category = SendGridCategory.WrongContract;
+				email.url = Request.Url.ToString();
+				email.protocolTouchpoint = objtouchpoint.description;
+				email.automailMessage = amm.id.ToString();
+				email.accesscode = email.accesscode;
+			
                 SendEmail objSendEmail = new SendEmail();
                  objSendEmail.sendEmail(email);
-				 db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, null, null, email.loadgroup);
+				 db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, (int)objpartner.enterprise, email.loadgroup);
+
                  if (listing!=null&&listing.Trim().ToLower().Equals("y"))
                     return RedirectToAction("../Partner/FindPartnerResult");
                 else

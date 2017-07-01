@@ -84,7 +84,35 @@ namespace Generic.Models
         {
             get { return _protocolTouchpoint; }
             set { _protocolTouchpoint = value; }
-        }
+        }		
+
+		private string _automailMessage;
+		public string automailMessage
+		{
+			get { return _automailMessage; }
+			set { _automailMessage = value; }
+		}
+
+		private string _url;
+		public string url
+		{
+			get { return _url; }
+			set { _url = value; }
+		}
+
+		private SendGridCategory _category;
+		public SendGridCategory category
+		{
+			get { return _category; }
+			set { _category = value; }
+		}
+
+		private string _reminderSource;
+		public string reminderSource
+		{
+			get { return _reminderSource; }
+			set { _reminderSource = value; }
+		}
 
 
     //    private Questionnaire _questionnaire;
