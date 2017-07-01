@@ -2357,7 +2357,7 @@ namespace Generic.Controllers
 					return "Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.";
 				}
 				if (new int[] { 6, 7 }.Contains(pptq.status))
-					SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id);
+					SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id, accessCode, Request.Url.ToString());
 				else
 				{
 					result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
@@ -2454,7 +2454,7 @@ namespace Generic.Controllers
 					return Json("Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.", JsonRequestBehavior.AllowGet);
 				}
 				if (new int[] { 6, 7 }.Contains(pptq.status))
-					SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id);
+					SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id, accessCode, Request.Url.ToString());
 				else
 				{
 					result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";

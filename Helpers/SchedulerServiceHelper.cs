@@ -452,7 +452,7 @@ namespace Generic.Helpers
 			}
 		}
 
-		public static bool SendFirstReminderByPptq(int pptqId)
+		public static bool SendFirstReminderByPptq(int pptqId, string accesscode, string url)
 		{
 			bool result = false;
 			using (EntitiesDBContext db = new EntitiesDBContext())
@@ -469,9 +469,15 @@ namespace Generic.Helpers
 				var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
 				Email email = new Email(message);
 
+				email.accesscode = accesscode;
+				if (objtouchpoint != null)
+					email.protocolTouchpoint = objtouchpoint.description;
+				if (message != null)
+					email.automailMessage = message.id.ToString();
+				email.url = url;
+				email.category = SendGridCategory.SendFirstReminderByPptq;
 				email.accesscode = pptq.accesscode;
-				email.protocolTouchpoint = objtouchpoint.description;
-
+				
 				EmailFormat emailFormat = new EmailFormat();
 				email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
 				email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, objtouchpoint, ptq.id);

@@ -30,6 +30,7 @@ namespace Generic.Models
 		SendPasswordChangedNotification = 21,
 		ReminderList = 22,
 		CompleteConfirmation= 23,
-		Incomplete = 24
+		Incomplete = 24,
+		SendFirstReminderByPptq = 25
 	}
 }
