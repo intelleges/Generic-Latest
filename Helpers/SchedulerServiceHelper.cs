@@ -476,7 +476,6 @@ namespace Generic.Helpers
 					email.automailMessage = message.id.ToString();
 				email.url = url;
 				email.category = SendGridCategory.SendFirstReminderByPptq;
-				email.accesscode = pptq.accesscode;
 				
 				EmailFormat emailFormat = new EmailFormat();
 				email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
