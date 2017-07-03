@@ -43,7 +43,7 @@ namespace Generic.Helpers.Utility
 			additionalArguments.Add("email", email.emailTo);
 			additionalArguments.Add("url", email.url);
 			additionalArguments.Add("category", ((int)email.category).ToString());
-			additionalArguments.Add("reminderSource", email.reminderSource);
+			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.ToString());
 			additionalArguments.Add("automailMessage", email.automailMessage);
 
             mail.AddUniqueIdentifiers(additionalArguments);

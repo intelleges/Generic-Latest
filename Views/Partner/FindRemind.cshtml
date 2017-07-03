@@ -383,6 +383,11 @@
 			formdata.append("text", $("#emailText").val());
 			formdata.append("userDate", new Date().toISOString());
 			formdata.append("ccSender", $("#ccSender").prop("checked"));
+			var control = $("#DropDownSubjects");
+			if (control.val()) {
+				formdata.append("autoMailId", control.val());
+			}
+		
 
 			$.ajax({
 				url: 'SendEmailByAccessCode',

@@ -543,6 +543,12 @@
 		formdata.append("text", $("#emailText").val());
 		formdata.append("userDate", new Date().toISOString());
 		formdata.append("ccSender", $("#ccSender").prop("checked"));
+
+		var control = $("#DropDownSubjects");
+		if (control.val()) {
+			formdata.append("autoMailId", control.val());
+		}
+
 		$("#emailDialog1 input[type='submit'], #emailDialog1 input[type='button']").prop("disabled", true);
 		$.ajax({
 			url: 'EmailSend',

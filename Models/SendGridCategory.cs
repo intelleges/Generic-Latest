@@ -29,8 +29,16 @@ namespace Generic.Models
 		SendPassword = 20,
 		SendPasswordChangedNotification = 21,
 		ReminderList = 22,
-		CompleteConfirmation= 23,
+		CompleteConfirmation = 23,
 		Incomplete = 24,
 		SendFirstReminderByPptq = 25
+	}
+
+	public enum Reminders
+	{
+		Automaed = 1,
+		InviteRemind = 2,
+		PartnerFind = 3,
+		IerateEmail = 4
 	}
 }

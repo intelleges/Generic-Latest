@@ -107,8 +107,8 @@ namespace Generic.Models
 			set { _category = value; }
 		}
 
-		private string _reminderSource;
-		public string reminderSource
+		private int? _reminderSource;
+		public int? reminderSource
 		{
 			get { return _reminderSource; }
 			set { _reminderSource = value; }

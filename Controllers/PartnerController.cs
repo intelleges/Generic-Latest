@@ -894,7 +894,7 @@ namespace Generic.Controllers
 
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);
+						/*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, objtouchpoint.description, "MVCMT", email.reminderSource, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);*/
 					}
 
 
@@ -1097,7 +1097,7 @@ namespace Generic.Controllers
 
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(email);
-			db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);
+			/*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);*/
 
 			string message = "Invite Sent";
 			ViewBag.Message = "2";
@@ -1672,7 +1672,7 @@ namespace Generic.Controllers
 						if (checkEventNotification == 0)
 						{
 							objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);
+							/*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)SendGridCategory.RemovePartner).ToString(), email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, CurrentInstance.EnterpriseID, email.loadgroup);*/
 						}
 
 					}
@@ -2272,7 +2272,7 @@ namespace Generic.Controllers
 		}
 
 		[HttpPost, ValidateInput(false)]
-		public ActionResult FindRemind(string accessCodes, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
+		public ActionResult FindRemind(string accessCodes, string subject, string text, HttpPostedFileBase attachment, int? autoMailId, bool? ccSender)
 		{
 			var error = "";
 			EmailFormat formatter = new EmailFormat();
@@ -2284,8 +2284,8 @@ namespace Generic.Controllers
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
 					var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
-					SchedulerServiceHelper.sendEmail(
-						new Email()
+
+					var em = new Email()
 						{
 							accesscode = pptq.accesscode,
 							emailTo = pptq.partner1.email,
@@ -2293,10 +2293,17 @@ namespace Generic.Controllers
 							url = Request.Url.ToString(),
 							body = resultBody,
 							protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
-							category = SendGridCategory.FindRemind
-						}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+							category = SendGridCategory.FindRemind,
+							reminderSource = (int)Reminders.InviteRemind
+						};
 
-					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "FindRemind", null, null, null, accessCodes, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					if (autoMailId.HasValue)
+						em.automailMessage = autoMailId.Value.ToString();
+
+					SchedulerServiceHelper.sendEmail(
+						em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+
+					/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, Request.Url.ToString(), ((int)SendGridCategory.FindRemind).ToString(), accessCodes, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", em.reminderSource, autoMailId, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 				}
 			}
 			//if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
@@ -2306,7 +2313,7 @@ namespace Generic.Controllers
 		}
 
 		[HttpPost, ValidateInput(false)]
-		public ActionResult SendEmailByAccessCode(string accessCode, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
+		public ActionResult SendEmailByAccessCode(string accessCode, string subject, string text, HttpPostedFileBase attachment, int? autoMailId, bool? ccSender)
 		{
 			var message = "";
 			EmailFormat formatter = new EmailFormat();
@@ -2319,8 +2326,7 @@ namespace Generic.Controllers
 
 			try
 			{
-				SchedulerServiceHelper.sendEmail(
-				new Email()
+				var em = new Email()
 				{
 					accesscode = accessCode,
 					emailTo = pptq.partner1.email,
@@ -2328,9 +2334,15 @@ namespace Generic.Controllers
 					url = Request.Url.ToString(),
 					body = resultBody,
 					protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
-					 category = SendGridCategory.SendEmailByAccessCode
-				}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
-				db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendEmailByAccessCode", null, null, null, accessCode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					category = SendGridCategory.SendEmailByAccessCode,
+					reminderSource = (int)Reminders.InviteRemind
+				};
+
+				if (autoMailId.HasValue)
+					em.automailMessage = autoMailId.ToString();
+
+				SchedulerServiceHelper.sendEmail(
+				em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
 				message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
 			}
 			catch (Exception exp)
@@ -3978,10 +3990,12 @@ namespace Generic.Controllers
 					url = Request.Url.ToString(),
 					body = resultBody,
 					protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
-					category = SendGridCategory.SendIteratePartnerEmailTest
+					category = SendGridCategory.SendIteratePartnerEmailTest,
+					reminderSource = (int)Reminders.IerateEmail,
+					automailMessage = iterateEmailText.id.ToString()
 				}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
 
-					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmailTest", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, Request.Url.ToString(), ((int)SendGridCategory.SendIteratePartnerEmailTest).ToString(), pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", (int)Reminders.IerateEmail, iterateEmailText.id, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 
 					return Json("done");
 				}
@@ -4142,7 +4156,6 @@ namespace Generic.Controllers
 					}
 
 					EmailFormat formatter = new EmailFormat();
-
 					if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 					var resultBody = formatter.sGetEmailBody(text, iPartner, iPerson, currentPerson, currentEnterprise);
 					SchedulerServiceHelper.sendEmail(
@@ -4154,11 +4167,13 @@ namespace Generic.Controllers
 							url = Request.Url.ToString(),
 							body = resultBody,
 							protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
-							category = SendGridCategory.SendIteratePartnerEmail
+							category = SendGridCategory.SendIteratePartnerEmail,
+							reminderSource = (int)Reminders.IerateEmail,
+							automailMessage = iterateEmailText.id.ToString()
 						},
 						 new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, iterateEmailText);
 
-					db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "SendIteratePartnerEmail", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+					/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, Request.Url.ToString(), ((int)SendGridCategory.SendIteratePartnerEmail).ToString(), pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", (int)Reminders.IerateEmail, iterateEmailText.id, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 					iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
 					iPerson.previousContact = iPerson.lastContact;
 					iPerson.lastContact = (int)InteratePartnerStatus.EmailSent;

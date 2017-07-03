@@ -14,18 +14,43 @@ namespace Generic.Controllers
         //
         // GET: /SendGridEventNotification/
 
+
+		private string[] events = new string[]{"bounce","dropped","deferred","click","delivered","processed","open"};
+
         [HttpPost]
         public void Index(List<SendGridEvents> data)
         {
             foreach (var eventDetails in data)
             {
+				//if (!events.Contains(eventDetails.@event))
+				//	continue;
+
                 using (var context = new EntitiesDBContext())
                 {
-                    try
+
+					int? enterprise = null;
+					int? reminderSource = null;
+					int? automailMessage = null;
+
+					int res = 0;
+					if (int.TryParse(eventDetails.enterprise, out res))
+						enterprise = res;
+
+					if (int.TryParse(eventDetails.reminderSource, out res))
+						reminderSource = res;
+
+
+					if (int.TryParse(eventDetails.automailMessage, out res))
+						automailMessage = res;
+
+
+					context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, eventDetails.category, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, reminderSource, automailMessage, enterprise, eventDetails.loadgroup);
+							
+					/* try
                     {
-                        context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, null,null, int.Parse(eventDetails.enterprise), eventDetails.loadgroup);
+                        
                     }
-					catch { context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, null, null, null, eventDetails.loadgroup); }
+					catch { context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, null, null, null, eventDetails.loadgroup); }*/
                 }
             }
 

@@ -146,7 +146,7 @@ namespace Generic.Controllers
 		}
 
 		[HttpPost, ValidateInput(false)]
-		public ActionResult EmailSend(string accessCode, string subject, string text, HttpPostedFileBase attachment, bool? ccSender)
+		public ActionResult EmailSend(string accessCode, string subject, string text, HttpPostedFileBase attachment, int? autoMailId, bool? ccSender)
 		{
 			var error = "";
 			EmailFormat formatter = new EmailFormat();
@@ -154,7 +154,8 @@ namespace Generic.Controllers
 			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
 
 			var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
-			SchedulerServiceHelper.sendEmail(
+
+			var email = 
 				new Email()
 				{
 					accesscode = accessCode,
@@ -164,9 +165,14 @@ namespace Generic.Controllers
 					body = resultBody,
 					protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
 					category  = SendGridCategory.EmailSend
-				}, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+				};
 
-			db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, "EmailSend", null, null, null, pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, null, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();
+			if (autoMailId.HasValue)
+				email.automailMessage = autoMailId.Value.ToString();
+
+			SchedulerServiceHelper.sendEmail(email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+
+			/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, autoMailId, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 			return Json(error);
 		}
 

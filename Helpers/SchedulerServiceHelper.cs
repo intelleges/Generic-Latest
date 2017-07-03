@@ -41,10 +41,6 @@ namespace Generic.Helpers
 				int pingRecordsProcessed = 0;
 				foreach (var item in reminderList)
 				{
-
-
-
-
 					var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item.nextToSendPPTQ).FirstOrDefault();
 
 
@@ -65,20 +61,25 @@ namespace Generic.Helpers
 					var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
 					Email email = new Email(amm);
 
-
-					email.accesscode = pptq.accesscode;
-					email.protocolTouchpoint = objtouchpoint.description;
-
 					EmailFormat emailFormat = new EmailFormat();
 					email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
 
 					email.emailTo = objpartner.email;
 					email.category = SendGridCategory.ReminderList;
+					email.reminderSource = (int)Reminders.Automaed;
+					email.accesscode = pptq.accesscode;
+					email.protocolTouchpoint = objtouchpoint.description;
+					email.automailMessage = amm.id.ToString();
+					email.protocolTouchpoint = objtouchpoint.description;
 
 					try
 					{
 						sendEmails(email, (int)ptq.partnerType1.enterprise, db);
 						db.pr_addPPTQautoMailMessageLog(item.nextToSendPPTQ, item.nextToSendAutomailmessage);
+
+
+						/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now,null, null, "", ((int)SendGridCategory.ReminderList).ToString(), email.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", (int)Reminders.Automaed, amm.id, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
+
 						pingRecordsProcessed = pingRecordsProcessed + 1;
 						if (!countPtq.ContainsKey(item.nextToSendPTQ))
 						{
@@ -152,7 +153,7 @@ namespace Generic.Helpers
 
 			additionalArguments.Add("url", email.url);
 			additionalArguments.Add("category", ((int)email.category).ToString());
-			additionalArguments.Add("reminderSource", email.reminderSource);
+			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
 			additionalArguments.Add("automailMessage", email.automailMessage);
 
 			mail.AddUniqueIdentifiers(additionalArguments);
@@ -270,13 +271,12 @@ namespace Generic.Helpers
 
 			additionalArguments.Add("url", email.url);
 			additionalArguments.Add("category", ((int)email.category).ToString());
-			additionalArguments.Add("reminderSource", email.reminderSource);
+			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
 			additionalArguments.Add("automailMessage", email.automailMessage);
 
 			mail.AddUniqueIdentifiers(additionalArguments);
 			// Create an SMTP transport for sending email.
-			var transportSMTP = SMTP.GetInstance(credentials);
-
+			var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
 			mail.AddTo(email.emailTo);
 			if (ccSender)
@@ -311,12 +311,12 @@ namespace Generic.Helpers
 
 			additionalArguments.Add("url", email.url);
 			additionalArguments.Add("category", ((int)email.category).ToString());
-			additionalArguments.Add("reminderSource", email.reminderSource);
+			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
 			additionalArguments.Add("automailMessage", email.automailMessage);
 
 			mail.AddUniqueIdentifiers(additionalArguments);
 			// Create an SMTP transport for sending email.
-			var transportSMTP = SMTP.GetInstance(credentials);
+			var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
 			mail.AddTo(email.emailTo);
 			if (ccSender)
@@ -368,13 +368,13 @@ namespace Generic.Helpers
 
 			additionalArguments.Add("url", email.url);
 			additionalArguments.Add("category", ((int)email.category).ToString());
-			additionalArguments.Add("reminderSource", email.reminderSource);
+			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
 			additionalArguments.Add("automailMessage", email.automailMessage);
 			mail.AddUniqueIdentifiers(additionalArguments);
 
 
 			// Create an SMTP transport for sending email.
-			var transportSMTP = SMTP.GetInstance(credentials);
+			var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
 			try
 			{
@@ -476,16 +476,20 @@ namespace Generic.Helpers
 					email.automailMessage = message.id.ToString();
 				email.url = url;
 				email.category = SendGridCategory.SendFirstReminderByPptq;
-				
+
 				EmailFormat emailFormat = new EmailFormat();
 				email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
 				email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, objtouchpoint, ptq.id);
 				//email.
 				email.emailTo = objpartner.email;
+				email.reminderSource = (int)Reminders.PartnerFind;
+
 				try
 				{
 					sendEmails(email, (int)objpartner.enterprise, db);
 					db.pr_addPPTQautoMailMessageLog(pptqId, message.id);
+
+					/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, email.url, ((int)SendGridCategory.SendFirstReminderByPptq).ToString(), email.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", email.reminderSource, message == null ? null : (int?)message.id, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 				}
 				catch (Exception ex)
 				{

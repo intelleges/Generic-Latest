@@ -1079,7 +1079,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 			SendEmail objSendEmail = new SendEmail();
 			objSendEmail.sendEmail(mail);
-			db.pr_addEventNotification(emailTo, DateTime.Now, "Intelleges: Email Alert", null, null, null, accessCode, null, "MVCMT", null, null, null, null);
+			/*db.pr_addEventNotification(emailTo, DateTime.Now, "", null, Request.Url.ToString(),( (int)SendGridCategory.SendEmailAlert).ToString(), accessCode, null, "MVCMT", null, null, null, null);*/
 		}
 
 		public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
@@ -1824,7 +1824,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
-					db.pr_addEventNotification(pptqObj.partner1.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null);
+					/*db.pr_addEventNotification(pptqObj.partner1.email, DateTime.Now, null, null, Request.Url.ToString(), ((int)SendGridCategory.QuestionnaireResponse).ToString(), accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null);*/
 				}
 				return RedirectToAction("SaveForLaterConfirm");
 				//#region 20130222 new code
@@ -3005,7 +3005,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 						SendEmail objSendEmail = new SendEmail();
 						objSendEmail.sendEmail(email);
-						db.pr_addEventNotification(newEmail, DateTime.Now, "Invitation", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, currentPtq.partnerType1.enterprise1.id, null);
+						/*db.pr_addEventNotification(newEmail, DateTime.Now, null, null, Request.Url.ToString(), ((int)SendGridCategory.SendInventation).ToString(), accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, currentPtq.partnerType1.enterprise1.id, null);*/
 					}
 
 				}
@@ -3170,7 +3170,7 @@ Intelleges Team";
 
 							SendEmail objSendEmail = new SendEmail();
 							objSendEmail.sendEmail(mail);
-							db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, "Complete_Confirmation", null, null, null, accessCode, objCurrentTouchpoint.description, "MVCMT", null, amm==null?null:(int?)amm.id, objEnterprise.id, null);
+							/*db.pr_addEventNotification(objSystemMaster.email, DateTime.Now, null, null, mail.url, ((int)mail.category).ToString(), accessCode, objCurrentTouchpoint.description, "MVCMT", null, amm == null ? null : (int?)amm.id, objEnterprise.id, null);*/
 						}
 					}
 					#endregion
@@ -3208,7 +3208,7 @@ Intelleges Team";
 							try
 							{
 								objSendEmail.sendEmail(email);
-								db.pr_addEventNotification(objPartner.email, DateTime.Now, _mailType.ToString(), null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, _enterprise.id, null);
+								/*db.pr_addEventNotification(objPartner.email, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, _enterprise.id, null);*/
 
 							}
 							catch (FormatException ex)
@@ -3244,7 +3244,7 @@ Intelleges Team";
 
 					SendEmail objSendEmail = new SendEmail();
 					objSendEmail.sendEmail(email);
-					db.pr_addEventNotification(objPartner.email, DateTime.Now, "Incomplete", null, null, null, accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, _enterprise.id, null);
+					/*db.pr_addEventNotification(objPartner.email, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), accessCode, email.protocolTouchpoint, "MVCMT", null, amm.id, _enterprise.id, null);*/
 				}
 
 				objViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;

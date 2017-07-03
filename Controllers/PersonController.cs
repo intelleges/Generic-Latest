@@ -345,7 +345,7 @@ Intelleges Team";
 
                             SendEmail objSendEmail = new SendEmail();
                             objSendEmail.sendEmail(email);
-							db.pr_addEventNotification(email.emailTo, DateTime.Now, "Intelleges Account Created", null, null, null, email.accesscode, email.protocolTouchpoint, "MVCMT", null, null, interpriseId, email.loadgroup);
+							/*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, email.protocolTouchpoint, "MVCMT", null, null, interpriseId, email.loadgroup);*/
 
 
 
@@ -479,8 +479,8 @@ Thanks in advance.<br>
 
                 SendEmail objSendEmail = new SendEmail();
                 objSendEmail.sendEmail(email);
-				db.pr_addEventNotification(email.emailTo, DateTime.Now, "Welcome to Intelleges", null, null, null, email.accesscode, null, "MVCMT", null, null, objEnterprise.id, email.loadgroup);
-                return RedirectToAction("AssignGroup", "Person");
+				/*db.pr_addEventNotification(email.emailTo, DateTime.Now,null, null, email.url, ((int)email.category).ToString(), email.accesscode, null, "MVCMT", null, null, objEnterprise.id, email.loadgroup);
+                return RedirectToAction("AssignGroup", "Person");*/
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);

@@ -12,7 +12,7 @@ namespace Generic.Helpers.Utility
 
         public string email { get; set; }
         public string timestamp { get; set; }
-      //  public string category { get; set; }
+        public string category { get; set; }
         public string @event { get; set; }
         public string reason { get; set; }
         public string url { get; set; }
@@ -24,6 +24,8 @@ namespace Generic.Helpers.Utility
         public string enterprise { get; set; }
         public string protocolTouchpoint { get; set; }
         public string loadgroup { get; set; }
+		public string reminderSource { get; set; }
+		public string automailMessage { get; set; }
         public unique_args unique_args { get; set; }
     }
 
@@ -32,5 +34,8 @@ namespace Generic.Helpers.Utility
         public string accesscode { get; set; }
         public string ApplicationName { get; set; }
         public string enterprise { get; set; }
-    }
+		public string reminderSource { get; set; }
+		public string automailMessage { get; set; }
+		public string category { get; set; }
+	}
 }

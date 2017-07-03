@@ -164,7 +164,7 @@ namespace Generic.Controllers
 			
                 SendEmail objSendEmail = new SendEmail();
                  objSendEmail.sendEmail(email);
-				 db.pr_addEventNotification(email.emailTo, DateTime.Now, "Invitation", null, null, null, email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, (int)objpartner.enterprise, email.loadgroup);
+				 /*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, (int)objpartner.enterprise, email.loadgroup);*/
 
                  if (listing!=null&&listing.Trim().ToLower().Equals("y"))
                     return RedirectToAction("../Partner/FindPartnerResult");
