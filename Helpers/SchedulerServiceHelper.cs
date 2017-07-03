@@ -77,9 +77,6 @@ namespace Generic.Helpers
 						sendEmails(email, (int)ptq.partnerType1.enterprise, db);
 						db.pr_addPPTQautoMailMessageLog(item.nextToSendPPTQ, item.nextToSendAutomailmessage);
 
-
-						/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now,null, null, "", ((int)SendGridCategory.ReminderList).ToString(), email.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", (int)Reminders.Automaed, amm.id, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
-
 						pingRecordsProcessed = pingRecordsProcessed + 1;
 						if (!countPtq.ContainsKey(item.nextToSendPTQ))
 						{
