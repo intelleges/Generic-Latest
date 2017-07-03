@@ -46,15 +46,11 @@ namespace Generic.Controllers
 
 					context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, eventDetails.category, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, reminderSource, automailMessage, enterprise, eventDetails.loadgroup);
 							
-					/* try
-                    {
-                        
-                    }
-					catch { context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, null, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, null, null, null, eventDetails.loadgroup); }*/
                 }
             }
 
         }
+
         private void logerror(string message)
         {
             string LogFilePath = "~/log/";

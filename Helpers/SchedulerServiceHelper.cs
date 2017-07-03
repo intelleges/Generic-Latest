@@ -488,8 +488,6 @@ namespace Generic.Helpers
 				{
 					sendEmails(email, (int)objpartner.enterprise, db);
 					db.pr_addPPTQautoMailMessageLog(pptqId, message.id);
-
-					/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, email.url, ((int)SendGridCategory.SendFirstReminderByPptq).ToString(), email.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", email.reminderSource, message == null ? null : (int?)message.id, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 				}
 				catch (Exception ex)
 				{
