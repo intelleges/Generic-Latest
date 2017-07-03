@@ -22,8 +22,8 @@ namespace Generic.Controllers
         {
             foreach (var eventDetails in data)
             {
-				//if (!events.Contains(eventDetails.@event))
-				//	continue;
+				if (!events.Contains(eventDetails.@event))
+					continue;
 
                 using (var context = new EntitiesDBContext())
                 {
