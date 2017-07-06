@@ -8134,6 +8134,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="jumpTo" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_modifyQuestionTag" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="tag" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_modifyRailStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -15653,6 +15657,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="enterprise" EntitySet="enterprise" />
             <End Role="key" EntitySet="keys" />
           </AssociationSet>
+          <FunctionImport Name="pr_modifyQuestionTag">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="tag" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -33999,6 +34007,7 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionTag" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionTag" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

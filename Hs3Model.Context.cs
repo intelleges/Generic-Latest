@@ -18988,5 +18988,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue", partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter, valueParameter);
         }
+    
+        public virtual int pr_modifyQuestionTag(Nullable<int> id, string tag)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var tagParameter = tag != null ?
+                new ObjectParameter("tag", tag) :
+                new ObjectParameter("tag", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionTag", idParameter, tagParameter);
+        }
     }
 }
