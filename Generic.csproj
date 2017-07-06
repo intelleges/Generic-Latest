@@ -2627,6 +2627,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
     <Content Include="Contents\images\i_386abcb4f9499a4e_html_55b65ccf.gif" />
     <Content Include="Contents\AdminStyle\css\bootstrap.css" />
     <Content Include="Contents\AdminStyle\css\bootstrap.min.css" />
@@ -2652,7 +2653,7 @@
     <Content Include="Contents\AdminStyle\images\Home-imgs\buy-american-act.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\call-foot.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\call-icon.png" />
-    <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise-old.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\contact-icon.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\easy-to-use.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\enterprise.png" />
