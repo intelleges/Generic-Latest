@@ -48,7 +48,6 @@ namespace Generic
         public virtual DbSet<groupOrgChart> groupOrgChart { get; set; }
         public virtual DbSet<groupRiskGoal> groupRiskGoal { get; set; }
         public virtual DbSet<hs3Menu_deprecated> hs3Menu_deprecated { get; set; }
-        public virtual DbSet<key> key { get; set; }
         public virtual DbSet<language> language { get; set; }
         public virtual DbSet<languageInfo> languageInfo { get; set; }
         public virtual DbSet<letter> letter { get; set; }
@@ -187,7 +186,6 @@ namespace Generic
         public virtual DbSet<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponses { get; set; }
         public virtual DbSet<question> questions { get; set; }
         public virtual DbSet<autoMailAttachment> autoMailAttachments { get; set; }
-        public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
         public virtual DbSet<questionnaireAutomailMessageLoad> questionnaireAutomailMessageLoads { get; set; }
         public virtual DbSet<questionnaireCMSLoad> questionnaireCMSLoads { get; set; }
         public virtual DbSet<campaign> campaigns { get; set; }
@@ -213,6 +211,8 @@ namespace Generic
         public virtual DbSet<iterateType> iterateType { get; set; }
         public virtual DbSet<companyProfileDataLoad> companyProfileDataLoad { get; set; }
         public virtual DbSet<partnerReminderType> partnerReminderType { get; set; }
+        public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
+        public virtual DbSet<key> keys { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -763,7 +763,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addHs3Menu", descriptionParameter, urlParameter, parentidParameter, grandParameter, sortParameter, activeParameter, accesslevelParameter, menuGroupParameter, isDynamicCreatedParameter, deviceParameter, enterpriseParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addKey(string @object, string username, string password, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        public virtual ObjectResult<Nullable<decimal>> pr_addKey(string @object, string username, string password, string api, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var objectParameter = @object != null ?
                 new ObjectParameter("object", @object) :
@@ -777,6 +777,10 @@ namespace Generic
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
     
+            var apiParameter = api != null ?
+                new ObjectParameter("api", api) :
+                new ObjectParameter("api", typeof(string));
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
@@ -789,7 +793,7 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addKey", objectParameter, usernameParameter, passwordParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addKey", objectParameter, usernameParameter, passwordParameter, apiParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addLanguage(string name, string originalName, byte[] flagImage, Nullable<int> enterprise)
@@ -3043,22 +3047,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<hs3Menu_deprecated>("pr_getHs3MenuAll", mergeOption, enterpriseParameter);
         }
     
-        public virtual ObjectResult<key> pr_getKey(Nullable<int> id)
+        public virtual int pr_getKey(Nullable<int> enterprise)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKey", idParameter);
-        }
-    
-        public virtual ObjectResult<key> pr_getKey(Nullable<int> id, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<key>("pr_getKey", mergeOption, idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getKey", enterpriseParameter);
         }
     
         public virtual ObjectResult<key> pr_getKeyAll(Nullable<int> enterprise)
@@ -5676,7 +5671,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyHs3Menu", idParameter, descriptionParameter, urlParameter, parentidParameter, grandParameter, sortParameter, activeParameter, accesslevelParameter, menuGroupParameter, isDynamicCreatedParameter, deviceParameter, enterpriseParameter);
         }
     
-        public virtual int pr_modifyKey(Nullable<int> id, string @object, string username, string password, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        public virtual int pr_modifyKey(Nullable<int> id, string @object, string username, string password, string api, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5694,6 +5689,10 @@ namespace Generic
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
     
+            var apiParameter = api != null ?
+                new ObjectParameter("api", api) :
+                new ObjectParameter("api", typeof(string));
+    
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
                 new ObjectParameter("sortOrder", typeof(int));
@@ -5706,7 +5705,7 @@ namespace Generic
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyKey", idParameter, objectParameter, usernameParameter, passwordParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyKey", idParameter, objectParameter, usernameParameter, passwordParameter, apiParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
         public virtual int pr_modifyLanguage(Nullable<int> id, string name, string originalName, byte[] flagImage)
@@ -15633,7 +15632,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pptqDoc>("pr_getPPTQDocByPPTQ", mergeOption, pptqParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<double> value, Nullable<double> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var questionParameter = question.HasValue ?
                 new ObjectParameter("question", question) :
@@ -15661,11 +15660,11 @@ namespace Generic
     
             var valueParameter = value.HasValue ?
                 new ObjectParameter("value", value) :
-                new ObjectParameter("value", typeof(int));
+                new ObjectParameter("value", typeof(double));
     
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
-                new ObjectParameter("score", typeof(int));
+                new ObjectParameter("score", typeof(double));
     
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
@@ -15683,13 +15682,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire)
         {
             var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
                 new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(Nullable<int> partnerPartnertypeTouchpointQuestionnaire, MergeOption mergeOption)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireParameter = partnerPartnertypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", partnerPartnertypeTouchpointQuestionnaire) :
+                new ObjectParameter("PartnerPartnertypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ", mergeOption, partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(Nullable<int> question, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
@@ -15725,19 +15733,6 @@ namespace Generic
                 new ObjectParameter("email", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseFromCustomer", emailParameter);
-        }
-    
-        public virtual int pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue(Nullable<int> partnerPartnertypeTouchpointQuestionnaireQuestionResponse, Nullable<int> value)
-        {
-            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter = partnerPartnertypeTouchpointQuestionnaireQuestionResponse.HasValue ?
-                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaireQuestionResponse", partnerPartnertypeTouchpointQuestionnaireQuestionResponse) :
-                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaireQuestionResponse", typeof(int));
-    
-            var valueParameter = value.HasValue ?
-                new ObjectParameter("value", value) :
-                new ObjectParameter("value", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue", partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter, valueParameter);
         }
     
         public virtual int pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id)
@@ -15900,7 +15895,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber", pptqParameter, partnumberParameter);
         }
     
-        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id, Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<int> value, Nullable<int> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> id, Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<double> value, Nullable<double> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15932,11 +15927,11 @@ namespace Generic
     
             var valueParameter = value.HasValue ?
                 new ObjectParameter("value", value) :
-                new ObjectParameter("value", typeof(int));
+                new ObjectParameter("value", typeof(double));
     
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
-                new ObjectParameter("score", typeof(int));
+                new ObjectParameter("score", typeof(double));
     
             var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
                 new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
@@ -18979,6 +18974,19 @@ namespace Generic
                 new ObjectParameter("loadgroup", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyEventNotification", idParameter, emailParameter, timestampParameter, eventParameter, reasonParameter, urlParameter, categoryParameter, accesscodeParameter, protocolTouchpointParameter, applicationNameParameter, reminderSourceParameter, automailmessageParameter, enterpriseParameter, loadgroupParameter);
+        }
+    
+        public virtual int pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue(Nullable<int> partnerPartnertypeTouchpointQuestionnaireQuestionResponse, Nullable<double> value)
+        {
+            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter = partnerPartnertypeTouchpointQuestionnaireQuestionResponse.HasValue ?
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaireQuestionResponse", partnerPartnertypeTouchpointQuestionnaireQuestionResponse) :
+                new ObjectParameter("partnerPartnertypeTouchpointQuestionnaireQuestionResponse", typeof(int));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue", partnerPartnertypeTouchpointQuestionnaireQuestionResponseParameter, valueParameter);
         }
     }
 }

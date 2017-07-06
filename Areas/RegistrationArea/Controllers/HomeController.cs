@@ -985,7 +985,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 			var answer = db.pr_getResponse(answerId).FirstOrDefault();
 			var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-			var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponses.FirstOrDefault(o => o.question == questionId);
+			var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.FirstOrDefault(o => o.question == questionId);
 			if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null && qresponse != null)
 			{
 				if (answer != null)
@@ -3050,7 +3050,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 					if (ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire1.levelType == Generic.Helpers.Questionnaire.LevelType.SUBSCRIPTION)
 					{
 						var questions = db.pr_getQuestionByQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire1.questionnaire).ToList();
-						var responses = ppptq_cms.partnerPartnertypeTouchpointQuestionnaireQuestionResponses.ToList();
+						var responses = ppptq_cms.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.ToList();
 
 						var description = questions.FirstOrDefault(o => o.title == "description");
 						var website = questions.FirstOrDefault(o => o.title == "website");

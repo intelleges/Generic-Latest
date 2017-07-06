@@ -22,7 +22,7 @@ namespace Generic
             this.responseTranslation = new HashSet<responseTranslation>();
             this.language = new HashSet<language>();
             this.partnumberSiteZcodePPTQQuestionResponses = new HashSet<partnumberSiteZcodePPTQQuestionResponse>();
-            this.partnerPartnertypeTouchpointQuestionnaireQuestionResponses = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
+            this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
         }
     
         public int id { get; set; }
@@ -43,6 +43,6 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnumberSiteZcodePPTQQuestionResponse> partnumberSiteZcodePPTQQuestionResponses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponses { get; set; }
+        public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
     }
 }

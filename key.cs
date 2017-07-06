@@ -18,6 +18,7 @@ namespace Generic
         public string @object { get; set; }
         public string username { get; set; }
         public string password { get; set; }
+        public string api { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
         public Nullable<int> enterprise { get; set; }

@@ -24,7 +24,6 @@ namespace Generic
             this.group = new HashSet<group>();
             this.groupCollection = new HashSet<groupCollection>();
             this.hs3Menu_deprecated = new HashSet<hs3Menu_deprecated>();
-            this.key = new HashSet<key>();
             this.language = new HashSet<language>();
             this.languageInfo = new HashSet<languageInfo>();
             this.UM_M_Menu_deprecated = new HashSet<UM_M_Menu_deprecated>();
@@ -42,6 +41,7 @@ namespace Generic
             this.menu1 = new HashSet<menu>();
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
             this.partnerSpreadsheetDataLoads = new HashSet<partnerSpreadsheetDataLoad>();
+            this.keys = new HashSet<key>();
         }
     
         public int id { get; set; }
@@ -82,8 +82,6 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hs3Menu_deprecated> hs3Menu_deprecated { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<key> key { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<language> language { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<languageInfo> languageInfo { get; set; }
@@ -118,5 +116,7 @@ namespace Generic
         public virtual enterpriseContactUs enterpriseContactUs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<key> keys { get; set; }
     }
 }
