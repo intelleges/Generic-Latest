@@ -5,6 +5,7 @@
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Questionnaire AutoMail View";
+    List<Generic.pr_getAutoMailAttachmentTypeAll_Result> types = ViewBag.Types as List<Generic.pr_getAutoMailAttachmentTypeAll_Result>;
 }
 
 <style>
@@ -48,30 +49,36 @@ top: 2px;
                     </div>
                     <div class="modal-body">
                         <form id="modalGetPassword" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label class="control-label" for="noteTitle">Attachment</label>
-                                <input id="noteTitle" name="noteTitle" class="form-control" type="file" placeholder="Please select file" data-val-required="*" data-val="true" />
-                                <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="note">Note</label>
-                                <input id="note" name="note" class="form-control" type="text" placeholder="Please enter note" data-val-required="*" data-val="true" />
-                                <span data-valmsg-replace="true" data-valmsg-for="note" class="field-validation-valid help-inline" />
-                            </div>
-                            @*<div class="form-group">
-                <label class="control-label" for="noteText">Text</label>
-                <textarea id="noteText" name="noteText" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></textarea>
-                <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" />
-                <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace('noteText');
-                </script>
-            </div>*@
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary" name="submit">Upload</button>
-                            </div>
-                        </form>
+                            <div class="row">
+                                <div class="form-group col-xs-8">
+                                    <label class="control-label" for="noteTitle">Attachment</label>
+                                    <input id="noteTitle" name="noteTitle" class="form-control" type="file" placeholder="Please select file" data-val-required="*" data-val="true" />
+                                    <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />
+                                </div>
+                                <div class="form-group col-xs-4">
+                                    <label class="control-label" for="document">Type</label>
+                                    <select id="document" name="document" class="form-control">
+                                        @foreach (var item in types.Where(o => o.active).OrderBy(o => o.sortOrder))
+                                        {
+                                            <option value="@item.id">@item.description</option>
+                                        }
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="note">Filename</label>
+                                    <input id="note" name="note" class="form-control" type="text" placeholder="Please enter filename" data-val-required="*" data-val="true" />
+                                    <span data-valmsg-replace="true" data-valmsg-for="note" class="field-validation-valid help-inline" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="tags">Tags</label>
+                                    <input id="tags" name="tags" class="form-control" type="text" placeholder="Please enter tags" data-val-required="*" data-val="true" />
+                                    <span data-valmsg-replace="true" data-valmsg-for="tags" class="field-validation-valid help-inline" />
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="submit">Upload</button>
+                                </div>
+</form>
                     </div>
                 </div>
             </div>
@@ -161,6 +168,7 @@ top: 2px;
     function addViewDoc(id) {
         $("#noteTitle").val("");
         $("#note").val("");
+        $("#tags").val("");
         $("#addNoteDialog").modal("toggle");
         selectedMailId = id;
     }

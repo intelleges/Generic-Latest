@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Generic.Models;
 using SendGridMail;
 using SendGridMail.Transport;
+using System.IO;
 
 namespace Generic.Helpers.Utility
 {
@@ -45,8 +46,6 @@ namespace Generic.Helpers.Utility
 			additionalArguments.Add("category", ((int)email.category).ToString());
 			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.ToString());
 			additionalArguments.Add("automailMessage", email.automailMessage);
-
-            mail.AddUniqueIdentifiers(additionalArguments);
             
 
             //mail.StreamedAttachments.Add(
@@ -113,9 +112,43 @@ namespace Generic.Helpers.Utility
             email.body = email.body.Replace("\n", "<br />");
             email.body = email.body.Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
             mail.Html = email.body;
+            string tags = "";
             try
             {
-                
+
+                int amid = -1;
+                if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
+                {
+                    var attachments = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
+
+                    string htmlFooter = "";
+
+                    foreach (var item in attachments)
+                    {
+                        if (item.automailAttachmentType == 2)
+                        {
+                            Stream stream = new MemoryStream(item.attachment);
+                            mail.AddAttachment(stream, item.note);
+                            if (!string.IsNullOrEmpty(item.tags))
+                                tags = item.tags + ";";
+                        }
+
+                        if (item.automailAttachmentType == 1)
+                        {
+                            string base64String = Convert.ToBase64String(item.attachment);
+                            htmlFooter += "<a href='" + item.tags + "'><img src='data:image/png;base64," + base64String + "' /></a><br/>";
+                        }
+                    }
+
+
+                    if (!string.IsNullOrEmpty(htmlFooter))
+                    {
+                        mail.EnableFooter(html: htmlFooter);
+                    }
+                }
+
+                additionalArguments.Add("tags", tags);
+                mail.AddUniqueIdentifiers(additionalArguments);
                 transportSMTP.Deliver(mail);
                 //mail.SetHtmlBody(email.body);
 

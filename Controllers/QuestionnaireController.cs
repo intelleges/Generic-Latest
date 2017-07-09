@@ -448,10 +448,12 @@ namespace Generic.Controllers
             List<autoMailMessage> questionnaireAutoMailDetail =
                 db.Database.SqlQuery<autoMailMessage>("EXEC pr_getAutomailMessageByQuestionnaire '" + id + "'").ToList();
             List<QuestionnaireAutoMailViewModel> lstquestionaireAutoMailDetails = ConvertToQuestionnaireAutoMailViewModel(questionnaireAutoMailDetail);
+
+            ViewBag.Types = db.pr_getAutoMailAttachmentTypeAll().ToList();
             return View(lstquestionaireAutoMailDetails);
         }
 
-        public async Task<ActionResult> UploadQuestionnaireAutomailDocument(HttpPostedFileBase noteTitle, string note, int id)
+        public async Task<ActionResult> UploadQuestionnaireAutomailDocument(HttpPostedFileBase noteTitle, string note, int id, string tags, int document)
         {
             return await Task.Run(() =>
             {
@@ -461,7 +463,7 @@ namespace Generic.Controllers
                     {
                         noteTitle.InputStream.CopyTo(stream);
                         stream.Seek(0, SeekOrigin.Begin);
-                        db.pr_addAutoMailAttachment(id, stream.ToArray(), "", note, 2, 0, true);
+                        db.pr_addAutoMailAttachment(id, stream.ToArray(), tags, note, document, 0, true);
                     }
 
                 }
