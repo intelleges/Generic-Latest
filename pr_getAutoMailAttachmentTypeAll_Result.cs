@@ -10,19 +10,12 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class autoMailAttachment
+    public partial class pr_getAutoMailAttachmentTypeAll_Result
     {
         public int id { get; set; }
-        public int autoMail { get; set; }
-        public byte[] attachment { get; set; }
-        public string note { get; set; }
-        public string tags { get; set; }
-        public Nullable<int> automailAttachmentType { get; set; }
-        public Nullable<int> sortOrder { get; set; }
-        public Nullable<bool> active { get; set; }
-    
-        public virtual autoMailMessage autoMailMessage { get; set; }
+        public string description { get; set; }
+        public int sortOrder { get; set; }
+        public bool active { get; set; }
     }
 }

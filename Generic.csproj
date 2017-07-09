@@ -590,6 +590,9 @@
     <Compile Include="autoMailAttachment.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="autoMailAttachmentType.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="autoMailMessage.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1061,7 +1064,19 @@
     <Compile Include="pr_getAttachmentsByAccessCode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getAutoMailAttachmentAllByAutoMail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutoMailAttachmentAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getAutoMailAttachmentByAutoMail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutoMailAttachmentTypeAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutoMailAttachmentType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutoMailAttachment_Result.cs">
@@ -1092,6 +1107,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutomailMessageInviteByPartnerTypeTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutomailMessagePPTQ_Result.cs">

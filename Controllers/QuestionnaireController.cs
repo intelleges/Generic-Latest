@@ -461,7 +461,7 @@ namespace Generic.Controllers
                     {
                         noteTitle.InputStream.CopyTo(stream);
                         stream.Seek(0, SeekOrigin.Begin);
-                        db.pr_addAutoMailAttachment(id, stream.ToArray(), note);
+                        db.pr_addAutoMailAttachment(id, stream.ToArray(), "", note, 2, 0, true);
                     }
 
                 }

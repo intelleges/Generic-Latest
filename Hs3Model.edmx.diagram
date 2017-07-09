@@ -312,6 +312,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="3" PointY="59.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachmentType" Width="1.5" PointX="25.375" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -33,7 +33,20 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="autoMail" Type="int" Nullable="false" />
           <Property Name="attachment" Type="image" Nullable="false" />
+          <Property Name="tags" Type="varchar(max)" />
           <Property Name="note" Type="varchar" MaxLength="1000" />
+          <Property Name="automailAttachmentType" Type="int" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="autoMailAttachmentType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="autoMailMessage">
           <Key>
@@ -4316,7 +4329,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_addAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="autoMail" Type="int" Mode="In" />
           <Parameter Name="attachment" Type="image" Mode="In" />
+          <Parameter Name="tags" Type="varchar(max)" Mode="In" />
           <Parameter Name="note" Type="varchar" Mode="In" />
+          <Parameter Name="AutoMailAttachmentType" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addAutoMailAttachmentType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="subject" Type="varchar(max)" Mode="In" />
@@ -5490,6 +5512,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_archiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveAutoMailAttachmentType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5849,9 +5877,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutoMailAttachmentAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getAutoMailAttachmentAllByAutoMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="automail" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutoMailAttachmentByAutoMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="automail" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutoMailAttachmentType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAutoMailAttachmentTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5880,6 +5916,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getAutomailMessageforPartnumberEmailSendByLoadGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="loadgroup" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getAutomailMessageInviteByPartnerTypeTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getAutomailMessagePPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -7240,7 +7280,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="autoMail" Type="int" Mode="In" />
           <Parameter Name="attachment" Type="image" Mode="In" />
+          <Parameter Name="tags" Type="varchar(max)" Mode="In" />
           <Parameter Name="note" Type="varchar" Mode="In" />
+          <Parameter Name="AutoMailAttachmentType" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyAutoMailAttachmentType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8342,6 +8392,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeAutoMailAttachmentType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeAutomailMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8735,6 +8788,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_unArchiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveAutoMailAttachment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveAutoMailAttachmentType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveAutoMailType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9044,6 +9103,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="accessLevel" EntityType="Self.accessLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="agency" EntityType="Self.agency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="autoMailAttachment" EntityType="Self.autoMailAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="autoMailAttachmentType" EntityType="Self.autoMailAttachmentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="autoMailMessage" EntityType="Self.autoMailMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="automailMessagePPTQ" EntityType="Self.automailMessagePPTQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="autoMailType" EntityType="Self.autoMailType" Schema="dbo" store:Type="Tables" />
@@ -14787,7 +14847,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_addAutoMailAttachment" ReturnType="Collection(Decimal)">
             <Parameter Name="autoMail" Mode="In" Type="Int32" />
             <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="tags" Mode="In" Type="String" />
             <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="AutoMailAttachmentType" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutoMailAttachment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachment_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -14799,7 +14863,11 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="autoMail" Mode="In" Type="Int32" />
             <Parameter Name="attachment" Mode="In" Type="Binary" />
+            <Parameter Name="tags" Mode="In" Type="String" />
             <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="AutoMailAttachmentType" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutoMailAttachment">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -15660,6 +15728,45 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImport Name="pr_modifyQuestionTag">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="tag" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="autoMailAttachmentTypes" EntityType="hs3MVCMTQa2Model.autoMailAttachmentType" />
+          <FunctionImport Name="pr_addAutoMailAttachmentType" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveAutoMailAttachment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveAutoMailAttachmentType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutoMailAttachmentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentAll_Result)" />
+          <FunctionImport Name="pr_getAutoMailAttachmentAllByAutoMail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentAllByAutoMail_Result)">
+            <Parameter Name="automail" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutoMailAttachmentType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutoMailAttachmentTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentTypeAll_Result)" />
+          <FunctionImport Name="pr_getAutomailMessageInviteByPartnerTypeTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageInviteByPartnerTypeTouchpoint_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyAutoMailAttachmentType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeAutoMailAttachmentType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveAutoMailAttachment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveAutoMailAttachmentType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -23665,6 +23772,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Name="attachment" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="note" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="autoMailMessage" Relationship="hs3MVCMTQa2Model.FK_autoMailAttachment_autoMailMessage" FromRole="autoMailAttachment" ToRole="autoMailMessage" />
+          <Property Name="tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="automailAttachmentType" Type="Int32" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
         </EntityType>
         <Association Name="FK_autoMailAttachment_autoMailMessage">
           <End Type="hs3MVCMTQa2Model.autoMailMessage" Role="autoMailMessage" Multiplicity="1" />
@@ -25413,6 +25524,58 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="autoMailAttachmentType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getAutoMailAttachmentAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="autoMail" Nullable="false" />
+          <Property Type="Binary" Name="attachment" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="tags" Nullable="true" />
+          <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="automailAttachmentType" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutoMailAttachmentAllByAutoMail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="autoMail" Nullable="false" />
+          <Property Type="Binary" Name="attachment" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="tags" Nullable="true" />
+          <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="automailAttachmentType" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutoMailAttachmentType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutoMailAttachmentTypeAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageInviteByPartnerTypeTouchpoint_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32074,6 +32237,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="autoMailAttachments">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailAttachment">
               <MappingFragment StoreEntitySet="autoMailAttachment">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="automailAttachmentType" ColumnName="automailAttachmentType" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="attachment" ColumnName="attachment" />
                 <ScalarProperty Name="autoMail" ColumnName="autoMail" />
@@ -34008,6 +34175,86 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyQuestionTag" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionTag" />
+          <EntitySetMapping Name="autoMailAttachmentTypes">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.autoMailAttachmentType">
+              <MappingFragment StoreEntitySet="autoMailAttachmentType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_addAutoMailAttachmentType" />
+          <FunctionImportMapping FunctionImportName="pr_archiveAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveAutoMailAttachment" />
+          <FunctionImportMapping FunctionImportName="pr_archiveAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveAutoMailAttachmentType" />
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachmentAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachmentAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachmentAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="automailAttachmentType" ColumnName="automailAttachmentType" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachmentAllByAutoMail" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachmentAllByAutoMail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachmentAllByAutoMail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="automailAttachmentType" ColumnName="automailAttachmentType" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachmentType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachmentType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutoMailAttachmentTypeAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutoMailAttachmentTypeAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutoMailAttachmentTypeAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageInviteByPartnerTypeTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageInviteByPartnerTypeTouchpoint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageInviteByPartnerTypeTouchpoint_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailAttachmentType" />
+          <FunctionImportMapping FunctionImportName="pr_removeAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachmentType" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveAutoMailAttachment" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveAutoMailAttachmentType" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
