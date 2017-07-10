@@ -9,6 +9,7 @@ using Generic.Models;
 using SendGridMail;
 using SendGridMail.Transport;
 using System.IO;
+using SendGrid.Helpers.Mail;
 
 namespace Generic.Helpers.Utility
 {
@@ -31,32 +32,23 @@ namespace Generic.Helpers.Utility
             string receiver = "";
 
             key objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
-
-            var mail = SendGrid.GetInstance();
-            var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
-
+            var msg = new SendGridMessage();
+            List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
+            var client = new SendGrid.SendGridClient(objSendGridPassword.api);
+            string htmlFooter = "";
+
             additionalArguments.Add("ApplicationName", "MVCMT");
             additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
             additionalArguments.Add("loadgroup", email.loadgroup);
             additionalArguments.Add("accesscode", email.accesscode);
             additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);
-			additionalArguments.Add("email", email.emailTo);
-			additionalArguments.Add("url", email.url);
-			additionalArguments.Add("category", ((int)email.category).ToString());
-			additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.ToString());
-			additionalArguments.Add("automailMessage", email.automailMessage);
-            
+            additionalArguments.Add("email", email.emailTo);
+            additionalArguments.Add("url", email.url);
+            additionalArguments.Add("category", ((int)email.category).ToString());
+            additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.ToString());
+            additionalArguments.Add("automailMessage", email.automailMessage);
 
-            //mail.StreamedAttachments.Add(
-            //mail.CreateMimeMessage().AlternateViews.Add;
-
-
-
-            var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
-            
-      
-            
             if (email.type == "user")
             {
                 // mail.AddTo(email.user.email);
@@ -86,70 +78,83 @@ namespace Generic.Helpers.Utility
             }
             if (email.type == "emailAlert")
             {
-                var emails = email.emailTo.Split(new char[]{';'},StringSplitOptions.RemoveEmptyEntries);
-                foreach(var emailTo in emails)
+                var emails = email.emailTo.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                List<EmailAddress> emads = new List<EmailAddress>();
+                foreach (var emailTo in emails)
                 {
-                    mail.AddTo(emailTo);
+                    emads.Add(new EmailAddress(emailTo));
                 }
+                msg.AddTos(emads);
             }
             else
             {
-                mail.AddTo(email.emailTo);
+                msg.AddTo(email.emailTo);
                 receiver = email.emailTo;
             }
-            //  string extension = mail.AddFileAttachment(email.attachment);
 
-			enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
-            mail.From = new MailAddress(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
-            
-            //mail.From = email.sender.email;
-            //mail.FromName = email.sender.firstName + " " + email.sender.lastName;
-            //mail.ReplyTo = email.sender.email;
-            mail.Subject = email.subject;
-
-            //set body format
-            email.body = email.body.Replace("\n", "<br />");
-            email.body = email.body.Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-            mail.Html = email.body;
+            int amid = -1;
             string tags = "";
-            try
+            if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
             {
-
-                int amid = -1;
-                if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
+                var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
+                foreach (var item in attachments1)
                 {
-                    var attachments = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
-
-                    string htmlFooter = "";
-
-                    foreach (var item in attachments)
+                    string key = "c_" + DateTime.Now.Ticks;
+                    if (item.automailAttachmentType == 1)
                     {
-                        if (item.automailAttachmentType == 2)
+                        htmlFooter += "<a href='" + item.tags + "'><img src='cid:" + key + "' /></a><br/>";
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
                         {
-                            Stream stream = new MemoryStream(item.attachment);
-                            mail.AddAttachment(stream, item.note);
-                            if (!string.IsNullOrEmpty(item.tags))
-                                tags = item.tags + ";";
-                        }
-
-                        if (item.automailAttachmentType == 1)
-                        {
-                            string base64String = Convert.ToBase64String(item.attachment);
-                            htmlFooter += "<a href='" + item.tags + "'><img src='data:image/png;base64," + base64String + "' /></a><br/>";
-                        }
+                            Content = Convert.ToBase64String(item.attachment),
+                            ContentId = key,
+                            Disposition = "inline",
+                            Type = "image/png",
+                            Filename = item.note
+                        });
                     }
 
-
-                    if (!string.IsNullOrEmpty(htmlFooter))
+                    if (item.automailAttachmentType == 2)
                     {
-                        mail.EnableFooter(html: htmlFooter);
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(item.attachment),
+                            ContentId = key,
+                            Filename = item.note
+                        });
+
+                        if (!string.IsNullOrEmpty(item.tags))
+                            tags = item.tags + ";";
                     }
                 }
+            }
 
-                additionalArguments.Add("tags", tags);
-                mail.AddUniqueIdentifiers(additionalArguments);
-                transportSMTP.Deliver(mail);
+            if (attachments2.Count > 0)
+                msg.AddAttachments(attachments2);
+            additionalArguments.Add("tags", tags);
+
+            msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
+            msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+            msg.Subject = email.subject;
+            msg.AddCustomArgs(additionalArguments);
+            if (!string.IsNullOrEmpty(htmlFooter))
+                msg.SetFooterSetting(true, html: htmlFooter);
+            msg.SetSandBoxMode(false);
+            msg.TrackingSettings = new TrackingSettings()
+            {
+                ClickTracking = new ClickTracking() { Enable = true, EnableText = true },
+                Ganalytics = new Ganalytics() { Enable = true },
+                OpenTracking = new OpenTracking() { Enable = true, SubstitutionTag = "%opentrack" },
+            };
+
+            try
+            {
+                var task = client.SendEmailAsync(msg);
+                task.Wait();
+                var response = task.Result;
+                if (response.StatusCode != HttpStatusCode.Accepted)
+                    throw new Exception("Not Send");
                 //mail.SetHtmlBody(email.body);
 
 
@@ -608,15 +613,16 @@ namespace Generic.Helpers.Utility
         public const int PARTNER_RESPONSE_COMPLETE = 3;
     }
 
-    public static class autoMailTypes    {
-        
+    public static class autoMailTypes
+    {
+
         public const int Invitation = 1;
         public const int Incomplete = 2;
         public const int Complete_Confirmation = 3;
         public const int Reminder = 4;
         public const int Alert = 5;
     }
-   
+
     public static class GlobalVariable
     {
         static string _language;
@@ -706,23 +712,23 @@ namespace Generic.Helpers.Utility
                 string[] mobiles =
                     new[]
                 {
-                    "midp", "j2me", "avant", "docomo", 
-                    "novarra", "palmos", "palmsource", 
+                    "midp", "j2me", "avant", "docomo",
+                    "novarra", "palmos", "palmsource",
                     "240x320", "opwv", "chtml",
-                    "pda", "windows ce", "mmp/", 
-                    "blackberry", "mib/", "symbian", 
+                    "pda", "windows ce", "mmp/",
+                    "blackberry", "mib/", "symbian",
                     "wireless", "nokia", "hand", "mobi",
-                    "phone", "cdm", "up.b", "audio", 
-                    "SIE-", "SEC-", "samsung", "HTC", 
+                    "phone", "cdm", "up.b", "audio",
+                    "SIE-", "SEC-", "samsung", "HTC",
                     "mot-", "mitsu", "sagem", "sony"
-                    , "alcatel", "lg", "eric", "vx", 
-                    "NEC", "philips", "mmm", "xx", 
+                    , "alcatel", "lg", "eric", "vx",
+                    "NEC", "philips", "mmm", "xx",
                     "panasonic", "sharp", "wap", "sch",
-                    "rover", "pocket", "benq", "java", 
-                    "pg", "vox", "amoi", 
+                    "rover", "pocket", "benq", "java",
+                    "pg", "vox", "amoi",
                     "bird", "compal", "kg", "voda",
-                    "sany", "kdd", "dbt", "sendo", 
-                    "sgh", "gradi", "jb", "dddi", 
+                    "sany", "kdd", "dbt", "sendo",
+                    "sgh", "gradi", "jb", "dddi",
                     "moto", "iphone"
                 };
 

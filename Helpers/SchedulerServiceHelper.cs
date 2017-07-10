@@ -12,6 +12,7 @@ using SendGridMail;
 using SendGridMail.Transport;
 using System.Diagnostics;
 using System.IO;
+using SendGrid.Helpers.Mail;
 
 namespace Generic.Helpers
 {
@@ -130,17 +131,16 @@ namespace Generic.Helpers
 
         public static string sendEmails(Email email, int enterpriseId, EntitiesDBContext db)
         {
-            // EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
             string receiver = "";
 
             key objSendGridPassword = db.pr_getKeyAll(enterpriseId).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
-
-            var mail = SendGrid.GetInstance();
-            var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
-
-
+            var msg = new SendGridMessage();
+            List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
+            var client = new SendGrid.SendGridClient(objSendGridPassword.api);
+            string htmlFooter = "";
+
             additionalArguments.Add("ApplicationName", "MVCMT - R");
             additionalArguments.Add("enterprise", enterpriseId.ToString());
             additionalArguments.Add("loadgroup", email.loadgroup);
@@ -152,8 +152,6 @@ namespace Generic.Helpers
             additionalArguments.Add("category", ((int)email.category).ToString());
             additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
             additionalArguments.Add("automailMessage", email.automailMessage);
-
-            var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
             if (email.type == "user")
             {
@@ -179,65 +177,73 @@ namespace Generic.Helpers
             else
             {
 
-                mail.AddTo(email.emailTo);
+                msg.AddTo(email.emailTo);
                 receiver = email.emailTo;
 
             }
 
-
             enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == enterpriseId).FirstOrDefault();
-
-            mail.From = new MailAddress(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
-
-
-            mail.Subject = email.subject;
-
-            //set body format
-            if (email.body.Contains("\n"))
-                email.body = email.body.Replace("\n", "<br />");
-            if (email.body.Contains("\t"))
-                email.body = email.body.Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-            mail.Html = email.body;
-
-
             int amid = -1;
             string tags = "";
             if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
             {
-                var attachments = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
-
-                string htmlFooter = "";
-
-                foreach (var item in attachments)
+                var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
+                foreach (var item in attachments1)
                 {
+                    string key = "c_" + DateTime.Now.Ticks;
+                    if (item.automailAttachmentType == 1)
+                    {
+                        htmlFooter += "<a href='" + item.tags + "'><img src='cid:" + key + "' /></a><br/>";
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(item.attachment),
+                            ContentId = key,
+                            Disposition = "inline",
+                            Type = "image/png",
+                            Filename = item.note
+                        });
+                    }
+
                     if (item.automailAttachmentType == 2)
                     {
-                        Stream stream = new MemoryStream(item.attachment);
-                        mail.AddAttachment(stream, item.note);
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(item.attachment),
+                            ContentId = key,
+                            Filename = item.note
+                        });
+
                         if (!string.IsNullOrEmpty(item.tags))
                             tags = item.tags + ";";
                     }
-
-                    if (item.automailAttachmentType == 1)
-                    {
-                        string base64String = Convert.ToBase64String(item.attachment);
-                        htmlFooter += "<a href='" + item.tags + "'><img src='data:image/png;base64," + base64String + "' /></a><br/>";
-                    }
-                }
-
-
-                if (!string.IsNullOrEmpty(htmlFooter))
-                {
-                    mail.EnableFooter(html: htmlFooter);
                 }
             }
 
+            if (attachments2.Count > 0)
+                msg.AddAttachments(attachments2);
+            additionalArguments.Add("tags", tags);
 
             try
             {
-                additionalArguments.Add("tags", tags);
-                mail.AddUniqueIdentifiers(additionalArguments);
-                transportSMTP.Deliver(mail);
+                msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
+                msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+                msg.Subject = email.subject;
+                msg.AddCustomArgs(additionalArguments);
+                if (!string.IsNullOrEmpty(htmlFooter))
+                    msg.SetFooterSetting(true, html: htmlFooter);
+                msg.SetSandBoxMode(false);
+                msg.TrackingSettings = new TrackingSettings()
+                {
+                    ClickTracking = new ClickTracking() { Enable = true, EnableText = true },
+                    Ganalytics = new Ganalytics() { Enable = true },
+                    OpenTracking = new OpenTracking() { Enable = true, SubstitutionTag = "%opentrack" },
+                };
+
+                var task = client.SendEmailAsync(msg);
+                task.Wait();
+                var response = task.Result;
+                if (response.StatusCode != HttpStatusCode.Accepted)
+                    throw new Exception("Not Send");
 
                 if (email.type == "user")
                 {
@@ -283,90 +289,21 @@ namespace Generic.Helpers
         }
         public static void sendEmail(Email email, MailAddress sendFrom, bool ccSender)
         {
-            var mail = SendGrid.GetInstance();
-            key objSendGridPassword = null;
-            using (var db = new EntitiesDBContext())
-            {
-                objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
-
-
-                var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
-                Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
-
-
-                additionalArguments.Add("ApplicationName", "MVCMT");
-                additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
-                additionalArguments.Add("loadgroup", email.loadgroup);
-                additionalArguments.Add("accesscode", email.accesscode);
-                additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);
-                additionalArguments.Add("email", email.emailTo);
-
-                additionalArguments.Add("url", email.url);
-                additionalArguments.Add("category", ((int)email.category).ToString());
-                additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
-                additionalArguments.Add("automailMessage", email.automailMessage);
-
-                // Create an SMTP transport for sending email.
-                var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
-
-                mail.AddTo(email.emailTo);
-                if (ccSender)
-                    mail.AddCc(sendFrom.Address);
-                mail.From = sendFrom;
-
-                mail.Subject = email.subject;
-                mail.Html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
-
-                int amid = -1;
-                string tags = "";
-                if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
-                {
-                    var attachments = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
-
-                    string htmlFooter = "";
-
-                    foreach (var item in attachments)
-                    {
-                        if (item.automailAttachmentType == 2)
-                        {
-                            Stream stream = new MemoryStream(item.attachment);
-                            mail.AddAttachment(stream, item.note);
-                            if (!string.IsNullOrEmpty(item.tags))
-                                tags = item.tags + ";";
-                        }
-
-                        if (item.automailAttachmentType == 1)
-                        {
-                            string base64String = Convert.ToBase64String(item.attachment);
-                            htmlFooter += "<a href='" + item.tags + "'><img src='data:image/png;base64," + base64String + "' /></a><br/>";
-                        }
-                    }
-
-
-                    if (!string.IsNullOrEmpty(htmlFooter))
-                    {
-                        mail.EnableFooter(html: htmlFooter);
-                    }
-                }
-
-                additionalArguments.Add("tags", tags);
-                mail.AddUniqueIdentifiers(additionalArguments);
-                transportSMTP.Deliver(mail);
-            }
-
+            sendEmail(email, sendFrom, ccSender, null);
         }
         public static void sendEmail(Email email, MailAddress sendFrom, bool ccSender, HttpFileCollectionBase attachments, iterateEmailText iterateEmailText = null)
         {
-            var mail = SendGrid.GetInstance();
 
             key objSendGridPassword = null;
             using (var db = new EntitiesDBContext())
             {
                 objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
 
-                var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
+                var msg = new SendGridMessage();
+                List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
                 Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
-
+                var client = new SendGrid.SendGridClient(objSendGridPassword.api);
+                string htmlFooter = "";
 
                 additionalArguments.Add("ApplicationName", "MVCMT");
                 additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
@@ -380,85 +317,129 @@ namespace Generic.Helpers
                 additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
                 additionalArguments.Add("automailMessage", email.automailMessage);
 
-                // Create an SMTP transport for sending email.
-                var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
-
-                mail.AddTo(email.emailTo);
-                if (ccSender)
-                    mail.AddCc(sendFrom.Address);
-                mail.From = sendFrom;
-
-                mail.Subject = email.subject;
-                foreach (string file in attachments)
+                if (attachments != null)
                 {
-                    mail.AddAttachment(attachments[file].InputStream, attachments[file].FileName);
+                    foreach (string file in attachments)
+                    {
+                        string key = "c_" + DateTime.Now.Ticks;
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            attachments[file].InputStream.CopyTo(ms);
+                            attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(ms.ToArray()),
+                                ContentId = key,
+                                Filename = attachments[file].FileName
+                            });
+                        }
+                    }
                 }
 
                 if (iterateEmailText != null)
                 {
+                    string key = "c_" + DateTime.Now.Ticks;
                     if (!string.IsNullOrEmpty(iterateEmailText.attachmentOneName))
-                        mail.AddAttachment(new MemoryStream(iterateEmailText.attachmentOne), iterateEmailText.attachmentOneName);
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(iterateEmailText.attachmentOne),
+                            ContentId = key,
+                            Filename = iterateEmailText.attachmentOneName
+                        });
 
+                    key = "c_" + DateTime.Now.Ticks;
                     if (!string.IsNullOrEmpty(iterateEmailText.attachmentTwoName))
-                        mail.AddAttachment(new MemoryStream(iterateEmailText.attachmentTwo), iterateEmailText.attachmentTwoName);
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(iterateEmailText.attachmentTwo),
+                            ContentId = key,
+                            Filename = iterateEmailText.attachmentTwoName
+                        });
                 }
-
-
-                mail.Html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
 
                 int amid = -1;
                 string tags = "";
                 if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
                 {
                     var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
-
-                    string htmlFooter = "";
-
                     foreach (var item in attachments1)
                     {
+                        string key = "c_" + DateTime.Now.Ticks;
+                        if (item.automailAttachmentType == 1)
+                        {
+                            htmlFooter += "<a href='" + item.tags + "'><img src='cid:" + key + "' /></a><br/>";
+                            attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(item.attachment),
+                                ContentId = key,
+                                Disposition = "inline",
+                                Type = "image/png",
+                                Filename = item.note
+                            });
+                        }
+
                         if (item.automailAttachmentType == 2)
                         {
-                            Stream stream = new MemoryStream(item.attachment);
-                            mail.AddAttachment(stream, item.note);
+                            attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(item.attachment),
+                                ContentId = key,
+                                Filename = item.note
+                            });
+
                             if (!string.IsNullOrEmpty(item.tags))
                                 tags = item.tags + ";";
                         }
-
-                        if (item.automailAttachmentType == 1)
-                        {
-                            string base64String = Convert.ToBase64String(item.attachment);
-                            htmlFooter += "<a href='" + item.tags + "'><img src='data:image/png;base64," + base64String + "' /></a><br/>";
-                        }
-                    }
-
-
-                    if (!string.IsNullOrEmpty(htmlFooter))
-                    {
-                        mail.EnableFooter(html: htmlFooter);
                     }
                 }
 
+                if (attachments2.Count > 0)
+                    msg.AddAttachments(attachments2);
                 additionalArguments.Add("tags", tags);
-                mail.AddUniqueIdentifiers(additionalArguments);
-                transportSMTP.Deliver(mail);
+
+                if (ccSender)
+                    msg.AddCc(sendFrom.Address);
+                msg.AddTo(email.emailTo);
+                msg.SetFrom(sendFrom.Address, sendFrom.DisplayName);
+                msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+                msg.Subject = email.subject;
+                msg.AddCustomArgs(additionalArguments);
+                if (!string.IsNullOrEmpty(htmlFooter))
+                    msg.SetFooterSetting(true, html: htmlFooter);
+                msg.SetSandBoxMode(false);
+                msg.TrackingSettings = new TrackingSettings()
+                {
+                    ClickTracking = new ClickTracking() { Enable = true, EnableText = true },
+                    Ganalytics = new Ganalytics() { Enable = true },
+                    OpenTracking = new OpenTracking() { Enable = true, SubstitutionTag = "%opentrack" },
+                };
+
+
+                var task = client.SendEmailAsync(msg);
+                task.Wait();
+                var response = task.Result;
+                if (response.StatusCode != HttpStatusCode.Accepted)
+                {
+                    var task2 = response.Body.ReadAsStringAsync();
+                    task2.Wait();
+                    var str = task2.Result;
+                    throw new Exception("Not Send");
+                }
             }
         }
 
         public static void sendEmail(Email email, string filepath)
         {
-
-
-            var mail = SendGrid.GetInstance();
-
             key objSendGridPassword = null;
             using (var db = new EntitiesDBContext())
             {
                 objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
 
 
-                var credentials = new NetworkCredential(objSendGridPassword.username, objSendGridPassword.password);
+                var msg = new SendGridMessage();
+                List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
                 Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
-
+                var client = new SendGrid.SendGridClient(objSendGridPassword.api);
+                string htmlFooter = "";
 
                 additionalArguments.Add("ApplicationName", "MVCMT");
                 additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
@@ -471,63 +452,83 @@ namespace Generic.Helpers
                 additionalArguments.Add("category", ((int)email.category).ToString());
                 additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
                 additionalArguments.Add("automailMessage", email.automailMessage);
-               
-                // Create an SMTP transport for sending email.
-                var transportSMTP = SMTP.GetInstance(credentials, "smtp.sendgrid.net", 587);
 
                 try
                 {
-
-                    mail.AddTo(email.emailTo);
-
-                    //  mail.AddTo("john@intelleges.com");
-                    //   mail.AddTo("goldykhurmi@gmail.com");
                     if (filepath != "")
                     {
-                        mail.AddAttachment(filepath);
+                        string key = "c_" + DateTime.Now.Ticks;
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(File.ReadAllBytes(filepath)),
+                            ContentId = key,
+                            Filename = new FileInfo(filepath).Name
+                        });
                     }
-
-                    mail.From = new MailAddress("hs3admin2@intelleges.com", "Honeywell Supply Chain Security");
-
-                    mail.Subject = email.subject;
-
-                    mail.Html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
-
 
                     int amid = -1;
                     string tags = "";
                     if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
                     {
-                        var attachments = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
-
-                        string htmlFooter = "";
-
-                        foreach (var item in attachments)
+                        var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
+                        foreach (var item in attachments1)
                         {
+                            string key = "c_" + DateTime.Now.Ticks;
+                            if (item.automailAttachmentType == 1)
+                            {
+                                htmlFooter += "<a href='" + item.tags + "'><img src='cid:" + key + "' /></a><br/>";
+                                attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                                {
+                                    Content = Convert.ToBase64String(item.attachment),
+                                    ContentId = key,
+                                    Disposition = "inline",
+                                    Type = "image/png",
+                                    Filename = item.note
+                                });
+                            }
+
                             if (item.automailAttachmentType == 2)
                             {
-                                Stream stream = new MemoryStream(item.attachment);
-                                mail.AddAttachment(stream, item.note);
+                                attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                                {
+                                    Content = Convert.ToBase64String(item.attachment),
+                                    ContentId = key,
+                                    Filename = item.note
+                                });
+
                                 if (!string.IsNullOrEmpty(item.tags))
                                     tags = item.tags + ";";
                             }
-
-                            if (item.automailAttachmentType == 1)
-                            {
-                                string base64String = Convert.ToBase64String(item.attachment);
-                                htmlFooter += "<a href='" + item.tags + "'><img src='data:image/png;base64," + base64String + "' /></a><br/>";
-                            }
-                        }
-
-
-                        if (!string.IsNullOrEmpty(htmlFooter))
-                        {
-                            mail.EnableFooter(html: htmlFooter);
                         }
                     }
+
+                    if (attachments2.Count > 0)
+                        msg.AddAttachments(attachments2);
                     additionalArguments.Add("tags", tags);
-                    mail.AddUniqueIdentifiers(additionalArguments);
-                    transportSMTP.Deliver(mail);
+
+                    msg.AddTo(email.emailTo);
+                    //  mail.AddTo("john@intelleges.com");
+                    //   mail.AddTo("goldykhurmi@gmail.com");
+                    msg.SetFrom("hs3admin2@intelleges.com", "Honeywell Supply Chain Security");
+                    msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+                    msg.Subject = email.subject;
+                    msg.AddCustomArgs(additionalArguments);
+                    if (!string.IsNullOrEmpty(htmlFooter))
+                        msg.SetFooterSetting(true, html: htmlFooter);
+                    msg.SetSandBoxMode(false);
+                    msg.TrackingSettings = new TrackingSettings()
+                    {
+                        ClickTracking = new ClickTracking() { Enable = true, EnableText = true },
+                        Ganalytics = new Ganalytics() { Enable = true },
+                        OpenTracking = new OpenTracking() { Enable = true, SubstitutionTag = "%opentrack" },
+                    };
+
+
+                    var task = client.SendEmailAsync(msg);
+                    task.Wait();
+                    var response = task.Result;
+                    if (response.StatusCode != HttpStatusCode.Accepted)
+                        throw new Exception("Not Send");
                 }
 
                 catch (Exception ex)
