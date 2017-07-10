@@ -133,9 +133,9 @@ namespace Generic.Helpers.Utility
             if (attachments2.Count > 0)
                 msg.AddAttachments(attachments2);
             additionalArguments.Add("tags", tags);
-
+            string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
             msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
-            msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+            msg.AddContent("text/html", html);
             msg.Subject = email.subject;
             msg.AddCustomArgs(additionalArguments);
             if (!string.IsNullOrEmpty(htmlFooter))

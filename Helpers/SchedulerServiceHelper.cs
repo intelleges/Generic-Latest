@@ -225,8 +225,9 @@ namespace Generic.Helpers
 
             try
             {
+                string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
                 msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
-                msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+                msg.AddContent("text/html", html);
                 msg.Subject = email.subject;
                 msg.AddCustomArgs(additionalArguments);
                 if (!string.IsNullOrEmpty(htmlFooter))
@@ -287,6 +288,7 @@ namespace Generic.Helpers
             }
             return returnValue;
         }
+
         public static void sendEmail(Email email, MailAddress sendFrom, bool ccSender)
         {
             sendEmail(email, sendFrom, ccSender, null);
@@ -396,11 +398,13 @@ namespace Generic.Helpers
                     msg.AddAttachments(attachments2);
                 additionalArguments.Add("tags", tags);
 
+                string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
+
                 if (ccSender)
                     msg.AddCc(sendFrom.Address);
                 msg.AddTo(email.emailTo);
                 msg.SetFrom(sendFrom.Address, sendFrom.DisplayName);
-                msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+                msg.AddContent("text/html", html);
                 msg.Subject = email.subject;
                 msg.AddCustomArgs(additionalArguments);
                 if (!string.IsNullOrEmpty(htmlFooter))
@@ -509,8 +513,11 @@ namespace Generic.Helpers
                     msg.AddTo(email.emailTo);
                     //  mail.AddTo("john@intelleges.com");
                     //   mail.AddTo("goldykhurmi@gmail.com");
+
+                    string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
+
                     msg.SetFrom("hs3admin2@intelleges.com", "Honeywell Supply Chain Security");
-                    msg.AddContent("text/html", email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp"));
+                    msg.AddContent("text/html", html);
                     msg.Subject = email.subject;
                     msg.AddCustomArgs(additionalArguments);
                     if (!string.IsNullOrEmpty(htmlFooter))
