@@ -163,8 +163,13 @@ namespace Generic.Controllers
 				email.accesscode = email.accesscode;
 			
                 SendEmail objSendEmail = new SendEmail();
-                 objSendEmail.sendEmail(email);
-				 /*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, objtouchpoint.description, "MVCMT", null, amm.id, (int)objpartner.enterprise, email.loadgroup);*/
+                 objSendEmail.sendEmail(email, new EmailFormatSettings() {
+                       partner = objpartner,
+                        ptq = ptq,
+                         sender = objperson,
+                          touchpoint = objtouchpoint
+                 });
+				 
 
                  if (listing!=null&&listing.Trim().ToLower().Equals("y"))
                     return RedirectToAction("../Partner/FindPartnerResult");

@@ -221,7 +221,7 @@ namespace Generic.Models
         public string sendEmail(Email email)
         {
             SendEmail send = new SendEmail();
-            return send.sendEmail(email);
+            return send.sendEmail(email, null);
         }
 
         /////<summary>

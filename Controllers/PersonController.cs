@@ -344,10 +344,7 @@ Intelleges Team";
 							email.url = Request.Url.ToString();
 
                             SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(email);
-							/*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, email.protocolTouchpoint, "MVCMT", null, null, interpriseId, email.loadgroup);*/
-
-
+                            objSendEmail.sendEmail(email, new EmailFormatSettings() {  enterprise = objEnterprise, systemMaster = objdefaultSystemMaster, sender = objInvitingUser, receiver = objSystemMaster, touchpoint = objCurrentTouchpoint });
 
                             //return RedirectToAction("AssignGroup", "Person");
                             ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
@@ -478,9 +475,10 @@ Thanks in advance.<br>
 				email.protocolTouchpoint = objCurrentTouchpoint.description;
 
                 SendEmail objSendEmail = new SendEmail();
-                objSendEmail.sendEmail(email);
-				/*db.pr_addEventNotification(email.emailTo, DateTime.Now,null, null, email.url, ((int)email.category).ToString(), email.accesscode, null, "MVCMT", null, null, objEnterprise.id, email.loadgroup);
-                return RedirectToAction("AssignGroup", "Person");*/
+                objSendEmail.sendEmail(email, new EmailFormatSettings() {
+                     sender = objInvitingUser, receiver = objSystemMaster, systemMaster = objdefaultSystemMaster,
+                      enterprise= objEnterprise, touchpoint = objCurrentTouchpoint
+                });
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);

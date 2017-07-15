@@ -170,9 +170,11 @@ namespace Generic.Controllers
 			if (autoMailId.HasValue)
 				email.automailMessage = autoMailId.Value.ToString();
 
-			SchedulerServiceHelper.sendEmail(email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files);
+			SchedulerServiceHelper.sendEmail(email, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings() {
+                 enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                  partner = pptq.partner1, sender = null, ptq = pptq.partnerTypeTouchpointQuestionnaire1.id, touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1
+            });
 
-			/*db.pr_addEventNotification(pptq.partner1.email, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), pptq.accesscode, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description, "MVCMT", null, autoMailId, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1.id, null).FirstOrDefault();*/
 			return Json(error);
 		}
 

@@ -19158,5 +19158,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveAutoMailAttachmentType", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getCompanyProfileDataLoad_Result> pr_getCompanyProfileDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCompanyProfileDataLoad_Result>("pr_getCompanyProfileDataLoad", idParameter);
+        }
     }
 }

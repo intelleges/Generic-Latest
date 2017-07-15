@@ -58,9 +58,9 @@ namespace Generic.Controllers
             {
                 ViewBag.returnUrl = returnUrl;
                 var enterprises = db.pr_getEnterprise(contactUs);
-                var elpptq = db.pr_getEnterpriseLandingPagePTQ(contactUs, (int)LangingPage.Login).FirstOrDefault();
-                if (elpptq != null)
-                    ViewBag.ContactUsText = elpptq.text;
+                //var elpptq = db.pr_getEnterpriseLandingPagePTQ(contactUs, (int)LangingPage.Login).FirstOrDefault();
+                //if (elpptq != null)
+                //    ViewBag.ContactUsText = elpptq.text;
                 ViewBag.Project = "Generic";
                 ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
                 ViewBag.EnterpriseId = contactUs;

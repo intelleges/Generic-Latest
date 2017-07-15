@@ -776,6 +776,7 @@
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Helpers\UIControl.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />
+    <Compile Include="Helpers\Utility\EmailFormatSettings.cs" />
     <Compile Include="Helpers\Utility\SendGridEvents.cs" />
     <Compile Include="Helpers\Utility\Utility.cs" />
     <Compile Include="hs3Menu_deprecated.cs">
@@ -1165,6 +1166,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCompanyProfileDataLoadByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCompanyProfileDataLoad_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getConfirmationSpreadsheetDataLoad_Result.cs">
@@ -5132,6 +5136,7 @@
     <Folder Include="App_Data\MyGoogleStorage\" />
     <Folder Include="Views\AuthCallback\" />
     <Folder Include="Views\Gmail\" />
+    <Folder Include="Views\Processor\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\TestPage\Index.cshtml" />

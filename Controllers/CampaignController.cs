@@ -177,14 +177,13 @@ namespace Generic.Controllers
 					email.category = SendGridCategory.CreaeEstimaionQuestionnaie;
 
                     SendEmail objSendEmail = new SendEmail();
-                    objSendEmail.sendEmail(email);
-					/*db.pr_addEventNotification(email.emailTo, DateTime.Now,null, null, email.url, ((int)email.category).ToString(), email.accesscode, email.protocolTouchpoint, "MVCMT", null, amm.id, Helpers.CurrentInstance.EnterpriseID, email.loadgroup);*/
+                    objSendEmail.sendEmail(email, new EmailFormatSettings() {
+                         sender = person, partner = objpartner, touchpoint = objtouchpoint, ptq = qid
+                    });
                     var currentCompaign = db.pr_getCampaign(campaign).FirstOrDefault();
                     var cuurentTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1;
                     db.pr_addCampaignRule(campaign, cuurentTouchpoint.partnerTypeTouchpointQuestionnaire.FirstOrDefault().id, 0, 0, 0, 0, 0, 0, 0, true, 0, pptq.partnerTypeTouchpointQuestionnaire1.id, 1, DateTime.Now, DateTime.Now, 1, true).FirstOrDefault();                    
                 }
-
-                
             }
             catch (Exception ex)
             {

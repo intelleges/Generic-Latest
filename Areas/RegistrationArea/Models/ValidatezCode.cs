@@ -62,8 +62,7 @@ namespace Generic.Areas.RegistrationArea.Models
                         email.emailTo = _person != null ? _person.email : "";
 
                         SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email);
-						/*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), sessionAccessCode, email.protocolTouchpoint, "MVCMT", null, null, null, null);*/
+                        objSendEmail.sendEmail(email, null);
                     }
                     //else
                     //{

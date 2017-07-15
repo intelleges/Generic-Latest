@@ -128,7 +128,10 @@ namespace Generic.Helpers.Utility
 					case "[searchterm]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
 						break;
-					case "[searchtermsmall]":
+                    case "[companyprofile]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).id.ToString();
+                        break;
+                    case "[searchtermsmall]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
 						break;
 					case "[searchtermlarge]":
@@ -548,7 +551,10 @@ namespace Generic.Helpers.Utility
 					case "[searchterm]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
 						break;
-					case "[searchtermsmall]":
+                    case "[companyprofile]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).id.ToString();
+                        break;
+                    case "[searchtermsmall]":
 						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
 						break;
 					case "[searchtermlarge]":

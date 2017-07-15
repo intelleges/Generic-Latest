@@ -419,11 +419,11 @@
                 return false;
             }
             if ($("#address2").val() === "") {
-                alertify.alert("Purchase Order Value is required");
+                alertify.alert("PO Net Order Value is required");
                 return false;
             }
             if ($("#city").val() === "") {
-                alertify.alert("Change Amount");
+                alertify.alert("Change Order Amount");
                 return false;
             }
             if ($("#state").val() === "") {
@@ -591,7 +591,7 @@
 
                 <div class="editor-label">
                     @*@Html.LabelFor(model => model.address2)*@
-                    @Html.Label("Purchase Order value")
+                    @Html.Label("PO Net Order Value")
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.address2)*@
@@ -602,7 +602,7 @@
 
                 <div class="editor-label">
 
-                    @Html.Label("Change Amount")
+                    @Html.Label("Change Order Amount")
                 </div>
                 <div class="editor-field">
 

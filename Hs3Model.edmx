@@ -5965,6 +5965,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCommentByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCompanyProfileDataLoadByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -15736,17 +15739,17 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveAutoMailAttachment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveAutoMailAttachmentType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutoMailAttachmentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentAll_Result)" />
           <FunctionImport Name="pr_getAutoMailAttachmentAllByAutoMail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentAllByAutoMail_Result)">
-            <Parameter Name="automail" Mode="In" Type="Int32" />
+          <Parameter Name="automail" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutoMailAttachmentType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentType_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getAutoMailAttachmentTypeAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutoMailAttachmentTypeAll_Result)" />
           <FunctionImport Name="pr_getAutomailMessageInviteByPartnerTypeTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageInviteByPartnerTypeTouchpoint_Result)">
@@ -15760,12 +15763,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeAutoMailAttachmentType">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveAutoMailAttachment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveAutoMailAttachmentType">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCompanyProfileDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCompanyProfileDataLoad_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -25576,6 +25582,34 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="mailType" Nullable="false" />
           <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getCompanyProfileDataLoad_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobCity" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobState" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="jobZicode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobCountry" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobSnippet" Nullable="true" />
+          <Property Type="String" Name="originalSnippet" Nullable="true" />
+          <Property Type="String" Name="companyMainNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="companyURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="searchterm" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="adDate" Nullable="true" />
+          <Property Type="String" Name="adSource" Nullable="true" MaxLength="100" />
+          <Property Type="Int64" Name="pocPhoneNumber" Nullable="true" />
+          <Property Type="String" Name="pocFirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocLastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocEmailAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyRevenue" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="companyEmployeeCount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="industrySector" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="relationshipOwner" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -34255,6 +34289,38 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="pr_removeAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_removeAutoMailAttachmentType" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveAutoMailAttachment" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveAutoMailAttachment" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveAutoMailAttachmentType" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveAutoMailAttachmentType" />
+          <FunctionImportMapping FunctionImportName="pr_getCompanyProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getCompanyProfileDataLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCompanyProfileDataLoad_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="jobAddress" ColumnName="jobAddress" />
+                <ScalarProperty Name="jobCity" ColumnName="jobCity" />
+                <ScalarProperty Name="jobState" ColumnName="jobState" />
+                <ScalarProperty Name="jobZicode" ColumnName="jobZicode" />
+                <ScalarProperty Name="jobCountry" ColumnName="jobCountry" />
+                <ScalarProperty Name="jobSnippet" ColumnName="jobSnippet" />
+                <ScalarProperty Name="originalSnippet" ColumnName="originalSnippet" />
+                <ScalarProperty Name="companyMainNumber" ColumnName="companyMainNumber" />
+                <ScalarProperty Name="companyURL" ColumnName="companyURL" />
+                <ScalarProperty Name="searchterm" ColumnName="searchterm" />
+                <ScalarProperty Name="adDate" ColumnName="adDate" />
+                <ScalarProperty Name="adSource" ColumnName="adSource" />
+                <ScalarProperty Name="pocPhoneNumber" ColumnName="pocPhoneNumber" />
+                <ScalarProperty Name="pocFirstName" ColumnName="pocFirstName" />
+                <ScalarProperty Name="pocLastName" ColumnName="pocLastName" />
+                <ScalarProperty Name="pocTitle" ColumnName="pocTitle" />
+                <ScalarProperty Name="pocEmailAddress" ColumnName="pocEmailAddress" />
+                <ScalarProperty Name="companyRevenue" ColumnName="companyRevenue" />
+                <ScalarProperty Name="companyEmployeeCount" ColumnName="companyEmployeeCount" />
+                <ScalarProperty Name="industrySector" ColumnName="industrySector" />
+                <ScalarProperty Name="relationshipOwner" ColumnName="relationshipOwner" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

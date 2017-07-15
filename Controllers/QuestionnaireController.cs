@@ -536,8 +536,10 @@ namespace Generic.Controllers
                             email.category = SendGridCategory.QuestionnaireQuestionnaireTestAutomailAll;
 
                             SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(email);
-                            /*db.pr_addEventNotification(email.emailTo, DateTime.Now, null, null, email.url, ((int)email.category).ToString(), email.accesscode, _touchpoint.description, "MVCMT", null, ammItem.id, _enterprise.id, email.loadgroup);*/
+                            objSendEmail.sendEmail(email, new EmailFormatSettings() {
+                                 enterprise = _enterprise, partner = _partner, ptq = _ptq.id, touchpoint = _touchpoint,
+                                  sender = _currentPerson
+                            });
                         }
                     }
                 }

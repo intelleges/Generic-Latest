@@ -25,7 +25,7 @@ namespace Generic.Helpers.Utility
             //
         }
 
-        public string sendEmail(Email email)
+        public string sendEmail(Email email, EmailFormatSettings settings)
         {
             EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
@@ -99,12 +99,36 @@ namespace Generic.Helpers.Utility
             if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
             {
                 var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
+                EmailFormat ef = new EmailFormat();
                 foreach (var item in attachments1)
                 {
                     string key = "c_" + DateTime.Now.Ticks;
                     if (item.automailAttachmentType == 1)
                     {
-                        htmlFooter += "<a href='" + item.tags + "'><img src='cid:" + key + "' /></a><br/>";
+                        string link = item.tags;
+                        if (settings != null) {
+                            try
+                            {
+                                if (settings.systemMaster != null && settings.ptq == 0)
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.touchpoint, settings.enterprise, settings.systemMaster);
+                                }
+                                else if (settings.systemMaster != null && settings.ptq != 0)
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.partner, settings.touchpoint, settings.enterprise, settings.systemMaster, settings.ptq);
+                                }
+                                else if (settings.enterprise != null)
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.enterprise, settings.touchpoint, settings.ptq);
+                                }
+                                else {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.touchpoint, settings.ptq);
+                                }
+                            }
+                            catch { }
+                        }
+
+                        htmlFooter += "<a href='" + link.Trim().Replace(" ", "-") + "'><img src='cid:" + key + "' /></a><br/>";
                         attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
                         {
                             Content = Convert.ToBase64String(item.attachment),
