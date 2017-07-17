@@ -16,9 +16,11 @@ namespace Generic
     {
         public int id { get; set; }
         public int person { get; set; }
-        public int auditLoginEvent { get; set; }
+        public Nullable<int> auditLoginEvent { get; set; }
         public System.DateTime timestamp { get; set; }
         public string deviceIP { get; set; }
+        public int sortOrder { get; set; }
+        public bool active { get; set; }
     
         public virtual person person1 { get; set; }
         public virtual personLoginAuditEvent personLoginAuditEvent { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="hs3MVCMTQa2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="hs3MVCMTQa2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="accessLevel">
           <Key>
             <PropertyRef Name="id" />
@@ -1398,9 +1398,11 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="person" Type="int" Nullable="false" />
-          <Property Name="auditLoginEvent" Type="int" Nullable="false" />
+          <Property Name="auditLoginEvent" Type="int" />
           <Property Name="timestamp" Type="datetime" Nullable="false" />
           <Property Name="deviceIP" Type="varchar" MaxLength="50" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="personLoginAuditEvent">
           <Key>
@@ -3571,7 +3573,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_personLoginAudit_personLoginAuditEvent">
-          <End Role="personLoginAuditEvent" Type="Self.personLoginAuditEvent" Multiplicity="1" />
+          <End Role="personLoginAuditEvent" Type="Self.personLoginAuditEvent" Multiplicity="0..1" />
           <End Role="personLoginAudit" Type="Self.personLoginAudit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="personLoginAuditEvent">
@@ -3606,6 +3608,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_personRelationship_person2' has been omitted from the storage model. Column 'personHasThe' of table 'hs3MVCMTQa2Model.Store.personRelationship' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_personRelationship_person2">
           <End Role="person" Type="Self.person" Multiplicity="1" />
           <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
@@ -3617,7 +3621,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="personHasThe" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
         <Association Name="FK_personRelationship_personRelationshipType">
           <End Role="personRelationshipType" Type="Self.personRelationshipType" Multiplicity="1" />
           <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
@@ -3906,6 +3910,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_questionResponse_question1' has been omitted from the storage model. Column 'question' of table 'hs3MVCMTQa2Model.Store.questionResponse' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_questionResponse_question1">
           <End Role="question" Type="Self.question" Multiplicity="1" />
           <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
@@ -3917,7 +3923,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="question" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
         <Association Name="FK_questionResponse_response">
           <End Role="response" Type="Self.response" Multiplicity="1" />
           <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
@@ -4182,6 +4188,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_questionnaire' has been omitted from the storage model. Column 'questionnaire' of table 'hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
           <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
           <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -4193,7 +4201,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="questionnaire" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touchpoint' has been omitted from the storage model. Column 'touchpoint' of table 'hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
           <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
           <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -4205,7 +4215,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
+        </Association>-->
         <Association Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
           <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
           <End Role="touchpointPartnerTypeScoreAutoMail" Type="Self.touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
@@ -6048,6 +6058,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getEnterpriseByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getEnterpriseByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getEnterpriseByQuestionnaireLevelType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaireLevel" Type="int" Mode="In" />
@@ -9287,271 +9300,271 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="customizedLSMWReport" EntityType="Self.customizedLSMWReport" Schema="honeywellBAA" store:Type="Tables" />
           <EntitySet Name="RESPONSE2" EntityType="Self.RESPONSE2" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[RESPONSE2].[id] AS [id], 
-[RESPONSE2].[description] AS [description], 
-[RESPONSE2].[zcode] AS [zcode], 
-[RESPONSE2].[sortOrder] AS [sortOrder], 
-[RESPONSE2].[active] AS [active], 
-[RESPONSE2].[enterprise] AS [enterprise]
-FROM [dbo].[RESPONSE2] AS [RESPONSE2]</DefiningQuery>
+    [RESPONSE2].[id] AS [id], 
+    [RESPONSE2].[description] AS [description], 
+    [RESPONSE2].[zcode] AS [zcode], 
+    [RESPONSE2].[sortOrder] AS [sortOrder], 
+    [RESPONSE2].[active] AS [active], 
+    [RESPONSE2].[enterprise] AS [enterprise]
+    FROM [dbo].[RESPONSE2] AS [RESPONSE2]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="responseTemp" EntityType="Self.responseTemp" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[responseTemp].[description] AS [description]
-FROM [dbo].[responseTemp] AS [responseTemp]</DefiningQuery>
+    [responseTemp].[description] AS [description]
+    FROM [dbo].[responseTemp] AS [responseTemp]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="responseZcode" EntityType="Self.responseZcode" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[responseZcode].[id] AS [id], 
-[responseZcode].[zcode] AS [zcode], 
-[responseZcode].[group] AS [group], 
-[responseZcode].[sortOrder] AS [sortOrder], 
-[responseZcode].[active] AS [active]
-FROM [dbo].[responseZcode] AS [responseZcode]</DefiningQuery>
+    [responseZcode].[id] AS [id], 
+    [responseZcode].[zcode] AS [zcode], 
+    [responseZcode].[group] AS [group], 
+    [responseZcode].[sortOrder] AS [sortOrder], 
+    [responseZcode].[active] AS [active]
+    FROM [dbo].[responseZcode] AS [responseZcode]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="sizingStandard" EntityType="Self.sizingStandard" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[sizingStandard].[NAICS] AS [NAICS], 
-[sizingStandard].[industryTitle] AS [industryTitle], 
-[sizingStandard].[revenue] AS [revenue], 
-[sizingStandard].[numOfEmployees] AS [numOfEmployees]
-FROM [dbo].[sizingStandard] AS [sizingStandard]</DefiningQuery>
+    [sizingStandard].[NAICS] AS [NAICS], 
+    [sizingStandard].[industryTitle] AS [industryTitle], 
+    [sizingStandard].[revenue] AS [revenue], 
+    [sizingStandard].[numOfEmployees] AS [numOfEmployees]
+    FROM [dbo].[sizingStandard] AS [sizingStandard]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="touchpointPartnerRerouter" EntityType="Self.touchpointPartnerRerouter" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[touchpointPartnerRerouter].[touchpoint] AS [touchpoint], 
-[touchpointPartnerRerouter].[partner] AS [partner], 
-[touchpointPartnerRerouter].[fromFirstName] AS [fromFirstName], 
-[touchpointPartnerRerouter].[fromLastName] AS [fromLastName], 
-[touchpointPartnerRerouter].[fromTitle] AS [fromTitle], 
-[touchpointPartnerRerouter].[from] AS [from], 
-[touchpointPartnerRerouter].[to] AS [to], 
-[touchpointPartnerRerouter].[status] AS [status], 
-[touchpointPartnerRerouter].[timeStamp] AS [timeStamp]
-FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
+    [touchpointPartnerRerouter].[touchpoint] AS [touchpoint], 
+    [touchpointPartnerRerouter].[partner] AS [partner], 
+    [touchpointPartnerRerouter].[fromFirstName] AS [fromFirstName], 
+    [touchpointPartnerRerouter].[fromLastName] AS [fromLastName], 
+    [touchpointPartnerRerouter].[fromTitle] AS [fromTitle], 
+    [touchpointPartnerRerouter].[from] AS [from], 
+    [touchpointPartnerRerouter].[to] AS [to], 
+    [touchpointPartnerRerouter].[status] AS [status], 
+    [touchpointPartnerRerouter].[timeStamp] AS [timeStamp]
+    FROM [dbo].[touchpointPartnerRerouter] AS [touchpointPartnerRerouter]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="prReminder" EntityType="Self.prReminder" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[prReminder].[ID] AS [ID], 
-[prReminder].[touchpoint] AS [touchpoint], 
-[prReminder].[partner] AS [partner], 
-[prReminder].[SeqNumber] AS [SeqNumber]
-FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
+    [prReminder].[ID] AS [ID], 
+    [prReminder].[touchpoint] AS [touchpoint], 
+    [prReminder].[partner] AS [partner], 
+    [prReminder].[SeqNumber] AS [SeqNumber]
+    FROM [dbo].[prReminder] AS [prReminder]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="v_PartnerFind" EntityType="Self.v_PartnerFind" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[v_PartnerFind].[enterprise] AS [enterprise], 
-[v_PartnerFind].[touchpoint] AS [touchpoint], 
-[v_PartnerFind].[group] AS [group], 
-[v_PartnerFind].[partnertype] AS [partnertype], 
-[v_PartnerFind].[internalID] AS [internalID], 
-[v_PartnerFind].[dunsnumber] AS [dunsnumber], 
-[v_PartnerFind].[federalID] AS [federalID], 
-[v_PartnerFind].[email] AS [email], 
-[v_PartnerFind].[name] AS [name], 
-[v_PartnerFind].[zipcode] AS [zipcode], 
-[v_PartnerFind].[country] AS [country], 
-[v_PartnerFind].[description] AS [description], 
-[v_PartnerFind].[partnerTypeTouchpointQuestionnaire] AS [partnerTypeTouchpointQuestionnaire], 
-[v_PartnerFind].[accesscode] AS [accesscode], 
-[v_PartnerFind].[invitedDate] AS [invitedDate], 
-[v_PartnerFind].[completedDate] AS [completedDate]
-FROM [dbo].[v_PartnerFind] AS [v_PartnerFind]</DefiningQuery>
+    [v_PartnerFind].[enterprise] AS [enterprise], 
+    [v_PartnerFind].[touchpoint] AS [touchpoint], 
+    [v_PartnerFind].[group] AS [group], 
+    [v_PartnerFind].[partnertype] AS [partnertype], 
+    [v_PartnerFind].[internalID] AS [internalID], 
+    [v_PartnerFind].[dunsnumber] AS [dunsnumber], 
+    [v_PartnerFind].[federalID] AS [federalID], 
+    [v_PartnerFind].[email] AS [email], 
+    [v_PartnerFind].[name] AS [name], 
+    [v_PartnerFind].[zipcode] AS [zipcode], 
+    [v_PartnerFind].[country] AS [country], 
+    [v_PartnerFind].[description] AS [description], 
+    [v_PartnerFind].[partnerTypeTouchpointQuestionnaire] AS [partnerTypeTouchpointQuestionnaire], 
+    [v_PartnerFind].[accesscode] AS [accesscode], 
+    [v_PartnerFind].[invitedDate] AS [invitedDate], 
+    [v_PartnerFind].[completedDate] AS [completedDate]
+    FROM [dbo].[v_PartnerFind] AS [v_PartnerFind]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_EnterpriseData" EntityType="Self.view_EnterpriseData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_EnterpriseData].[id] AS [id], 
-[view_EnterpriseData].[description] AS [description], 
-[view_EnterpriseData].[companyname] AS [companyname], 
-[view_EnterpriseData].[instancename] AS [instancename], 
-[view_EnterpriseData].[userMax] AS [userMax], 
-[view_EnterpriseData].[partnerMax] AS [partnerMax], 
-[view_EnterpriseData].[partnumberMax] AS [partnumberMax], 
-[view_EnterpriseData].[productID] AS [productID], 
-[view_EnterpriseData].[product] AS [product], 
-[view_EnterpriseData].[subscriptiontypeID] AS [subscriptiontypeID], 
-[view_EnterpriseData].[subscriptiontype] AS [subscriptiontype], 
-[view_EnterpriseData].[multitenantprojecttypeID] AS [multitenantprojecttypeID], 
-[view_EnterpriseData].[multitenantprojecttype] AS [multitenantprojecttype]
-FROM [dbo].[view_EnterpriseData] AS [view_EnterpriseData]</DefiningQuery>
+    [view_EnterpriseData].[id] AS [id], 
+    [view_EnterpriseData].[description] AS [description], 
+    [view_EnterpriseData].[companyname] AS [companyname], 
+    [view_EnterpriseData].[instancename] AS [instancename], 
+    [view_EnterpriseData].[userMax] AS [userMax], 
+    [view_EnterpriseData].[partnerMax] AS [partnerMax], 
+    [view_EnterpriseData].[partnumberMax] AS [partnumberMax], 
+    [view_EnterpriseData].[productID] AS [productID], 
+    [view_EnterpriseData].[product] AS [product], 
+    [view_EnterpriseData].[subscriptiontypeID] AS [subscriptiontypeID], 
+    [view_EnterpriseData].[subscriptiontype] AS [subscriptiontype], 
+    [view_EnterpriseData].[multitenantprojecttypeID] AS [multitenantprojecttypeID], 
+    [view_EnterpriseData].[multitenantprojecttype] AS [multitenantprojecttype]
+    FROM [dbo].[view_EnterpriseData] AS [view_EnterpriseData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_EventNotificationData" EntityType="Self.view_EventNotificationData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_EventNotificationData].[enterprise] AS [enterprise], 
-[view_EventNotificationData].[partnerID] AS [partnerID], 
-[view_EventNotificationData].[internalID] AS [internalID], 
-[view_EventNotificationData].[mailtype] AS [mailtype], 
-[view_EventNotificationData].[emailType] AS [emailType], 
-[view_EventNotificationData].[email] AS [email], 
-[view_EventNotificationData].[Date_Sent] AS [Date_Sent], 
-[view_EventNotificationData].[partner] AS [partner], 
-[view_EventNotificationData].[partnertypetouchpointquestionnaire] AS [partnertypetouchpointquestionnaire], 
-[view_EventNotificationData].[event] AS [event], 
-[view_EventNotificationData].[accesscode] AS [accesscode], 
-[view_EventNotificationData].[Touchpoint] AS [Touchpoint]
-FROM [dbo].[view_EventNotificationData] AS [view_EventNotificationData]</DefiningQuery>
+    [view_EventNotificationData].[enterprise] AS [enterprise], 
+    [view_EventNotificationData].[partnerID] AS [partnerID], 
+    [view_EventNotificationData].[internalID] AS [internalID], 
+    [view_EventNotificationData].[mailtype] AS [mailtype], 
+    [view_EventNotificationData].[emailType] AS [emailType], 
+    [view_EventNotificationData].[email] AS [email], 
+    [view_EventNotificationData].[Date_Sent] AS [Date_Sent], 
+    [view_EventNotificationData].[partner] AS [partner], 
+    [view_EventNotificationData].[partnertypetouchpointquestionnaire] AS [partnertypetouchpointquestionnaire], 
+    [view_EventNotificationData].[event] AS [event], 
+    [view_EventNotificationData].[accesscode] AS [accesscode], 
+    [view_EventNotificationData].[Touchpoint] AS [Touchpoint]
+    FROM [dbo].[view_EventNotificationData] AS [view_EventNotificationData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_GroupData" EntityType="Self.view_GroupData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_GroupData].[id] AS [id], 
-[view_GroupData].[Enterprise] AS [Enterprise], 
-[view_GroupData].[name] AS [name], 
-[view_GroupData].[description] AS [description], 
-[view_GroupData].[Owner] AS [Owner], 
-[view_GroupData].[UserCount] AS [UserCount], 
-[view_GroupData].[PartnerCount] AS [PartnerCount], 
-[view_GroupData].[ShadowCount] AS [ShadowCount], 
-[view_GroupData].[CampaignCount] AS [CampaignCount], 
-[view_GroupData].[Active] AS [Active]
-FROM [dbo].[view_GroupData] AS [view_GroupData]</DefiningQuery>
+    [view_GroupData].[id] AS [id], 
+    [view_GroupData].[Enterprise] AS [Enterprise], 
+    [view_GroupData].[name] AS [name], 
+    [view_GroupData].[description] AS [description], 
+    [view_GroupData].[Owner] AS [Owner], 
+    [view_GroupData].[UserCount] AS [UserCount], 
+    [view_GroupData].[PartnerCount] AS [PartnerCount], 
+    [view_GroupData].[ShadowCount] AS [ShadowCount], 
+    [view_GroupData].[CampaignCount] AS [CampaignCount], 
+    [view_GroupData].[Active] AS [Active]
+    FROM [dbo].[view_GroupData] AS [view_GroupData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PartnerConfirmationData" EntityType="Self.view_PartnerConfirmationData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_PartnerConfirmationData].[id] AS [id], 
-[view_PartnerConfirmationData].[enterprise] AS [enterprise], 
-[view_PartnerConfirmationData].[touchpoint] AS [touchpoint], 
-[view_PartnerConfirmationData].[partnerA] AS [partnerA], 
-[view_PartnerConfirmationData].[partnerA_Name] AS [partnerA_Name], 
-[view_PartnerConfirmationData].[group1] AS [group1], 
-[view_PartnerConfirmationData].[group1_Name] AS [group1_Name], 
-[view_PartnerConfirmationData].[status1] AS [status1], 
-[view_PartnerConfirmationData].[status1_Name] AS [status1_Name], 
-[view_PartnerConfirmationData].[isReference1] AS [isReference1], 
-[view_PartnerConfirmationData].[partnerB] AS [partnerB], 
-[view_PartnerConfirmationData].[partnerB_Name] AS [partnerB_Name], 
-[view_PartnerConfirmationData].[group2] AS [group2], 
-[view_PartnerConfirmationData].[group2_Name] AS [group2_Name], 
-[view_PartnerConfirmationData].[status2] AS [status2], 
-[view_PartnerConfirmationData].[status2_Name] AS [status2_Name], 
-[view_PartnerConfirmationData].[isReference2] AS [isReference2], 
-[view_PartnerConfirmationData].[emailMatch] AS [emailMatch], 
-[view_PartnerConfirmationData].[nameMatch] AS [nameMatch], 
-[view_PartnerConfirmationData].[internalIDMatch] AS [internalIDMatch], 
-[view_PartnerConfirmationData].[federalIDMatch] AS [federalIDMatch], 
-[view_PartnerConfirmationData].[dunsMatch] AS [dunsMatch], 
-[view_PartnerConfirmationData].[action] AS [action], 
-[view_PartnerConfirmationData].[person] AS [person], 
-[view_PartnerConfirmationData].[timestamp] AS [timestamp]
-FROM [dbo].[view_PartnerConfirmationData] AS [view_PartnerConfirmationData]</DefiningQuery>
+    [view_PartnerConfirmationData].[id] AS [id], 
+    [view_PartnerConfirmationData].[enterprise] AS [enterprise], 
+    [view_PartnerConfirmationData].[touchpoint] AS [touchpoint], 
+    [view_PartnerConfirmationData].[partnerA] AS [partnerA], 
+    [view_PartnerConfirmationData].[partnerA_Name] AS [partnerA_Name], 
+    [view_PartnerConfirmationData].[group1] AS [group1], 
+    [view_PartnerConfirmationData].[group1_Name] AS [group1_Name], 
+    [view_PartnerConfirmationData].[status1] AS [status1], 
+    [view_PartnerConfirmationData].[status1_Name] AS [status1_Name], 
+    [view_PartnerConfirmationData].[isReference1] AS [isReference1], 
+    [view_PartnerConfirmationData].[partnerB] AS [partnerB], 
+    [view_PartnerConfirmationData].[partnerB_Name] AS [partnerB_Name], 
+    [view_PartnerConfirmationData].[group2] AS [group2], 
+    [view_PartnerConfirmationData].[group2_Name] AS [group2_Name], 
+    [view_PartnerConfirmationData].[status2] AS [status2], 
+    [view_PartnerConfirmationData].[status2_Name] AS [status2_Name], 
+    [view_PartnerConfirmationData].[isReference2] AS [isReference2], 
+    [view_PartnerConfirmationData].[emailMatch] AS [emailMatch], 
+    [view_PartnerConfirmationData].[nameMatch] AS [nameMatch], 
+    [view_PartnerConfirmationData].[internalIDMatch] AS [internalIDMatch], 
+    [view_PartnerConfirmationData].[federalIDMatch] AS [federalIDMatch], 
+    [view_PartnerConfirmationData].[dunsMatch] AS [dunsMatch], 
+    [view_PartnerConfirmationData].[action] AS [action], 
+    [view_PartnerConfirmationData].[person] AS [person], 
+    [view_PartnerConfirmationData].[timestamp] AS [timestamp]
+    FROM [dbo].[view_PartnerConfirmationData] AS [view_PartnerConfirmationData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PartnerData" EntityType="Self.view_PartnerData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_PartnerData].[id] AS [id], 
-[view_PartnerData].[enterprise] AS [enterprise], 
-[view_PartnerData].[internalID] AS [internalID], 
-[view_PartnerData].[PartnerName] AS [PartnerName], 
-[view_PartnerData].[Contact] AS [Contact], 
-[view_PartnerData].[phone] AS [phone], 
-[view_PartnerData].[ContactEmail] AS [ContactEmail], 
-[view_PartnerData].[dunsNumber] AS [dunsNumber], 
-[view_PartnerData].[ContactTitle] AS [ContactTitle], 
-[view_PartnerData].[owner] AS [owner], 
-[view_PartnerData].[countryID] AS [countryID], 
-[view_PartnerData].[Country] AS [Country], 
-[view_PartnerData].[city] AS [city], 
-[view_PartnerData].[state] AS [state], 
-[view_PartnerData].[address] AS [address], 
-[view_PartnerData].[zipcode] AS [zipcode], 
-[view_PartnerData].[touchpointID] AS [touchpointID], 
-[view_PartnerData].[Touchpoint] AS [Touchpoint], 
-[view_PartnerData].[partnertypeID] AS [partnertypeID], 
-[view_PartnerData].[Partnertype] AS [Partnertype], 
-[view_PartnerData].[groupID] AS [groupID], 
-[view_PartnerData].[Group] AS [Group], 
-[view_PartnerData].[pptq] AS [pptq], 
-[view_PartnerData].[AccessCode] AS [AccessCode], 
-[view_PartnerData].[statusID] AS [statusID], 
-[view_PartnerData].[status] AS [status], 
-[view_PartnerData].[Expr1] AS [Expr1], 
-[view_PartnerData].[campaign] AS [campaign], 
-[view_PartnerData].[active] AS [active]
-FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
+    [view_PartnerData].[id] AS [id], 
+    [view_PartnerData].[enterprise] AS [enterprise], 
+    [view_PartnerData].[internalID] AS [internalID], 
+    [view_PartnerData].[PartnerName] AS [PartnerName], 
+    [view_PartnerData].[Contact] AS [Contact], 
+    [view_PartnerData].[phone] AS [phone], 
+    [view_PartnerData].[ContactEmail] AS [ContactEmail], 
+    [view_PartnerData].[dunsNumber] AS [dunsNumber], 
+    [view_PartnerData].[ContactTitle] AS [ContactTitle], 
+    [view_PartnerData].[owner] AS [owner], 
+    [view_PartnerData].[countryID] AS [countryID], 
+    [view_PartnerData].[Country] AS [Country], 
+    [view_PartnerData].[city] AS [city], 
+    [view_PartnerData].[state] AS [state], 
+    [view_PartnerData].[address] AS [address], 
+    [view_PartnerData].[zipcode] AS [zipcode], 
+    [view_PartnerData].[touchpointID] AS [touchpointID], 
+    [view_PartnerData].[Touchpoint] AS [Touchpoint], 
+    [view_PartnerData].[partnertypeID] AS [partnertypeID], 
+    [view_PartnerData].[Partnertype] AS [Partnertype], 
+    [view_PartnerData].[groupID] AS [groupID], 
+    [view_PartnerData].[Group] AS [Group], 
+    [view_PartnerData].[pptq] AS [pptq], 
+    [view_PartnerData].[AccessCode] AS [AccessCode], 
+    [view_PartnerData].[statusID] AS [statusID], 
+    [view_PartnerData].[status] AS [status], 
+    [view_PartnerData].[Expr1] AS [Expr1], 
+    [view_PartnerData].[campaign] AS [campaign], 
+    [view_PartnerData].[active] AS [active]
+    FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PersonData" EntityType="Self.view_PersonData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_PersonData].[id] AS [id], 
-[view_PersonData].[enterprise] AS [enterprise], 
-[view_PersonData].[firstName] AS [firstName], 
-[view_PersonData].[lastName] AS [lastName], 
-[view_PersonData].[internalId] AS [internalId], 
-[view_PersonData].[title] AS [title], 
-[view_PersonData].[email] AS [email], 
-[view_PersonData].[Country] AS [Country], 
-[view_PersonData].[State] AS [State], 
-[view_PersonData].[Touchpoint] AS [Touchpoint], 
-[view_PersonData].[Default_Touchpoint] AS [Default_Touchpoint], 
-[view_PersonData].[personStatusID] AS [personStatusID], 
-[view_PersonData].[Person_Status] AS [Person_Status], 
-[view_PersonData].[Group_Count] AS [Group_Count], 
-[view_PersonData].[Role_Count] AS [Role_Count], 
-[view_PersonData].[active] AS [active], 
-[view_PersonData].[resetDate] AS [resetDate], 
-[view_PersonData].[archivedDate] AS [archivedDate]
-FROM [dbo].[view_PersonData] AS [view_PersonData]</DefiningQuery>
+    [view_PersonData].[id] AS [id], 
+    [view_PersonData].[enterprise] AS [enterprise], 
+    [view_PersonData].[firstName] AS [firstName], 
+    [view_PersonData].[lastName] AS [lastName], 
+    [view_PersonData].[internalId] AS [internalId], 
+    [view_PersonData].[title] AS [title], 
+    [view_PersonData].[email] AS [email], 
+    [view_PersonData].[Country] AS [Country], 
+    [view_PersonData].[State] AS [State], 
+    [view_PersonData].[Touchpoint] AS [Touchpoint], 
+    [view_PersonData].[Default_Touchpoint] AS [Default_Touchpoint], 
+    [view_PersonData].[personStatusID] AS [personStatusID], 
+    [view_PersonData].[Person_Status] AS [Person_Status], 
+    [view_PersonData].[Group_Count] AS [Group_Count], 
+    [view_PersonData].[Role_Count] AS [Role_Count], 
+    [view_PersonData].[active] AS [active], 
+    [view_PersonData].[resetDate] AS [resetDate], 
+    [view_PersonData].[archivedDate] AS [archivedDate]
+    FROM [dbo].[view_PersonData] AS [view_PersonData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_ProtocolData" EntityType="Self.view_ProtocolData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_ProtocolData].[id] AS [id], 
-[view_ProtocolData].[enterprise] AS [enterprise], 
-[view_ProtocolData].[name] AS [name], 
-[view_ProtocolData].[Protocol_Admin] AS [Protocol_Admin], 
-[view_ProtocolData].[Protocol_Sponsor] AS [Protocol_Sponsor], 
-[view_ProtocolData].[User_Count] AS [User_Count], 
-[view_ProtocolData].[Partner_Count] AS [Partner_Count], 
-[view_ProtocolData].[Group_Count] AS [Group_Count], 
-[view_ProtocolData].[active] AS [active]
-FROM [dbo].[view_ProtocolData] AS [view_ProtocolData]</DefiningQuery>
+    [view_ProtocolData].[id] AS [id], 
+    [view_ProtocolData].[enterprise] AS [enterprise], 
+    [view_ProtocolData].[name] AS [name], 
+    [view_ProtocolData].[Protocol_Admin] AS [Protocol_Admin], 
+    [view_ProtocolData].[Protocol_Sponsor] AS [Protocol_Sponsor], 
+    [view_ProtocolData].[User_Count] AS [User_Count], 
+    [view_ProtocolData].[Partner_Count] AS [Partner_Count], 
+    [view_ProtocolData].[Group_Count] AS [Group_Count], 
+    [view_ProtocolData].[active] AS [active]
+    FROM [dbo].[view_ProtocolData] AS [view_ProtocolData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_QuestionnaireCMS" EntityType="Self.view_QuestionnaireCMS" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_QuestionnaireCMS].[questionnaireCMS] AS [questionnaireCMS], 
-[view_QuestionnaireCMS].[description] AS [description], 
-[view_QuestionnaireCMS].[text] AS [text], 
-[view_QuestionnaireCMS].[link] AS [link], 
-[view_QuestionnaireCMS].[doc] AS [doc]
-FROM [dbo].[view_QuestionnaireCMS] AS [view_QuestionnaireCMS]</DefiningQuery>
+    [view_QuestionnaireCMS].[questionnaireCMS] AS [questionnaireCMS], 
+    [view_QuestionnaireCMS].[description] AS [description], 
+    [view_QuestionnaireCMS].[text] AS [text], 
+    [view_QuestionnaireCMS].[link] AS [link], 
+    [view_QuestionnaireCMS].[doc] AS [doc]
+    FROM [dbo].[view_QuestionnaireCMS] AS [view_QuestionnaireCMS]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_QuestionnaireData" EntityType="Self.view_QuestionnaireData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_QuestionnaireData].[id] AS [id], 
-[view_QuestionnaireData].[enterprise] AS [enterprise], 
-[view_QuestionnaireData].[protocolID] AS [protocolID], 
-[view_QuestionnaireData].[Protocol] AS [Protocol], 
-[view_QuestionnaireData].[touchpointid] AS [touchpointid], 
-[view_QuestionnaireData].[Touchpoint] AS [Touchpoint], 
-[view_QuestionnaireData].[name] AS [name], 
-[view_QuestionnaireData].[description] AS [description], 
-[view_QuestionnaireData].[partnertypeid] AS [partnertypeid], 
-[view_QuestionnaireData].[PartnerType] AS [PartnerType], 
-[view_QuestionnaireData].[personID] AS [personID], 
-[view_QuestionnaireData].[Author] AS [Author], 
-[view_QuestionnaireData].[Locked] AS [Locked], 
-[view_QuestionnaireData].[Completed] AS [Completed], 
-[view_QuestionnaireData].[Incomplete] AS [Incomplete], 
-[view_QuestionnaireData].[No_Response] AS [No_Response], 
-[view_QuestionnaireData].[CMS] AS [CMS], 
-[view_QuestionnaireData].[Reminders] AS [Reminders], 
-[view_QuestionnaireData].[active] AS [active]
-FROM [dbo].[view_QuestionnaireData] AS [view_QuestionnaireData]</DefiningQuery>
+    [view_QuestionnaireData].[id] AS [id], 
+    [view_QuestionnaireData].[enterprise] AS [enterprise], 
+    [view_QuestionnaireData].[protocolID] AS [protocolID], 
+    [view_QuestionnaireData].[Protocol] AS [Protocol], 
+    [view_QuestionnaireData].[touchpointid] AS [touchpointid], 
+    [view_QuestionnaireData].[Touchpoint] AS [Touchpoint], 
+    [view_QuestionnaireData].[name] AS [name], 
+    [view_QuestionnaireData].[description] AS [description], 
+    [view_QuestionnaireData].[partnertypeid] AS [partnertypeid], 
+    [view_QuestionnaireData].[PartnerType] AS [PartnerType], 
+    [view_QuestionnaireData].[personID] AS [personID], 
+    [view_QuestionnaireData].[Author] AS [Author], 
+    [view_QuestionnaireData].[Locked] AS [Locked], 
+    [view_QuestionnaireData].[Completed] AS [Completed], 
+    [view_QuestionnaireData].[Incomplete] AS [Incomplete], 
+    [view_QuestionnaireData].[No_Response] AS [No_Response], 
+    [view_QuestionnaireData].[CMS] AS [CMS], 
+    [view_QuestionnaireData].[Reminders] AS [Reminders], 
+    [view_QuestionnaireData].[active] AS [active]
+    FROM [dbo].[view_QuestionnaireData] AS [view_QuestionnaireData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_TouchpointData" EntityType="Self.view_TouchpointData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[view_TouchpointData].[enterprise] AS [enterprise], 
-[view_TouchpointData].[id] AS [id], 
-[view_TouchpointData].[name] AS [name], 
-[view_TouchpointData].[Touchpoint_Admin] AS [Touchpoint_Admin], 
-[view_TouchpointData].[Touchpoint_Sponsor] AS [Touchpoint_Sponsor], 
-[view_TouchpointData].[Start_Date] AS [Start_Date], 
-[view_TouchpointData].[End_Date] AS [End_Date], 
-[view_TouchpointData].[description] AS [description], 
-[view_TouchpointData].[User_Count] AS [User_Count], 
-[view_TouchpointData].[Group_Count] AS [Group_Count], 
-[view_TouchpointData].[Questionnaire_Count] AS [Questionnaire_Count], 
-[view_TouchpointData].[Partner_Count] AS [Partner_Count], 
-[view_TouchpointData].[PartnerType_Count] AS [PartnerType_Count], 
-[view_TouchpointData].[active] AS [active], 
-[view_TouchpointData].[Locked] AS [Locked]
-FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
+    [view_TouchpointData].[enterprise] AS [enterprise], 
+    [view_TouchpointData].[id] AS [id], 
+    [view_TouchpointData].[name] AS [name], 
+    [view_TouchpointData].[Touchpoint_Admin] AS [Touchpoint_Admin], 
+    [view_TouchpointData].[Touchpoint_Sponsor] AS [Touchpoint_Sponsor], 
+    [view_TouchpointData].[Start_Date] AS [Start_Date], 
+    [view_TouchpointData].[End_Date] AS [End_Date], 
+    [view_TouchpointData].[description] AS [description], 
+    [view_TouchpointData].[User_Count] AS [User_Count], 
+    [view_TouchpointData].[Group_Count] AS [Group_Count], 
+    [view_TouchpointData].[Questionnaire_Count] AS [Questionnaire_Count], 
+    [view_TouchpointData].[Partner_Count] AS [Partner_Count], 
+    [view_TouchpointData].[PartnerType_Count] AS [PartnerType_Count], 
+    [view_TouchpointData].[active] AS [active], 
+    [view_TouchpointData].[Locked] AS [Locked]
+    FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__partner__enter__7B863AD4" Association="Self.FK__partner__enter__7B863AD4">
             <End Role="enterprise" EntitySet="enterprise" />
@@ -9845,10 +9858,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="person" EntitySet="person" />
             <End Role="personRelationship" EntitySet="personRelationship" />
           </AssociationSet>
-          <AssociationSet Name="FK_personRelationship_person2" Association="Self.FK_personRelationship_person2">
-            <End Role="person" EntitySet="person" />
-            <End Role="personRelationship" EntitySet="personRelationship" />
-          </AssociationSet>
           <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="Self.FK_personRelationship_personRelationshipType">
             <End Role="personRelationshipType" EntitySet="personRelationshipType" />
             <End Role="personRelationship" EntitySet="personRelationship" />
@@ -9945,10 +9954,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             <End Role="question" EntitySet="question" />
             <End Role="questionResponse" EntitySet="questionResponse" />
           </AssociationSet>
-          <AssociationSet Name="FK_questionResponse_question1" Association="Self.FK_questionResponse_question1">
-            <End Role="question" EntitySet="question" />
-            <End Role="questionResponse" EntitySet="questionResponse" />
-          </AssociationSet>
           <AssociationSet Name="FK_questionResponse_response" Association="Self.FK_questionResponse_response">
             <End Role="response" EntitySet="response" />
             <End Role="questionResponse" EntitySet="questionResponse" />
@@ -10035,14 +10040,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="Self.FK_touchpointPartnerTypeQuestionnaire_partnerType">
             <End Role="partnerType" EntitySet="partnerType" />
-            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="Self.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-            <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="Self.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
-            <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="Self.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
@@ -10366,10 +10363,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <AssociationSet Name="FK_protocol_person1" Association="hs3MVCMTQa2Model.FK_protocol_person1">
             <End EntitySet="person" Role="person" />
             <End EntitySet="protocol" Role="protocol" />
-          </AssociationSet>
-          <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent">
-            <End EntitySet="personLoginAuditEvent" Role="personLoginAuditEvent" />
-            <End EntitySet="personLoginAudit" Role="personLoginAudit" />
           </AssociationSet>
           <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="hs3MVCMTQa2Model.FK_personRelationship_personRelationshipType">
             <End EntitySet="personRelationshipType" Role="personRelationshipType" />
@@ -15772,8 +15765,15 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCompanyProfileDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCompanyProfileDataLoad_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pr_getEnterpriseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByPPTQ_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent">
+            <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
+            <End Role="personLoginAudit" EntitySet="personLoginAudit" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -16659,10 +16659,12 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           </Key>
           <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
           <Property Name="person" Nullable="false" Type="Int32" />
-          <Property Name="auditLoginEvent" Nullable="false" Type="Int32" />
+          <Property Name="auditLoginEvent" Type="Int32" />
           <Property Name="timestamp" Nullable="false" Precision="3" Type="DateTime" />
           <Property Name="deviceIP" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_person" FromRole="personLoginAudit" ToRole="person" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="personLoginAuditEvent" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" FromRole="personLoginAudit" ToRole="personLoginAuditEvent" />
         </EntityType>
         <EntityType Name="personLoginAuditEvent">
@@ -17772,18 +17774,6 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
             </Principal>
             <Dependent Role="protocol">
               <PropertyRef Name="sponsor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_personLoginAudit_personLoginAuditEvent">
-          <End Type="hs3MVCMTQa2Model.personLoginAuditEvent" Multiplicity="1" Role="personLoginAuditEvent" />
-          <End Type="hs3MVCMTQa2Model.personLoginAudit" Multiplicity="*" Role="personLoginAudit" />
-          <ReferentialConstraint>
-            <Principal Role="personLoginAuditEvent">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personLoginAudit">
-              <PropertyRef Name="auditLoginEvent" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -25610,6 +25600,34 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getEnterpriseByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Binary" Name="logo" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="applicationPath" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="instanceName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="userMax" Nullable="true" />
+          <Property Type="Int32" Name="partnerMax" Nullable="true" />
+          <Property Type="Int32" Name="partnumberMax" Nullable="true" />
+          <Property Type="Int32" Name="product" Nullable="true" />
+          <Property Type="Int32" Name="subscriptionType" Nullable="true" />
+          <Property Type="DateTime" Name="freeTrialStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="freeTrialEndDate" Nullable="true" />
+          <Property Type="DateTime" Name="licenseStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="licenseEndDate" Nullable="true" />
+          <Property Type="Decimal" Name="monthlyFee" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="subscriptionStatus" Nullable="true" />
+          <Property Type="String" Name="chargifyID" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" />
+          <Property Type="Int32" Name="multiTenantProjectType" Nullable="true" />
+        </ComplexType>
+        <Association Name="FK_personLoginAudit_personLoginAuditEvent">
+          <End Type="hs3MVCMTQa2Model.personLoginAuditEvent" Role="personLoginAuditEvent" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.personLoginAudit" Role="personLoginAudit" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -27083,6 +27101,8 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
           <EntitySetMapping Name="personLoginAudit">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLoginAudit">
               <MappingFragment StoreEntitySet="personLoginAudit">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="person" ColumnName="person" />
                 <ScalarProperty Name="auditLoginEvent" ColumnName="auditLoginEvent" />
@@ -34321,6 +34341,43 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEnterpriseByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getEnterpriseByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEnterpriseByPPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="applicationPath" ColumnName="applicationPath" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="instanceName" ColumnName="instanceName" />
+                <ScalarProperty Name="userMax" ColumnName="userMax" />
+                <ScalarProperty Name="partnerMax" ColumnName="partnerMax" />
+                <ScalarProperty Name="partnumberMax" ColumnName="partnumberMax" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="subscriptionType" ColumnName="subscriptionType" />
+                <ScalarProperty Name="freeTrialStartDate" ColumnName="freeTrialStartDate" />
+                <ScalarProperty Name="freeTrialEndDate" ColumnName="freeTrialEndDate" />
+                <ScalarProperty Name="licenseStartDate" ColumnName="licenseStartDate" />
+                <ScalarProperty Name="licenseEndDate" ColumnName="licenseEndDate" />
+                <ScalarProperty Name="monthlyFee" ColumnName="monthlyFee" />
+                <ScalarProperty Name="subscriptionStatus" ColumnName="subscriptionStatus" />
+                <ScalarProperty Name="chargifyID" ColumnName="chargifyID" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+                <ScalarProperty Name="multiTenantProjectType" ColumnName="multiTenantProjectType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <AssociationSetMapping Name="FK_personLoginAudit_personLoginAuditEvent" TypeName="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" StoreEntitySet="personLoginAudit">
+            <EndProperty Name="personLoginAudit">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <EndProperty Name="personLoginAuditEvent">
+              <ScalarProperty Name="id" ColumnName="auditLoginEvent" />
+            </EndProperty>
+            <Condition ColumnName="auditLoginEvent" IsNull="false" />
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -34335,10 +34392,10 @@ FROM [dbo].[view_TouchpointData] AS [view_TouchpointData]</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

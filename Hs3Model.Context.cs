@@ -19167,5 +19167,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCompanyProfileDataLoad_Result>("pr_getCompanyProfileDataLoad", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getEnterpriseByPPTQ_Result> pr_getEnterpriseByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseByPPTQ_Result>("pr_getEnterpriseByPPTQ", pptqParameter);
+        }
     }
 }

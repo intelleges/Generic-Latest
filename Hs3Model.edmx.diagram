@@ -149,7 +149,6 @@
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personSearchCount_person" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_protocol_person" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_protocol_person1" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personRelationship_personRelationshipType" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_touchpoint_protocol" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_roleMenu_role" />
@@ -313,6 +312,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="3" PointY="59.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachmentType" Width="1.5" PointX="25.375" PointY="10.75" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
