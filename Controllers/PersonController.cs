@@ -905,52 +905,52 @@ Thanks in advance.<br>
 
 
         [HttpPost]
-        public ActionResult FindPerson(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
+        public ActionResult FindPerson(int? touchpoint, string InternalId, string Title, string FirstName, string Email, string LastName, string Phone, string searchType)
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
             if (touchpoint != null)
-                arguments += "touchpointID=" + touchpoint + ";";
-            if (group != null)
-                arguments += "groupID=" + group + ";";
-            if (country != null)
-                arguments += "countryID=" + country + ";";
-            if (partnertype != null)
-                arguments += "partnertypeID=" + partnertype + ";";
+                arguments += "campaign=" + touchpoint + ";";
+            //if (group != null)
+            //    arguments += "groupID=" + group + ";";
+            //if (country != null)
+            //    arguments += "countryID=" + country + ";";
+            //if (partnertype != null)
+            //    arguments += "partnertypeID=" + partnertype + ";";
 
-            if (partnerStatus != null)
-                arguments += "StatusID=" + partnerStatus + ";";
+            //if (partnerStatus != null)
+            //    arguments += "StatusID=" + partnerStatus + ";";
 
 
-            if (txtInternalIdFind != "")
-                arguments += "InternalId=" + txtInternalIdFind + ";";
+            if (!string.IsNullOrEmpty(InternalId))
+                arguments += "InternalId=" + InternalId + ";";
 
 
             //string , string , string , string , string , string )
-            if (txtDunsNumberFind != "")
-                arguments += "DunsNumber=" + txtDunsNumberFind + ";";
-            if (txtNameFind != "")
-                arguments += "Name=" + txtNameFind + ";";
-            if (txtFederalIdFind != "")
-                arguments += "FederalId=" + txtFederalIdFind + ";";
+            if (!string.IsNullOrEmpty(Title))
+                arguments += "Title=" + Title + ";";
+            if (!string.IsNullOrEmpty(FirstName))
+                arguments += "FirstName=" + FirstName + ";";
+            if (!string.IsNullOrEmpty(Email))
+                arguments += "Email=" + Email + ";";
 
-            if (accesscode != "")
-                arguments += "accesscode=" + accesscode + ";";
+            if (!string.IsNullOrEmpty(LastName))
+                arguments += "LastName=" + LastName + ";";
 
-            if (txtContactEmailFind != "")
-                arguments += "ContactEmail=" + txtContactEmailFind + ";";
-            if (txtHROEmailFind != "")
-                arguments += "HROEmail=" + txtHROEmailFind + ";";
-            if (txtScoreFromFind != "")
-                arguments += "ScoreFrom=" + txtScoreFromFind + ";";
-            if (txtScoreToFind != "")
-                arguments += "ScoreTo=" + txtScoreToFind + ";";
-            if (txtAddedFromFind != "")
-                arguments += "AddedFrom=" + txtAddedFromFind + ";";
-            if (txtAddedToFind != "")
-                arguments += "AddedTo=" + txtAddedToFind + ";";
-            if (txtFullTextSearch != "")
-                arguments += "FullTextSearch=" + txtFullTextSearch + ";";
+            if (!string.IsNullOrEmpty(Phone))
+                arguments += "Phone=" + Phone + ";";
+            //if (!string.IsNullOrEmpty(txtHROEmailFind))
+            //    arguments += "HROEmail=" + txtHROEmailFind + ";";
+            //if (!string.IsNullOrEmpty(txtScoreFromFind ))
+            //    arguments += "ScoreFrom=" + txtScoreFromFind + ";";
+            //if (!string.IsNullOrEmpty(txtScoreToFind))
+            //    arguments += "ScoreTo=" + txtScoreToFind + ";";
+            //if (!string.IsNullOrEmpty(txtAddedFromFind))
+            //    arguments += "AddedFrom=" + txtAddedFromFind + ";";
+            //if (!string.IsNullOrEmpty(txtAddedToFind))
+            //    arguments += "AddedTo=" + txtAddedToFind + ";";
+            //if (!string.IsNullOrEmpty(txtFullTextSearch))
+            //    arguments += "FullTextSearch=" + txtFullTextSearch + ";";
             //var objPartners2 =   db.Database.ExecuteSqlCommand("Yourprocedure @param, @param1", param1, param2);
 
 
