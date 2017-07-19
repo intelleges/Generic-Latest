@@ -19,7 +19,6 @@ namespace Generic
         {
             this.group = new HashSet<group>();
             this.partnerPartnertypeTouchpointQuestionnaire = new HashSet<partnerPartnertypeTouchpointQuestionnaire>();
-            this.personLoginAudit = new HashSet<personLoginAudit>();
             this.personRelationship = new HashSet<personRelationship>();
             this.personRelationship1 = new HashSet<personRelationship>();
             this.personRelationship2 = new HashSet<personRelationship>();
@@ -72,8 +71,6 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
         public virtual personStatus personStatus1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<personLoginAudit> personLoginAudit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<personRelationship> personRelationship { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

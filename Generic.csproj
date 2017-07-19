@@ -988,9 +988,6 @@
     <Compile Include="personLinkedinAuthInfo.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="personLoginAudit.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="personLoginAuditEvent.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

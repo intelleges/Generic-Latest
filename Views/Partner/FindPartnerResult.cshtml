@@ -70,236 +70,239 @@
         {
             columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
             columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
-                @{
-
-                    var columnData = item.PartnerName;
-                    var width = 30;
-                    var visibleText = string.Empty;
-                    if (columnData != null)
-                    {
-                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                    }
-                    <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
-                }
-                <div class="display_menu" style="display: none;">
-                    <ul>
-
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
-
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID)">Print PDF</a></li>
-
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
-                        @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
-                        {
-                            <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
-                        }
-                        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
-                        <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li><li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
-                    </ul>
-                </div>
-            </text>);
-            columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
-
         @{
-            var columnData = item.Contact;
+
+            var columnData = item.PartnerName;
             var width = 30;
             var visibleText = string.Empty;
             if (columnData != null)
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
-            <p title="@columnData">@visibleText</p>
+            <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
         }
+        <div class="display_menu" style="display: none;">
+            <ul>
+
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
+
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID)">Print PDF</a></li>
+
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
+                @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
+                {
+                    <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                }
+                <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+                <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+                <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
+            </ul>
+        </div>
+            </text>);
+            columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
+
+                @{
+                    var columnData = item.Contact;
+                    var width = 30;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
             columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
 
-        @{
-            var columnData = item.AccessCode;
-            var width = 8;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
+                @{
+                    var columnData = item.AccessCode;
+                    var width = 8;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
 
-            <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a><div class="display_menu" style="display: none;">
+                    <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
 
-
-
-                <ul>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'>
-                        <a href="javascript:remind('@item.AccessCode')">
-                            Remind
-                        </a>
-                    </li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Re-Invite (racix.net)</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Rescind</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Remove</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="#">Retrieve</a></li>
-                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
-                </ul>
-            </div>
-        }
+                    if(!string.IsNullOrEmpty(visibleText))
+                    {
+                        <div class="display_menu" style="display: none;">
+                            <ul>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'>
+                                    <a href="javascript:remind('@item.AccessCode')">
+                                        Remind
+                                    </a>
+                                </li>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (racix.net)</a></li>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Rescind</a></li>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Remove</a></li>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Retrieve</a></li>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
+                            </ul>
+                        </div>
+                    }
+                }
             </text>);
             columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode&listing=y');">@item.ContactEmail</a></text>);
 
             columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
 
-        @{
-            var columnData = item.ContactTitle;
-            var width = 12;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.ContactTitle;
+                    var width = 12;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
 
             columns.Bound(o => o.owner).Title("Owner").Width(100).Template(@<text>
 
-        @{
-            var columnData = item.owner;
-            var width = 14;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.owner;
+                    var width = 14;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>); ;
             columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
 
-        @{
-            var columnData = item.Country;
-            var width = 13;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.Country;
+                    var width = 13;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
             columns.Bound(o => o.city).Title("City").Width(100).Template(@<text>
 
-        @{
-            var columnData = item.city;
-            var width = 10;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.city;
+                    var width = 10;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
             columns.Bound(o => o.state).Title("State").Width(50).Template(@<text>
 
-        @{
-            var columnData = item.state;
-            var width = 5;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.state;
+                    var width = 5;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>); ;
 
             columns.Bound(o => o.address).Title("Address").Width(150).Template(@<text>
 
-        @{
-            var columnData = item.address;
-            var width = 20;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.address;
+                    var width = 20;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
             columns.Bound(o => o.zipcode).Title("Zipcode").Width(80).Template(@<text>
 
-        @{
-            var columnData = item.zipcode;
-            var width = 10;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.zipcode;
+                    var width = 10;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
 
             columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150).Template(@<text>
 
-        @{
-            var columnData = item.Touchpoint;
-            var width = 25;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.Touchpoint;
+                    var width = 25;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
             columns.Bound(o => o.Partnertype).Title("Partnertype").Width(120).Template(@<text>
 
-        @{
-            var columnData = item.Partnertype;
-            var width = 20;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.Partnertype;
+                    var width = 20;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
             columns.Bound(o => o.Group).Title("Group").Width(70).Template(@<text>
 
-        @{
-            var columnData = item.Group;
-            var width = 7;
-            var visibleText = string.Empty;
-            if (columnData != null)
-            {
-                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-            }
-            <p title="@columnData">@visibleText</p>
-        }
+                @{
+                    var columnData = item.Group;
+                    var width = 7;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
 
 
             </text>);
@@ -706,8 +709,8 @@
         </div>
     </div>
 </div>
-@if(Session["ACNewEmail"]!=null)
-        {
+@if (Session["ACNewEmail"] != null)
+{
     <script>
 
         $(document).ready(function () {
@@ -717,8 +720,8 @@
 
 
         });
-        
+
     </script>
-    
-            Session["ACNewEmail"] = null;
+
+    Session["ACNewEmail"] = null;
 }

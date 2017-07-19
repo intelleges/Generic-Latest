@@ -181,7 +181,7 @@ top: 2px;
             window.location.replace(window.location.href);
         });
         $("#modalGetPassword").submit(function (e) {
-            e.preventDefault();
+            e.preventDefault();            
             var data = new FormData(this); // <-- 'this' is your form element
             data.append("id", selectedMailId);
             $.ajax({

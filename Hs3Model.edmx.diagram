@@ -59,7 +59,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeGroupGoal" PointX="14.75" PointY="0.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" PointX="28.5" PointY="61.625" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.person" PointX="18.75" PointY="56" Width="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAudit" PointX="21" PointY="57.625" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAuditEvent" PointX="18.75" PointY="52.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personRelationship" PointX="24" PointY="59.625" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personRelationshipType" PointX="21.75" PointY="53.75" Width="1.5" IsExpanded="false" />
@@ -142,7 +141,6 @@
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_person_personStatus" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personLoginAudit_person" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personRelationship_person" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personRelationship_person1" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personRelationship_person2" />
@@ -312,7 +310,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="3" PointY="59.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachmentType" Width="1.5" PointX="25.375" PointY="10.75" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

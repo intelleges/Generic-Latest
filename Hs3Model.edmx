@@ -1392,18 +1392,6 @@
           <Property Name="verifier" Type="nvarchar" MaxLength="50" />
           <Property Name="person" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="personLoginAudit">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="person" Type="int" Nullable="false" />
-          <Property Name="auditLoginEvent" Type="int" />
-          <Property Name="timestamp" Type="datetime" Nullable="false" />
-          <Property Name="deviceIP" Type="varchar" MaxLength="50" />
-          <Property Name="sortOrder" Type="int" Nullable="false" />
-          <Property Name="active" Type="bit" Nullable="false" />
-        </EntityType>
         <EntityType Name="personLoginAuditEvent">
           <Key>
             <PropertyRef Name="id" />
@@ -3557,30 +3545,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Principal>
             <Dependent Role="personLinkedinAuthInfo">
               <PropertyRef Name="person" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_personLoginAudit_person">
-          <End Role="person" Type="Self.person" Multiplicity="1" />
-          <End Role="personLoginAudit" Type="Self.personLoginAudit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personLoginAudit">
-              <PropertyRef Name="person" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_personLoginAudit_personLoginAuditEvent">
-          <End Role="personLoginAuditEvent" Type="Self.personLoginAuditEvent" Multiplicity="0..1" />
-          <End Role="personLoginAudit" Type="Self.personLoginAudit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="personLoginAuditEvent">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personLoginAudit">
-              <PropertyRef Name="auditLoginEvent" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9217,7 +9181,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personGroup" EntityType="Self.personGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personLinkedinAuthInfo" EntityType="Self.personLinkedinAuthInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="personLoginAudit" EntityType="Self.personLoginAudit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personLoginAuditEvent" EntityType="Self.personLoginAuditEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personRelationship" EntityType="Self.personRelationship" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personRelationshipType" EntityType="Self.personRelationshipType" Schema="dbo" store:Type="Tables" />
@@ -9842,14 +9805,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <End Role="person" EntitySet="person" />
             <End Role="personLinkedinAuthInfo" EntitySet="personLinkedinAuthInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK_personLoginAudit_person" Association="Self.FK_personLoginAudit_person">
-            <End Role="person" EntitySet="person" />
-            <End Role="personLoginAudit" EntitySet="personLoginAudit" />
-          </AssociationSet>
-          <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="Self.FK_personLoginAudit_personLoginAuditEvent">
-            <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
-            <End Role="personLoginAudit" EntitySet="personLoginAudit" />
-          </AssociationSet>
           <AssociationSet Name="FK_personRelationship_person" Association="Self.FK_personRelationship_person">
             <End Role="person" EntitySet="person" />
             <End Role="personRelationship" EntitySet="personRelationship" />
@@ -10126,7 +10081,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="partnerTypeGroupGoal" EntityType="hs3MVCMTQa2Model.partnerTypeGroupGoal" />
           <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" />
           <EntitySet Name="person" EntityType="hs3MVCMTQa2Model.person" />
-          <EntitySet Name="personLoginAudit" EntityType="hs3MVCMTQa2Model.personLoginAudit" />
           <EntitySet Name="personLoginAuditEvent" EntityType="hs3MVCMTQa2Model.personLoginAuditEvent" />
           <EntitySet Name="personRelationship" EntityType="hs3MVCMTQa2Model.personRelationship" />
           <EntitySet Name="personRelationshipType" EntityType="hs3MVCMTQa2Model.personRelationshipType" />
@@ -10335,10 +10289,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <AssociationSet Name="FK_person_personStatus" Association="hs3MVCMTQa2Model.FK_person_personStatus">
             <End EntitySet="personStatus" Role="personStatus" />
             <End EntitySet="person" Role="person" />
-          </AssociationSet>
-          <AssociationSet Name="FK_personLoginAudit_person" Association="hs3MVCMTQa2Model.FK_personLoginAudit_person">
-            <End EntitySet="person" Role="person" />
-            <End EntitySet="personLoginAudit" Role="personLoginAudit" />
           </AssociationSet>
           <AssociationSet Name="FK_personRelationship_person" Association="hs3MVCMTQa2Model.FK_personRelationship_person">
             <End EntitySet="person" Role="person" />
@@ -15770,10 +15720,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImport Name="pr_getEnterpriseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByPPTQ_Result)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="FK_personLoginAudit_personLoginAuditEvent" Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent">
-            <End Role="personLoginAuditEvent" EntitySet="personLoginAuditEvent" />
-            <End Role="personLoginAudit" EntitySet="personLoginAudit" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -16638,7 +16584,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <NavigationProperty Name="group" Relationship="hs3MVCMTQa2Model.FK_group_person" FromRole="person" ToRole="group" />
           <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_person" FromRole="person" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
           <NavigationProperty Name="personStatus1" Relationship="hs3MVCMTQa2Model.FK_person_personStatus" FromRole="person" ToRole="personStatus" />
-          <NavigationProperty Name="personLoginAudit" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_person" FromRole="person" ToRole="personLoginAudit" />
           <NavigationProperty Name="personRelationship" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person" FromRole="person" ToRole="personRelationship" />
           <NavigationProperty Name="personRelationship1" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person1" FromRole="person" ToRole="personRelationship" />
           <NavigationProperty Name="personRelationship2" Relationship="hs3MVCMTQa2Model.FK_personRelationship_person2" FromRole="person" ToRole="personRelationship" />
@@ -16653,20 +16598,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <NavigationProperty Name="partnerSpreadsheetDataLoads" Relationship="hs3MVCMTQa2Model.FK__partner__perso__7E62A77F" FromRole="person" ToRole="partnerSpreadsheetDataLoad" />
           
         </EntityType>
-        <EntityType Name="personLoginAudit">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="person" Nullable="false" Type="Int32" />
-          <Property Name="auditLoginEvent" Type="Int32" />
-          <Property Name="timestamp" Nullable="false" Precision="3" Type="DateTime" />
-          <Property Name="deviceIP" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <NavigationProperty Name="person1" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_person" FromRole="personLoginAudit" ToRole="person" />
-          <Property Name="sortOrder" Type="Int32" Nullable="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="personLoginAuditEvent" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" FromRole="personLoginAudit" ToRole="personLoginAuditEvent" />
-        </EntityType>
         <EntityType Name="personLoginAuditEvent">
           <Key>
             <PropertyRef Name="id" />
@@ -16675,7 +16606,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="description" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Boolean" />
-          <NavigationProperty Name="personLoginAudit" Relationship="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" FromRole="personLoginAuditEvent" ToRole="personLoginAudit" />
         </EntityType>
         <EntityType Name="personRelationship">
           <Key>
@@ -17690,18 +17620,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             </Principal>
             <Dependent Role="person">
               <PropertyRef Name="personStatus" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_personLoginAudit_person">
-          <End Type="hs3MVCMTQa2Model.person" Multiplicity="1" Role="person" />
-          <End Type="hs3MVCMTQa2Model.personLoginAudit" Multiplicity="*" Role="personLoginAudit" />
-          <ReferentialConstraint>
-            <Principal Role="person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personLoginAudit">
-              <PropertyRef Name="person" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -25624,10 +25542,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="DateTime" Name="archivedDate" Nullable="true" />
           <Property Type="Int32" Name="multiTenantProjectType" Nullable="true" />
         </ComplexType>
-        <Association Name="FK_personLoginAudit_personLoginAuditEvent">
-          <End Type="hs3MVCMTQa2Model.personLoginAuditEvent" Role="personLoginAuditEvent" Multiplicity="0..1" />
-          <End Type="hs3MVCMTQa2Model.personLoginAudit" Role="personLoginAudit" Multiplicity="*" />
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -27096,19 +27010,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                   <ScalarProperty Name="id" ParameterName="id" Version="Current" />
                 </UpdateFunction>
               </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="personLoginAudit">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personLoginAudit">
-              <MappingFragment StoreEntitySet="personLoginAudit">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="auditLoginEvent" ColumnName="auditLoginEvent" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="deviceIP" ColumnName="deviceIP" />
-              </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="personLoginAuditEvent">
@@ -34369,15 +34270,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <AssociationSetMapping Name="FK_personLoginAudit_personLoginAuditEvent" TypeName="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" StoreEntitySet="personLoginAudit">
-            <EndProperty Name="personLoginAudit">
-              <ScalarProperty Name="id" ColumnName="id" />
-            </EndProperty>
-            <EndProperty Name="personLoginAuditEvent">
-              <ScalarProperty Name="id" ColumnName="auditLoginEvent" />
-            </EndProperty>
-            <Condition ColumnName="auditLoginEvent" IsNull="false" />
-          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

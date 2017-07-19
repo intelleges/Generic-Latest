@@ -81,7 +81,6 @@ namespace Generic
         public virtual DbSet<partnerTypeGroupGoal> partnerTypeGroupGoal { get; set; }
         public virtual DbSet<partnerTypeTouchpointQuestionnaire> partnerTypeTouchpointQuestionnaire { get; set; }
         public virtual DbSet<person> person { get; set; }
-        public virtual DbSet<personLoginAudit> personLoginAudit { get; set; }
         public virtual DbSet<personLoginAuditEvent> personLoginAuditEvent { get; set; }
         public virtual DbSet<personRelationship> personRelationship { get; set; }
         public virtual DbSet<personRelationshipType> personRelationshipType { get; set; }
