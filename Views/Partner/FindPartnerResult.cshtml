@@ -103,6 +103,21 @@
             </ul>
         </div>
             </text>);
+            columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
+
+                @{
+                    var columnData = item.status;
+                    var width = 20;
+                    var visibleText = string.Empty;
+                    if (columnData != null)
+                    {
+                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                    }
+                    <p title="@columnData">@visibleText</p>
+                }
+
+
+            </text>); 
             columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
 
                 @{
@@ -131,7 +146,7 @@
 
                     <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
 
-                    if(!string.IsNullOrEmpty(visibleText))
+                    if (!string.IsNullOrEmpty(visibleText))
                     {
                         <div class="display_menu" style="display: none;">
                             <ul>
@@ -307,21 +322,6 @@
 
             </text>);
             columns.Bound(o => o.phone).Title("Phone").Width(100);
-            columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
-
-                @{
-                    var columnData = item.status;
-                    var width = 20;
-                    var visibleText = string.Empty;
-                    if (columnData != null)
-                    {
-                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                    }
-                    <p title="@columnData">@visibleText</p>
-                }
-
-
-            </text>); ;
 
 
         })
