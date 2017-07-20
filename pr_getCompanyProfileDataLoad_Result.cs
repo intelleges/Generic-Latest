@@ -18,15 +18,12 @@ namespace Generic
         public string jobAddress { get; set; }
         public string jobCity { get; set; }
         public string jobState { get; set; }
-        public string jobZicode { get; set; }
         public string jobCountry { get; set; }
         public string jobSnippet { get; set; }
-        public string originalSnippet { get; set; }
         public string companyMainNumber { get; set; }
         public string companyURL { get; set; }
         public string searchterm { get; set; }
         public Nullable<System.DateTime> adDate { get; set; }
-        public string adSource { get; set; }
         public Nullable<long> pocPhoneNumber { get; set; }
         public string pocFirstName { get; set; }
         public string pocLastName { get; set; }
@@ -39,5 +36,10 @@ namespace Generic
         public Nullable<int> pptq { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
+        public string externalID { get; set; }
+        public string jobZipcode { get; set; }
+        public string jobSource { get; set; }
+        public string pocSource { get; set; }
+        public string jobOriginalSnippet { get; set; }
     }
 }

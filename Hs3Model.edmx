@@ -169,19 +169,21 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="externalID" Type="varchar" MaxLength="200" />
           <Property Name="companyName" Type="varchar" MaxLength="500" />
           <Property Name="jobAddress" Type="varchar" MaxLength="500" />
           <Property Name="jobCity" Type="varchar" MaxLength="500" />
           <Property Name="jobState" Type="varchar" MaxLength="100" />
-          <Property Name="jobZicode" Type="varchar" MaxLength="50" />
+          <Property Name="jobZipcode" Type="varchar" MaxLength="50" />
           <Property Name="jobCountry" Type="varchar" MaxLength="50" />
+          <Property Name="adDate" Type="date" />
+          <Property Name="jobSource" Type="varchar" MaxLength="100" />
+          <Property Name="pocSource" Type="varchar" MaxLength="200" />
           <Property Name="jobSnippet" Type="varchar(max)" />
-          <Property Name="originalSnippet" Type="varchar(max)" />
+          <Property Name="jobOriginalSnippet" Type="varchar(max)" />
           <Property Name="companyMainNumber" Type="varchar" MaxLength="50" />
           <Property Name="companyURL" Type="varchar" MaxLength="500" />
           <Property Name="searchterm" Type="varchar" MaxLength="500" />
-          <Property Name="adDate" Type="date" />
-          <Property Name="adSource" Type="varchar" MaxLength="100" />
           <Property Name="pocPhoneNumber" Type="bigint" />
           <Property Name="pocFirstName" Type="varchar" MaxLength="100" />
           <Property Name="pocLastName" Type="varchar" MaxLength="100" />
@@ -4393,6 +4395,35 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="externalID" Type="varchar" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="jobAddress" Type="varchar" Mode="In" />
+          <Parameter Name="jobCity" Type="varchar" Mode="In" />
+          <Parameter Name="jobState" Type="varchar" Mode="In" />
+          <Parameter Name="jobZipcode" Type="varchar" Mode="In" />
+          <Parameter Name="jobCountry" Type="varchar" Mode="In" />
+          <Parameter Name="adDate" Type="date" Mode="In" />
+          <Parameter Name="jobSource" Type="varchar" Mode="In" />
+          <Parameter Name="pocSource" Type="varchar" Mode="In" />
+          <Parameter Name="jobSnippet" Type="varchar(max)" Mode="In" />
+          <Parameter Name="jobOriginalSnippet" Type="varchar(max)" Mode="In" />
+          <Parameter Name="companyMainNumber" Type="varchar" Mode="In" />
+          <Parameter Name="companyURL" Type="varchar" Mode="In" />
+          <Parameter Name="searchterm" Type="varchar" Mode="In" />
+          <Parameter Name="pocPhoneNumber" Type="bigint" Mode="In" />
+          <Parameter Name="pocFirstName" Type="varchar" Mode="In" />
+          <Parameter Name="pocLastName" Type="varchar" Mode="In" />
+          <Parameter Name="pocTitle" Type="varchar" Mode="In" />
+          <Parameter Name="pocEmailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="companyRevenue" Type="varchar" Mode="In" />
+          <Parameter Name="companyEmployeeCount" Type="varchar" Mode="In" />
+          <Parameter Name="industrySector" Type="varchar" Mode="In" />
+          <Parameter Name="relationshipOwner" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq_A" Type="int" Mode="In" />
           <Parameter Name="pptq_B_Reference" Type="int" Mode="In" />
@@ -7339,6 +7370,39 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="description" Type="nvarchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="externalID" Type="varchar" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="jobAddress" Type="varchar" Mode="In" />
+          <Parameter Name="jobCity" Type="varchar" Mode="In" />
+          <Parameter Name="jobState" Type="varchar" Mode="In" />
+          <Parameter Name="jobZipcode" Type="varchar" Mode="In" />
+          <Parameter Name="jobCountry" Type="varchar" Mode="In" />
+          <Parameter Name="adDate" Type="date" Mode="In" />
+          <Parameter Name="jobSource" Type="varchar" Mode="In" />
+          <Parameter Name="pocSource" Type="varchar" Mode="In" />
+          <Parameter Name="jobSnippet" Type="varchar(max)" Mode="In" />
+          <Parameter Name="jobOriginalSnippet" Type="varchar(max)" Mode="In" />
+          <Parameter Name="companyMainNumber" Type="varchar" Mode="In" />
+          <Parameter Name="companyURL" Type="varchar" Mode="In" />
+          <Parameter Name="searchterm" Type="varchar" Mode="In" />
+          <Parameter Name="pocPhoneNumber" Type="bigint" Mode="In" />
+          <Parameter Name="pocFirstName" Type="varchar" Mode="In" />
+          <Parameter Name="pocLastName" Type="varchar" Mode="In" />
+          <Parameter Name="pocTitle" Type="varchar" Mode="In" />
+          <Parameter Name="pocEmailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="companyRevenue" Type="varchar" Mode="In" />
+          <Parameter Name="companyEmployeeCount" Type="varchar" Mode="In" />
+          <Parameter Name="industrySector" Type="varchar" Mode="In" />
+          <Parameter Name="relationshipOwner" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyCompanyProfileDataLoadPPTQByInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_modifyConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -15719,6 +15783,68 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </FunctionImport>
           <FunctionImport Name="pr_getEnterpriseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEnterpriseByPPTQ_Result)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCompanyProfileDataLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="externalID" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="jobAddress" Mode="In" Type="String" />
+            <Parameter Name="jobCity" Mode="In" Type="String" />
+            <Parameter Name="jobState" Mode="In" Type="String" />
+            <Parameter Name="jobZipcode" Mode="In" Type="String" />
+            <Parameter Name="jobCountry" Mode="In" Type="String" />
+            <Parameter Name="adDate" Mode="In" Type="DateTime" />
+            <Parameter Name="jobSource" Mode="In" Type="String" />
+            <Parameter Name="pocSource" Mode="In" Type="String" />
+            <Parameter Name="jobSnippet" Mode="In" Type="String" />
+            <Parameter Name="jobOriginalSnippet" Mode="In" Type="String" />
+            <Parameter Name="companyMainNumber" Mode="In" Type="String" />
+            <Parameter Name="companyURL" Mode="In" Type="String" />
+            <Parameter Name="searchterm" Mode="In" Type="String" />
+            <Parameter Name="pocPhoneNumber" Mode="In" Type="Int64" />
+            <Parameter Name="pocFirstName" Mode="In" Type="String" />
+            <Parameter Name="pocLastName" Mode="In" Type="String" />
+            <Parameter Name="pocTitle" Mode="In" Type="String" />
+            <Parameter Name="pocEmailAddress" Mode="In" Type="String" />
+            <Parameter Name="companyRevenue" Mode="In" Type="String" />
+            <Parameter Name="companyEmployeeCount" Mode="In" Type="String" />
+            <Parameter Name="industrySector" Mode="In" Type="String" />
+            <Parameter Name="relationshipOwner" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyCompanyProfileDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="externalID" Mode="In" Type="String" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="jobAddress" Mode="In" Type="String" />
+            <Parameter Name="jobCity" Mode="In" Type="String" />
+            <Parameter Name="jobState" Mode="In" Type="String" />
+            <Parameter Name="jobZipcode" Mode="In" Type="String" />
+            <Parameter Name="jobCountry" Mode="In" Type="String" />
+            <Parameter Name="adDate" Mode="In" Type="DateTime" />
+            <Parameter Name="jobSource" Mode="In" Type="String" />
+            <Parameter Name="pocSource" Mode="In" Type="String" />
+            <Parameter Name="jobSnippet" Mode="In" Type="String" />
+            <Parameter Name="jobOriginalSnippet" Mode="In" Type="String" />
+            <Parameter Name="companyMainNumber" Mode="In" Type="String" />
+            <Parameter Name="companyURL" Mode="In" Type="String" />
+            <Parameter Name="searchterm" Mode="In" Type="String" />
+            <Parameter Name="pocPhoneNumber" Mode="In" Type="Int64" />
+            <Parameter Name="pocFirstName" Mode="In" Type="String" />
+            <Parameter Name="pocLastName" Mode="In" Type="String" />
+            <Parameter Name="pocTitle" Mode="In" Type="String" />
+            <Parameter Name="pocEmailAddress" Mode="In" Type="String" />
+            <Parameter Name="companyRevenue" Mode="In" Type="String" />
+            <Parameter Name="companyEmployeeCount" Mode="In" Type="String" />
+            <Parameter Name="industrySector" Mode="In" Type="String" />
+            <Parameter Name="relationshipOwner" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyCompanyProfileDataLoadPPTQByInternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25281,7 +25407,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="jobAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="jobCity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="jobState" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="jobZicode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="jobCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="jobSnippet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="companyMainNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -25299,9 +25424,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="pptq" Type="Int32" />
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
-          <Property Name="originalSnippet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="adDate" Type="DateTime" Precision="0" />
-          <Property Name="adSource" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="externalID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jobZipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="jobSource" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="pocSource" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jobOriginalSnippet" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="pr_getCompanyProfileDataLoadByPPTQ_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -25496,15 +25624,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="String" Name="jobAddress" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="jobCity" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="jobState" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="jobZicode" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="jobCountry" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="jobSnippet" Nullable="true" />
-          <Property Type="String" Name="originalSnippet" Nullable="true" />
           <Property Type="String" Name="companyMainNumber" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="companyURL" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="searchterm" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="adDate" Nullable="true" />
-          <Property Type="String" Name="adSource" Nullable="true" MaxLength="100" />
           <Property Type="Int64" Name="pocPhoneNumber" Nullable="true" />
           <Property Type="String" Name="pocFirstName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="pocLastName" Nullable="true" MaxLength="100" />
@@ -25517,6 +25642,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="pptq" Nullable="true" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="String" Name="externalID" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="jobZipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobSource" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocSource" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="jobOriginalSnippet" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getEnterpriseByPPTQ_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -25541,6 +25671,36 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="String" Name="chargifyID" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="archivedDate" Nullable="true" />
           <Property Type="Int32" Name="multiTenantProjectType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="externalID" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobCity" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="jobState" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="jobZipcode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobCountry" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="adDate" Nullable="true" />
+          <Property Type="String" Name="jobSource" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocSource" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="jobSnippet" Nullable="true" />
+          <Property Type="String" Name="jobOriginalSnippet" Nullable="true" />
+          <Property Type="String" Name="companyMainNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="companyURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="searchterm" Nullable="true" MaxLength="500" />
+          <Property Type="Int64" Name="pocPhoneNumber" Nullable="true" />
+          <Property Type="String" Name="pocFirstName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocLastName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pocEmailAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyRevenue" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="companyEmployeeCount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="industrySector" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="relationshipOwner" Nullable="true" />
+          <Property Type="Int32" Name="pptq" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -34052,9 +34212,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySetMapping Name="companyProfileDataLoad">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.companyProfileDataLoad">
               <MappingFragment StoreEntitySet="companyProfileDataLoad">
-                <ScalarProperty Name="adSource" ColumnName="adSource" />
+                <ScalarProperty Name="jobOriginalSnippet" ColumnName="jobOriginalSnippet" />
+                <ScalarProperty Name="pocSource" ColumnName="pocSource" />
+                <ScalarProperty Name="jobSource" ColumnName="jobSource" />
+                <ScalarProperty Name="jobZipcode" ColumnName="jobZipcode" />
+                <ScalarProperty Name="externalID" ColumnName="externalID" />
                 <ScalarProperty Name="adDate" ColumnName="adDate" />
-                <ScalarProperty Name="originalSnippet" ColumnName="originalSnippet" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="pptq" ColumnName="pptq" />
@@ -34072,7 +34235,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="companyMainNumber" ColumnName="companyMainNumber" />
                 <ScalarProperty Name="jobSnippet" ColumnName="jobSnippet" />
                 <ScalarProperty Name="jobCountry" ColumnName="jobCountry" />
-                <ScalarProperty Name="jobZicode" ColumnName="jobZicode" />
                 <ScalarProperty Name="jobState" ColumnName="jobState" />
                 <ScalarProperty Name="jobCity" ColumnName="jobCity" />
                 <ScalarProperty Name="jobAddress" ColumnName="jobAddress" />
@@ -34218,15 +34380,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="jobAddress" ColumnName="jobAddress" />
                 <ScalarProperty Name="jobCity" ColumnName="jobCity" />
                 <ScalarProperty Name="jobState" ColumnName="jobState" />
-                <ScalarProperty Name="jobZicode" ColumnName="jobZicode" />
                 <ScalarProperty Name="jobCountry" ColumnName="jobCountry" />
                 <ScalarProperty Name="jobSnippet" ColumnName="jobSnippet" />
-                <ScalarProperty Name="originalSnippet" ColumnName="originalSnippet" />
                 <ScalarProperty Name="companyMainNumber" ColumnName="companyMainNumber" />
                 <ScalarProperty Name="companyURL" ColumnName="companyURL" />
                 <ScalarProperty Name="searchterm" ColumnName="searchterm" />
                 <ScalarProperty Name="adDate" ColumnName="adDate" />
-                <ScalarProperty Name="adSource" ColumnName="adSource" />
                 <ScalarProperty Name="pocPhoneNumber" ColumnName="pocPhoneNumber" />
                 <ScalarProperty Name="pocFirstName" ColumnName="pocFirstName" />
                 <ScalarProperty Name="pocLastName" ColumnName="pocLastName" />
@@ -34239,6 +34398,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="pptq" ColumnName="pptq" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="externalID" ColumnName="externalID" />
+                <ScalarProperty Name="jobZipcode" ColumnName="jobZipcode" />
+                <ScalarProperty Name="jobSource" ColumnName="jobSource" />
+                <ScalarProperty Name="pocSource" ColumnName="pocSource" />
+                <ScalarProperty Name="jobOriginalSnippet" ColumnName="jobOriginalSnippet" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -34267,6 +34431,42 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="chargifyID" ColumnName="chargifyID" />
                 <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
                 <ScalarProperty Name="multiTenantProjectType" ColumnName="multiTenantProjectType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addCompanyProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addCompanyProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_modifyCompanyProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCompanyProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_modifyCompanyProfileDataLoadPPTQByInternalID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCompanyProfileDataLoadPPTQByInternalID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="externalID" ColumnName="externalID" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="jobAddress" ColumnName="jobAddress" />
+                <ScalarProperty Name="jobCity" ColumnName="jobCity" />
+                <ScalarProperty Name="jobState" ColumnName="jobState" />
+                <ScalarProperty Name="jobZipcode" ColumnName="jobZipcode" />
+                <ScalarProperty Name="jobCountry" ColumnName="jobCountry" />
+                <ScalarProperty Name="adDate" ColumnName="adDate" />
+                <ScalarProperty Name="jobSource" ColumnName="jobSource" />
+                <ScalarProperty Name="pocSource" ColumnName="pocSource" />
+                <ScalarProperty Name="jobSnippet" ColumnName="jobSnippet" />
+                <ScalarProperty Name="jobOriginalSnippet" ColumnName="jobOriginalSnippet" />
+                <ScalarProperty Name="companyMainNumber" ColumnName="companyMainNumber" />
+                <ScalarProperty Name="companyURL" ColumnName="companyURL" />
+                <ScalarProperty Name="searchterm" ColumnName="searchterm" />
+                <ScalarProperty Name="pocPhoneNumber" ColumnName="pocPhoneNumber" />
+                <ScalarProperty Name="pocFirstName" ColumnName="pocFirstName" />
+                <ScalarProperty Name="pocLastName" ColumnName="pocLastName" />
+                <ScalarProperty Name="pocTitle" ColumnName="pocTitle" />
+                <ScalarProperty Name="pocEmailAddress" ColumnName="pocEmailAddress" />
+                <ScalarProperty Name="companyRevenue" ColumnName="companyRevenue" />
+                <ScalarProperty Name="companyEmployeeCount" ColumnName="companyEmployeeCount" />
+                <ScalarProperty Name="industrySector" ColumnName="industrySector" />
+                <ScalarProperty Name="relationshipOwner" ColumnName="relationshipOwner" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

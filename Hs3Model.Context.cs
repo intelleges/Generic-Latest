@@ -19175,5 +19175,244 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseByPPTQ_Result>("pr_getEnterpriseByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCompanyProfileDataLoad(string externalID, string companyName, string jobAddress, string jobCity, string jobState, string jobZipcode, string jobCountry, Nullable<System.DateTime> adDate, string jobSource, string pocSource, string jobSnippet, string jobOriginalSnippet, string companyMainNumber, string companyURL, string searchterm, Nullable<long> pocPhoneNumber, string pocFirstName, string pocLastName, string pocTitle, string pocEmailAddress, string companyRevenue, string companyEmployeeCount, string industrySector, Nullable<int> relationshipOwner, Nullable<int> pptq, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var externalIDParameter = externalID != null ?
+                new ObjectParameter("externalID", externalID) :
+                new ObjectParameter("externalID", typeof(string));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var jobAddressParameter = jobAddress != null ?
+                new ObjectParameter("jobAddress", jobAddress) :
+                new ObjectParameter("jobAddress", typeof(string));
+    
+            var jobCityParameter = jobCity != null ?
+                new ObjectParameter("jobCity", jobCity) :
+                new ObjectParameter("jobCity", typeof(string));
+    
+            var jobStateParameter = jobState != null ?
+                new ObjectParameter("jobState", jobState) :
+                new ObjectParameter("jobState", typeof(string));
+    
+            var jobZipcodeParameter = jobZipcode != null ?
+                new ObjectParameter("jobZipcode", jobZipcode) :
+                new ObjectParameter("jobZipcode", typeof(string));
+    
+            var jobCountryParameter = jobCountry != null ?
+                new ObjectParameter("jobCountry", jobCountry) :
+                new ObjectParameter("jobCountry", typeof(string));
+    
+            var adDateParameter = adDate.HasValue ?
+                new ObjectParameter("adDate", adDate) :
+                new ObjectParameter("adDate", typeof(System.DateTime));
+    
+            var jobSourceParameter = jobSource != null ?
+                new ObjectParameter("jobSource", jobSource) :
+                new ObjectParameter("jobSource", typeof(string));
+    
+            var pocSourceParameter = pocSource != null ?
+                new ObjectParameter("pocSource", pocSource) :
+                new ObjectParameter("pocSource", typeof(string));
+    
+            var jobSnippetParameter = jobSnippet != null ?
+                new ObjectParameter("jobSnippet", jobSnippet) :
+                new ObjectParameter("jobSnippet", typeof(string));
+    
+            var jobOriginalSnippetParameter = jobOriginalSnippet != null ?
+                new ObjectParameter("jobOriginalSnippet", jobOriginalSnippet) :
+                new ObjectParameter("jobOriginalSnippet", typeof(string));
+    
+            var companyMainNumberParameter = companyMainNumber != null ?
+                new ObjectParameter("companyMainNumber", companyMainNumber) :
+                new ObjectParameter("companyMainNumber", typeof(string));
+    
+            var companyURLParameter = companyURL != null ?
+                new ObjectParameter("companyURL", companyURL) :
+                new ObjectParameter("companyURL", typeof(string));
+    
+            var searchtermParameter = searchterm != null ?
+                new ObjectParameter("searchterm", searchterm) :
+                new ObjectParameter("searchterm", typeof(string));
+    
+            var pocPhoneNumberParameter = pocPhoneNumber.HasValue ?
+                new ObjectParameter("pocPhoneNumber", pocPhoneNumber) :
+                new ObjectParameter("pocPhoneNumber", typeof(long));
+    
+            var pocFirstNameParameter = pocFirstName != null ?
+                new ObjectParameter("pocFirstName", pocFirstName) :
+                new ObjectParameter("pocFirstName", typeof(string));
+    
+            var pocLastNameParameter = pocLastName != null ?
+                new ObjectParameter("pocLastName", pocLastName) :
+                new ObjectParameter("pocLastName", typeof(string));
+    
+            var pocTitleParameter = pocTitle != null ?
+                new ObjectParameter("pocTitle", pocTitle) :
+                new ObjectParameter("pocTitle", typeof(string));
+    
+            var pocEmailAddressParameter = pocEmailAddress != null ?
+                new ObjectParameter("pocEmailAddress", pocEmailAddress) :
+                new ObjectParameter("pocEmailAddress", typeof(string));
+    
+            var companyRevenueParameter = companyRevenue != null ?
+                new ObjectParameter("companyRevenue", companyRevenue) :
+                new ObjectParameter("companyRevenue", typeof(string));
+    
+            var companyEmployeeCountParameter = companyEmployeeCount != null ?
+                new ObjectParameter("companyEmployeeCount", companyEmployeeCount) :
+                new ObjectParameter("companyEmployeeCount", typeof(string));
+    
+            var industrySectorParameter = industrySector != null ?
+                new ObjectParameter("industrySector", industrySector) :
+                new ObjectParameter("industrySector", typeof(string));
+    
+            var relationshipOwnerParameter = relationshipOwner.HasValue ?
+                new ObjectParameter("relationshipOwner", relationshipOwner) :
+                new ObjectParameter("relationshipOwner", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCompanyProfileDataLoad", externalIDParameter, companyNameParameter, jobAddressParameter, jobCityParameter, jobStateParameter, jobZipcodeParameter, jobCountryParameter, adDateParameter, jobSourceParameter, pocSourceParameter, jobSnippetParameter, jobOriginalSnippetParameter, companyMainNumberParameter, companyURLParameter, searchtermParameter, pocPhoneNumberParameter, pocFirstNameParameter, pocLastNameParameter, pocTitleParameter, pocEmailAddressParameter, companyRevenueParameter, companyEmployeeCountParameter, industrySectorParameter, relationshipOwnerParameter, pptqParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyCompanyProfileDataLoad(Nullable<int> id, string externalID, string companyName, string jobAddress, string jobCity, string jobState, string jobZipcode, string jobCountry, Nullable<System.DateTime> adDate, string jobSource, string pocSource, string jobSnippet, string jobOriginalSnippet, string companyMainNumber, string companyURL, string searchterm, Nullable<long> pocPhoneNumber, string pocFirstName, string pocLastName, string pocTitle, string pocEmailAddress, string companyRevenue, string companyEmployeeCount, string industrySector, Nullable<int> relationshipOwner, Nullable<int> pptq, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var externalIDParameter = externalID != null ?
+                new ObjectParameter("externalID", externalID) :
+                new ObjectParameter("externalID", typeof(string));
+    
+            var companyNameParameter = companyName != null ?
+                new ObjectParameter("companyName", companyName) :
+                new ObjectParameter("companyName", typeof(string));
+    
+            var jobAddressParameter = jobAddress != null ?
+                new ObjectParameter("jobAddress", jobAddress) :
+                new ObjectParameter("jobAddress", typeof(string));
+    
+            var jobCityParameter = jobCity != null ?
+                new ObjectParameter("jobCity", jobCity) :
+                new ObjectParameter("jobCity", typeof(string));
+    
+            var jobStateParameter = jobState != null ?
+                new ObjectParameter("jobState", jobState) :
+                new ObjectParameter("jobState", typeof(string));
+    
+            var jobZipcodeParameter = jobZipcode != null ?
+                new ObjectParameter("jobZipcode", jobZipcode) :
+                new ObjectParameter("jobZipcode", typeof(string));
+    
+            var jobCountryParameter = jobCountry != null ?
+                new ObjectParameter("jobCountry", jobCountry) :
+                new ObjectParameter("jobCountry", typeof(string));
+    
+            var adDateParameter = adDate.HasValue ?
+                new ObjectParameter("adDate", adDate) :
+                new ObjectParameter("adDate", typeof(System.DateTime));
+    
+            var jobSourceParameter = jobSource != null ?
+                new ObjectParameter("jobSource", jobSource) :
+                new ObjectParameter("jobSource", typeof(string));
+    
+            var pocSourceParameter = pocSource != null ?
+                new ObjectParameter("pocSource", pocSource) :
+                new ObjectParameter("pocSource", typeof(string));
+    
+            var jobSnippetParameter = jobSnippet != null ?
+                new ObjectParameter("jobSnippet", jobSnippet) :
+                new ObjectParameter("jobSnippet", typeof(string));
+    
+            var jobOriginalSnippetParameter = jobOriginalSnippet != null ?
+                new ObjectParameter("jobOriginalSnippet", jobOriginalSnippet) :
+                new ObjectParameter("jobOriginalSnippet", typeof(string));
+    
+            var companyMainNumberParameter = companyMainNumber != null ?
+                new ObjectParameter("companyMainNumber", companyMainNumber) :
+                new ObjectParameter("companyMainNumber", typeof(string));
+    
+            var companyURLParameter = companyURL != null ?
+                new ObjectParameter("companyURL", companyURL) :
+                new ObjectParameter("companyURL", typeof(string));
+    
+            var searchtermParameter = searchterm != null ?
+                new ObjectParameter("searchterm", searchterm) :
+                new ObjectParameter("searchterm", typeof(string));
+    
+            var pocPhoneNumberParameter = pocPhoneNumber.HasValue ?
+                new ObjectParameter("pocPhoneNumber", pocPhoneNumber) :
+                new ObjectParameter("pocPhoneNumber", typeof(long));
+    
+            var pocFirstNameParameter = pocFirstName != null ?
+                new ObjectParameter("pocFirstName", pocFirstName) :
+                new ObjectParameter("pocFirstName", typeof(string));
+    
+            var pocLastNameParameter = pocLastName != null ?
+                new ObjectParameter("pocLastName", pocLastName) :
+                new ObjectParameter("pocLastName", typeof(string));
+    
+            var pocTitleParameter = pocTitle != null ?
+                new ObjectParameter("pocTitle", pocTitle) :
+                new ObjectParameter("pocTitle", typeof(string));
+    
+            var pocEmailAddressParameter = pocEmailAddress != null ?
+                new ObjectParameter("pocEmailAddress", pocEmailAddress) :
+                new ObjectParameter("pocEmailAddress", typeof(string));
+    
+            var companyRevenueParameter = companyRevenue != null ?
+                new ObjectParameter("companyRevenue", companyRevenue) :
+                new ObjectParameter("companyRevenue", typeof(string));
+    
+            var companyEmployeeCountParameter = companyEmployeeCount != null ?
+                new ObjectParameter("companyEmployeeCount", companyEmployeeCount) :
+                new ObjectParameter("companyEmployeeCount", typeof(string));
+    
+            var industrySectorParameter = industrySector != null ?
+                new ObjectParameter("industrySector", industrySector) :
+                new ObjectParameter("industrySector", typeof(string));
+    
+            var relationshipOwnerParameter = relationshipOwner.HasValue ?
+                new ObjectParameter("relationshipOwner", relationshipOwner) :
+                new ObjectParameter("relationshipOwner", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCompanyProfileDataLoad", idParameter, externalIDParameter, companyNameParameter, jobAddressParameter, jobCityParameter, jobStateParameter, jobZipcodeParameter, jobCountryParameter, adDateParameter, jobSourceParameter, pocSourceParameter, jobSnippetParameter, jobOriginalSnippetParameter, companyMainNumberParameter, companyURLParameter, searchtermParameter, pocPhoneNumberParameter, pocFirstNameParameter, pocLastNameParameter, pocTitleParameter, pocEmailAddressParameter, companyRevenueParameter, companyEmployeeCountParameter, industrySectorParameter, relationshipOwnerParameter, pptqParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result> pr_modifyCompanyProfileDataLoadPPTQByInternalID(string partner_internal_id)
+        {
+            var partner_internal_idParameter = partner_internal_id != null ?
+                new ObjectParameter("partner_internal_id", partner_internal_id) :
+                new ObjectParameter("partner_internal_id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result>("pr_modifyCompanyProfileDataLoadPPTQByInternalID", partner_internal_idParameter);
+        }
     }
 }
