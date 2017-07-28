@@ -63,7 +63,7 @@ namespace Generic.Controllers
 		[HttpGet]
 		public IHttpActionResult GetGroupAll(int enterpriseId)
 		{
-			return Ok(db.pr_getGroupAll(enterpriseId).ToList());
+			return Ok(db.pr_getGroupAll(enterpriseId).Select(o=>new  { o.active, o.author, o.dateCreated, o.description, o.email, o.enterprise, o.groupCollection, o.groupType, o.id,o.name,o.sortOrder, o.state }).ToList());
 		}
         [Route("GetPartnerTypeAll")]
         [HttpGet]
