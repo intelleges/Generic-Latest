@@ -69,19 +69,19 @@ namespace Generic.Controllers
         [HttpGet]
         public IHttpActionResult GetPartnerTypeAll(int enterpriseId)
         {
-            return Ok(db.pr_getPartnerTypeAll(enterpriseId).ToList());
+            return Ok(db.pr_getPartnerTypeAll(enterpriseId).Select(o=>new { o.active, o.alias, o.description, o.enterprise, o.id, o.name, o.partnerClass, o.sortOrder}).ToList());
         }
         [Route("GetTouchpointAllByEnterprise")]
         [HttpGet]
         public IHttpActionResult GetTouchpointAllByEnterprise(int enterpriseId)
         {
-            return Ok(db.pr_getTouchpointAllByEnterprise(enterpriseId).ToList());
+            return Ok(db.pr_getTouchpointAllByEnterprise(enterpriseId).Select(o=>new {o.abbreviation, o.active, o.admin, o.automaticReminder, o.description, o.endDate, o.id, o.person, o.protocol, o.sortOrder, o.sponsor, o.startDate, o.title }).ToList());
         }
         [Route("GetPersonAll")]
         [HttpGet]
         public IHttpActionResult GetPersonAll(int enterpriseId)
         {
-            return Ok(db.pr_getPersonAll(enterpriseId).ToList());
+            return Ok(db.pr_getPersonAll(enterpriseId).Select(o=>new { o.active, o.address1, o.address2, o.archivedDate, o.campaign, o.city, o.country, o.email, o.enterprise, o.fax, o.firstName, o.FullName, o.GroupId, o.id, o.internalId, o.IsArchived, o.ismanager, o.lastName, o.loadHistory, o.manager, o.nickName, o.nmNumber, o.partnerPerPage, o.passWord, o.personStatus, o.phone, o.resetDate, o.riskType, o.RoleId, o.socialSecurity, o.state, o.suffix, o.title, o.zipcode }). ToList());
         }
         [Route("GetCompanyProfileDataLoadForPartnerSpreadsheetDataLoad")]
         [HttpGet]
