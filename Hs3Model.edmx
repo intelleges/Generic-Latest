@@ -5876,6 +5876,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAreaCodeTimeZoneByAreaCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="areaCode" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAttachmentsByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -5911,6 +5914,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getAutomailMessageByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getAutomailMessageByPPTQ_ForWebsiteVisit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getAutomailMessageByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5976,6 +5982,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getCompanyProfileDataLoadByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -15844,8 +15851,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyCompanyProfileDataLoadPPTQByInternalID" ReturnType="Collection(hs3MVCMTQa2Model.pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result)">
-            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+          <Parameter Name="partner_internal_id" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageByPPTQ_ForWebsiteVisit" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageByPPTQ_ForWebsiteVisit_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAreaCodeTimeZoneByAreaCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAreaCodeTimeZoneByAreaCode_Result)">
+          <Parameter Name="areaCode" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result)" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -25702,6 +25716,48 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageByPPTQ_ForWebsiteVisit_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="subject" Nullable="true" />
+          <Property Type="String" Name="text" Nullable="true" />
+          <Property Type="String" Name="footer1" Nullable="true" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Int32" Name="sendDateCalcFactor" Nullable="false" />
+          <Property Type="DateTime" Name="sendDateSet" Nullable="true" />
+          <Property Type="Int32" Name="mailType" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getAreaCodeTimeZoneByAreaCode_Result">
+          <Property Type="Int32" Name="areaCode" Nullable="false" />
+          <Property Type="Int32" Name="offset" Nullable="true" />
+          <Property Type="String" Name="dst" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="stdTimeZone" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="state" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="region" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result">
+          <Property Type="Int64" Name="PARTNER_INTERNAL_ID" Nullable="true" />
+          <Property Type="String" Name="PARTNER_NAME" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PARTNER_DUNS" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PARTNER_SAP_ID" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PARTNER_POC_FIRST_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PARTNER_POC_LAST_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PARTNER_POC_TITLE" Nullable="true" MaxLength="100" />
+          <Property Type="Int64" Name="PARTNER_POC_PHONE_NUMBER" Nullable="true" />
+          <Property Type="String" Name="PARTNER_POC_EMAIL_ADDRESS" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PARTNER_ADDRESS_ONE" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PARTNER_ADDRESS_TWO" Nullable="true" />
+          <Property Type="String" Name="PARTNER_CITY" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PARTNER_STATE" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="PARTNER_ZIPCODE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PARTNER_COUNTRY" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PARTNER_CONTACT_FAX" Nullable="true" MaxLength="610" />
+          <Property Type="String" Name="PARTNER_PROVINCE" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="RO_FIRST_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="RO_LAST_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="RO_EMAIL" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="DUE_DATE" Nullable="false" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -34467,6 +34523,60 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="pptq" ColumnName="pptq" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageByPPTQ_ForWebsiteVisit" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageByPPTQ_ForWebsiteVisit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageByPPTQ_ForWebsiteVisit_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="footer1" ColumnName="footer1" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="sendDateCalcFactor" ColumnName="sendDateCalcFactor" />
+                <ScalarProperty Name="sendDateSet" ColumnName="sendDateSet" />
+                <ScalarProperty Name="mailType" ColumnName="mailType" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAreaCodeTimeZoneByAreaCode" FunctionName="hs3MVCMTQa2Model.Store.pr_getAreaCodeTimeZoneByAreaCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAreaCodeTimeZoneByAreaCode_Result">
+                <ScalarProperty Name="areaCode" ColumnName="areaCode" />
+                <ScalarProperty Name="offset" ColumnName="offset" />
+                <ScalarProperty Name="dst" ColumnName="dst" />
+                <ScalarProperty Name="stdTimeZone" ColumnName="stdTimeZone" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="region" ColumnName="region" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result">
+                <ScalarProperty Name="PARTNER_INTERNAL_ID" ColumnName="PARTNER_INTERNAL_ID" />
+                <ScalarProperty Name="PARTNER_NAME" ColumnName="PARTNER_NAME" />
+                <ScalarProperty Name="PARTNER_DUNS" ColumnName="PARTNER_DUNS" />
+                <ScalarProperty Name="PARTNER_SAP_ID" ColumnName="PARTNER_SAP_ID" />
+                <ScalarProperty Name="PARTNER_POC_FIRST_NAME" ColumnName="PARTNER_POC_FIRST_NAME" />
+                <ScalarProperty Name="PARTNER_POC_LAST_NAME" ColumnName="PARTNER_POC_LAST_NAME" />
+                <ScalarProperty Name="PARTNER_POC_TITLE" ColumnName="PARTNER_POC_TITLE" />
+                <ScalarProperty Name="PARTNER_POC_PHONE_NUMBER" ColumnName="PARTNER_POC_PHONE_NUMBER" />
+                <ScalarProperty Name="PARTNER_POC_EMAIL_ADDRESS" ColumnName="PARTNER_POC_EMAIL_ADDRESS" />
+                <ScalarProperty Name="PARTNER_ADDRESS_ONE" ColumnName="PARTNER_ADDRESS_ONE" />
+                <ScalarProperty Name="PARTNER_ADDRESS_TWO" ColumnName="PARTNER_ADDRESS_TWO" />
+                <ScalarProperty Name="PARTNER_CITY" ColumnName="PARTNER_CITY" />
+                <ScalarProperty Name="PARTNER_STATE" ColumnName="PARTNER_STATE" />
+                <ScalarProperty Name="PARTNER_ZIPCODE" ColumnName="PARTNER_ZIPCODE" />
+                <ScalarProperty Name="PARTNER_COUNTRY" ColumnName="PARTNER_COUNTRY" />
+                <ScalarProperty Name="PARTNER_CONTACT_FAX" ColumnName="PARTNER_CONTACT_FAX" />
+                <ScalarProperty Name="PARTNER_PROVINCE" ColumnName="PARTNER_PROVINCE" />
+                <ScalarProperty Name="RO_FIRST_NAME" ColumnName="RO_FIRST_NAME" />
+                <ScalarProperty Name="RO_LAST_NAME" ColumnName="RO_LAST_NAME" />
+                <ScalarProperty Name="RO_EMAIL" ColumnName="RO_EMAIL" />
+                <ScalarProperty Name="DUE_DATE" ColumnName="DUE_DATE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -25,7 +25,7 @@ namespace Generic.Helpers.Utility
             //
         }
 
-        public string sendEmail(Email email, EmailFormatSettings settings)
+        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null)
         {
             EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
@@ -158,7 +158,12 @@ namespace Generic.Helpers.Utility
                 msg.AddAttachments(attachments2);
             additionalArguments.Add("tags", tags);
             string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
-            msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
+
+            if (sendFrom == null)
+                msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
+            else
+                msg.SetFrom(sendFrom.Address, sendFrom.DisplayName);
+
             msg.AddContent("text/html", html);
             msg.Subject = email.subject;
             msg.AddCustomArgs(additionalArguments);

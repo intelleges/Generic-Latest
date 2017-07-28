@@ -19414,5 +19414,28 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyCompanyProfileDataLoadPPTQByInternalID_Result>("pr_modifyCompanyProfileDataLoadPPTQByInternalID", partner_internal_idParameter);
         }
+    
+        public virtual ObjectResult<pr_getAutomailMessageByPPTQ_ForWebsiteVisit_Result> pr_getAutomailMessageByPPTQ_ForWebsiteVisit(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageByPPTQ_ForWebsiteVisit_Result>("pr_getAutomailMessageByPPTQ_ForWebsiteVisit", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getAreaCodeTimeZoneByAreaCode_Result> pr_getAreaCodeTimeZoneByAreaCode(Nullable<int> areaCode)
+        {
+            var areaCodeParameter = areaCode.HasValue ?
+                new ObjectParameter("areaCode", areaCode) :
+                new ObjectParameter("areaCode", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAreaCodeTimeZoneByAreaCode_Result>("pr_getAreaCodeTimeZoneByAreaCode", areaCodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result> pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result>("pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad");
+        }
     }
 }

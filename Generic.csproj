@@ -858,6 +858,8 @@
     <Compile Include="menuGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddCompanyProfileDataLoadModel.cs" />
+    <Compile Include="Models\AddPartnerSpreadsheetDataLoadModel.cs" />
     <Compile Include="Models\bulkContent.cs" />
     <Compile Include="Models\campaign.cs" />
     <Compile Include="Models\campaignRule.cs" />
@@ -1069,6 +1071,9 @@
     <Compile Include="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getAreaCodeTimeZoneByAreaCode_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getAttachmentsByAccessCode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1103,6 +1108,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutomailMessageByPartnerTypeTouchpointQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getAutomailMessageByPPTQ_ForWebsiteVisit_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAutomailMessageByPPTQ_Result.cs">
@@ -1163,6 +1171,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCompanyProfileDataLoadByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCompanyProfileDataLoad_Result.cs">
