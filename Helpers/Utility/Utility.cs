@@ -31,7 +31,7 @@ namespace Generic.Helpers.Utility
             string returnValue = "";
             string receiver = "";
 
-            key objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
+            key objSendGridPassword = db.pr_getKeyAll(settings.enterprise.id).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
             var msg = new SendGridMessage();
             List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
             Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
@@ -39,7 +39,7 @@ namespace Generic.Helpers.Utility
             string htmlFooter = "";
 
             additionalArguments.Add("ApplicationName", "MVCMT");
-            additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
+            additionalArguments.Add("enterprise", settings.enterprise.id.ToString());
             additionalArguments.Add("loadgroup", email.loadgroup);
             additionalArguments.Add("accesscode", email.accesscode);
             additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);
@@ -92,7 +92,7 @@ namespace Generic.Helpers.Utility
                 receiver = email.emailTo;
             }
 
-            enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == settings.enterprise.id).FirstOrDefault();
 
             int amid = -1;
             string tags = "";

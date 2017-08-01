@@ -636,11 +636,11 @@ namespace Generic.Helpers.Utility
             return sEmailBody;
         }
 
-		private companyProfileDataLoad sGetResultCompanyProfileDataLoad(int partnerId)
+		private dynamic sGetResultCompanyProfileDataLoad(int partnerId)
 		{
 			using(var db  = new EntitiesDBContext()){
 				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
-				return db.pr_getCompanyProfileDataLoadByPPTQ(pptq.id).FirstOrDefault();
+				return db.pr_getCompanyProfileDataLoadByPPTQ(pptq.id).FirstOrDefault()??new companyProfileDataLoad();
 			}
 			 
 		}
