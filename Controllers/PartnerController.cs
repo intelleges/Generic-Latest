@@ -391,7 +391,6 @@ namespace Generic.Controllers
             GenerateCreateDropDownLists();
             try
             {
-
                 int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, "", partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                 Session["uploadedpartnerList"] = uploadedpartners;
@@ -413,7 +412,6 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-
                 ViewBag.Message = "error";
                 ViewBag.MessageDetail = ex.ToString();
                 //  alertify-ok"

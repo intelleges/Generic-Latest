@@ -11,6 +11,9 @@ using Generic.Models;
 using System.Web.Http.Description;
 using Swashbuckle.Swagger.Annotations;
 using System.Web.Http.ModelBinding;
+using Generic.Helpers.PartnerHelper;
+using System.Data.Entity;
+using Generic.Helpers.Utility;
 
 namespace Generic.Controllers
 {
@@ -112,7 +115,44 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(db.pr_addPartnerSpreadsheetDataLoad(model.PartnerInternalId, model.PartnerSupId, model.PartnerDunsNumber, model.PartnerName, model.PartnerAddressOne, model.PartnerAddressTwo, model.PartnerCity, model.PartnerState, model.PartnerZipCode, model.PartnerCountry, model.PartnerPocFirstName, model.PartnerPocLastName, model.PartnerPocTitle, model.PartnerPocPhoneNumber, model.PartnerPocEmailAddress, model.RoFirstName, model.RoLastName, model.RoEmail, model.DateLoaded, model.Enterprise, model.PartnerType, model.Touchpoint, model.Person, model.PartnerSpreadSheetDataLoad, model.LoadGroup, model.DueDate, model.Group).ToList());
+                int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(model.PartnerInternalId, model.PartnerSupId, model.PartnerDunsNumber, model.PartnerName, model.PartnerAddressOne, model.PartnerAddressTwo, model.PartnerCity, model.PartnerState, model.PartnerZipCode, model.PartnerCountry, model.PartnerPocFirstName, model.PartnerPocLastName, model.PartnerPocTitle, model.PartnerPocPhoneNumber, model.PartnerPocEmailAddress, model.RoFirstName, model.RoLastName, model.RoEmail, model.DateLoaded, model.Enterprise, model.PartnerType, model.Touchpoint, model.Person, model.PartnerSpreadSheetDataLoad, model.LoadGroup, model.DueDate, model.Group).FirstOrDefault();
+                int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(model.PartnerType, model.Touchpoint).FirstOrDefault().id;
+                var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(model.LoadGroup).ToList();                
+                foreach (var partnerItem in objPartners)
+                {
+                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
+                    pptq.invitedDate = DateTime.Now;
+                    var person = db.pr_getPersonByEmail(model.Enterprise, User.Identity.Name).FirstOrDefault();
+                    pptq.invitedBy = person.id;
+                    pptq.status = (int)PartnerStatus.Invited_NoResponse;
+                    db.Entry(pptq).State = EntityState.Modified;
+                    db.SaveChanges();
+                    var objpartner = db.pr_getPartner(partnerItem.partner).FirstOrDefault();
+                    objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                    db.Entry(objpartner).State = EntityState.Modified;
+                    db.SaveChanges();
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+                    if (amm != null)
+                    {
+                        amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
+                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, model.LoadGroup).FirstOrDefault();
+                        var objtouchpoint = db.pr_getTouchpoint(model.Touchpoint).FirstOrDefault();
+                        Email email = new Email(amm);
+                        email.loadgroup = model.LoadGroup;
+                        email.accesscode = partnerItem.accesscode;
+                        email.protocolTouchpoint = objtouchpoint.description;
+                        EmailFormat emailFormat = new EmailFormat();
+                        email.subject = emailFormat.sGetEmailBody(amm.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                        email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                        email.emailTo = objpartner.email;
+                        email.url = Request.RequestUri.AbsolutePath;
+                        email.automailMessage = amm.id.ToString();
+                        email.category = SendGridCategory.InvitePartnes;
+                        SendEmail objSendEmail = new SendEmail();
+                        objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint });
+                    }
+                }
+                return Ok(PartnerId);
             }
             else return BadRequest(ModelState);
         }
