@@ -142,14 +142,18 @@ namespace Generic.Controllers
                         email.accesscode = partnerItem.accesscode;
                         email.protocolTouchpoint = objtouchpoint.description;
                         EmailFormat emailFormat = new EmailFormat();
-                        email.subject = emailFormat.sGetEmailBody(amm.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
-                        email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+
+                        var p = db.pr_getPerson(objpartner.owner).FirstOrDefault();
+
+                        email.subject = emailFormat.sGetEmailBody(amm.subject, p, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                        email.body = emailFormat.sGetEmailBody(email.body, p, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+
                         email.emailTo = objpartner.email;
                         email.url = Request.RequestUri.AbsolutePath;
                         email.automailMessage = amm.id.ToString();
                         email.category = SendGridCategory.InvitePartnes;
                         SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint });
+                        objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = p, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, new System.Net.Mail.MailAddress(p.email, p.firstName + " " + p.lastName));
                     }
                 }
                 return Ok(PartnerId);
