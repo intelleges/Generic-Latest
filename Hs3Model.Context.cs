@@ -19437,5 +19437,14 @@ namespace Generic
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result>("pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad");
         }
+    
+        public virtual ObjectResult<Nullable<bool>> pr_checkPartnerStatus(Nullable<int> partner)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("pr_checkPartnerStatus", partnerParameter);
+        }
     }
 }

@@ -5779,6 +5779,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_checkPartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_checkPartnumberBadZcodeCountByZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="zcode" Type="varchar" Mode="In" />
         </Function>
@@ -15860,6 +15863,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="areaCode" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result)" />
+          <FunctionImport Name="pr_checkPartnerStatus" ReturnType="Collection(Boolean)">
+            <Parameter Name="partner" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -34580,6 +34586,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_checkPartnerStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnerStatus" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

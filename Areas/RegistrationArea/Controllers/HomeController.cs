@@ -2849,7 +2849,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var partner = db.pr_getPartner(id).FirstOrDefault();
             if (partner != null)
             {
-                db.pr_unSubscribePartner(id);
+                var status = db.pr_checkPartnerStatus(id).FirstOrDefault();
+                if (status != true) {
+                    ViewBag.IsAlreadyUnsubscribe = true;
+                }
+                else 
+                    db.pr_unSubscribePartner(id);
+
                 ViewBag.account = partner.email;
                 return View();
             }

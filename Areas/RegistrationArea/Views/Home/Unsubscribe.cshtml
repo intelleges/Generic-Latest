@@ -2,7 +2,7 @@
 @using System.Web.Mvc.Html
 @{
     ViewBag.Title = "Unsubscribe";
-    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout(); 
+    Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
 }
 <style>
     .logoImg {
@@ -14,8 +14,14 @@
 </style>
 <img src="~/Contents/images/1Logo.png" class="logoImg"/>
 <div>
-<h2>@ViewBag.account: email address has unsubscribed from Intelleges Data Governance Database</h2>
-    
+    @if (ViewBag.IsAlreadyUnsubscribe == true)
+    {
+        <h2>@ViewBag.account: email address is already unsubscribed from Intelleges Data Governance Database</h2>
+    }
+    else
+    {
+        <h2>@ViewBag.account: email address has unsubscribed from Intelleges Data Governance Database</h2>
+    }
  </div>
 <script>
     $(document).ready(function () {

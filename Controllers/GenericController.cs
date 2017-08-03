@@ -109,7 +109,7 @@ namespace Generic.Controllers
         }
         [Route("AddPartnerSpreadsheetDataLoad")]
         [HttpPost]
-        [SwaggerResponse(200,"OK", Type=typeof(int))]
+        [SwaggerResponse(200,"OK", Type=typeof(List<string>))]
         [SwaggerResponse(400,"Bad Request", Type = typeof(ModelStateDictionary))]
         public IHttpActionResult AddPartnerSpreadsheetDataLoad(AddPartnerSpreadsheetDataLoadModel model)
         {
@@ -117,7 +117,11 @@ namespace Generic.Controllers
             {
                 int? PartnerId = db.pr_addPartnerSpreadsheetDataLoad(model.PartnerInternalId, model.PartnerSupId, model.PartnerDunsNumber, model.PartnerName, model.PartnerAddressOne, model.PartnerAddressTwo, model.PartnerCity, model.PartnerState, model.PartnerZipCode, model.PartnerCountry, model.PartnerPocFirstName, model.PartnerPocLastName, model.PartnerPocTitle, model.PartnerPocPhoneNumber, model.PartnerPocEmailAddress, model.RoFirstName, model.RoLastName, model.RoEmail, model.DateLoaded, model.Enterprise, model.PartnerType, model.Touchpoint, model.Person, model.PartnerSpreadSheetDataLoad, model.LoadGroup, model.DueDate, model.Group).FirstOrDefault();
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(model.PartnerType, model.Touchpoint).FirstOrDefault().id;
-                var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(model.LoadGroup).ToList();                
+                var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(model.LoadGroup).ToList();
+
+                List<string> rtn = new List<string>();
+                rtn.Add("pr_addPartnerSpreadsheetDataLoad back id = " + PartnerId);
+
                 foreach (var partnerItem in objPartners)
                 {
                     var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
@@ -131,32 +135,46 @@ namespace Generic.Controllers
                     objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
                     db.Entry(objpartner).State = EntityState.Modified;
                     db.SaveChanges();
-                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
-                    if (amm != null)
+
+                    var status = db.pr_checkPartnerStatus(partnerItem.partner).FirstOrDefault();
+
+                    if (status == true)
                     {
-                        amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
-                        var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, model.LoadGroup).FirstOrDefault();
-                        var objtouchpoint = db.pr_getTouchpoint(model.Touchpoint).FirstOrDefault();
-                        Email email = new Email(amm);
-                        email.loadgroup = model.LoadGroup;
-                        email.accesscode = partnerItem.accesscode;
-                        email.protocolTouchpoint = objtouchpoint.description;
-                        EmailFormat emailFormat = new EmailFormat();
+                        rtn.Add("partner = " + partnerItem.partner + " email sent -- partner is active");
 
-                        var p = db.pr_getPerson(objpartner.owner).FirstOrDefault();
+                        var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+                        if (amm != null)
+                        {
+                            amm.text.Replace("[partner Access Code]", partnerItem.accesscode);
+                            var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(partnerItem.accesscode, model.LoadGroup).FirstOrDefault();
+                            var objtouchpoint = db.pr_getTouchpoint(model.Touchpoint).FirstOrDefault();
+                            Email email = new Email(amm);
+                            email.loadgroup = model.LoadGroup;
+                            email.accesscode = partnerItem.accesscode;
+                            email.protocolTouchpoint = objtouchpoint.description;
+                            EmailFormat emailFormat = new EmailFormat();
 
-                        email.subject = emailFormat.sGetEmailBody(amm.subject, p, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
-                        email.body = emailFormat.sGetEmailBody(email.body, p, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                            var p = db.pr_getPerson(objpartner.owner).FirstOrDefault();
 
-                        email.emailTo = objpartner.email;
-                        email.url = Request.RequestUri.AbsolutePath;
-                        email.automailMessage = amm.id.ToString();
-                        email.category = SendGridCategory.InvitePartnes;
-                        SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = p, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, new System.Net.Mail.MailAddress(p.email, p.firstName + " " + p.lastName));
+                            email.subject = emailFormat.sGetEmailBody(amm.subject, p, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                            email.body = emailFormat.sGetEmailBody(email.body, p, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+
+                            email.emailTo = objpartner.email;
+                            email.url = Request.RequestUri.AbsolutePath;
+                            email.automailMessage = amm.id.ToString();
+                            email.category = SendGridCategory.InvitePartnes;
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = p, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, new System.Net.Mail.MailAddress(p.email, p.firstName + " " + p.lastName));
+                        }
+                    }
+                    else {
+
+                        rtn.Add("partner = " + partnerItem.partner + " partner is inactive");
                     }
                 }
-                return Ok(PartnerId);
+
+
+                return Ok(rtn);
             }
             else return BadRequest(ModelState);
         }
