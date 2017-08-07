@@ -721,7 +721,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         objViewBagModel.SAVE_FOR_LATER_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }
