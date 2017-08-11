@@ -7208,6 +7208,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getSurveysetBySurvey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="survey" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSurveySetMAXAndLastQuestionByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSurveySetMAXAndLastQuestionByPPTQ_Full" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getSurveySetMAXAndLastQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
@@ -15864,7 +15870,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </FunctionImport>
           <FunctionImport Name="pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCompanyProfileDataLoadForPartnerSpreadsheetDataLoad_Result)" />
           <FunctionImport Name="pr_checkPartnerStatus" ReturnType="Collection(Boolean)">
-            <Parameter Name="partner" Mode="In" Type="Int32" />
+          <Parameter Name="partner" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSurveySetMAXAndLastQuestionByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByPPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSurveySetMAXAndLastQuestionByPPTQ_Full" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25764,6 +25776,18 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="String" Name="RO_EMAIL" Nullable="false" MaxLength="200" />
           <Property Type="DateTime" Name="DUE_DATE" Nullable="false" Precision="23" />
         </ComplexType>
+        <ComplexType Name="pr_getSurveySetMAXAndLastQuestionByPPTQ_Result">
+          <Property Type="Int32" Name="section" Nullable="false" />
+          <Property Type="Int32" Name="finalQuestion" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="2000" />
+          </ComplexType>
+        <ComplexType Name="pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result">
+          <Property Type="Int32" Name="section" Nullable="true" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="finalQuestion" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -34587,6 +34611,26 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_checkPartnerStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_checkPartnerStatus" />
+          <FunctionImportMapping FunctionImportName="pr_getSurveySetMAXAndLastQuestionByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getSurveySetMAXAndLastQuestionByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByPPTQ_Result">
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="finalQuestion" ColumnName="finalQuestion" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSurveySetMAXAndLastQuestionByPPTQ_Full" FunctionName="hs3MVCMTQa2Model.Store.pr_getSurveySetMAXAndLastQuestionByPPTQ_Full">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result">
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="finalQuestion" ColumnName="finalQuestion" />
+                <ScalarProperty Name="response" ColumnName="response" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -68,9 +68,10 @@
 					</div>
 					<input id="barpercent" type="hidden" value="@ViewBag.percentageProgressbar" />
 					@if (ViewBag.Pages != null)
-					{
-						List<PageDetails> pages = ViewBag.Pages as List<PageDetails>;
-						decimal v = (decimal)1 / pages.Count * 100;
+                    {
+                        int count = ViewBag.PagesCount;
+                        List<PageDetails> pages = ViewBag.Pages as List<PageDetails>;
+                        decimal v = (decimal)1 / count * 100;
 
 						<div class="tooltip-container">
 							@foreach (PageDetails item in pages)

@@ -19446,5 +19446,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("pr_checkPartnerStatus", partnerParameter);
         }
+    
+        public virtual ObjectResult<pr_getSurveySetMAXAndLastQuestionByPPTQ_Result> pr_getSurveySetMAXAndLastQuestionByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetMAXAndLastQuestionByPPTQ_Result>("pr_getSurveySetMAXAndLastQuestionByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result> pr_getSurveySetMAXAndLastQuestionByPPTQ_Full(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result>("pr_getSurveySetMAXAndLastQuestionByPPTQ_Full", pptqParameter);
+        }
     }
 }

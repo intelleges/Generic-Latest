@@ -1141,7 +1141,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 int questionnaireId = (int)Session["questionnaire"];
 
                 var sections = db.pr_getSurveySetMAXAndLastQuestionByQuestionnaire(questionnaireId).ToList();
-
                 var questioncount = db.pr_getQuestionCountByQuestionnaire(questionnaireId);
                 int totalCount = questioncount != null ? (int)questioncount.FirstOrDefault() : 0;
                 var rows = db.pr_getQuestionRowIDByQuestionnaire(questionnaireId).ToList();
@@ -1166,8 +1165,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             Url = url,
                             QuestionsCount = p.Items.Count,
-                            Title = section.description.Split(new string[] { ":", "–" }, StringSplitOptions.None)[0] /*+ "<br/>" + "Page " + (i + 1) + "<br/>" + string.Join("<br/>",
-							p.Items.Select(o => o.title).ToArray())*/,
+                            Title = section.description.Split(new string[] { ":", "–" }, StringSplitOptions.None)[0],
                             Section = section.description,
                             Color = color
                         });
@@ -1189,9 +1187,53 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                     ViewBag.Pages = Session["_ps"] as List<PageDetails>;
+                    ViewBag.PagesCount = pages.Count;
                     ViewBag.IsUseNavigateProgressBar = true;
                 }
+                else if (ppptq_cms != null && ppptq_cms.status == 7)
+                {
+                    var b = db.pr_getSurveySetMAXAndLastQuestionByPPTQ_Full(ppptq_cms.id).ToList();
+                    if (b.Count > 0)
+                    {
+                        var ids = b.Select(o => o.description).ToList();
+                        List<PageDetails> ps = new List<PageDetails>();
+                        int i = 0;
+                        int qindex = 0;
+                        foreach (var p in pages)
+                        {
+                            string url = Url.Action("QuestionnaireResponse", "Home", new { pageNumber = i + 1, page = p.Page, jumpToQuestion = 0, questionIndex = qindex });
+                            if (ids.Contains(section.description))
+                            {
+                                ps.Add(new PageDetails
+                                {
+                                    Url = url,
+                                    QuestionsCount = p.Items.Count,
+                                    Title = section.description.Split(new string[] { ":", "–" }, StringSplitOptions.None)[0],
+                                    Section = section.description,
+                                    Color = color
+                                });
+                            }
+                            i++;
+                            qindex = p.Items.Count;
 
+                            if (p.Items.Select(o => o.id).Contains(section.finalQuestion))
+                            {
+                                int indx = sections.IndexOf(section);
+                                color = String.Format("#{0:X6}", random.Next(0x1000000));
+                                if (indx != sections.Count - 1)
+                                    section = sections[indx + 1];
+                            }
+
+
+                            if (Session["_ps"] == null)
+                                Session["_ps"] = ps;
+                        }
+
+                        ViewBag.Pages = Session["_ps"] as List<PageDetails>;
+                        ViewBag.PagesCount = pages.Count;
+                        ViewBag.IsUseNavigateProgressBar = true;
+                    }
+                }
 
                 foreach (var row in rows)
                 {
@@ -2850,10 +2892,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (partner != null)
             {
                 var status = db.pr_checkPartnerStatus(id).FirstOrDefault();
-                if (status != true) {
+                if (status != true)
+                {
                     ViewBag.IsAlreadyUnsubscribe = true;
                 }
-                else 
+                else
                     db.pr_unSubscribePartner(id);
 
                 ViewBag.account = partner.email;
@@ -3183,7 +3226,7 @@ Intelleges Team";
                             }
 
                             SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(mail, new EmailFormatSettings() { sender = objSystemMaster, receiver = objSystemMaster, enterprise= objEnterprise, partner = ppptq_cms.partner1, touchpoint = objCurrentTouchpoint , systemMaster= objSystemMaster , ptq = ptq.id });
+                            objSendEmail.sendEmail(mail, new EmailFormatSettings() { sender = objSystemMaster, receiver = objSystemMaster, enterprise = objEnterprise, partner = ppptq_cms.partner1, touchpoint = objCurrentTouchpoint, systemMaster = objSystemMaster, ptq = ptq.id });
                         }
                     }
                     #endregion
@@ -3219,7 +3262,7 @@ Intelleges Team";
                             SendEmail objSendEmail = new SendEmail();
                             try
                             {
-                                objSendEmail.sendEmail(email, new EmailFormatSettings() {  enterprise = _enterprise , partner = objPartner , ptq= ptq.id , sender = person, touchpoint = objtouchpoint });
+                                objSendEmail.sendEmail(email, new EmailFormatSettings() { enterprise = _enterprise, partner = objPartner, ptq = ptq.id, sender = person, touchpoint = objtouchpoint });
                             }
                             catch (FormatException ex)
                             {
@@ -3253,7 +3296,7 @@ Intelleges Team";
                     email.protocolTouchpoint = objtouchpoint.description;
 
                     SendEmail objSendEmail = new SendEmail();
-                    objSendEmail.sendEmail(email, new EmailFormatSettings() {  sender = person, partner = objPartner , enterprise = _enterprise , touchpoint = objtouchpoint , ptq = ptq.id });
+                    objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, partner = objPartner, enterprise = _enterprise, touchpoint = objtouchpoint, ptq = ptq.id });
                 }
 
                 objViewBag.CMS_PAGE_TITLE = CMS.CONFIRMATION_PAGE_TITLE;
