@@ -987,7 +987,7 @@ If award as dual source is checked, source selection is justified based on one t
 								to po file comments:
 							</font>
 						</span>
-						<div style="font-size:x-small">@ViewBag.Q24831_Value</div>
+						<div style="font-size:x-small">@Html.Raw((ViewBag.Q24831_Value??"").Replace("\r\n","<br/>"))</div>
 
 					</p>
 				</td>
