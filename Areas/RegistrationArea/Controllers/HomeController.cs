@@ -1071,6 +1071,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             mail.accesscode = accessCode;
             mail.category = SendGridCategory.SendEmailAlert;
             var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
+
             if (pptq != null)
             {
                 var tp = db.pr_getTouchpoint(pptq.touchpoint).FirstOrDefault();
@@ -1080,8 +1081,16 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             SendEmail objSendEmail = new SendEmail();
-            objSendEmail.sendEmail(mail, null);
+            objSendEmail.sendEmail(mail, new EmailFormatSettings()
+            {
+                sender = null,
+                enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                partner = pptqObj.partner1,
+                ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                touchpoint = null
+            });
         }
 
         public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
