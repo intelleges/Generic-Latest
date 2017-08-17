@@ -415,12 +415,24 @@
                 'content': $('#fb-content1').html(),
                 closeBtn: false,
                 closeClick: false,
-                modal: true,
+                modal: false,
                 type: 'html',
                 width: 400,
                 height: 300,
                 padding:0,
                 afterClose: function () {
+                },
+                afterShow: function () {
+                    $('html').removeClass('fancybox-lock');
+
+                    // fancybox-margin fancybox-lock
+                },
+                helpers: {
+                    overlay: {
+                        css: {
+                            'background': 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
                 }
             });
         }
