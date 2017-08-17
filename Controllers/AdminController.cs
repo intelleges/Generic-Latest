@@ -20,7 +20,8 @@ using System.Data;
 using WebMatrix.WebData;
 using Telerik.Web.Mvc;
 using System.Net.Sockets;
-
+using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace Generic.Controllers
 {
@@ -1361,6 +1362,58 @@ namespace Generic.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
+        }
+
+
+        [HttpPost]
+        public ActionResult SendRequest(string text)
+        {
+            var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).First();
+
+            var phone = Regex.Replace(person.phone, @"(\d{1,3})(\d{0,3})(\d{0,4})", "($1) $2-$3");
+            int numbers3 = 0;
+            var resultString = Regex.Match(phone, @"\d+").Value;
+
+            if (resultString[0] != '1' && resultString.Length > 2)
+                numbers3 = int.Parse(resultString.Substring(0, 3));
+            else if (resultString[0] == '1' && resultString.Length > 3)
+                numbers3 = int.Parse(resultString.Substring(1, 3));
+
+            var ac = db.pr_getAreaCodeTimeZoneByAreaCode(numbers3).FirstOrDefault();
+            string msg = "Email: " + person.email + "\n" + "Phone: " + phone;
+            msg += "\nFirst Name: " + person.firstName;
+            msg += "\nLast Name: " + person.lastName;
+            msg += "\nCountry: " + person.country;
+            msg += "\nText: " + text;
+            string ip = Request.UserHostAddress;
+
+           /* try
+            {
+                using (WebClient wc = new WebClient())
+                {
+                    var json = wc.DownloadString("https://freegeoip.net/json/" + ip);
+                    dynamic stuff = JsonConvert.DeserializeObject(json);
+                    msg += "\nCountry: " + stuff.country_name;
+                    msg += "\nRegion: " + stuff.region_name;
+                    msg += "\nCity: " + stuff.city;
+                    msg += "\nZip/Postal code: " + stuff.zip_code;
+                    msg += "\nLat/Long: " + stuff.latitude + " " + stuff.longitude;
+                    msg += "\nMetro code: " + stuff.metro_code;
+                    msg += "\nTime zone: " + stuff.time_zone;
+                }
+            }
+            catch { }*/
+
+            msg += "\nIP: " + ip;
+
+            if (ac != null)
+            {
+                msg += "\nState: " + ac.state;
+                msg += "\nTime Zone: " + ac.stdTimeZone;
+                msg += "\nArea Code: " + ac.areaCode;
+            }
+
+            return Json(new { success = true, msg = msg });
         }
 
 

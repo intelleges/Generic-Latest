@@ -789,3 +789,52 @@ tr.pager td {
     top: 160px;
     z-index:2;
 }
+
+.site-title {
+    float:left;
+}
+
+.chat-image {
+    float: left;
+}
+
+    .chat-image img {
+        cursor:pointer;
+    }
+
+    .chat-image .img__description {
+        display: none;
+        position: absolute;
+        font-size: 10px;
+        margin-left: 40px;
+        margin-top: -30px;
+        padding-bottom: 5px;
+        z-index: 10000;
+    }
+
+.chat-image:hover .img__description {
+   display:block;
+}
+
+ .support-popup {
+    padding: 10px 20px;
+    background: lightgrey;
+}
+
+    .support-popup textarea {
+        height: 300px;
+        font-size: 12px;
+    }
+
+    .support-popup .buttons {
+        text-align: right;
+    }
+
+    .support-popup .header-popup img {
+        width: 32px;
+        float: left;
+    }
+
+    .support-popup .header-popup-p {
+        margin-left: 40px;
+    }
