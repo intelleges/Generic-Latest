@@ -1159,12 +1159,12 @@ namespace Generic.DataLayer
                         divn.Attributes["data-code"] = checkCOde.Match(incldComment).Value;
                         incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     }
-                    if (db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
+                    if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
                     {
                         var result = db.pr_getResponseByQuestion(question.id).FirstOrDefault(o => o.description.Contains("Yes"));
                         if (result != null)
                         {
-                            divn.Attributes["data-code"] = result.zcode;                           
+                            divn.Attributes["data-code"] = result.zcode;
                         }
                     }
                     if (!(pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode))
@@ -1187,7 +1187,7 @@ namespace Generic.DataLayer
                         divn.Attributes["data-code"] = checkCOde.Match(incldComment).Value;
                         incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
                     }
-                    if (db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
+                    if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
                     {
                         var result = db.pr_getResponseByQuestion(question.id).FirstOrDefault(o => o.description.Contains("No"));
                         if (result != null)
