@@ -1153,15 +1153,23 @@ namespace Generic.DataLayer
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
                     Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+                    var responsesList = db.pr_getResponseByQuestion(question.id).ToList();
                     //divn.Visible = false;
                     if (checkCOde.IsMatch(incldComment))
                     {
-                        divn.Attributes["data-code"] = checkCOde.Match(incldComment).Value;
-                        incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
+                        foreach (Match match in checkCOde.Matches(incldComment))
+                        {
+                            if (responsesList.Any(o => o.zcode.ToLower() == match.Value.ToLower().Replace("(", "").Replace(")", "")))
+                            {
+                                divn.Attributes["data-code"] = match.Value;
+                                incldComment = incldComment.Replace(match.Value, "");
+                            }
+                        }
+
                     }
                     if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
                     {
-                        var result = db.pr_getResponseByQuestion(question.id).FirstOrDefault(o => o.description.Contains("Yes"));
+                        var result = responsesList.FirstOrDefault(o => o.description.Contains("Yes"));
                         if (result != null)
                         {
                             divn.Attributes["data-code"] = result.zcode;
@@ -1179,17 +1187,20 @@ namespace Generic.DataLayer
                     divn.ID = "nDiv_" + question.id.ToString();
                     //divn.Visible = false;
                     Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
-
+                    var responsesList = db.pr_getResponseByQuestion(question.id).ToList();
 
                     var txtbox1 = new HtmlTextArea();
-                    if (checkCOde.IsMatch(incldComment))
+                    foreach (Match match in checkCOde.Matches(incldComment))
                     {
-                        divn.Attributes["data-code"] = checkCOde.Match(incldComment).Value;
-                        incldComment = incldComment.Replace(checkCOde.Match(incldComment).Value, "");
+                        if (responsesList.Any(o => o.zcode.ToLower() == match.Value.ToLower().Replace("(", "").Replace(")", "")))
+                        {
+                            divn.Attributes["data-code"] = match.Value;
+                            incldComment = incldComment.Replace(match.Value, "");
+                        }
                     }
                     if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
                     {
-                        var result = db.pr_getResponseByQuestion(question.id).FirstOrDefault(o => o.description.Contains("No"));
+                        var result = responsesList.FirstOrDefault(o => o.description.Contains("No"));
                         if (result != null)
                         {
                             divn.Attributes["data-code"] = result.zcode;
