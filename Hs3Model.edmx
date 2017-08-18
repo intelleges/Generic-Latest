@@ -8446,6 +8446,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_PerformSelectedActions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inputList" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="pr_questionResponseWarningCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -15873,10 +15876,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="partner" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSurveySetMAXAndLastQuestionByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByPPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSurveySetMAXAndLastQuestionByPPTQ_Full" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_questionResponseWarningCheck" ReturnType="Collection(hs3MVCMTQa2Model.pr_questionResponseWarningCheck_Result)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25788,6 +25794,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="finalQuestion" Nullable="false" />
           <Property Type="Int32" Name="response" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_questionResponseWarningCheck_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="Int32" Name="responsecount" Nullable="true" />
+          <Property Type="Int32" Name="commenttype" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -34628,6 +34640,16 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="finalQuestion" ColumnName="finalQuestion" />
                 <ScalarProperty Name="response" ColumnName="response" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_questionResponseWarningCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_questionResponseWarningCheck">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_questionResponseWarningCheck_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="responsecount" ColumnName="responsecount" />
+                <ScalarProperty Name="commenttype" ColumnName="commenttype" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -19464,5 +19464,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetMAXAndLastQuestionByPPTQ_Full_Result>("pr_getSurveySetMAXAndLastQuestionByPPTQ_Full", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_questionResponseWarningCheck_Result> pr_questionResponseWarningCheck(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_questionResponseWarningCheck_Result>("pr_questionResponseWarningCheck", questionParameter);
+        }
     }
 }
