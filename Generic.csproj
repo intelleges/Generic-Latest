@@ -3566,6 +3566,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\EditContactInformationPODS.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload10.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload11.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload12.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
