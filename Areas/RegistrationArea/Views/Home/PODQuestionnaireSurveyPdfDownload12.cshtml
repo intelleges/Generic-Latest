@@ -541,10 +541,7 @@
 							</tr>
 
 						</tbody>
-					</table>
-					@if (ViewBag.Q23578_No != "")
-					{
-
+					</table>					
 
 	<span class="western" style="margin-bottom: 0.03in">
 		<span style="text-transform: uppercase"><font size="1"><i>I</i></font></span><font size="1">
@@ -579,7 +576,7 @@
 
 
 					
-					}
+					
 </td>
              
 
@@ -603,7 +600,7 @@
                     <div class="western" style="margin-bottom: 0in;font-size:10px">
                         <label><input type="checkbox" @ViewBag.Q23580_46424>YES</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
                         &nbsp;&nbsp;&nbsp;<label><input type="checkbox" @ViewBag.Q23580_46425>NO</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
-                        &nbsp;&nbsp;&nbsp;<label><input type="checkbox" @ViewBag.Q23580_46426>N/R	(OEM/OCM) or Service</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
+                        &nbsp;&nbsp;&nbsp;<label><input type="checkbox" @ViewBag.Q23580_46426>N/R (Only if procuring a Service)</label><font size="1" style="font-size: 6pt;margin-left:3px;"><span style="background: #00ff00"></span></font>
                     </div>
 
                     @if (!string.IsNullOrEmpty(ViewBag.Q23580_46424))
@@ -648,14 +645,9 @@
                         <text>
                             <br />
                             <span class="western" style="margin-bottom: 0.03in">
-                                <span style="text-transform: uppercase"><font size="1"><i>i</i></font></span><font size="1">
+                                <span style="text-transform: uppercase"></span><font size="1">
                                     <i>
-                                        f
-                                    </i>
-                                </font><font size="1"><i><b>YES</b></i></font><font size="1">
-                                    <i>
-                                        ,
-                                        location
+                                       Location
                                         of objective evidence:
                                     </i>
                                 </font><font size="1">
@@ -691,8 +683,6 @@
 
                     }
 
-                    @if (!string.IsNullOrEmpty(ViewBag.Q23580_46425))
-                    {
                         <p>
                             <span class="western" style="margin-bottom: 0in">
                                 <font size="1">
@@ -716,14 +706,14 @@
                                 drawings or technical data to SAP.
                             </font>
                         </p>
-                    }
+                    
                     </span>
                 </td>
 			</tr>
             <tr valign="TOP">
                 <td colspan="4" width="346" style="border: 1px solid #000000; padding: 0in 0.08in">
                     <p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-                        <font size="1"><b>BUY AMERICAN ACT (BAA) CERTIFICATION: <fomt color="blue" style="font-style:italic;color:blue;"> (Until BAA Certification process is
+                        <font size="1"><b>BUY AMERICAN ACT (BAA) CERTIFICATION: <fomt color="blue" style="font-style:italic;color:blue;text-decoration:underline;"> (Until BAA Certification process is
 deployed, check “N/A”)</fomt></b></font>
                     </p>
                     <p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
@@ -738,7 +728,7 @@ deployed, check “N/A”)</fomt></b></font>
 
                     <label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46072>YES</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
                     &nbsp;&nbsp;&nbsp;<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46073>NO</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
-                    &nbsp;&nbsp;&nbsp;<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46074>N/R</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
+                    &nbsp;&nbsp;&nbsp;<label class="western" style="margin-bottom: 0in;font-size:10px;"><input type="checkbox" @ViewBag.Q24818_46074>N/A</label><font size="1" style="font-size: 6pt;margin:0 4px 0 4px;"><b><span style="background: #00ff00"></span></b></font>
 
 
 
@@ -751,14 +741,7 @@ deployed, check “N/A”)</fomt></b></font>
                             </i>
                         </font>
                     </p>
-                    <p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-                        <font size="1"><i><u><b>NOTE:</b></u></i></font><font size="1">	</font><font size="1">
-                            <i>
-                                N/R
-                                is only applicable to Commercial POs.
-                            </i>
-                        </font>
-                    </p>
+                 
                     <p class="western" style="margin-top: 0.03in">
                         <br>
                     </p>
@@ -845,9 +828,9 @@ deployed, check “N/A”)</fomt></b></font>
 						<input type="checkbox" @ViewBag.Q24824_Checked><font size="1"></font><span style="text-transform: uppercase">
 							<font size="1">
 								AWARD
-								AS DUAL SOURCE (
+								AS DUAL SOURCE 
 							</font>
-						</span><span style="text-transform: uppercase"><font size="1"><i><b>N</b></i></font></span><font size="1"><i><b>ote</b></i></font><font size="1">
+						</span><font size="1"><i><b>(Note</b></i></font><font size="1">
 							<i>
 								Pricing must still be justified between multiple suppliers using
 								methods in Section 3)
@@ -866,7 +849,9 @@ deployed, check “N/A”)</fomt></b></font>
 						<p class="western" style="margin-top: 0.04in; margin-bottom: 0.06in">
 							<font size="1">
 								<b>
-If award as dual source is checked, source selection is justified based on one the following Dual Source Requirements (select option that best applies).
+                                    Decision to award as
+                                    Dual Source is justified based on
+                                    the following reason:
 								</b>
 							</font>
 						</p>
@@ -881,7 +866,7 @@ If award as dual source is checked, source selection is justified based on one t
 								</font>
 							</font>
 
-
+                            &nbsp;&nbsp;
 							<input type="checkbox" @ViewBag.Q24826_Checked><font size="1">
 								Develop
 								Alternate Source
@@ -891,7 +876,7 @@ If award as dual source is checked, source selection is justified based on one t
 									</font>
 								</font>
 							</font>
-
+                            &nbsp;&nbsp;
 							<input type="checkbox" @ViewBag.Q24827_Checked><font size="1">
 								Quality
 								Performance
@@ -900,11 +885,7 @@ If award as dual source is checked, source selection is justified based on one t
 									<font size="1">
 									</font>
 								</font>
-							</font>
-
-
-						</p>
-
+							</font>						</p>
 
 
 						<p class="western yesNoBlock" style="margin-top: 0.04in">
@@ -916,7 +897,9 @@ If award as dual source is checked, source selection is justified based on one t
 									<font size="1">
 									</font>
 								</font>
-							</font><input type="checkbox" @ViewBag.Q24829_Checked><font size="1">
+							</font>
+                            &nbsp;&nbsp;
+                            <input type="checkbox" @ViewBag.Q24829_Checked><font size="1">
 								Financial
 								Risk/Instability
 							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
@@ -924,7 +907,9 @@ If award as dual source is checked, source selection is justified based on one t
 									<font size="1">
 									</font>
 								</font>
-							</font><input type="checkbox" @ViewBag.Q24830_Checked><font size="1">
+							</font>
+                            &nbsp;&nbsp;
+                            <input type="checkbox" @ViewBag.Q24830_Checked><font size="1">
 								Incumbent
 								Capacity Issue
 							</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
@@ -1070,11 +1055,12 @@ If award as dual source is checked, source selection is justified based on one t
 					</p>
 
 					<p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in">
-						<input type="checkbox" @ViewBag.Q24832_Checked ><span style="text-transform: uppercase"><font size="1" style="font-size: 8pt"></font></span><span style="text-transform: uppercase">
+						<input type="checkbox" @ViewBag.Q24832_Checked ><span style="text-transform: uppercase"><font size="1" style="font-size: 8pt"></font></span><span>
 							<font size="1">
 								ADEQUATE
 								PRICE COMPETITION
 							</font>
+    <font size="1" style="font-style:italic;">(Must include file showing comparison of bids in PO doc file)</font>
 						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
 								<font size="1">
@@ -1102,7 +1088,9 @@ If award as dual source is checked, source selection is justified based on one t
 							<font size="1">
 								received in the absence of adequate price competition
 							</font>
-						</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
+						</span>
+                        <span><font size="1" style="font-style:italic;">(Must include file showing comparison of bids in PO doc file)</font></span>
+                        <font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
 								<font size="1">
 								</font>
@@ -1154,13 +1142,13 @@ If award as dual source is checked, source selection is justified based on one t
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIOR
 		PO #
 	</font>
-	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	&nbsp;&nbsp;&nbsp;DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
+	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
 		<font size="1">
-			&nbsp;&nbsp;&nbsp;QUANTITY
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY
 		</font>
 	</span>@ViewBag.Q24837_Value<span style="text-transform: uppercase">
 		<font size="1">
-			&nbsp;&nbsp;&nbsp;UNIT
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNIT
 			PRICE
 		</font>
 	</span>@ViewBag.Q24838_Value
@@ -1265,8 +1253,9 @@ If award as dual source is checked, source selection is justified based on one t
 							</font>
 						</span><font size="1" style="font-size: 7pt">(</font><font size="1" style="font-size: 7pt">
 							<i>
-								Copy
-								of info must be in PO doc file
+                                Copy of info must be in
+                                PO doc file, including copy of AF-1026
+                                if unpublished catalog or price list
 							</i>
 						</font><font size="1" style="font-size: 7pt">
 							)
@@ -1332,8 +1321,9 @@ If award as dual source is checked, source selection is justified based on one t
 							</font>
 						</span><font size="1" style="font-size: 7pt">
 							<i>
-								(Market
-								survey quote documentation must be in PO doc file)
+								(Must include market survey
+quote documentation AND file showing
+comparison of bids in PO doc file)
 							</i>
 						</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font color="#000000">
 							<font face="Calibri, sans-serif">
@@ -1404,7 +1394,7 @@ If award as dual source is checked, source selection is justified based on one t
 						{
 							<span class="western" style="margin-top: 0.04in">
 								<span>
-									<font size="1">
+									<font size="1" style="font-style:italic;">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If Other, provide which Price Analysis technique was used:
 									</font>
 								</span>
@@ -1420,8 +1410,8 @@ If award as dual source is checked, source selection is justified based on one t
 					<p class="western">
 						<span style="text-transform: uppercase">
 							<font size="1">
-								memo
-								to po file comments:
+                                PRICE ANALYSIS
+                                JUSTIFICATION COMMENTS:
 							</font>
 						</span>
 						<div style="font-size:x-small">
@@ -1562,12 +1552,12 @@ If award as dual source is checked, source selection is justified based on one t
 								<i>
 									<b>
 										If
-										NO
+										NO,
 									</b>
 								</i>
 							</font><font size="1">
 								<i>
-									, negotiations not conducted due to:
+								 negotiations not conducted due to:
 								</i>
 							</font>
                             <label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q31882_61300>Award based on Adequate Price Competition</label>
@@ -1709,7 +1699,7 @@ If award as dual source is checked, source selection is justified based on one t
 										</span>&nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
 											<font size="1">
 												<span lang="en-US">
-													NO<input type="checkbox" @ViewBag.Q24917_No />
+													NO <input type="checkbox" @ViewBag.Q24917_No />
 												</span>
 											</font>
 										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
@@ -1737,14 +1727,14 @@ If award as dual source is checked, source selection is justified based on one t
     (If YES, copy of notification must be included in PO doc file)</font> &nbsp;<span style="text-transform: uppercase">
         <font size="1">
             <span lang="en-US">
-                NO<input type="checkbox" @ViewBag.Q31917_No />
+                NO <input type="checkbox" @ViewBag.Q31917_No />
             </span>
         </font>
     </span>
     &nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
         <font size="1">
             <span lang="en-US">
-                ACO WAIVER UPLOADED TO PO<input type="checkbox" @ViewBag.Q31917_ACO />
+                ACO WAIVER UPLOADED TO PO <input type="checkbox" @ViewBag.Q31917_ACO />
             </span>
         </font>
     </span>
@@ -1835,13 +1825,13 @@ If award as dual source is checked, source selection is justified based on one t
 										<span style="text-transform: uppercase">
 											<font size="1">
 												<span lang="en-US">
-													YES<input type="checkbox" @ViewBag.Q24919_Yes />
+													YES <input type="checkbox" @ViewBag.Q24919_Yes />
 												</span>
 											</font>
 										</span>&nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
 											<font size="1">
 												<span lang="en-US">
-													NO<input type="checkbox" @ViewBag.Q24919_No />
+													NO <input type="checkbox" @ViewBag.Q24919_No />
 												</span>
 											</font>
 										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
@@ -1867,18 +1857,18 @@ If award as dual source is checked, source selection is justified based on one t
                                                 </span>
                                             </font>
                                         </span><font size="1" style="color:red;font-style:italic;">
-                                            (If YES, copy of notification must be included in PO doc file)
+                                            (If YES, ACO consent must be included in PO doc file)
                                         </font> &nbsp;<span style="text-transform: uppercase">
                                             <font size="1">
                                                 <span lang="en-US">
-                                                    NO<input type="checkbox" @ViewBag.Q31920_No />
+                                                    NO <input type="checkbox" @ViewBag.Q31920_No />
                                                 </span>
                                             </font>
                                         </span>
                                         &nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
                                             <font size="1">
                                                 <span lang="en-US">
-                                                    ACO WAIVER UPLOADED TO PO<input type="checkbox" @ViewBag.Q31920_ACO />
+                                                    ACO WAIVER UPLOADED TO PO <input type="checkbox" @ViewBag.Q31920_ACO />
                                                 </span>
                                             </font>
                                         </span>
@@ -1941,10 +1931,7 @@ If award as dual source is checked, source selection is justified based on one t
 										</font><font size="1">
 											<span lang="en-US">
 												<i>
-													<b>
-														Annual
-														Cert, Item #8
-													</b>
+													<b>Annual Supplier Cert, Item #8</b>
 												</i>
 											</span>
 										</font><font size="1">
@@ -1964,13 +1951,13 @@ If award as dual source is checked, source selection is justified based on one t
 										<span style="text-transform: uppercase">
 											<font size="1">
 												<span lang="en-US">
-													YES<input type="checkbox" @ViewBag.Q24923_Yes />
+													YES <input type="checkbox" @ViewBag.Q24923_Yes />
 												</span>
 											</font>
 										</span>&nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
 											<font size="1">
 												<span lang="en-US">
-													NO<input type="checkbox" @ViewBag.Q24923_No />
+													NO <input type="checkbox" @ViewBag.Q24923_No />
 												</span>
 											</font>
 										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
@@ -2048,7 +2035,7 @@ If award as dual source is checked, source selection is justified based on one t
 									<p class="western" style="margin-bottom: 0.03in">
 									<font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font><font size="1">
 
-											<span lang="en-US">	YES</span>
+											<span lang="en-US">	YES </span>
 										</font><span style="text-transform: uppercase">
 											<font size="1">
 												<span lang="en-US">
@@ -2056,11 +2043,15 @@ If award as dual source is checked, source selection is justified based on one t
 
 												</span>
 											</font>
-										</span>&nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
+										</span>&nbsp;&nbsp;&nbsp;<span >
 											<font size="1">
 												<span lang="en-US">
-													NO<input type="checkbox" @ViewBag.Q24925_No />
+													NO <input type="checkbox" @ViewBag.Q24925_No />
 												</span>
+                                                <span style="font-style:italic;"> (If NO, provide reason why each of the following
+socioeconomic businesses were not included in the
+solicitation)
+</span>
 											</font>
 										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
 									</p>
@@ -2071,7 +2062,7 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													
-													Small Business not solicited due to:&nbsp;&nbsp;
+													Small Businesses not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
@@ -2095,7 +2086,7 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													
-													Disadvantaged Business not solicited due to:&nbsp;&nbsp;
+													Disadvantaged Businesses not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
@@ -2118,7 +2109,7 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													
-													Woman-Owned Business not solicited due to:&nbsp;&nbsp;
+													Woman-Owned Businesses not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1">
@@ -2144,7 +2135,7 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 
-													HUBZone Business not solicited due to:&nbsp;&nbsp;
+													HUBZone Businesses not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1">
@@ -2170,7 +2161,7 @@ If award as dual source is checked, source selection is justified based on one t
 										<font size="1">
 											<span lang="en-US">
 												<i>
-													Veteran-Owned Business not solicited due to:&nbsp;&nbsp;
+													Veteran-Owned Businesses not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1">
@@ -2196,7 +2187,7 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 												<i>
 													
-													Service Disabled Veteran-Owned Business not solicited due to:&nbsp;&nbsp;
+													Service Disabled Veteran-Owned Businesses not solicited due to:&nbsp;&nbsp;
 												</i>
 											</span>
 										</font><font size="1"><span lang="en-US"><i>		</i></span></font><font size="1"><span lang="en-US"><u></u></span></font><font size="1">
@@ -2226,7 +2217,7 @@ If award as dual source is checked, source selection is justified based on one t
 									</p>
 									@if (ViewBag.Q24937_Value!= null)
 									{
-									<p class="western" style="margin-top: 0.03in">
+									<p class="western" style="margin-top: 0.03in;font-style:italic;">
 
 										<font size="1">
 											<span lang="en-US">
@@ -2360,6 +2351,10 @@ If award as dual source is checked, source selection is justified based on one t
 											<span lang="en-US">
 													Government Commercial Item FAR
 												Part 12 customer contract
+                                                <span lang="en-US">
+                                                    <i>(Must include SAP screenshot showing FAR Part 12 flow down in PO doc file)
+                                                    </i>
+                                                </span>
 											</span>
 										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
 									</p>
@@ -2367,12 +2362,7 @@ If award as dual source is checked, source selection is justified based on one t
 										<font size="1"><span lang="en-US">			</span></font><font size="1">
 
 
-											<span lang="en-US">
-												<i>
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    (Must include SAP screenshot showing FAR Part 12 flow down in PO doc file) 
-												</i>
-											</span>
+										
 										</font>
 									</p>
 									<p class="western" style="margin-top: 0.03in">
@@ -2751,7 +2741,7 @@ If award as dual source is checked, source selection is justified based on one t
 											</span>
 										</font>
 									</p>
-									<p class="western" style="margin-bottom: 0.03in">
+									<p class="western" style="margin-bottom: 0.01in">
 										<font size="1">
 											<span lang="en-US">
 												Cost
@@ -2760,15 +2750,16 @@ If award as dual source is checked, source selection is justified based on one t
 										</font><font size="1">
 											<span lang="en-US">
 												<i>
-													File
-													results in PO doc file
+                                                    Forward Cost Analysis to
+                                                    Compliance for review, via encrypted email, or
+                                                    provide the location where Cost Analysis is stored
 												</i>
 											</span>
 										</font><font size="1">
 											<span lang="en-US">
 												)
 											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+										</font>
 									</p>
 									<p class="western">
 										<font size="1">
@@ -2776,21 +2767,21 @@ If award as dual source is checked, source selection is justified based on one t
 												<input type="checkbox" @ViewBag.Q24944_46128 />	DCMA
 												/ DCAA
 											</span>
-										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+										</font>
 									</p>
 									<p class="western">
 										<font size="1">
 											<span lang="en-US">
 												<input type="checkbox" @ViewBag.Q24944_46129 />	Internal
 											</span>
-										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+										</font>
 									</p>
                                     <p class="western">
                                         <font size="1">
                                             <span lang="en-US">
                                                 <input type="checkbox" @ViewBag.Q24944_46133 />	Both
                                             </span>
-                                        </font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+                                        </font>
                                     </p>
 									<p class="western">
 										<font size="1">
@@ -2801,8 +2792,9 @@ If award as dual source is checked, source selection is justified based on one t
 										</font><font size="1">
 											<span lang="en-US">
 												<i>
-													Explain in
-													Memo to PO File Comments below
+                                                    If Other, further
+                                                    explanation required in Memo to
+                                                    PO File Comments
 												</i>
 											</span>
 										</font><font size="1">
@@ -2811,6 +2803,31 @@ If award as dual source is checked, source selection is justified based on one t
 											</span>
 										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
 									</p>
+                                    <p class="western" style="margin-bottom: 0.03in;color:red;font-style:italic;">
+                                        <font size="1">
+                                            <span lang="en-US">
+                                                <i>
+                                                    <b>
+                                                        NOTE:
+                                                        DO NOT UPLOAD
+                                                    </b>
+                                                </i>
+                                            </span>
+                                        </font><font size="1">
+                                            <span lang="en-US">
+                                                <i>
+                                                    Cost Analysis documents to SAP PO file
+                                                </i>
+                                            </span>
+                                        </font>
+                                    </p>
+                                    <p lang="en-US" class="western" style="margin-bottom: 0.06in">
+                                        <font size="1">
+                                            <i>
+                                                If supplier declines to submit Cost or Pricing Data, contact Compliance Analyst.
+                                            </i>
+                                        </font>
+                                    </p>
 									<p class="western" style="margin-top: 0.03in">
 										<span style="text-transform: uppercase">
 											<font size="1">
@@ -2845,8 +2862,9 @@ If award as dual source is checked, source selection is justified based on one t
 										<font size="1">
 											<span lang="en-US">
 												<i>
-													Copy of
-													Certificate of Cost or Pricing Data filed in PO doc file
+                                                    Copy of Certificate of
+                                                    Cost or Pricing Data (TINA) filed in
+                                                    PO doc file?
 												</i>
 											</span>
 										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
@@ -2867,18 +2885,37 @@ If award as dual source is checked, source selection is justified based on one t
 										</span>&nbsp;<span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
 											<span lang="en-US">
 												<i>
-													If
+													(If
 												</i>
 											</span>
 										</font><font size="1"><span lang="en-US"><i><b>NO</b></i></span></font><font size="1">
 											<span lang="en-US">
 												<i>
 													,
-													provide detailed explanation below.
+                                                    provide
+                                                    detailed explanation in Memo to
+                                                    PO File Comments)
 												</i>
 											</span>
 										</font>
 									</p>
+                                    <p class="western" style="margin-bottom: 0.03in;color:red;font-style:italic;">
+                                        <font size="1">
+                                            <span lang="en-US">
+                                                <i>
+                                                    <b>
+                                                        NOTE:
+                                                    </b>
+                                                </i>
+                                            </span>
+                                        </font><font size="1">
+                                            <span lang="en-US">
+                                                <i>
+                                                    TINA Certification should be obtained after negotiations are concluded.
+                                                </i>
+                                            </span>
+                                        </font>
+                                    </p>
 									<p class="western">
 										<span style="text-transform: uppercase">
 											<font size="1">
@@ -2945,23 +2982,7 @@ If award as dual source is checked, source selection is justified based on one t
 													NO	<input type="checkbox" @ViewBag.Q24946_No />
 												</span>
 											</font>
-										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span><font size="1">
-											<span lang="en-US">
-												<i>
-													<b>
-														&nbsp;If
-														NO
-													</b>
-												</i>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-												<i>
-													,
-													provide detailed explanation below.
-												</i>
-											</span>
-										</font>
+										</span><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase"><font size="1"><span lang="en-US">	</span></font></span>
 									</p>
 									<p class="western" style="margin-top: 0.03in">
 										<font size="1">
@@ -2969,16 +2990,15 @@ If award as dual source is checked, source selection is justified based on one t
 												<i>
 													<b>
 														If
-														YES
+														YES,
 													</b>
 												</i>
 											</span>
 										</font><font size="1">
 											<span lang="en-US">
 												<i>
-													and
-													supplier is listed on National Pre-Award Registry  include
-													screenshot in PO doc file
+                                                    is supplier listed on the
+                                                    National Pre-Award Registry
 												</i>
 											</span>
 										</font><font color="#0000ff"><u><a href="http://www.dol-esa.gov/preaward/pa_reg.html"><font size="1"><span lang="en-US"><i>http://www.dol-esa.gov/preaward/pa_reg.html</i></span></font></a></u></font><font size="1">
@@ -2993,7 +3013,7 @@ If award as dual source is checked, source selection is justified based on one t
             <span lang="en-US">
                 YES	<input type="checkbox" @ViewBag.Q31891_Yes />
             </span>
-            &nbsp;&nbsp; (If YES, include screenshot in PO doc file)
+            &nbsp;&nbsp; <font style="color:red;font-style:italic;">(If YES, include screenshot in PO doc file)</font>
         </font>
     </span>&nbsp;&nbsp;&nbsp;<span style="text-transform: uppercase">
         <font size="1">
@@ -3003,6 +3023,18 @@ If award as dual source is checked, source selection is justified based on one t
         </font>
     </span>
 </p>
+
+
+                                    <p class="western" style="margin-bottom: 0.06in">
+                                        <font size="1">
+                                            <span lang="en-US">
+                                                If NO, supplier is not on the PreAward
+                                                Registry, has request letter been forwarded
+                                                to ACO and ACO’s response in PO doc file?
+                                            </span>
+                                        </font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+                                    </p>
+
 									<p class="western" style="margin-top: 0.03in">
 										<span style="text-transform: uppercase">
 											<font size="1">
@@ -3013,15 +3045,6 @@ If award as dual source is checked, source selection is justified based on one t
 											</font>
 										</span><div style="font-size:x-small">@ViewBag.Q24946_Comment </div>
 </p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font size="1">
-											<span lang="en-US">
-												If
-												not on Registry, has request letter been forwarded to ACO and
-												ACO’s response filed in PO doc file?
-											</span>
-										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
 									<p class="western" style="margin-top: 0.03in">
 										<span style="text-transform: uppercase">
 											<font size="1">
@@ -3045,10 +3068,12 @@ If award as dual source is checked, source selection is justified based on one t
 												</i>
 											</span>
 										</font><font size="1">
-											<span lang="en-US">
+											<span lang="en-US" >
 												<i>
 													,
-													provide detailed explanation below.
+                                                    provide
+                                                    detailed explanation in Memo to
+                                                    PO File Comments
 												</i>
 											</span>
 										</font>
