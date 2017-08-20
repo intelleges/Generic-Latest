@@ -8826,8 +8826,8 @@ Intelleges Team";
                         }
                         ViewBag.Q23572_Comment = item.comment;
                         break;
-                    case 24984:
-                        ViewBag.Q23573_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    case 31844:
+                        ViewBag.Q23573_Yes = item.response == 61237 ? _chacked : string.Empty;
                         break;
                     case 31845:
                         ViewBag.Q23574_Yes = item.response == 61239 ? _chacked : string.Empty;
