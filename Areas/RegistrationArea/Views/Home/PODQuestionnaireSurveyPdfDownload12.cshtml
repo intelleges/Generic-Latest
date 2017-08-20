@@ -278,7 +278,7 @@
 							}
                             <tr>
                                 <td colspan="3">
-                                    <div style="font-size:x-small;color:red;font-style:initial;">
+                                    <div style="font-size:x-small;color:red;font-style:italic;">
                                         If Cost-Reimbursement, obtain approval per AP-1632 and ensure the "General and
                                         FAR Flow down Provisions for Cost Reimbursement Subcontracts and Purchase
                                         Orders for Non-Commercial Items Under U.S. Government Contracts" (GCRP) are
@@ -314,7 +314,7 @@
                     &nbsp;&nbsp;&nbsp;<label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23571_NA>N/A (Non-SAP Sites only)</label>
 
                     <p class="western" style="margin-bottom: 0.03in">
-                        <div style="font-size:x-small;color:red;font-style:initial;">
+                        <div style="font-size:x-small;color:red;font-style:italic;">
                             If NO or N/A, AF-0658 must be signed and presented to Compliance prior to
                             Government POs $35,000 and above being released.
                         </div>
@@ -346,6 +346,9 @@
                                     </p>
                                 </td>
                                 <td>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
                                     <label class="western" style="font-size:10px">
                                         <input type="checkbox" @ViewBag.Q31842_CostReimbursement>	Cost Reimbursement (CXXX)
                                     </label>
@@ -354,6 +357,9 @@
                                     </p>
                                 </td>
                                 <td>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
                                     <label class="western" style="font-size:10px">
                                         <input type="checkbox" @ViewBag.Q31842_Other>Other
                                     </label>
@@ -423,7 +429,7 @@
 				<td colspan="4" width="346" style="border: 1px solid #000000; padding: 0in 0.08in">
 
 					<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-						<font size="1"><b>WRITTEN RFQ(S) AND SUPPLIER QUOTE(S) FILED IN PO DOC FILE:  </b></font><br /><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1606)</span></font></font></font>
+						<font size="1"><b>WRITTEN RFQ(S) <font style="color:blue;text-decoration:underline;">AND</font> SUPPLIER QUOTE(S) FILED IN PO DOC FILE:  </b></font><br /><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference AP-1606)</span></font></font></font>
 					</p>
 					<table>
 						<tbody>
@@ -434,14 +440,14 @@
 
 									&nbsp;&nbsp;&nbsp;
 									<span class="western" style="margin-top: 0.04in">
-										<span style="text-transform: uppercase"><font size="1"><i>I</i></font></span><font size="1">
+										<font size="1">
 											<i>
-												f
+												If
 											</i>
 										</font><font size="1"><i><b>NO</b></i></font><font size="1">
 											<i>
 												,
-												provide detailed explanation Memo to PO File Comments
+												provide detailed explanation in Memo to PO File Comments
 											</i>
 										</font><font size="1">
 										</font><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
@@ -2423,37 +2429,41 @@ be filed in PO doc file prior to award and notify Sourcing Compliance)</span></l
 									<p class="western" style="margin-bottom: 0.06in">
 										<span style="text-transform: uppercase">
 											<font size="1">
-
+                                                <input type="checkbox" @ViewBag.Q24941_46126 />
 												<span lang="en-US">
 													YES	
-												</span><input type="checkbox" @ViewBag.Q24941_46126 />
+												</span>
 											</font>
-										</span>&nbsp;&nbsp;&nbsp;<span>
+										</span><br/><span>
 											<font size="1">
+                                                <input type="checkbox" @ViewBag.Q24941_46127 />
 												<span lang="en-US">
                                                     FAR Part 12
-												</span><input type="checkbox" @ViewBag.Q24941_46127 />
+												</span>
 											</font>
 										</span>
-                                        &nbsp;&nbsp;&nbsp;<span>
+                                        <br/><span>
 											<font size="1">
+                                                <input type="checkbox" @ViewBag.Q31896_61320 />
                                                 <span lang="en-US">
                                                     Exempt-Award based on Adequate Price Competition
-                                                </span><input type="checkbox" @ViewBag.Q31896_61320 />
+                                                </span>
 											</font>
-										</span>
-                                          &nbsp;&nbsp;&nbsp;<span>
+										</span>                                        
+                                          <br/><span>
 											<font size="1">
+                                                <input type="checkbox" @ViewBag.Q31896_61321 />
                                                 <span lang="en-US">
                                                     Exempt-Award to Small Business
-                                                </span><input type="checkbox" @ViewBag.Q31896_61321 />
+                                                </span>
 											</font>
-										</span>
-                                        &nbsp;&nbsp;&nbsp;<span>
+										</span>                                        
+                                        <br/><span>
                                             <font size="1">
+                                                <input type="checkbox" @ViewBag.Q31896_61322 />
                                                 <span lang="en-US">
                                                     N/A (Clause not flowing down from Sales Order)
-                                                </span><input type="checkbox" @ViewBag.Q31896_61322 />
+                                                </span>
                                             </font>
                                         </span>
                                         <span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
@@ -2486,15 +2496,15 @@ be filed in PO doc file prior to award and notify Sourcing Compliance)</span></l
                                                     YES	
                                                 </span><input type="checkbox" @ViewBag.Q31897_61323 />
 
-                                                (If YES, upload CAS Certification to PO doc file)
+                                                <span style="font-style:italic;color:red;"> (If YES, upload CAS Certification to PO doc file)</span>
                                             </font>
                                         </span>&nbsp;&nbsp;&nbsp;<span>
                                             <font size="1">
                                                 <span lang="en-US">
                                                     NO
                                                 </span><input type="checkbox" @ViewBag.Q31897_61324 />
-                                                (If NO, provide detailed explanation in Memo to PO File Comments)
-                                            </font>
+                                                <span style="font-style:italic"> (If NO, provide detailed explanation in Memo to PO File Comments)</span>
+</font>
                                         </span>
                                     </p>
 
@@ -2526,18 +2536,20 @@ be filed in PO doc file prior to award and notify Sourcing Compliance)</span></l
                                                     YES	
                                                 </span><input type="checkbox" @ViewBag.Q31898_61325 />
 
-                                                If YES, list which exemption supplier claimed: @ViewBag.Q31898_Comment
-                                            </font>
+                                                <span style="font-style:italic;"> If YES, list which exemption supplier claimed: @ViewBag.Q31898_Comment</span>
+</font>
                                         </span>&nbsp;&nbsp;&nbsp;<span>
                                             <font size="1">
                                                 <span lang="en-US">
                                                     NO
                                                 </span><input type="checkbox" @ViewBag.Q31898_61326 />
-                                                (If NO, need to provide notification to ACO
-                                                within 30 days after issuance of CAS covered
-                                                PO as prescribed in FAR 52.230-6(e)(1)).
+                                                <span style="font-style:italic;color:red;"> 
+                                                    (If NO, need to provide notification to ACO
+                                                    within 30 days after issuance of CAS covered
+                                                    PO as prescribed in FAR 52.230-6(e)(1)).
+                                                    </span>
 
-                                            </font>
+</font>
                                         </span>
                                     </p>
 									
@@ -2577,123 +2589,125 @@ be filed in PO doc file prior to award and notify Sourcing Compliance)</span></l
 										</span><font color="#0000ff"><u><a href="http://businesscontrols.honeywell.com/policies/Aerospace/AP-1529.htm"><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span lang="en-US"><i><b>AP-1529</b></i></span></font></span></a></u></font>
 									</p>
 								</td>
-								<td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
-									<p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
-										<span style="text-transform: uppercase">
-											<font size="1">
-												<span lang="en-US">
-													<b>
-														cost
-														or pricing data required:
-													</b>
-												</span>
-											</font>
-										</span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
-									</p>
-									<p class="western" style="margin-bottom: 0in">
-										<span >
-											<font size="1">
-												<span lang="en-US">
-													YES	<input type="checkbox" @ViewBag.Q24943_Yes />
-												</span>
-                                           
-
-											</font>
-										</span><br/><span >
-											<font size="1">
-												<span lang="en-US">
-													NO	<input type="checkbox" @ViewBag.Q24943_No />
-
-												</span>
-                                                &nbsp;&nbsp;(If NO, provide further explanation or note exemption in Memo to PO File Comments and provide supporting evidence)
-
-											</font>
-										</span>
-										<br/><span >                                                 
-											<font size="1">
-												<span lang="en-US">
-                                                    FAR Part 12	<input type="checkbox" @ViewBag.Q24943_Far />
-
-												</span>
-                                                
-
-											</font>
-										</span>
-                                        <br /><span>
+                                <td width="330" valign="TOP" style="border: 1px solid #000000; padding: 0in 0.08in">
+                                    <p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+                                        <span style="text-transform: uppercase">
                                             <font size="1">
                                                 <span lang="en-US">
-                                                    Exempt-Award based on Adequate Price Competition 	<input type="checkbox" @ViewBag.Q24943_Exempt />
-
+                                                    <b>
+                                                        cost
+                                                        or pricing data required:
+                                                    </b>
+                                                </span>
+                                            </font>
+                                        </span><font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff"></span></font></font></font>
+                                    </p>
+                                    <p class="western" style="margin-bottom: 0in">
+                                        <span>
+                                            <font size="1">
+                                                <input type="checkbox" @ViewBag.Q24943_Yes />
+                                                <span lang="en-US">
+                                                    YES	
                                                 </span>
 
-
+                                                
+                                    <span >
+                                        <font color="#ff0000">
+                                            <font size="1">
+                                                <span lang="en-US">
+                                                    <i>
+                                                        <b>
+                                                            If
+                                                            YES,
+                                                    TINA Standard Text “SC_AERO_COMP_001” is required on PO
+                                                        </b>
+                                                    </i>
+                                                </span>
                                             </font>
-                                        </span>
-									
-									
-									</p>
-									
-								
-								
-									<p class="western"  style="margin-bottom: 0.03in;color:red;font-style:italic;">
-										<font size="1">
-											<span lang="en-US">
-												<i>
-													<b>
-														NOTE:
-														DO NOT UPLOAD
-													</b>
-												</i>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-												<i>
-													Cost Analysis documents to SAP electronic file.
-												</i>
-											</span>
-										</font>
-									</p>
-									<p lang="en-US" class="western" style="margin-bottom: 0.06in">
-										<font size="1">
-											<i>
-												If
-												supplier declines to submit Cost or Pricing data, contact
-												Compliance Analyst
-											</i>
-										</font>
-									</p>
-									<p class="western" style="margin-bottom: 0.06in">
-										<font color="#ff0000">
-											<font size="1">
-												<span lang="en-US">
-													<i>
-														<b>
-															If
-															YES
-														</b>
-													</i>
-												</span>
-											</font>
-										</font><font color="#ff0000">
-											<font size="1">
-												<span lang="en-US">
-													above,
-													TINA Standard Text “SC_AERO_COMP_001” is required on PO
-												</span>
-											</font>
-										</font>
-									</p>
-									<p class="western">
-										<span style="text-transform: uppercase">
-											<font size="1">
-												<span lang="en-US">
-													MEMO
-													TO PO FILE COMMENTS:
-												</span>
-											</font>
-										</span><div style="font-size:x-small">@ViewBag.Q24943_Comment</div>
-</p>
-								</td>
+                                        </font>
+                                    </span>
+
+                                    </font>
+                                    </span><br /><span>
+                                        <font size="1">
+                                            <input type="checkbox" @ViewBag.Q24943_No />
+                                            <span lang="en-US">
+                                                NO	
+
+                                            </span>
+                                            <span>
+                                                <i>
+                                                    (If NO, provide further explanation or note exemption in Memo to PO File Comments and provide supporting evidence)</i>
+</span>
+
+                                        </font>
+                                    </span>
+                                    <br /><span>
+                                        <font size="1">
+                                            <input type="checkbox" @ViewBag.Q24943_Far />
+                                            <span lang="en-US">
+                                                FAR Part 12
+
+                                            </span>
+
+
+                                        </font>
+                                    </span>
+                                    <br /><span>
+                                        <font size="1">
+                                            <input type="checkbox" @ViewBag.Q24943_Exempt />
+                                            <span lang="en-US">
+                                                Exempt-Award based on Adequate Price Competition 	
+
+                                            </span>
+
+
+                                        </font>
+                                    </span>
+
+
+                                    </p>
+
+
+
+                                    <p class="western" style="margin-bottom: 0.03in;font-style:italic;">
+                                        <font size="1">
+                                            <span lang="en-US" style="color:red;">
+                                                <i>
+                                                    <b>
+                                                        NOTE:
+                                                        DO NOT UPLOAD
+                                                    </b>
+                                                </i>
+                                            </span>
+                                        </font><font size="1">
+                                            <span lang="en-US" style="color:red;">
+                                                <i>
+                                                    Cost Analysis documents to SAP electronic file.
+                                                </i>
+                                            </span>
+                                        </font>
+                                        <font size="1">
+                                            <i>
+                                                If
+                                                supplier declines to submit Cost or Pricing data, contact
+                                                Compliance Analyst
+                                            </i>
+                                        </font>
+                                    </p>
+                                  
+
+                                    <p class="western">
+                                        <span style="text-transform: uppercase">
+                                            <font size="1">
+                                                <span lang="en-US">
+                                                    MEMO
+                                                    TO PO FILE COMMENTS:
+                                                </span>
+                                            </font>
+                                        </span><div style="font-size:x-small">@ViewBag.Q24943_Comment</div>
+                                    </p>
+                                </td>
 							</tr>
 							<tr>
 								<td width="16" height="164" bgcolor="#eaf1dd" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
@@ -2768,41 +2782,39 @@ be filed in PO doc file prior to award and notify Sourcing Compliance)</span></l
 												/ DCAA
 											</span>
 										</font>
-									</p>
-									<p class="western">
-										<font size="1">
+                                        <br/>
+                                        <font size="1">
 											<span lang="en-US">
 												<input type="checkbox" @ViewBag.Q24944_46129 />	Internal
 											</span>
 										</font>
-									</p>
-                                    <p class="western">
+                                        <br />
                                         <font size="1">
                                             <span lang="en-US">
                                                 <input type="checkbox" @ViewBag.Q24944_46133 />	Both
                                             </span>
                                         </font>
-                                    </p>
-									<p class="western">
-										<font size="1">
-											<span lang="en-US">
-												<input type="checkbox" @ViewBag.Q24944_46130 />	Other
-												&nbsp;&nbsp;&nbsp;(
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-												<i>
+                                        <br />
+                                        <font size="1">
+                                            <span lang="en-US">
+                                                <input type="checkbox" @ViewBag.Q24944_46130 />	Other
+                                                &nbsp;&nbsp;&nbsp;(
+                                            </span>
+                                        </font><font size="1">
+                                            <span lang="en-US">
+                                                <i>
                                                     If Other, further
                                                     explanation required in Memo to
                                                     PO File Comments
-												</i>
-											</span>
-										</font><font size="1">
-											<span lang="en-US">
-												)
-											</span>
-										</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
+                                                </i>
+                                            </span>
+                                        </font><font size="1">
+                                            <span lang="en-US">
+                                                )
+                                            </span>
+                                        </font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span>
 									</p>
+									
                                     <p class="western" style="margin-bottom: 0.03in;color:red;font-style:italic;">
                                         <font size="1">
                                             <span lang="en-US">
@@ -3025,7 +3037,7 @@ be filed in PO doc file prior to award and notify Sourcing Compliance)</span></l
 </p>
 
 
-                                    <p class="western" style="margin-bottom: 0.06in">
+                                    <p class="western" style="margin-bottom: 0.06in;font-style:italic;">
                                         <font size="1">
                                             <span lang="en-US">
                                                 If NO, supplier is not on the PreAward
