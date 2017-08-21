@@ -374,8 +374,14 @@
             $.post("../admin/sendrequest", { text: text })
                 .done(function (result) {
 
+                    var str = JSON.stringify({
+                        channel: "#moog",
+                        text: result.msg
+                    });
+
                     $.post('https://hooks.slack.com/services/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?parse=full',
-                        'payload={"channel": "#moog", "text": "' + result.msg + '", "attachments": [] }'
+                        //'payload={"channel": "#moog", "text": "' + $("<div/>").html(result.msg).html() + '", "attachments": [] }'
+                        'payload=' + str
                     ).done(function (data1) {
 
                     });
