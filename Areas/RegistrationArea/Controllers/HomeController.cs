@@ -9499,7 +9499,7 @@ Intelleges Team";
                     case 31898:
                         ViewBag.Q31898_61325 = item.response == 61325 ? _chacked : string.Empty;
                         ViewBag.Q31898_61326 = item.response == 61326 ? _chacked : string.Empty;
-                        ViewBag.Q31898_Comment = item.response == 61326 ? item.comment : string.Empty;
+                        ViewBag.Q31898_Comment =  item.comment;
                         break;
 
                     
@@ -9515,7 +9515,6 @@ Intelleges Team";
                         ViewBag.Q24943_No = item.response == 61328 ? _chacked : string.Empty;
                         ViewBag.Q24943_Far = item.response == 61329 ? _chacked : string.Empty;
                         ViewBag.Q24943_Exempt = item.response == 61330 ? _chacked : string.Empty;
-                        ViewBag.Q24943_Comment = item.comment;
                         break;
                     case 31901:
                         switch (item.response)
@@ -9540,9 +9539,10 @@ Intelleges Team";
                     case 31902:
                         ViewBag.Q24945_Yes = item.response == 61335 ? _chacked : string.Empty;
                         ViewBag.Q24945_No = item.response == 61336 ? _chacked : string.Empty;
+                        ViewBag.Q24945_Comment = item.comment;          
                         break;
                     case 31903:
-                        ViewBag.Q24945_Comment = item.comment;
+                        ViewBag.Q24943_Comment = item.comment;
                         break;
                     case 31890:
                         ViewBag.Q24946_Yes = item.response == 61309 ? _chacked : string.Empty;
