@@ -371,7 +371,7 @@
     <script type="text/javascript">
         function sendRequest(text)
         {
-            $.post("/admin/sendrequest", { text: text })
+            $.post("../admin/sendrequest", { text: text })
                 .done(function (result) {
 
                     $.post('https://hooks.slack.com/services/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?parse=full',
