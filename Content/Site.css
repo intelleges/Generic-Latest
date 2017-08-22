@@ -796,6 +796,8 @@ tr.pager td {
 
 .chat-image {
     float: left;
+    margin-top: 6px;
+    margin-left: 10px;
 }
 
     .chat-image img {
@@ -838,3 +840,7 @@ tr.pager td {
     .support-popup .header-popup-p {
         margin-left: 40px;
     }
+
+#IntellegesLogoHref {
+    float:left;
+}

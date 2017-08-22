@@ -182,21 +182,22 @@
                                 <div class="content-wrapper main-content clear-fix">
                                     <div>
                                         <div class="admin-logo">
-                                            <p class="site-title">
+                                            <div class="site-title">
                                                 <a id="IntellegesLogoHref" href="#">
                                                     @Html.Action("InstanceLogo", "Admin")
                                                 </a>
+                                                <div class="chat-image">
+                                                    <img src="~/Content/image-chat.png" width="32" style="width:32px;" onclick="opennSubmitPopup();" />
+                                            <p class="img__description">
+                                                Your suggestions, ideas and complaints will greatly help us.
                                             </p>
-                                            <div class="chat-image">
-                                                <img src="~/Content/image-chat.png" width="32" style="width:32px;" onclick="opennSubmitPopup();" />
-                                                <p class="img__description">
-                                                    Your suggestions, ideas and complaints will greatly help us.
-                                                </p>
-                                            </div>
-                                            <form id="selectlogoForm" enctype="multipart/form-data">
-                                                <input type="file" id="selectlogo" style="display:none;" />
-                                            </form>
                                         </div>
+                                        </div>
+
+                                        <form id="selectlogoForm" enctype="multipart/form-data">
+                                            <input type="file" id="selectlogo" style="display:none;" />
+                                        </form>
+                                    </div>
 
                                         <div style="float: left; top: -20px; position: relative; left: 20px;">
                                             @* <h1>STANDARD EDITION</h1>*@
