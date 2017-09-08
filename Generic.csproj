@@ -2683,6 +2683,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
+    <Content Include="Contents\images\if_MB__note_81100.png" />
     <Content Include="Contents\images\i_386abcb4f9499a4e_html_55b65ccf.gif" />
     <Content Include="Contents\AdminStyle\css\bootstrap.css" />
     <Content Include="Contents\AdminStyle\css\bootstrap.min.css" />

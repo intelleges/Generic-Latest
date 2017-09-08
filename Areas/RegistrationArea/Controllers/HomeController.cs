@@ -1520,7 +1520,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return result;
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [AcceptVerbs(HttpVerbs.Post), ValidateInput(false)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             #region Method Body

@@ -399,7 +399,7 @@ namespace Generic.DataLayer
             }
 
             //show question 
-
+            string responseTypeDescription = db.pr_getResponseType(question.responseType).FirstOrDefault().description;
             //determine is there should be displayed HINT link
             var hits = db.pr_getQuestionResponseNarrativeSelectionListByQuestion(question.id).FirstOrDefault();
             if (hits != null)
@@ -422,7 +422,14 @@ namespace Generic.DataLayer
                 firstInnerCell = new TableCell();
                 firstInnerCell.HorizontalAlign = HorizontalAlign.Left;
                 firstInnerCell.VerticalAlign = VerticalAlign.Top;
-                firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                if (new string[] { "textarea", "textComment" }.Contains(responseTypeDescription))
+                {
+                    firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+                }
+                else
+                {
+                    firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                }
                 //tableCell.Controls.Add(label);
                 HyperLink link = new HyperLink();
                 link.ID = "narrative-hint-" + question.id.ToString();
@@ -431,23 +438,75 @@ namespace Generic.DataLayer
                 link.Text = "HINT";
                 firstInnerCell.Controls.Add(link);
                 innerRow.Controls.Add(firstInnerCell);
+                if (new string[] { "textarea", "textComment" }.Contains(responseTypeDescription))
+                {
+                    firstInnerCell = new TableCell();
+                    firstInnerCell.HorizontalAlign = HorizontalAlign.Left;
+                    firstInnerCell.VerticalAlign = VerticalAlign.Top;
+                    firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(10);
+                    HtmlImage buttonImage = new HtmlImage();
+                    buttonImage.Attributes.Add("class", "editor");
+                    buttonImage.Attributes.Add("title", "Click to use editor");
+                    buttonImage.Src = "/Contents/images/if_MB__note_81100.png";
+                    buttonImage.Style.Add(HtmlTextWriterStyle.Width, "20px;");
+                    buttonImage.Style.Add(HtmlTextWriterStyle.Cursor, "pointer;");
+                    firstInnerCell.Controls.Add(buttonImage);
+                    innerRow.Controls.Add(firstInnerCell);
+                }
                 innerTable.Controls.Add(innerRow);
                 tableCell.Controls.Add(innerTable);
             }
             else
             {
-                tableCell = new TableCell();
-                tableCell.CssClass = cssClass;
-                tableCell.HorizontalAlign = HorizontalAlign.Left;
-                tableCell.VerticalAlign = VerticalAlign.Top;
-                tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
-                tableCell.Controls.Add(label);
+                if (new string[] { "textarea", "textComment" }.Contains(responseTypeDescription))
+                {
+                    tableCell = new TableCell();
+                    tableCell.CssClass = cssClass;
+                    tableCell.HorizontalAlign = HorizontalAlign.Left;
+                    tableCell.VerticalAlign = VerticalAlign.Top;
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+                    Table innerTable = new Table();
+                    innerTable.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    TableRow innerRow = new TableRow();
+                    innerRow.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                    TableCell firstInnerCell = new TableCell();
+                    firstInnerCell.HorizontalAlign = HorizontalAlign.Left;
+                    firstInnerCell.VerticalAlign = VerticalAlign.Top;
+                    firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+                    firstInnerCell.Controls.Add(label);
+                    innerRow.Controls.Add(firstInnerCell);
+                    firstInnerCell = new TableCell();
+                    firstInnerCell.HorizontalAlign = HorizontalAlign.Right;
+                    firstInnerCell.VerticalAlign = VerticalAlign.Top;
+                    firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(20);
+                    HtmlImage buttonImage = new HtmlImage();
+                    buttonImage.Attributes.Add("class", "editor");
+                    buttonImage.Attributes.Add("title", "Click to use editor");
+                    buttonImage.Src = "/Contents/images/if_MB__note_81100.png";
+                    buttonImage.Style.Add(HtmlTextWriterStyle.Width, "20px;");
+                    buttonImage.Style.Add(HtmlTextWriterStyle.Cursor, "pointer;");
+                    
+                    //buttonImage.PostBackUrl = "#";
+                    firstInnerCell.Controls.Add(buttonImage);
+                    innerRow.Controls.Add(firstInnerCell);
+                    innerTable.Controls.Add(innerRow);
+                    tableCell.Controls.Add(innerTable);
+                }
+                else
+                {
+                    tableCell = new TableCell();
+                    tableCell.CssClass = cssClass;
+                    tableCell.HorizontalAlign = HorizontalAlign.Left;
+                    tableCell.VerticalAlign = VerticalAlign.Top;
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
+                    tableCell.Controls.Add(label);
+                }
                 //tableRow.Controls.Add(tableCell);
             }
             tableRow.Controls.Add(tableCell);
             string controlId = "";
 
-            string responseTypeDescription = db.pr_getResponseType(question.responseType).FirstOrDefault().description;
+
 
             var objresponseByQuestion = db.pr_getResponseByQuestion(question.id).ToList();
             //Add required validation control
