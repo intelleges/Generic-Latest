@@ -474,7 +474,7 @@ namespace Generic.DataLayer
                     firstInnerCell.VerticalAlign = VerticalAlign.Top;
                     firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
                     firstInnerCell.Controls.Add(label);
-                    innerRow.Controls.Add(firstInnerCell);
+                    innerRow.Controls.Add(firstInnerCell);  
                     firstInnerCell = new TableCell();
                     firstInnerCell.HorizontalAlign = HorizontalAlign.Right;
                     firstInnerCell.VerticalAlign = VerticalAlign.Top;
