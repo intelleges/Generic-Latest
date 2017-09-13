@@ -183,20 +183,29 @@
 	}
 	(function ($) {
         $(document).ready(function () {
+            $(".editor").each(function () {
+                var textAreaId = $(this).parent().parent().parent().parent().parent().parent().next().children().last().children("textarea").prop("id");
+                if (!textAreaId)
+                    alert("can't find text area.");
+                //if (CKEDITOR.instances[textAreaId]) {
+                //    CKEDITOR.instances[textAreaId].destroy();
+                //}
+                //else {
+                   
+                //}
+                CKEDITOR.replace(textAreaId, {
+                    //scayt_autoStartup: true,
+                    removePlugins: 'elementspath, Scayt',
+                    removeButtons: 'Scayt',
+                    toolbarCanCollapse: true,
+                    toolbarStartupExpanded: false
+                });
+            });
             $(".editor").click(function () {
                 var textAreaId = $(this).parent().parent().parent().parent().parent().parent().next().children().last().children("textarea").prop("id");
                 if (!textAreaId)
                     alert("can't find text area.");
-                if (CKEDITOR.instances[textAreaId]) {
-                    CKEDITOR.instances[textAreaId].destroy();
-                }
-                else {
-                    CKEDITOR.replace(textAreaId, {
-                        //scayt_autoStartup: true,
-                        removePlugins: 'elementspath, Scayt',
-                        removeButtons : 'Scayt'
-                    });
-                }
+               // CKEDITOR.instances[textAreaId].
             });
 			var percentage = $('#barpercent').val() + '%';
 			$('#progressbar').width(percentage);

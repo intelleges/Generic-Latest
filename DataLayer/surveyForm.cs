@@ -450,6 +450,7 @@ namespace Generic.DataLayer
                     buttonImage.Src = "/Contents/images/if_MB__note_81100.png";
                     buttonImage.Style.Add(HtmlTextWriterStyle.Width, "20px;");
                     buttonImage.Style.Add(HtmlTextWriterStyle.Cursor, "pointer;");
+                    buttonImage.Style.Add(HtmlTextWriterStyle.Display, "none;");
                     firstInnerCell.Controls.Add(buttonImage);
                     innerRow.Controls.Add(firstInnerCell);
                 }
@@ -485,7 +486,7 @@ namespace Generic.DataLayer
                     buttonImage.Src = "/Contents/images/if_MB__note_81100.png";
                     buttonImage.Style.Add(HtmlTextWriterStyle.Width, "20px;");
                     buttonImage.Style.Add(HtmlTextWriterStyle.Cursor, "pointer;");
-                    
+                    buttonImage.Style.Add(HtmlTextWriterStyle.Display, "none;");
                     //buttonImage.PostBackUrl = "#";
                     firstInnerCell.Controls.Add(buttonImage);
                     innerRow.Controls.Add(firstInnerCell);
