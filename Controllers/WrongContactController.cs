@@ -167,7 +167,8 @@ namespace Generic.Controllers
                        partner = objpartner,
                         ptq = ptq,
                          sender = objperson,
-                          touchpoint = objtouchpoint
+                          touchpoint = objtouchpoint,
+                          enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1
                  });
 				 
 
