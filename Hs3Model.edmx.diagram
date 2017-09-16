@@ -310,6 +310,9 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="3" PointY="59.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachmentType" Width="1.5" PointX="25.375" PointY="10.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.cfdbClause" Width="1.5" PointX="12.375" PointY="25.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.cfdbPartnertypeClause" Width="1.5" PointX="25.375" PointY="13.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personPPTQClause" Width="1.5" PointX="14.375" PointY="25.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

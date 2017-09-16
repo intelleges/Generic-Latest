@@ -213,6 +213,9 @@ namespace Generic
         public virtual DbSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
         public virtual DbSet<key> keys { get; set; }
         public virtual DbSet<autoMailAttachmentType> autoMailAttachmentTypes { get; set; }
+        public virtual DbSet<cfdbClause> cfdbClause { get; set; }
+        public virtual DbSet<cfdbPartnertypeClause> cfdbPartnertypeClause { get; set; }
+        public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -19472,6 +19475,1263 @@ namespace Generic
                 new ObjectParameter("question", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_questionResponseWarningCheck_Result>("pr_questionResponseWarningCheck", questionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addcfdb(Nullable<int> pPTQ, string salesOffice, string distributionChannel, string salesOrderType, string salesOrderNumber, string salesLineItem, string salesOrderHeaderStatus, string salesOrderHdrStatusDesc, string salesOrderItemStatus, string salesOrderItemStatusDesc, string salesOrderDataDescription, string customerGroup, string sBU, string cBT, string cBT2, string pONumber, string customerID, string customerName, string customerCountry, string sAPMasterContract_, string contractLine, Nullable<System.DateTime> contractStartDate, Nullable<System.DateTime> contractEndDate, string partNumber, string contractAdminName, string aribaID_, string hWContractManager, string contractingEntity, string programName, string endUse, string endUseDescription, string primeContractNumber, string contractType, string contractTypeDescription, string dPAS, string fMS, string foreignInterestsText, string govtPropClauseApply, string govtPropertyClauses, string specialToolingClause, string gFP_CFP, string nasaQualReqd, string nasaQualText, string propertyType, string propertyTypeDesc, string propAgmtType, string buyAmericanClauseApply, string buyAmericanClauses, string buyAmericanClauseOther, string tradeAgreeActApply, string tradeAgreementsCls, string fARPart12Apply, string fARPart15Apply, string tINA, string costActgClauseApply, string costActgClause, string costActgClauseDesc, string costActgClauseOthers, string commercialItemStatus, string allowableCostClauses, string costActgClauseXemptDesc, string propOnContractApply, string placeOfPerformApply, string placeofPerformClses, string placeofPerformOthers, string changeinLocation, string customerApproval, string requalification, string citizenshipRestrictionApply, string citizenshipClauses, string citizenshipRestrOthers, string securityReqsApply, string securityReqsClses, string securityDetailsText, string sectkRepsCertsApply, string sectkRepsCertsOthers, string sectkRepsCertsClses, string configMgmtClass1, string configMgmtClass2, string configMgmtChangesText, string qualityReqApply, string qualityReqOthers, string otherShipPkgReq, string requiredTagsApply, string requiredTagsDesc, string mil129Apply, string mil130Apply, string domesticPrefRestApply, string domesticPrefRestOther, string domesticPrefRestClause, string outsourceRestrictionsApply, string outsourceclauses, string exportCusUniqReq, string exportReqClauses, string reportingDisclosureApply, string rptgDisclosClses, string reportingDisclosureOther, string p3rdPartyDisclosureRestrictions, string warrantyClausesApply, string warrantyClauses, string warrantyClausesOthers, string subsNotConsApply, string subsnotconsClauses, string subsNotConsOthers, string supplierApprovalApply, string supplierChgApply, string acctgSystemAdminstration, string contractorBusSystems, string contractorPropertyMgmtSystemAdmin, string contractorPurchasingSystemAdmin, string earnedValueMgmtSystems, string mMASApply, string mMASClauses, string mMASOthers, string counterfeitPartsClausesApply, string counterfeitClauses, string nationalStockNumber, string transPN, string transDesc, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var pPTQParameter = pPTQ.HasValue ?
+                new ObjectParameter("PPTQ", pPTQ) :
+                new ObjectParameter("PPTQ", typeof(int));
+    
+            var salesOfficeParameter = salesOffice != null ?
+                new ObjectParameter("SalesOffice", salesOffice) :
+                new ObjectParameter("SalesOffice", typeof(string));
+    
+            var distributionChannelParameter = distributionChannel != null ?
+                new ObjectParameter("DistributionChannel", distributionChannel) :
+                new ObjectParameter("DistributionChannel", typeof(string));
+    
+            var salesOrderTypeParameter = salesOrderType != null ?
+                new ObjectParameter("SalesOrderType", salesOrderType) :
+                new ObjectParameter("SalesOrderType", typeof(string));
+    
+            var salesOrderNumberParameter = salesOrderNumber != null ?
+                new ObjectParameter("SalesOrderNumber", salesOrderNumber) :
+                new ObjectParameter("SalesOrderNumber", typeof(string));
+    
+            var salesLineItemParameter = salesLineItem != null ?
+                new ObjectParameter("SalesLineItem", salesLineItem) :
+                new ObjectParameter("SalesLineItem", typeof(string));
+    
+            var salesOrderHeaderStatusParameter = salesOrderHeaderStatus != null ?
+                new ObjectParameter("SalesOrderHeaderStatus", salesOrderHeaderStatus) :
+                new ObjectParameter("SalesOrderHeaderStatus", typeof(string));
+    
+            var salesOrderHdrStatusDescParameter = salesOrderHdrStatusDesc != null ?
+                new ObjectParameter("SalesOrderHdrStatusDesc", salesOrderHdrStatusDesc) :
+                new ObjectParameter("SalesOrderHdrStatusDesc", typeof(string));
+    
+            var salesOrderItemStatusParameter = salesOrderItemStatus != null ?
+                new ObjectParameter("SalesOrderItemStatus", salesOrderItemStatus) :
+                new ObjectParameter("SalesOrderItemStatus", typeof(string));
+    
+            var salesOrderItemStatusDescParameter = salesOrderItemStatusDesc != null ?
+                new ObjectParameter("SalesOrderItemStatusDesc", salesOrderItemStatusDesc) :
+                new ObjectParameter("SalesOrderItemStatusDesc", typeof(string));
+    
+            var salesOrderDataDescriptionParameter = salesOrderDataDescription != null ?
+                new ObjectParameter("SalesOrderDataDescription", salesOrderDataDescription) :
+                new ObjectParameter("SalesOrderDataDescription", typeof(string));
+    
+            var customerGroupParameter = customerGroup != null ?
+                new ObjectParameter("CustomerGroup", customerGroup) :
+                new ObjectParameter("CustomerGroup", typeof(string));
+    
+            var sBUParameter = sBU != null ?
+                new ObjectParameter("SBU", sBU) :
+                new ObjectParameter("SBU", typeof(string));
+    
+            var cBTParameter = cBT != null ?
+                new ObjectParameter("CBT", cBT) :
+                new ObjectParameter("CBT", typeof(string));
+    
+            var cBT2Parameter = cBT2 != null ?
+                new ObjectParameter("CBT2", cBT2) :
+                new ObjectParameter("CBT2", typeof(string));
+    
+            var pONumberParameter = pONumber != null ?
+                new ObjectParameter("PONumber", pONumber) :
+                new ObjectParameter("PONumber", typeof(string));
+    
+            var customerIDParameter = customerID != null ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(string));
+    
+            var customerNameParameter = customerName != null ?
+                new ObjectParameter("CustomerName", customerName) :
+                new ObjectParameter("CustomerName", typeof(string));
+    
+            var customerCountryParameter = customerCountry != null ?
+                new ObjectParameter("CustomerCountry", customerCountry) :
+                new ObjectParameter("CustomerCountry", typeof(string));
+    
+            var sAPMasterContract_Parameter = sAPMasterContract_ != null ?
+                new ObjectParameter("SAPMasterContract_", sAPMasterContract_) :
+                new ObjectParameter("SAPMasterContract_", typeof(string));
+    
+            var contractLineParameter = contractLine != null ?
+                new ObjectParameter("ContractLine", contractLine) :
+                new ObjectParameter("ContractLine", typeof(string));
+    
+            var contractStartDateParameter = contractStartDate.HasValue ?
+                new ObjectParameter("ContractStartDate", contractStartDate) :
+                new ObjectParameter("ContractStartDate", typeof(System.DateTime));
+    
+            var contractEndDateParameter = contractEndDate.HasValue ?
+                new ObjectParameter("ContractEndDate", contractEndDate) :
+                new ObjectParameter("ContractEndDate", typeof(System.DateTime));
+    
+            var partNumberParameter = partNumber != null ?
+                new ObjectParameter("PartNumber", partNumber) :
+                new ObjectParameter("PartNumber", typeof(string));
+    
+            var contractAdminNameParameter = contractAdminName != null ?
+                new ObjectParameter("ContractAdminName", contractAdminName) :
+                new ObjectParameter("ContractAdminName", typeof(string));
+    
+            var aribaID_Parameter = aribaID_ != null ?
+                new ObjectParameter("AribaID_", aribaID_) :
+                new ObjectParameter("AribaID_", typeof(string));
+    
+            var hWContractManagerParameter = hWContractManager != null ?
+                new ObjectParameter("HWContractManager", hWContractManager) :
+                new ObjectParameter("HWContractManager", typeof(string));
+    
+            var contractingEntityParameter = contractingEntity != null ?
+                new ObjectParameter("ContractingEntity", contractingEntity) :
+                new ObjectParameter("ContractingEntity", typeof(string));
+    
+            var programNameParameter = programName != null ?
+                new ObjectParameter("ProgramName", programName) :
+                new ObjectParameter("ProgramName", typeof(string));
+    
+            var endUseParameter = endUse != null ?
+                new ObjectParameter("EndUse", endUse) :
+                new ObjectParameter("EndUse", typeof(string));
+    
+            var endUseDescriptionParameter = endUseDescription != null ?
+                new ObjectParameter("EndUseDescription", endUseDescription) :
+                new ObjectParameter("EndUseDescription", typeof(string));
+    
+            var primeContractNumberParameter = primeContractNumber != null ?
+                new ObjectParameter("PrimeContractNumber", primeContractNumber) :
+                new ObjectParameter("PrimeContractNumber", typeof(string));
+    
+            var contractTypeParameter = contractType != null ?
+                new ObjectParameter("ContractType", contractType) :
+                new ObjectParameter("ContractType", typeof(string));
+    
+            var contractTypeDescriptionParameter = contractTypeDescription != null ?
+                new ObjectParameter("ContractTypeDescription", contractTypeDescription) :
+                new ObjectParameter("ContractTypeDescription", typeof(string));
+    
+            var dPASParameter = dPAS != null ?
+                new ObjectParameter("DPAS", dPAS) :
+                new ObjectParameter("DPAS", typeof(string));
+    
+            var fMSParameter = fMS != null ?
+                new ObjectParameter("FMS", fMS) :
+                new ObjectParameter("FMS", typeof(string));
+    
+            var foreignInterestsTextParameter = foreignInterestsText != null ?
+                new ObjectParameter("ForeignInterestsText", foreignInterestsText) :
+                new ObjectParameter("ForeignInterestsText", typeof(string));
+    
+            var govtPropClauseApplyParameter = govtPropClauseApply != null ?
+                new ObjectParameter("GovtPropClauseApply", govtPropClauseApply) :
+                new ObjectParameter("GovtPropClauseApply", typeof(string));
+    
+            var govtPropertyClausesParameter = govtPropertyClauses != null ?
+                new ObjectParameter("GovtPropertyClauses", govtPropertyClauses) :
+                new ObjectParameter("GovtPropertyClauses", typeof(string));
+    
+            var specialToolingClauseParameter = specialToolingClause != null ?
+                new ObjectParameter("SpecialToolingClause", specialToolingClause) :
+                new ObjectParameter("SpecialToolingClause", typeof(string));
+    
+            var gFP_CFPParameter = gFP_CFP != null ?
+                new ObjectParameter("GFP_CFP", gFP_CFP) :
+                new ObjectParameter("GFP_CFP", typeof(string));
+    
+            var nasaQualReqdParameter = nasaQualReqd != null ?
+                new ObjectParameter("NasaQualReqd", nasaQualReqd) :
+                new ObjectParameter("NasaQualReqd", typeof(string));
+    
+            var nasaQualTextParameter = nasaQualText != null ?
+                new ObjectParameter("NasaQualText", nasaQualText) :
+                new ObjectParameter("NasaQualText", typeof(string));
+    
+            var propertyTypeParameter = propertyType != null ?
+                new ObjectParameter("PropertyType", propertyType) :
+                new ObjectParameter("PropertyType", typeof(string));
+    
+            var propertyTypeDescParameter = propertyTypeDesc != null ?
+                new ObjectParameter("PropertyTypeDesc", propertyTypeDesc) :
+                new ObjectParameter("PropertyTypeDesc", typeof(string));
+    
+            var propAgmtTypeParameter = propAgmtType != null ?
+                new ObjectParameter("PropAgmtType", propAgmtType) :
+                new ObjectParameter("PropAgmtType", typeof(string));
+    
+            var buyAmericanClauseApplyParameter = buyAmericanClauseApply != null ?
+                new ObjectParameter("BuyAmericanClauseApply", buyAmericanClauseApply) :
+                new ObjectParameter("BuyAmericanClauseApply", typeof(string));
+    
+            var buyAmericanClausesParameter = buyAmericanClauses != null ?
+                new ObjectParameter("BuyAmericanClauses", buyAmericanClauses) :
+                new ObjectParameter("BuyAmericanClauses", typeof(string));
+    
+            var buyAmericanClauseOtherParameter = buyAmericanClauseOther != null ?
+                new ObjectParameter("BuyAmericanClauseOther", buyAmericanClauseOther) :
+                new ObjectParameter("BuyAmericanClauseOther", typeof(string));
+    
+            var tradeAgreeActApplyParameter = tradeAgreeActApply != null ?
+                new ObjectParameter("TradeAgreeActApply", tradeAgreeActApply) :
+                new ObjectParameter("TradeAgreeActApply", typeof(string));
+    
+            var tradeAgreementsClsParameter = tradeAgreementsCls != null ?
+                new ObjectParameter("TradeAgreementsCls", tradeAgreementsCls) :
+                new ObjectParameter("TradeAgreementsCls", typeof(string));
+    
+            var fARPart12ApplyParameter = fARPart12Apply != null ?
+                new ObjectParameter("FARPart12Apply", fARPart12Apply) :
+                new ObjectParameter("FARPart12Apply", typeof(string));
+    
+            var fARPart15ApplyParameter = fARPart15Apply != null ?
+                new ObjectParameter("FARPart15Apply", fARPart15Apply) :
+                new ObjectParameter("FARPart15Apply", typeof(string));
+    
+            var tINAParameter = tINA != null ?
+                new ObjectParameter("TINA", tINA) :
+                new ObjectParameter("TINA", typeof(string));
+    
+            var costActgClauseApplyParameter = costActgClauseApply != null ?
+                new ObjectParameter("CostActgClauseApply", costActgClauseApply) :
+                new ObjectParameter("CostActgClauseApply", typeof(string));
+    
+            var costActgClauseParameter = costActgClause != null ?
+                new ObjectParameter("CostActgClause", costActgClause) :
+                new ObjectParameter("CostActgClause", typeof(string));
+    
+            var costActgClauseDescParameter = costActgClauseDesc != null ?
+                new ObjectParameter("CostActgClauseDesc", costActgClauseDesc) :
+                new ObjectParameter("CostActgClauseDesc", typeof(string));
+    
+            var costActgClauseOthersParameter = costActgClauseOthers != null ?
+                new ObjectParameter("CostActgClauseOthers", costActgClauseOthers) :
+                new ObjectParameter("CostActgClauseOthers", typeof(string));
+    
+            var commercialItemStatusParameter = commercialItemStatus != null ?
+                new ObjectParameter("CommercialItemStatus", commercialItemStatus) :
+                new ObjectParameter("CommercialItemStatus", typeof(string));
+    
+            var allowableCostClausesParameter = allowableCostClauses != null ?
+                new ObjectParameter("AllowableCostClauses", allowableCostClauses) :
+                new ObjectParameter("AllowableCostClauses", typeof(string));
+    
+            var costActgClauseXemptDescParameter = costActgClauseXemptDesc != null ?
+                new ObjectParameter("CostActgClauseXemptDesc", costActgClauseXemptDesc) :
+                new ObjectParameter("CostActgClauseXemptDesc", typeof(string));
+    
+            var propOnContractApplyParameter = propOnContractApply != null ?
+                new ObjectParameter("PropOnContractApply", propOnContractApply) :
+                new ObjectParameter("PropOnContractApply", typeof(string));
+    
+            var placeOfPerformApplyParameter = placeOfPerformApply != null ?
+                new ObjectParameter("PlaceOfPerformApply", placeOfPerformApply) :
+                new ObjectParameter("PlaceOfPerformApply", typeof(string));
+    
+            var placeofPerformClsesParameter = placeofPerformClses != null ?
+                new ObjectParameter("PlaceofPerformClses", placeofPerformClses) :
+                new ObjectParameter("PlaceofPerformClses", typeof(string));
+    
+            var placeofPerformOthersParameter = placeofPerformOthers != null ?
+                new ObjectParameter("PlaceofPerformOthers", placeofPerformOthers) :
+                new ObjectParameter("PlaceofPerformOthers", typeof(string));
+    
+            var changeinLocationParameter = changeinLocation != null ?
+                new ObjectParameter("ChangeinLocation", changeinLocation) :
+                new ObjectParameter("ChangeinLocation", typeof(string));
+    
+            var customerApprovalParameter = customerApproval != null ?
+                new ObjectParameter("CustomerApproval", customerApproval) :
+                new ObjectParameter("CustomerApproval", typeof(string));
+    
+            var requalificationParameter = requalification != null ?
+                new ObjectParameter("Requalification", requalification) :
+                new ObjectParameter("Requalification", typeof(string));
+    
+            var citizenshipRestrictionApplyParameter = citizenshipRestrictionApply != null ?
+                new ObjectParameter("CitizenshipRestrictionApply", citizenshipRestrictionApply) :
+                new ObjectParameter("CitizenshipRestrictionApply", typeof(string));
+    
+            var citizenshipClausesParameter = citizenshipClauses != null ?
+                new ObjectParameter("CitizenshipClauses", citizenshipClauses) :
+                new ObjectParameter("CitizenshipClauses", typeof(string));
+    
+            var citizenshipRestrOthersParameter = citizenshipRestrOthers != null ?
+                new ObjectParameter("CitizenshipRestrOthers", citizenshipRestrOthers) :
+                new ObjectParameter("CitizenshipRestrOthers", typeof(string));
+    
+            var securityReqsApplyParameter = securityReqsApply != null ?
+                new ObjectParameter("SecurityReqsApply", securityReqsApply) :
+                new ObjectParameter("SecurityReqsApply", typeof(string));
+    
+            var securityReqsClsesParameter = securityReqsClses != null ?
+                new ObjectParameter("SecurityReqsClses", securityReqsClses) :
+                new ObjectParameter("SecurityReqsClses", typeof(string));
+    
+            var securityDetailsTextParameter = securityDetailsText != null ?
+                new ObjectParameter("SecurityDetailsText", securityDetailsText) :
+                new ObjectParameter("SecurityDetailsText", typeof(string));
+    
+            var sectkRepsCertsApplyParameter = sectkRepsCertsApply != null ?
+                new ObjectParameter("SectkRepsCertsApply", sectkRepsCertsApply) :
+                new ObjectParameter("SectkRepsCertsApply", typeof(string));
+    
+            var sectkRepsCertsOthersParameter = sectkRepsCertsOthers != null ?
+                new ObjectParameter("SectkRepsCertsOthers", sectkRepsCertsOthers) :
+                new ObjectParameter("SectkRepsCertsOthers", typeof(string));
+    
+            var sectkRepsCertsClsesParameter = sectkRepsCertsClses != null ?
+                new ObjectParameter("SectkRepsCertsClses", sectkRepsCertsClses) :
+                new ObjectParameter("SectkRepsCertsClses", typeof(string));
+    
+            var configMgmtClass1Parameter = configMgmtClass1 != null ?
+                new ObjectParameter("ConfigMgmtClass1", configMgmtClass1) :
+                new ObjectParameter("ConfigMgmtClass1", typeof(string));
+    
+            var configMgmtClass2Parameter = configMgmtClass2 != null ?
+                new ObjectParameter("ConfigMgmtClass2", configMgmtClass2) :
+                new ObjectParameter("ConfigMgmtClass2", typeof(string));
+    
+            var configMgmtChangesTextParameter = configMgmtChangesText != null ?
+                new ObjectParameter("ConfigMgmtChangesText", configMgmtChangesText) :
+                new ObjectParameter("ConfigMgmtChangesText", typeof(string));
+    
+            var qualityReqApplyParameter = qualityReqApply != null ?
+                new ObjectParameter("QualityReqApply", qualityReqApply) :
+                new ObjectParameter("QualityReqApply", typeof(string));
+    
+            var qualityReqOthersParameter = qualityReqOthers != null ?
+                new ObjectParameter("QualityReqOthers", qualityReqOthers) :
+                new ObjectParameter("QualityReqOthers", typeof(string));
+    
+            var otherShipPkgReqParameter = otherShipPkgReq != null ?
+                new ObjectParameter("OtherShipPkgReq", otherShipPkgReq) :
+                new ObjectParameter("OtherShipPkgReq", typeof(string));
+    
+            var requiredTagsApplyParameter = requiredTagsApply != null ?
+                new ObjectParameter("RequiredTagsApply", requiredTagsApply) :
+                new ObjectParameter("RequiredTagsApply", typeof(string));
+    
+            var requiredTagsDescParameter = requiredTagsDesc != null ?
+                new ObjectParameter("RequiredTagsDesc", requiredTagsDesc) :
+                new ObjectParameter("RequiredTagsDesc", typeof(string));
+    
+            var mil129ApplyParameter = mil129Apply != null ?
+                new ObjectParameter("Mil129Apply", mil129Apply) :
+                new ObjectParameter("Mil129Apply", typeof(string));
+    
+            var mil130ApplyParameter = mil130Apply != null ?
+                new ObjectParameter("Mil130Apply", mil130Apply) :
+                new ObjectParameter("Mil130Apply", typeof(string));
+    
+            var domesticPrefRestApplyParameter = domesticPrefRestApply != null ?
+                new ObjectParameter("DomesticPrefRestApply", domesticPrefRestApply) :
+                new ObjectParameter("DomesticPrefRestApply", typeof(string));
+    
+            var domesticPrefRestOtherParameter = domesticPrefRestOther != null ?
+                new ObjectParameter("DomesticPrefRestOther", domesticPrefRestOther) :
+                new ObjectParameter("DomesticPrefRestOther", typeof(string));
+    
+            var domesticPrefRestClauseParameter = domesticPrefRestClause != null ?
+                new ObjectParameter("DomesticPrefRestClause", domesticPrefRestClause) :
+                new ObjectParameter("DomesticPrefRestClause", typeof(string));
+    
+            var outsourceRestrictionsApplyParameter = outsourceRestrictionsApply != null ?
+                new ObjectParameter("OutsourceRestrictionsApply", outsourceRestrictionsApply) :
+                new ObjectParameter("OutsourceRestrictionsApply", typeof(string));
+    
+            var outsourceclausesParameter = outsourceclauses != null ?
+                new ObjectParameter("Outsourceclauses", outsourceclauses) :
+                new ObjectParameter("Outsourceclauses", typeof(string));
+    
+            var exportCusUniqReqParameter = exportCusUniqReq != null ?
+                new ObjectParameter("ExportCusUniqReq", exportCusUniqReq) :
+                new ObjectParameter("ExportCusUniqReq", typeof(string));
+    
+            var exportReqClausesParameter = exportReqClauses != null ?
+                new ObjectParameter("ExportReqClauses", exportReqClauses) :
+                new ObjectParameter("ExportReqClauses", typeof(string));
+    
+            var reportingDisclosureApplyParameter = reportingDisclosureApply != null ?
+                new ObjectParameter("ReportingDisclosureApply", reportingDisclosureApply) :
+                new ObjectParameter("ReportingDisclosureApply", typeof(string));
+    
+            var rptgDisclosClsesParameter = rptgDisclosClses != null ?
+                new ObjectParameter("RptgDisclosClses", rptgDisclosClses) :
+                new ObjectParameter("RptgDisclosClses", typeof(string));
+    
+            var reportingDisclosureOtherParameter = reportingDisclosureOther != null ?
+                new ObjectParameter("ReportingDisclosureOther", reportingDisclosureOther) :
+                new ObjectParameter("ReportingDisclosureOther", typeof(string));
+    
+            var p3rdPartyDisclosureRestrictionsParameter = p3rdPartyDisclosureRestrictions != null ?
+                new ObjectParameter("p3rdPartyDisclosureRestrictions", p3rdPartyDisclosureRestrictions) :
+                new ObjectParameter("p3rdPartyDisclosureRestrictions", typeof(string));
+    
+            var warrantyClausesApplyParameter = warrantyClausesApply != null ?
+                new ObjectParameter("WarrantyClausesApply", warrantyClausesApply) :
+                new ObjectParameter("WarrantyClausesApply", typeof(string));
+    
+            var warrantyClausesParameter = warrantyClauses != null ?
+                new ObjectParameter("WarrantyClauses", warrantyClauses) :
+                new ObjectParameter("WarrantyClauses", typeof(string));
+    
+            var warrantyClausesOthersParameter = warrantyClausesOthers != null ?
+                new ObjectParameter("WarrantyClausesOthers", warrantyClausesOthers) :
+                new ObjectParameter("WarrantyClausesOthers", typeof(string));
+    
+            var subsNotConsApplyParameter = subsNotConsApply != null ?
+                new ObjectParameter("SubsNotConsApply", subsNotConsApply) :
+                new ObjectParameter("SubsNotConsApply", typeof(string));
+    
+            var subsnotconsClausesParameter = subsnotconsClauses != null ?
+                new ObjectParameter("SubsnotconsClauses", subsnotconsClauses) :
+                new ObjectParameter("SubsnotconsClauses", typeof(string));
+    
+            var subsNotConsOthersParameter = subsNotConsOthers != null ?
+                new ObjectParameter("SubsNotConsOthers", subsNotConsOthers) :
+                new ObjectParameter("SubsNotConsOthers", typeof(string));
+    
+            var supplierApprovalApplyParameter = supplierApprovalApply != null ?
+                new ObjectParameter("SupplierApprovalApply", supplierApprovalApply) :
+                new ObjectParameter("SupplierApprovalApply", typeof(string));
+    
+            var supplierChgApplyParameter = supplierChgApply != null ?
+                new ObjectParameter("SupplierChgApply", supplierChgApply) :
+                new ObjectParameter("SupplierChgApply", typeof(string));
+    
+            var acctgSystemAdminstrationParameter = acctgSystemAdminstration != null ?
+                new ObjectParameter("AcctgSystemAdminstration", acctgSystemAdminstration) :
+                new ObjectParameter("AcctgSystemAdminstration", typeof(string));
+    
+            var contractorBusSystemsParameter = contractorBusSystems != null ?
+                new ObjectParameter("ContractorBusSystems", contractorBusSystems) :
+                new ObjectParameter("ContractorBusSystems", typeof(string));
+    
+            var contractorPropertyMgmtSystemAdminParameter = contractorPropertyMgmtSystemAdmin != null ?
+                new ObjectParameter("ContractorPropertyMgmtSystemAdmin", contractorPropertyMgmtSystemAdmin) :
+                new ObjectParameter("ContractorPropertyMgmtSystemAdmin", typeof(string));
+    
+            var contractorPurchasingSystemAdminParameter = contractorPurchasingSystemAdmin != null ?
+                new ObjectParameter("ContractorPurchasingSystemAdmin", contractorPurchasingSystemAdmin) :
+                new ObjectParameter("ContractorPurchasingSystemAdmin", typeof(string));
+    
+            var earnedValueMgmtSystemsParameter = earnedValueMgmtSystems != null ?
+                new ObjectParameter("EarnedValueMgmtSystems", earnedValueMgmtSystems) :
+                new ObjectParameter("EarnedValueMgmtSystems", typeof(string));
+    
+            var mMASApplyParameter = mMASApply != null ?
+                new ObjectParameter("MMASApply", mMASApply) :
+                new ObjectParameter("MMASApply", typeof(string));
+    
+            var mMASClausesParameter = mMASClauses != null ?
+                new ObjectParameter("MMASClauses", mMASClauses) :
+                new ObjectParameter("MMASClauses", typeof(string));
+    
+            var mMASOthersParameter = mMASOthers != null ?
+                new ObjectParameter("MMASOthers", mMASOthers) :
+                new ObjectParameter("MMASOthers", typeof(string));
+    
+            var counterfeitPartsClausesApplyParameter = counterfeitPartsClausesApply != null ?
+                new ObjectParameter("CounterfeitPartsClausesApply", counterfeitPartsClausesApply) :
+                new ObjectParameter("CounterfeitPartsClausesApply", typeof(string));
+    
+            var counterfeitClausesParameter = counterfeitClauses != null ?
+                new ObjectParameter("CounterfeitClauses", counterfeitClauses) :
+                new ObjectParameter("CounterfeitClauses", typeof(string));
+    
+            var nationalStockNumberParameter = nationalStockNumber != null ?
+                new ObjectParameter("NationalStockNumber", nationalStockNumber) :
+                new ObjectParameter("NationalStockNumber", typeof(string));
+    
+            var transPNParameter = transPN != null ?
+                new ObjectParameter("TransPN", transPN) :
+                new ObjectParameter("TransPN", typeof(string));
+    
+            var transDescParameter = transDesc != null ?
+                new ObjectParameter("TransDesc", transDesc) :
+                new ObjectParameter("TransDesc", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addcfdb", pPTQParameter, salesOfficeParameter, distributionChannelParameter, salesOrderTypeParameter, salesOrderNumberParameter, salesLineItemParameter, salesOrderHeaderStatusParameter, salesOrderHdrStatusDescParameter, salesOrderItemStatusParameter, salesOrderItemStatusDescParameter, salesOrderDataDescriptionParameter, customerGroupParameter, sBUParameter, cBTParameter, cBT2Parameter, pONumberParameter, customerIDParameter, customerNameParameter, customerCountryParameter, sAPMasterContract_Parameter, contractLineParameter, contractStartDateParameter, contractEndDateParameter, partNumberParameter, contractAdminNameParameter, aribaID_Parameter, hWContractManagerParameter, contractingEntityParameter, programNameParameter, endUseParameter, endUseDescriptionParameter, primeContractNumberParameter, contractTypeParameter, contractTypeDescriptionParameter, dPASParameter, fMSParameter, foreignInterestsTextParameter, govtPropClauseApplyParameter, govtPropertyClausesParameter, specialToolingClauseParameter, gFP_CFPParameter, nasaQualReqdParameter, nasaQualTextParameter, propertyTypeParameter, propertyTypeDescParameter, propAgmtTypeParameter, buyAmericanClauseApplyParameter, buyAmericanClausesParameter, buyAmericanClauseOtherParameter, tradeAgreeActApplyParameter, tradeAgreementsClsParameter, fARPart12ApplyParameter, fARPart15ApplyParameter, tINAParameter, costActgClauseApplyParameter, costActgClauseParameter, costActgClauseDescParameter, costActgClauseOthersParameter, commercialItemStatusParameter, allowableCostClausesParameter, costActgClauseXemptDescParameter, propOnContractApplyParameter, placeOfPerformApplyParameter, placeofPerformClsesParameter, placeofPerformOthersParameter, changeinLocationParameter, customerApprovalParameter, requalificationParameter, citizenshipRestrictionApplyParameter, citizenshipClausesParameter, citizenshipRestrOthersParameter, securityReqsApplyParameter, securityReqsClsesParameter, securityDetailsTextParameter, sectkRepsCertsApplyParameter, sectkRepsCertsOthersParameter, sectkRepsCertsClsesParameter, configMgmtClass1Parameter, configMgmtClass2Parameter, configMgmtChangesTextParameter, qualityReqApplyParameter, qualityReqOthersParameter, otherShipPkgReqParameter, requiredTagsApplyParameter, requiredTagsDescParameter, mil129ApplyParameter, mil130ApplyParameter, domesticPrefRestApplyParameter, domesticPrefRestOtherParameter, domesticPrefRestClauseParameter, outsourceRestrictionsApplyParameter, outsourceclausesParameter, exportCusUniqReqParameter, exportReqClausesParameter, reportingDisclosureApplyParameter, rptgDisclosClsesParameter, reportingDisclosureOtherParameter, p3rdPartyDisclosureRestrictionsParameter, warrantyClausesApplyParameter, warrantyClausesParameter, warrantyClausesOthersParameter, subsNotConsApplyParameter, subsnotconsClausesParameter, subsNotConsOthersParameter, supplierApprovalApplyParameter, supplierChgApplyParameter, acctgSystemAdminstrationParameter, contractorBusSystemsParameter, contractorPropertyMgmtSystemAdminParameter, contractorPurchasingSystemAdminParameter, earnedValueMgmtSystemsParameter, mMASApplyParameter, mMASClausesParameter, mMASOthersParameter, counterfeitPartsClausesApplyParameter, counterfeitClausesParameter, nationalStockNumberParameter, transPNParameter, transDescParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCFDBClause(string clause, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var clauseParameter = clause != null ?
+                new ObjectParameter("Clause", clause) :
+                new ObjectParameter("Clause", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCFDBClause", clauseParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCfdbpartnertypeclause(Nullable<int> partnertype, Nullable<int> clause)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCfdbpartnertypeclause", partnertypeParameter, clauseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPersonPPTQClause(Nullable<int> person, Nullable<int> pptq, Nullable<int> clause, Nullable<int> status, Nullable<System.DateTime> dateAssigned, Nullable<System.DateTime> dateCompleted, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var dateAssignedParameter = dateAssigned.HasValue ?
+                new ObjectParameter("dateAssigned", dateAssigned) :
+                new ObjectParameter("dateAssigned", typeof(System.DateTime));
+    
+            var dateCompletedParameter = dateCompleted.HasValue ?
+                new ObjectParameter("dateCompleted", dateCompleted) :
+                new ObjectParameter("dateCompleted", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPPTQClause", personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateCompletedParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveCFDB(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveCFDB", idParameter);
+        }
+    
+        public virtual int pr_archiveCFDBClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveCFDBClause", idParameter);
+        }
+    
+        public virtual int pr_archivePersonPPTQClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonPPTQClause", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDB_Result> pr_getCFDB(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDB_Result>("pr_getCFDB", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBAll_Result> pr_getCFDBAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBAll_Result>("pr_getCFDBAll");
+        }
+    
+        public virtual ObjectResult<pr_getCFDBClause_Result> pr_getCFDBClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBClause_Result>("pr_getCFDBClause", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBClauseAll_Result> pr_getCFDBClauseAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBClauseAll_Result>("pr_getCFDBClauseAll");
+        }
+    
+        public virtual int pr_getCFDBPartnertypeClauseAll(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getCFDBPartnertypeClauseAll", partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPartnertypeClauseByPartnertype_Result> pr_getCFDBPartnertypeClauseByPartnertype(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseByPartnertype_Result>("pr_getCFDBPartnertypeClauseByPartnertype", partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getClauseFromCFDBAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getClauseFromCFDBAll");
+        }
+    
+        public virtual ObjectResult<pr_getPersonPPTQClause_Result> pr_getPersonPPTQClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClause_Result>("pr_getPersonPPTQClause", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonPPTQClauseAll_Result> pr_getPersonPPTQClauseAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClauseAll_Result>("pr_getPersonPPTQClauseAll");
+        }
+    
+        public virtual int pr_modifyCFDB(Nullable<int> id, Nullable<int> pPTQ, string salesOffice, string distributionChannel, string salesOrderType, string salesOrderNumber, string salesLineItem, string salesOrderHeaderStatus, string salesOrderHdrStatusDesc, string salesOrderItemStatus, string salesOrderItemStatusDesc, string salesOrderDataDescription, string customerGroup, string sBU, string cBT, string cBT2, string pONumber, string customerID, string customerName, string customerCountry, string sAPMasterContract_, string contractLine, Nullable<System.DateTime> contractStartDate, Nullable<System.DateTime> contractEndDate, string partNumber, string contractAdminName, string aribaID_, string hWContractManager, string contractingEntity, string programName, string endUse, string endUseDescription, string primeContractNumber, string contractType, string contractTypeDescription, string dPAS, string fMS, string foreignInterestsText, string govtPropClauseApply, string govtPropertyClauses, string specialToolingClause, string gFP_CFP, string nasaQualReqd, string nasaQualText, string propertyType, string propertyTypeDesc, string propAgmtType, string buyAmericanClauseApply, string buyAmericanClauses, string buyAmericanClauseOther, string tradeAgreeActApply, string tradeAgreementsCls, string fARPart12Apply, string fARPart15Apply, string tINA, string costActgClauseApply, string costActgClause, string costActgClauseDesc, string costActgClauseOthers, string commercialItemStatus, string allowableCostClauses, string costActgClauseXemptDesc, string propOnContractApply, string placeOfPerformApply, string placeofPerformClses, string placeofPerformOthers, string changeinLocation, string customerApproval, string requalification, string citizenshipRestrictionApply, string citizenshipClauses, string citizenshipRestrOthers, string securityReqsApply, string securityReqsClses, string securityDetailsText, string sectkRepsCertsApply, string sectkRepsCertsOthers, string sectkRepsCertsClses, string configMgmtClass1, string configMgmtClass2, string configMgmtChangesText, string qualityReqApply, string qualityReqOthers, string otherShipPkgReq, string requiredTagsApply, string requiredTagsDesc, string mil129Apply, string mil130Apply, string domesticPrefRestApply, string domesticPrefRestOther, string domesticPrefRestClause, string outsourceRestrictionsApply, string outsourceclauses, string exportCusUniqReq, string exportReqClauses, string reportingDisclosureApply, string rptgDisclosClses, string reportingDisclosureOther, string p3rdPartyDisclosureRestrictions, string warrantyClausesApply, string warrantyClauses, string warrantyClausesOthers, string subsNotConsApply, string subsnotconsClauses, string subsNotConsOthers, string supplierApprovalApply, string supplierChgApply, string acctgSystemAdminstration, string contractorBusSystems, string contractorPropertyMgmtSystemAdmin, string contractorPurchasingSystemAdmin, string earnedValueMgmtSystems, string mMASApply, string mMASClauses, string mMASOthers, string counterfeitPartsClausesApply, string counterfeitClauses, string nationalStockNumber, string transPN, string transDesc, Nullable<int> sortOrder, Nullable<int> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pPTQParameter = pPTQ.HasValue ?
+                new ObjectParameter("PPTQ", pPTQ) :
+                new ObjectParameter("PPTQ", typeof(int));
+    
+            var salesOfficeParameter = salesOffice != null ?
+                new ObjectParameter("SalesOffice", salesOffice) :
+                new ObjectParameter("SalesOffice", typeof(string));
+    
+            var distributionChannelParameter = distributionChannel != null ?
+                new ObjectParameter("DistributionChannel", distributionChannel) :
+                new ObjectParameter("DistributionChannel", typeof(string));
+    
+            var salesOrderTypeParameter = salesOrderType != null ?
+                new ObjectParameter("SalesOrderType", salesOrderType) :
+                new ObjectParameter("SalesOrderType", typeof(string));
+    
+            var salesOrderNumberParameter = salesOrderNumber != null ?
+                new ObjectParameter("SalesOrderNumber", salesOrderNumber) :
+                new ObjectParameter("SalesOrderNumber", typeof(string));
+    
+            var salesLineItemParameter = salesLineItem != null ?
+                new ObjectParameter("SalesLineItem", salesLineItem) :
+                new ObjectParameter("SalesLineItem", typeof(string));
+    
+            var salesOrderHeaderStatusParameter = salesOrderHeaderStatus != null ?
+                new ObjectParameter("SalesOrderHeaderStatus", salesOrderHeaderStatus) :
+                new ObjectParameter("SalesOrderHeaderStatus", typeof(string));
+    
+            var salesOrderHdrStatusDescParameter = salesOrderHdrStatusDesc != null ?
+                new ObjectParameter("SalesOrderHdrStatusDesc", salesOrderHdrStatusDesc) :
+                new ObjectParameter("SalesOrderHdrStatusDesc", typeof(string));
+    
+            var salesOrderItemStatusParameter = salesOrderItemStatus != null ?
+                new ObjectParameter("SalesOrderItemStatus", salesOrderItemStatus) :
+                new ObjectParameter("SalesOrderItemStatus", typeof(string));
+    
+            var salesOrderItemStatusDescParameter = salesOrderItemStatusDesc != null ?
+                new ObjectParameter("SalesOrderItemStatusDesc", salesOrderItemStatusDesc) :
+                new ObjectParameter("SalesOrderItemStatusDesc", typeof(string));
+    
+            var salesOrderDataDescriptionParameter = salesOrderDataDescription != null ?
+                new ObjectParameter("SalesOrderDataDescription", salesOrderDataDescription) :
+                new ObjectParameter("SalesOrderDataDescription", typeof(string));
+    
+            var customerGroupParameter = customerGroup != null ?
+                new ObjectParameter("CustomerGroup", customerGroup) :
+                new ObjectParameter("CustomerGroup", typeof(string));
+    
+            var sBUParameter = sBU != null ?
+                new ObjectParameter("SBU", sBU) :
+                new ObjectParameter("SBU", typeof(string));
+    
+            var cBTParameter = cBT != null ?
+                new ObjectParameter("CBT", cBT) :
+                new ObjectParameter("CBT", typeof(string));
+    
+            var cBT2Parameter = cBT2 != null ?
+                new ObjectParameter("CBT2", cBT2) :
+                new ObjectParameter("CBT2", typeof(string));
+    
+            var pONumberParameter = pONumber != null ?
+                new ObjectParameter("PONumber", pONumber) :
+                new ObjectParameter("PONumber", typeof(string));
+    
+            var customerIDParameter = customerID != null ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(string));
+    
+            var customerNameParameter = customerName != null ?
+                new ObjectParameter("CustomerName", customerName) :
+                new ObjectParameter("CustomerName", typeof(string));
+    
+            var customerCountryParameter = customerCountry != null ?
+                new ObjectParameter("CustomerCountry", customerCountry) :
+                new ObjectParameter("CustomerCountry", typeof(string));
+    
+            var sAPMasterContract_Parameter = sAPMasterContract_ != null ?
+                new ObjectParameter("SAPMasterContract_", sAPMasterContract_) :
+                new ObjectParameter("SAPMasterContract_", typeof(string));
+    
+            var contractLineParameter = contractLine != null ?
+                new ObjectParameter("ContractLine", contractLine) :
+                new ObjectParameter("ContractLine", typeof(string));
+    
+            var contractStartDateParameter = contractStartDate.HasValue ?
+                new ObjectParameter("ContractStartDate", contractStartDate) :
+                new ObjectParameter("ContractStartDate", typeof(System.DateTime));
+    
+            var contractEndDateParameter = contractEndDate.HasValue ?
+                new ObjectParameter("ContractEndDate", contractEndDate) :
+                new ObjectParameter("ContractEndDate", typeof(System.DateTime));
+    
+            var partNumberParameter = partNumber != null ?
+                new ObjectParameter("PartNumber", partNumber) :
+                new ObjectParameter("PartNumber", typeof(string));
+    
+            var contractAdminNameParameter = contractAdminName != null ?
+                new ObjectParameter("ContractAdminName", contractAdminName) :
+                new ObjectParameter("ContractAdminName", typeof(string));
+    
+            var aribaID_Parameter = aribaID_ != null ?
+                new ObjectParameter("AribaID_", aribaID_) :
+                new ObjectParameter("AribaID_", typeof(string));
+    
+            var hWContractManagerParameter = hWContractManager != null ?
+                new ObjectParameter("HWContractManager", hWContractManager) :
+                new ObjectParameter("HWContractManager", typeof(string));
+    
+            var contractingEntityParameter = contractingEntity != null ?
+                new ObjectParameter("ContractingEntity", contractingEntity) :
+                new ObjectParameter("ContractingEntity", typeof(string));
+    
+            var programNameParameter = programName != null ?
+                new ObjectParameter("ProgramName", programName) :
+                new ObjectParameter("ProgramName", typeof(string));
+    
+            var endUseParameter = endUse != null ?
+                new ObjectParameter("EndUse", endUse) :
+                new ObjectParameter("EndUse", typeof(string));
+    
+            var endUseDescriptionParameter = endUseDescription != null ?
+                new ObjectParameter("EndUseDescription", endUseDescription) :
+                new ObjectParameter("EndUseDescription", typeof(string));
+    
+            var primeContractNumberParameter = primeContractNumber != null ?
+                new ObjectParameter("PrimeContractNumber", primeContractNumber) :
+                new ObjectParameter("PrimeContractNumber", typeof(string));
+    
+            var contractTypeParameter = contractType != null ?
+                new ObjectParameter("ContractType", contractType) :
+                new ObjectParameter("ContractType", typeof(string));
+    
+            var contractTypeDescriptionParameter = contractTypeDescription != null ?
+                new ObjectParameter("ContractTypeDescription", contractTypeDescription) :
+                new ObjectParameter("ContractTypeDescription", typeof(string));
+    
+            var dPASParameter = dPAS != null ?
+                new ObjectParameter("DPAS", dPAS) :
+                new ObjectParameter("DPAS", typeof(string));
+    
+            var fMSParameter = fMS != null ?
+                new ObjectParameter("FMS", fMS) :
+                new ObjectParameter("FMS", typeof(string));
+    
+            var foreignInterestsTextParameter = foreignInterestsText != null ?
+                new ObjectParameter("ForeignInterestsText", foreignInterestsText) :
+                new ObjectParameter("ForeignInterestsText", typeof(string));
+    
+            var govtPropClauseApplyParameter = govtPropClauseApply != null ?
+                new ObjectParameter("GovtPropClauseApply", govtPropClauseApply) :
+                new ObjectParameter("GovtPropClauseApply", typeof(string));
+    
+            var govtPropertyClausesParameter = govtPropertyClauses != null ?
+                new ObjectParameter("GovtPropertyClauses", govtPropertyClauses) :
+                new ObjectParameter("GovtPropertyClauses", typeof(string));
+    
+            var specialToolingClauseParameter = specialToolingClause != null ?
+                new ObjectParameter("SpecialToolingClause", specialToolingClause) :
+                new ObjectParameter("SpecialToolingClause", typeof(string));
+    
+            var gFP_CFPParameter = gFP_CFP != null ?
+                new ObjectParameter("GFP_CFP", gFP_CFP) :
+                new ObjectParameter("GFP_CFP", typeof(string));
+    
+            var nasaQualReqdParameter = nasaQualReqd != null ?
+                new ObjectParameter("NasaQualReqd", nasaQualReqd) :
+                new ObjectParameter("NasaQualReqd", typeof(string));
+    
+            var nasaQualTextParameter = nasaQualText != null ?
+                new ObjectParameter("NasaQualText", nasaQualText) :
+                new ObjectParameter("NasaQualText", typeof(string));
+    
+            var propertyTypeParameter = propertyType != null ?
+                new ObjectParameter("PropertyType", propertyType) :
+                new ObjectParameter("PropertyType", typeof(string));
+    
+            var propertyTypeDescParameter = propertyTypeDesc != null ?
+                new ObjectParameter("PropertyTypeDesc", propertyTypeDesc) :
+                new ObjectParameter("PropertyTypeDesc", typeof(string));
+    
+            var propAgmtTypeParameter = propAgmtType != null ?
+                new ObjectParameter("PropAgmtType", propAgmtType) :
+                new ObjectParameter("PropAgmtType", typeof(string));
+    
+            var buyAmericanClauseApplyParameter = buyAmericanClauseApply != null ?
+                new ObjectParameter("BuyAmericanClauseApply", buyAmericanClauseApply) :
+                new ObjectParameter("BuyAmericanClauseApply", typeof(string));
+    
+            var buyAmericanClausesParameter = buyAmericanClauses != null ?
+                new ObjectParameter("BuyAmericanClauses", buyAmericanClauses) :
+                new ObjectParameter("BuyAmericanClauses", typeof(string));
+    
+            var buyAmericanClauseOtherParameter = buyAmericanClauseOther != null ?
+                new ObjectParameter("BuyAmericanClauseOther", buyAmericanClauseOther) :
+                new ObjectParameter("BuyAmericanClauseOther", typeof(string));
+    
+            var tradeAgreeActApplyParameter = tradeAgreeActApply != null ?
+                new ObjectParameter("TradeAgreeActApply", tradeAgreeActApply) :
+                new ObjectParameter("TradeAgreeActApply", typeof(string));
+    
+            var tradeAgreementsClsParameter = tradeAgreementsCls != null ?
+                new ObjectParameter("TradeAgreementsCls", tradeAgreementsCls) :
+                new ObjectParameter("TradeAgreementsCls", typeof(string));
+    
+            var fARPart12ApplyParameter = fARPart12Apply != null ?
+                new ObjectParameter("FARPart12Apply", fARPart12Apply) :
+                new ObjectParameter("FARPart12Apply", typeof(string));
+    
+            var fARPart15ApplyParameter = fARPart15Apply != null ?
+                new ObjectParameter("FARPart15Apply", fARPart15Apply) :
+                new ObjectParameter("FARPart15Apply", typeof(string));
+    
+            var tINAParameter = tINA != null ?
+                new ObjectParameter("TINA", tINA) :
+                new ObjectParameter("TINA", typeof(string));
+    
+            var costActgClauseApplyParameter = costActgClauseApply != null ?
+                new ObjectParameter("CostActgClauseApply", costActgClauseApply) :
+                new ObjectParameter("CostActgClauseApply", typeof(string));
+    
+            var costActgClauseParameter = costActgClause != null ?
+                new ObjectParameter("CostActgClause", costActgClause) :
+                new ObjectParameter("CostActgClause", typeof(string));
+    
+            var costActgClauseDescParameter = costActgClauseDesc != null ?
+                new ObjectParameter("CostActgClauseDesc", costActgClauseDesc) :
+                new ObjectParameter("CostActgClauseDesc", typeof(string));
+    
+            var costActgClauseOthersParameter = costActgClauseOthers != null ?
+                new ObjectParameter("CostActgClauseOthers", costActgClauseOthers) :
+                new ObjectParameter("CostActgClauseOthers", typeof(string));
+    
+            var commercialItemStatusParameter = commercialItemStatus != null ?
+                new ObjectParameter("CommercialItemStatus", commercialItemStatus) :
+                new ObjectParameter("CommercialItemStatus", typeof(string));
+    
+            var allowableCostClausesParameter = allowableCostClauses != null ?
+                new ObjectParameter("AllowableCostClauses", allowableCostClauses) :
+                new ObjectParameter("AllowableCostClauses", typeof(string));
+    
+            var costActgClauseXemptDescParameter = costActgClauseXemptDesc != null ?
+                new ObjectParameter("CostActgClauseXemptDesc", costActgClauseXemptDesc) :
+                new ObjectParameter("CostActgClauseXemptDesc", typeof(string));
+    
+            var propOnContractApplyParameter = propOnContractApply != null ?
+                new ObjectParameter("PropOnContractApply", propOnContractApply) :
+                new ObjectParameter("PropOnContractApply", typeof(string));
+    
+            var placeOfPerformApplyParameter = placeOfPerformApply != null ?
+                new ObjectParameter("PlaceOfPerformApply", placeOfPerformApply) :
+                new ObjectParameter("PlaceOfPerformApply", typeof(string));
+    
+            var placeofPerformClsesParameter = placeofPerformClses != null ?
+                new ObjectParameter("PlaceofPerformClses", placeofPerformClses) :
+                new ObjectParameter("PlaceofPerformClses", typeof(string));
+    
+            var placeofPerformOthersParameter = placeofPerformOthers != null ?
+                new ObjectParameter("PlaceofPerformOthers", placeofPerformOthers) :
+                new ObjectParameter("PlaceofPerformOthers", typeof(string));
+    
+            var changeinLocationParameter = changeinLocation != null ?
+                new ObjectParameter("ChangeinLocation", changeinLocation) :
+                new ObjectParameter("ChangeinLocation", typeof(string));
+    
+            var customerApprovalParameter = customerApproval != null ?
+                new ObjectParameter("CustomerApproval", customerApproval) :
+                new ObjectParameter("CustomerApproval", typeof(string));
+    
+            var requalificationParameter = requalification != null ?
+                new ObjectParameter("Requalification", requalification) :
+                new ObjectParameter("Requalification", typeof(string));
+    
+            var citizenshipRestrictionApplyParameter = citizenshipRestrictionApply != null ?
+                new ObjectParameter("CitizenshipRestrictionApply", citizenshipRestrictionApply) :
+                new ObjectParameter("CitizenshipRestrictionApply", typeof(string));
+    
+            var citizenshipClausesParameter = citizenshipClauses != null ?
+                new ObjectParameter("CitizenshipClauses", citizenshipClauses) :
+                new ObjectParameter("CitizenshipClauses", typeof(string));
+    
+            var citizenshipRestrOthersParameter = citizenshipRestrOthers != null ?
+                new ObjectParameter("CitizenshipRestrOthers", citizenshipRestrOthers) :
+                new ObjectParameter("CitizenshipRestrOthers", typeof(string));
+    
+            var securityReqsApplyParameter = securityReqsApply != null ?
+                new ObjectParameter("SecurityReqsApply", securityReqsApply) :
+                new ObjectParameter("SecurityReqsApply", typeof(string));
+    
+            var securityReqsClsesParameter = securityReqsClses != null ?
+                new ObjectParameter("SecurityReqsClses", securityReqsClses) :
+                new ObjectParameter("SecurityReqsClses", typeof(string));
+    
+            var securityDetailsTextParameter = securityDetailsText != null ?
+                new ObjectParameter("SecurityDetailsText", securityDetailsText) :
+                new ObjectParameter("SecurityDetailsText", typeof(string));
+    
+            var sectkRepsCertsApplyParameter = sectkRepsCertsApply != null ?
+                new ObjectParameter("SectkRepsCertsApply", sectkRepsCertsApply) :
+                new ObjectParameter("SectkRepsCertsApply", typeof(string));
+    
+            var sectkRepsCertsOthersParameter = sectkRepsCertsOthers != null ?
+                new ObjectParameter("SectkRepsCertsOthers", sectkRepsCertsOthers) :
+                new ObjectParameter("SectkRepsCertsOthers", typeof(string));
+    
+            var sectkRepsCertsClsesParameter = sectkRepsCertsClses != null ?
+                new ObjectParameter("SectkRepsCertsClses", sectkRepsCertsClses) :
+                new ObjectParameter("SectkRepsCertsClses", typeof(string));
+    
+            var configMgmtClass1Parameter = configMgmtClass1 != null ?
+                new ObjectParameter("ConfigMgmtClass1", configMgmtClass1) :
+                new ObjectParameter("ConfigMgmtClass1", typeof(string));
+    
+            var configMgmtClass2Parameter = configMgmtClass2 != null ?
+                new ObjectParameter("ConfigMgmtClass2", configMgmtClass2) :
+                new ObjectParameter("ConfigMgmtClass2", typeof(string));
+    
+            var configMgmtChangesTextParameter = configMgmtChangesText != null ?
+                new ObjectParameter("ConfigMgmtChangesText", configMgmtChangesText) :
+                new ObjectParameter("ConfigMgmtChangesText", typeof(string));
+    
+            var qualityReqApplyParameter = qualityReqApply != null ?
+                new ObjectParameter("QualityReqApply", qualityReqApply) :
+                new ObjectParameter("QualityReqApply", typeof(string));
+    
+            var qualityReqOthersParameter = qualityReqOthers != null ?
+                new ObjectParameter("QualityReqOthers", qualityReqOthers) :
+                new ObjectParameter("QualityReqOthers", typeof(string));
+    
+            var otherShipPkgReqParameter = otherShipPkgReq != null ?
+                new ObjectParameter("OtherShipPkgReq", otherShipPkgReq) :
+                new ObjectParameter("OtherShipPkgReq", typeof(string));
+    
+            var requiredTagsApplyParameter = requiredTagsApply != null ?
+                new ObjectParameter("RequiredTagsApply", requiredTagsApply) :
+                new ObjectParameter("RequiredTagsApply", typeof(string));
+    
+            var requiredTagsDescParameter = requiredTagsDesc != null ?
+                new ObjectParameter("RequiredTagsDesc", requiredTagsDesc) :
+                new ObjectParameter("RequiredTagsDesc", typeof(string));
+    
+            var mil129ApplyParameter = mil129Apply != null ?
+                new ObjectParameter("Mil129Apply", mil129Apply) :
+                new ObjectParameter("Mil129Apply", typeof(string));
+    
+            var mil130ApplyParameter = mil130Apply != null ?
+                new ObjectParameter("Mil130Apply", mil130Apply) :
+                new ObjectParameter("Mil130Apply", typeof(string));
+    
+            var domesticPrefRestApplyParameter = domesticPrefRestApply != null ?
+                new ObjectParameter("DomesticPrefRestApply", domesticPrefRestApply) :
+                new ObjectParameter("DomesticPrefRestApply", typeof(string));
+    
+            var domesticPrefRestOtherParameter = domesticPrefRestOther != null ?
+                new ObjectParameter("DomesticPrefRestOther", domesticPrefRestOther) :
+                new ObjectParameter("DomesticPrefRestOther", typeof(string));
+    
+            var domesticPrefRestClauseParameter = domesticPrefRestClause != null ?
+                new ObjectParameter("DomesticPrefRestClause", domesticPrefRestClause) :
+                new ObjectParameter("DomesticPrefRestClause", typeof(string));
+    
+            var outsourceRestrictionsApplyParameter = outsourceRestrictionsApply != null ?
+                new ObjectParameter("OutsourceRestrictionsApply", outsourceRestrictionsApply) :
+                new ObjectParameter("OutsourceRestrictionsApply", typeof(string));
+    
+            var outsourceclausesParameter = outsourceclauses != null ?
+                new ObjectParameter("Outsourceclauses", outsourceclauses) :
+                new ObjectParameter("Outsourceclauses", typeof(string));
+    
+            var exportCusUniqReqParameter = exportCusUniqReq != null ?
+                new ObjectParameter("ExportCusUniqReq", exportCusUniqReq) :
+                new ObjectParameter("ExportCusUniqReq", typeof(string));
+    
+            var exportReqClausesParameter = exportReqClauses != null ?
+                new ObjectParameter("ExportReqClauses", exportReqClauses) :
+                new ObjectParameter("ExportReqClauses", typeof(string));
+    
+            var reportingDisclosureApplyParameter = reportingDisclosureApply != null ?
+                new ObjectParameter("ReportingDisclosureApply", reportingDisclosureApply) :
+                new ObjectParameter("ReportingDisclosureApply", typeof(string));
+    
+            var rptgDisclosClsesParameter = rptgDisclosClses != null ?
+                new ObjectParameter("RptgDisclosClses", rptgDisclosClses) :
+                new ObjectParameter("RptgDisclosClses", typeof(string));
+    
+            var reportingDisclosureOtherParameter = reportingDisclosureOther != null ?
+                new ObjectParameter("ReportingDisclosureOther", reportingDisclosureOther) :
+                new ObjectParameter("ReportingDisclosureOther", typeof(string));
+    
+            var p3rdPartyDisclosureRestrictionsParameter = p3rdPartyDisclosureRestrictions != null ?
+                new ObjectParameter("p3rdPartyDisclosureRestrictions", p3rdPartyDisclosureRestrictions) :
+                new ObjectParameter("p3rdPartyDisclosureRestrictions", typeof(string));
+    
+            var warrantyClausesApplyParameter = warrantyClausesApply != null ?
+                new ObjectParameter("WarrantyClausesApply", warrantyClausesApply) :
+                new ObjectParameter("WarrantyClausesApply", typeof(string));
+    
+            var warrantyClausesParameter = warrantyClauses != null ?
+                new ObjectParameter("WarrantyClauses", warrantyClauses) :
+                new ObjectParameter("WarrantyClauses", typeof(string));
+    
+            var warrantyClausesOthersParameter = warrantyClausesOthers != null ?
+                new ObjectParameter("WarrantyClausesOthers", warrantyClausesOthers) :
+                new ObjectParameter("WarrantyClausesOthers", typeof(string));
+    
+            var subsNotConsApplyParameter = subsNotConsApply != null ?
+                new ObjectParameter("SubsNotConsApply", subsNotConsApply) :
+                new ObjectParameter("SubsNotConsApply", typeof(string));
+    
+            var subsnotconsClausesParameter = subsnotconsClauses != null ?
+                new ObjectParameter("SubsnotconsClauses", subsnotconsClauses) :
+                new ObjectParameter("SubsnotconsClauses", typeof(string));
+    
+            var subsNotConsOthersParameter = subsNotConsOthers != null ?
+                new ObjectParameter("SubsNotConsOthers", subsNotConsOthers) :
+                new ObjectParameter("SubsNotConsOthers", typeof(string));
+    
+            var supplierApprovalApplyParameter = supplierApprovalApply != null ?
+                new ObjectParameter("SupplierApprovalApply", supplierApprovalApply) :
+                new ObjectParameter("SupplierApprovalApply", typeof(string));
+    
+            var supplierChgApplyParameter = supplierChgApply != null ?
+                new ObjectParameter("SupplierChgApply", supplierChgApply) :
+                new ObjectParameter("SupplierChgApply", typeof(string));
+    
+            var acctgSystemAdminstrationParameter = acctgSystemAdminstration != null ?
+                new ObjectParameter("AcctgSystemAdminstration", acctgSystemAdminstration) :
+                new ObjectParameter("AcctgSystemAdminstration", typeof(string));
+    
+            var contractorBusSystemsParameter = contractorBusSystems != null ?
+                new ObjectParameter("ContractorBusSystems", contractorBusSystems) :
+                new ObjectParameter("ContractorBusSystems", typeof(string));
+    
+            var contractorPropertyMgmtSystemAdminParameter = contractorPropertyMgmtSystemAdmin != null ?
+                new ObjectParameter("ContractorPropertyMgmtSystemAdmin", contractorPropertyMgmtSystemAdmin) :
+                new ObjectParameter("ContractorPropertyMgmtSystemAdmin", typeof(string));
+    
+            var contractorPurchasingSystemAdminParameter = contractorPurchasingSystemAdmin != null ?
+                new ObjectParameter("ContractorPurchasingSystemAdmin", contractorPurchasingSystemAdmin) :
+                new ObjectParameter("ContractorPurchasingSystemAdmin", typeof(string));
+    
+            var earnedValueMgmtSystemsParameter = earnedValueMgmtSystems != null ?
+                new ObjectParameter("EarnedValueMgmtSystems", earnedValueMgmtSystems) :
+                new ObjectParameter("EarnedValueMgmtSystems", typeof(string));
+    
+            var mMASApplyParameter = mMASApply != null ?
+                new ObjectParameter("MMASApply", mMASApply) :
+                new ObjectParameter("MMASApply", typeof(string));
+    
+            var mMASClausesParameter = mMASClauses != null ?
+                new ObjectParameter("MMASClauses", mMASClauses) :
+                new ObjectParameter("MMASClauses", typeof(string));
+    
+            var mMASOthersParameter = mMASOthers != null ?
+                new ObjectParameter("MMASOthers", mMASOthers) :
+                new ObjectParameter("MMASOthers", typeof(string));
+    
+            var counterfeitPartsClausesApplyParameter = counterfeitPartsClausesApply != null ?
+                new ObjectParameter("CounterfeitPartsClausesApply", counterfeitPartsClausesApply) :
+                new ObjectParameter("CounterfeitPartsClausesApply", typeof(string));
+    
+            var counterfeitClausesParameter = counterfeitClauses != null ?
+                new ObjectParameter("CounterfeitClauses", counterfeitClauses) :
+                new ObjectParameter("CounterfeitClauses", typeof(string));
+    
+            var nationalStockNumberParameter = nationalStockNumber != null ?
+                new ObjectParameter("NationalStockNumber", nationalStockNumber) :
+                new ObjectParameter("NationalStockNumber", typeof(string));
+    
+            var transPNParameter = transPN != null ?
+                new ObjectParameter("TransPN", transPN) :
+                new ObjectParameter("TransPN", typeof(string));
+    
+            var transDescParameter = transDesc != null ?
+                new ObjectParameter("TransDesc", transDesc) :
+                new ObjectParameter("TransDesc", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCFDB", idParameter, pPTQParameter, salesOfficeParameter, distributionChannelParameter, salesOrderTypeParameter, salesOrderNumberParameter, salesLineItemParameter, salesOrderHeaderStatusParameter, salesOrderHdrStatusDescParameter, salesOrderItemStatusParameter, salesOrderItemStatusDescParameter, salesOrderDataDescriptionParameter, customerGroupParameter, sBUParameter, cBTParameter, cBT2Parameter, pONumberParameter, customerIDParameter, customerNameParameter, customerCountryParameter, sAPMasterContract_Parameter, contractLineParameter, contractStartDateParameter, contractEndDateParameter, partNumberParameter, contractAdminNameParameter, aribaID_Parameter, hWContractManagerParameter, contractingEntityParameter, programNameParameter, endUseParameter, endUseDescriptionParameter, primeContractNumberParameter, contractTypeParameter, contractTypeDescriptionParameter, dPASParameter, fMSParameter, foreignInterestsTextParameter, govtPropClauseApplyParameter, govtPropertyClausesParameter, specialToolingClauseParameter, gFP_CFPParameter, nasaQualReqdParameter, nasaQualTextParameter, propertyTypeParameter, propertyTypeDescParameter, propAgmtTypeParameter, buyAmericanClauseApplyParameter, buyAmericanClausesParameter, buyAmericanClauseOtherParameter, tradeAgreeActApplyParameter, tradeAgreementsClsParameter, fARPart12ApplyParameter, fARPart15ApplyParameter, tINAParameter, costActgClauseApplyParameter, costActgClauseParameter, costActgClauseDescParameter, costActgClauseOthersParameter, commercialItemStatusParameter, allowableCostClausesParameter, costActgClauseXemptDescParameter, propOnContractApplyParameter, placeOfPerformApplyParameter, placeofPerformClsesParameter, placeofPerformOthersParameter, changeinLocationParameter, customerApprovalParameter, requalificationParameter, citizenshipRestrictionApplyParameter, citizenshipClausesParameter, citizenshipRestrOthersParameter, securityReqsApplyParameter, securityReqsClsesParameter, securityDetailsTextParameter, sectkRepsCertsApplyParameter, sectkRepsCertsOthersParameter, sectkRepsCertsClsesParameter, configMgmtClass1Parameter, configMgmtClass2Parameter, configMgmtChangesTextParameter, qualityReqApplyParameter, qualityReqOthersParameter, otherShipPkgReqParameter, requiredTagsApplyParameter, requiredTagsDescParameter, mil129ApplyParameter, mil130ApplyParameter, domesticPrefRestApplyParameter, domesticPrefRestOtherParameter, domesticPrefRestClauseParameter, outsourceRestrictionsApplyParameter, outsourceclausesParameter, exportCusUniqReqParameter, exportReqClausesParameter, reportingDisclosureApplyParameter, rptgDisclosClsesParameter, reportingDisclosureOtherParameter, p3rdPartyDisclosureRestrictionsParameter, warrantyClausesApplyParameter, warrantyClausesParameter, warrantyClausesOthersParameter, subsNotConsApplyParameter, subsnotconsClausesParameter, subsNotConsOthersParameter, supplierApprovalApplyParameter, supplierChgApplyParameter, acctgSystemAdminstrationParameter, contractorBusSystemsParameter, contractorPropertyMgmtSystemAdminParameter, contractorPurchasingSystemAdminParameter, earnedValueMgmtSystemsParameter, mMASApplyParameter, mMASClausesParameter, mMASOthersParameter, counterfeitPartsClausesApplyParameter, counterfeitClausesParameter, nationalStockNumberParameter, transPNParameter, transDescParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyCFDBClause(Nullable<int> id, string clause, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var clauseParameter = clause != null ?
+                new ObjectParameter("Clause", clause) :
+                new ObjectParameter("Clause", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCFDBClause", idParameter, clauseParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyPersonPPTQClause(Nullable<int> id, Nullable<int> person, Nullable<int> pptq, Nullable<int> clause, Nullable<int> status, Nullable<System.DateTime> dateAssigned, Nullable<System.DateTime> dateCompleted, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var dateAssignedParameter = dateAssigned.HasValue ?
+                new ObjectParameter("dateAssigned", dateAssigned) :
+                new ObjectParameter("dateAssigned", typeof(System.DateTime));
+    
+            var dateCompletedParameter = dateCompleted.HasValue ?
+                new ObjectParameter("dateCompleted", dateCompleted) :
+                new ObjectParameter("dateCompleted", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonPPTQClause", idParameter, personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateCompletedParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeCFDB(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCFDB", idParameter);
+        }
+    
+        public virtual int pr_removeCFDBClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCFDBClause", idParameter);
+        }
+    
+        public virtual int pr_removePersonPPTQClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonPPTQClause", idParameter);
+        }
+    
+        public virtual int pr_unArchiveCFDB(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveCFDB", idParameter);
+        }
+    
+        public virtual int pr_unArchiveCFDBClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveCFDBClause", idParameter);
+        }
+    
+        public virtual int pr_unArchivePersonPPTQClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonPPTQClause", idParameter);
         }
     }
 }

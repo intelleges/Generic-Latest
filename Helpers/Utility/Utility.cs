@@ -176,7 +176,7 @@ namespace Generic.Helpers.Utility
                 Ganalytics = new Ganalytics() { Enable = true },
                 OpenTracking = new OpenTracking() { Enable = true, SubstitutionTag = "%opentrack" },
             };
-
+                
             try
             {
                 var task = client.SendEmailAsync(msg);

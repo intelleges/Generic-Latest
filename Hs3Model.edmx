@@ -164,6 +164,23 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="cfdbClause">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clause" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cfdbPartnertypeClause">
+          <Key>
+            <PropertyRef Name="partnertype" />
+            <PropertyRef Name="clause" />
+          </Key>
+          <Property Name="partnertype" Type="int" Nullable="false" />
+          <Property Name="clause" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="companyProfileDataLoad">
           <Key>
             <PropertyRef Name="id" />
@@ -1402,6 +1419,20 @@
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="personPPTQClause">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="clause" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="dateAssigned" Type="date" Nullable="false" />
+          <Property Name="dateCompleted" Type="date" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="personRelationship">
           <Key>
@@ -4395,6 +4426,138 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addcfdb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PPTQ" Type="int" Mode="In" />
+          <Parameter Name="SalesOffice" Type="nvarchar" Mode="In" />
+          <Parameter Name="DistributionChannel" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderType" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesLineItem" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderHeaderStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderHdrStatusDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderItemStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderItemStatusDesc" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SalesOrderDataDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CustomerGroup" Type="nvarchar" Mode="In" />
+          <Parameter Name="SBU" Type="nvarchar" Mode="In" />
+          <Parameter Name="CBT" Type="nvarchar" Mode="In" />
+          <Parameter Name="CBT2" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PONumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CustomerID" Type="nvarchar" Mode="In" />
+          <Parameter Name="CustomerName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CustomerCountry" Type="nvarchar" Mode="In" />
+          <Parameter Name="SAPMasterContract_" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractLine" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractEndDate" Type="datetime" Mode="In" />
+          <Parameter Name="PartNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractAdminName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="AribaID_" Type="nvarchar" Mode="In" />
+          <Parameter Name="HWContractManager" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ContractingEntity" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ProgramName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EndUse" Type="nvarchar" Mode="In" />
+          <Parameter Name="EndUseDescription" Type="nvarchar" Mode="In" />
+          <Parameter Name="PrimeContractNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractType" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractTypeDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="DPAS" Type="nvarchar" Mode="In" />
+          <Parameter Name="FMS" Type="nvarchar" Mode="In" />
+          <Parameter Name="ForeignInterestsText" Type="nvarchar" Mode="In" />
+          <Parameter Name="GovtPropClauseApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="GovtPropertyClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SpecialToolingClause" Type="nvarchar" Mode="In" />
+          <Parameter Name="GFP_CFP" Type="nvarchar" Mode="In" />
+          <Parameter Name="NasaQualReqd" Type="nvarchar" Mode="In" />
+          <Parameter Name="NasaQualText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PropertyType" Type="nvarchar" Mode="In" />
+          <Parameter Name="PropertyTypeDesc" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PropAgmtType" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="BuyAmericanClauseApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="BuyAmericanClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="BuyAmericanClauseOther" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TradeAgreeActApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="TradeAgreementsCls" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="FARPart12Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="FARPart15Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="TINA" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClause" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseOthers" Type="nvarchar" Mode="In" />
+          <Parameter Name="CommercialItemStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="AllowableCostClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseXemptDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="PropOnContractApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlaceOfPerformApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlaceofPerformClses" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlaceofPerformOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ChangeinLocation" Type="nvarchar" Mode="In" />
+          <Parameter Name="CustomerApproval" Type="nvarchar" Mode="In" />
+          <Parameter Name="Requalification" Type="nvarchar" Mode="In" />
+          <Parameter Name="CitizenshipRestrictionApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="CitizenshipClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CitizenshipRestrOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SecurityReqsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecurityReqsClses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SecurityDetailsText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SectkRepsCertsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SectkRepsCertsOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SectkRepsCertsClses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ConfigMgmtClass1" Type="nvarchar" Mode="In" />
+          <Parameter Name="ConfigMgmtClass2" Type="nvarchar" Mode="In" />
+          <Parameter Name="ConfigMgmtChangesText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="QualityReqApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="QualityReqOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="OtherShipPkgReq" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="RequiredTagsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="RequiredTagsDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mil129Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mil130Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="DomesticPrefRestApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="DomesticPrefRestOther" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="DomesticPrefRestClause" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="OutsourceRestrictionsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="Outsourceclauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="ExportCusUniqReq" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ExportReqClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="ReportingDisclosureApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="RptgDisclosClses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ReportingDisclosureOther" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p3rdPartyDisclosureRestrictions" Type="nvarchar" Mode="In" />
+          <Parameter Name="WarrantyClausesApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="WarrantyClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="WarrantyClausesOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SubsNotConsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SubsnotconsClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SubsNotConsOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SupplierApprovalApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SupplierChgApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="AcctgSystemAdminstration" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractorBusSystems" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractorPropertyMgmtSystemAdmin" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractorPurchasingSystemAdmin" Type="nvarchar" Mode="In" />
+          <Parameter Name="EarnedValueMgmtSystems" Type="nvarchar" Mode="In" />
+          <Parameter Name="MMASApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="MMASClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="MMASOthers" Type="nvarchar" Mode="In" />
+          <Parameter Name="CounterfeitPartsClausesApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="CounterfeitClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="NationalStockNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="TransPN" Type="nvarchar" Mode="In" />
+          <Parameter Name="TransDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Clause" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addCfdbpartnertypeclause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="externalID" Type="varchar" Mode="In" />
           <Parameter Name="companyName" Type="varchar" Mode="In" />
@@ -5046,6 +5209,16 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="verifier" Type="nvarchar" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="dateAssigned" Type="date" Mode="In" />
+          <Parameter Name="dateCompleted" Type="date" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addPersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -5529,6 +5702,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archiveCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveConfirmPartnerActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5620,6 +5799,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archivePersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -5976,6 +6158,21 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCampaignStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCFDBPartnertypeClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBPartnertypeClauseByPartnertype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getClauseFromCFDBAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getCommentByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -6773,6 +6970,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPersonPartnerCountByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonPPTQClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPersonPreviousNext" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7384,6 +7585,136 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_modifyCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="PPTQ" Type="int" Mode="In" />
+          <Parameter Name="SalesOffice" Type="nvarchar" Mode="In" />
+          <Parameter Name="DistributionChannel" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderType" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesLineItem" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderHeaderStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderHdrStatusDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderItemStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="SalesOrderItemStatusDesc" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SalesOrderDataDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CustomerGroup" Type="nvarchar" Mode="In" />
+          <Parameter Name="SBU" Type="nvarchar" Mode="In" />
+          <Parameter Name="CBT" Type="nvarchar" Mode="In" />
+          <Parameter Name="CBT2" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PONumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CustomerID" Type="nvarchar" Mode="In" />
+          <Parameter Name="CustomerName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CustomerCountry" Type="nvarchar" Mode="In" />
+          <Parameter Name="SAPMasterContract_" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractLine" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="ContractEndDate" Type="datetime" Mode="In" />
+          <Parameter Name="PartNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractAdminName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="AribaID_" Type="nvarchar" Mode="In" />
+          <Parameter Name="HWContractManager" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ContractingEntity" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ProgramName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EndUse" Type="nvarchar" Mode="In" />
+          <Parameter Name="EndUseDescription" Type="nvarchar" Mode="In" />
+          <Parameter Name="PrimeContractNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractType" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractTypeDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="DPAS" Type="nvarchar" Mode="In" />
+          <Parameter Name="FMS" Type="nvarchar" Mode="In" />
+          <Parameter Name="ForeignInterestsText" Type="nvarchar" Mode="In" />
+          <Parameter Name="GovtPropClauseApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="GovtPropertyClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SpecialToolingClause" Type="nvarchar" Mode="In" />
+          <Parameter Name="GFP_CFP" Type="nvarchar" Mode="In" />
+          <Parameter Name="NasaQualReqd" Type="nvarchar" Mode="In" />
+          <Parameter Name="NasaQualText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PropertyType" Type="nvarchar" Mode="In" />
+          <Parameter Name="PropertyTypeDesc" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PropAgmtType" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="BuyAmericanClauseApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="BuyAmericanClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="BuyAmericanClauseOther" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="TradeAgreeActApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="TradeAgreementsCls" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="FARPart12Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="FARPart15Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="TINA" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClause" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseOthers" Type="nvarchar" Mode="In" />
+          <Parameter Name="CommercialItemStatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="AllowableCostClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="CostActgClauseXemptDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="PropOnContractApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlaceOfPerformApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlaceofPerformClses" Type="nvarchar" Mode="In" />
+          <Parameter Name="PlaceofPerformOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ChangeinLocation" Type="nvarchar" Mode="In" />
+          <Parameter Name="CustomerApproval" Type="nvarchar" Mode="In" />
+          <Parameter Name="Requalification" Type="nvarchar" Mode="In" />
+          <Parameter Name="CitizenshipRestrictionApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="CitizenshipClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CitizenshipRestrOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SecurityReqsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecurityReqsClses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SecurityDetailsText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SectkRepsCertsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SectkRepsCertsOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SectkRepsCertsClses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ConfigMgmtClass1" Type="nvarchar" Mode="In" />
+          <Parameter Name="ConfigMgmtClass2" Type="nvarchar" Mode="In" />
+          <Parameter Name="ConfigMgmtChangesText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="QualityReqApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="QualityReqOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="OtherShipPkgReq" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="RequiredTagsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="RequiredTagsDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mil129Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mil130Apply" Type="nvarchar" Mode="In" />
+          <Parameter Name="DomesticPrefRestApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="DomesticPrefRestOther" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="DomesticPrefRestClause" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="OutsourceRestrictionsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="Outsourceclauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="ExportCusUniqReq" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ExportReqClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="ReportingDisclosureApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="RptgDisclosClses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ReportingDisclosureOther" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p3rdPartyDisclosureRestrictions" Type="nvarchar" Mode="In" />
+          <Parameter Name="WarrantyClausesApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="WarrantyClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="WarrantyClausesOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SubsNotConsApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SubsnotconsClauses" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SubsNotConsOthers" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SupplierApprovalApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="SupplierChgApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="AcctgSystemAdminstration" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractorBusSystems" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractorPropertyMgmtSystemAdmin" Type="nvarchar" Mode="In" />
+          <Parameter Name="ContractorPurchasingSystemAdmin" Type="nvarchar" Mode="In" />
+          <Parameter Name="EarnedValueMgmtSystems" Type="nvarchar" Mode="In" />
+          <Parameter Name="MMASApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="MMASClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="MMASOthers" Type="nvarchar" Mode="In" />
+          <Parameter Name="CounterfeitPartsClausesApply" Type="nvarchar" Mode="In" />
+          <Parameter Name="CounterfeitClauses" Type="nvarchar" Mode="In" />
+          <Parameter Name="NationalStockNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="TransPN" Type="nvarchar" Mode="In" />
+          <Parameter Name="TransDesc" Type="nvarchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="Clause" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -8023,6 +8354,17 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="pwd" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="dateAssigned" Type="date" Mode="In" />
+          <Parameter Name="dateCompleted" Type="date" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -8479,6 +8821,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_removeCampaignStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8631,6 +8979,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePersonLinkedinAuthInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removePersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -8863,6 +9214,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_unArchiveCampaignRule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8948,6 +9305,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchivePersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9175,6 +9535,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="campaign" EntityType="Self.campaign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="campaignRule" EntityType="Self.campaignRule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="campaignStatus" EntityType="Self.campaignStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cfdbClause" EntityType="Self.cfdbClause" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cfdbPartnertypeClause" EntityType="Self.cfdbPartnertypeClause" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="companyProfileDataLoad" EntityType="Self.companyProfileDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="confirmationSpreadsheetDataLoad" EntityType="Self.confirmationSpreadsheetDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="Self.ConfirmPartnerActionType" Schema="dbo" store:Type="Tables" />
@@ -9265,6 +9627,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="personGroup" EntityType="Self.personGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personLinkedinAuthInfo" EntityType="Self.personLinkedinAuthInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personLoginAuditEvent" EntityType="Self.personLoginAuditEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personPPTQClause" EntityType="Self.personPPTQClause" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personRelationship" EntityType="Self.personRelationship" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personRelationshipType" EntityType="Self.personRelationshipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personRole" EntityType="Self.personRole" Schema="dbo" store:Type="Tables" />
@@ -15882,7 +16245,339 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_questionResponseWarningCheck" ReturnType="Collection(hs3MVCMTQa2Model.pr_questionResponseWarningCheck_Result)">
-            <Parameter Name="question" Mode="In" Type="Int32" />
+          <Parameter Name="question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="cfdbClause" EntityType="hs3MVCMTQa2Model.cfdbClause" />
+          <EntitySet Name="cfdbPartnertypeClause" EntityType="hs3MVCMTQa2Model.cfdbPartnertypeClause" />
+          <EntitySet Name="personPPTQClause" EntityType="hs3MVCMTQa2Model.personPPTQClause" />
+          <FunctionImport Name="pr_addcfdb" ReturnType="Collection(Decimal)">
+            <Parameter Name="PPTQ" Mode="In" Type="Int32" />
+            <Parameter Name="SalesOffice" Mode="In" Type="String" />
+            <Parameter Name="DistributionChannel" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderType" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderNumber" Mode="In" Type="String" />
+            <Parameter Name="SalesLineItem" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderHeaderStatus" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderHdrStatusDesc" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderItemStatus" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderItemStatusDesc" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderDataDescription" Mode="In" Type="String" />
+            <Parameter Name="CustomerGroup" Mode="In" Type="String" />
+            <Parameter Name="SBU" Mode="In" Type="String" />
+            <Parameter Name="CBT" Mode="In" Type="String" />
+            <Parameter Name="CBT2" Mode="In" Type="String" />
+            <Parameter Name="PONumber" Mode="In" Type="String" />
+            <Parameter Name="CustomerID" Mode="In" Type="String" />
+            <Parameter Name="CustomerName" Mode="In" Type="String" />
+            <Parameter Name="CustomerCountry" Mode="In" Type="String" />
+            <Parameter Name="SAPMasterContract_" Mode="In" Type="String" />
+            <Parameter Name="ContractLine" Mode="In" Type="String" />
+            <Parameter Name="ContractStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PartNumber" Mode="In" Type="String" />
+            <Parameter Name="ContractAdminName" Mode="In" Type="String" />
+            <Parameter Name="AribaID_" Mode="In" Type="String" />
+            <Parameter Name="HWContractManager" Mode="In" Type="String" />
+            <Parameter Name="ContractingEntity" Mode="In" Type="String" />
+            <Parameter Name="ProgramName" Mode="In" Type="String" />
+            <Parameter Name="EndUse" Mode="In" Type="String" />
+            <Parameter Name="EndUseDescription" Mode="In" Type="String" />
+            <Parameter Name="PrimeContractNumber" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="ContractTypeDescription" Mode="In" Type="String" />
+            <Parameter Name="DPAS" Mode="In" Type="String" />
+            <Parameter Name="FMS" Mode="In" Type="String" />
+            <Parameter Name="ForeignInterestsText" Mode="In" Type="String" />
+            <Parameter Name="GovtPropClauseApply" Mode="In" Type="String" />
+            <Parameter Name="GovtPropertyClauses" Mode="In" Type="String" />
+            <Parameter Name="SpecialToolingClause" Mode="In" Type="String" />
+            <Parameter Name="GFP_CFP" Mode="In" Type="String" />
+            <Parameter Name="NasaQualReqd" Mode="In" Type="String" />
+            <Parameter Name="NasaQualText" Mode="In" Type="String" />
+            <Parameter Name="PropertyType" Mode="In" Type="String" />
+            <Parameter Name="PropertyTypeDesc" Mode="In" Type="String" />
+            <Parameter Name="PropAgmtType" Mode="In" Type="String" />
+            <Parameter Name="BuyAmericanClauseApply" Mode="In" Type="String" />
+            <Parameter Name="BuyAmericanClauses" Mode="In" Type="String" />
+            <Parameter Name="BuyAmericanClauseOther" Mode="In" Type="String" />
+            <Parameter Name="TradeAgreeActApply" Mode="In" Type="String" />
+            <Parameter Name="TradeAgreementsCls" Mode="In" Type="String" />
+            <Parameter Name="FARPart12Apply" Mode="In" Type="String" />
+            <Parameter Name="FARPart15Apply" Mode="In" Type="String" />
+            <Parameter Name="TINA" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseApply" Mode="In" Type="String" />
+            <Parameter Name="CostActgClause" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseDesc" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseOthers" Mode="In" Type="String" />
+            <Parameter Name="CommercialItemStatus" Mode="In" Type="String" />
+            <Parameter Name="AllowableCostClauses" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseXemptDesc" Mode="In" Type="String" />
+            <Parameter Name="PropOnContractApply" Mode="In" Type="String" />
+            <Parameter Name="PlaceOfPerformApply" Mode="In" Type="String" />
+            <Parameter Name="PlaceofPerformClses" Mode="In" Type="String" />
+            <Parameter Name="PlaceofPerformOthers" Mode="In" Type="String" />
+            <Parameter Name="ChangeinLocation" Mode="In" Type="String" />
+            <Parameter Name="CustomerApproval" Mode="In" Type="String" />
+            <Parameter Name="Requalification" Mode="In" Type="String" />
+            <Parameter Name="CitizenshipRestrictionApply" Mode="In" Type="String" />
+            <Parameter Name="CitizenshipClauses" Mode="In" Type="String" />
+            <Parameter Name="CitizenshipRestrOthers" Mode="In" Type="String" />
+            <Parameter Name="SecurityReqsApply" Mode="In" Type="String" />
+            <Parameter Name="SecurityReqsClses" Mode="In" Type="String" />
+            <Parameter Name="SecurityDetailsText" Mode="In" Type="String" />
+            <Parameter Name="SectkRepsCertsApply" Mode="In" Type="String" />
+            <Parameter Name="SectkRepsCertsOthers" Mode="In" Type="String" />
+            <Parameter Name="SectkRepsCertsClses" Mode="In" Type="String" />
+            <Parameter Name="ConfigMgmtClass1" Mode="In" Type="String" />
+            <Parameter Name="ConfigMgmtClass2" Mode="In" Type="String" />
+            <Parameter Name="ConfigMgmtChangesText" Mode="In" Type="String" />
+            <Parameter Name="QualityReqApply" Mode="In" Type="String" />
+            <Parameter Name="QualityReqOthers" Mode="In" Type="String" />
+            <Parameter Name="OtherShipPkgReq" Mode="In" Type="String" />
+            <Parameter Name="RequiredTagsApply" Mode="In" Type="String" />
+            <Parameter Name="RequiredTagsDesc" Mode="In" Type="String" />
+            <Parameter Name="Mil129Apply" Mode="In" Type="String" />
+            <Parameter Name="Mil130Apply" Mode="In" Type="String" />
+            <Parameter Name="DomesticPrefRestApply" Mode="In" Type="String" />
+            <Parameter Name="DomesticPrefRestOther" Mode="In" Type="String" />
+            <Parameter Name="DomesticPrefRestClause" Mode="In" Type="String" />
+            <Parameter Name="OutsourceRestrictionsApply" Mode="In" Type="String" />
+            <Parameter Name="Outsourceclauses" Mode="In" Type="String" />
+            <Parameter Name="ExportCusUniqReq" Mode="In" Type="String" />
+            <Parameter Name="ExportReqClauses" Mode="In" Type="String" />
+            <Parameter Name="ReportingDisclosureApply" Mode="In" Type="String" />
+            <Parameter Name="RptgDisclosClses" Mode="In" Type="String" />
+            <Parameter Name="ReportingDisclosureOther" Mode="In" Type="String" />
+            <Parameter Name="p3rdPartyDisclosureRestrictions" Mode="In" Type="String" />
+            <Parameter Name="WarrantyClausesApply" Mode="In" Type="String" />
+            <Parameter Name="WarrantyClauses" Mode="In" Type="String" />
+            <Parameter Name="WarrantyClausesOthers" Mode="In" Type="String" />
+            <Parameter Name="SubsNotConsApply" Mode="In" Type="String" />
+            <Parameter Name="SubsnotconsClauses" Mode="In" Type="String" />
+            <Parameter Name="SubsNotConsOthers" Mode="In" Type="String" />
+            <Parameter Name="SupplierApprovalApply" Mode="In" Type="String" />
+            <Parameter Name="SupplierChgApply" Mode="In" Type="String" />
+            <Parameter Name="AcctgSystemAdminstration" Mode="In" Type="String" />
+            <Parameter Name="ContractorBusSystems" Mode="In" Type="String" />
+            <Parameter Name="ContractorPropertyMgmtSystemAdmin" Mode="In" Type="String" />
+            <Parameter Name="ContractorPurchasingSystemAdmin" Mode="In" Type="String" />
+            <Parameter Name="EarnedValueMgmtSystems" Mode="In" Type="String" />
+            <Parameter Name="MMASApply" Mode="In" Type="String" />
+            <Parameter Name="MMASClauses" Mode="In" Type="String" />
+            <Parameter Name="MMASOthers" Mode="In" Type="String" />
+            <Parameter Name="CounterfeitPartsClausesApply" Mode="In" Type="String" />
+            <Parameter Name="CounterfeitClauses" Mode="In" Type="String" />
+            <Parameter Name="NationalStockNumber" Mode="In" Type="String" />
+            <Parameter Name="TransPN" Mode="In" Type="String" />
+            <Parameter Name="TransDesc" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCFDBClause" ReturnType="Collection(Decimal)">
+            <Parameter Name="Clause" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCfdbpartnertypeclause" ReturnType="Collection(Decimal)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPersonPPTQClause" ReturnType="Collection(Decimal)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveCFDB">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveCFDBClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePersonPPTQClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDB" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDB_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBAll_Result)" />
+          <FunctionImport Name="pr_getCFDBClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClause_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClauseAll_Result)" />
+          <FunctionImport Name="pr_getCFDBPartnertypeClauseAll">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getClauseFromCFDBAll" ReturnType="Collection(String)" />
+          <FunctionImport Name="pr_getPersonPPTQClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPPTQClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result)" />
+          <FunctionImport Name="pr_modifyCFDB">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="PPTQ" Mode="In" Type="Int32" />
+            <Parameter Name="SalesOffice" Mode="In" Type="String" />
+            <Parameter Name="DistributionChannel" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderType" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderNumber" Mode="In" Type="String" />
+            <Parameter Name="SalesLineItem" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderHeaderStatus" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderHdrStatusDesc" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderItemStatus" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderItemStatusDesc" Mode="In" Type="String" />
+            <Parameter Name="SalesOrderDataDescription" Mode="In" Type="String" />
+            <Parameter Name="CustomerGroup" Mode="In" Type="String" />
+            <Parameter Name="SBU" Mode="In" Type="String" />
+            <Parameter Name="CBT" Mode="In" Type="String" />
+            <Parameter Name="CBT2" Mode="In" Type="String" />
+            <Parameter Name="PONumber" Mode="In" Type="String" />
+            <Parameter Name="CustomerID" Mode="In" Type="String" />
+            <Parameter Name="CustomerName" Mode="In" Type="String" />
+            <Parameter Name="CustomerCountry" Mode="In" Type="String" />
+            <Parameter Name="SAPMasterContract_" Mode="In" Type="String" />
+            <Parameter Name="ContractLine" Mode="In" Type="String" />
+            <Parameter Name="ContractStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ContractEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PartNumber" Mode="In" Type="String" />
+            <Parameter Name="ContractAdminName" Mode="In" Type="String" />
+            <Parameter Name="AribaID_" Mode="In" Type="String" />
+            <Parameter Name="HWContractManager" Mode="In" Type="String" />
+            <Parameter Name="ContractingEntity" Mode="In" Type="String" />
+            <Parameter Name="ProgramName" Mode="In" Type="String" />
+            <Parameter Name="EndUse" Mode="In" Type="String" />
+            <Parameter Name="EndUseDescription" Mode="In" Type="String" />
+            <Parameter Name="PrimeContractNumber" Mode="In" Type="String" />
+            <Parameter Name="ContractType" Mode="In" Type="String" />
+            <Parameter Name="ContractTypeDescription" Mode="In" Type="String" />
+            <Parameter Name="DPAS" Mode="In" Type="String" />
+            <Parameter Name="FMS" Mode="In" Type="String" />
+            <Parameter Name="ForeignInterestsText" Mode="In" Type="String" />
+            <Parameter Name="GovtPropClauseApply" Mode="In" Type="String" />
+            <Parameter Name="GovtPropertyClauses" Mode="In" Type="String" />
+            <Parameter Name="SpecialToolingClause" Mode="In" Type="String" />
+            <Parameter Name="GFP_CFP" Mode="In" Type="String" />
+            <Parameter Name="NasaQualReqd" Mode="In" Type="String" />
+            <Parameter Name="NasaQualText" Mode="In" Type="String" />
+            <Parameter Name="PropertyType" Mode="In" Type="String" />
+            <Parameter Name="PropertyTypeDesc" Mode="In" Type="String" />
+            <Parameter Name="PropAgmtType" Mode="In" Type="String" />
+            <Parameter Name="BuyAmericanClauseApply" Mode="In" Type="String" />
+            <Parameter Name="BuyAmericanClauses" Mode="In" Type="String" />
+            <Parameter Name="BuyAmericanClauseOther" Mode="In" Type="String" />
+            <Parameter Name="TradeAgreeActApply" Mode="In" Type="String" />
+            <Parameter Name="TradeAgreementsCls" Mode="In" Type="String" />
+            <Parameter Name="FARPart12Apply" Mode="In" Type="String" />
+            <Parameter Name="FARPart15Apply" Mode="In" Type="String" />
+            <Parameter Name="TINA" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseApply" Mode="In" Type="String" />
+            <Parameter Name="CostActgClause" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseDesc" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseOthers" Mode="In" Type="String" />
+            <Parameter Name="CommercialItemStatus" Mode="In" Type="String" />
+            <Parameter Name="AllowableCostClauses" Mode="In" Type="String" />
+            <Parameter Name="CostActgClauseXemptDesc" Mode="In" Type="String" />
+            <Parameter Name="PropOnContractApply" Mode="In" Type="String" />
+            <Parameter Name="PlaceOfPerformApply" Mode="In" Type="String" />
+            <Parameter Name="PlaceofPerformClses" Mode="In" Type="String" />
+            <Parameter Name="PlaceofPerformOthers" Mode="In" Type="String" />
+            <Parameter Name="ChangeinLocation" Mode="In" Type="String" />
+            <Parameter Name="CustomerApproval" Mode="In" Type="String" />
+            <Parameter Name="Requalification" Mode="In" Type="String" />
+            <Parameter Name="CitizenshipRestrictionApply" Mode="In" Type="String" />
+            <Parameter Name="CitizenshipClauses" Mode="In" Type="String" />
+            <Parameter Name="CitizenshipRestrOthers" Mode="In" Type="String" />
+            <Parameter Name="SecurityReqsApply" Mode="In" Type="String" />
+            <Parameter Name="SecurityReqsClses" Mode="In" Type="String" />
+            <Parameter Name="SecurityDetailsText" Mode="In" Type="String" />
+            <Parameter Name="SectkRepsCertsApply" Mode="In" Type="String" />
+            <Parameter Name="SectkRepsCertsOthers" Mode="In" Type="String" />
+            <Parameter Name="SectkRepsCertsClses" Mode="In" Type="String" />
+            <Parameter Name="ConfigMgmtClass1" Mode="In" Type="String" />
+            <Parameter Name="ConfigMgmtClass2" Mode="In" Type="String" />
+            <Parameter Name="ConfigMgmtChangesText" Mode="In" Type="String" />
+            <Parameter Name="QualityReqApply" Mode="In" Type="String" />
+            <Parameter Name="QualityReqOthers" Mode="In" Type="String" />
+            <Parameter Name="OtherShipPkgReq" Mode="In" Type="String" />
+            <Parameter Name="RequiredTagsApply" Mode="In" Type="String" />
+            <Parameter Name="RequiredTagsDesc" Mode="In" Type="String" />
+            <Parameter Name="Mil129Apply" Mode="In" Type="String" />
+            <Parameter Name="Mil130Apply" Mode="In" Type="String" />
+            <Parameter Name="DomesticPrefRestApply" Mode="In" Type="String" />
+            <Parameter Name="DomesticPrefRestOther" Mode="In" Type="String" />
+            <Parameter Name="DomesticPrefRestClause" Mode="In" Type="String" />
+            <Parameter Name="OutsourceRestrictionsApply" Mode="In" Type="String" />
+            <Parameter Name="Outsourceclauses" Mode="In" Type="String" />
+            <Parameter Name="ExportCusUniqReq" Mode="In" Type="String" />
+            <Parameter Name="ExportReqClauses" Mode="In" Type="String" />
+            <Parameter Name="ReportingDisclosureApply" Mode="In" Type="String" />
+            <Parameter Name="RptgDisclosClses" Mode="In" Type="String" />
+            <Parameter Name="ReportingDisclosureOther" Mode="In" Type="String" />
+            <Parameter Name="p3rdPartyDisclosureRestrictions" Mode="In" Type="String" />
+            <Parameter Name="WarrantyClausesApply" Mode="In" Type="String" />
+            <Parameter Name="WarrantyClauses" Mode="In" Type="String" />
+            <Parameter Name="WarrantyClausesOthers" Mode="In" Type="String" />
+            <Parameter Name="SubsNotConsApply" Mode="In" Type="String" />
+            <Parameter Name="SubsnotconsClauses" Mode="In" Type="String" />
+            <Parameter Name="SubsNotConsOthers" Mode="In" Type="String" />
+            <Parameter Name="SupplierApprovalApply" Mode="In" Type="String" />
+            <Parameter Name="SupplierChgApply" Mode="In" Type="String" />
+            <Parameter Name="AcctgSystemAdminstration" Mode="In" Type="String" />
+            <Parameter Name="ContractorBusSystems" Mode="In" Type="String" />
+            <Parameter Name="ContractorPropertyMgmtSystemAdmin" Mode="In" Type="String" />
+            <Parameter Name="ContractorPurchasingSystemAdmin" Mode="In" Type="String" />
+            <Parameter Name="EarnedValueMgmtSystems" Mode="In" Type="String" />
+            <Parameter Name="MMASApply" Mode="In" Type="String" />
+            <Parameter Name="MMASClauses" Mode="In" Type="String" />
+            <Parameter Name="MMASOthers" Mode="In" Type="String" />
+            <Parameter Name="CounterfeitPartsClausesApply" Mode="In" Type="String" />
+            <Parameter Name="CounterfeitClauses" Mode="In" Type="String" />
+            <Parameter Name="NationalStockNumber" Mode="In" Type="String" />
+            <Parameter Name="TransPN" Mode="In" Type="String" />
+            <Parameter Name="TransDesc" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyCFDBClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="Clause" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonPPTQClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeCFDB">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeCFDBClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePersonPPTQClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveCFDB">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveCFDBClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePersonPPTQClause">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -25800,6 +26495,323 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="responsecount" Nullable="true" />
           <Property Type="Int32" Name="commenttype" Nullable="true" />
         </ComplexType>
+        <EntityType Name="cfdbClause">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clause" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cfdbPartnertypeClause">
+          <Key>
+            <PropertyRef Name="partnertype" />
+            <PropertyRef Name="clause" />
+          </Key>
+          <Property Name="partnertype" Type="Int32" Nullable="false" />
+          <Property Name="clause" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="personPPTQClause">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="clause" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="dateAssigned" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateCompleted" Type="DateTime" Precision="0" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getCFDB_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="PPTQ" Nullable="true" />
+          <Property Type="String" Name="SalesOffice" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DistributionChannel" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SalesLineItem" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderHeaderStatus" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderHdrStatusDesc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SalesOrderItemStatus" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SalesOrderItemStatusDesc" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SalesOrderDataDescription" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CustomerGroup" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SBU" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CBT" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CBT2" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PONumber" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CustomerCountry" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SAPMasterContract_" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ContractLine" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="ContractStartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ContractEndDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ContractAdminName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="AribaID_" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="HWContractManager" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ContractingEntity" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ProgramName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="EndUse" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EndUseDescription" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PrimeContractNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ContractTypeDescription" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DPAS" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="FMS" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ForeignInterestsText" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="GovtPropClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="GovtPropertyClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SpecialToolingClause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="GFP_CFP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NasaQualReqd" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="NasaQualText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PropertyType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PropertyTypeDesc" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PropAgmtType" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="BuyAmericanClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="BuyAmericanClauses" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BuyAmericanClauseOther" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="TradeAgreeActApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TradeAgreementsCls" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="FARPart12Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="FARPart15Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TINA" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CostActgClauseOthers" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CommercialItemStatus" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="AllowableCostClauses" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseXemptDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PropOnContractApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="PlaceOfPerformApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="PlaceofPerformClses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PlaceofPerformOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ChangeinLocation" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CustomerApproval" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Requalification" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CitizenshipRestrictionApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CitizenshipClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CitizenshipRestrOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SecurityReqsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SecurityReqsClses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SecurityDetailsText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SectkRepsCertsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SectkRepsCertsOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SectkRepsCertsClses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ConfigMgmtClass1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ConfigMgmtClass2" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ConfigMgmtChangesText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="QualityReqApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="QualityReqOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="OtherShipPkgReq" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="RequiredTagsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="RequiredTagsDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Mil129Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Mil130Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="DomesticPrefRestApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="DomesticPrefRestOther" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DomesticPrefRestClause" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="OutsourceRestrictionsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Outsourceclauses" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ExportCusUniqReq" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ExportReqClauses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ReportingDisclosureApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="RptgDisclosClses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ReportingDisclosureOther" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="C3rdPartyDisclosureRestrictions" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="WarrantyClausesApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="WarrantyClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="WarrantyClausesOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SubsNotConsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SubsnotconsClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SubsNotConsOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SupplierApprovalApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SupplierChgApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="AcctgSystemAdminstration" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ContractorBusSystems" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ContractorPropertyMgmtSystemAdmin" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ContractorPurchasingSystemAdmin" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="EarnedValueMgmtSystems" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="MMASApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="MMASClauses" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="MMASOthers" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CounterfeitPartsClausesApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CounterfeitClauses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NationalStockNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransDesc" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBAll_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="PPTQ" Nullable="true" />
+          <Property Type="String" Name="SalesOffice" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DistributionChannel" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SalesLineItem" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderHeaderStatus" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SalesOrderHdrStatusDesc" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SalesOrderItemStatus" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SalesOrderItemStatusDesc" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SalesOrderDataDescription" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CustomerGroup" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SBU" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CBT" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CBT2" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PONumber" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CustomerCountry" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="SAPMasterContract_" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ContractLine" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="ContractStartDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ContractEndDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ContractAdminName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="AribaID_" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="HWContractManager" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ContractingEntity" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ProgramName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="EndUse" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EndUseDescription" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PrimeContractNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ContractTypeDescription" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DPAS" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="FMS" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ForeignInterestsText" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="GovtPropClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="GovtPropertyClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SpecialToolingClause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="GFP_CFP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NasaQualReqd" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="NasaQualText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PropertyType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PropertyTypeDesc" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PropAgmtType" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="BuyAmericanClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="BuyAmericanClauses" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BuyAmericanClauseOther" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="TradeAgreeActApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TradeAgreementsCls" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="FARPart12Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="FARPart15Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TINA" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CostActgClauseOthers" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CommercialItemStatus" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="AllowableCostClauses" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseXemptDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PropOnContractApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="PlaceOfPerformApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="PlaceofPerformClses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PlaceofPerformOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ChangeinLocation" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CustomerApproval" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Requalification" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CitizenshipRestrictionApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CitizenshipClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CitizenshipRestrOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SecurityReqsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SecurityReqsClses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SecurityDetailsText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SectkRepsCertsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SectkRepsCertsOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SectkRepsCertsClses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ConfigMgmtClass1" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ConfigMgmtClass2" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ConfigMgmtChangesText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="QualityReqApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="QualityReqOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="OtherShipPkgReq" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="RequiredTagsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="RequiredTagsDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Mil129Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Mil130Apply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="DomesticPrefRestApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="DomesticPrefRestOther" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="DomesticPrefRestClause" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="OutsourceRestrictionsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Outsourceclauses" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ExportCusUniqReq" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ExportReqClauses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="ReportingDisclosureApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="RptgDisclosClses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="ReportingDisclosureOther" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="C3rdPartyDisclosureRestrictions" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="WarrantyClausesApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="WarrantyClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="WarrantyClausesOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SubsNotConsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SubsnotconsClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SubsNotConsOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SupplierApprovalApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SupplierChgApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="AcctgSystemAdminstration" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ContractorBusSystems" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ContractorPropertyMgmtSystemAdmin" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="ContractorPurchasingSystemAdmin" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="EarnedValueMgmtSystems" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="MMASApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="MMASClauses" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="MMASOthers" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CounterfeitPartsClausesApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CounterfeitClauses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NationalStockNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransDesc" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBClause_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="clause" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBClauseAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="clause" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBPartnertypeClauseByPartnertype_Result">
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonPPTQClause_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="dateAssigned" Nullable="false" />
+          <Property Type="DateTime" Name="dateCompleted" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonPPTQClauseAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="dateAssigned" Nullable="false" />
+          <Property Type="DateTime" Name="dateCompleted" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -34653,6 +35665,371 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="cfdbClause">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.cfdbClause">
+              <MappingFragment StoreEntitySet="cfdbClause">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cfdbPartnertypeClause">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.cfdbPartnertypeClause">
+              <MappingFragment StoreEntitySet="cfdbPartnertypeClause">
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personPPTQClause">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personPPTQClause">
+              <MappingFragment StoreEntitySet="personPPTQClause">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addcfdb" FunctionName="hs3MVCMTQa2Model.Store.pr_addcfdb" />
+          <FunctionImportMapping FunctionImportName="pr_addCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDBClause" />
+          <FunctionImportMapping FunctionImportName="pr_addCfdbpartnertypeclause" FunctionName="hs3MVCMTQa2Model.Store.pr_addCfdbpartnertypeclause" />
+          <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
+          <FunctionImportMapping FunctionImportName="pr_archiveCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveCFDB" />
+          <FunctionImportMapping FunctionImportName="pr_archiveCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveCFDBClause" />
+          <FunctionImportMapping FunctionImportName="pr_archivePersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePersonPPTQClause" />
+          <FunctionImportMapping FunctionImportName="pr_getCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDB">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDB_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PPTQ" ColumnName="PPTQ" />
+                <ScalarProperty Name="SalesOffice" ColumnName="SalesOffice" />
+                <ScalarProperty Name="DistributionChannel" ColumnName="DistributionChannel" />
+                <ScalarProperty Name="SalesOrderType" ColumnName="SalesOrderType" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SalesLineItem" ColumnName="SalesLineItem" />
+                <ScalarProperty Name="SalesOrderHeaderStatus" ColumnName="SalesOrderHeaderStatus" />
+                <ScalarProperty Name="SalesOrderHdrStatusDesc" ColumnName="SalesOrderHdrStatusDesc" />
+                <ScalarProperty Name="SalesOrderItemStatus" ColumnName="SalesOrderItemStatus" />
+                <ScalarProperty Name="SalesOrderItemStatusDesc" ColumnName="SalesOrderItemStatusDesc" />
+                <ScalarProperty Name="SalesOrderDataDescription" ColumnName="SalesOrderDataDescription" />
+                <ScalarProperty Name="CustomerGroup" ColumnName="CustomerGroup" />
+                <ScalarProperty Name="SBU" ColumnName="SBU" />
+                <ScalarProperty Name="CBT" ColumnName="CBT" />
+                <ScalarProperty Name="CBT2" ColumnName="CBT2" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerCountry" ColumnName="CustomerCountry" />
+                <ScalarProperty Name="SAPMasterContract_" ColumnName="SAPMasterContract#" />
+                <ScalarProperty Name="ContractLine" ColumnName="ContractLine" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="ContractAdminName" ColumnName="ContractAdminName" />
+                <ScalarProperty Name="AribaID_" ColumnName="AribaID#" />
+                <ScalarProperty Name="HWContractManager" ColumnName="HWContractManager" />
+                <ScalarProperty Name="ContractingEntity" ColumnName="ContractingEntity" />
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="EndUse" ColumnName="EndUse" />
+                <ScalarProperty Name="EndUseDescription" ColumnName="EndUseDescription" />
+                <ScalarProperty Name="PrimeContractNumber" ColumnName="PrimeContractNumber" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="ContractTypeDescription" ColumnName="ContractTypeDescription" />
+                <ScalarProperty Name="DPAS" ColumnName="DPAS" />
+                <ScalarProperty Name="FMS" ColumnName="FMS" />
+                <ScalarProperty Name="ForeignInterestsText" ColumnName="ForeignInterestsText" />
+                <ScalarProperty Name="GovtPropClauseApply" ColumnName="GovtPropClauseApply" />
+                <ScalarProperty Name="GovtPropertyClauses" ColumnName="GovtPropertyClauses" />
+                <ScalarProperty Name="SpecialToolingClause" ColumnName="SpecialToolingClause" />
+                <ScalarProperty Name="GFP_CFP" ColumnName="GFP_CFP" />
+                <ScalarProperty Name="NasaQualReqd" ColumnName="NasaQualReqd" />
+                <ScalarProperty Name="NasaQualText" ColumnName="NasaQualText" />
+                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+                <ScalarProperty Name="PropertyTypeDesc" ColumnName="PropertyTypeDesc" />
+                <ScalarProperty Name="PropAgmtType" ColumnName="PropAgmtType" />
+                <ScalarProperty Name="BuyAmericanClauseApply" ColumnName="BuyAmericanClauseApply" />
+                <ScalarProperty Name="BuyAmericanClauses" ColumnName="BuyAmericanClauses" />
+                <ScalarProperty Name="BuyAmericanClauseOther" ColumnName="BuyAmericanClauseOther" />
+                <ScalarProperty Name="TradeAgreeActApply" ColumnName="TradeAgreeActApply" />
+                <ScalarProperty Name="TradeAgreementsCls" ColumnName="TradeAgreementsCls" />
+                <ScalarProperty Name="FARPart12Apply" ColumnName="FARPart12Apply" />
+                <ScalarProperty Name="FARPart15Apply" ColumnName="FARPart15Apply" />
+                <ScalarProperty Name="TINA" ColumnName="TINA" />
+                <ScalarProperty Name="CostActgClauseApply" ColumnName="CostActgClauseApply" />
+                <ScalarProperty Name="CostActgClause" ColumnName="CostActgClause" />
+                <ScalarProperty Name="CostActgClauseDesc" ColumnName="CostActgClauseDesc" />
+                <ScalarProperty Name="CostActgClauseOthers" ColumnName="CostActgClauseOthers" />
+                <ScalarProperty Name="CommercialItemStatus" ColumnName="CommercialItemStatus" />
+                <ScalarProperty Name="AllowableCostClauses" ColumnName="AllowableCostClauses" />
+                <ScalarProperty Name="CostActgClauseXemptDesc" ColumnName="CostActgClauseXemptDesc" />
+                <ScalarProperty Name="PropOnContractApply" ColumnName="PropOnContractApply" />
+                <ScalarProperty Name="PlaceOfPerformApply" ColumnName="PlaceOfPerformApply" />
+                <ScalarProperty Name="PlaceofPerformClses" ColumnName="PlaceofPerformClses" />
+                <ScalarProperty Name="PlaceofPerformOthers" ColumnName="PlaceofPerformOthers" />
+                <ScalarProperty Name="ChangeinLocation" ColumnName="ChangeinLocation" />
+                <ScalarProperty Name="CustomerApproval" ColumnName="CustomerApproval" />
+                <ScalarProperty Name="Requalification" ColumnName="Requalification" />
+                <ScalarProperty Name="CitizenshipRestrictionApply" ColumnName="CitizenshipRestrictionApply" />
+                <ScalarProperty Name="CitizenshipClauses" ColumnName="CitizenshipClauses" />
+                <ScalarProperty Name="CitizenshipRestrOthers" ColumnName="CitizenshipRestrOthers" />
+                <ScalarProperty Name="SecurityReqsApply" ColumnName="SecurityReqsApply" />
+                <ScalarProperty Name="SecurityReqsClses" ColumnName="SecurityReqsClses" />
+                <ScalarProperty Name="SecurityDetailsText" ColumnName="SecurityDetailsText" />
+                <ScalarProperty Name="SectkRepsCertsApply" ColumnName="SectkRepsCertsApply" />
+                <ScalarProperty Name="SectkRepsCertsOthers" ColumnName="SectkRepsCertsOthers" />
+                <ScalarProperty Name="SectkRepsCertsClses" ColumnName="SectkRepsCertsClses" />
+                <ScalarProperty Name="ConfigMgmtClass1" ColumnName="ConfigMgmtClass1" />
+                <ScalarProperty Name="ConfigMgmtClass2" ColumnName="ConfigMgmtClass2" />
+                <ScalarProperty Name="ConfigMgmtChangesText" ColumnName="ConfigMgmtChangesText" />
+                <ScalarProperty Name="QualityReqApply" ColumnName="QualityReqApply" />
+                <ScalarProperty Name="QualityReqOthers" ColumnName="QualityReqOthers" />
+                <ScalarProperty Name="OtherShipPkgReq" ColumnName="OtherShipPkgReq" />
+                <ScalarProperty Name="RequiredTagsApply" ColumnName="RequiredTagsApply" />
+                <ScalarProperty Name="RequiredTagsDesc" ColumnName="RequiredTagsDesc" />
+                <ScalarProperty Name="Mil129Apply" ColumnName="Mil129Apply" />
+                <ScalarProperty Name="Mil130Apply" ColumnName="Mil130Apply" />
+                <ScalarProperty Name="DomesticPrefRestApply" ColumnName="DomesticPrefRestApply" />
+                <ScalarProperty Name="DomesticPrefRestOther" ColumnName="DomesticPrefRestOther" />
+                <ScalarProperty Name="DomesticPrefRestClause" ColumnName="DomesticPrefRestClause" />
+                <ScalarProperty Name="OutsourceRestrictionsApply" ColumnName="OutsourceRestrictionsApply" />
+                <ScalarProperty Name="Outsourceclauses" ColumnName="Outsourceclauses" />
+                <ScalarProperty Name="ExportCusUniqReq" ColumnName="ExportCusUniqReq" />
+                <ScalarProperty Name="ExportReqClauses" ColumnName="ExportReqClauses" />
+                <ScalarProperty Name="ReportingDisclosureApply" ColumnName="ReportingDisclosureApply" />
+                <ScalarProperty Name="RptgDisclosClses" ColumnName="RptgDisclosClses" />
+                <ScalarProperty Name="ReportingDisclosureOther" ColumnName="ReportingDisclosureOther" />
+                <ScalarProperty Name="C3rdPartyDisclosureRestrictions" ColumnName="3rdPartyDisclosureRestrictions" />
+                <ScalarProperty Name="WarrantyClausesApply" ColumnName="WarrantyClausesApply" />
+                <ScalarProperty Name="WarrantyClauses" ColumnName="WarrantyClauses" />
+                <ScalarProperty Name="WarrantyClausesOthers" ColumnName="WarrantyClausesOthers" />
+                <ScalarProperty Name="SubsNotConsApply" ColumnName="SubsNotConsApply" />
+                <ScalarProperty Name="SubsnotconsClauses" ColumnName="SubsnotconsClauses" />
+                <ScalarProperty Name="SubsNotConsOthers" ColumnName="SubsNotConsOthers" />
+                <ScalarProperty Name="SupplierApprovalApply" ColumnName="SupplierApprovalApply" />
+                <ScalarProperty Name="SupplierChgApply" ColumnName="SupplierChgApply" />
+                <ScalarProperty Name="AcctgSystemAdminstration" ColumnName="AcctgSystemAdminstration" />
+                <ScalarProperty Name="ContractorBusSystems" ColumnName="ContractorBusSystems" />
+                <ScalarProperty Name="ContractorPropertyMgmtSystemAdmin" ColumnName="ContractorPropertyMgmtSystemAdmin" />
+                <ScalarProperty Name="ContractorPurchasingSystemAdmin" ColumnName="ContractorPurchasingSystemAdmin" />
+                <ScalarProperty Name="EarnedValueMgmtSystems" ColumnName="EarnedValueMgmtSystems" />
+                <ScalarProperty Name="MMASApply" ColumnName="MMASApply" />
+                <ScalarProperty Name="MMASClauses" ColumnName="MMASClauses" />
+                <ScalarProperty Name="MMASOthers" ColumnName="MMASOthers" />
+                <ScalarProperty Name="CounterfeitPartsClausesApply" ColumnName="CounterfeitPartsClausesApply" />
+                <ScalarProperty Name="CounterfeitClauses" ColumnName="CounterfeitClauses" />
+                <ScalarProperty Name="NationalStockNumber" ColumnName="NationalStockNumber" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+                <ScalarProperty Name="TransDesc" ColumnName="TransDesc" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBAll_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PPTQ" ColumnName="PPTQ" />
+                <ScalarProperty Name="SalesOffice" ColumnName="SalesOffice" />
+                <ScalarProperty Name="DistributionChannel" ColumnName="DistributionChannel" />
+                <ScalarProperty Name="SalesOrderType" ColumnName="SalesOrderType" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+                <ScalarProperty Name="SalesLineItem" ColumnName="SalesLineItem" />
+                <ScalarProperty Name="SalesOrderHeaderStatus" ColumnName="SalesOrderHeaderStatus" />
+                <ScalarProperty Name="SalesOrderHdrStatusDesc" ColumnName="SalesOrderHdrStatusDesc" />
+                <ScalarProperty Name="SalesOrderItemStatus" ColumnName="SalesOrderItemStatus" />
+                <ScalarProperty Name="SalesOrderItemStatusDesc" ColumnName="SalesOrderItemStatusDesc" />
+                <ScalarProperty Name="SalesOrderDataDescription" ColumnName="SalesOrderDataDescription" />
+                <ScalarProperty Name="CustomerGroup" ColumnName="CustomerGroup" />
+                <ScalarProperty Name="SBU" ColumnName="SBU" />
+                <ScalarProperty Name="CBT" ColumnName="CBT" />
+                <ScalarProperty Name="CBT2" ColumnName="CBT2" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerCountry" ColumnName="CustomerCountry" />
+                <ScalarProperty Name="SAPMasterContract_" ColumnName="SAPMasterContract#" />
+                <ScalarProperty Name="ContractLine" ColumnName="ContractLine" />
+                <ScalarProperty Name="ContractStartDate" ColumnName="ContractStartDate" />
+                <ScalarProperty Name="ContractEndDate" ColumnName="ContractEndDate" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="ContractAdminName" ColumnName="ContractAdminName" />
+                <ScalarProperty Name="AribaID_" ColumnName="AribaID#" />
+                <ScalarProperty Name="HWContractManager" ColumnName="HWContractManager" />
+                <ScalarProperty Name="ContractingEntity" ColumnName="ContractingEntity" />
+                <ScalarProperty Name="ProgramName" ColumnName="ProgramName" />
+                <ScalarProperty Name="EndUse" ColumnName="EndUse" />
+                <ScalarProperty Name="EndUseDescription" ColumnName="EndUseDescription" />
+                <ScalarProperty Name="PrimeContractNumber" ColumnName="PrimeContractNumber" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="ContractTypeDescription" ColumnName="ContractTypeDescription" />
+                <ScalarProperty Name="DPAS" ColumnName="DPAS" />
+                <ScalarProperty Name="FMS" ColumnName="FMS" />
+                <ScalarProperty Name="ForeignInterestsText" ColumnName="ForeignInterestsText" />
+                <ScalarProperty Name="GovtPropClauseApply" ColumnName="GovtPropClauseApply" />
+                <ScalarProperty Name="GovtPropertyClauses" ColumnName="GovtPropertyClauses" />
+                <ScalarProperty Name="SpecialToolingClause" ColumnName="SpecialToolingClause" />
+                <ScalarProperty Name="GFP_CFP" ColumnName="GFP_CFP" />
+                <ScalarProperty Name="NasaQualReqd" ColumnName="NasaQualReqd" />
+                <ScalarProperty Name="NasaQualText" ColumnName="NasaQualText" />
+                <ScalarProperty Name="PropertyType" ColumnName="PropertyType" />
+                <ScalarProperty Name="PropertyTypeDesc" ColumnName="PropertyTypeDesc" />
+                <ScalarProperty Name="PropAgmtType" ColumnName="PropAgmtType" />
+                <ScalarProperty Name="BuyAmericanClauseApply" ColumnName="BuyAmericanClauseApply" />
+                <ScalarProperty Name="BuyAmericanClauses" ColumnName="BuyAmericanClauses" />
+                <ScalarProperty Name="BuyAmericanClauseOther" ColumnName="BuyAmericanClauseOther" />
+                <ScalarProperty Name="TradeAgreeActApply" ColumnName="TradeAgreeActApply" />
+                <ScalarProperty Name="TradeAgreementsCls" ColumnName="TradeAgreementsCls" />
+                <ScalarProperty Name="FARPart12Apply" ColumnName="FARPart12Apply" />
+                <ScalarProperty Name="FARPart15Apply" ColumnName="FARPart15Apply" />
+                <ScalarProperty Name="TINA" ColumnName="TINA" />
+                <ScalarProperty Name="CostActgClauseApply" ColumnName="CostActgClauseApply" />
+                <ScalarProperty Name="CostActgClause" ColumnName="CostActgClause" />
+                <ScalarProperty Name="CostActgClauseDesc" ColumnName="CostActgClauseDesc" />
+                <ScalarProperty Name="CostActgClauseOthers" ColumnName="CostActgClauseOthers" />
+                <ScalarProperty Name="CommercialItemStatus" ColumnName="CommercialItemStatus" />
+                <ScalarProperty Name="AllowableCostClauses" ColumnName="AllowableCostClauses" />
+                <ScalarProperty Name="CostActgClauseXemptDesc" ColumnName="CostActgClauseXemptDesc" />
+                <ScalarProperty Name="PropOnContractApply" ColumnName="PropOnContractApply" />
+                <ScalarProperty Name="PlaceOfPerformApply" ColumnName="PlaceOfPerformApply" />
+                <ScalarProperty Name="PlaceofPerformClses" ColumnName="PlaceofPerformClses" />
+                <ScalarProperty Name="PlaceofPerformOthers" ColumnName="PlaceofPerformOthers" />
+                <ScalarProperty Name="ChangeinLocation" ColumnName="ChangeinLocation" />
+                <ScalarProperty Name="CustomerApproval" ColumnName="CustomerApproval" />
+                <ScalarProperty Name="Requalification" ColumnName="Requalification" />
+                <ScalarProperty Name="CitizenshipRestrictionApply" ColumnName="CitizenshipRestrictionApply" />
+                <ScalarProperty Name="CitizenshipClauses" ColumnName="CitizenshipClauses" />
+                <ScalarProperty Name="CitizenshipRestrOthers" ColumnName="CitizenshipRestrOthers" />
+                <ScalarProperty Name="SecurityReqsApply" ColumnName="SecurityReqsApply" />
+                <ScalarProperty Name="SecurityReqsClses" ColumnName="SecurityReqsClses" />
+                <ScalarProperty Name="SecurityDetailsText" ColumnName="SecurityDetailsText" />
+                <ScalarProperty Name="SectkRepsCertsApply" ColumnName="SectkRepsCertsApply" />
+                <ScalarProperty Name="SectkRepsCertsOthers" ColumnName="SectkRepsCertsOthers" />
+                <ScalarProperty Name="SectkRepsCertsClses" ColumnName="SectkRepsCertsClses" />
+                <ScalarProperty Name="ConfigMgmtClass1" ColumnName="ConfigMgmtClass1" />
+                <ScalarProperty Name="ConfigMgmtClass2" ColumnName="ConfigMgmtClass2" />
+                <ScalarProperty Name="ConfigMgmtChangesText" ColumnName="ConfigMgmtChangesText" />
+                <ScalarProperty Name="QualityReqApply" ColumnName="QualityReqApply" />
+                <ScalarProperty Name="QualityReqOthers" ColumnName="QualityReqOthers" />
+                <ScalarProperty Name="OtherShipPkgReq" ColumnName="OtherShipPkgReq" />
+                <ScalarProperty Name="RequiredTagsApply" ColumnName="RequiredTagsApply" />
+                <ScalarProperty Name="RequiredTagsDesc" ColumnName="RequiredTagsDesc" />
+                <ScalarProperty Name="Mil129Apply" ColumnName="Mil129Apply" />
+                <ScalarProperty Name="Mil130Apply" ColumnName="Mil130Apply" />
+                <ScalarProperty Name="DomesticPrefRestApply" ColumnName="DomesticPrefRestApply" />
+                <ScalarProperty Name="DomesticPrefRestOther" ColumnName="DomesticPrefRestOther" />
+                <ScalarProperty Name="DomesticPrefRestClause" ColumnName="DomesticPrefRestClause" />
+                <ScalarProperty Name="OutsourceRestrictionsApply" ColumnName="OutsourceRestrictionsApply" />
+                <ScalarProperty Name="Outsourceclauses" ColumnName="Outsourceclauses" />
+                <ScalarProperty Name="ExportCusUniqReq" ColumnName="ExportCusUniqReq" />
+                <ScalarProperty Name="ExportReqClauses" ColumnName="ExportReqClauses" />
+                <ScalarProperty Name="ReportingDisclosureApply" ColumnName="ReportingDisclosureApply" />
+                <ScalarProperty Name="RptgDisclosClses" ColumnName="RptgDisclosClses" />
+                <ScalarProperty Name="ReportingDisclosureOther" ColumnName="ReportingDisclosureOther" />
+                <ScalarProperty Name="C3rdPartyDisclosureRestrictions" ColumnName="3rdPartyDisclosureRestrictions" />
+                <ScalarProperty Name="WarrantyClausesApply" ColumnName="WarrantyClausesApply" />
+                <ScalarProperty Name="WarrantyClauses" ColumnName="WarrantyClauses" />
+                <ScalarProperty Name="WarrantyClausesOthers" ColumnName="WarrantyClausesOthers" />
+                <ScalarProperty Name="SubsNotConsApply" ColumnName="SubsNotConsApply" />
+                <ScalarProperty Name="SubsnotconsClauses" ColumnName="SubsnotconsClauses" />
+                <ScalarProperty Name="SubsNotConsOthers" ColumnName="SubsNotConsOthers" />
+                <ScalarProperty Name="SupplierApprovalApply" ColumnName="SupplierApprovalApply" />
+                <ScalarProperty Name="SupplierChgApply" ColumnName="SupplierChgApply" />
+                <ScalarProperty Name="AcctgSystemAdminstration" ColumnName="AcctgSystemAdminstration" />
+                <ScalarProperty Name="ContractorBusSystems" ColumnName="ContractorBusSystems" />
+                <ScalarProperty Name="ContractorPropertyMgmtSystemAdmin" ColumnName="ContractorPropertyMgmtSystemAdmin" />
+                <ScalarProperty Name="ContractorPurchasingSystemAdmin" ColumnName="ContractorPurchasingSystemAdmin" />
+                <ScalarProperty Name="EarnedValueMgmtSystems" ColumnName="EarnedValueMgmtSystems" />
+                <ScalarProperty Name="MMASApply" ColumnName="MMASApply" />
+                <ScalarProperty Name="MMASClauses" ColumnName="MMASClauses" />
+                <ScalarProperty Name="MMASOthers" ColumnName="MMASOthers" />
+                <ScalarProperty Name="CounterfeitPartsClausesApply" ColumnName="CounterfeitPartsClausesApply" />
+                <ScalarProperty Name="CounterfeitClauses" ColumnName="CounterfeitClauses" />
+                <ScalarProperty Name="NationalStockNumber" ColumnName="NationalStockNumber" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+                <ScalarProperty Name="TransDesc" ColumnName="TransDesc" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBClause">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBClause_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBClauseAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBClauseAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseAll" />
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseByPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseByPartnertype">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result">
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getClauseFromCFDBAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getClauseFromCFDBAll" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClause">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClause_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClauseAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCFDB" />
+          <FunctionImportMapping FunctionImportName="pr_modifyCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCFDBClause" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPPTQClause" />
+          <FunctionImportMapping FunctionImportName="pr_removeCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDB" />
+          <FunctionImportMapping FunctionImportName="pr_removeCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDBClause" />
+          <FunctionImportMapping FunctionImportName="pr_removePersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonPPTQClause" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveCFDB" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveCFDBClause" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePersonPPTQClause" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
