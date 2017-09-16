@@ -38,7 +38,7 @@
             modal: true,
             type: 'html',
             minWidth: 400,
-            minHeight: 100
+            minHeight: 60
         });
 
         var progressbar = $(".fancybox-inner #progressbar"),
@@ -53,8 +53,6 @@
                 progressLabel.text("Complete!");
             }
         });
-
-        //
     }
 
     $(document).ready(function () {
@@ -450,6 +448,5 @@
 <div id="send-email-progress" style="display:none;">
     <div style="padding: 10px 20px;">
         <div id="progressbar"><div class="progress-label">Uploading...</div></div>
-        <p id="progress-note"></p>
     </div>
 </div>
