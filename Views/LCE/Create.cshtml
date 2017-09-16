@@ -11,8 +11,83 @@
 }
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
-	$(document).ready(function () {
+    function onUpload(e) {
+        // Array with information about the uploaded files
+        var files = e.files;
+
+        // Check the extension of each file and abort the upload if it is not .jpg
+        $.each(files, function () {
+            if (this.extension != ".xlsx") {
+                alert("Only .xlsx files can be uploaded")
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+
+    var timerId = null;
+    function submitform1()
+    {
+
+        $.fancybox({
+            'content': $('#send-email-progress').html(),
+            closeBtn: false,
+            closeClick: false,
+            modal: true,
+            type: 'html',
+            minWidth: 400,
+            minHeight: 60
+        });
+
+        var progressbar = $(".fancybox-inner #progressbar"),
+            progressLabel = $(".fancybox-inner .progress-label");
+
+        progressbar.progressbar({
+            value: false,
+            change: function () {
+
+            },
+            complete: function () {
+                progressLabel.text("Complete!");
+            }
+        });
+
+        //
+    }
+
+    $(document).ready(function () {
+
+
+        @if (ViewBag.Accesscode!=null) {
+            <text>
+                alertify.set({
+                    labels: {
+                    ok: "Ok", cancel: "Close"
+				}
+        });
+
+
+                alertify.confirm("Congralutions, you just loaded @ViewBag.Count CFDB records", function (e) {
+				if (e) {
+					// Click no
+		
+			} else {
+			// click yes
+
+		}
+	});
+
+
+
+
+
+            </text>
+        }
+
+
+
 		if ("@ViewBag.Message" == "1") {
 			debugger;
 			alertify.set({
@@ -59,7 +134,7 @@
 				});
 			} else {
 			// click yes
-                   
+
 		}
 	});
 	}
@@ -80,7 +155,7 @@
 					$("#addPartner textarea").text("");
 				}
 			});
-			
+
 		});
 	});
 	function submitForm() {
@@ -88,10 +163,17 @@
 	}
 </script>
 <style type="text/css">
-	.threecol, twocol {
-		width: 100%;
-		display: inline-block;
-	}
+
+
+    .t-upload-button {
+        margin-top: 5px;
+        float: left;
+    }
+
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
 
 	.twocol .editor-label {
 		width: 10%;
@@ -166,14 +248,17 @@
 		}
 </style>
 <div class="addPartnerDiv">
-	<h2>LC &amp; E Checklist</h2>
+	<h2>Create LC &amp; E Checklist</h2>
 </div>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "LCE",
+   null,
+    FormMethod.Post, new { enctype = "multipart/form-data", onsubmit="submitform1();", id="lce_form" }))
 {
 	@Html.ValidationSummary(true)
+    Html.EnableClientValidation();
 
 	<fieldset>
-		<legend>LC&amp;E Checklist Form</legend>
+		<legend>Create LC&amp;E Checklist Form</legend>
 		<div id="addPartner" class="addPartnerDiv">
 			<div class="twocol">
 				@*@Html.HiddenFor(model => model.id)*@
@@ -195,18 +280,33 @@
 					@Html.TextBoxFor(model => model.Designation, new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.Designation)
 				</div>
-				<!-- #endregion-->
-				<!-- #region Internal ID-->
-				<!-- #endregion-->
-				<div class="editor-label">
-					@*@Html.LabelFor(model => model.internalID)*@
-					@Html.LabelFor(o => o.Owner)
-				</div>
-				<div class="editor-field">
-					@*@Html.EditorFor(model => model.internalID)*@
-					@Html.DropDownList("Owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-					@Html.ValidationMessageFor(model => model.Owner)
-				</div>
+                <!-- #endregion-->
+                <!-- #region Internal ID-->
+                <!-- #endregion-->
+                <div class="editor-label">
+                    @*@Html.LabelFor(model => model.internalID)*@
+                    @Html.LabelFor(o => o.Owner)
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.internalID)*@
+                    @Html.DropDownList("Owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.Owner)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(o => o.partnertype)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.partnertype)
+                </div>
+                <div class="editor-label">
+                  @Html.LabelFor(o => o.File)
+                </div>
+                <div class="editor-field">  
+                    @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.File)
+                </div>
+				
 				<div class="editor-label">
 					@*@Html.LabelFor(model => model.internalID)*@
 					@Html.LabelFor(o => o.Duedate)
@@ -346,3 +446,10 @@
 	</div>
 
 }
+
+<div id="send-email-progress" style="display:none;">
+    <div style="padding: 10px 20px;">
+        <div id="progressbar"><div class="progress-label">Uploading...</div></div>
+        <p id="progress-note"></p>
+    </div>
+</div>

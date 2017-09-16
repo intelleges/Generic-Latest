@@ -25,7 +25,17 @@ namespace Generic.Helpers
 
 		}
 
-		private static IEnumerable<T> GetOldVersionRows<T>(string filePath, string sheetName, Dictionary<string, string> mapping)
+        public static IEnumerable<T> GetRows<T>(Stream stream, string sheetName, Dictionary<string, string> mapping = null)
+        {
+            if (mapping == null)
+            {
+                mapping = new Dictionary<string, string>();
+            }
+
+            return GetNewVersionRows<T>(stream, sheetName, mapping);
+        }
+
+        private static IEnumerable<T> GetOldVersionRows<T>(string filePath, string sheetName, Dictionary<string, string> mapping)
 		{
 			List<T> result = new List<T>();
 			HSSFWorkbook hssfwb;
@@ -116,7 +126,47 @@ namespace Generic.Helpers
 			return result;
 		}
 
-		private static void SetValue<T>(PropertyInfo property, object value, T obj)
+        private static IEnumerable<T> GetNewVersionRows<T>(Stream stream, string sheetName, Dictionary<string, string> mapping)
+        {
+            List<T> result = new List<T>();
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var ws = pck.Workbook.Worksheets[sheetName];
+                var start = ws.Dimension.Start;
+                var end = ws.Dimension.End;
+                var columnNames = new Dictionary<int, string>();
+                for (int row = start.Row; row <= end.Row; row++)
+                { // Row by row...
+                    T obj = Activator.CreateInstance<T>();
+                    var properties = obj.GetType().GetProperties();
+                    for (int col = start.Column; col <= end.Column; col++)
+                    { // ... Cell by cell...
+                        object cellValue = ws.Cells[row, col].Text; // This got me the actual value I needed.
+                        if (row == start.Row)
+                        {
+                            columnNames.Add(col, cellValue.ToString());
+                        }
+                        else
+                        {
+                            PropertyInfo property = null;
+                            if (mapping.ContainsKey(columnNames[col]))
+                                property = properties.FirstOrDefault(o => o.Name.ToLower() == mapping[columnNames[col]].ToLower());
+                            else property = properties.FirstOrDefault(o => o.Name.ToLower() == columnNames[col].ToLower());
+                            if (property != null)
+                                SetValue(property, cellValue, obj);
+                            //property.SetValue(obj, cellValue);
+                        }
+                    }
+                    if (row != start.Row)
+                    {
+                        result.Add(obj);
+                    }
+                }
+            }
+            return result;
+        }
+
+        private static void SetValue<T>(PropertyInfo property, object value, T obj)
 		{
 			if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
 			{

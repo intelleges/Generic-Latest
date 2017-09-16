@@ -627,6 +627,9 @@
     <Compile Include="campaignStatu.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="cfdb.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="cfdbClause.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
