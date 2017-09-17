@@ -217,6 +217,10 @@ namespace Generic
         public virtual DbSet<cfdbPartnertypeClause> cfdbPartnertypeClause { get; set; }
         public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
         public virtual DbSet<cfdb> cfdb { get; set; }
+        public virtual DbSet<partnertypeRegion> partnertypeRegion { get; set; }
+        public virtual DbSet<pptqTeam> pptqTeam { get; set; }
+        public virtual DbSet<region> region { get; set; }
+        public virtual DbSet<touchpointTeam> touchpointTeam { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -21226,6 +21230,241 @@ namespace Generic
                 new ObjectParameter("active", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCFDB1", idParameter, pPTQParameter, salesOfficeParameter, distributionChannelParameter, salesOrderTypeParameter, salesOrderNumberParameter, salesLineItemParameter, salesOrderHeaderStatusParameter, salesOrderHdrStatusDescParameter, salesOrderItemStatusParameter, salesOrderItemStatusDescParameter, salesOrderDataDescriptionParameter, customerGroupParameter, sBUParameter, cBTParameter, cBT2Parameter, pONumberParameter, customerIDParameter, customerNameParameter, customerCountryParameter, sAPMasterContractParameter, contractLineParameter, contractStartDateParameter, contractEndDateParameter, partNumberParameter, contractAdminNameParameter, aribaIDParameter, hWContractManagerParameter, contractingEntityParameter, programNameParameter, endUseParameter, endUseDescriptionParameter, primeContractNumberParameter, contractTypeParameter, contractTypeDescriptionParameter, dPASParameter, fMSParameter, foreignInterestsTextParameter, govtPropClauseApplyParameter, govtPropertyClausesParameter, specialToolingClauseParameter, gFP_CFPParameter, nasaQualReqdParameter, nasaQualTextParameter, propertyTypeParameter, propertyTypeDescParameter, propAgmtTypeParameter, buyAmericanClauseApplyParameter, buyAmericanClausesParameter, buyAmericanClauseOtherParameter, tradeAgreeActApplyParameter, tradeAgreementsClsParameter, fARPart12ApplyParameter, fARPart15ApplyParameter, tINAParameter, costActgClauseApplyParameter, costActgClauseParameter, costActgClauseDescParameter, costActgClauseOthersParameter, commercialItemStatusParameter, allowableCostClausesParameter, costActgClauseXemptDescParameter, propOnContractApplyParameter, placeOfPerformApplyParameter, placeofPerformClsesParameter, placeofPerformOthersParameter, changeinLocationParameter, customerApprovalParameter, requalificationParameter, citizenshipRestrictionApplyParameter, citizenshipClausesParameter, citizenshipRestrOthersParameter, securityReqsApplyParameter, securityReqsClsesParameter, securityDetailsTextParameter, sectkRepsCertsApplyParameter, sectkRepsCertsOthersParameter, sectkRepsCertsClsesParameter, configMgmtClass1Parameter, configMgmtClass2Parameter, configMgmtChangesTextParameter, qualityReqApplyParameter, qualityReqOthersParameter, otherShipPkgReqParameter, requiredTagsApplyParameter, requiredTagsDescParameter, mil129ApplyParameter, mil130ApplyParameter, domesticPrefRestApplyParameter, domesticPrefRestOtherParameter, domesticPrefRestClauseParameter, outsourceRestrictionsApplyParameter, outsourceclausesParameter, exportCusUniqReqParameter, exportReqClausesParameter, reportingDisclosureApplyParameter, rptgDisclosClsesParameter, reportingDisclosureOtherParameter, p3rdPartyDisclosureRestrictionsParameter, warrantyClausesApplyParameter, warrantyClausesParameter, warrantyClausesOthersParameter, subsNotConsApplyParameter, subsnotconsClausesParameter, subsNotConsOthersParameter, supplierApprovalApplyParameter, supplierChgApplyParameter, acctgSystemAdminstrationParameter, contractorBusSystemsParameter, contractorPropertyMgmtSystemAdminParameter, contractorPurchasingSystemAdminParameter, earnedValueMgmtSystemsParameter, mMASApplyParameter, mMASClausesParameter, mMASOthersParameter, counterfeitPartsClausesApplyParameter, counterfeitClausesParameter, nationalStockNumberParameter, transPNParameter, transDescParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_addPPTQTeam(Nullable<int> pptq, Nullable<int> person, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPPTQTeam", pptqParameter, personParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addRegion(Nullable<int> enterprise, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRegion", enterpriseParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePPTQTeam(Nullable<int> pptq, Nullable<int> person)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePPTQTeam", pptqParameter, personParameter);
+        }
+    
+        public virtual int pr_archiveRegion(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveRegion", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonTeamAssignedByTouchpoint_Result> pr_getPersonTeamAssignedByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonTeamAssignedByTouchpoint_Result>("pr_getPersonTeamAssignedByTouchpoint", touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> pr_getPersonTouchpointTeamUnassignedByEnterprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>("pr_getPersonTouchpointTeamUnassignedByEnterprise", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQTeam_Result> pr_getPPTQTeam(Nullable<int> pptq, Nullable<int> person)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeam_Result>("pr_getPPTQTeam", pptqParameter, personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQTeamAll_Result> pr_getPPTQTeamAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamAll_Result>("pr_getPPTQTeamAll");
+        }
+    
+        public virtual ObjectResult<pr_getRegion_Result> pr_getRegion(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRegion_Result>("pr_getRegion", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRegionAll_Result> pr_getRegionAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRegionAll_Result>("pr_getRegionAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRegionByPartnerType_Result> pr_getRegionByPartnerType(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRegionByPartnerType_Result>("pr_getRegionByPartnerType", partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTouchpointTeam_Result> pr_getTouchpointTeam(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointTeam_Result>("pr_getTouchpointTeam", touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTouchpointTeamUnassigned_Result> pr_getTouchpointTeamUnassigned(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointTeamUnassigned_Result>("pr_getTouchpointTeamUnassigned", enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyPPTQTeam(Nullable<int> pptq, Nullable<int> person, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQTeam", pptqParameter, personParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyRegion(Nullable<int> id, Nullable<int> enterprise, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyRegion", idParameter, enterpriseParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePPTQTeam(Nullable<int> pptq, Nullable<int> person)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePPTQTeam", pptqParameter, personParameter);
+        }
+    
+        public virtual int pr_removeRegion(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeRegion", idParameter);
+        }
+    
+        public virtual int pr_unArchivePPTQTeam(Nullable<int> pptq, Nullable<int> person)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePPTQTeam", pptqParameter, personParameter);
+        }
+    
+        public virtual int pr_unArchiveRegion(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRegion", idParameter);
         }
     }
 }

@@ -266,7 +266,7 @@
           <Property Name="ReportingDisclosureApply" Type="nvarchar" MaxLength="2" />
           <Property Name="RptgDisclosClses" Type="nvarchar" MaxLength="300" />
           <Property Name="ReportingDisclosureOther" Type="nvarchar" MaxLength="300" />
-          <Property Name="3rdPartyDisclosureRestrictions" Type="nvarchar" MaxLength="2" />
+          <Property Name="p3rdPartyDisclosureRestrictions" Type="nvarchar" MaxLength="2" />
           <Property Name="WarrantyClausesApply" Type="nvarchar" MaxLength="2" />
           <Property Name="WarrantyClauses" Type="nvarchar" MaxLength="300" />
           <Property Name="WarrantyClausesOthers" Type="nvarchar" MaxLength="300" />
@@ -307,6 +307,8 @@
           </Key>
           <Property Name="partnertype" Type="int" Nullable="false" />
           <Property Name="clause" Type="int" Nullable="false" />
+          <Property Name="sendDataToPerson" Type="int" />
+          <Property Name="getApprovalFromPerson" Type="int" />
         </EntityType>
         <EntityType Name="companyProfileDataLoad">
           <Key>
@@ -1376,6 +1378,14 @@
           <Property Name="timestamp" Type="datetime" />
           <Property Name="touchpoint" Type="int" />
         </EntityType>
+        <EntityType Name="partnertypeRegion">
+          <Key>
+            <PropertyRef Name="partnerType" />
+            <PropertyRef Name="region" />
+          </Key>
+          <Property Name="partnerType" Type="int" Nullable="false" />
+          <Property Name="region" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="partnerTypeTouchpointQuestionnaire">
           <Key>
             <PropertyRef Name="id" />
@@ -1652,6 +1662,16 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pptqTeam">
+          <Key>
+            <PropertyRef Name="pptq" />
+            <PropertyRef Name="person" />
+          </Key>
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="person" Type="int" Nullable="false" />
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
@@ -2005,6 +2025,16 @@
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
           <Property Name="enterprise" Type="int" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="reminderScheduledTaskHeartBeat">
           <Key>
@@ -2480,6 +2510,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerRerouter' does no
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="touchpointTeam">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="touchpoint" Type="int" Nullable="false" />
+          <Property Name="person" Type="int" Nullable="false" />
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
@@ -4681,10 +4721,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
-        <Function Name="pr_addCfdbpartnertypeclause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="partnertype" Type="int" Mode="In" />
-          <Parameter Name="clause" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_addCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="externalID" Type="varchar" Mode="In" />
           <Parameter Name="companyName" Type="varchar" Mode="In" />
@@ -5402,6 +5438,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="pdf" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="pr_addPPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="productNumber" Type="varchar" Mode="In" />
@@ -5623,6 +5665,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_addRegion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addReminderScheduledTaskHeartBeat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pingTimeStamp" Type="datetime" Mode="In" />
@@ -5940,6 +5988,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archivePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archivePPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -5974,6 +6026,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveRegion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7130,6 +7185,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getPersonSupportItemFailureTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPersonSupportItemFailureTypeAllDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPersonTeamAssignedByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonTouchpointTeamUnassignedByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPPTQautoMailMessagelog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7172,6 +7233,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPPTQQuestionResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerpartnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQTeamAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPPTQTeamRacixByPPTQ_Grid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -7327,6 +7393,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getRatingTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getRegion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRegionAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRegionByPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getRelationshipownerByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
@@ -7603,6 +7678,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getTouchpointTargetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getTouchpointTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTouchpointTeamUnassigned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getTranslationByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
         </Function>
@@ -8550,6 +8631,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -8729,6 +8816,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyRegion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_modifyResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -9131,6 +9225,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="PPTQ" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9200,6 +9298,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="language" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeRegion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9446,6 +9547,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_unArchivePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchivePPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9480,6 +9585,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveRatingType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveRegion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9744,6 +9852,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="partnerTouchpointQuestionnaireLanguage" EntityType="Self.partnerTouchpointQuestionnaireLanguage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerType" EntityType="Self.partnerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerTypeGroupGoal" EntityType="Self.partnerTypeGroupGoal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="partnertypeRegion" EntityType="Self.partnertypeRegion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnerTypeTouchpointQuestionnaire" EntityType="Self.partnerTypeTouchpointQuestionnaire" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnumber" EntityType="Self.partnumber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="partnumberSiteZcodePPTQ" EntityType="Self.partnumberSiteZcodePPTQ" Schema="dbo" store:Type="Tables" />
@@ -9765,6 +9874,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="pptqDoc" EntityType="Self.pptqDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqGroup" EntityType="Self.pptqGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqGroupType" EntityType="Self.pptqGroupType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pptqTeam" EntityType="Self.pptqTeam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="protocol" EntityType="Self.protocol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="protocolTouchpoint" EntityType="Self.protocolTouchpoint" Schema="dbo" store:Type="Tables" />
@@ -9792,6 +9902,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="questionTranslation" EntityType="Self.questionTranslation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rating" EntityType="Self.rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ratingType" EntityType="Self.ratingType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="region" EntityType="Self.region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reminderScheduledTaskHeartBeat" EntityType="Self.reminderScheduledTaskHeartBeat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="response" EntityType="Self.response" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="responseLanguage" EntityType="Self.responseLanguage" Schema="dbo" store:Type="Tables" />
@@ -9829,6 +9940,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySet Name="touchpointQuestionResponseValue_deprecated" EntityType="Self.touchpointQuestionResponseValue_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointQuestionWeight_deprecated" EntityType="Self.touchpointQuestionWeight_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointTarget" EntityType="Self.touchpointTarget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="touchpointTeam" EntityType="Self.touchpointTeam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UM_M_Menu_deprecated" EntityType="Self.UM_M_Menu_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zCode" EntityType="Self.zCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zCodeBatchUpdate" EntityType="Self.zCodeBatchUpdate" Schema="dbo" store:Type="Tables" />
@@ -16831,6 +16943,82 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="TransDesc" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="partnertypeRegion" EntityType="hs3MVCMTQa2Model.partnertypeRegion" />
+          <EntitySet Name="pptqTeam" EntityType="hs3MVCMTQa2Model.pptqTeam" />
+          <EntitySet Name="region" EntityType="hs3MVCMTQa2Model.region" />
+          <EntitySet Name="touchpointTeam" EntityType="hs3MVCMTQa2Model.touchpointTeam" />
+          <FunctionImport Name="pr_addPPTQTeam">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addRegion" ReturnType="Collection(Decimal)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePPTQTeam">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveRegion">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonTeamAssignedByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonTeamAssignedByTouchpoint_Result)">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonTouchpointTeamUnassignedByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQTeam" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeam_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQTeamAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamAll_Result)" />
+          <FunctionImport Name="pr_getRegion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRegion_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRegionAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRegionAll_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRegionByPartnerType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRegionByPartnerType_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointTeam" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointTeam_Result)">
+            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTouchpointTeamUnassigned" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointTeamUnassigned_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPPTQTeam">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyRegion">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePPTQTeam">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeRegion">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePPTQTeam">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveRegion">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -26764,6 +26952,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </Key>
           <Property Name="partnertype" Type="Int32" Nullable="false" />
           <Property Name="clause" Type="Int32" Nullable="false" />
+          <Property Name="sendDataToPerson" Type="Int32" />
+          <Property Name="getApprovalFromPerson" Type="Int32" />
         </EntityType>
         <EntityType Name="personPPTQClause">
           <Key>
@@ -27191,7 +27381,185 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="TransDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Boolean" />
+          <Property Name="p3rdPartyDisclosureRestrictions" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="partnertypeRegion">
+          <Key>
+            <PropertyRef Name="partnerType" />
+            <PropertyRef Name="region" />
+          </Key>
+          <Property Name="partnerType" Type="Int32" Nullable="false" />
+          <Property Name="region" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pptqTeam">
+          <Key>
+            <PropertyRef Name="pptq" />
+            <PropertyRef Name="person" />
+          </Key>
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enterprise" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="touchpointTeam">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="touchpoint" Type="Int32" Nullable="false" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPersonTeamAssignedByTouchpoint_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonTouchpointTeamUnassignedByEnterprise_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQTeam_Result">
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQTeamAll_Result">
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getRegion_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getRegionAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getRegionByPartnerType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTouchpointTeam_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTouchpointTeamUnassigned_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -36058,6 +36426,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySetMapping Name="cfdbPartnertypeClause">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.cfdbPartnertypeClause">
               <MappingFragment StoreEntitySet="cfdbPartnertypeClause">
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
                 <ScalarProperty Name="clause" ColumnName="clause" />
                 <ScalarProperty Name="partnertype" ColumnName="partnertype" />
               </MappingFragment>
@@ -36079,7 +36449,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDBClause" />
-          <FunctionImportMapping FunctionImportName="pr_addCfdbpartnertypeclause" FunctionName="hs3MVCMTQa2Model.Store.pr_addCfdbpartnertypeclause" />
           <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
           <FunctionImportMapping FunctionImportName="pr_archiveCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveCFDB" />
           <FunctionImportMapping FunctionImportName="pr_archiveCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveCFDBClause" />
@@ -36411,6 +36780,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySetMapping Name="cfdb">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.cfdb">
               <MappingFragment StoreEntitySet="cfdb">
+                <ScalarProperty Name="p3rdPartyDisclosureRestrictions" ColumnName="p3rdPartyDisclosureRestrictions" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="TransDesc" ColumnName="TransDesc" />
@@ -36434,7 +36804,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="WarrantyClausesOthers" ColumnName="WarrantyClausesOthers" />
                 <ScalarProperty Name="WarrantyClauses" ColumnName="WarrantyClauses" />
                 <ScalarProperty Name="WarrantyClausesApply" ColumnName="WarrantyClausesApply" />
-                <ScalarProperty Name="C3rdPartyDisclosureRestrictions" ColumnName="3rdPartyDisclosureRestrictions" />
                 <ScalarProperty Name="ReportingDisclosureOther" ColumnName="ReportingDisclosureOther" />
                 <ScalarProperty Name="RptgDisclosClses" ColumnName="RptgDisclosClses" />
                 <ScalarProperty Name="ReportingDisclosureApply" ColumnName="ReportingDisclosureApply" />
@@ -36538,6 +36907,231 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDB" />
           <FunctionImportMapping FunctionImportName="pr_modifyCFDB1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCFDB" />
+          <EntitySetMapping Name="partnertypeRegion">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.partnertypeRegion">
+              <MappingFragment StoreEntitySet="partnertypeRegion">
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pptqTeam">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqTeam">
+              <MappingFragment StoreEntitySet="pptqTeam">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="region">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.region">
+              <MappingFragment StoreEntitySet="region">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="touchpointTeam">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.touchpointTeam">
+              <MappingFragment StoreEntitySet="touchpointTeam">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQTeam" />
+          <FunctionImportMapping FunctionImportName="pr_addRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_addRegion" />
+          <FunctionImportMapping FunctionImportName="pr_archivePPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePPTQTeam" />
+          <FunctionImportMapping FunctionImportName="pr_archiveRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveRegion" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonTeamAssignedByTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonTeamAssignedByTouchpoint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonTeamAssignedByTouchpoint_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonTouchpointTeamUnassignedByEnterprise" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonTouchpointTeamUnassignedByEnterprise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQTeam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQTeam_Result">
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQTeamAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQTeamAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQTeamAll_Result">
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_getRegion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRegion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRegionAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getRegionAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRegionAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRegionByPartnerType" FunctionName="hs3MVCMTQa2Model.Store.pr_getRegionByPartnerType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRegionByPartnerType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointTeam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointTeam_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTouchpointTeamUnassigned" FunctionName="hs3MVCMTQa2Model.Store.pr_getTouchpointTeamUnassigned">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTouchpointTeamUnassigned_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQTeam" />
+          <FunctionImportMapping FunctionImportName="pr_modifyRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyRegion" />
+          <FunctionImportMapping FunctionImportName="pr_removePPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_removePPTQTeam" />
+          <FunctionImportMapping FunctionImportName="pr_removeRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_removeRegion" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQTeam" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveRegion" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

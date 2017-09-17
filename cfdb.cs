@@ -136,5 +136,6 @@ namespace Generic
         public string TransDesc { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
+        public string p3rdPartyDisclosureRestrictions { get; set; }
     }
 }

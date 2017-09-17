@@ -16,5 +16,7 @@ namespace Generic
     {
         public int partnertype { get; set; }
         public int clause { get; set; }
+        public Nullable<int> sendDataToPerson { get; set; }
+        public Nullable<int> getApprovalFromPerson { get; set; }
     }
 }

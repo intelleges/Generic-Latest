@@ -21,12 +21,12 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            GenerateOwner();
+            GenerateViewBag();
             return View();
         }
-        private void GenerateOwner()
-        {
 
+        private void GenerateViewBag()
+        {
             var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID);
             ViewBag.partnertype = partnertype.Select(o => new SelectListItem()
             {
@@ -34,13 +34,24 @@ namespace Generic.Controllers
                 Value = o.id.ToString()
             }).ToList();
 
+            List<SelectListItem> isci = new List<SelectListItem>();
+            isci.Add(new SelectListItem() { Value = "1", Text = "Yes" });
+            isci.Add(new SelectListItem() { Value = "0", Text = "No" });
+
+            ViewBag.IsChinaInvolved = isci;
+            ViewBag.Region = new List<SelectListItem>();
+
+            ViewBag.From = db.pr_getCountryAll(CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = v.name }).ToList();
+
+            ViewBag.To = db.pr_getCountryAll(CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = v.name }).ToList();
+
             ViewBag.Owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
         }
 
         [HttpPost]
         public ActionResult Create(LCEModel model)
         {
-            GenerateOwner();
+            GenerateViewBag();
             if (ModelState.IsValid)
             {
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();

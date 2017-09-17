@@ -57,6 +57,8 @@
 
     $(document).ready(function () {
 
+        $('#rootMenu').parent().hide();
+        CKEDITOR.replace('Comments');
 
         @if (ViewBag.Accesscode!=null) {
             <text>
@@ -76,11 +78,6 @@
 
 		}
 	});
-
-
-
-
-
             </text>
         }
 
@@ -156,9 +153,7 @@
 
 		});
 	});
-	function submitForm() {
-		alertify.alert("Saved");
-	}
+
 </script>
 <style type="text/css">
 
@@ -174,17 +169,21 @@
     }
 
 	.twocol .editor-label {
-		width: 10%;
+		width: 15%;
 		display: inline-block;
 		font-size: 11px;
 	}
 
 	.twocol .editor-field {
-		width: 35%;
+		width: 30%;
 		display: inline-block;
 	}
 
-	.threecol .editor-label {
+        .twocol .editor-field.x70 {
+            width: 70%;
+        }
+
+        .threecol .editor-label {
 		width: 10%;
 		display: inline-block;
 		font-size: 11px;
@@ -245,6 +244,14 @@
 			text-decoration: none;
 		}
 </style>
+
+
+<div id="send-email-progress" style="display:none;">
+    <div style="padding: 10px 20px;">
+        <div id="progressbar"><div class="progress-label">Uploading...</div></div>
+    </div>
+</div>
+
 <div class="addPartnerDiv">
 	<h2>Create LC &amp; E Checklist</h2>
 </div>
@@ -259,14 +266,11 @@
 		<legend>Create LC&amp;E Checklist Form</legend>
 		<div id="addPartner" class="addPartnerDiv">
 			<div class="twocol">
-				@*@Html.HiddenFor(model => model.id)*@
 				<!-- #region Name-->
 				<div class="editor-label">
-					@*@Html.LabelFor(model => model.internalID)*@
 					@Html.LabelFor(o => o.ProgramName)
 				</div>
 				<div class="editor-field">
-					@*@Html.EditorFor(model => model.internalID)*@
 					@Html.TextBoxFor(model => model.ProgramName, new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.ProgramName)
 				</div>
@@ -274,19 +278,14 @@
 					@Html.LabelFor(o => o.Designation)
 				</div>
 				<div class="editor-field">
-					@*@Html.EditorFor(model => model.name)*@
 					@Html.TextBoxFor(model => model.Designation, new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.Designation)
 				</div>
-                <!-- #endregion-->
-                <!-- #region Internal ID-->
-                <!-- #endregion-->
+               
                 <div class="editor-label">
-                    @*@Html.LabelFor(model => model.internalID)*@
                     @Html.LabelFor(o => o.Owner)
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(model => model.internalID)*@
                     @Html.DropDownList("Owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
                     @Html.ValidationMessageFor(model => model.Owner)
                 </div>
@@ -297,132 +296,76 @@
                     @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
                     @Html.ValidationMessageFor(model => model.partnertype)
                 </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(o => o.Region)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("Region", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.Region)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(o => o.IsChinaInvolved)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("IsChinaInvolved", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.IsChinaInvolved)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(o => o.From)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("From", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.From)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(o => o.To)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("To", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.ValidationMessageFor(model => model.To)
+                </div>
+
+                <div>
+                    <br/>
+                    <br />
+                    <textarea id="Comments" name="Comments"></textarea>
+                 </div>
+
+
+
+
+                <div class="editor-label">
+                    @Html.LabelFor(o => o.FileScope)
+                </div>
+                <div class="editor-field x70">
+                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.FileScope)
+                </div>
+
                 <div class="editor-label">
                   @Html.LabelFor(o => o.File)
                 </div>
-                <div class="editor-field">  
+                <div class="editor-field x70">  
                     @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                     @Html.ValidationMessageFor(model => model.File)
                 </div>
 				
 				<div class="editor-label">
-					@*@Html.LabelFor(model => model.internalID)*@
 					@Html.LabelFor(o => o.Duedate)
 				</div>
 				<div class="editor-field">
-					@*@Html.EditorFor(model => model.internalID)*@
 					@Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "txtClass" })
 					@Html.ValidationMessageFor(model => model.Duedate)
 				</div>
 			</div>
 
-
-			@*<div class="threecol">
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ProgramLeader)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ProgramLeader).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ProgramLeader)
-				</div>
-
-
-
-				<div class="editor-label">
-					@Html.LabelFor(o => o.Coordinator)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.Coordinator).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.Coordinator)
-				</div>	
-				<div class="editor-label">
-					@Html.LabelFor(o => o.TACApprover)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.TACApprover).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.TACApprover)
-				</div>	
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecTwoTransitionsToChina)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecTwoTransitionsToChina).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecTwoTransitionsToChina)
-				</div><div class="editor-label">
-	@Html.LabelFor(o => o.ApproverSecThreeExport)
-</div>
-<div class="editor-field">
-	@Html.Telerik().AutoCompleteFor(o => o.ApproverSecThreeExport).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-	@Html.ValidationMessageFor(model => model.ApproverSecThreeExport)
-</div>
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecFourIpCompliance)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFourIpCompliance).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecFourIpCompliance)
-				</div>
-
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecFiveAChannelCustomerConstracts)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFiveAChannelCustomerConstracts).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecFiveAChannelCustomerConstracts)
-				</div>
-
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecFiveBChannelCustomerConstracts)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFiveBChannelCustomerConstracts).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecFiveBChannelCustomerConstracts)
-				</div>
-
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecFixBuyAmericanAct)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecFixBuyAmericanAct).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecFixBuyAmericanAct)
-				</div>
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecSevenBerryAmedment)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecSevenBerryAmedment).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecSevenBerryAmedment)
-				</div>
-
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecEightSupplierContracts)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecEightSupplierContracts).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecEightSupplierContracts)
-				</div>
-
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ApproverSecNineOffset)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().AutoCompleteFor(o => o.ApproverSecNineOffset).DataBinding(o => o.Ajax().Select("Users", "LCE")).HtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ApproverSecNineOffset)
-				</div>
-				
-			</div>
-			<div class="editor-label">
-				@Html.LabelFor(o => o.ProjectDescription)
-			</div>
-			<div class="editor-field">
-				@Html.TextAreaFor(o => o.ProjectDescription, new { rows = "5",@style="width:90%" })
-				@Html.ValidationMessageFor(model => model.ProjectDescription)
-			</div>*@
 			<p style="float: right; width: 20%;">
 				<input type="submit" value="Save" class="btn" />
-				@*<input type="submit" value="Save" class="btn" onclick="submitForm();" />*@
 				<input type="button" value="Clear" class="btn" id="btnClear" />
-				@*<input type="button" onclick="CloseMe()" value="Cancel" />*@
 			</p>
 		</div>
 		<p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
@@ -430,23 +373,20 @@
 
 		</div>
 	</fieldset>
-
-	<div id="dvInvite" style="display:none">
-		<input type="submit" name="button" id="btnInvite" value="Send invites now" />
-		<input type="submit" name="button" id="btnInvitelater" value="Invite Later" />
-	</div>
-
-
-	<div id="dvConfirm" style="display:none">
-		@*For Confirm Now and later buttons*@
-		<input type="button" name="button" id="btnConfirm" value="Confirm Now" />
-		<input type="button" name="button" id="btnConfirmlater" value="Confirm Later" />
-	</div>
-
 }
 
-<div id="send-email-progress" style="display:none;">
-    <div style="padding: 10px 20px;">
-        <div id="progressbar"><div class="progress-label">Uploading...</div></div>
-    </div>
-</div>
+@section header{
+    <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+}
+
+
+
+
+@*
+
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}
+
+*@
