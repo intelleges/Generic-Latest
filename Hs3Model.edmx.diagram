@@ -313,7 +313,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.cfdbClause" Width="1.5" PointX="12.375" PointY="25.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.cfdbPartnertypeClause" Width="1.5" PointX="25.375" PointY="13.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personPPTQClause" Width="1.5" PointX="14.375" PointY="25.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.cfdb" Width="1.5" PointX="9.375" PointY="26.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnertypeRegion" Width="1.5" PointX="21.375" PointY="25.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqTeam" Width="1.5" PointX="26.375" PointY="16.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.region" Width="1.5" PointX="26.375" PointY="19.75" />

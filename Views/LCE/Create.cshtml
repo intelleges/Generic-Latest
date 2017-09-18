@@ -4,10 +4,10 @@
 @using Telerik.Web.Mvc.UI;
 
 @{
-	#region My
-	Layout = LayoutHelper.GetLayout();
-	ViewBag.Title = "LC & E Checklist";
-	#endregion
+    #region My
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "LC & E Checklist";
+    #endregion
 }
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
@@ -57,6 +57,23 @@
 
     $(document).ready(function () {
 
+        $('#partnertype').change(function () {
+            $.get('@Url.Content("~/lce/GetRegions")' + '?id=' + $('#partnertype').val(), function (data) {
+                $('#Region')
+                    .find('option')
+                    .remove();
+
+                $.each(data, function (key, value) {
+                    $('#Region')
+                        .append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.description));
+                });
+
+            });
+        })
+
+
         $('#rootMenu').parent().hide();
         CKEDITOR.replace('Comments');
 
@@ -72,7 +89,7 @@
                 alertify.confirm("Congralutions, you just loaded @ViewBag.Count CFDB records", function (e) {
 				if (e) {
 					// Click no
-		
+
 			} else {
 			// click yes
 
@@ -156,93 +173,55 @@
 
 </script>
 <style type="text/css">
-
-
     .t-upload-button {
         margin-top: 5px;
         float: left;
     }
 
-    .threecol, twocol {
-        width: 100%;
-        display: inline-block;
+
+    .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
     }
 
-	.twocol .editor-label {
-		width: 15%;
-		display: inline-block;
-		font-size: 11px;
-	}
-
-	.twocol .editor-field {
-		width: 30%;
-		display: inline-block;
-	}
-
-        .twocol .editor-field.x70 {
-            width: 70%;
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
         }
 
-        .threecol .editor-label {
-		width: 10%;
-		display: inline-block;
-		font-size: 11px;
-	}
+    .control-label {
+        font-size: 11px;
+        font-family: "Segoe UI",Arial,sans-serif;
+        font-weight: normal;
+        padding: 5px;
+    }
 
-	.threecol .editor-field {
-		width: 20%;
-		display: inline-block;
-	}
+    .form-control {
+        font-size: 11px;
+        height: 27px;
+        padding: 5px;
+    }
 
-		.threecol .editor-field label, .threecol .editor-field input, .threecol .editor-field select, .twocol .editor-field input, .twocol .editor-field select {
-			width: 90%;
-			display: inline-block;
-			font-size: 11px;
-		}
-
-	.txtClass {
-		border-radius: 5px;
-		border-color: rgb(169, 169, 169);
-	}
-
-	.ddlClass {
-		height: 25px;
-		width: 96% !important;
-		border-radius: 5px;
-	}
-
-	#DueDate {
-		border-radius: 5px;
-		height: 18px;
-	}
-
-
-	.btn {
-		background: #3498db;
-		background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-		background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-		background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-		background-image: -o-linear-gradient(top, #3498db, #2980b9);
-		background-image: linear-gradient(to bottom, #3498db, #2980b9);
-		-webkit-border-radius: 12;
-		-moz-border-radius: 12;
-		border-radius: 28px;
-		font-family: Arial;
-		color: #ffffff;
-		font-size: 20px;
-		padding: 3px 20px 5px 20px !important;
-		text-decoration: none;
-	}
-
-		.btn:hover {
-			background: #3cb0fd;
-			background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-			background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-			background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-			background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-			background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-			text-decoration: none;
-		}
+    .field-validation-error {
+        display:none;
+    }
 </style>
 
 
@@ -253,131 +232,175 @@
 </div>
 
 <div class="addPartnerDiv">
-	<h2>Create LC &amp; E Checklist</h2>
+    <h2>Create LC &amp; E Checklist</h2>
 </div>
 @using (Html.BeginForm("Create", "LCE",
-   null,
-    FormMethod.Post, new { enctype = "multipart/form-data", onsubmit="submitform1();", id="lce_form" }))
+                                                               null,
+                                                                FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "submitform1();", id = "lce_form" }))
 {
-	@Html.ValidationSummary(true)
+    @Html.ValidationSummary(true)
     Html.EnableClientValidation();
 
-	<fieldset>
-		<legend>Create LC&amp;E Checklist Form</legend>
-		<div id="addPartner" class="addPartnerDiv">
-			<div class="twocol">
-				<!-- #region Name-->
-				<div class="editor-label">
-					@Html.LabelFor(o => o.ProgramName)
-				</div>
-				<div class="editor-field">
-					@Html.TextBoxFor(model => model.ProgramName, new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.ProgramName)
-				</div>
-				<div class="editor-label">
-					@Html.LabelFor(o => o.Designation)
-				</div>
-				<div class="editor-field">
-					@Html.TextBoxFor(model => model.Designation, new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.Designation)
-				</div>
-               
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.Owner)
+    <fieldset>
+        <legend>Create LC&amp;E Checklist Form</legend>
+        <div id="addPartner" class="addPartnerDiv">
+            <div class="twocol">
+                <!-- #region Name-->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.ProgramName, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ProgramName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProgramName)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Designation)
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="editor-field">
-                    @Html.DropDownList("Owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                    @Html.ValidationMessageFor(model => model.Owner)
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("Owner", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.Owner)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.partnertype)
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.partnertype)
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Region, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("Region", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.Region)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.IsTransaction, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-3">
+                                @Html.DropDownList("IsTransaction", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.IsTransaction)
+                            </div>
+
+                            @Html.LabelFor(o => o.IsChinaInvolved, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-3">
+                                @Html.DropDownList("IsChinaInvolved", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.IsChinaInvolved)
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="editor-field">
-                    @Html.DropDownList("partnertype", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                    @Html.ValidationMessageFor(model => model.partnertype)
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.From, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("From", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.From)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("To", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.To)
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.Region)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("Region", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                    @Html.ValidationMessageFor(model => model.Region)
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br />
+                        <p>Please provide a general description of the project. This will be used to inform other team members about the prject scope, overview, etc.</p>
+                        <textarea id="Comments" name="Comments"></textarea>
+                    </div>
                 </div>
 
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.IsChinaInvolved)
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FileScope)
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="editor-field">
-                    @Html.DropDownList("IsChinaInvolved", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                    @Html.ValidationMessageFor(model => model.IsChinaInvolved)
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.File)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Duedate)
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.From)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("From", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                    @Html.ValidationMessageFor(model => model.From)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.To)
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("To", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
-                    @Html.ValidationMessageFor(model => model.To)
-                </div>
-
-                <div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
                     <br/>
                     <br />
-                    <textarea id="Comments" name="Comments"></textarea>
-                 </div>
-
-
-
-
-                <div class="editor-label">
-                    @Html.LabelFor(o => o.FileScope)
+                    <div style="float: right; width: 20%;">
+                        <input type="submit" value="Save" class="btn" />
+                        <input type="button" value="Clear" class="btn" id="btnClear" />
+                    </div>
                 </div>
-                <div class="editor-field x70">
-                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                    @Html.ValidationMessageFor(model => model.FileScope)
-                </div>
+            </div>
+        </div>
+        <p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
+        <div id="DivEventNotification">
 
-                <div class="editor-label">
-                  @Html.LabelFor(o => o.File)
-                </div>
-                <div class="editor-field x70">  
-                    @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                    @Html.ValidationMessageFor(model => model.File)
-                </div>
-				
-				<div class="editor-label">
-					@Html.LabelFor(o => o.Duedate)
-				</div>
-				<div class="editor-field">
-					@Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "txtClass" })
-					@Html.ValidationMessageFor(model => model.Duedate)
-				</div>
-			</div>
-
-			<p style="float: right; width: 20%;">
-				<input type="submit" value="Save" class="btn" />
-				<input type="button" value="Clear" class="btn" id="btnClear" />
-			</p>
-		</div>
-		<p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
-		<div id="DivEventNotification">
-
-		</div>
-	</fieldset>
+        </div>
+    </fieldset>
 }
 
 @section header{
+
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
     <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 }
 
 
@@ -385,8 +408,8 @@
 
 @*
 
-@section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-}
+    @section scripts{
+        @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    }
 
 *@

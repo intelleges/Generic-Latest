@@ -216,7 +216,6 @@ namespace Generic
         public virtual DbSet<cfdbClause> cfdbClause { get; set; }
         public virtual DbSet<cfdbPartnertypeClause> cfdbPartnertypeClause { get; set; }
         public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
-        public virtual DbSet<cfdb> cfdb { get; set; }
         public virtual DbSet<partnertypeRegion> partnertypeRegion { get; set; }
         public virtual DbSet<pptqTeam> pptqTeam { get; set; }
         public virtual DbSet<region> region { get; set; }

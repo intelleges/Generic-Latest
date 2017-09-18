@@ -41,6 +41,7 @@ namespace Generic.Controllers
             ViewBag.IsChinaInvolved = isci;
             ViewBag.Region = new List<SelectListItem>();
 
+            ViewBag.IsTransaction = isci;
             ViewBag.From = db.pr_getCountryAll(CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = v.name }).ToList();
 
             ViewBag.To = db.pr_getCountryAll(CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = v.name }).ToList();
@@ -235,6 +236,12 @@ namespace Generic.Controllers
         public ActionResult Users()
         {
             return Json(db.pr_getPersonAll(1066).Select(o => o.email + " " + o.firstName + " " + o.lastName));
+        }
+
+        public ActionResult GetRegions(int id)
+        {
+            return Json(
+                db.pr_getRegionByPartnerType(id).ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

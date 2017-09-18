@@ -23,6 +23,9 @@ namespace Generic.Models
         [DisplayName("Is China Involved?")]
         public int IsChinaInvolved { get; set; }
 
+        [Required]
+        [DisplayName("Is Transaction?")]
+        public int IsTransaction { get; set; }
 
         [DisplayName("Activity Type")]
         [Required]
