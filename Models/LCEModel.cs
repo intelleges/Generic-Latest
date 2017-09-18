@@ -24,7 +24,7 @@ namespace Generic.Models
         public int IsChinaInvolved { get; set; }
 
         [Required]
-        [DisplayName("Is Transaction?")]
+        [DisplayName("Is Transition?")]
         public int IsTransaction { get; set; }
 
         [DisplayName("Activity Type")]
@@ -55,5 +55,6 @@ namespace Generic.Models
         [DisplayName("Due date")]
         public DateTime? Duedate { get; set; }
 
+        public string Comments { get; set; }
     }
 }

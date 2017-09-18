@@ -222,6 +222,16 @@
     .field-validation-error {
         display:none;
     }
+
+    .download-temp {
+        background-image: url('../../Content/template - download.png');
+        display: block;
+        margin: 5px;
+        text-indent: -9999px;
+        width: 24px;
+        height: 24px;
+        background-size:cover;
+    }
 </style>
 
 
@@ -347,27 +357,33 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-9">
                         <div class="form-group">
                             @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.FileScope)
+                            </div>
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp"></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-9">
                         <div class="form-group">
                             @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.File)
                             </div>
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp"></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">

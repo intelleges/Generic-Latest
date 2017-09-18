@@ -3465,6 +3465,7 @@
     <Content Include="Content\kendo\2015.2.624\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\Site.css" />
     <EmbeddedResource Include="Content\swagger.html" />
+    <Content Include="Content\template - download.png" />
     <Content Include="Content\tw-bs.css" />
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Unsubscribe.cshtml" />
     <EmbeddedResource Include="Areas\RegistrationArea\Views\Home\Default.cshtml" />
@@ -5226,6 +5227,8 @@
     <Content Include="Views\LCE\Create.cshtml" />
     <Content Include="Views\FRPJ\Create.cshtml" />
     <Content Include="Views\LCE\CreateResult.cshtml" />
+    <Content Include="UploadTemplates\CFDB_Template.xlsx" />
+    <Content Include="UploadTemplates\LCE_Scope_Template.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
