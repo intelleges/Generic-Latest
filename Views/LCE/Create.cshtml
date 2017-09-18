@@ -9,8 +9,10 @@
     ViewBag.Title = "LC & E Checklist";
     #endregion
 }
+
+@*
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>*@
 
 <script type="text/javascript">
     function onUpload(e) {
@@ -75,7 +77,11 @@
 
 
         $('#rootMenu').parent().hide();
-        CKEDITOR.replace('Comments');
+        CKEDITOR.replace('Comments', {
+            toolbarCanCollapse: true,
+            toolbarStartupExpanded: false,
+            height:100
+        });
 
         @if (ViewBag.Accesscode!=null) {
             <text>
@@ -240,7 +246,7 @@
     </div>
 </div>
 
-<div class="addPartnerDiv">
+<div class="addPartnerDiv" style="margin-top:-30px;">
     <h2>Create LC &amp; E Checklist</h2>
 </div>
 @using (Html.BeginForm("Create", "LCE",
@@ -410,7 +416,7 @@
         </div>
     </fieldset>
 }
-
+<div style="height:300px;"></div>
 @section header{
 
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
