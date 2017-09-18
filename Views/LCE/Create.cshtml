@@ -162,9 +162,8 @@
 	}
 		$("#btnClear").click(function (e) {
 			alertify.confirm("Are you sure?", function (result) {
-				if (result) {
-					$("#addPartner input[type=text], #addPartner textarea").val("");
-					$("#addPartner textarea").text("");
+                if (result) {
+                    window.location.reload();
 				}
 			});
 
