@@ -4594,6 +4594,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addCFDBPartnertypeClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+          <Parameter Name="sendDataToPerson" Type="int" Mode="In" />
+          <Parameter Name="getApprovalFromPerson" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="externalID" Type="varchar" Mode="In" />
           <Parameter Name="companyName" Type="varchar" Mode="In" />
@@ -6221,6 +6227,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDBClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCFDBClauseAllForDisplay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBPartnertypeClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="int" Mode="In" />
         </Function>
@@ -16836,13 +16845,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveRegion">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonTeamAssignedByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonTeamAssignedByTouchpoint_Result)">
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonTouchpointTeamUnassignedByEnterprise" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQTeam" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeam_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -16850,19 +16859,19 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQTeamAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamAll_Result)" />
           <FunctionImport Name="pr_getRegion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRegion_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getRegionAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRegionAll_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getRegionByPartnerType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRegionByPartnerType_Result)">
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTouchpointTeam" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointTeam_Result)">
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTouchpointTeamUnassigned" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTouchpointTeamUnassigned_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPPTQTeam">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -16882,14 +16891,23 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeRegion">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchivePPTQTeam">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveRegion">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCFDBPartnertypeClause1">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="sendDataToPerson" Mode="In" Type="Int32" />
+            <Parameter Name="getApprovalFromPerson" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBClauseAllForDisplay" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClauseAllForDisplay_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -27303,6 +27321,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Boolean" Name="IsArchived" Nullable="true" />
           <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="pr_getCFDBClauseAllForDisplay_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="clause" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -36747,6 +36771,17 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImportMapping FunctionImportName="pr_removeRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_removeRegion" />
           <FunctionImportMapping FunctionImportName="pr_unArchivePPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQTeam" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveRegion" />
+          <FunctionImportMapping FunctionImportName="pr_addCFDBPartnertypeClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDBPartnertypeClause" />
+          <FunctionImportMapping FunctionImportName="pr_getCFDBClauseAllForDisplay" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBClauseAllForDisplay">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBClauseAllForDisplay_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

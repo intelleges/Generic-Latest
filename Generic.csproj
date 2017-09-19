@@ -866,6 +866,7 @@
     </Compile>
     <Compile Include="Models\AddCompanyProfileDataLoadModel.cs" />
     <Compile Include="Models\AddPartnerSpreadsheetDataLoadModel.cs" />
+    <Compile Include="Models\AddPPTQTeamViewModel.cs" />
     <Compile Include="Models\bulkContent.cs" />
     <Compile Include="Models\campaign.cs" />
     <Compile Include="Models\campaignRule.cs" />
@@ -1183,6 +1184,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCFDBAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCFDBClauseAllForDisplay_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCFDBClauseAll_Result.cs">

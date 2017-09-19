@@ -21465,5 +21465,35 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRegion", idParameter);
         }
+    
+        public virtual int pr_addCFDBPartnertypeClause1(Nullable<int> partnertype, Nullable<int> clause, Nullable<int> sendDataToPerson, Nullable<int> getApprovalFromPerson)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var sendDataToPersonParameter = sendDataToPerson.HasValue ?
+                new ObjectParameter("sendDataToPerson", sendDataToPerson) :
+                new ObjectParameter("sendDataToPerson", typeof(int));
+    
+            var getApprovalFromPersonParameter = getApprovalFromPerson.HasValue ?
+                new ObjectParameter("getApprovalFromPerson", getApprovalFromPerson) :
+                new ObjectParameter("getApprovalFromPerson", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addCFDBPartnertypeClause1", partnertypeParameter, clauseParameter, sendDataToPersonParameter, getApprovalFromPersonParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBClauseAllForDisplay_Result> pr_getCFDBClauseAllForDisplay(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBClauseAllForDisplay_Result>("pr_getCFDBClauseAllForDisplay", partnertypeParameter);
+        }
     }
 }

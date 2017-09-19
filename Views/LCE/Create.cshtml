@@ -8,11 +8,12 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "LC & E Checklist";
     #endregion
-}
 
-@*
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>*@
+    List<Generic.pr_getPersonTeamAssignedByTouchpoint_Result> list = ViewBag.TeamAssigned as List<Generic.pr_getPersonTeamAssignedByTouchpoint_Result>;
+    List<Generic.pr_getCFDBClauseAllForDisplay_Result> allClause = ViewBag.AllClause as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
+    List<Generic.pr_getCFDBPartnertypeClauseByPartnertype_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBPartnertypeClauseByPartnertype_Result>;
+    List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> unassignedByEnterprise = ViewBag.UnassignedByEnterprise as List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>;
+}
 
 <script type="text/javascript">
     function onUpload(e) {
@@ -32,7 +33,6 @@
     var timerId = null;
     function submitform1()
     {
-
         $.fancybox({
             'content': $('#send-email-progress').html(),
             closeBtn: false,
@@ -40,20 +40,7 @@
             modal: true,
             type: 'html',
             minWidth: 400,
-            minHeight: 60
-        });
-
-        var progressbar = $(".fancybox-inner #progressbar"),
-            progressLabel = $(".fancybox-inner .progress-label");
-
-        progressbar.progressbar({
-            value: false,
-            change: function () {
-
-            },
-            complete: function () {
-                progressLabel.text("Complete!");
-            }
+            minHeight: 40
         });
     }
 
@@ -91,81 +78,33 @@
 				}
         });
 
-
                 alertify.confirm("Congratulations, you just loaded @ViewBag.Count CFDB records", function (e) {
-				if (e) {
+
+
+                    $.fancybox({
+                        'content': $('#team').html(),
+                        closeBtn: false,
+                        closeClick: false,
+                        modal: true,
+                        type: 'html',
+                        minWidth: 600,
+                        minHeight: 300
+                    });
+
+
+
+
+
+				/*if (e) {
 					// Click no
 
 			} else {
-			// click yes
-
-		}
-	});
+                        // click yes
+                    }*/
+                });
             </text>
         }
 
-
-
-		if ("@ViewBag.Message" == "1") {
-			debugger;
-			alertify.set({
-				labels: {
-					ok: "Invite Now", cancel: "Cancel"
-				}
-			});
-			alertify.confirm("", function (e) {
-				if (e) {
-					// Click no
-					$.ajax({
-						url: "@Url.Content("~/partner/InvitePartners")",
-						type: "post",
-					success: function (data) {
-
-						alertify.set({
-							labels: {
-								ok: "ok", cancel: "cancel"
-							}
-						});
-
-						//dataClear();
-						alertify.alert(data.Data.message);
-						$('#alertify-ok').text('OK');
-						var len = data.EventNotification.length;
-						$('#btnInviteList').show();
-						if (len == 0) {
-							alertify.alert("Please wait, data processing");
-							$('#alertify-ok').text('OK');
-						} else {
-
-							var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
-							for (i = 0; i < len; i++)
-								events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
-
-
-							$('#DivEventNotification').html(events);
-						}
-
-					},
-					error: function (data) {
-
-					}
-				});
-			} else {
-			// click yes
-
-		}
-	});
-	}
-	if ("@ViewBag.Message" == "2") {
-
-		alertify.alert('@ViewBag.MessageDetail');
-		dataClear();
-	}
-	if ("@ViewBag.Message" == "error") {
-
-		alertify.alert('@ViewBag.MessageDetail');
-		dataClear();
-	}
 		$("#btnClear").click(function (e) {
 			alertify.confirm("Are you sure?", function (result) {
                 if (result) {
@@ -176,8 +115,81 @@
 		});
 	});
 
+    function selectItems() {
+        $(".fancybox-inner #list1 option:selected").remove().appendTo('.fancybox-inner #list2');
+    }
+
+    function unselectItems() {
+        $(".fancybox-inner #list2 option:selected").remove().appendTo('.fancybox-inner #list1');
+    }
+
+    function selectAll() {
+        $(".fancybox-inner #list1 option").remove().appendTo('.fancybox-inner #list2');
+    }
+
+    function unselectAll() {
+        $(".fancybox-inner #list2 option").remove().appendTo('.fancybox-inner #list1');
+    }
+
+
+    function selectClausesItems() {
+        $(".fancybox-inner #list3 option:selected").remove().appendTo('.fancybox-inner #list4');
+    }
+
+    function unselectClausesItems() {
+        $(".fancybox-inner #list4 option:selected").remove().appendTo('.fancybox-inner #list3');
+    }
+
+    function selectClausesAll() {
+        $(".fancybox-inner #list3 option").remove().appendTo('.fancybox-inner #list4');
+    }
+
+    function unselectClausesAll() {
+        $(".fancybox-inner #list4 option").remove().appendTo('.fancybox-inner #list3');
+    }
+
+
+    function next()
+    {
+        var arr = [];
+        $.each($(".fancybox-inner #list2 option"), function (index, val) {
+            arr.push(Number($(val).attr('value')));
+        });
+
+        $.post('@Url.Content("~/lce/addPPTQTeam")', { Id: '@ViewBag.Pptq', Ids: arr })
+            .done(function (data) {
+                $.fancybox({
+                    'content': $('#clause').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    minWidth: 600,
+                    minHeight: 300
+                });
+
+            });
+
+    }
+
+    function next2() {
+        var arr = [];
+        $.each($(".fancybox-inner #list4 option"), function (index, val) {
+            arr.push(Number($(val).attr('value')));
+        });
+
+        $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', Ids: arr })
+            .done(function (data) {
+                $.fancybox.close();
+            });
+
+    }
 </script>
 <style type="text/css">
+    select[multiple] {
+        height: 250px;
+    }
+
     .t-upload-button {
         margin-top: 5px;
         float: left;
@@ -199,6 +211,7 @@
         font-size: 20px;
         padding: 3px 20px 5px 20px !important;
         text-decoration: none;
+        min-width: 66px;
     }
 
         .btn:hover {
@@ -225,23 +238,122 @@
     }
 
     .field-validation-error {
-        display:none;
+        display: none;
     }
 </style>
 
 
 <div id="send-email-progress" style="display:none;">
     <div style="padding: 10px 20px;">
-        <div id="progressbar"><div class="progress-label">Uploading...</div></div>
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+            Uploading...
+        </div>
     </div>
 </div>
+
+
+@if (list != null)
+{
+    var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
+
+    <div id="team" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <h3>Select @ViewBag.PrName Team Member</h3>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Available names:</h4>
+                        <select multiple class="form-control" id="list1">
+                            @foreach (var item in list.Where(o=> !unassignedByEnterprise.Select(b=>b.id).ToList().Contains(o.id)))
+                            {
+                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <h4>&nbsp;</h4>
+                        <h4>&nbsp;</h4>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectItems();">></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectAll();">>></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectItems();"><</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectAll();"><<</button>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Selected names:</h4>
+                        <select multiple class="form-control" id="list2">
+                            @foreach (var item in unassignedByEnterprise)
+                            {
+                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="clause" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <h3>Select CFDB Clauses</h3>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Available clauses:</h4>
+                        <select multiple class="form-control" id="list3">
+                            @foreach (var item in allClause.Where(o=> !selectedClausesIds.Contains(o.id)))
+                            {
+                                <option value="@item.id">@item.clause</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                   
+                    <div class="form-group">
+                        <h4>&nbsp;</h4>
+                        <h4>&nbsp;</h4>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectClausesItems();">></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectClausesAll();">>></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesItems();"><</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesAll();"><<</button>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Selected clauses:</h4>
+                        <select multiple class="form-control" id="list4">
+                            @foreach (var item in allClause.Where(o => selectedClausesIds.Contains(o.id)))
+                            {
+                                <option value="@item.id">@item.clause</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next2();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 
 <div class="addPartnerDiv" style="margin-top:-30px;">
     <h2>Create LC &amp; E Checklist</h2>
 </div>
-@using (Html.BeginForm("Create", "LCE",
-                                                               null,
-                                                                FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "submitform1();", id = "lce_form" }))
+@using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "submitform1();", id = "lce_form" }))
 {
     @Html.ValidationSummary(true)
     Html.EnableClientValidation();
@@ -362,7 +474,7 @@
                                 @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.FileScope)
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -377,12 +489,12 @@
                                 @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.File)
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
                 <div class="row" style="margin-top: 5px;">
-              
+
                     <div class="col-lg-9">
                         <div class="form-group">
                             @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
@@ -392,11 +504,11 @@
                             </div>
                         </div>
                     </div>
-               </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <br/>
+                    <br />
                     <br />
                     <div style="float: right; width: 20%;">
                         <input type="submit" value="Save" class="btn" />
@@ -404,10 +516,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <p><input type="submit" name="button" id="btnInviteList" style="display:none" value="View sent invites" /></p>
-        <div id="DivEventNotification">
-
         </div>
     </fieldset>
 }
@@ -420,10 +528,7 @@
 }
 
 
-
-
 @*
-
     @section scripts{
         @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
     }
