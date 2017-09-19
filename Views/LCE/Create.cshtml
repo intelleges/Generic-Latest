@@ -354,40 +354,45 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-3" })
+                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
+                            </div>
                             <div class="col-sm-8">
                                 @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.FileScope)
                             </div>
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp"></a>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-3" })
+                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
                             <div class="col-sm-8">
                                 @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.File)
                             </div>
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp"></a>
-                            </div>
+                           
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                </div>
+                <div class="row" style="margin-top: 5px;">
+              
+                    <div class="col-lg-9">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-3" })
+                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
                             <div class="col-sm-9">
                                 @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Duedate)
                             </div>
                         </div>
                     </div>
-                </div>
+               </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
