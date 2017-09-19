@@ -844,3 +844,14 @@ tr.pager td {
 #IntellegesLogoHref {
     float:left;
 }
+
+
+.download-temp {
+    background-image: url('../Content/template - download.png');
+    display: block;
+    margin: 5px;
+    text-indent: -9999px;
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+}
