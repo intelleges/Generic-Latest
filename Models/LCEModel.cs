@@ -19,36 +19,24 @@ namespace Generic.Models
         [DisplayName("Owner")]
         public int Owner { get; set; }
 
-        [Required]
-        [DisplayName("Is China Involved?")]
-        public int IsChinaInvolved { get; set; }
-
-        [Required]
-        [DisplayName("Is Transition?")]
-        public int IsTransaction { get; set; }
-
         [DisplayName("Activity Type")]
         [Required]
         public int partnertype { get; set; }
 
-        [DisplayName("Region")]
-        [Required]
-        public int Region { get; set; }
-
         [DisplayName("From")]
         [Required]
-        public int From { get; set; }
+        public string From { get; set; }
 
         [DisplayName("To")]
         [Required]
-        public int To { get; set; }
+        public string To { get; set; }
 
         [DisplayName("CFDB Upload")]
-        [Required]
+       // [Required]
         public HttpPostedFileBase File { get; set; }
 
         [DisplayName("LC&E Scope Upload")]
-        [Required]
+       // [Required]
         public HttpPostedFileBase FileScope { get; set; }
 
         [Required]
