@@ -163,6 +163,7 @@
         $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', Ids: arr })
             .done(function (data) {
                 $.fancybox.close();
+                window.location.reload();
             });
 
     }
