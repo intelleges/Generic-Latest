@@ -1,4 +1,5 @@
 ﻿using Generic.Helpers;
+using Generic.Helpers.Utility;
 using Generic.Models;
 using Generic.ViewModel;
 using System;
@@ -196,6 +197,7 @@ namespace Generic.Controllers
                 ViewBag.PrName = model.ProgramName;
                 ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(model.partnertype).ToList();
                 ViewBag.SelectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnertype).ToList();
+                Session["LceModel"] = model;
                 return View();
             }
 
@@ -238,6 +240,12 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
         {
+            LCEModel vm = Session["LceModel"] as LCEModel;
+            SendEmail objSendEmail = new SendEmail();
+            var owner = db.pr_getPerson(vm.Owner).First();
+            var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
+            var activityType = db.pr_getParnterType(vm.partnertype).First().description;
+
             foreach (var item in model.Ids)
             {
                 try
@@ -245,6 +253,25 @@ namespace Generic.Controllers
                     db.pr_addPPTQTeam(model.Id, item, 0, true);
                 }
                 catch { }
+                  
+                var person = db.pr_getPerson(item).FirstOrDefault();
+                if (person != null)
+                {
+                    Email email = new Email();
+                    string strEmailBody = "Hi " + person.firstName + ",<br/>" + "I have an action as part of the new REV 20 LCE checklist for transition "
+                        + vm.ProgramName + " " + vm.Designation + ".<br/>" + activityType + " - " + vm.From + " to " + vm.To;
+                    email.subject = "This is a test";
+                    email.body = strEmailBody;
+                    email.category = SendGridCategory.EmailSend;
+                    email.url = Request.Url.ToString();
+                    email.emailTo = person.email;
+                 
+                    objSendEmail.sendEmail(email, new EmailFormatSettings() {
+                         enterprise = new enterprise() {
+                              id = Generic.Helpers.CurrentInstance.EnterpriseID
+                         }
+                    }, from);
+                }
             }
 
             return Json(new { success = true });
