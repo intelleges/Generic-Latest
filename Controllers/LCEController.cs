@@ -23,6 +23,8 @@ namespace Generic.Controllers
         public ActionResult Create()
         {
             GenerateViewBag();
+            ModelState.Clear();
+            ViewBag.Accesscode = null;
             return View();
         }
 
@@ -47,7 +49,7 @@ namespace Generic.Controllers
             {
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                var partnerId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", result.partner_address_two, result.partner_city, null, "",null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
+                var partnerId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", result.partner_address_two, result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, /*model.partnertype*/ result.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
                 var Target = db.touchpoint.Where(x => x.id == result.touchpoint).ToList();
                 var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
 
@@ -189,88 +191,64 @@ namespace Generic.Controllers
 
                 ViewBag.Count = i;
                 ViewBag.Accesscode = pptq.accesscode;
-                
+
                 ViewBag.Pptq = pptqId;
                 ViewBag.TeamAssigned = db.pr_getPersonTeamAssignedByTouchpoint(result.touchpoint).ToList();
                 ViewBag.UnassignedByEnterprise = db.pr_getPersonTouchpointTeamUnassignedByEnterprise(CurrentInstance.EnterpriseID).ToList();
 
                 ViewBag.PrName = model.ProgramName;
-                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(model.partnertype).ToList();
-                ViewBag.SelectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnertype).ToList();
+
+                var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).First();
+                model.partnertype = partnertype.id;
+                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(partnertype.id).ToList();
+                ViewBag.SelectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(partnertype.id).ToList();
                 Session["LceModel"] = model;
-                return View();
+                return View(model);
             }
 
             return View(model);
         }
 
-        public ActionResult CreateResult()
-        {
-            var testId = 117226;
-            if (Session["loadGroup"] != null)
-            {
-                var pptqO = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(Session["loadGroup"].ToString()).FirstOrDefault();
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(pptqO.accesscode).FirstOrDefault();
-                var data = db.pr_getPPTQTeamRacixByPPTQ_Grid(testId).ToList();
-                return View(data.Select(o => new pr_getPPTQTeamRacixByPPTQ_Grid_Result()
-                {
-                    eXcluded = o.eXcluded,
-                    questionDesc = o.questionDesc,
-                    sectionDesc = o.sectionDesc,
-                    Responsible_Edit_ = o.Responsible_Edit_,
-                    Accountable_Approve_ = o.Accountable_Approve_,
-                    Consulted__Approval_Alerts_ = o.Consulted__Approval_Alerts_,
-                    Informed__All_Alerts_ = o.Informed__All_Alerts_
-                }));
-            }
-            return View();
-        }
-
-        public ActionResult Users()
-        {
-            return Json(db.pr_getPersonAll(1066).Select(o => o.email + " " + o.firstName + " " + o.lastName));
-        }
-
-        public ActionResult GetRegions(int id)
-        {
-            return Json(
-                db.pr_getRegionByPartnerType(id).ToList(), JsonRequestBehavior.AllowGet);
-        }
-
+        
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
         {
-            LCEModel vm = Session["LceModel"] as LCEModel;
-            SendEmail objSendEmail = new SendEmail();
-            var owner = db.pr_getPerson(vm.Owner).First();
-            var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
-            var activityType = db.pr_getParnterType(vm.partnertype).First().description;
-
-            foreach (var item in model.Ids)
+            if (model.Ids != null)
             {
-                try
+                LCEModel vm = Session["LceModel"] as LCEModel;
+                SendEmail objSendEmail = new SendEmail();
+                var owner = db.pr_getPerson(vm.Owner).First();
+                var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
+                var activityType = db.pr_getParnterType(vm.partnertype).First().description;
+
+                foreach (var item in model.Ids)
                 {
-                    db.pr_addPPTQTeam(model.Id, item, 0, true);
-                }
-                catch { }
-                  
-                var person = db.pr_getPerson(item).FirstOrDefault();
-                if (person != null)
-                {
-                    Email email = new Email();
-                    string strEmailBody = "Hi " + person.firstName + ",<br/>" + "I have an action as part of the new REV 20 LCE checklist for transition "
-                        + vm.ProgramName + " " + vm.Designation + ".<br/>" + activityType + " - " + vm.From + " to " + vm.To;
-                    email.subject = "This is a test";
-                    email.body = strEmailBody;
-                    email.category = SendGridCategory.EmailSend;
-                    email.url = Request.Url.ToString();
-                    email.emailTo = person.email;
-                 
-                    objSendEmail.sendEmail(email, new EmailFormatSettings() {
-                         enterprise = new enterprise() {
-                              id = Generic.Helpers.CurrentInstance.EnterpriseID
-                         }
-                    }, from);
+                    try
+                    {
+                        db.pr_addPPTQTeam(model.Id, item, 0, true);
+                    }
+                    catch { }
+
+                    var person = db.pr_getPerson(item).FirstOrDefault();
+                    if (person != null)
+                    {
+                        Email email = new Email();
+                        string strEmailBody = "Hi " + person.firstName + ",<br/>" + "I have an action as part of the new REV 20 LCE checklist for transition "
+                            + vm.ProgramName + " " + vm.Designation + ".<br/>" + activityType + " - " + vm.From + " to " + vm.To;
+                        email.subject = "This is a test";
+                        email.body = strEmailBody;
+                        email.category = SendGridCategory.EmailSend;
+                        email.url = Request.Url.ToString();
+                        email.emailTo = person.email;
+
+                        objSendEmail.sendEmail(email, new EmailFormatSettings()
+                        {
+                            enterprise = new enterprise()
+                            {
+                                id = Generic.Helpers.CurrentInstance.EnterpriseID
+                            }
+                        }, from);
+                    }
                 }
             }
 
@@ -280,12 +258,24 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddClause(AddPPTQTeamViewModel model)
         {
-            foreach (var item in model.Ids)
+            if (model.Ids != null)
             {
-                //db.pr_amodel.Id, item, 0, true);
+                foreach (var item in model.Ids)
+                {
+                    //db.pr_amodel.Id, item, 0, true);
+                }
             }
 
             return Json(new { success = true });
+        }
+
+        public ActionResult GetClause(int id) {
+
+            var allClause = db.pr_getCFDBClauseAllForDisplay(id).ToList();
+            var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).ToList();
+            var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
+
+            return Json(new { all = allClause.Where(o => !selectedClausesIds.Contains(o.id)).ToList(), selected = allClause.Where(o => selectedClausesIds.Contains(o.id)).ToList() }, JsonRequestBehavior.AllowGet);
         }
     }
 }
