@@ -11,7 +11,7 @@
 
     List<Generic.pr_getPersonTeamAssignedByTouchpoint_Result> list = ViewBag.TeamAssigned as List<Generic.pr_getPersonTeamAssignedByTouchpoint_Result>;
     List<Generic.pr_getCFDBClauseAllForDisplay_Result> allClause = ViewBag.AllClause as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
-    List<Generic.pr_getCFDBPartnertypeClauseByPartnertype_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBPartnertypeClauseByPartnertype_Result>;
+    List<Generic.pr_getCFDBClauseAll_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBClauseAll_Result>;
     List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> unassignedByEnterprise = ViewBag.UnassignedByEnterprise as List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>;
 }
 
@@ -334,7 +334,7 @@
                     <div class="form-group">
                         <h4>Available clauses:</h4>
                         <select multiple class="form-control" id="list3">
-                            @foreach (var item in allClause.Where(o => !selectedClausesIds.Contains(o.id)))
+                            @foreach (var item in allClause)
                             {
                                 <option value="@item.id">@item.clause</option>
                             }
@@ -356,7 +356,7 @@
                     <div class="form-group">
                         <h4>Selected clauses:</h4>
                         <select multiple class="form-control" id="list4">
-                            @foreach (var item in allClause.Where(o => selectedClausesIds.Contains(o.id)))
+                            @foreach (var item in selectedClauses)
                             {
                                 <option value="@item.id">@item.clause</option>
                             }

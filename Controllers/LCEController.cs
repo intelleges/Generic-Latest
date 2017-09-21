@@ -201,7 +201,10 @@ namespace Generic.Controllers
                 var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).First();
                 model.partnertype = partnertype.id;
                 ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(partnertype.id).ToList();
-                ViewBag.SelectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(partnertype.id).ToList();
+                var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(partnertype.id).ToList();
+                var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
+
+                ViewBag.SelectedClauses = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList();
                 Session["LceModel"] = model;
                 return View(model);
             }
@@ -275,7 +278,7 @@ namespace Generic.Controllers
             var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).ToList();
             var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
 
-            return Json(new { all = allClause.Where(o => !selectedClausesIds.Contains(o.id)).ToList(), selected = allClause.Where(o => selectedClausesIds.Contains(o.id)).ToList() }, JsonRequestBehavior.AllowGet);
+            return Json(new { all = allClause.Where(o => !selectedClausesIds.Contains(o.id)).ToList(), selected = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList() }, JsonRequestBehavior.AllowGet);
         }
     }
 }
