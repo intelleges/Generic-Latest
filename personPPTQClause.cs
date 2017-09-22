@@ -20,12 +20,12 @@ namespace Generic
         public int clause { get; set; }
         public int status { get; set; }
         public System.DateTime dateAssigned { get; set; }
-        public Nullable<System.DateTime> dateCompleted { get; set; }
-        public int sortOrder { get; set; }
-        public bool active { get; set; }
         public Nullable<System.DateTime> dateDue { get; set; }
+        public Nullable<System.DateTime> dateCompleted { get; set; }
         public byte[] dataFile { get; set; }
         public string comment { get; set; }
         public string note { get; set; }
+        public int sortOrder { get; set; }
+        public bool active { get; set; }
     }
 }

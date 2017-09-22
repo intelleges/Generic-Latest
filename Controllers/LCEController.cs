@@ -217,6 +217,8 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
         {
+            return Json(new { success = true });
+
             if (model.Ids != null)
             {
                 LCEModel vm = Session["LceModel"] as LCEModel;

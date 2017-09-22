@@ -1006,9 +1006,6 @@
     <Compile Include="personPPTQClause.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="personPPTQClause1.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="personRelationship.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

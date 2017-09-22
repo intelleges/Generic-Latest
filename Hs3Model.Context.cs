@@ -215,12 +215,11 @@ namespace Generic
         public virtual DbSet<autoMailAttachmentType> autoMailAttachmentTypes { get; set; }
         public virtual DbSet<cfdbClause> cfdbClause { get; set; }
         public virtual DbSet<cfdbPartnertypeClause> cfdbPartnertypeClause { get; set; }
-        public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
         public virtual DbSet<partnertypeRegion> partnertypeRegion { get; set; }
         public virtual DbSet<pptqTeam> pptqTeam { get; set; }
         public virtual DbSet<region> region { get; set; }
         public virtual DbSet<touchpointTeam> touchpointTeam { get; set; }
-        public virtual DbSet<personPPTQClause1> personPPTQClause1Set { get; set; }
+        public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {

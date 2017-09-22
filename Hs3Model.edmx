@@ -16387,7 +16387,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </FunctionImport>
           <EntitySet Name="cfdbClause" EntityType="hs3MVCMTQa2Model.cfdbClause" />
           <EntitySet Name="cfdbPartnertypeClause" EntityType="hs3MVCMTQa2Model.cfdbPartnertypeClause" />
-          <EntitySet Name="personPPTQClause" EntityType="hs3MVCMTQa2Model.personPPTQClause" />
           <FunctionImport Name="pr_addCFDBClause" ReturnType="Collection(Decimal)">
             <Parameter Name="Clause" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
@@ -16942,7 +16941,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImport Name="pr_getSendDataToDefaultPersonByClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSendDataToDefaultPersonByClause_Result)">
           <Parameter Name="clause" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="personPPTQClause1Set" EntityType="hs3MVCMTQa2Model.personPPTQClause1" />
           <FunctionImport Name="pr_addPersonPPTQClause1" ReturnType="Collection(Decimal)">
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -16958,10 +16956,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonPPTQClause1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause1_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonPPTQClauseAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll1_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPersonPPTQClause1">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -16978,6 +16976,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <EntitySet Name="personPPTQClause" EntityType="hs3MVCMTQa2Model.personPPTQClause" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -26913,24 +26912,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="sendDataToPerson" Type="Int32" />
           <Property Name="getApprovalFromPerson" Type="Int32" />
         </EntityType>
-        <EntityType Name="personPPTQClause">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="person" Type="Int32" Nullable="false" />
-          <Property Name="pptq" Type="Int32" Nullable="false" />
-          <Property Name="clause" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="dateAssigned" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="dateCompleted" Type="DateTime" Precision="0" />
-          <Property Name="sortOrder" Type="Int32" Nullable="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-          <Property Name="dateDue" Type="DateTime" Precision="0" />
-          <Property Name="dataFile" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <ComplexType Name="pr_getCFDB_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Int32" Name="PPTQ" Nullable="true" />
@@ -27474,24 +27455,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="sendDataToPerson" Nullable="true" />
           <Property Type="Int32" Name="getApprovalFromPerson" Nullable="true" />
         </ComplexType>
-        <EntityType Name="personPPTQClause1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="person" Type="Int32" Nullable="false" />
-          <Property Name="pptq" Type="Int32" Nullable="false" />
-          <Property Name="clause" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="dateAssigned" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="dateDue" Type="DateTime" Precision="0" />
-          <Property Name="dateCompleted" Type="DateTime" Precision="0" />
-          <Property Name="dataFile" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="sortOrder" Type="Int32" Nullable="false" />
-          <Property Name="active" Type="Boolean" Nullable="false" />
-        </EntityType>
         <ComplexType Name="pr_getPersonPPTQClause1_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="person" Nullable="false" />
@@ -27522,6 +27485,24 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="personPPTQClause">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="clause" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="dateAssigned" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateDue" Type="DateTime" Precision="0" />
+          <Property Name="dateCompleted" Type="DateTime" Precision="0" />
+          <Property Name="dataFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -37011,25 +36992,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="personPPTQClause1Set">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personPPTQClause1">
-              <MappingFragment StoreEntitySet="personPPTQClause">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
-                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
-                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
-                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
           <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClause">
             <ResultMapping>
@@ -37070,6 +37032,25 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPPTQClause" />
+          <EntitySetMapping Name="personPPTQClause">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personPPTQClause">
+              <MappingFragment StoreEntitySet="personPPTQClause">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

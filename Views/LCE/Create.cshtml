@@ -106,6 +106,7 @@
         $.fancybox.showLoading();
         $.get('@Url.Content("~/lce/getClause")' + '?id=' + $('.fancybox-inner #partnertype').val(), function (data) {
 
+            ac = $('.fancybox-inner #partnertype option:selected').text();
             $('.fancybox-inner #list3')
                     .find('option')
                     .remove();
@@ -166,26 +167,72 @@
         $(".fancybox-inner #list4 option").remove().appendTo('.fancybox-inner #list3');
     }
 
+    var teams = [];
+    var clauses = [];
+    var ac = '';
 
     function next()
     {
+        teams = [];
+
         var arr = [];
         $.each($(".fancybox-inner #list2 option"), function (index, val) {
             arr.push(Number($(val).attr('value')));
+            teams.push({ text: $(val).text(), id: Number($(val).attr('value')) });
         });
 
         $.post('@Url.Content("~/lce/addPPTQTeam")', { Id: '@ViewBag.Pptq', Ids: arr })
             .done(function (data) {
-                $.fancybox.close();
-                window.location = '@Url.Content("~/lce/Create")';
+
+                $('#clause-members #at').text('Activity Type (' + ac + ') Clauses');
+                $('#clause-members tbody').html('');
+
+                var options = '<option disabled selected value>Select Item</option>';
+                $.each(teams, function (index, val) {
+                    options += '<option value="' + val.id + '">' + val.text + '</option>';
+                });
+
+                $.each(clauses, function (index, val) {
+                    $('#clause-members tbody').append('<tr>' +
+                        '<td>' + val.id + '</td>' +
+                        '<td>' + val.text + '</td>' +
+                        '<td><select value="" class="form-control">' + options+'</select></td>'+
+                        '<td><select value="" class="form-control">' + options +'</select></td>'+
+                        '<td><input class="form-control" type="date"></td>'
+                        +'</tr>');
+                });
+
+                $.fancybox({
+                    'content': $('#clause-members').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    width: 600,
+                    height: 300,
+                    minWidth: 600,
+                    minHeight: 300,
+                    maxHeight: 400
+                });
             });
 
     }
 
+    function next3()
+    {
+         $.fancybox.close();
+         window.location = '@Url.Content("~/lce/Create")';
+    }
+
     function next2() {
+        ac = $('.fancybox-inner #partnertype option:selected').text();
+
+        clauses = [];
+
         var arr = [];
         $.each($(".fancybox-inner #list4 option"), function (index, val) {
             arr.push(Number($(val).attr('value')));
+            clauses.push({ text: $(val).text(), id: Number($(val).attr('value')) });
         });
 
         $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', Ids: arr })
@@ -206,15 +253,25 @@
     }
 </script>
 <style type="text/css">
+
+    .fancybox-inner .table > thead > tr > th {
+        font-size: 14px;
+    }
+
+    .fancybox-inner #table-body {
+        height: 320px;
+        overflow-y: auto;
+    }
+    
     select[multiple] {
         height: 250px;
         font-size: 14px;
     }
 
     .t-input[type="text"] {
-        padding:5px;
-    } 
-    
+        padding: 5px;
+    }
+
     .t-upload-button {
         margin-top: 5px;
         float: left;
@@ -276,7 +333,7 @@
     }
 
     .fancybox-lock body {
-        overflow: unset!important;
+        overflow: unset !important;
     }
 </style>
 
@@ -356,7 +413,7 @@
                         <select multiple class="form-control" id="list3">
                             @foreach (var item in allClause)
                             {
-                                <option value="@item.id">@item.clause</option>
+                            <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -378,7 +435,7 @@
                         <select multiple class="form-control" id="list4">
                             @foreach (var item in selectedClauses)
                             {
-                                <option value="@item.id">@item.clause</option>
+                            <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -391,6 +448,32 @@
             </div>
         </div>
     </div>
+
+    <div id="clause-members" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <div class="row">
+                <div class="col-lg-12" id="table-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th id="at">Activity Type ([ActivityType]) Clauses</th>
+                                <th>Send Data To</th>
+                                <th>Get Approval From</th>
+                                <th>Approval Needed By</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next3();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 
@@ -398,7 +481,7 @@
     <h2>Create LC &amp; E Checklist</h2>
 </div>
 @using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "submitform1();", id = "lce_form" }))
-{
+            {
     @Html.ValidationSummary(true)
     Html.EnableClientValidation();
 
