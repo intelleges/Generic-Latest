@@ -23,5 +23,9 @@ namespace Generic
         public Nullable<System.DateTime> dateCompleted { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
+        public Nullable<System.DateTime> dateDue { get; set; }
+        public byte[] dataFile { get; set; }
+        public string comment { get; set; }
+        public string note { get; set; }
     }
 }

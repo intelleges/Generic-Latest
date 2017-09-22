@@ -1006,6 +1006,9 @@
     <Compile Include="personPPTQClause.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="personPPTQClause1.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="personRelationship.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1085,6 +1088,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getApprovalDefaultPersonByClause_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getAreaCodeTimeZoneByAreaCode_Result.cs">
@@ -1900,6 +1906,12 @@
     <Compile Include="pr_getPersonLinkedinAuthInfoByPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPersonPPTQClause1_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonPPTQClauseAll1_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPersonPPTQClauseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2246,6 +2258,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getRule_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getSendDataToDefaultPersonByClause_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getSeverityTypeAll_Result.cs">

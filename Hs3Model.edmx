@@ -1440,7 +1440,11 @@
           <Property Name="clause" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
           <Property Name="dateAssigned" Type="date" Nullable="false" />
+          <Property Name="dateDue" Type="date" />
           <Property Name="dateCompleted" Type="date" />
+          <Property Name="dataFile" Type="varbinary(max)" />
+          <Property Name="comment" Type="varchar(max)" />
+          <Property Name="note" Type="varchar(max)" />
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
@@ -5257,7 +5261,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="clause" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
           <Parameter Name="dateAssigned" Type="date" Mode="In" />
+          <Parameter Name="dateDue" Type="date" Mode="In" />
           <Parameter Name="dateCompleted" Type="date" Mode="In" />
+          <Parameter Name="dataFile" Type="varbinary" Mode="In" />
+          <Parameter Name="comment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="note" Type="varchar(max)" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -5855,9 +5863,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_archivePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_archivePersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_archivePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6121,6 +6126,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getAgingReportByEnterpriseAndDefaultTouchpointLevelTypeTwo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getApprovalDefaultPersonByClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clause" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getAreaCodeTimeZoneByAreaCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="areaCode" Type="int" Mode="In" />
@@ -7037,7 +7045,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPersonPPTQClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getPersonPPTQClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPersonPPTQClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPersonPreviousNext" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -7389,6 +7399,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         </Function>
         <Function Name="pr_getRuletypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getSendDataToDefaultPersonByClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clause" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getSeverityType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8451,7 +8464,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="clause" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
           <Parameter Name="dateAssigned" Type="date" Mode="In" />
+          <Parameter Name="dateDue" Type="date" Mode="In" />
           <Parameter Name="dateCompleted" Type="date" Mode="In" />
+          <Parameter Name="dataFile" Type="varbinary" Mode="In" />
+          <Parameter Name="comment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="note" Type="varchar(max)" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
@@ -16386,7 +16403,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="clause" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
             <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
             <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="dataFile" Mode="In" Type="Binary" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -16417,7 +16438,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImport Name="pr_getPersonPPTQClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPersonPPTQClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result)" />
+          <FunctionImport Name="pr_getPersonPPTQClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result)" >
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="pr_modifyCFDB">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="PPTQ" Mode="In" Type="Int32" />
@@ -16555,7 +16578,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="clause" Mode="In" Type="Int32" />
             <Parameter Name="status" Mode="In" Type="Int32" />
             <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
             <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="dataFile" Mode="In" Type="Binary" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
@@ -16907,7 +16934,49 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="getApprovalFromPerson" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBClauseAllForDisplay" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClauseAllForDisplay_Result)">
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getApprovalDefaultPersonByClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getApprovalDefaultPersonByClause_Result)">
+          <Parameter Name="clause" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSendDataToDefaultPersonByClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSendDataToDefaultPersonByClause_Result)">
+          <Parameter Name="clause" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="personPPTQClause1Set" EntityType="hs3MVCMTQa2Model.personPPTQClause1" />
+          <FunctionImport Name="pr_addPersonPPTQClause1" ReturnType="Collection(Decimal)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
+            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="dataFile" Mode="In" Type="Binary" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPPTQClause1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause1_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPPTQClauseAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll1_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPersonPPTQClause1">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
+            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="dataFile" Mode="In" Type="Binary" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -26857,6 +26926,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="dateCompleted" Type="DateTime" Precision="0" />
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="dateDue" Type="DateTime" Precision="0" />
+          <Property Name="dataFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="pr_getCFDB_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -27324,6 +27397,128 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <ComplexType Name="pr_getCFDBClauseAllForDisplay_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="clause" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getApprovalDefaultPersonByClause_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="true" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getSendDataToDefaultPersonByClause_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="true" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="personPPTQClause1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="clause" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="dateAssigned" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dateDue" Type="DateTime" Precision="0" />
+          <Property Name="dateCompleted" Type="DateTime" Precision="0" />
+          <Property Name="dataFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPersonPPTQClause1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="dateAssigned" Nullable="false" />
+          <Property Type="DateTime" Name="dateDue" Nullable="true" />
+          <Property Type="DateTime" Name="dateCompleted" Nullable="true" />
+          <Property Type="Binary" Name="dataFile" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="String" Name="note" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonPPTQClauseAll1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="dateAssigned" Nullable="false" />
+          <Property Type="DateTime" Name="dateDue" Nullable="true" />
+          <Property Type="DateTime" Name="dateCompleted" Nullable="true" />
+          <Property Type="Binary" Name="dataFile" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="String" Name="note" Nullable="true" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
@@ -36200,26 +36395,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="personPPTQClause">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personPPTQClause">
-              <MappingFragment StoreEntitySet="personPPTQClause">
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
-                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDBClause" />
-          <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
           <FunctionImportMapping FunctionImportName="pr_archiveCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveCFDB" />
           <FunctionImportMapping FunctionImportName="pr_archiveCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveCFDBClause" />
-          <FunctionImportMapping FunctionImportName="pr_archivePersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePersonPPTQClause" />
           <FunctionImportMapping FunctionImportName="pr_getCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDB">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDB_Result">
@@ -36506,38 +36684,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getClauseFromCFDBAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getClauseFromCFDBAll" />
-          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClause">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClause_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
-                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClauseAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
-                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCFDBClause" />
-          <FunctionImportMapping FunctionImportName="pr_modifyPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPPTQClause" />
           <FunctionImportMapping FunctionImportName="pr_removeCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDB" />
           <FunctionImportMapping FunctionImportName="pr_removeCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDBClause" />
           <FunctionImportMapping FunctionImportName="pr_removePersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonPPTQClause" />
@@ -36782,6 +36929,147 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getApprovalDefaultPersonByClause" FunctionName="hs3MVCMTQa2Model.Store.pr_getApprovalDefaultPersonByClause">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getApprovalDefaultPersonByClause_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSendDataToDefaultPersonByClause" FunctionName="hs3MVCMTQa2Model.Store.pr_getSendDataToDefaultPersonByClause">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSendDataToDefaultPersonByClause_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="personPPTQClause1Set">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personPPTQClause1">
+              <MappingFragment StoreEntitySet="personPPTQClause">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClause">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClause1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClauseAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClauseAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPPTQClause" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
