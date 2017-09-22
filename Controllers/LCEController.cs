@@ -25,6 +25,7 @@ namespace Generic.Controllers
             GenerateViewBag();
             ModelState.Clear();
             ViewBag.Accesscode = null;
+            ViewBag.Count = null;
             return View();
         }
 
