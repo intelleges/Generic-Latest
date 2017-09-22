@@ -213,12 +213,10 @@ namespace Generic.Controllers
             return View(model);
         }
 
-        
+
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
         {
-            return Json(new { success = true });
-
             if (model.Ids != null)
             {
                 LCEModel vm = Session["LceModel"] as LCEModel;
@@ -264,24 +262,59 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddClause(AddPPTQTeamViewModel model)
         {
-            if (model.Ids != null)
+            if (model.Ids == null)
+                model.Ids = new List<int>();
+
+            List<dynamic> rtn = new List<dynamic>();
+            foreach (var item in model.Ids)
             {
-                foreach (var item in model.Ids)
+                var defApproval = db.pr_getApprovalDefaultPersonByClause(item).FirstOrDefault();
+                var defSendData = db.pr_getSendDataToDefaultPersonByClause(item).FirstOrDefault();
+
+                rtn.Add(new
                 {
-                    //db.pr_amodel.Id, item, 0, true);
-                }
+                    id = item,
+                    defApproval = defApproval == null ? null : (int?)defApproval.id,
+                    defSendData = defSendData == null ? null : (int?)defSendData.id,
+                });
+
             }
 
-            return Json(new { success = true });
+            return Json(new { success = true, list = rtn });
         }
 
-        public ActionResult GetClause(int id) {
+        public ActionResult GetClause(int id)
+        {
 
             var allClause = db.pr_getCFDBClauseAllForDisplay(id).ToList();
             var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).ToList();
             var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
 
-            return Json(new { all = allClause.Where(o => !selectedClausesIds.Contains(o.id)).ToList(), selected = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList() }, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                all = allClause.Where(o => !selectedClausesIds.Contains(o.id)).ToList(),
+                selected = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList()
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SetClauses(ClauseViewModel model)
+        {
+            if (model.items != null)
+            {
+                LCEModel vm = Session["LceModel"] as LCEModel;
+                byte[] b = new byte[0];
+                foreach (var item in model.items)
+                {
+                    try
+                    {
+                        db.pr_addPersonPPTQClause(item.sendDataTo, model.pptq, item.id, 0, DateTime.Now, item.approvalNeededBy, null, b, vm.Comments ?? "", "", 0, true);
+                    }
+                    catch { }
+                }
+            }
+
+            return Json(new { success = true });
         }
     }
 }

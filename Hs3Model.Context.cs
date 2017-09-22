@@ -19511,59 +19511,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCfdbpartnertypeclause", partnertypeParameter, clauseParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPersonPPTQClause(Nullable<int> person, Nullable<int> pptq, Nullable<int> clause, Nullable<int> status, Nullable<System.DateTime> dateAssigned, Nullable<System.DateTime> dateDue, Nullable<System.DateTime> dateCompleted, byte[] dataFile, string comment, string note, Nullable<int> sortOrder, Nullable<bool> active)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            var clauseParameter = clause.HasValue ?
-                new ObjectParameter("clause", clause) :
-                new ObjectParameter("clause", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            var dateAssignedParameter = dateAssigned.HasValue ?
-                new ObjectParameter("dateAssigned", dateAssigned) :
-                new ObjectParameter("dateAssigned", typeof(System.DateTime));
-    
-            var dateDueParameter = dateDue.HasValue ?
-                new ObjectParameter("dateDue", dateDue) :
-                new ObjectParameter("dateDue", typeof(System.DateTime));
-    
-            var dateCompletedParameter = dateCompleted.HasValue ?
-                new ObjectParameter("dateCompleted", dateCompleted) :
-                new ObjectParameter("dateCompleted", typeof(System.DateTime));
-    
-            var dataFileParameter = dataFile != null ?
-                new ObjectParameter("dataFile", dataFile) :
-                new ObjectParameter("dataFile", typeof(byte[]));
-    
-            var commentParameter = comment != null ?
-                new ObjectParameter("comment", comment) :
-                new ObjectParameter("comment", typeof(string));
-    
-            var noteParameter = note != null ?
-                new ObjectParameter("note", note) :
-                new ObjectParameter("note", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPPTQClause", personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateDueParameter, dateCompletedParameter, dataFileParameter, commentParameter, noteParameter, sortOrderParameter, activeParameter);
-        }
-    
         public virtual int pr_archiveCFDB(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -21550,59 +21497,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSendDataToDefaultPersonByClause_Result>("pr_getSendDataToDefaultPersonByClause", clauseParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPersonPPTQClause1(Nullable<int> person, Nullable<int> pptq, Nullable<int> clause, Nullable<int> status, Nullable<System.DateTime> dateAssigned, Nullable<System.DateTime> dateDue, Nullable<System.DateTime> dateCompleted, byte[] dataFile, string comment, string note, Nullable<int> sortOrder, Nullable<bool> active)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            var clauseParameter = clause.HasValue ?
-                new ObjectParameter("clause", clause) :
-                new ObjectParameter("clause", typeof(int));
-    
-            var statusParameter = status.HasValue ?
-                new ObjectParameter("status", status) :
-                new ObjectParameter("status", typeof(int));
-    
-            var dateAssignedParameter = dateAssigned.HasValue ?
-                new ObjectParameter("dateAssigned", dateAssigned) :
-                new ObjectParameter("dateAssigned", typeof(System.DateTime));
-    
-            var dateDueParameter = dateDue.HasValue ?
-                new ObjectParameter("dateDue", dateDue) :
-                new ObjectParameter("dateDue", typeof(System.DateTime));
-    
-            var dateCompletedParameter = dateCompleted.HasValue ?
-                new ObjectParameter("dateCompleted", dateCompleted) :
-                new ObjectParameter("dateCompleted", typeof(System.DateTime));
-    
-            var dataFileParameter = dataFile != null ?
-                new ObjectParameter("dataFile", dataFile) :
-                new ObjectParameter("dataFile", typeof(byte[]));
-    
-            var commentParameter = comment != null ?
-                new ObjectParameter("comment", comment) :
-                new ObjectParameter("comment", typeof(string));
-    
-            var noteParameter = note != null ?
-                new ObjectParameter("note", note) :
-                new ObjectParameter("note", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPPTQClause1", personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateDueParameter, dateCompletedParameter, dataFileParameter, commentParameter, noteParameter, sortOrderParameter, activeParameter);
-        }
-    
         public virtual ObjectResult<pr_getPersonPPTQClause1_Result> pr_getPersonPPTQClause1(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -21676,6 +21570,59 @@ namespace Generic
                 new ObjectParameter("active", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonPPTQClause1", idParameter, personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateDueParameter, dateCompletedParameter, dataFileParameter, commentParameter, noteParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPersonPPTQClause(Nullable<int> person, Nullable<int> pptq, Nullable<int> clause, Nullable<int> status, Nullable<System.DateTime> dateAssigned, Nullable<System.DateTime> dateDue, Nullable<System.DateTime> dateCompleted, byte[] dataFile, string comment, string note, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var dateAssignedParameter = dateAssigned.HasValue ?
+                new ObjectParameter("dateAssigned", dateAssigned) :
+                new ObjectParameter("dateAssigned", typeof(System.DateTime));
+    
+            var dateDueParameter = dateDue.HasValue ?
+                new ObjectParameter("dateDue", dateDue) :
+                new ObjectParameter("dateDue", typeof(System.DateTime));
+    
+            var dateCompletedParameter = dateCompleted.HasValue ?
+                new ObjectParameter("dateCompleted", dateCompleted) :
+                new ObjectParameter("dateCompleted", typeof(System.DateTime));
+    
+            var dataFileParameter = dataFile != null ?
+                new ObjectParameter("dataFile", dataFile) :
+                new ObjectParameter("dataFile", typeof(byte[]));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var noteParameter = note != null ?
+                new ObjectParameter("note", note) :
+                new ObjectParameter("note", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPPTQClause", personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateDueParameter, dateCompletedParameter, dataFileParameter, commentParameter, noteParameter, sortOrderParameter, activeParameter);
         }
     }
 }

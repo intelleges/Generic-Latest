@@ -16396,20 +16396,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="clause" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addPersonPPTQClause" ReturnType="Collection(Decimal)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
-            <Parameter Name="clause" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
-            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
-            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
-            <Parameter Name="dataFile" Mode="In" Type="Binary" />
-            <Parameter Name="comment" Mode="In" Type="String" />
-            <Parameter Name="note" Mode="In" Type="String" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="pr_archiveCFDB">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -16941,20 +16927,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImport Name="pr_getSendDataToDefaultPersonByClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSendDataToDefaultPersonByClause_Result)">
           <Parameter Name="clause" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addPersonPPTQClause1" ReturnType="Collection(Decimal)">
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
-            <Parameter Name="clause" Mode="In" Type="Int32" />
-            <Parameter Name="status" Mode="In" Type="Int32" />
-            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
-            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
-            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
-            <Parameter Name="dataFile" Mode="In" Type="Binary" />
-            <Parameter Name="comment" Mode="In" Type="String" />
-            <Parameter Name="note" Mode="In" Type="String" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="pr_getPersonPPTQClause1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause1_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -16977,6 +16949,20 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <EntitySet Name="personPPTQClause" EntityType="hs3MVCMTQa2Model.personPPTQClause" />
+          <FunctionImport Name="pr_addPersonPPTQClause" ReturnType="Collection(Decimal)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+            <Parameter Name="dateAssigned" Mode="In" Type="DateTime" />
+            <Parameter Name="dateDue" Mode="In" Type="DateTime" />
+            <Parameter Name="dateCompleted" Mode="In" Type="DateTime" />
+            <Parameter Name="dataFile" Mode="In" Type="Binary" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="note" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -36992,7 +36978,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
           <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClause">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClause1_Result">
@@ -37051,6 +37036,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

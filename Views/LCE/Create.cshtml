@@ -170,6 +170,7 @@
     var teams = [];
     var clauses = [];
     var ac = '';
+    var defs = [];
 
     function next()
     {
@@ -187,18 +188,53 @@
                 $('#clause-members #at').text('Activity Type (' + ac + ') Clauses');
                 $('#clause-members tbody').html('');
 
-                var options = '<option disabled selected value>Select Item</option>';
-                $.each(teams, function (index, val) {
-                    options += '<option value="' + val.id + '">' + val.text + '</option>';
-                });
-
                 $.each(clauses, function (index, val) {
+
+                    var val1 = '';
+                    var val2 = '';
+
+                    for (var i = 0; i < defs.length; i++) {
+                        if (defs[i].id == val.id) {
+                            val1 = defs[i].defSendData;
+                            val2 = defs[i].defApproval;
+                        }
+                    }
+
+                    var selected1 = false;
+                    var options1 = '';
+                   
+                    $.each(teams, function (index, val) {
+                        if (val1 == val.id) {
+                            options1 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected1 = true;
+                        }
+                        else
+                            options1 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected1 == false) options1 = '<option disabled selected value></option>' + options1;
+
+                    var selected2 = false;
+                    var options2 = '';
+                    
+                    $.each(teams, function (index, val) {
+                        if (val2 == val.id) {
+                            options2 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected2 = true;
+                        }
+                        else
+                            options2 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected2 == false) options2 = '<option disabled selected value></option>' + options2;
+
+
                     $('#clause-members tbody').append('<tr>' +
-                        '<td>' + val.id + '</td>' +
+                        '<input type="hidden" class="id" value="' + val.id + '"/>' +
                         '<td>' + val.text + '</td>' +
-                        '<td><select value="" class="form-control">' + options+'</select></td>'+
-                        '<td><select value="" class="form-control">' + options +'</select></td>'+
-                        '<td><input class="form-control" type="date"></td>'
+                        '<td><select value="" class="form-control sendDataTo">' + options1+'</select></td>'+
+                        '<td><select value="" class="form-control getApprovalFrom">' + options2 +'</select></td>'+
+                        '<td><input class="form-control approvalNeededBy" type="date"></td>'
                         +'</tr>');
                 });
 
@@ -220,8 +256,24 @@
 
     function next3()
     {
-         $.fancybox.close();
-         window.location = '@Url.Content("~/lce/Create")';
+        var arr = [];
+
+        $.each($('.fancybox-inner tbody tr'), function (index, obj) {
+            arr.push({
+                id: $(obj).find('.id').val(),
+                sendDataTo: $(obj).find('.sendDataTo').val(),
+                getApprovalFrom: $(obj).find('.getApprovalFrom').val(),
+                approvalNeededBy: $(obj).find('.approvalNeededBy').val()
+            });
+        });
+
+        $.fancybox.showLoading();
+        $.post('@Url.Content("~/lce/setClauses")', { pptq: Number('@ViewBag.Pptq'), items: arr })
+             .done(function (data) {
+                $.fancybox.hideLoading();
+                $.fancybox.close();    
+                window.location = '@Url.Content("~/lce/Create")';
+          });    
     }
 
     function next2() {
@@ -234,9 +286,13 @@
             arr.push(Number($(val).attr('value')));
             clauses.push({ text: $(val).text(), id: Number($(val).attr('value')) });
         });
+        $.fancybox.showLoading();
 
         $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', Ids: arr })
             .done(function (data) {
+                defs = data.list;
+
+                $.fancybox.hideLoading();
 
                 $.fancybox({
                     'content': $('#team').html(),
@@ -456,7 +512,6 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th id="at">Activity Type ([ActivityType]) Clauses</th>
                                 <th>Send Data To</th>
                                 <th>Get Approval From</th>

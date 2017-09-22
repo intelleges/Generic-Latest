@@ -2656,6 +2656,7 @@
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ClauseViewModel.cs" />
     <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
     <Compile Include="Models\MenuModel.cs" />
