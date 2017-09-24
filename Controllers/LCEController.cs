@@ -50,7 +50,7 @@ namespace Generic.Controllers
                 int enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", result.partner_address_two, result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();          
+                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", model.BuyToBuyType??"", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();          
                 var pptqId = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First().id;
               
                 string sheetname = "CFDB";
@@ -210,7 +210,6 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
         {
-            return Json(new { success = true });
             if (model.Ids != null)
             {
                 LCEModel vm = Session["LceModel"] as LCEModel;

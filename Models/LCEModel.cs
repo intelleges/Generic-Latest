@@ -52,5 +52,7 @@ namespace Generic.Models
         public DateTime? Duedate { get; set; }
 
         public string Comments { get; set; }
+
+        public string BuyToBuyType { get; set; }
     }
 }
