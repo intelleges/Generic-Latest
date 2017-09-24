@@ -39,6 +39,14 @@ namespace Generic.Models
        // [Required]
         public HttpPostedFileBase FileScope { get; set; }
 
+        [DisplayName("CID Upload")]
+        // [Required]
+        public HttpPostedFileBase FileCID { get; set; }
+
+        [DisplayName("Entanglement Upload")]
+        // [Required]
+        public HttpPostedFileBase FileEntanglement { get; set; }
+
         [Required]
         [DisplayName("Due date")]
         public DateTime? Duedate { get; set; }

@@ -202,7 +202,7 @@
 
                     var selected1 = false;
                     var options1 = '';
-                   
+
                     $.each(teams, function (index, val) {
                         if (val1 == val.id) {
                             options1 += '<option selected value="' + val.id + '">' + val.text + '</option>';
@@ -216,7 +216,7 @@
 
                     var selected2 = false;
                     var options2 = '';
-                    
+
                     $.each(teams, function (index, val) {
                         if (val2 == val.id) {
                             options2 += '<option selected value="' + val.id + '">' + val.text + '</option>';
@@ -271,9 +271,9 @@
         $.post('@Url.Content("~/lce/setClauses")', { pptq: Number('@ViewBag.Pptq'), items: arr })
              .done(function (data) {
                 $.fancybox.hideLoading();
-                $.fancybox.close();    
+                $.fancybox.close();
                 window.location = '@Url.Content("~/lce/Create")';
-          });    
+          });
     }
 
     function next2() {
@@ -288,9 +288,11 @@
         });
         $.fancybox.showLoading();
 
-        $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', Ids: arr })
+        $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', partnerSpreadsheetDataLoadId:'@ViewBag.PartnerSpreadsheetDataLoadId', partnerType: $('.fancybox-inner #partnertype').val(), Ids: arr })
             .done(function (data) {
                 defs = data.list;
+
+                onchangeType();
 
                 $.fancybox.hideLoading();
 
@@ -309,7 +311,6 @@
     }
 </script>
 <style type="text/css">
-
     .fancybox-inner .table > thead > tr > th {
         font-size: 14px;
     }
@@ -318,7 +319,7 @@
         height: 320px;
         overflow-y: auto;
     }
-    
+
     select[multiple] {
         height: 250px;
         font-size: 14px;
@@ -417,7 +418,7 @@
                         <select multiple class="form-control" id="list1">
                             @foreach (var item in list.Where(o => !unassignedByEnterprise.Select(b => b.id).ToList().Contains(o.id)))
                             {
-                            <option value="@item.id">@item.firstName @item.lastName</option>
+                                <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -439,7 +440,7 @@
                         <select multiple class="form-control" id="list2">
                             @foreach (var item in unassignedByEnterprise)
                             {
-                            <option value="@item.id">@item.firstName @item.lastName</option>
+                                <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -458,7 +459,7 @@
             <div class="row">
                 @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
                 <div class="col-sm-9">
-                    @Html.DropDownListFor(m => m.partnertype, (List<SelectListItem>)ViewBag.partnertype, new { @class = "form-control", @data_val = "true", @data_val_required = " ",onchange="onchangeType()" })
+                    @Html.DropDownListFor(m => m.partnertype, (List<SelectListItem>)ViewBag.partnertype, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeType()" })
                     @Html.ValidationMessageFor(model => model.partnertype)
                 </div>
             </div>
@@ -469,7 +470,7 @@
                         <select multiple class="form-control" id="list3">
                             @foreach (var item in allClause)
                             {
-                            <option value="@item.id">@item.clause</option>
+                                <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -491,7 +492,7 @@
                         <select multiple class="form-control" id="list4">
                             @foreach (var item in selectedClauses)
                             {
-                            <option value="@item.id">@item.clause</option>
+                                <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -555,10 +556,16 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
+                            @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Designation)
+                            </div>
+                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-3">
                                 @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Duedate)
                             </div>
@@ -578,10 +585,10 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
+                            @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Designation)
+                                @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.partnertype)
                             </div>
                         </div>
                     </div>
@@ -641,6 +648,36 @@
                             <div class="col-sm-8">
                                 @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
                                 @Html.ValidationMessageFor(model => model.File)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8">
+                                @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FileCID)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8">
+                                @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FileEntanglement)
                             </div>
 
                         </div>

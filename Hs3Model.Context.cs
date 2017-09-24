@@ -19566,13 +19566,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBClauseAll_Result>("pr_getCFDBClauseAll");
         }
     
-        public virtual int pr_getCFDBPartnertypeClauseAll(Nullable<int> partnertype)
+        public virtual ObjectResult<pr_getCFDBPartnertypeClauseAll_Result> pr_getCFDBPartnertypeClauseAll(Nullable<int> partnertype)
         {
             var partnertypeParameter = partnertype.HasValue ?
                 new ObjectParameter("partnertype", partnertype) :
                 new ObjectParameter("partnertype", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getCFDBPartnertypeClauseAll", partnertypeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseAll_Result>("pr_getCFDBPartnertypeClauseAll", partnertypeParameter);
         }
     
         public virtual ObjectResult<pr_getCFDBPartnertypeClauseByPartnertype_Result> pr_getCFDBPartnertypeClauseByPartnertype(Nullable<int> partnertype)

@@ -11,7 +11,7 @@ namespace Generic
 {
     using System;
     
-    public partial class pr_getCFDBPartnertypeClauseByPartnertype_Result
+    public partial class pr_getCFDBPartnertypeClauseAll_Result
     {
         public int partnertype { get; set; }
         public int clause { get; set; }

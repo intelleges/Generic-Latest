@@ -9,6 +9,10 @@ namespace Generic.Models
     {
         public int Id { get; set; }
 
+        public int partnerType { get; set; }
+
+        public int partnerSpreadsheetDataLoadId { get; set; }
+
         public List<int> Ids { get; set; }
     }
 }

@@ -24,7 +24,6 @@ namespace Generic.Controllers
         {
             GenerateViewBag();
             ModelState.Clear();
-            ViewBag.Accesscode = null;
             ViewBag.Count = null;
             return View();
         }
@@ -48,14 +47,12 @@ namespace Generic.Controllers
             GenerateViewBag();
             if (ModelState.IsValid)
             {
+                int enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                var partnerId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", result.partner_address_two, result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, /*model.partnertype*/ result.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
-                var Target = db.touchpoint.Where(x => x.id == result.touchpoint).ToList();
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
-
+                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", result.partner_address_two, result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();          
                 var pptqId = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First().id;
-                int EnterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
+              
                 string sheetname = "CFDB";
                 var map = new Dictionary<string, string>();
 
@@ -190,19 +187,15 @@ namespace Generic.Controllers
                     }
                 }
 
-                ViewBag.Count = i;
-                ViewBag.Accesscode = pptq.accesscode;
-
+                ViewBag.Count = i;             
                 ViewBag.Pptq = pptqId;
+                ViewBag.PartnerSpreadsheetDataLoadId = partnerSpreadsheetDataLoadId;
                 ViewBag.TeamAssigned = db.pr_getPersonTeamAssignedByTouchpoint(result.touchpoint).ToList();
                 ViewBag.UnassignedByEnterprise = db.pr_getPersonTouchpointTeamUnassignedByEnterprise(CurrentInstance.EnterpriseID).ToList();
 
                 ViewBag.PrName = model.ProgramName;
-
-                var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).First();
-                model.partnertype = partnertype.id;
-                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(partnertype.id).ToList();
-                var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(partnertype.id).ToList();
+                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(model.partnertype).ToList();
+                var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnertype).ToList();
                 var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
 
                 ViewBag.SelectedClauses = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList();
@@ -217,6 +210,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
         {
+            return Json(new { success = true });
             if (model.Ids != null)
             {
                 LCEModel vm = Session["LceModel"] as LCEModel;
@@ -265,19 +259,19 @@ namespace Generic.Controllers
             if (model.Ids == null)
                 model.Ids = new List<int>();
 
+            var list = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnerType).ToList();
             List<dynamic> rtn = new List<dynamic>();
             foreach (var item in model.Ids)
             {
-                var defApproval = db.pr_getApprovalDefaultPersonByClause(item).FirstOrDefault();
-                var defSendData = db.pr_getSendDataToDefaultPersonByClause(item).FirstOrDefault();
+                var defApproval = list.Where(o => o.clause == item).FirstOrDefault();
+                var defSendData = list.Where(o => o.clause == item).FirstOrDefault();
 
                 rtn.Add(new
                 {
                     id = item,
-                    defApproval = defApproval == null ? null : (int?)defApproval.id,
-                    defSendData = defSendData == null ? null : (int?)defSendData.id,
+                    defApproval = defApproval == null ? null : (int?)defApproval.getApprovalFromPerson,
+                    defSendData = defSendData == null ? null : (int?)defSendData.sendDataToPerson,
                 });
-
             }
 
             return Json(new { success = true, list = rtn });
@@ -285,7 +279,6 @@ namespace Generic.Controllers
 
         public ActionResult GetClause(int id)
         {
-
             var allClause = db.pr_getCFDBClauseAllForDisplay(id).ToList();
             var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).ToList();
             var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();

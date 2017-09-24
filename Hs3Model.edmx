@@ -16413,7 +16413,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClauseAll_Result)" />
-          <FunctionImport Name="pr_getCFDBPartnertypeClauseAll">
+          <FunctionImport Name="pr_getCFDBPartnertypeClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result)">
           <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result)">
@@ -27161,6 +27161,8 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <ComplexType Name="pr_getCFDBPartnertypeClauseByPartnertype_Result">
           <Property Type="Int32" Name="partnertype" Nullable="false" />
           <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="true" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getPersonPPTQClause_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -27489,6 +27491,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
+        <ComplexType Name="pr_getCFDBPartnertypeClauseAll_Result">
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="true" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -36641,12 +36649,23 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseAll" />
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseAll" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result">
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseByPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseByPartnertype">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result">
                 <ScalarProperty Name="partnertype" ColumnName="partnertype" />
                 <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
