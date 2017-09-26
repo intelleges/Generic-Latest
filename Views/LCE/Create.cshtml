@@ -22,7 +22,8 @@
 
         // Check the extension of each file and abort the upload if it is not .jpg
         $.each(files, function () {
-            if (this.extension != ".xlsx") {
+            if (this.
+                extension != ".xlsx") {
                 alert("Only .xlsx files can be uploaded")
                 e.preventDefault();
                 return false;
@@ -129,8 +130,10 @@
 
     function onchangeType()
     {
+        partnerType = $('.fancybox-inner #partnertype').val();
+
         $.fancybox.showLoading();
-        $.get('@Url.Content("~/lce/getClause")' + '?id=' + $('.fancybox-inner #partnertype').val(), function (data) {
+        $.get('@Url.Content("~/lce/getClause")' + '?id=' + partnerType, function (data) {
 
             ac = $('.fancybox-inner #partnertype option:selected').text();
             $('.fancybox-inner #list3')
@@ -257,7 +260,7 @@
 
                     $('#clause-members tbody').append('<tr>' +
                         '<input type="hidden" class="id" value="' + val.id + '"/>' +
-                        '<td>' + val.text + '</td>' +
+                        '<td class="text">' + val.text + '</td>' +
                         '<td><select value="" class="form-control sendDataTo">' + options1+'</select></td>'+
                         '<td><select value="" class="form-control getApprovalFrom">' + options2 +'</select></td>'+
                         '<td><input class="form-control approvalNeededBy" type="date"></td>'
@@ -288,13 +291,14 @@
             arr.push({
                 id: $(obj).find('.id').val(),
                 sendDataTo: $(obj).find('.sendDataTo').val(),
+                text: $(obj).find('.text').text(),
                 getApprovalFrom: $(obj).find('.getApprovalFrom').val(),
                 approvalNeededBy: $(obj).find('.approvalNeededBy').val()
             });
         });
 
         $.fancybox.showLoading();
-        $.post('@Url.Content("~/lce/setClauses")', { pptq: Number('@ViewBag.Pptq'), items: arr })
+        $.post('@Url.Content("~/lce/setClauses")', { pptq: Number('@ViewBag.Pptq'), partnerType: partnerType, items: arr })
              .done(function (data) {
                 $.fancybox.hideLoading();
                 $.fancybox.close();
@@ -302,9 +306,10 @@
           });
     }
 
+    var partnerType = null;
+
     function next2() {
         ac = $('.fancybox-inner #partnertype option:selected').text();
-
         clauses = [];
 
         var arr = [];
@@ -314,7 +319,7 @@
         });
         $.fancybox.showLoading();
 
-        $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', partnerSpreadsheetDataLoadId:'@ViewBag.PartnerSpreadsheetDataLoadId', partnerType: $('.fancybox-inner #partnertype').val(), Ids: arr })
+        $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', partnerSpreadsheetDataLoadId: '@ViewBag.PartnerSpreadsheetDataLoadId', partnerType: partnerType, Ids: arr })
             .done(function (data) {
                 defs = data.list;
 

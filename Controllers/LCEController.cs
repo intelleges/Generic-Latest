@@ -11,6 +11,14 @@ using System.Web.Mvc;
 using Telerik.Web.Mvc;
 namespace Generic.Controllers
 {
+    [Flags]
+    public enum FilesUploaded
+    {
+        File,
+        FileScope,
+        FileCID,
+        FileEntanglement
+    }
     public class LCEController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
@@ -50,9 +58,9 @@ namespace Generic.Controllers
                 int enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", model.BuyToBuyType??"", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();          
+                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
                 var pptqId = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First().id;
-              
+
                 string sheetname = "CFDB";
                 var map = new Dictionary<string, string>();
 
@@ -187,7 +195,7 @@ namespace Generic.Controllers
                     }
                 }
 
-                ViewBag.Count = i;             
+                ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
                 ViewBag.PartnerSpreadsheetDataLoadId = partnerSpreadsheetDataLoadId;
                 ViewBag.TeamAssigned = db.pr_getPersonTeamAssignedByTouchpoint(result.touchpoint).ToList();
@@ -212,11 +220,6 @@ namespace Generic.Controllers
         {
             if (model.Ids != null)
             {
-                LCEModel vm = Session["LceModel"] as LCEModel;
-                SendEmail objSendEmail = new SendEmail();
-                var owner = db.pr_getPerson(vm.Owner).First();
-                var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
-                var activityType = db.pr_getParnterType(vm.partnertype).First().description;
 
                 foreach (var item in model.Ids)
                 {
@@ -225,27 +228,6 @@ namespace Generic.Controllers
                         db.pr_addPPTQTeam(model.Id, item, 0, true);
                     }
                     catch { }
-
-                    var person = db.pr_getPerson(item).FirstOrDefault();
-                    if (person != null)
-                    {
-                        Email email = new Email();
-                        string strEmailBody = "Hi " + person.firstName + ",<br/>" + "I have an action as part of the new REV 20 LCE checklist for transition "
-                            + vm.ProgramName + " " + vm.Designation + ".<br/>" + activityType + " - " + vm.From + " to " + vm.To;
-                        email.subject = "This is a test";
-                        email.body = strEmailBody;
-                        email.category = SendGridCategory.EmailSend;
-                        email.url = Request.Url.ToString();
-                        email.emailTo = person.email;
-
-                        objSendEmail.sendEmail(email, new EmailFormatSettings()
-                        {
-                            enterprise = new enterprise()
-                            {
-                                id = Generic.Helpers.CurrentInstance.EnterpriseID
-                            }
-                        }, from);
-                    }
                 }
             }
 
@@ -295,6 +277,12 @@ namespace Generic.Controllers
             if (model.items != null)
             {
                 LCEModel vm = Session["LceModel"] as LCEModel;
+                SendEmail objSendEmail = new SendEmail();
+                var owner = db.pr_getPerson(vm.Owner).First();
+                var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
+                var activityType = db.pr_getParnterType(model.partnerType).First().description;
+
+
                 byte[] b = new byte[0];
                 foreach (var item in model.items)
                 {
@@ -303,6 +291,37 @@ namespace Generic.Controllers
                         db.pr_addPersonPPTQClause(item.sendDataTo, model.pptq, item.id, 0, DateTime.Now, item.approvalNeededBy, null, b, vm.Comments ?? "", "", 0, true);
                     }
                     catch { }
+
+
+                    var person = db.pr_getPerson(item.sendDataTo).FirstOrDefault();
+                    var personApp = db.pr_getPerson(item.getApprovalFrom).FirstOrDefault();
+                    if (person != null)
+                    {
+                        Email email = new Email();
+                        string strEmailBody = "Hi " + person.firstName + ",<br/>" +
+                            "Thanks in advance for helping us on this important transition.<br/>" +
+                            "Honeywell Aerospace is performing the due diligence for " + vm.ProgramName + " a " + activityType + " transition from " + vm.From + " to " + vm.To + ".<br/>" +
+                            "We need you to review the attached CFDB output and respond and/or approve no later than " + (personApp == null ? "" : (personApp.firstName + " " + personApp.lastName)) + ".<br/>" +
+                            "If you have questions or mitigating actions, please reply to this email.  Mitigating actions will be worked outside of the LC&E application.<br/>" +
+                            "Please use this link " + item.text + " to record your approval.<br/><br/>" +
+                            "I appreciate your assistance,<br/>" +
+                            "Owner " + owner.firstName + " " + owner.lastName + "<br/><br/>"+
+                            "<p style='font-style: italic;'>[<br/>Legal Disclaimer:<br/>The plans and proposals described in this presentation or email are forward-looking business plans subject to modification based on many factors, including changing economic and business conditions.  Unless otherwise noted, the plans and proposals described here are not final and may be modified or even abandoned at any time.  No final decision will be taken with respect to such plans or proposals without prior satisfaction of any applicable requirements that the relevant company inform, consult or negotiate with employees or their representatives.<br/>Preliminary-not final-no decision will be taken without satisfaction of any applicable consultation or negotiation requirements.</p>"
+                           ;
+                        email.subject = "LC& E Checklist for Transition Approval Request";
+                        email.body = strEmailBody;
+                        email.category = SendGridCategory.EmailSend;
+                        email.url = Request.Url.ToString();
+                        email.emailTo = person.email;
+
+                        objSendEmail.sendEmail(email, new EmailFormatSettings()
+                        {
+                            enterprise = new enterprise()
+                            {
+                                id = Generic.Helpers.CurrentInstance.EnterpriseID
+                            }
+                        }, from);
+                    }
                 }
             }
 
