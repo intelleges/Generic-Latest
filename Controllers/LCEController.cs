@@ -294,14 +294,14 @@ namespace Generic.Controllers
 
 
                     var person = db.pr_getPerson(item.sendDataTo).FirstOrDefault();
-                    var personApp = db.pr_getPerson(item.getApprovalFrom).FirstOrDefault();
+                   // var personApp = db.pr_getPerson(item.getApprovalFrom).FirstOrDefault();
                     if (person != null)
                     {
                         Email email = new Email();
                         string strEmailBody = "Hi " + person.firstName + ",<br/>" +
                             "Thanks in advance for helping us on this important transition.<br/>" +
                             "Honeywell Aerospace is performing the due diligence for " + vm.ProgramName + " a " + activityType + " transition from " + vm.From + " to " + vm.To + ".<br/>" +
-                            "We need you to review the attached CFDB output and respond and/or approve no later than " + (personApp == null ? "" : (personApp.firstName + " " + personApp.lastName)) + ".<br/>" +
+                            "We need you to review the attached CFDB output and respond and/or approve no later than " + (item.approvalNeededBy == null ? "" : item.approvalNeededBy.ToShortDateString()) + ".<br/>" +
                             "If you have questions or mitigating actions, please reply to this email.  Mitigating actions will be worked outside of the LC&E application.<br/>" +
                             "Please use this link " + item.text + " to record your approval.<br/><br/>" +
                             "I appreciate your assistance,<br/>" +
