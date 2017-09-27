@@ -222,10 +222,11 @@ namespace Generic.Controllers
                 }
                 using (var dbEntityes = new EntitiesDBContext())
                 {
-                    var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+                   //There geneated error maybe logic not finished dont know //Aleksey F.
+                    /*var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
                     requesredPptq.score = (int)filesUploadedResult;
                     dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
-                    dbEntityes.SaveChanges();
+                    dbEntityes.SaveChanges();*/
                 }
                 ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
@@ -373,7 +374,7 @@ namespace Generic.Controllers
                 }
             }
 
-            return Json(new { success = true });
+            return Json(new { success = true, list = db.pr_getPPTQTeamRacixByPPTQ_Grid_2(138965).ToList() });
         }
     }
 }

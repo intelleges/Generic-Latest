@@ -299,11 +299,70 @@
 
         $.fancybox.showLoading();
         $.post('@Url.Content("~/lce/setClauses")', { pptq: Number('@ViewBag.Pptq'), partnerType: partnerType, items: arr })
-             .done(function (data) {
+            .done(function (data) {
+                $.each(data.list, function (index, obj) {
+
+                    var val1 = '';
+                    var val2 = '';
+                    var options1 = '';
+                    var selected1 = false;
+
+                    $.each(teams, function (index1, val) {
+                        if (val1 == val.id) {
+                            options1 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected1 = true;
+                        }
+                        else
+                            options1 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected1 == false) options1 = '<option disabled selected value></option>' + options1;
+
+                    var selected2 = false;
+                    var options2 = '';
+
+                    $.each(teams, function (index1, val) {
+                        if (val2 == val.id) {
+                            options2 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected2 = true;
+                        }
+                        else
+                            options2 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected2 == false) options2 = '<option disabled selected value></option>' + options2;
+
+                    $('#PPTQ-team tbody').append('<tr>' +
+                        '<input type="hidden" class="id" value="' + obj.section + '"/>' +
+                        '<td class="text">' + obj.sectionDesc + '</td>' +
+                        '<td><select value="" class="form-control responsible">' + options1 + '</select></td>' +
+                        '<td><input class="form-control dueDate" type="date" value="' + obj.dueDate+'"></td>'+
+                        '<td><select value="" class="form-control accountableApprove">' + options2 + '</select></td>' +
+                        '<td><input class="form-control approvalDueDate" type="date" value="' + obj.approvalDueDate + '"></td>'
+                        + '</tr>');
+                });
                 $.fancybox.hideLoading();
-                $.fancybox.close();
-                window.location = '@Url.Content("~/lce/Create")';
+
+
+                $.fancybox({
+                    'content': $('#PPTQ-team').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    width: 600,
+                    height: 300,
+                    minWidth: 600,
+                    minHeight: 300,
+                    maxHeight: 400
+                });
           });
+    }
+
+    function next4() {
+           $.fancybox.hideLoading();
+           $.fancybox.close();
+           window.location = '@Url.Content("~/lce/Create")';
     }
 
     var partnerType = null;
@@ -584,6 +643,33 @@
                         <div class="row">
                             <div class="col-lg-12" style="text-align: right;">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="next3();">Next></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="PPTQ-team" style="display:none;">
+                    <div style="padding: 10px 20px;">
+                        <div class="row">
+                            <div class="col-lg-12" id="table-body">
+                                <h4>Checklist Section</h4>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Section</th>
+                                            <th>Responsible(Edit)</th>
+                                            <th>Due Date</th>
+                                            <th>Accountable(Approve)</th>
+                                            <th>Approval Due Date </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12" style="text-align: right;">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="next4();">Next></button>
                             </div>
                         </div>
                     </div>

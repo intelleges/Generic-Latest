@@ -7133,6 +7133,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPPTQTeamRacixByPPTQ_Grid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPPTQTeamRacixByPPTQ_Grid_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPreviousPPTQByPPTQAndStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
@@ -16962,6 +16965,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="note" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQTeamRacixByPPTQ_Grid_2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -27497,6 +27503,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="Int32" Name="sendDataToPerson" Nullable="true" />
           <Property Type="Int32" Name="getApprovalFromPerson" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getPPTQTeamRacixByPPTQ_Grid_2_Result">
+          <Property Type="Int32" Name="section" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="String" Name="sectionDesc" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="Responsible_Edit_" Nullable="false" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Accountable_Approve_" Nullable="false" />
+          <Property Type="DateTime" Name="approvalDueDate" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -37056,6 +37071,19 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQTeamRacixByPPTQ_Grid_2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQTeamRacixByPPTQ_Grid_2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result">
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="sectionDesc" ColumnName="sectionDesc" />
+                <ScalarProperty Name="Responsible_Edit_" ColumnName="Responsible(Edit)" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="Accountable_Approve_" ColumnName="Accountable(Approve)" />
+                <ScalarProperty Name="approvalDueDate" ColumnName="approvalDueDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

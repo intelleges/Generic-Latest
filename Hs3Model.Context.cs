@@ -21624,5 +21624,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPPTQClause", personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateDueParameter, dateCompletedParameter, dataFileParameter, commentParameter, noteParameter, sortOrderParameter, activeParameter);
         }
+    
+        public virtual ObjectResult<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result> pr_getPPTQTeamRacixByPPTQ_Grid_2(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
+        }
     }
 }
