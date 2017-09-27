@@ -484,7 +484,7 @@
     }
 
     .fancybox-inner input[type=radio] {
-        width:20px;
+        width: 20px;
     }
 </style>
 
@@ -571,57 +571,63 @@
         </div>
     </div>
 
-                <div id="clause" style="display:none;">
-                    <div style="padding: 10px 20px;">
-                        <div class="row">
-                            @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.DropDownListFor(m => m.partnertype, (List<SelectListItem>)ViewBag.partnertype, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeType()" })
-                                @Html.ValidationMessageFor(model => model.partnertype)
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <div class="form-group">
-                                    <h4>Available clauses:</h4>
-                                    <select multiple class="form-control" id="list3">
-                                        @foreach (var item in allClause)
-                                        {
-                                            <option value="@item.id">@item.clause</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-
-                                <div class="form-group">
-                                    <h4>&nbsp;</h4>
-                                    <h4>&nbsp;</h4>
-                                    <button type="button" class="btn btn-default btn-sm" onclick="selectClausesAll();"><i class="glyphicon glyphicon-forward"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" onclick="selectClausesItems();"><i class="glyphicon glyphicon-chevron-right"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesItems();"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                                    <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesAll();"><i class="glyphicon glyphicon-backward"></i></button>
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="form-group">
-                                    <h4>Selected clauses:</h4>
-                                    <select multiple class="form-control" id="list4">
-                                        @foreach (var item in selectedClauses)
-                                        {
-                                            <option value="@item.id">@item.clause</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12" style="text-align: right;">
-                                <button type="button" class="btn btn-primary btn-sm" onclick="next2();">Next></button>
-                            </div>
-                        </div>
+    <div id="clause" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <div class="row">
+                <div class="col-lg-7">
+                    @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.partnertype, (List<SelectListItem>)ViewBag.partnertype, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeType()" })
+                        @Html.ValidationMessageFor(model => model.partnertype)
+                    </div>
+                </div>                
+                <div class="col-lg-5">
+                    <label><input type="radio" name="bbChannel" value="one">Channel One</label>&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="bbChannel" value="two" checked>Channel Two</label>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Available clauses:</h4>
+                        <select multiple class="form-control" id="list3">
+                            @foreach (var item in allClause)
+                            {
+                                <option value="@item.id">@item.clause</option>
+                            }
+                        </select>
                     </div>
                 </div>
+                <div class="col-lg-2">
+
+                    <div class="form-group">
+                        <h4>&nbsp;</h4>
+                        <h4>&nbsp;</h4>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectClausesAll();"><i class="glyphicon glyphicon-forward"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectClausesItems();"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesItems();"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesAll();"><i class="glyphicon glyphicon-backward"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Selected clauses:</h4>
+                        <select multiple class="form-control" id="list4">
+                            @foreach (var item in selectedClauses)
+                            {
+                                <option value="@item.id">@item.clause</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next2();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
                 <div id="clause-members" style="display:none;">
                     <div style="padding: 10px 20px;">
