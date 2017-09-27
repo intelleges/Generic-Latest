@@ -1,6 +1,7 @@
 ﻿using Generic.Helpers;
 using Generic.Helpers.Utility;
 using Generic.Models;
+using Generic.SessionClass;
 using Generic.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace Generic.Controllers
     [Flags]
     public enum FilesUploaded
     {
-        File,
-        FileScope,
-        FileCID,
-        FileEntanglement
+        File=1,
+        FileScope=2,
+        FileCID=4,
+        FileEntanglement=8
     }
     public class LCEController : Controller
     {
@@ -59,7 +60,8 @@ namespace Generic.Controllers
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
                 var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
-                var pptqId = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First().id;
+                var pptq = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First();
+                var pptqId = pptq.id;
 
                 string sheetname = "CFDB";
                 var map = new Dictionary<string, string>();
@@ -185,6 +187,7 @@ namespace Generic.Controllers
                 map.Add("TransDesc", "TransDesc");
 
                 int i = 0;
+                FilesUploaded? filesUploadedResult = (FilesUploaded?)null;
                 if (model.File != null)
                 {
                     var personinExcel = ExcelMapper.GetRows<ExcelLCE>(model.File.InputStream, sheetname, map).ToList();
@@ -193,8 +196,37 @@ namespace Generic.Controllers
                         db.pr_addCFDB(pptqId, item.SalesOffice, item.DistributionChannel, item.SalesOrderType, item.SalesOrderNumber, item.SalesLineItem, item.SalesOrderHeaderStatus, item.SalesOrderHdrStatusDesc, item.SalesOrderItemStatus, item.SalesOrderItemStatusDesc, item.SalesOrderDataDescription, item.CustomerGroup, item.SBU, item.CBT, item.CBT2, item.PONumber, item.CustomerID, item.CustomerName, item.CustomerCountry, item.SAPMasterContract ?? "", item.ContractLine, item.ContractStartDate, item.ContractEndDate, item.PartNumber, item.ContractAdminName, item.AribaID, item.HWContractManager, item.ContractingEntity, item.ProgramName, item.EndUse, item.EndUseDescription, item.PrimeContractNumber, item.ContractType, item.ContractTypeDescription, item.DPAS, item.FMS, item.ForeignInterestsText, item.GovtPropClauseApply, item.GovtPropertyClauses, item.SpecialToolingClause, item.GFP_CFP, item.NasaQualReqd, item.NasaQualText, item.PropertyType, item.PropertyTypeDesc, item.PropAgmtType, item.BuyAmericanClauseApply, item.BuyAmericanClauses, item.BuyAmericanClauseOther, item.BuyAmericanClauseApply, item.TradeAgreementsCls, item.FARPart12applies, item.FARPart15applies, item.TINA, item.CostActgClauseApply, item.CostActgClause, item.CostActgClauseDesc, item.CostActgClauseOthers, item.CommercialItemStatus, item.AllowableCostClauses, item.CostActgClauseXemptDesc, item.PropOnContractApply, item.PlaceOfPerformApply, item.PlaceofPerformClses, item.PlaceofPerformOthers, item.ChangeinLocation, item.CustomerApproval, item.Requalification, item.CitizenshipRestrictionApply, item.CitizenshipClauses, item.CitizenshipRestrOthers, item.SecurityReqsApply, item.SecurityReqsClses, item.SecurityDetailsText, item.SectkRepsCertsApply, item.SectkRepsCertsOthers, item.SectkRepsCertsClses, item.ConfigMgmtClass1, item.ConfigMgmtClass2, item.ConfigMgmtChangesText, item.QualityReqApply, item.QualityReqOthers, item.OtherShipPkgReq, item.RequiredTagsApply, item.RequiredTagsDesc, item.Mil129Apply, item.Mil130Apply, item.DomesticPrefRestApply, item.DomesticPrefRestOther, item.DomesticPrefRestClause, item.Outsourcerestrict, item.Outsourceclauses, item.ExportCusUniqReq, item.ExportReqClauses, item.ReportingDisclosureApply, item.RptgDisclosClses, item.ReportingDisclosureOther, item.p3rdPartyDisclosureRestrictions, item.WarrantyClausesApply, item.WarrantyClauses, item.WarrantyClausesOthers, item.SubsNotConsApply, item.SubsnotconsClauses, item.SubsNotConsOthers, item.SupplierApprovalApply, item.SupplierChgApply, item.AcctgSystemAdminstration252234, item.ContractorBusSystems252234, item.ContractorPropertyMgmtSystemAdmin252234, item.ContractorPurchasingSystemAdmin252234, item.EarnedValueMgmtSystems252234, item.MMASApply, item.MMASClauses, item.MMASOthers, item.CounterfeitPartsClausesApply, item.CounterfeitClauses, item.NationalStockNumber, item.TransPN, item.TransDesc, i, 1);
                         i++;
                     }
+                    AddModifyPptqDoc(model.File, pptqId, "CFDB uploaded document");
+                    filesUploadedResult = FilesUploaded.File;
                 }
-
+                if (model.FileScope != null)
+                {
+                    AddModifyPptqDoc(model.FileScope, pptqId, "LC&E Scope Uploaded document");
+                    if (filesUploadedResult.HasValue)
+                        filesUploadedResult |= FilesUploaded.FileScope;
+                    else filesUploadedResult = FilesUploaded.FileScope;
+                }
+                if (model.FileCID != null)
+                {
+                    AddModifyPptqDoc(model.FileCID, pptqId, "CID Uploaded document");
+                    if (filesUploadedResult.HasValue)
+                        filesUploadedResult |= FilesUploaded.FileCID;
+                    else filesUploadedResult = FilesUploaded.FileCID;
+                }
+                if (model.FileEntanglement != null)
+                {
+                    AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document");
+                    if (filesUploadedResult.HasValue)
+                        filesUploadedResult |= FilesUploaded.FileEntanglement;
+                    else filesUploadedResult = FilesUploaded.FileEntanglement;
+                }
+                using (var dbEntityes = new EntitiesDBContext())
+                {
+                    var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+                    requesredPptq.score = (int)filesUploadedResult;
+                    dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
+                    dbEntityes.SaveChanges();
+                }
                 ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
                 ViewBag.PartnerSpreadsheetDataLoadId = partnerSpreadsheetDataLoadId;
@@ -214,6 +246,22 @@ namespace Generic.Controllers
             return View(model);
         }
 
+        private void AddModifyPptqDoc(HttpPostedFileBase fileStream, int pptqId, string fileDescription)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                var files = db.pr_getPPTQDocByPPTQ(pptqId).ToList();
+                var cfdbFile = files.FirstOrDefault(o => o.description == fileDescription);
+                fileStream.InputStream.CopyTo(memoryStream);
+                if (cfdbFile == null)
+                {
+                    var sortOrder = files.Max(o => o.sortOrder);
+                    db.pr_addPPTQDoc(pptqId, fileStream.FileName, fileDescription, memoryStream.ToArray(), (int)PartnerDocType.EXCEL, DateTime.Now, SessionSingleton.LoggedInUserId, !sortOrder.HasValue ? 1 : sortOrder * 10, true);
+                }
+                else
+                    db.pr_modifyPPTQDoc(cfdbFile.id, cfdbFile.pptq, cfdbFile.title, cfdbFile.description, memoryStream.ToArray(), cfdbFile.doctype, DateTime.Now, SessionSingleton.LoggedInUserId, cfdbFile.sortOrder, cfdbFile.active);
+            }
+        }
 
         [HttpPost]
         public ActionResult AddPPTQTeam(AddPPTQTeamViewModel model)
@@ -294,7 +342,7 @@ namespace Generic.Controllers
 
 
                     var person = db.pr_getPerson(item.sendDataTo).FirstOrDefault();
-                   // var personApp = db.pr_getPerson(item.getApprovalFrom).FirstOrDefault();
+                    // var personApp = db.pr_getPerson(item.getApprovalFrom).FirstOrDefault();
                     if (person != null)
                     {
                         Email email = new Email();
@@ -305,7 +353,7 @@ namespace Generic.Controllers
                             "If you have questions or mitigating actions, please reply to this email.  Mitigating actions will be worked outside of the LC&E application.<br/>" +
                             "Please use this link " + item.text + " to record your approval.<br/><br/>" +
                             "I appreciate your assistance,<br/>" +
-                            "Owner " + owner.firstName + " " + owner.lastName + "<br/><br/>"+
+                            "Owner " + owner.firstName + " " + owner.lastName + "<br/><br/>" +
                             "<p style='font-style: italic;'>[<br/>Legal Disclaimer:<br/>The plans and proposals described in this presentation or email are forward-looking business plans subject to modification based on many factors, including changing economic and business conditions.  Unless otherwise noted, the plans and proposals described here are not final and may be modified or even abandoned at any time.  No final decision will be taken with respect to such plans or proposals without prior satisfaction of any applicable requirements that the relevant company inform, consult or negotiate with employees or their representatives.<br/>Preliminary-not final-no decision will be taken without satisfaction of any applicable consultation or negotiation requirements.</p>"
                            ;
                         email.subject = "LC& E Checklist for Transition Approval Request";
