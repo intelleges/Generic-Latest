@@ -10,7 +10,7 @@ namespace Generic.Models
     public class LCEModel
     {
         [Required]
-        [DisplayName("Program Name")]
+        [DisplayName("Project Name")]
         public string ProgramName { get; set; }
         [Required]
         [DisplayName("Designation")]
