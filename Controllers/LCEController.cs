@@ -15,10 +15,10 @@ namespace Generic.Controllers
     [Flags]
     public enum FilesUploaded
     {
-        File=1,
-        FileScope=2,
-        FileCID=4,
-        FileEntanglement=8
+        File = 1,
+        FileScope = 2,
+        FileCID = 4,
+        FileEntanglement = 8
     }
     public class LCEController : Controller
     {
@@ -196,37 +196,28 @@ namespace Generic.Controllers
                         db.pr_addCFDB(pptqId, item.SalesOffice, item.DistributionChannel, item.SalesOrderType, item.SalesOrderNumber, item.SalesLineItem, item.SalesOrderHeaderStatus, item.SalesOrderHdrStatusDesc, item.SalesOrderItemStatus, item.SalesOrderItemStatusDesc, item.SalesOrderDataDescription, item.CustomerGroup, item.SBU, item.CBT, item.CBT2, item.PONumber, item.CustomerID, item.CustomerName, item.CustomerCountry, item.SAPMasterContract ?? "", item.ContractLine, item.ContractStartDate, item.ContractEndDate, item.PartNumber, item.ContractAdminName, item.AribaID, item.HWContractManager, item.ContractingEntity, item.ProgramName, item.EndUse, item.EndUseDescription, item.PrimeContractNumber, item.ContractType, item.ContractTypeDescription, item.DPAS, item.FMS, item.ForeignInterestsText, item.GovtPropClauseApply, item.GovtPropertyClauses, item.SpecialToolingClause, item.GFP_CFP, item.NasaQualReqd, item.NasaQualText, item.PropertyType, item.PropertyTypeDesc, item.PropAgmtType, item.BuyAmericanClauseApply, item.BuyAmericanClauses, item.BuyAmericanClauseOther, item.BuyAmericanClauseApply, item.TradeAgreementsCls, item.FARPart12applies, item.FARPart15applies, item.TINA, item.CostActgClauseApply, item.CostActgClause, item.CostActgClauseDesc, item.CostActgClauseOthers, item.CommercialItemStatus, item.AllowableCostClauses, item.CostActgClauseXemptDesc, item.PropOnContractApply, item.PlaceOfPerformApply, item.PlaceofPerformClses, item.PlaceofPerformOthers, item.ChangeinLocation, item.CustomerApproval, item.Requalification, item.CitizenshipRestrictionApply, item.CitizenshipClauses, item.CitizenshipRestrOthers, item.SecurityReqsApply, item.SecurityReqsClses, item.SecurityDetailsText, item.SectkRepsCertsApply, item.SectkRepsCertsOthers, item.SectkRepsCertsClses, item.ConfigMgmtClass1, item.ConfigMgmtClass2, item.ConfigMgmtChangesText, item.QualityReqApply, item.QualityReqOthers, item.OtherShipPkgReq, item.RequiredTagsApply, item.RequiredTagsDesc, item.Mil129Apply, item.Mil130Apply, item.DomesticPrefRestApply, item.DomesticPrefRestOther, item.DomesticPrefRestClause, item.Outsourcerestrict, item.Outsourceclauses, item.ExportCusUniqReq, item.ExportReqClauses, item.ReportingDisclosureApply, item.RptgDisclosClses, item.ReportingDisclosureOther, item.p3rdPartyDisclosureRestrictions, item.WarrantyClausesApply, item.WarrantyClauses, item.WarrantyClausesOthers, item.SubsNotConsApply, item.SubsnotconsClauses, item.SubsNotConsOthers, item.SupplierApprovalApply, item.SupplierChgApply, item.AcctgSystemAdminstration252234, item.ContractorBusSystems252234, item.ContractorPropertyMgmtSystemAdmin252234, item.ContractorPurchasingSystemAdmin252234, item.EarnedValueMgmtSystems252234, item.MMASApply, item.MMASClauses, item.MMASOthers, item.CounterfeitPartsClausesApply, item.CounterfeitClauses, item.NationalStockNumber, item.TransPN, item.TransDesc, i, 1);
                         i++;
                     }
-                    AddModifyPptqDoc(model.File, pptqId, "CFDB uploaded document");
-                    filesUploadedResult = FilesUploaded.File;
+                    AddModifyPptqDoc(model.File, pptqId, "CFDB uploaded document", FilesUploaded.File);                    
                 }
                 if (model.FileScope != null)
                 {
-                    AddModifyPptqDoc(model.FileScope, pptqId, "LC&E Scope Uploaded document");
-                    if (filesUploadedResult.HasValue)
-                        filesUploadedResult |= FilesUploaded.FileScope;
-                    else filesUploadedResult = FilesUploaded.FileScope;
+                    AddModifyPptqDoc(model.FileScope, pptqId, "LC&E Scope Uploaded document", FilesUploaded.FileScope);                    
                 }
                 if (model.FileCID != null)
                 {
-                    AddModifyPptqDoc(model.FileCID, pptqId, "CID Uploaded document");
-                    if (filesUploadedResult.HasValue)
-                        filesUploadedResult |= FilesUploaded.FileCID;
-                    else filesUploadedResult = FilesUploaded.FileCID;
+                    AddModifyPptqDoc(model.FileCID, pptqId, "CID Uploaded document", FilesUploaded.FileCID);                    
                 }
                 if (model.FileEntanglement != null)
                 {
-                    AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document");
-                    if (filesUploadedResult.HasValue)
-                        filesUploadedResult |= FilesUploaded.FileEntanglement;
-                    else filesUploadedResult = FilesUploaded.FileEntanglement;
+                    AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document",FilesUploaded.FileEntanglement);                   
                 }
                 using (var dbEntityes = new EntitiesDBContext())
                 {
-                   //There geneated error maybe logic not finished dont know //Aleksey F.
-                    /*var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-                    requesredPptq.score = (int)filesUploadedResult;
+                    var files = dbEntityes.pr_getPPTQDocByPPTQ(pptqId).ToList();
+                    //There geneated error maybe logic not finished dont know //Aleksey F.
+                    var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+                    requesredPptq.score = files.Sum(o => o.sortOrder);
                     dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
-                    dbEntityes.SaveChanges();*/
+                    dbEntityes.SaveChanges();
                 }
                 ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
@@ -247,7 +238,7 @@ namespace Generic.Controllers
             return View(model);
         }
 
-        private void AddModifyPptqDoc(HttpPostedFileBase fileStream, int pptqId, string fileDescription)
+        private void AddModifyPptqDoc(HttpPostedFileBase fileStream, int pptqId, string fileDescription, FilesUploaded sortOrder)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -256,8 +247,7 @@ namespace Generic.Controllers
                 fileStream.InputStream.CopyTo(memoryStream);
                 if (cfdbFile == null)
                 {
-                    var sortOrder = files.Max(o => o.sortOrder);
-                    db.pr_addPPTQDoc(pptqId, fileStream.FileName, fileDescription, memoryStream.ToArray(), (int)PartnerDocType.EXCEL, DateTime.Now, SessionSingleton.LoggedInUserId, !sortOrder.HasValue ? 1 : sortOrder * 10, true);
+                    db.pr_addPPTQDoc(pptqId, fileStream.FileName, fileDescription, memoryStream.ToArray(), (int)PartnerDocType.EXCEL, DateTime.Now, SessionSingleton.LoggedInUserId, (int)sortOrder, true);
                 }
                 else
                     db.pr_modifyPPTQDoc(cfdbFile.id, cfdbFile.pptq, cfdbFile.title, cfdbFile.description, memoryStream.ToArray(), cfdbFile.doctype, DateTime.Now, SessionSingleton.LoggedInUserId, cfdbFile.sortOrder, cfdbFile.active);

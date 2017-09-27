@@ -817,6 +817,7 @@ namespace Generic.Controllers
                         case SkipLogicAnswer.M: qObj.skipLogicAnswer = "M"; break;
                         case SkipLogicAnswer.A: qObj.skipLogicAnswer = "A"; break;
                         case SkipLogicAnswer.D: qObj.skipLogicAnswer = "D"; break;
+                        case SkipLogicAnswer.B: qObj.skipLogicAnswer = "B"; break;
                         default: qObj.skipLogicAnswer = "N"; break;
                     }
                     if (!string.IsNullOrEmpty(question.skipLogicJump) && question.questionResponses.Count > 0 && question.skipLogicAnswer == SkipLogicAnswer.D)
@@ -1164,6 +1165,10 @@ namespace Generic.Controllers
                                 else if (excelQuestionnaire.skipLogicAnswer == "D")
                                 {
                                     objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
+                                }
+                                else if (excelQuestionnaire.skipLogicAnswer.ToUpper() == "B")
+                                {
+                                    objQuestion.skipLogicAnswer = SkipLogicAnswer.B;
                                 }
                                 else if (!string.IsNullOrEmpty(excelQuestionnaire.skipLogicAnswer) && excelQuestionnaire.skipLogicAnswer != "NULL")
                                 {

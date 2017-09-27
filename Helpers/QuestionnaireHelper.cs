@@ -80,6 +80,7 @@ namespace Generic.Helpers.Questionnaire
         public const int M = 2;
         public const int A = 3;
         public const int D = 4;
+        public const int B = 5;
     }
 
     public static class LevelType

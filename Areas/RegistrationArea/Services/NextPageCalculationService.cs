@@ -5,13 +5,20 @@ using System.Web;
 using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
 using Generic.Helpers;
+using Generic.Controllers;
 
 namespace Generic.Areas.RegistrationArea.Services
 {
     public static class NextPageCalculationService
     {
-        public static int GetJumpToQuestion(question objQuestion, EntitiesDBContext db, int pptq,int? partNumberSelectList=null, int? siteSelectList=null)
+        public static int GetJumpToQuestion(question objQuestion, EntitiesDBContext db, int pptq, int? partNumberSelectList = null, int? siteSelectList = null)
         {
+            if (objQuestion.skipLogicAnswer == SkipLogicAnswer.B)
+            {
+                var bitwiseValue = (FilesUploaded)objQuestion.weight;
+                var bitwiseDocs = (FilesUploaded)db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault().score;
+                if (!bitwiseDocs.HasFlag(bitwiseValue)) return 0;
+            }
             string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
             for (int k = 0; k < strQuestionLogic.Length - 1; k++)
             {
@@ -59,8 +66,8 @@ namespace Generic.Areas.RegistrationArea.Services
                     else
                     {
                         rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionidLogic, pptq).FirstOrDefault().response;
-                    }                  
-                   
+                    }
+
                     response responsenew = db.pr_getResponse(rID).FirstOrDefault();
                     if (responsenew != null)
                     {
