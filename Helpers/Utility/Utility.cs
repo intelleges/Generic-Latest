@@ -25,7 +25,7 @@ namespace Generic.Helpers.Utility
             //
         }
 
-        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null)
+        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null, List<SendGrid.Helpers.Mail.Attachment> attachments = null)
         {
             EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
@@ -153,6 +153,9 @@ namespace Generic.Helpers.Utility
                     }
                 }
             }
+
+            if (attachments != null)
+                attachments2.AddRange(attachments);
 
             if (attachments2.Count > 0)
                 msg.AddAttachments(attachments2);

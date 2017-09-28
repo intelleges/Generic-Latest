@@ -21633,5 +21633,122 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getCFDB3rdPartyDisclosureRestrictions_Result> pr_getCFDB3rdPartyDisclosureRestrictions(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDB3rdPartyDisclosureRestrictions_Result>("pr_getCFDB3rdPartyDisclosureRestrictions", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBBuyAmericanClause_Result> pr_getCFDBBuyAmericanClause(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBBuyAmericanClause_Result>("pr_getCFDBBuyAmericanClause", pptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getCFDBChannelTwoCheck(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getCFDBChannelTwoCheck", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBCitizenshipRestriction_Result> pr_getCFDBCitizenshipRestriction(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBCitizenshipRestriction_Result>("pr_getCFDBCitizenshipRestriction", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBCostAccountClause_Result> pr_getCFDBCostAccountClause(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBCostAccountClause_Result>("pr_getCFDBCostAccountClause", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBGovtPropClause_Result> pr_getCFDBGovtPropClause(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBGovtPropClause_Result>("pr_getCFDBGovtPropClause", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBOutsourceRestrictions_Result> pr_getCFDBOutsourceRestrictions(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBOutsourceRestrictions_Result>("pr_getCFDBOutsourceRestrictions", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPlaceOfPerformanceClause_Result> pr_getCFDBPlaceOfPerformanceClause(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPlaceOfPerformanceClause_Result>("pr_getCFDBPlaceOfPerformanceClause", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSecurityReqs_Result> pr_getCFDBSecurityReqs(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSecurityReqs_Result>("pr_getCFDBSecurityReqs", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBStandardClauses_Result> pr_getCFDBStandardClauses(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBStandardClauses_Result>("pr_getCFDBStandardClauses", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSubsNotCons_Result> pr_getCFDBSubsNotCons(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSubsNotCons_Result>("pr_getCFDBSubsNotCons", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSupplierApproval_Result> pr_getCFDBSupplierApproval(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSupplierApproval_Result>("pr_getCFDBSupplierApproval", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBTina_Result> pr_getCFDBTina(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBTina_Result>("pr_getCFDBTina", pptqParameter);
+        }
     }
 }

@@ -131,11 +131,10 @@
     function onchangeType()
     {
         partnerType = $('.fancybox-inner #partnertype').val();
+        $('#clause-members #at').text('Activity Type (' + $('.fancybox-inner #partnertype option:selected').text() + ') Clauses');
 
         $.fancybox.showLoading();
         $.get('@Url.Content("~/lce/getClause")' + '?id=' + partnerType, function (data) {
-
-            ac = $('.fancybox-inner #partnertype option:selected').text();
             $('.fancybox-inner #list3')
                     .find('option')
                     .remove();
@@ -214,7 +213,6 @@
         $.post('@Url.Content("~/lce/addPPTQTeam")', { Id: '@ViewBag.Pptq', Ids: arr })
             .done(function (data) {
 
-                $('#clause-members #at').text('Activity Type (' + ac + ') Clauses');
                 $('#clause-members tbody').html('');
 
                 $.each(clauses, function (index, val) {
@@ -368,7 +366,7 @@
     var partnerType = null;
 
     function next2() {
-        ac = $('.fancybox-inner #partnertype option:selected').text();
+        $('#clause-members #at').text('Activity Type (' + $('.fancybox-inner #partnertype option:selected').text() + ') Clauses');
         clauses = [];
 
         var arr = [];
@@ -582,8 +580,8 @@
                     </div>
                 </div>                
                 <div class="col-lg-5">
-                    <label><input type="radio" name="bbChannel" value="one">Channel One</label>&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="bbChannel" value="two" checked>Channel Two</label>
+                    <label><input type="radio" name="bbChannel" value="one" @ViewBag.Check>Channel One</label>&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="bbChannel" value="two" @ViewBag.Check checked>Channel Two</label>
                 </div> 
             </div>
             <div class="row">

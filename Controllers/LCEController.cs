@@ -190,30 +190,38 @@ namespace Generic.Controllers
                 FilesUploaded? filesUploadedResult = (FilesUploaded?)null;
                 if (model.File != null)
                 {
+                    ViewBag.Check = "disabled";
                     var personinExcel = ExcelMapper.GetRows<ExcelLCE>(model.File.InputStream, sheetname, map).ToList();
                     foreach (var item in personinExcel)
                     {
                         db.pr_addCFDB(pptqId, item.SalesOffice, item.DistributionChannel, item.SalesOrderType, item.SalesOrderNumber, item.SalesLineItem, item.SalesOrderHeaderStatus, item.SalesOrderHdrStatusDesc, item.SalesOrderItemStatus, item.SalesOrderItemStatusDesc, item.SalesOrderDataDescription, item.CustomerGroup, item.SBU, item.CBT, item.CBT2, item.PONumber, item.CustomerID, item.CustomerName, item.CustomerCountry, item.SAPMasterContract ?? "", item.ContractLine, item.ContractStartDate, item.ContractEndDate, item.PartNumber, item.ContractAdminName, item.AribaID, item.HWContractManager, item.ContractingEntity, item.ProgramName, item.EndUse, item.EndUseDescription, item.PrimeContractNumber, item.ContractType, item.ContractTypeDescription, item.DPAS, item.FMS, item.ForeignInterestsText, item.GovtPropClauseApply, item.GovtPropertyClauses, item.SpecialToolingClause, item.GFP_CFP, item.NasaQualReqd, item.NasaQualText, item.PropertyType, item.PropertyTypeDesc, item.PropAgmtType, item.BuyAmericanClauseApply, item.BuyAmericanClauses, item.BuyAmericanClauseOther, item.BuyAmericanClauseApply, item.TradeAgreementsCls, item.FARPart12applies, item.FARPart15applies, item.TINA, item.CostActgClauseApply, item.CostActgClause, item.CostActgClauseDesc, item.CostActgClauseOthers, item.CommercialItemStatus, item.AllowableCostClauses, item.CostActgClauseXemptDesc, item.PropOnContractApply, item.PlaceOfPerformApply, item.PlaceofPerformClses, item.PlaceofPerformOthers, item.ChangeinLocation, item.CustomerApproval, item.Requalification, item.CitizenshipRestrictionApply, item.CitizenshipClauses, item.CitizenshipRestrOthers, item.SecurityReqsApply, item.SecurityReqsClses, item.SecurityDetailsText, item.SectkRepsCertsApply, item.SectkRepsCertsOthers, item.SectkRepsCertsClses, item.ConfigMgmtClass1, item.ConfigMgmtClass2, item.ConfigMgmtChangesText, item.QualityReqApply, item.QualityReqOthers, item.OtherShipPkgReq, item.RequiredTagsApply, item.RequiredTagsDesc, item.Mil129Apply, item.Mil130Apply, item.DomesticPrefRestApply, item.DomesticPrefRestOther, item.DomesticPrefRestClause, item.Outsourcerestrict, item.Outsourceclauses, item.ExportCusUniqReq, item.ExportReqClauses, item.ReportingDisclosureApply, item.RptgDisclosClses, item.ReportingDisclosureOther, item.p3rdPartyDisclosureRestrictions, item.WarrantyClausesApply, item.WarrantyClauses, item.WarrantyClausesOthers, item.SubsNotConsApply, item.SubsnotconsClauses, item.SubsNotConsOthers, item.SupplierApprovalApply, item.SupplierChgApply, item.AcctgSystemAdminstration252234, item.ContractorBusSystems252234, item.ContractorPropertyMgmtSystemAdmin252234, item.ContractorPurchasingSystemAdmin252234, item.EarnedValueMgmtSystems252234, item.MMASApply, item.MMASClauses, item.MMASOthers, item.CounterfeitPartsClausesApply, item.CounterfeitClauses, item.NationalStockNumber, item.TransPN, item.TransDesc, i, 1);
                         i++;
+
                     }
-                    AddModifyPptqDoc(model.File, pptqId, "CFDB uploaded document", FilesUploaded.File);                    
+
+                    //var twoCheck = db.pr_getCFDBChannelTwoCheck(pptqId).FirstOrDefault();
+                    try
+                    {
+                        //sometime generated error
+                        AddModifyPptqDoc(model.File, pptqId, "CFDB uploaded document", FilesUploaded.File);
+                    }
+                    catch { }
                 }
                 if (model.FileScope != null)
                 {
-                    AddModifyPptqDoc(model.FileScope, pptqId, "LC&E Scope Uploaded document", FilesUploaded.FileScope);                    
+                    AddModifyPptqDoc(model.FileScope, pptqId, "LC&E Scope Uploaded document", FilesUploaded.FileScope);
                 }
                 if (model.FileCID != null)
                 {
-                    AddModifyPptqDoc(model.FileCID, pptqId, "CID Uploaded document", FilesUploaded.FileCID);                    
+                    AddModifyPptqDoc(model.FileCID, pptqId, "CID Uploaded document", FilesUploaded.FileCID);
                 }
                 if (model.FileEntanglement != null)
                 {
-                    AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document",FilesUploaded.FileEntanglement);                   
+                    AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document", FilesUploaded.FileEntanglement);
                 }
                 using (var dbEntityes = new EntitiesDBContext())
                 {
                     var files = dbEntityes.pr_getPPTQDocByPPTQ(pptqId).ToList();
-                    //There geneated error maybe logic not finished dont know //Aleksey F.
                     var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
                     requesredPptq.score = files.Sum(o => o.sortOrder);
                     dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
@@ -330,7 +338,148 @@ namespace Generic.Controllers
                         db.pr_addPersonPPTQClause(item.sendDataTo, model.pptq, item.id, 0, DateTime.Now, item.approvalNeededBy, null, b, vm.Comments ?? "", "", 0, true);
                     }
                     catch { }
-
+                    byte[] barr;
+                    List<SendGrid.Helpers.Mail.Attachment> attachments = new List<SendGrid.Helpers.Mail.Attachment>();
+                    switch (item.id)
+                    {
+                        case 49:
+                            var items = db.pr_getCFDB3rdPartyDisclosureRestrictions(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDB3rdPartyDisclosureRestrictions_Result>(new MemoryStream(), "3rdPartyDisclosureRestrictions", items);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "3rdPartyDisclosureRestrictions.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "3rdPartyDisclosureRestrictions.xls"
+                            });
+                            break;
+                        case 1:
+                            var items1 = db.pr_getCFDBBuyAmericanClause(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBBuyAmericanClause_Result>(new MemoryStream(), "BuyAmericanClause", items1);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "BuyAmericanClause.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "BuyAmericanClause.xls"
+                            });
+                            break;
+                        case 2:
+                            var items2 = db.pr_getCFDBCitizenshipRestriction(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestriction_Result>(new MemoryStream(), "CitizenshipRestriction", items2);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "CitizenshipRestriction.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "CitizenshipRestriction.xls"
+                            });
+                            break;
+                        case 3:
+                            var items3 = db.pr_getCFDBCostAccountClause(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBCostAccountClause_Result>(new MemoryStream(), "CostAccountClause", items3);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "CostAccountClause.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "CostAccountClause.xls"
+                            });
+                            break;
+                        case 8:
+                            var items4 = db.pr_getCFDBGovtPropClause(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBGovtPropClause_Result>(new MemoryStream(), "GovtPropClause", items4);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "GovtPropClause.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "GovtPropClause.xls"
+                            });
+                            break;
+                        case 12:
+                            var items5 = db.pr_getCFDBOutsourceRestrictions(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBOutsourceRestrictions_Result>(new MemoryStream(), "OutsourceRestrictions", items5);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "OutsourceRestrictions.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "OutsourceRestrictions.xls"
+                            });
+                            break;
+                        case 13:
+                            var items6 = db.pr_getCFDBPlaceOfPerformanceClause(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBPlaceOfPerformanceClause_Result>(new MemoryStream(), "PlaceOfPerformanceClause", items6);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "PlaceOfPerformanceClause.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "PlaceOfPerformanceClause.xls"
+                            });
+                            break;
+                        case 19:
+                            var items7 = db.pr_getCFDBSecurityReqs(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBSecurityReqs_Result>(new MemoryStream(), "SecurityReqs", items7);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "SecurityReqs.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "SecurityReqs.xls"
+                            });
+                            break;
+                        /* case 57:
+                             var items8 = db.pr_getCFDBStandardClauses(model.pptq).ToList();
+                             break;*/
+                        case 20:
+                            var items9 = db.pr_getCFDBSubsNotCons(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBSubsNotCons_Result>(new MemoryStream(), "SubsNotCons", items9);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "SubsNotCons.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "SubsNotCons.xls"
+                            });
+                            break;
+                        case 21:
+                            var items10 = db.pr_getCFDBSupplierApproval(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApproval_Result>(new MemoryStream(), "SupplierApproval", items10);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "SupplierApproval.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "SupplierApproval.xls"
+                            });
+                            break;
+                        case 53:
+                            var items11 = db.pr_getCFDBTina(model.pptq).ToList();
+                            barr = ExcelMapper.CreateExcel<pr_getCFDBTina_Result>(new MemoryStream(), "Tina", items11);
+                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(barr),
+                                ContentId = "Tina.xls",
+                                Disposition = "inline",
+                                Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                Filename = "Tina.xls"
+                            });
+                            break;
+                        default:
+                            break;
+                    }
 
                     var person = db.pr_getPerson(item.sendDataTo).FirstOrDefault();
                     // var personApp = db.pr_getPerson(item.getApprovalFrom).FirstOrDefault();
@@ -359,7 +508,7 @@ namespace Generic.Controllers
                             {
                                 id = Generic.Helpers.CurrentInstance.EnterpriseID
                             }
-                        }, from);
+                        }, from, attachments);
                     }
                 }
             }
