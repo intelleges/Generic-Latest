@@ -1219,7 +1219,16 @@
     <Compile Include="pr_getCFDBPartnertypeClauseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getCFDBPartnertypeClauseAll_Result1.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getCFDBPartnertypeClauseByPartnertype_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCFDBPartnertypeClauseByPartnertype_Result1.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCFDBPartnertypeClause_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCFDBPlaceOfPerformanceClause_Result.cs">

@@ -19498,19 +19498,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCFDBClause", clauseParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addCfdbpartnertypeclause(Nullable<int> partnertype, Nullable<int> clause)
-        {
-            var partnertypeParameter = partnertype.HasValue ?
-                new ObjectParameter("partnertype", partnertype) :
-                new ObjectParameter("partnertype", typeof(int));
-    
-            var clauseParameter = clause.HasValue ?
-                new ObjectParameter("clause", clause) :
-                new ObjectParameter("clause", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCfdbpartnertypeclause", partnertypeParameter, clauseParameter);
-        }
-    
         public virtual int pr_archiveCFDB(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
@@ -19564,24 +19551,6 @@ namespace Generic
         public virtual ObjectResult<pr_getCFDBClauseAll_Result> pr_getCFDBClauseAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBClauseAll_Result>("pr_getCFDBClauseAll");
-        }
-    
-        public virtual ObjectResult<pr_getCFDBPartnertypeClauseAll_Result> pr_getCFDBPartnertypeClauseAll(Nullable<int> partnertype)
-        {
-            var partnertypeParameter = partnertype.HasValue ?
-                new ObjectParameter("partnertype", partnertype) :
-                new ObjectParameter("partnertype", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseAll_Result>("pr_getCFDBPartnertypeClauseAll", partnertypeParameter);
-        }
-    
-        public virtual ObjectResult<pr_getCFDBPartnertypeClauseByPartnertype_Result> pr_getCFDBPartnertypeClauseByPartnertype(Nullable<int> partnertype)
-        {
-            var partnertypeParameter = partnertype.HasValue ?
-                new ObjectParameter("partnertype", partnertype) :
-                new ObjectParameter("partnertype", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseByPartnertype_Result>("pr_getCFDBPartnertypeClauseByPartnertype", partnertypeParameter);
         }
     
         public virtual ObjectResult<string> pr_getClauseFromCFDBAll()
@@ -21449,27 +21418,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveRegion", idParameter);
         }
     
-        public virtual int pr_addCFDBPartnertypeClause1(Nullable<int> partnertype, Nullable<int> clause, Nullable<int> sendDataToPerson, Nullable<int> getApprovalFromPerson)
-        {
-            var partnertypeParameter = partnertype.HasValue ?
-                new ObjectParameter("partnertype", partnertype) :
-                new ObjectParameter("partnertype", typeof(int));
-    
-            var clauseParameter = clause.HasValue ?
-                new ObjectParameter("clause", clause) :
-                new ObjectParameter("clause", typeof(int));
-    
-            var sendDataToPersonParameter = sendDataToPerson.HasValue ?
-                new ObjectParameter("sendDataToPerson", sendDataToPerson) :
-                new ObjectParameter("sendDataToPerson", typeof(int));
-    
-            var getApprovalFromPersonParameter = getApprovalFromPerson.HasValue ?
-                new ObjectParameter("getApprovalFromPerson", getApprovalFromPerson) :
-                new ObjectParameter("getApprovalFromPerson", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addCFDBPartnertypeClause1", partnertypeParameter, clauseParameter, sendDataToPersonParameter, getApprovalFromPersonParameter);
-        }
-    
         public virtual ObjectResult<pr_getCFDBClauseAllForDisplay_Result> pr_getCFDBClauseAllForDisplay(Nullable<int> partnertype)
         {
             var partnertypeParameter = partnertype.HasValue ?
@@ -21749,6 +21697,70 @@ namespace Generic
                 new ObjectParameter("pptq", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBTina_Result>("pr_getCFDBTina", pptqParameter);
+        }
+    
+        public virtual int pr_addCFDBPartnertypeClause(Nullable<int> partnertype, Nullable<int> clause, Nullable<int> channel, Nullable<int> sendDataToPerson, Nullable<int> getApprovalFromPerson, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var channelParameter = channel.HasValue ?
+                new ObjectParameter("channel", channel) :
+                new ObjectParameter("channel", typeof(int));
+    
+            var sendDataToPersonParameter = sendDataToPerson.HasValue ?
+                new ObjectParameter("sendDataToPerson", sendDataToPerson) :
+                new ObjectParameter("sendDataToPerson", typeof(int));
+    
+            var getApprovalFromPersonParameter = getApprovalFromPerson.HasValue ?
+                new ObjectParameter("getApprovalFromPerson", getApprovalFromPerson) :
+                new ObjectParameter("getApprovalFromPerson", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addCFDBPartnertypeClause", partnertypeParameter, clauseParameter, channelParameter, sendDataToPersonParameter, getApprovalFromPersonParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPartnertypeClause_Result> pr_getCFDBPartnertypeClause(Nullable<int> partnertype, Nullable<int> clause, Nullable<int> channel)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var channelParameter = channel.HasValue ?
+                new ObjectParameter("channel", channel) :
+                new ObjectParameter("channel", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClause_Result>("pr_getCFDBPartnertypeClause", partnertypeParameter, clauseParameter, channelParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPartnertypeClauseAll_Result1> pr_getCFDBPartnertypeClauseAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseAll_Result1>("pr_getCFDBPartnertypeClauseAll");
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPartnertypeClauseByPartnertype_Result1> pr_getCFDBPartnertypeClauseByPartnertype(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseByPartnertype_Result1>("pr_getCFDBPartnertypeClauseByPartnertype", partnertypeParameter);
         }
     }
 }

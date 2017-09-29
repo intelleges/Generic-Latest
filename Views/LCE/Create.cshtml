@@ -92,6 +92,7 @@
             </text>
         }
 
+
 		$("#btnClear").click(function (e) {
             alertify.confirm("Are you sure?", function (result) {
                 if (result) {
@@ -131,10 +132,8 @@
     function onchangeType()
     {
         partnerType = $('.fancybox-inner #partnertype').val();
-        $('#clause-members #at').text('Activity Type (' + $('.fancybox-inner #partnertype option:selected').text() + ') Clauses');
-
         $.fancybox.showLoading();
-        $.get('@Url.Content("~/lce/getClause")' + '?id=' + partnerType, function (data) {
+        $.get('@Url.Content("~/lce/getClause")' + '?id=' + partnerType + '&channel=' + $('.fancybox-inner [name="bbChannel"]:checked').val(), function (data) {
             $('.fancybox-inner #list3')
                     .find('option')
                     .remove();
@@ -364,10 +363,11 @@
     }
 
     var partnerType = null;
+    var channel = '@ViewBag.ChannelValue';
 
     function next2() {
-        $('#clause-members #at').text('Activity Type (' + $('.fancybox-inner #partnertype option:selected').text() + ') Clauses');
         clauses = [];
+        channel = $('.fancybox-inner [name="bbChannel"]:checked').val();
 
         var arr = [];
         $.each($(".fancybox-inner #list4 option"), function (index, val) {
@@ -376,7 +376,7 @@
         });
         $.fancybox.showLoading();
 
-        $.post('@Url.Content("~/lce/addClause")', { Id: '@ViewBag.Pptq', partnerSpreadsheetDataLoadId: '@ViewBag.PartnerSpreadsheetDataLoadId', partnerType: partnerType, Ids: arr })
+        $.post('@Url.Content("~/lce/addClause")', { channel: channel, Id: '@ViewBag.Pptq', partnerSpreadsheetDataLoadId: '@ViewBag.PartnerSpreadsheetDataLoadId', partnerType: partnerType, Ids: arr })
             .done(function (data) {
                 defs = data.list;
 
@@ -580,8 +580,8 @@
                     </div>
                 </div>                
                 <div class="col-lg-5">
-                    <label><input type="radio" name="bbChannel" value="one" @ViewBag.Check>Channel One</label>&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="bbChannel" value="two" @ViewBag.Check checked>Channel Two</label>
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 1?"checked":"") value="1" @ViewBag.Check onchange="onchangeType()">Channel One</label>&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 2?"checked":"") value="2" @ViewBag.Check onchange="onchangeType()">Channel Two</label>
                 </div> 
             </div>
             <div class="row">
@@ -634,7 +634,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th id="at">Activity Type ([ActivityType]) Clauses</th>
+                                            <th id="at">Section/Clause Review</th>
                                             <th>Send Data To</th>
                                             <th>Get Approval From</th>
                                             <th>Approval Needed By</th>

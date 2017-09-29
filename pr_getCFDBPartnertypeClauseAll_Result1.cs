@@ -10,15 +10,14 @@
 namespace Generic
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class cfdbPartnertypeClause
+    public partial class pr_getCFDBPartnertypeClauseAll_Result1
     {
         public int partnertype { get; set; }
         public int clause { get; set; }
+        public int channel { get; set; }
         public int sendDataToPerson { get; set; }
         public int getApprovalFromPerson { get; set; }
-        public int channel { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
     }

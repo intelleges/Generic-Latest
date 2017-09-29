@@ -177,11 +177,15 @@
           <Key>
             <PropertyRef Name="partnertype" />
             <PropertyRef Name="clause" />
+            <PropertyRef Name="channel" />
           </Key>
           <Property Name="partnertype" Type="int" Nullable="false" />
           <Property Name="clause" Type="int" Nullable="false" />
-          <Property Name="sendDataToPerson" Type="int" />
-          <Property Name="getApprovalFromPerson" Type="int" />
+          <Property Name="channel" Type="int" Nullable="false" />
+          <Property Name="sendDataToPerson" Type="int" Nullable="false" />
+          <Property Name="getApprovalFromPerson" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="companyProfileDataLoad">
           <Key>
@@ -4601,8 +4605,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_addCFDBPartnertypeClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="int" Mode="In" />
           <Parameter Name="clause" Type="int" Mode="In" />
+          <Parameter Name="channel" Type="int" Mode="In" />
           <Parameter Name="sendDataToPerson" Type="int" Mode="In" />
           <Parameter Name="getApprovalFromPerson" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="externalID" Type="varchar" Mode="In" />
@@ -6259,9 +6266,12 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getCFDBOutsourceRestrictions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getCFDBPartnertypeClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="pr_getCFDBPartnertypeClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+          <Parameter Name="channel" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBPartnertypeClauseAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getCFDBPartnertypeClauseByPartnertype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="int" Mode="In" />
         </Function>
@@ -16434,10 +16444,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="pr_addCfdbpartnertypeclause" ReturnType="Collection(Decimal)">
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
-            <Parameter Name="clause" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_archiveCFDB">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -16455,12 +16461,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClauseAll_Result)" />
-          <FunctionImport Name="pr_getCFDBPartnertypeClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result)">
-          <Parameter Name="partnertype" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result)">
-          <Parameter Name="partnertype" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getClauseFromCFDBAll" ReturnType="Collection(String)" />
           <FunctionImport Name="pr_getPersonPPTQClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
@@ -16954,12 +16954,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImport Name="pr_unArchiveRegion">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addCFDBPartnertypeClause1">
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
-            <Parameter Name="clause" Mode="In" Type="Int32" />
-            <Parameter Name="sendDataToPerson" Mode="In" Type="Int32" />
-            <Parameter Name="getApprovalFromPerson" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getCFDBClauseAllForDisplay" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClauseAllForDisplay_Result)">
           <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -17009,43 +17003,61 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDB3rdPartyDisclosureRestrictions" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDB3rdPartyDisclosureRestrictions_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBBuyAmericanClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBBuyAmericanClause_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBChannelTwoCheck" ReturnType="Collection(Int32)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBCitizenshipRestriction" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBCitizenshipRestriction_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBCostAccountClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBCostAccountClause_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBGovtPropClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBGovtPropClause_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBOutsourceRestrictions" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBOutsourceRestrictions_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBPlaceOfPerformanceClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPlaceOfPerformanceClause_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSecurityReqs" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSecurityReqs_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBStandardClauses" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBStandardClauses_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSubsNotCons" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSubsNotCons_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSupplierApproval" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSupplierApproval_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBTina" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBTina_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addCFDBPartnertypeClause">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="channel" Mode="In" Type="Int32" />
+            <Parameter Name="sendDataToPerson" Mode="In" Type="Int32" />
+            <Parameter Name="getApprovalFromPerson" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBPartnertypeClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClause_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="channel" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBPartnertypeClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result1)" />
+          <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result1)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -26976,11 +26988,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Key>
             <PropertyRef Name="partnertype" />
             <PropertyRef Name="clause" />
+            <PropertyRef Name="channel" />
           </Key>
           <Property Name="partnertype" Type="Int32" Nullable="false" />
           <Property Name="clause" Type="Int32" Nullable="false" />
-          <Property Name="sendDataToPerson" Type="Int32" />
-          <Property Name="getApprovalFromPerson" Type="Int32" />
+          <Property Name="sendDataToPerson" Type="Int32" Nullable="false" />
+          <Property Name="getApprovalFromPerson" Type="Int32" Nullable="false" />
+          <Property Name="channel" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
         <ComplexType Name="pr_getCFDB_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -29077,6 +29093,33 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Type="String" Name="TransDesc" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBPartnertypeClause_Result">
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="channel" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="false" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBPartnertypeClauseAll_Result1">
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="channel" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="false" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBPartnertypeClauseByPartnertype_Result1">
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="channel" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="false" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -37944,6 +37987,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySetMapping Name="cfdbPartnertypeClause">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.cfdbPartnertypeClause">
               <MappingFragment StoreEntitySet="cfdbPartnertypeClause">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
                 <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
                 <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
                 <ScalarProperty Name="clause" ColumnName="clause" />
@@ -38230,26 +38276,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseAll" >
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result">
-                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
-                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseByPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseByPartnertype">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result">
-                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
-                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getClauseFromCFDBAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getClauseFromCFDBAll" />
           <FunctionImportMapping FunctionImportName="pr_modifyCFDBClause" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCFDBClause" />
           <FunctionImportMapping FunctionImportName="pr_removeCFDB" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDB" />
@@ -38485,7 +38511,6 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImportMapping FunctionImportName="pr_removeRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_removeRegion" />
           <FunctionImportMapping FunctionImportName="pr_unArchivePPTQTeam" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQTeam" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveRegion" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveRegion" />
-          <FunctionImportMapping FunctionImportName="pr_addCFDBPartnertypeClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDBPartnertypeClause" />
           <FunctionImportMapping FunctionImportName="pr_getCFDBClauseAllForDisplay" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBClauseAllForDisplay">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBClauseAllForDisplay_Result">
@@ -40182,6 +40207,46 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
                 <ScalarProperty Name="NationalStockNumber" ColumnName="NationalStockNumber" />
                 <ScalarProperty Name="TransPN" ColumnName="TransPN" />
                 <ScalarProperty Name="TransDesc" ColumnName="TransDesc" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addCFDBPartnertypeClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addCFDBPartnertypeClause" />
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClause" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClause">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClause_Result">
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result1">
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseByPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseByPartnertype">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result1">
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>

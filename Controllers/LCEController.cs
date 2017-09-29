@@ -188,6 +188,7 @@ namespace Generic.Controllers
 
                 int i = 0;
                 FilesUploaded? filesUploadedResult = (FilesUploaded?)null;
+                int channel = 2;
                 if (model.File != null)
                 {
                     ViewBag.Check = "disabled";
@@ -199,7 +200,9 @@ namespace Generic.Controllers
 
                     }
 
-                    //var twoCheck = db.pr_getCFDBChannelTwoCheck(pptqId).FirstOrDefault();
+                    var ch = db.pr_getCFDBChannelTwoCheck(pptqId).FirstOrDefault();
+                    if (ch != null)
+                        channel = ch.Value;
                     try
                     {
                         //sometime generated error
@@ -233,9 +236,12 @@ namespace Generic.Controllers
                 ViewBag.TeamAssigned = db.pr_getPersonTeamAssignedByTouchpoint(result.touchpoint).ToList();
                 ViewBag.UnassignedByEnterprise = db.pr_getPersonTouchpointTeamUnassignedByEnterprise(CurrentInstance.EnterpriseID).ToList();
 
+                ViewBag.ChannelValue = channel;
+
                 ViewBag.PrName = model.ProgramName;
-                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(model.partnertype).ToList();
-                var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnertype).ToList();
+                var allclbychannels = db.pr_getCFDBPartnertypeClauseAll().ToList().Where(o => o.channel == channel).Select(o => o.clause).ToList();
+                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(model.partnertype).Where(b => allclbychannels.Contains(b.id)).ToList();
+                var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnertype).Where(o => o.channel == channel).ToList();
                 var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
 
                 ViewBag.SelectedClauses = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList();
@@ -287,7 +293,7 @@ namespace Generic.Controllers
             if (model.Ids == null)
                 model.Ids = new List<int>();
 
-            var list = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnerType).ToList();
+            var list = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnerType).Where(o => o.channel == model.channel).ToList();
             List<dynamic> rtn = new List<dynamic>();
             foreach (var item in model.Ids)
             {
@@ -305,10 +311,11 @@ namespace Generic.Controllers
             return Json(new { success = true, list = rtn });
         }
 
-        public ActionResult GetClause(int id)
+        public ActionResult GetClause(int id, int channel)
         {
-            var allClause = db.pr_getCFDBClauseAllForDisplay(id).ToList();
-            var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).ToList();
+            var allclbychannels = db.pr_getCFDBPartnertypeClauseAll().ToList().Where(o => o.channel == channel).Select(o => o.clause).ToList();
+            var allClause = db.pr_getCFDBClauseAllForDisplay(id).Where(b=> allclbychannels.Contains(b.id)).ToList();
+            var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).Where(o => o.channel == channel).ToList();
             var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
 
             return Json(new

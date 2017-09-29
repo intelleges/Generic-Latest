@@ -14,5 +14,7 @@ namespace Generic.Models
         public int partnerSpreadsheetDataLoadId { get; set; }
 
         public List<int> Ids { get; set; }
+
+        public int channel { get; set; }
     }
 }
