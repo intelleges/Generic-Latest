@@ -25,7 +25,7 @@ namespace Generic.Helpers.Utility
             //
         }
 
-        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null, List<SendGrid.Helpers.Mail.Attachment> attachments = null)
+        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null, List<AttachmentInfo> attachments = null)
         {
             EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
@@ -106,7 +106,8 @@ namespace Generic.Helpers.Utility
                     if (item.automailAttachmentType == 1)
                     {
                         string link = item.tags;
-                        if (settings != null) {
+                        if (settings != null)
+                        {
                             try
                             {
                                 if (settings.systemMaster != null && settings.ptq == 0)
@@ -121,7 +122,8 @@ namespace Generic.Helpers.Utility
                                 {
                                     link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.enterprise, settings.touchpoint, settings.ptq);
                                 }
-                                else {
+                                else
+                                {
                                     link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.touchpoint, settings.ptq);
                                 }
                             }
@@ -155,7 +157,19 @@ namespace Generic.Helpers.Utility
             }
 
             if (attachments != null)
-                attachments2.AddRange(attachments);
+            {
+                foreach (var item in attachments)
+                {
+                    attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                    {
+                        Content = item.Content,
+                        ContentId = item.ContentId,
+                        Disposition = item.Disposition,
+                        Type = item.Filename,
+                        Filename = item.Filename
+                    });
+                }
+            }
 
             if (attachments2.Count > 0)
                 msg.AddAttachments(attachments2);
@@ -179,7 +193,7 @@ namespace Generic.Helpers.Utility
                 Ganalytics = new Ganalytics() { Enable = true },
                 OpenTracking = new OpenTracking() { Enable = true, SubstitutionTag = "%opentrack" },
             };
-                
+
             try
             {
                 var task = client.SendEmailAsync(msg);
@@ -277,6 +291,15 @@ namespace Generic.Helpers.Utility
             return errorMessage;
         }
 
+    }
+
+    public class AttachmentInfo
+    {
+        public string Content { get; set; }
+        public string ContentId { get; set; }
+        public string Disposition { get; set; }
+        public string Type { get; set; }
+        public string Filename { get; set; }
     }
 
     public class EmailBounce

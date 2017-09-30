@@ -346,13 +346,13 @@ namespace Generic.Controllers
                     }
                     catch { }
                     byte[] barr;
-                    List<SendGrid.Helpers.Mail.Attachment> attachments = new List<SendGrid.Helpers.Mail.Attachment>();
+                    List<AttachmentInfo> attachments = new List<AttachmentInfo>();
                     switch (item.id)
                     {
                         case 49:
                             var items = db.pr_getCFDB3rdPartyDisclosureRestrictions(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDB3rdPartyDisclosureRestrictions_Result>(new MemoryStream(), "3rdPartyDisclosureRestrictions", items);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "3rdPartyDisclosureRestrictions.xls",
@@ -364,7 +364,7 @@ namespace Generic.Controllers
                         case 1:
                             var items1 = db.pr_getCFDBBuyAmericanClause(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBBuyAmericanClause_Result>(new MemoryStream(), "BuyAmericanClause", items1);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "BuyAmericanClause.xls",
@@ -376,7 +376,7 @@ namespace Generic.Controllers
                         case 2:
                             var items2 = db.pr_getCFDBCitizenshipRestriction(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestriction_Result>(new MemoryStream(), "CitizenshipRestriction", items2);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "CitizenshipRestriction.xls",
@@ -388,7 +388,7 @@ namespace Generic.Controllers
                         case 3:
                             var items3 = db.pr_getCFDBCostAccountClause(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBCostAccountClause_Result>(new MemoryStream(), "CostAccountClause", items3);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "CostAccountClause.xls",
@@ -400,7 +400,7 @@ namespace Generic.Controllers
                         case 8:
                             var items4 = db.pr_getCFDBGovtPropClause(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBGovtPropClause_Result>(new MemoryStream(), "GovtPropClause", items4);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "GovtPropClause.xls",
@@ -412,7 +412,7 @@ namespace Generic.Controllers
                         case 12:
                             var items5 = db.pr_getCFDBOutsourceRestrictions(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBOutsourceRestrictions_Result>(new MemoryStream(), "OutsourceRestrictions", items5);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "OutsourceRestrictions.xls",
@@ -424,7 +424,7 @@ namespace Generic.Controllers
                         case 13:
                             var items6 = db.pr_getCFDBPlaceOfPerformanceClause(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBPlaceOfPerformanceClause_Result>(new MemoryStream(), "PlaceOfPerformanceClause", items6);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "PlaceOfPerformanceClause.xls",
@@ -436,7 +436,7 @@ namespace Generic.Controllers
                         case 19:
                             var items7 = db.pr_getCFDBSecurityReqs(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBSecurityReqs_Result>(new MemoryStream(), "SecurityReqs", items7);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "SecurityReqs.xls",
@@ -451,7 +451,7 @@ namespace Generic.Controllers
                         case 20:
                             var items9 = db.pr_getCFDBSubsNotCons(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBSubsNotCons_Result>(new MemoryStream(), "SubsNotCons", items9);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "SubsNotCons.xls",
@@ -463,7 +463,7 @@ namespace Generic.Controllers
                         case 21:
                             var items10 = db.pr_getCFDBSupplierApproval(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApproval_Result>(new MemoryStream(), "SupplierApproval", items10);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "SupplierApproval.xls",
@@ -475,7 +475,7 @@ namespace Generic.Controllers
                         case 53:
                             var items11 = db.pr_getCFDBTina(model.pptq).ToList();
                             barr = ExcelMapper.CreateExcel<pr_getCFDBTina_Result>(new MemoryStream(), "Tina", items11);
-                            attachments.Add(new SendGrid.Helpers.Mail.Attachment()
+                            attachments.Add(new AttachmentInfo()
                             {
                                 Content = Convert.ToBase64String(barr),
                                 ContentId = "Tina.xls",
