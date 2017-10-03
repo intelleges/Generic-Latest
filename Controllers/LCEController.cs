@@ -18,7 +18,9 @@ namespace Generic.Controllers
         File = 1,
         FileScope = 2,
         FileCID = 4,
-        FileEntanglement = 8
+        FileEntanglement = 8,
+        SupplierSelfAssessmentUpload=16,
+        BAATransitionScopeUpload = 32
     }
     public class LCEController : Controller
     {
@@ -62,7 +64,7 @@ namespace Generic.Controllers
                 var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, result.partner_duns_number, model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", result.partner_poc_title, result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
                 var pptq = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First();
                 var pptqId = pptq.id;
-
+                db.pr_addPPTQDocShellForLCE(pptqId, SessionSingleton.LoggedInUserId).FirstOrDefault();
                 string sheetname = "CFDB";
                 var map = new Dictionary<string, string>();
 
@@ -222,6 +224,14 @@ namespace Generic.Controllers
                 {
                     AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document", FilesUploaded.FileEntanglement);
                 }
+                if (model.BAATransitionScopeUpload != null)
+                {
+                    AddModifyPptqDoc(model.BAATransitionScopeUpload, pptqId, "BAA Transition Scope Upload", FilesUploaded.BAATransitionScopeUpload);
+                }
+                if (model.SupplierSelfAssessmentUpload != null)
+                {
+                    AddModifyPptqDoc(model.SupplierSelfAssessmentUpload, pptqId, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
+                }
                 using (var dbEntityes = new EntitiesDBContext())
                 {
                     var files = dbEntityes.pr_getPPTQDocByPPTQ(pptqId).ToList();
@@ -261,10 +271,10 @@ namespace Generic.Controllers
                 fileStream.InputStream.CopyTo(memoryStream);
                 if (cfdbFile == null)
                 {
-                    db.pr_addPPTQDoc(pptqId, fileStream.FileName, fileDescription, memoryStream.ToArray(), (int)PartnerDocType.EXCEL, DateTime.Now, SessionSingleton.LoggedInUserId, (int)sortOrder, true);
+                    db.pr_addPPTQDoc(pptqId, fileStream.FileName, fileDescription, memoryStream.ToArray(), (int)PartnerDocType.EXCEL,null, DateTime.Now, SessionSingleton.LoggedInUserId, (int)sortOrder, true);
                 }
                 else
-                    db.pr_modifyPPTQDoc(cfdbFile.id, cfdbFile.pptq, cfdbFile.title, cfdbFile.description, memoryStream.ToArray(), cfdbFile.doctype, DateTime.Now, SessionSingleton.LoggedInUserId, cfdbFile.sortOrder, cfdbFile.active);
+                    db.pr_modifyPPTQDoc(cfdbFile.id, cfdbFile.pptq, cfdbFile.title, cfdbFile.description, memoryStream.ToArray(), cfdbFile.doctype,null, DateTime.Now, SessionSingleton.LoggedInUserId, cfdbFile.sortOrder, cfdbFile.active);
             }
         }
 

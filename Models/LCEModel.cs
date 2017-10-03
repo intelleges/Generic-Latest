@@ -32,11 +32,11 @@ namespace Generic.Models
         public string To { get; set; }
 
         [DisplayName("CFDB Upload")]
-       // [Required]
+        // [Required]
         public HttpPostedFileBase File { get; set; }
 
         [DisplayName("LC&E Scope Upload")]
-       // [Required]
+        // [Required]
         public HttpPostedFileBase FileScope { get; set; }
 
         [DisplayName("CID Upload")]
@@ -46,6 +46,14 @@ namespace Generic.Models
         [DisplayName("Entanglement Upload")]
         // [Required]
         public HttpPostedFileBase FileEntanglement { get; set; }
+
+        [DisplayName("Supplier Self-Assessment Upload")]
+        // [Required]
+        public HttpPostedFileBase SupplierSelfAssessmentUpload { get; set; }
+
+        [DisplayName("BAA Transition Scope Upload")]
+        // [Required]
+        public HttpPostedFileBase BAATransitionScopeUpload { get; set; }
 
         [Required]
         [DisplayName("Due date")]

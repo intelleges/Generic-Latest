@@ -15494,7 +15494,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointByPerson_Result>("pr_getTouchpointByPerson", personParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPPTQDoc(Nullable<int> pptq, string title, string description, byte[] doc, Nullable<int> doctype, Nullable<System.DateTime> uploadDateTime, Nullable<int> uploadedBy, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual ObjectResult<Nullable<decimal>> pr_addPPTQDoc(Nullable<int> pptq, string title, string description, byte[] doc, Nullable<int> doctype, Nullable<System.DateTime> expectedUploadeDate, Nullable<System.DateTime> uploadDateTime, Nullable<int> uploadedBy, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var pptqParameter = pptq.HasValue ?
                 new ObjectParameter("pptq", pptq) :
@@ -15516,6 +15516,10 @@ namespace Generic
                 new ObjectParameter("doctype", doctype) :
                 new ObjectParameter("doctype", typeof(int));
     
+            var expectedUploadeDateParameter = expectedUploadeDate.HasValue ?
+                new ObjectParameter("expectedUploadeDate", expectedUploadeDate) :
+                new ObjectParameter("expectedUploadeDate", typeof(System.DateTime));
+    
             var uploadDateTimeParameter = uploadDateTime.HasValue ?
                 new ObjectParameter("uploadDateTime", uploadDateTime) :
                 new ObjectParameter("uploadDateTime", typeof(System.DateTime));
@@ -15532,7 +15536,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPPTQDoc", pptqParameter, titleParameter, descriptionParameter, docParameter, doctypeParameter, uploadDateTimeParameter, uploadedByParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPPTQDoc", pptqParameter, titleParameter, descriptionParameter, docParameter, doctypeParameter, expectedUploadeDateParameter, uploadDateTimeParameter, uploadedByParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_archivePPTQDoc(Nullable<int> id)
@@ -15553,12 +15557,16 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQDoc_Result>("pr_getPPTQDoc", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPPTQDocAll_Result> pr_getPPTQDocAll()
+        public virtual ObjectResult<pr_getPPTQDocAll_Result> pr_getPPTQDocAll(Nullable<int> pptq)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQDocAll_Result>("pr_getPPTQDocAll");
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQDocAll_Result>("pr_getPPTQDocAll", pptqParameter);
         }
     
-        public virtual int pr_modifyPPTQDoc(Nullable<int> id, Nullable<int> pptq, string title, string description, byte[] doc, Nullable<int> doctype, Nullable<System.DateTime> uploadDateTime, Nullable<int> uploadedBy, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyPPTQDoc(Nullable<int> id, Nullable<int> pptq, string title, string description, byte[] doc, Nullable<int> doctype, Nullable<System.DateTime> expectedUploadeDate, Nullable<System.DateTime> uploadDateTime, Nullable<int> uploadedBy, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -15584,6 +15592,10 @@ namespace Generic
                 new ObjectParameter("doctype", doctype) :
                 new ObjectParameter("doctype", typeof(int));
     
+            var expectedUploadeDateParameter = expectedUploadeDate.HasValue ?
+                new ObjectParameter("expectedUploadeDate", expectedUploadeDate) :
+                new ObjectParameter("expectedUploadeDate", typeof(System.DateTime));
+    
             var uploadDateTimeParameter = uploadDateTime.HasValue ?
                 new ObjectParameter("uploadDateTime", uploadDateTime) :
                 new ObjectParameter("uploadDateTime", typeof(System.DateTime));
@@ -15600,7 +15612,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQDoc", idParameter, pptqParameter, titleParameter, descriptionParameter, docParameter, doctypeParameter, uploadDateTimeParameter, uploadedByParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQDoc", idParameter, pptqParameter, titleParameter, descriptionParameter, docParameter, doctypeParameter, expectedUploadeDateParameter, uploadDateTimeParameter, uploadedByParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_removePPTQDoc(Nullable<int> id)
@@ -21761,6 +21773,19 @@ namespace Generic
                 new ObjectParameter("partnertype", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseByPartnertype_Result1>("pr_getCFDBPartnertypeClauseByPartnertype", partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPPTQDocShellForLCE(Nullable<int> pptq, Nullable<int> uploadedBy)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var uploadedByParameter = uploadedBy.HasValue ?
+                new ObjectParameter("uploadedBy", uploadedBy) :
+                new ObjectParameter("uploadedBy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPPTQDocShellForLCE", pptqParameter, uploadedByParameter);
         }
     }
 }

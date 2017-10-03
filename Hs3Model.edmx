@@ -1517,10 +1517,11 @@
           <Property Name="pptq" Type="int" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="varchar(max)" />
-          <Property Name="doc" Type="varbinary(max)" Nullable="false" />
-          <Property Name="doctype" Type="int" Nullable="false" />
-          <Property Name="uploadDateTime" Type="datetime" Nullable="false" />
-          <Property Name="uploadedBy" Type="int" Nullable="false" />
+          <Property Name="doc" Type="varbinary(max)" />
+          <Property Name="doctype" Type="int" />
+          <Property Name="expectedUploadeDate" Type="date" />
+          <Property Name="uploadDateTime" Type="datetime" />
+          <Property Name="uploadedBy" Type="int" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
@@ -3653,8 +3654,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6037: Foreign key constraint 'FK_personRelationship_person2' has been omitted from the storage model. Column 'personHasThe' of table 'hs3MVCMTQa2Model.Store.personRelationship' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_personRelationship_person2">
           <End Role="person" Type="Self.person" Multiplicity="1" />
           <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
@@ -3666,7 +3665,7 @@ warning 6037: Foreign key constraint 'FK_personRelationship_person2' has been om
               <PropertyRef Name="personHasThe" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>-->
+        </Association>
         <Association Name="FK_personRelationship_personRelationshipType">
           <End Role="personRelationshipType" Type="Self.personRelationshipType" Multiplicity="1" />
           <End Role="personRelationship" Type="Self.personRelationship" Multiplicity="*" />
@@ -3955,8 +3954,6 @@ warning 6037: Foreign key constraint 'FK_personRelationship_person2' has been om
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6037: Foreign key constraint 'FK_questionResponse_question1' has been omitted from the storage model. Column 'question' of table 'hs3MVCMTQa2Model.Store.questionResponse' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_questionResponse_question1">
           <End Role="question" Type="Self.question" Multiplicity="1" />
           <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
@@ -3968,7 +3965,7 @@ warning 6037: Foreign key constraint 'FK_questionResponse_question1' has been om
               <PropertyRef Name="question" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>-->
+        </Association>
         <Association Name="FK_questionResponse_response">
           <End Role="response" Type="Self.response" Multiplicity="1" />
           <End Role="questionResponse" Type="Self.questionResponse" Multiplicity="*" />
@@ -4233,8 +4230,6 @@ warning 6037: Foreign key constraint 'FK_questionResponse_question1' has been om
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_questionnaire' has been omitted from the storage model. Column 'questionnaire' of table 'hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
           <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
           <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -4246,9 +4241,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_ques
               <PropertyRef Name="questionnaire" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>-->
-        <!--Errors Found During Generation:
-warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touchpoint' has been omitted from the storage model. Column 'touchpoint' of table 'hs3MVCMTQa2Model.Store.partnerTypeTouchpointQuestionnaire' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        </Association>
         <Association Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint">
           <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
           <End Role="partnerTypeTouchpointQuestionnaire" Type="Self.partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
@@ -4260,7 +4253,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>-->
+        </Association>
         <Association Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
           <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
           <End Role="touchpointPartnerTypeScoreAutoMail" Type="Self.touchpointPartnerTypeScoreAutoMail" Multiplicity="*" />
@@ -5318,10 +5311,15 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
           <Parameter Name="doc" Type="varbinary" Mode="In" />
           <Parameter Name="doctype" Type="int" Mode="In" />
+          <Parameter Name="expectedUploadeDate" Type="date" Mode="In" />
           <Parameter Name="uploadDateTime" Type="datetime" Mode="In" />
           <Parameter Name="uploadedBy" Type="int" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addPPTQDocShellForLCE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="uploadedBy" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addPPTQGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -7155,7 +7153,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
         <Function Name="pr_getPPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_getPPTQDocAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getPPTQDocAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPPTQDocByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -8572,6 +8572,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
           <Parameter Name="doc" Type="varbinary" Mode="In" />
           <Parameter Name="doctype" Type="int" Mode="In" />
+          <Parameter Name="expectedUploadeDate" Type="date" Mode="In" />
           <Parameter Name="uploadDateTime" Type="datetime" Mode="In" />
           <Parameter Name="uploadedBy" Type="int" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -10449,6 +10450,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <End Role="person" EntitySet="person" />
             <End Role="personRelationship" EntitySet="personRelationship" />
           </AssociationSet>
+          <AssociationSet Name="FK_personRelationship_person2" Association="Self.FK_personRelationship_person2">
+            <End Role="person" EntitySet="person" />
+            <End Role="personRelationship" EntitySet="personRelationship" />
+          </AssociationSet>
           <AssociationSet Name="FK_personRelationship_personRelationshipType" Association="Self.FK_personRelationship_personRelationshipType">
             <End Role="personRelationshipType" EntitySet="personRelationshipType" />
             <End Role="personRelationship" EntitySet="personRelationship" />
@@ -10545,6 +10550,10 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <End Role="question" EntitySet="question" />
             <End Role="questionResponse" EntitySet="questionResponse" />
           </AssociationSet>
+          <AssociationSet Name="FK_questionResponse_question1" Association="Self.FK_questionResponse_question1">
+            <End Role="question" EntitySet="question" />
+            <End Role="questionResponse" EntitySet="questionResponse" />
+          </AssociationSet>
           <AssociationSet Name="FK_questionResponse_response" Association="Self.FK_questionResponse_response">
             <End Role="response" EntitySet="response" />
             <End Role="questionResponse" EntitySet="questionResponse" />
@@ -10631,6 +10640,14 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_partnerType" Association="Self.FK_touchpointPartnerTypeQuestionnaire_partnerType">
             <End Role="partnerType" EntitySet="partnerType" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="Self.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="Self.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
+            <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeScoreAutoMail_touchpoint" Association="Self.FK_touchpointPartnerTypeScoreAutoMail_touchpoint">
@@ -15206,6 +15223,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="doc" Mode="In" Type="Binary" />
             <Parameter Name="doctype" Mode="In" Type="Int32" />
+            <Parameter Name="expectedUploadeDate" Mode="In" Type="DateTime" />
             <Parameter Name="uploadDateTime" Mode="In" Type="DateTime" />
             <Parameter Name="uploadedBy" Mode="In" Type="Int32" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
@@ -15217,7 +15235,9 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <FunctionImport Name="pr_getPPTQDoc" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQDoc_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPPTQDocAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQDocAll_Result)" />
+          <FunctionImport Name="pr_getPPTQDocAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQDocAll_Result)" >
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="pr_modifyPPTQDoc">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -15225,6 +15245,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="doc" Mode="In" Type="Binary" />
             <Parameter Name="doctype" Mode="In" Type="Int32" />
+            <Parameter Name="expectedUploadeDate" Mode="In" Type="DateTime" />
             <Parameter Name="uploadDateTime" Mode="In" Type="DateTime" />
             <Parameter Name="uploadedBy" Mode="In" Type="Int32" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
@@ -17057,7 +17078,11 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBPartnertypeClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseAll_Result1)" />
           <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertype_Result1)">
-            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPPTQDocShellForLCE" ReturnType="Collection(Int32)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="uploadedBy" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24688,12 +24713,13 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <Property Name="pptq" Type="Int32" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="doc" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="doctype" Type="Int32" Nullable="false" />
-          <Property Name="uploadDateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="uploadedBy" Type="Int32" Nullable="false" />
+          <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="doctype" Type="Int32" />
+          <Property Name="uploadDateTime" Type="DateTime" Precision="3" />
+          <Property Name="uploadedBy" Type="Int32" />
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="expectedUploadeDate" Type="DateTime" Precision="0" />
         </EntityType>
         <ComplexType Name="pr_getPPTQDoc_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -35500,6 +35526,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
           <EntitySetMapping Name="pptqDocs">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqDoc">
               <MappingFragment StoreEntitySet="pptqDoc">
+                <ScalarProperty Name="expectedUploadeDate" ColumnName="expectedUploadeDate" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="uploadedBy" ColumnName="uploadedBy" />
@@ -40252,6 +40279,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPPTQDocShellForLCE" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQDocShellForLCE" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -40267,7 +40295,7 @@ warning 6037: Foreign key constraint 'FK_touchpointPartnerTypeQuestionnaire_touc
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>

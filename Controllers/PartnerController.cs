@@ -269,7 +269,7 @@ namespace Generic.Controllers
             {
                 file.InputStream.CopyTo(stream);
                 stream.Seek(0, SeekOrigin.Begin);
-                var added = db.pr_addPPTQDoc(pptq.id, file.FileName, file.FileName, stream.ToArray(), (int)fileType, DateTime.Now, SessionSingleton.LoggedInUserId, 1, true).FirstOrDefault();
+                var added = db.pr_addPPTQDoc(pptq.id, file.FileName, file.FileName, stream.ToArray(), (int)fileType,null, DateTime.Now, SessionSingleton.LoggedInUserId, 1, true).FirstOrDefault();
             }
             return View(result);
         }
