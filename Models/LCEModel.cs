@@ -51,7 +51,7 @@ namespace Generic.Models
         // [Required]
         public HttpPostedFileBase SupplierSelfAssessmentUpload { get; set; }
 
-        [DisplayName("BAA Transition Scope Upload")]
+        [DisplayName("BAA Diligence File Upload")]
         // [Required]
         public HttpPostedFileBase BAATransitionScopeUpload { get; set; }
 
