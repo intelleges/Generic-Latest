@@ -131,7 +131,7 @@ namespace Generic.Controllers
             {
                 CallbackUrl = "https://intelleges.com/mvcmt/Generic/Admin/ExternalLoginCallback",
                 //CallbackUrl = "http://localhost:51090/Admin/ExternalLoginCallback",
-                ConsumerKey =ConfigurationManager.AppSettings["LinkedInConsumerKey"],
+                ConsumerKey = ConfigurationManager.AppSettings["LinkedInConsumerKey"],
                 ConsumerSecret = ConfigurationManager.AppSettings["LinkedInConsumerSecret"],
                 Type = Hammock.Authentication.OAuth.OAuthType.RequestToken
             };
@@ -295,7 +295,7 @@ namespace Generic.Controllers
 
                             SessionSingleton.LoggedInUserId = resultPerson.id;
                             SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
-							SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(resultPerson.id).First() == 1 ? true : false;
+                            SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(resultPerson.id).First() == 1 ? true : false;
                             SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                             SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
@@ -359,7 +359,7 @@ namespace Generic.Controllers
 
                 SessionSingleton.LoggedInUserId = resultPerson.id;
                 SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(resultPerson.id).FirstOrDefault().role;
-				SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(resultPerson.id).First() == 1 ? true : false;
+                SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(resultPerson.id).First() == 1 ? true : false;
                 SessionSingleton.MyEnterPriseId = resultPerson.enterprise;
                 SessionSingleton.Touchpoint = (int)resultPerson.campaign;
 
@@ -401,15 +401,15 @@ namespace Generic.Controllers
 
                     person person = db.pr_doLogin(userName, password).FirstOrDefault();
                     var ip = Request.UserHostAddress;
-					string[] computer_name = { ip };
-					try
-					{
-						computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
-					}
-					catch (SocketException ex)
-					{
-						//if can't resolve remote host then set up IP address
-					}
+                    string[] computer_name = { ip };
+                    try
+                    {
+                        computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+                    }
+                    catch (SocketException ex)
+                    {
+                        //if can't resolve remote host then set up IP address
+                    }
                     String ecn = System.Environment.MachineName;
                     var computerName = computer_name[0].ToString();
                     var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
@@ -422,7 +422,7 @@ namespace Generic.Controllers
 
                     SessionSingleton.LoggedInUserId = person.id;
                     SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
-					SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
+                    SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
                     SessionSingleton.MyEnterPriseId = person.enterprise;
                     SessionSingleton.Touchpoint = (int)person.campaign;
 
@@ -494,7 +494,7 @@ namespace Generic.Controllers
         {
             try
             {
-                if (Session["EventGroup"]==null) throw  new Exception("EventGroupNotFound");
+                if (Session["EventGroup"] == null) throw new Exception("EventGroupNotFound");
                 var result = db.pr_getEventNotificationByTouchpointAndEvent(CurrentInstance.EnterpriseID, touchpoint, Session["EventGroup"].ToString()).ToList();
                 //if (SessionSingleton.AddIteratePartnerId.HasValue)
                 //{
@@ -515,7 +515,7 @@ namespace Generic.Controllers
         public virtual ActionResult Home()
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-            ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o=>new SelectListItem()
+            ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o => new SelectListItem()
             {
                 Text = o.title,
                 Value = o.id.ToString(),
@@ -668,7 +668,7 @@ namespace Generic.Controllers
             {
                 Text = o.title,
                 Value = o.id.ToString(),
-                Selected = o.id==touchpoint
+                Selected = o.id == touchpoint
             }).ToList();
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
             var PTQ = "";
@@ -889,15 +889,15 @@ namespace Generic.Controllers
             var groupList = new List<group>();
 
 
-            if (id == null || id==0)
+            if (id == null || id == 0)
                 _touchpoint = SessionSingleton.Touchpoint;
             else
                 _touchpoint = (int)id;
 
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
-			var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
-			ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
-			
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
+
             foreach (var ptqItem in ptq)
             {
 
@@ -907,8 +907,8 @@ namespace Generic.Controllers
                 //  db.pr_getPartnerByPTQGroupStatus(
 
                 // pr_getDashboardCountForReferenceByPTQAndGroup
-               
-                if (groupid == null ||groupid==0)
+
+                if (groupid == null || groupid == 0)
                 {
                     var groupDataList = db.pr_getGroupByPTQ(ptqItem.id).ToList();
                     var ptqgroupDataList = db.pr_getPTQGroupByPTQ(ptqItem.id).ToList();
@@ -1025,20 +1025,74 @@ namespace Generic.Controllers
 
                 }
             }
-            
+
             if (groupList != null && groupList.Count > 0)
             {
-                var groups = new SelectList(groupList, "id", "description",groupid);
+                var groups = new SelectList(groupList, "id", "description", groupid);
                 ViewBag.Groups = groups;
             }
             else
             {
                 ViewBag.Groups = null;
             }
-           
+
 
             ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
             return View(dashBoard);
+        }
+
+        [Authorize]
+        public virtual ActionResult Dashboard2()
+        {
+            Dashboard2 vm = new Dashboard2();
+            var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            ViewBag.partnertype = partnertype.Select(o => new SelectListItem()
+            {
+                Text = o.description,
+                Value = o.id.ToString()
+            }).ToList();
+
+            vm.partnerType = partnertype.First().id;
+            var projNames = db.pr_getPartnerByPartnerType(vm.partnerType).ToList();
+            ViewBag.projectName = projNames.Select(o => new SelectListItem()
+            {
+                Text = o.name,
+                Value = o.id.ToString()
+            }).ToList();
+
+            var accessCodes = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(projNames.First().id).ToList();
+            ViewBag.accessCode = accessCodes.Select(o => new SelectListItem()
+            {
+                Text = o.accesscode,
+                Value = o.person.partnerPartnertypeTouchpointQuestionnaire.First().id.ToString()
+            }).ToList();
+            vm.accessCode = accessCodes.First().id;
+
+            return View(vm);
+        }
+
+        [Authorize]
+        public ActionResult GetDashboard2Result(int pptq, int partnerType)
+        {
+            ViewBag.PartnerPartnertypeTouchpointQuestionnaireByPartner = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(pptq).ToList();
+            ViewBag.PPTQDocAll = db.pr_getPPTQDocAll(pptq).ToList();
+            ViewBag.PersonPPTQClauseAll = db.pr_getPersonPPTQClauseAll(pptq).ToList();
+            ViewBag.PersonPPTQClauseAllDesc = db.pr_getCFDBClauseAllForDisplay(partnerType).ToList();
+            return View(db.pr_getPPTQTeamRacixByPPTQ_Grid_2(pptq).ToList());
+        }
+
+        [Authorize]
+        public ActionResult GetProjects(int partnerType)
+        {
+            var projNames = db.pr_getPartnerByPartnerType(partnerType).Select(o=>new { o.id, o.name}).ToList();
+            return Json(projNames, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult GetAccessCodes(int project)
+        {
+            var accessCodes = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(project).Select(o => new { o.id, o.accesscode }).ToList();
+            return Json(accessCodes, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -1200,19 +1254,19 @@ namespace Generic.Controllers
             return View();
         }
 
-		//public virtual ActionResult SendGridTest()
-		//{
-		//	return View();
-		//}
+        //public virtual ActionResult SendGridTest()
+        //{
+        //	return View();
+        //}
 
-		//[HttpPost]
-		//public virtual ActionResult SendGridTest(Email email)
-		//{
-		//	SendEmail objSendEmail = new SendEmail();
-		//	objSendEmail.sendEmail(email);
-		//	db.pr_addEventNotification(email.emailTo, DateTime.Now, "SendGridTest", null, null, null, null, email.protocolTouchpoint, "MVCMT", null, null);
-		//	return View();
-		//}
+        //[HttpPost]
+        //public virtual ActionResult SendGridTest(Email email)
+        //{
+        //	SendEmail objSendEmail = new SendEmail();
+        //	objSendEmail.sendEmail(email);
+        //	db.pr_addEventNotification(email.emailTo, DateTime.Now, "SendGridTest", null, null, null, null, email.protocolTouchpoint, "MVCMT", null, null);
+        //	return View();
+        //}
 
         public virtual ActionResult Menu(string animation, bool? enableOpacityAnimation, int? openDuration, int? closeDuration)
         {
@@ -1387,22 +1441,22 @@ namespace Generic.Controllers
             msg += "\nText: " + text;
             string ip = Request.UserHostAddress;
 
-           /* try
-            {
-                using (WebClient wc = new WebClient())
-                {
-                    var json = wc.DownloadString("https://freegeoip.net/json/" + ip);
-                    dynamic stuff = JsonConvert.DeserializeObject(json);
-                    msg += "\nCountry: " + stuff.country_name;
-                    msg += "\nRegion: " + stuff.region_name;
-                    msg += "\nCity: " + stuff.city;
-                    msg += "\nZip/Postal code: " + stuff.zip_code;
-                    msg += "\nLat/Long: " + stuff.latitude + " " + stuff.longitude;
-                    msg += "\nMetro code: " + stuff.metro_code;
-                    msg += "\nTime zone: " + stuff.time_zone;
-                }
-            }
-            catch { }*/
+            /* try
+             {
+                 using (WebClient wc = new WebClient())
+                 {
+                     var json = wc.DownloadString("https://freegeoip.net/json/" + ip);
+                     dynamic stuff = JsonConvert.DeserializeObject(json);
+                     msg += "\nCountry: " + stuff.country_name;
+                     msg += "\nRegion: " + stuff.region_name;
+                     msg += "\nCity: " + stuff.city;
+                     msg += "\nZip/Postal code: " + stuff.zip_code;
+                     msg += "\nLat/Long: " + stuff.latitude + " " + stuff.longitude;
+                     msg += "\nMetro code: " + stuff.metro_code;
+                     msg += "\nTime zone: " + stuff.time_zone;
+                 }
+             }
+             catch { }*/
 
             msg += "\nIP: " + ip;
 

@@ -6702,6 +6702,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="internalID" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerByPartnerType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -16486,9 +16489,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getPersonPPTQClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPersonPPTQClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result)" >
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_modifyCFDB">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="PPTQ" Mode="In" Type="Int32" />
@@ -16987,9 +16987,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getPersonPPTQClause1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClause1_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getPersonPPTQClauseAll1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll1_Result)">
-          <Parameter Name="pptq" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_modifyPersonPPTQClause1">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="person" Mode="In" Type="Int32" />
@@ -17019,9 +17016,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="note" Mode="In" Type="String" />
             <Parameter Name="sortOrder" Mode="In" Type="Int32" />
             <Parameter Name="active" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getPPTQTeamRacixByPPTQ_Grid_2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result)">
-          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDB3rdPartyDisclosureRestrictions" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDB3rdPartyDisclosureRestrictions_Result)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -17083,6 +17077,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_addPPTQDocShellForLCE" ReturnType="Collection(Int32)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="uploadedBy" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerByPartnerType" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerByPartnerType_Result)">
+          <Parameter Name="partnertype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonPPTQClauseAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result1)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQTeamRacixByPPTQ_Grid_2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24738,12 +24741,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="pptq" Nullable="false" />
           <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="description" Nullable="true" />
-          <Property Type="Binary" Name="doc" Nullable="false" />
-          <Property Type="Int32" Name="doctype" Nullable="false" />
-          <Property Type="DateTime" Name="uploadDateTime" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="uploadedBy" Nullable="false" />
+          <Property Type="Binary" Name="doc" Nullable="true" />
+          <Property Type="Int32" Name="doctype" Nullable="true" />
+          <Property Type="DateTime" Name="uploadDateTime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="uploadedBy" Nullable="true" />
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="DateTime" Name="expectedUploadeDate" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getPPTQDocByPPTQ_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -29146,6 +29150,58 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="getApprovalFromPerson" Nullable="false" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPartnerByPartnerType_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="province" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="dunsNumber" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="owner" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getPersonPPTQClauseAll_Result1">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="DateTime" Name="dateAssigned" Nullable="false" />
+          <Property Type="DateTime" Name="dateDue" Nullable="true" />
+          <Property Type="DateTime" Name="dateCompleted" Nullable="true" />
+          <Property Type="Binary" Name="dataFile" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="String" Name="note" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1">
+          <Property Type="Int32" Name="section" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="String" Name="sectionDesc" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="Responsible_Edit_" Nullable="false" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Accountable_Approve_" Nullable="false" />
+          <Property Type="DateTime" Name="approvalDueDate" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -35571,6 +35627,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="uploadedBy" ColumnName="uploadedBy" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="expectedUploadeDate" ColumnName="expectedUploadeDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -38649,25 +38706,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClauseAll1" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClauseAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll1_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="pptq" ColumnName="pptq" />
-                <ScalarProperty Name="clause" ColumnName="clause" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
-                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
-                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
-                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="note" ColumnName="note" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPersonPPTQClause1" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonPPTQClause" />
           <EntitySetMapping Name="personPPTQClause">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personPPTQClause">
@@ -38689,19 +38727,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_addPersonPPTQClause" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonPPTQClause" />
-          <FunctionImportMapping FunctionImportName="pr_getPPTQTeamRacixByPPTQ_Grid_2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQTeamRacixByPPTQ_Grid_2">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result">
-                <ScalarProperty Name="section" ColumnName="section" />
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="sectionDesc" ColumnName="sectionDesc" />
-                <ScalarProperty Name="Responsible_Edit_" ColumnName="Responsible(Edit)" />
-                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
-                <ScalarProperty Name="Accountable_Approve_" ColumnName="Accountable(Approve)" />
-                <ScalarProperty Name="approvalDueDate" ColumnName="approvalDueDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getCFDB3rdPartyDisclosureRestrictions" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDB3rdPartyDisclosureRestrictions">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDB3rdPartyDisclosureRestrictions_Result">
@@ -40280,6 +40305,70 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_addPPTQDocShellForLCE" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQDocShellForLCE" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerByPartnerType" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByPartnerType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerByPartnerType_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dunsNumber" ColumnName="dunsNumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonPPTQClauseAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonPPTQClauseAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonPPTQClauseAll_Result1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="dateAssigned" ColumnName="dateAssigned" />
+                <ScalarProperty Name="dateDue" ColumnName="dateDue" />
+                <ScalarProperty Name="dateCompleted" ColumnName="dateCompleted" />
+                <ScalarProperty Name="dataFile" ColumnName="dataFile" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQTeamRacixByPPTQ_Grid_2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQTeamRacixByPPTQ_Grid_2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1">
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="sectionDesc" ColumnName="sectionDesc" />
+                <ScalarProperty Name="Responsible_Edit_" ColumnName="Responsible(Edit)" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="Accountable_Approve_" ColumnName="Accountable(Approve)" />
+                <ScalarProperty Name="approvalDueDate" ColumnName="approvalDueDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

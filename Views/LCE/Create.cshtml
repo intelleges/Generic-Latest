@@ -580,8 +580,9 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 1 ? "checked" : "") value="1" @ViewBag.Check onchange="onchangeType()">Channel One Only</label>&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 2 ? "checked" : "") value="2" @ViewBag.Check onchange="onchangeType()">Channel Two Exists</label>
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 1 ? "checked" : "") value="1" @ViewBag.Check onchange="onchangeType()">Channel 1 Only</label>&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 2 ? "checked" : "") value="2" @ViewBag.Check onchange="onchangeType()">Channel 2 Only</label>
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 3 ? "checked" : "") value="3" @ViewBag.Check onchange="onchangeType()">Both Channel 1 &amp; 2</label>
                 </div>
             </div>
             <div class="row">
@@ -670,7 +671,7 @@
                         <tbody></tbody>
                     </table>
                 </div>
-            </div>к
+            </div>
             <div class="row">
                 <div class="col-lg-12" style="text-align: right;">
                     <button type="button" class="btn btn-primary btn-sm" onclick="next4();">Next></button>

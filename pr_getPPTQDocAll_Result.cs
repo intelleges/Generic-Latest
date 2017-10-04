@@ -18,10 +18,11 @@ namespace Generic
         public string title { get; set; }
         public string description { get; set; }
         public byte[] doc { get; set; }
-        public int doctype { get; set; }
-        public System.DateTime uploadDateTime { get; set; }
-        public int uploadedBy { get; set; }
+        public Nullable<int> doctype { get; set; }
+        public Nullable<System.DateTime> uploadDateTime { get; set; }
+        public Nullable<int> uploadedBy { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public bool active { get; set; }
+        public Nullable<System.DateTime> expectedUploadeDate { get; set; }
     }
 }

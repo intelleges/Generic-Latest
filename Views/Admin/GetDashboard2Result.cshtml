@@ -1,0 +1,80 @@
+﻿@model List<Generic.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1>
+@{
+    Layout = null;
+    List<Generic.partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaireByPartner = ViewBag.PartnerPartnertypeTouchpointQuestionnaireByPartner as List<Generic.partnerPartnertypeTouchpointQuestionnaire>;
+    List<Generic.pr_getPPTQDocAll_Result> pPTQDocAll = ViewBag.PPTQDocAll as List<Generic.pr_getPPTQDocAll_Result>;
+    List<Generic.pr_getPersonPPTQClauseAll_Result1> personPPTQClauseAll = ViewBag.PersonPPTQClauseAll as List<Generic.pr_getPersonPPTQClauseAll_Result1>;
+
+    var personPPTQClauseAllDesc = ViewBag.PersonPPTQClauseAllDesc as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
+}
+
+
+<div class="col-lg-12" id="table-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Status</th>
+                <th>Expeted Completion Date</th>
+                <th>Actual Completion Date</th>
+                <th>Delta</th>
+                <th>Assigned To</th>
+                <th>Approved By</th>
+                <th>Approved By Date</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in pPTQDocAll)
+            {
+                <tr>
+                    <td>@item.description</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+
+            @foreach (var item in personPPTQClauseAll)
+            {
+                var cl = personPPTQClauseAllDesc.Where(o => o.id == item.clause).FirstOrDefault();
+                if (cl == null)
+                {
+                    continue;
+                }
+
+                string desc = cl.clause;
+
+                <tr>
+                    <td>@desc</td>
+                    <td>@item.status</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+            
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.sectionDesc</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@item.Responsible_Edit_</td>
+                    <td>@item.Accountable_Approve_</td>
+                    <td>@(item.approvalDueDate==null?"": item.approvalDueDate.Value.ToShortDateString())</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

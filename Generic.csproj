@@ -1666,6 +1666,9 @@
     <Compile Include="pr_getPartnerByEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerByPartnerType_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerByPPTQAndEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1960,6 +1963,9 @@
     <Compile Include="pr_getPersonPPTQClauseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPersonPPTQClauseAll_Result1.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPersonPPTQClause_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2051,6 +2057,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPPTQTeamRacixByPPTQ_Grid_2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPPTQTeamRacixByPPTQ_Grid_Result.cs">
@@ -5297,6 +5306,8 @@
     <Content Include="Views\LCE\CreateResult.cshtml" />
     <Content Include="UploadTemplates\CFDB_Template.xlsx" />
     <Content Include="UploadTemplates\LCE_Scope_Template.xlsx" />
+    <Content Include="Views\Admin\Dashboard2.cshtml" />
+    <Content Include="Views\Admin\GetDashboard2Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

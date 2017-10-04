@@ -1,0 +1,185 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.Dashboard2>
+@using System.Web.Mvc.Html;
+@using Generic.Helpers;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + "Admin";
+}
+
+<fieldset>
+    <div id="dash2">
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            @Html.DropDownListFor(m => m.partnerType, (List<SelectListItem>)ViewBag.partnerType, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.projectName, (List<SelectListItem>)ViewBag.projectName, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeProjectName();" })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.DropDownListFor(m => m.accessCode, (List<SelectListItem>)ViewBag.accessCode, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeAccessCode();" })
+                        </div>
+                        <div class="col-sm-5 radio-list">
+                            <label><input type="radio" name="bbChannel" value="1" onchange="onchangeType()">Channel 1 Only</label>&nbsp;&nbsp;&nbsp;
+                            <label><input type="radio" name="bbChannel" checked value="2" onchange="onchangeType()">Channel 2 Only</label>&nbsp;&nbsp;&nbsp;
+                            <label><input type="radio" name="bbChannel" value="3" onchange="onchangeType()">Both Channel 1 &amp; 2</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" id="dashboard2-result">
+            </div>
+        </div>
+    </div>
+</fieldset>
+<div style="height:300px;"></div>
+@section header{
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .radio-list label {
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .radio-list input[type="radio"] {
+            width: 10px;
+            margin: 5px;
+        }
+
+        .fancybox-inner .table > thead > tr > th {
+            font-size: 14px;
+        }
+
+        .fancybox-inner #table-body {
+            height: 320px;
+            overflow-y: auto;
+        }
+
+        select[multiple] {
+            height: 250px;
+            font-size: 14px;
+        }
+
+        .t-input[type="text"] {
+            padding: 5px;
+        }
+
+        .t-upload-button {
+            margin-top: 5px;
+            float: left;
+        }
+
+        .control-label {
+            font-size: 12px;
+            font-family: "Segoe UI",Arial,sans-serif;
+            font-weight: normal;
+            padding: 5px;
+        }
+
+        .form-control {
+            font-size: 12px;
+            height: 28px;
+            padding: 5px;
+        }
+
+        .field-validation-error {
+            display: none;
+        }
+
+
+        .controls .btn {
+            background: #3498db;
+            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+            background-image: -o-linear-gradient(top, #3498db, #2980b9);
+            background-image: linear-gradient(to bottom, #3498db, #2980b9);
+            -webkit-border-radius: 12;
+            -moz-border-radius: 12;
+            border-radius: 28px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 20px;
+            padding: 3px 20px 5px 20px !important;
+            text-decoration: none;
+            min-width: 66px;
+        }
+
+            .controls .btn:hover {
+                background: #3cb0fd;
+                background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+                background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+                text-decoration: none;
+            }
+
+        .fancybox-inner .btn {
+            min-width: 85px;
+            font-size: 14px;
+        }
+
+        .fancybox-inner .col-lg-2 .btn {
+            margin-bottom: 10px;
+        }
+
+        .fancybox-lock body {
+            overflow: unset !important;
+        }
+
+        .fancybox-inner input[type=radio] {
+            width: 20px;
+        }
+    </style>
+    <script>
+        function onchangePartnerType(element) {
+            $('#dash2 #projectName')
+                .find('option')
+                .remove();
+
+            $.get('@Url.Content("~/admin/GetProjects")' + '?partnerType=' + $(element).val(), function (data) {
+                 $.each(data, function (key, value) {
+                     $('#dash2 #projectName')
+                         .append($("<option></option>")
+                             .attr("value", value.id)
+                             .text(value.name));
+                });
+
+                 onchangeProjectName();
+            });
+        }
+
+        function onchangeProjectName() {
+            $('#dash2 #accessCode')
+                .find('option')
+                .remove();
+
+            $.get('@Url.Content("~/admin/GetAccessCodes")' + '?project=' + $('#dash2 #projectName').val(), function (data) {
+                 $.each(data, function (key, value) {
+                     $('#dash2 #accessCode')
+                         .append($("<option></option>")
+                             .attr("value", value.id)
+                             .text(value.accesscode));
+                });
+
+                 onchangeAccessCode();
+            });
+        }
+
+        function onchangeAccessCode() {
+            $.fancybox.showLoading();
+            $.get('@Url.Content("~/admin/GetDashboard2Result")' + '?pptq=' + $('#dash2 #accessCode').val() + '&partnerType=' + $('#dash2 #partnerType').val(), function (data) {
+                $('#dashboard2-result').html(data);
+                $.fancybox.hideLoading();
+            });
+        }
+
+        $(document).ready(function () {
+            onchangeAccessCode();
+        });
+    </script>
+}

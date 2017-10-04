@@ -303,7 +303,7 @@ namespace Generic.Controllers
             if (model.Ids == null)
                 model.Ids = new List<int>();
 
-            var list = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnerType).Where(o => o.channel == model.channel).ToList();
+            var list = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnerType).Where(o => model.channel == 3 ? (o.channel == 1 || o.channel == 2) : o.channel == model.channel).ToList();
             List<dynamic> rtn = new List<dynamic>();
             foreach (var item in model.Ids)
             {
@@ -325,7 +325,7 @@ namespace Generic.Controllers
         {
             var allclbychannels = db.pr_getCFDBPartnertypeClauseAll().ToList().Where(o => o.channel == channel).Select(o => o.clause).ToList();
             var allClause = db.pr_getCFDBClauseAllForDisplay(id).Where(b=> allclbychannels.Contains(b.id)).ToList();
-            var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).Where(o => o.channel == channel).ToList();
+            var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(id).Where(o => channel == 3?(o.channel ==1|| o.channel == 2) : o.channel == channel).ToList();
             var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
 
             return Json(new

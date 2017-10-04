@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -24,6 +25,19 @@ namespace Generic.ViewModel
         public List<pr_getTouchpointAllByEnterprise_Result> ptqtouchPoints { get; set; }
         
     }
+
+    public class Dashboard2
+    {
+        [DisplayName("Activity Type")]
+        public int partnerType { get; set; }
+
+        [DisplayName("Project Name")]
+        public int projectName { get; set; }
+
+        [DisplayName("Access Code")]
+        public int accessCode { get; set; }
+    }
+
     public class PartnerTypeData
     {
         public int ID{get;set;}

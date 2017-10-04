@@ -19579,15 +19579,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClause_Result>("pr_getPersonPPTQClause", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPersonPPTQClauseAll_Result> pr_getPersonPPTQClauseAll(Nullable<int> pptq)
-        {
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClauseAll_Result>("pr_getPersonPPTQClauseAll", pptqParameter);
-        }
-    
         public virtual int pr_modifyCFDB(Nullable<int> id, Nullable<int> pPTQ, string salesOffice, string distributionChannel, string salesOrderType, string salesOrderNumber, string salesLineItem, string salesOrderHeaderStatus, string salesOrderHdrStatusDesc, string salesOrderItemStatus, string salesOrderItemStatusDesc, string salesOrderDataDescription, string customerGroup, string sBU, string cBT, string cBT2, string pONumber, string customerID, string customerName, string customerCountry, string sAPMasterContract_, string contractLine, Nullable<System.DateTime> contractStartDate, Nullable<System.DateTime> contractEndDate, string partNumber, string contractAdminName, string aribaID_, string hWContractManager, string contractingEntity, string programName, string endUse, string endUseDescription, string primeContractNumber, string contractType, string contractTypeDescription, string dPAS, string fMS, string foreignInterestsText, string govtPropClauseApply, string govtPropertyClauses, string specialToolingClause, string gFP_CFP, string nasaQualReqd, string nasaQualText, string propertyType, string propertyTypeDesc, string propAgmtType, string buyAmericanClauseApply, string buyAmericanClauses, string buyAmericanClauseOther, string tradeAgreeActApply, string tradeAgreementsCls, string fARPart12Apply, string fARPart15Apply, string tINA, string costActgClauseApply, string costActgClause, string costActgClauseDesc, string costActgClauseOthers, string commercialItemStatus, string allowableCostClauses, string costActgClauseXemptDesc, string propOnContractApply, string placeOfPerformApply, string placeofPerformClses, string placeofPerformOthers, string changeinLocation, string customerApproval, string requalification, string citizenshipRestrictionApply, string citizenshipClauses, string citizenshipRestrOthers, string securityReqsApply, string securityReqsClses, string securityDetailsText, string sectkRepsCertsApply, string sectkRepsCertsOthers, string sectkRepsCertsClses, string configMgmtClass1, string configMgmtClass2, string configMgmtChangesText, string qualityReqApply, string qualityReqOthers, string otherShipPkgReq, string requiredTagsApply, string requiredTagsDesc, string mil129Apply, string mil130Apply, string domesticPrefRestApply, string domesticPrefRestOther, string domesticPrefRestClause, string outsourceRestrictionsApply, string outsourceclauses, string exportCusUniqReq, string exportReqClauses, string reportingDisclosureApply, string rptgDisclosClses, string reportingDisclosureOther, string p3rdPartyDisclosureRestrictions, string warrantyClausesApply, string warrantyClauses, string warrantyClausesOthers, string subsNotConsApply, string subsnotconsClauses, string subsNotConsOthers, string supplierApprovalApply, string supplierChgApply, string acctgSystemAdminstration, string contractorBusSystems, string contractorPropertyMgmtSystemAdmin, string contractorPurchasingSystemAdmin, string earnedValueMgmtSystems, string mMASApply, string mMASClauses, string mMASOthers, string counterfeitPartsClausesApply, string counterfeitClauses, string nationalStockNumber, string transPN, string transDesc, Nullable<int> sortOrder, Nullable<int> active)
         {
             var idParameter = id.HasValue ?
@@ -21466,15 +21457,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClause1_Result>("pr_getPersonPPTQClause1", idParameter);
         }
     
-        public virtual ObjectResult<pr_getPersonPPTQClauseAll1_Result> pr_getPersonPPTQClauseAll1(Nullable<int> pptq)
-        {
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClauseAll1_Result>("pr_getPersonPPTQClauseAll1", pptqParameter);
-        }
-    
         public virtual int pr_modifyPersonPPTQClause1(Nullable<int> id, Nullable<int> person, Nullable<int> pptq, Nullable<int> clause, Nullable<int> status, Nullable<System.DateTime> dateAssigned, Nullable<System.DateTime> dateDue, Nullable<System.DateTime> dateCompleted, byte[] dataFile, string comment, string note, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
@@ -21583,15 +21565,6 @@ namespace Generic
                 new ObjectParameter("active", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPPTQClause", personParameter, pptqParameter, clauseParameter, statusParameter, dateAssignedParameter, dateDueParameter, dateCompletedParameter, dataFileParameter, commentParameter, noteParameter, sortOrderParameter, activeParameter);
-        }
-    
-        public virtual ObjectResult<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result> pr_getPPTQTeamRacixByPPTQ_Grid_2(Nullable<int> pptq)
-        {
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
         }
     
         public virtual ObjectResult<pr_getCFDB3rdPartyDisclosureRestrictions_Result> pr_getCFDB3rdPartyDisclosureRestrictions(Nullable<int> pptq)
@@ -21786,6 +21759,33 @@ namespace Generic
                 new ObjectParameter("uploadedBy", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPPTQDocShellForLCE", pptqParameter, uploadedByParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerByPartnerType_Result> pr_getPartnerByPartnerType(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByPartnerType_Result>("pr_getPartnerByPartnerType", partnertypeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonPPTQClauseAll_Result1> pr_getPersonPPTQClauseAll(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPPTQClauseAll_Result1>("pr_getPersonPPTQClauseAll", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1> pr_getPPTQTeamRacixByPPTQ_Grid_2(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
         }
     }
 }
