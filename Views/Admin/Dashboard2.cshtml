@@ -39,6 +39,53 @@
 @section header{
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <style type="text/css">
+
+        table.PartnerTypes {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+
+        table.TestTable {
+            border-collapse: collapse;
+            border: 1px solid black;
+            float: left;
+            margin-right: 10px;
+        }
+
+        table td {
+            border: 1px solid black;
+            font-size: 12px;
+        }
+
+        table th {
+            border: 1px solid black;
+            font-size: 12px;
+            text-align: right;
+            padding-right: 0;
+        }
+
+        table.PartnerTypes td.AlgnRight {
+            text-align: right;
+            color: darkblue;
+            padding-right: 0;
+        }
+
+        table.TestTable th {
+            border: 1px solid black;
+            font-size: 12px;
+            text-align: center;
+            padding-right: 0;
+        }
+
+        table.TestTable td.AlgnRight {
+            text-align: right;
+            color: darkblue;
+            padding-right: 0;
+            width: 47px;
+            font-weight: bold;
+        }
+
+
         .radio-list label {
             font-size: 12px;
             font-weight: normal;
@@ -174,11 +221,16 @@
             $.fancybox.showLoading();
             $.get('@Url.Content("~/admin/GetDashboard2Result")' + '?pptq=' + $('#dash2 #accessCode').val() + '&partnerType=' + $('#dash2 #partnerType').val(), function (data) {
                 $('#dashboard2-result').html(data);
+
+                $('#projectNameTitle').text($('#dash2 #projectName option:selected').text());
+
                 $.fancybox.hideLoading();
             });
         }
 
         $(document).ready(function () {
+            $('#rootMenu').parent().hide();
+
             onchangeAccessCode();
         });
     </script>

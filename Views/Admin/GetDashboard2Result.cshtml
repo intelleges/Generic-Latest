@@ -9,37 +9,43 @@
 }
 
 
-<div class="col-lg-12" id="table-body">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Status</th>
-                <th>Expeted Completion Date</th>
-                <th>Actual Completion Date</th>
-                <th>Delta</th>
-                <th>Assigned To</th>
-                <th>Approved By</th>
-                <th>Approved By Date</th>
-            </tr>
-        </thead>
+
+
+<div class="col-lg-12">
+
+    <table id="OuterTable">
         <tbody>
-
-            @foreach (var item in pPTQDocAll)
+            <tr>
+                <td style="border-right:0">
+                    <table class="PartnerTypes">
+                        <tbody>
+                            <tr style="background-color: darkblue; color: white;">
+                                <th class="groupLabel" style="text-align: center;">
+                                    ITEM&nbsp;
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            @foreach (var item in partnerPartnertypeTouchpointQuestionnaireByPartner)
             {
-                <tr>
-                    <td>@item.description</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            }
+                                <tr>
+                                    <td class="AlgnRight">@item.loadGroup</td>
 
-            @foreach (var item in personPPTQClauseAll)
+                                </tr>
+                          }
+
+                            @foreach (var item in pPTQDocAll)
+            {
+                                <tr>
+                                    <td class="AlgnRight">@item.description</td>
+
+                                </tr>
+                        }
+
+                            @foreach (var item in personPPTQClauseAll)
             {
                 var cl = personPPTQClauseAllDesc.Where(o => o.id == item.clause).FirstOrDefault();
                 if (cl == null)
@@ -49,32 +55,113 @@
 
                 string desc = cl.clause;
 
-                <tr>
-                    <td>@desc</td>
-                    <td>@item.status</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            }
-            
+                                <tr>
+                                    <td class="AlgnRight">@desc</td>
 
-            @foreach (var item in Model)
+                                </tr>
+                        }
+
+
+                            @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.sectionDesc</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>@item.Responsible_Edit_</td>
-                    <td>@item.Accountable_Approve_</td>
-                    <td>@(item.approvalDueDate==null?"": item.approvalDueDate.Value.ToShortDateString())</td>
-                </tr>
-            }
+                                <tr>
+                                    <td class="AlgnRight">@item.sectionDesc</td>
+
+                                </tr>
+                        }
+                        </tbody>
+                    </table>
+                </td>
+                <td style="border-left:0">
+                    <table class="TestTable">
+
+                        <tbody>
+                            <tr style="background-color:darkblue; color: white;">
+                                <th colspan="7" class="groupLabel" id="projectNameTitle">
+                                    &nbsp;
+
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td class="AlgnRight" title="Status">Status&nbsp;</td>
+                                <td class="AlgnRight" title="Expected Completion Date" style="width:170px;">Expected Completion Date&nbsp;</td>
+                                <td class="AlgnRight" title="Actual Completion Date" style="width:150px;">Actual Completion Date&nbsp;</td>
+                                <td class="AlgnRight" title="Delta">Delta&nbsp;</td>
+                                <td class="AlgnRight" title="Assigned To" style="width:80px;">Assigned To&nbsp;</td>
+                                <td class="AlgnRight" title="Approved By" style="width:80px;">Approved By&nbsp;</td>
+                                <td class="AlgnRight" title="Approved By Date" style="width:120px;">Approved By Date&nbsp;</td>
+                            </tr>
+
+                            @foreach (var item in partnerPartnertypeTouchpointQuestionnaireByPartner)
+            {
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+
+                                </tr>
+                            }
+
+                            @foreach (var item in pPTQDocAll)
+            {
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+
+                                </tr>
+                            }
+
+                            @foreach (var item in personPPTQClauseAll)
+            {
+                var cl = personPPTQClauseAllDesc.Where(o => o.id == item.clause).FirstOrDefault();
+                if (cl == null)
+                {
+                    continue;
+                }
+
+                string desc = cl.clause;
+
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                </tr>
+                            }
+
+
+                            @foreach (var item in Model)
+            {
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
