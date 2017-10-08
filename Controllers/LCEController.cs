@@ -267,7 +267,7 @@ namespace Generic.Controllers
             using (var memoryStream = new MemoryStream())
             {
                 var files = db.pr_getPPTQDocByPPTQ(pptqId).ToList();
-                var cfdbFile = files.FirstOrDefault(o => o.description == fileDescription);
+                var cfdbFile = files.FirstOrDefault(o => o.uploadedBy== SessionSingleton.LoggedInUserId&&o.sortOrder== (int)sortOrder);
                 fileStream.InputStream.CopyTo(memoryStream);
                 if (cfdbFile == null)
                 {

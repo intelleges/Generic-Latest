@@ -8,11 +8,7 @@
     var personPPTQClauseAllDesc = ViewBag.PersonPPTQClauseAllDesc as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
 }
 
-
-
-
 <div class="col-lg-12">
-
     <table id="OuterTable">
         <tbody>
             <tr>
@@ -29,10 +25,10 @@
                                     &nbsp;
                                 </td>
                             </tr>
-                            @foreach (var item in partnerPartnertypeTouchpointQuestionnaireByPartner)
+                            @if (partnerPartnertypeTouchpointQuestionnaireByPartner.Count>0)
             {
                                 <tr>
-                                    <td class="AlgnRight">@item.loadGroup</td>
+                                    <td class="AlgnRight">@partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate</td>
 
                                 </tr>
                           }
