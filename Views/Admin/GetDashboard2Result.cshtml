@@ -5,7 +5,7 @@
     List<Generic.pr_getPPTQDocAll_Result> pPTQDocAll = ViewBag.PPTQDocAll as List<Generic.pr_getPPTQDocAll_Result>;
     List<Generic.pr_getPersonPPTQClauseAll_Result1> personPPTQClauseAll = ViewBag.PersonPPTQClauseAll as List<Generic.pr_getPersonPPTQClauseAll_Result1>;
 
-    var personPPTQClauseAllDesc = ViewBag.PersonPPTQClauseAllDesc as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
+    var personPPTQClauseAllDesc = ViewBag.PersonPPTQClauseAllDesc as List<Generic.pr_getCFDBClauseAll_Result>;
 }
 
 <div class="col-lg-12">
@@ -28,10 +28,18 @@
                             @if (partnerPartnertypeTouchpointQuestionnaireByPartner.Count>0)
             {
                                 <tr>
-                                    <td class="AlgnRight">@partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate</td>
+                                    <td class="AlgnRight">Project Start Date/Create LCE Checklist: @partnerPartnertypeTouchpointQuestionnaireByPartner[0].invitedDate.ToShortDateString()</td>
 
                                 </tr>
-                          }
+                                <tr>
+                                    <td class="AlgnRight">Project Due Date: @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate==null?"": partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate.Value.ToShortDateString())</td>
+
+                                </tr>
+                                <tr>
+                                    <td class="AlgnRight">Actual Complition Date (Phase 2):  @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate.Value.ToShortDateString())</td>
+
+                                </tr>
+                            }
 
                             @foreach (var item in pPTQDocAll)
             {

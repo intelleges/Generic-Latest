@@ -1077,7 +1077,7 @@ namespace Generic.Controllers
             ViewBag.PartnerPartnertypeTouchpointQuestionnaireByPartner = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(pptq).ToList();
             ViewBag.PPTQDocAll = db.pr_getPPTQDocAll(pptq).ToList();
             ViewBag.PersonPPTQClauseAll = db.pr_getPersonPPTQClauseAll(pptq).ToList();
-            ViewBag.PersonPPTQClauseAllDesc = db.pr_getCFDBClauseAllForDisplay(partnerType).ToList();
+            ViewBag.PersonPPTQClauseAllDesc = db.pr_getCFDBClauseAll().ToList();
             return View(db.pr_getPPTQTeamRacixByPPTQ_Grid_2(pptq).ToList());
         }
 
