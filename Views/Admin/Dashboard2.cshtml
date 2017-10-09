@@ -219,7 +219,7 @@
 
         function onchangeAccessCode() {
             $.fancybox.showLoading();
-            $.get('@Url.Content("~/admin/GetDashboard2Result")' + '?pptq=' + $('#dash2 #accessCode').val() + '&partnerType=' + $('#dash2 #partnerType').val(), function (data) {
+            $.get('@Url.Content("~/admin/GetDashboard2Result")' + '?pptq=' + $('#dash2 #accessCode').val() + '&partner=' + $('#dash2 #projectName').val() + '&partnerType=' + $('#dash2 #partnerType').val(), function (data) {
                 $('#dashboard2-result').html(data);
 
                 $('#projectNameTitle').text($('#dash2 #projectName option:selected').text());
@@ -232,6 +232,10 @@
             $('#rootMenu').parent().hide();
 
             onchangeAccessCode();
+        });
+
+        $.ajaxSetup({
+            cache: false
         });
     </script>
 }

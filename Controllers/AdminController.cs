@@ -1066,19 +1066,21 @@ namespace Generic.Controllers
                 Text = o.accesscode,
                 Value = o.person.partnerPartnertypeTouchpointQuestionnaire.First().id.ToString()
             }).ToList();
-            vm.accessCode = accessCodes.First().id;
+
+            if(accessCodes.Count>0)
+                vm.accessCode = accessCodes.First().id;
 
             return View(vm);
         }
 
         [Authorize]
-        public ActionResult GetDashboard2Result(int pptq, int partnerType)
+        public ActionResult GetDashboard2Result(int pptq, int partner, int partnerType)
         {
-            ViewBag.PartnerPartnertypeTouchpointQuestionnaireByPartner = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(pptq).ToList();
+            ViewBag.PartnerPartnertypeTouchpointQuestionnaireByPartner = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner).ToList();
             ViewBag.PPTQDocAll = db.pr_getPPTQDocAll(pptq).ToList();
             ViewBag.PersonPPTQClauseAll = db.pr_getPersonPPTQClauseAll(pptq).ToList();
             ViewBag.PersonPPTQClauseAllDesc = db.pr_getCFDBClauseAll().ToList();
-            return View(db.pr_getPPTQTeamRacixByPPTQ_Grid_2(pptq).ToList());
+            return View(db.pr_getPPTQTeamRacixByPPTQ_Grid_2(138965).ToList());
         }
 
         [Authorize]

@@ -49,6 +49,17 @@
                                 </tr>
                         }
 
+
+
+                            @foreach (var item in Model)
+            {
+                                <tr>
+                                    <td class="AlgnRight">@item.sectionDesc</td>
+
+                                </tr>
+                        }
+
+
                             @foreach (var item in personPPTQClauseAll)
             {
                 var cl = personPPTQClauseAllDesc.Where(o => o.id == item.clause).FirstOrDefault();
@@ -63,16 +74,7 @@
                                     <td class="AlgnRight">@desc</td>
 
                                 </tr>
-                        }
-
-
-                            @foreach (var item in Model)
-            {
-                                <tr>
-                                    <td class="AlgnRight">@item.sectionDesc</td>
-
-                                </tr>
-                        }
+                            }
                         </tbody>
                     </table>
                 </td>
@@ -88,6 +90,7 @@
                             </tr>
 
                             <tr>
+                               
                                 <td class="AlgnRight" title="Status">Status&nbsp;</td>
                                 <td class="AlgnRight" title="Expected Completion Date" style="width:170px;">Expected Completion Date&nbsp;</td>
                                 <td class="AlgnRight" title="Actual Completion Date" style="width:150px;">Actual Completion Date&nbsp;</td>
@@ -97,7 +100,41 @@
                                 <td class="AlgnRight" title="Approved By Date" style="width:120px;">Approved By Date&nbsp;</td>
                             </tr>
 
-                            @foreach (var item in partnerPartnertypeTouchpointQuestionnaireByPartner)
+                           @if (partnerPartnertypeTouchpointQuestionnaireByPartner.Count > 0)
+                           {
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+
+                                </tr>
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+
+                                </tr>
+                                <tr>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">&nbsp;</td>
+
+                                </tr>
+                           }
+
+                            @foreach (var item in pPTQDocAll)
             {
                                 <tr>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -111,7 +148,8 @@
                                 </tr>
                             }
 
-                            @foreach (var item in pPTQDocAll)
+
+                            @foreach (var item in Model)
             {
                                 <tr>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -145,22 +183,6 @@
                                     <td class="AlgnRight">&nbsp;</td>
                                 </tr>
                             }
-
-
-                            @foreach (var item in Model)
-            {
-                                <tr>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-
-                                </tr>
-                            }
-
 
                         </tbody>
                     </table>
