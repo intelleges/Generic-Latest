@@ -40,9 +40,9 @@
                            @if (partnerPartnertypeTouchpointQuestionnaireByPartner.Count > 0)
                            {
                             <tr>
-                                <td class="AlgnRight item-col">Project Start Date/Create LCE Checklist: @partnerPartnertypeTouchpointQuestionnaireByPartner[0].invitedDate.ToShortDateString()</td>
+                                <td class="AlgnRight item-col">Project Start Date/Create LCE Checklist</td>
                                 <td class="AlgnRight">&nbsp;</td>
-                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">@partnerPartnertypeTouchpointQuestionnaireByPartner[0].invitedDate.ToShortDateString()</td>
                                 <td class="AlgnRight">&nbsp;</td>
                                 <td class="AlgnRight">&nbsp;</td>
                                 <td class="AlgnRight">&nbsp;</td>
@@ -51,9 +51,9 @@
 
                             </tr>
                                 <tr>
-                                    <td class="AlgnRight item-col">Project Due Date: @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate.Value.ToShortDateString())</td>
+                                    <td class="AlgnRight item-col">Project Due Date</td>
                                     <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -62,9 +62,9 @@
 
                                 </tr>
                                 <tr>
-                                    <td class="AlgnRight item-col">Actual Completion Date (Phase 2):  @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate.Value.ToShortDateString())</td>
+                                    <td class="AlgnRight item-col">Actual Completion Date (Phase 2)</td>
                                     <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
