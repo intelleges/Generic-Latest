@@ -81,7 +81,7 @@
                                     <td class="AlgnRight item-col">@item.description</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">@(item.expectedUploadeDate==null?"": item.expectedUploadeDate.Value.ToShortDateString())</td>
-                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(item.uploadDateTime == null ? "" : item.uploadDateTime.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -96,12 +96,12 @@
                                 <tr>
                                     <td class="AlgnRight item-col">@item.sectionDesc</td>
                                     <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(item.dueDate == null ? "" : item.dueDate.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(item.approvalDueDate == null ? "" : item.approvalDueDate.Value.ToShortDateString())</td>
                                 </tr>
                             }
 
@@ -112,14 +112,14 @@
                 {
                     continue;
                 }
-
+               
                 string desc = cl.clause;
 
                                 <tr>
                                     <td class="AlgnRight item-col">@desc</td>
                                     <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(item.dateDue == null ? "" : item.dateDue.Value.ToShortDateString())</td>
+                                    <td class="AlgnRight">@(item.dateCompleted == null ? "" : item.dateCompleted.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
