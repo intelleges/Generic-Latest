@@ -12,77 +12,14 @@
     <table id="OuterTable">
         <tbody>
             <tr>
-                <td style="border-right:0">
-                    <table class="PartnerTypes">
-                        <tbody>
-                            <tr style="background-color: darkblue; color: white;">
-                                <th class="groupLabel" style="text-align: center;">
-                                    ITEM&nbsp;
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    &nbsp;
-                                </td>
-                            </tr>
-                            @if (partnerPartnertypeTouchpointQuestionnaireByPartner.Count>0)
-            {
-                                <tr>
-                                    <td class="AlgnRight">Project Start Date/Create LCE Checklist: @partnerPartnertypeTouchpointQuestionnaireByPartner[0].invitedDate.ToShortDateString()</td>
-
-                                </tr>
-                                <tr>
-                                    <td class="AlgnRight">Project Due Date: @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate==null?"": partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate.Value.ToShortDateString())</td>
-
-                                </tr>
-                                <tr>
-                                    <td class="AlgnRight">Actual Complition Date (Phase 2):  @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate.Value.ToShortDateString())</td>
-
-                                </tr>
-                            }
-
-                            @foreach (var item in pPTQDocAll)
-            {
-                                <tr>
-                                    <td class="AlgnRight">@item.description</td>
-
-                                </tr>
-                        }
-
-
-
-                            @foreach (var item in Model)
-            {
-                                <tr>
-                                    <td class="AlgnRight">@item.sectionDesc</td>
-
-                                </tr>
-                        }
-
-
-                            @foreach (var item in personPPTQClauseAll)
-            {
-                var cl = personPPTQClauseAllDesc.Where(o => o.id == item.clause).FirstOrDefault();
-                if (cl == null)
-                {
-                    continue;
-                }
-
-                string desc = cl.clause;
-
-                                <tr>
-                                    <td class="AlgnRight">@desc</td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </td>
                 <td style="border-left:0">
                     <table class="TestTable">
 
                         <tbody>
                             <tr style="background-color:darkblue; color: white;">
+                                <th class="groupLabel item-col" style="text-align: center;">
+                                    ITEM&nbsp;
+                                </th>
                                 <th colspan="7" class="groupLabel" id="projectNameTitle">
                                     &nbsp;
 
@@ -90,7 +27,7 @@
                             </tr>
 
                             <tr>
-                               
+                                <td class="AlgnRight item-col" title="">&nbsp;</td>
                                 <td class="AlgnRight" title="Status">Status&nbsp;</td>
                                 <td class="AlgnRight" title="Expected Completion Date" style="width:170px;">Expected Completion Date&nbsp;</td>
                                 <td class="AlgnRight" title="Actual Completion Date" style="width:150px;">Actual Completion Date&nbsp;</td>
@@ -102,7 +39,19 @@
 
                            @if (partnerPartnertypeTouchpointQuestionnaireByPartner.Count > 0)
                            {
+                            <tr>
+                                <td class="AlgnRight item-col">Project Start Date/Create LCE Checklist: @partnerPartnertypeTouchpointQuestionnaireByPartner[0].invitedDate.ToShortDateString()</td>
+                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">&nbsp;</td>
+                                <td class="AlgnRight">&nbsp;</td>
+
+                            </tr>
                                 <tr>
+                                    <td class="AlgnRight item-col">Project Due Date: @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].dueDate.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -113,6 +62,7 @@
 
                                 </tr>
                                 <tr>
+                                    <td class="AlgnRight item-col">Actual Completion Date (Phase 2):  @(partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate == null ? "" : partnerPartnertypeTouchpointQuestionnaireByPartner[0].completedDate.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -122,23 +72,15 @@
                                     <td class="AlgnRight">&nbsp;</td>
 
                                 </tr>
-                                <tr>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
 
-                                </tr>
                            }
 
                             @foreach (var item in pPTQDocAll)
             {
                                 <tr>
+                                    <td class="AlgnRight item-col">@item.description</td>
                                     <td class="AlgnRight">&nbsp;</td>
-                                    <td class="AlgnRight">&nbsp;</td>
+                                    <td class="AlgnRight">@(item.expectedUploadeDate==null?"": item.expectedUploadeDate.Value.ToShortDateString())</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -152,6 +94,7 @@
                             @foreach (var item in Model)
             {
                                 <tr>
+                                    <td class="AlgnRight item-col">@item.sectionDesc</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
@@ -159,7 +102,6 @@
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
-
                                 </tr>
                             }
 
@@ -174,6 +116,7 @@
                 string desc = cl.clause;
 
                                 <tr>
+                                    <td class="AlgnRight item-col">@desc</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>
                                     <td class="AlgnRight">&nbsp;</td>

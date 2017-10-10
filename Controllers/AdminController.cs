@@ -1086,8 +1086,8 @@ namespace Generic.Controllers
         [Authorize]
         public ActionResult GetProjects(int partnerType)
         {
-            var projNames = db.pr_getPartnerByPartnerType(partnerType).Select(o=>new { o.id, o.name}).ToList();
-            return Json(projNames, JsonRequestBehavior.AllowGet);
+            var projNames = db.pr_getPartnerByPartnerType(partnerType).ToList();
+            return Json(projNames.Select(o => new { o.id, o.name, title = o.name + " " + " " + " " }).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
