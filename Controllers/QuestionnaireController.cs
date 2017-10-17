@@ -1166,7 +1166,7 @@ namespace Generic.Controllers
                                 {
                                     objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
                                 }
-                                else if (excelQuestionnaire.skipLogicAnswer.ToUpper() == "B")
+                                else if ((excelQuestionnaire.skipLogicAnswer??"").ToUpper() == "B")
                                 {
                                     objQuestion.skipLogicAnswer = SkipLogicAnswer.B;
                                 }
