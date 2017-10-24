@@ -2188,7 +2188,6 @@ namespace Generic.DataLayer
                             if (match.Success)
                                 radioButtonList.Items[i].Attributes.Add("data-code", match.Value);
                             radioButtonList.Items[i].Attributes["data-commented"] = hasAdditionalCommentBox.ToString();
-                            radioButtonList.Items[i].Attributes["style"] = "font-size:15px;";
                             if (question.required == 1)
                             {
                                 radioButtonList.Items[i].Attributes["data-val"] = "true";

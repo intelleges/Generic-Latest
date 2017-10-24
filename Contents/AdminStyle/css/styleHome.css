@@ -1304,7 +1304,7 @@ body .shadow-box li::before {
     /*vertical-align: top;
     display:inline-block;*/
 }
-.questionaire-table table .bluebg label, .questionaire-table table .brownbg label {
+.questionaire-table table .bluebg label, .questionaire-table table .brownbg label, .questionaire-table table table tr td label {
     font-size: 13px;
     padding-right: 13px;
     border-right: 1px solid #333;
@@ -1312,7 +1312,7 @@ body .shadow-box li::before {
     display: inline-block;
     width: auto;
     padding-left: 0;
-    vertical-align:middle;
+    vertical-align: middle;
 }
 
 .questionaire-table table .bluebg input, .questionaire-table table .brownbg input {
