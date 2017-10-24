@@ -1298,12 +1298,7 @@ body .shadow-box li::before {
 .questionaire-table table table tr td input[type='radio'] {
    vertical-align: top;
 }
-.questionaire-table table table tr td label {
-   /* width: 94%;*/
-    padding-left: 10px;
-    /*vertical-align: top;
-    display:inline-block;*/
-}
+
 .questionaire-table table .bluebg label, .questionaire-table table .brownbg label, .questionaire-table table table tr td label {
     font-size: 13px;
     padding-right: 13px;
@@ -1314,6 +1309,19 @@ body .shadow-box li::before {
     padding-left: 0;
     vertical-align: middle;
 }
+
+.questionaire-table table table tr td label {
+    padding-left: 10px;
+    border-right: none;
+    max-width: 95%;
+}
+
+.cke_editable {
+    color: #5f5f5f;
+    font-family: 'Avenir-Roman-webfont';
+    font-size: 17px;
+}
+
 
 .questionaire-table table .bluebg input, .questionaire-table table .brownbg input {
     margin: 4px 4px 0 0;

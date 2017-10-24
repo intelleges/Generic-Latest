@@ -170,6 +170,9 @@ function showdivnew(sender) {
 						animatedcollapse.addDiv('n' + divname, 'fade=1,height=50px');
 						animatedcollapse.init();
 
+                        $('#y' + divname).parent().find('.field-validation-error').html('');
+                        $('#n' + divname).parent().find('.field-validation-error').html('');
+
 						if (radios[j].value == 74) {
 							//document.getElementById('y' + divname).style.display = 'block';
 							//document.getElementById('n' + divname).style.display = 'none';
