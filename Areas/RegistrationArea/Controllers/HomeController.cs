@@ -1162,7 +1162,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var section = sections[0];
                 string color = String.Format("#{0:X6}", random.Next(0x1000000));
 
-                if (ppptq_cms != null && ppptq_cms.status == 8)
+                if (ppptq_cms != null && ppptq_cms.status >= 8)
                 {
                     List<PageDetails> ps = new List<PageDetails>();
                     int i = 0;
