@@ -506,7 +506,10 @@ namespace Generic.DataLayer
             }
             tableRow.Controls.Add(tableCell);
             string controlId = "";
-
+            if(question.tag != null && question.tag.ToLower() == "blocked")
+            {
+                tableRow.CssClass = "disabledRow";
+            }
 
 
             var objresponseByQuestion = db.pr_getResponseByQuestion(question.id).ToList();
