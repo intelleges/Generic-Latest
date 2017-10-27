@@ -2101,6 +2101,9 @@
     <Compile Include="pr_getQuestionAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionBlockedResponseByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionByLanguage_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

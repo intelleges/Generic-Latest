@@ -475,7 +475,7 @@ namespace Generic.DataLayer
                     firstInnerCell.VerticalAlign = VerticalAlign.Top;
                     firstInnerCell.Width = System.Web.UI.WebControls.Unit.Percentage(80);
                     firstInnerCell.Controls.Add(label);
-                    innerRow.Controls.Add(firstInnerCell);  
+                    innerRow.Controls.Add(firstInnerCell);
                     firstInnerCell = new TableCell();
                     firstInnerCell.HorizontalAlign = HorizontalAlign.Right;
                     firstInnerCell.VerticalAlign = VerticalAlign.Top;
@@ -506,7 +506,7 @@ namespace Generic.DataLayer
             }
             tableRow.Controls.Add(tableCell);
             string controlId = "";
-            if(question.tag != null && question.tag.ToLower() == "blocked")
+            if (question.tag != null && question.tag.ToLower() == "blocked")
             {
                 tableRow.CssClass = "disabledRow";
             }
@@ -2460,7 +2460,11 @@ namespace Generic.DataLayer
                 }
             }
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
-
+            pr_getQuestionBlockedResponseByPPTQ_Result blockedResponse = null;
+            if (question.tag != null && question.tag.ToLower() == "blocked")
+            {
+                blockedResponse = db.pr_getQuestionBlockedResponseByPPTQ(objpptq.id).FirstOrDefault(o => o.question == question.id);
+            }
             switch (responseType)
             {
                 case "radioButton":
@@ -2484,20 +2488,12 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Attributes.Add("required", "");
                         }
 
-                        if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
+                        if ((pptqResponse != null && responseCollection[i].id == pptqResponse.response) || (blockedResponse != null && blockedResponse.response == responseCollection[i].id))
                         {
-                            if (pptqResponse.response == 74)
-                            {
-                                divShowHideFlag = 1;
-                            }
-                            else if (pptqResponse.response == 75)
-                            {
-                                divShowHideFlag = 0;
-                            }
-                            else
-                            {
-                                divShowHideFlag = -1;
-                            }
+                            if (pptqResponse != null)
+                                divShowHideFlag = pptqResponse.response == 74 ? 1 : 0;
+                            if(blockedResponse!=null)
+                                divShowHideFlag = blockedResponse.response == 74 ? 1 : 0;
                             radioButtonList.Items[i].Selected = true;
                             radioButtonList.Items[i].Attributes.Add("checked", "true");
                         }

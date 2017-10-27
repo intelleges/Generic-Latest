@@ -21787,5 +21787,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getQuestionBlockedResponseByPPTQ_Result> pr_getQuestionBlockedResponseByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBlockedResponseByPPTQ_Result>("pr_getQuestionBlockedResponseByPPTQ", pptqParameter);
+        }
     }
 }
