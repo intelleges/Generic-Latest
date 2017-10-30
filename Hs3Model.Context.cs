@@ -21796,5 +21796,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBlockedResponseByPPTQ_Result>("pr_getQuestionBlockedResponseByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(Nullable<int> id, Nullable<int> score, Nullable<int> priority)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(int));
+    
+            var priorityParameter = priority.HasValue ?
+                new ObjectParameter("priority", priority) :
+                new ObjectParameter("priority", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority", idParameter, scoreParameter, priorityParameter);
+        }
     }
 }

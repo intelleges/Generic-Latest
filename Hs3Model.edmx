@@ -8329,6 +8329,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Type="int" Mode="In" />
           <Parameter Name="value" Type="float" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="score" Type="int" Mode="In" />
+          <Parameter Name="priority" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -17091,7 +17096,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionBlockedResponseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionBlockedResponseByPPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" ReturnType="Collection(Int32)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="score" Mode="In" Type="Int32" />
+            <Parameter Name="priority" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -40403,6 +40413,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

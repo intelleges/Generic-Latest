@@ -27,6 +27,16 @@ namespace Generic.Models
         [Required]
         public string From { get; set; }
 
+        [DisplayName("Project Url")]
+        [Required]
+        public string ProjectUrl { get; set; }
+
+        [DisplayName("Score (UAT ONLY)")]
+        public int? Score { get; set; }
+
+        [DisplayName("Priority (UAT ONLY)")]
+        public int? Priority { get; set; }
+
         [DisplayName("To")]
         [Required]
         public string To { get; set; }
