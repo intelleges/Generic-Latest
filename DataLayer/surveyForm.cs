@@ -506,7 +506,7 @@ namespace Generic.DataLayer
             }
             tableRow.Controls.Add(tableCell);
             string controlId = "";
-            if (question.tag != null && question.tag.ToLower() == "blocked")
+            if (question.tag != null && question.tag.ToLower() == "0")
             {
                 tableRow.CssClass = "disabledRow";
             }
@@ -2461,7 +2461,7 @@ namespace Generic.DataLayer
             }
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
             pr_getQuestionBlockedResponseByPPTQ_Result blockedResponse = null;
-            if (question.tag != null && question.tag.ToLower() == "blocked")
+            if (question.tag != null && question.tag.ToLower() == "0")
             {
                 blockedResponse = db.pr_getQuestionBlockedResponseByPPTQ(objpptq.id).FirstOrDefault(o => o.question == question.id);
             }
