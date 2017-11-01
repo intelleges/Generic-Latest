@@ -506,9 +506,13 @@ namespace Generic.DataLayer
             }
             tableRow.Controls.Add(tableCell);
             string controlId = "";
-            if (question.tag != null && question.tag.ToLower() == "0")
+            int tagNumber = 0;
+            if (question.tag != null && int.TryParse(question.tag, out tagNumber))
             {
                 tableRow.CssClass = "disabledRow";
+                var pr_getQuestionnaireTagCommentresult = db.pr_getQuestionnaireTagCommentAll(questionnaire.id).FirstOrDefault(o=>o.tag== tagNumber);
+                if (pr_getQuestionnaireTagCommentresult != null)
+                    tableRow.ToolTip = pr_getQuestionnaireTagCommentresult.comment;
             }
 
 
@@ -2461,6 +2465,8 @@ namespace Generic.DataLayer
             }
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
             pr_getQuestionBlockedResponseByPPTQ_Result blockedResponse = null;
+           
+           
             if (question.tag != null && question.tag.ToLower() == "0")
             {
                 blockedResponse = db.pr_getQuestionBlockedResponseByPPTQ(objpptq.id).FirstOrDefault(o => o.question == question.id);
@@ -2492,7 +2498,7 @@ namespace Generic.DataLayer
                         {
                             if (pptqResponse != null)
                                 divShowHideFlag = pptqResponse.response == 74 ? 1 : 0;
-                            if(blockedResponse!=null)
+                            if (blockedResponse != null)
                                 divShowHideFlag = blockedResponse.response == 74 ? 1 : 0;
                             radioButtonList.Items[i].Selected = true;
                             radioButtonList.Items[i].Attributes.Add("checked", "true");

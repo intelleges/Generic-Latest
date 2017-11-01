@@ -192,6 +192,25 @@
         filter: grayscale(100%);
         opacity: 0.5;
     }
+    /*<div title="Tooltip text for first div" > </div > <div title="Tooltip text for second div" > </div >*/
+    /*tr[title].disabledRow:before {
+        content: attr(title);
+        display: none;
+    }
+
+    tr[title].disabledRow:hover::before {
+        width: 200px;
+        display: block;
+        background: yellow;
+        border: 1px solid black;
+        padding: 8px;
+        margin: 25px 0 0 10px;
+    }
+
+    tr[title].disabledRow:hover {
+        z-index: 10;
+        position: absolute;
+    }*/
 </style>
 <script type="text/javascript">
 
@@ -201,7 +220,7 @@
 	}
 	(function ($) {
         $(document).ready(function () {
-            $(".disabledRow button, .disabledRow input, .disabledRow select, .disabledRow textarea, .disabledRow option ").prop("disabled", true);
+            $(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
             CKEDITOR.config.font_defaultLabel = 'Avenir-Roman-webfont';
             CKEDITOR.config.fontSize_defaultLabel = '17px';
             CKEDITOR.config.extraCss += "body{font-family:Avenir-Roman-webfont;font-size:17px;}";

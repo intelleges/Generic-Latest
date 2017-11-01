@@ -1857,6 +1857,17 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="questionnaireTagComment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionnaire" Type="int" Nullable="false" />
+          <Property Name="tag" Type="int" Nullable="false" />
+          <Property Name="comment" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="questionResponse">
           <Key>
             <PropertyRef Name="question" />
@@ -5529,6 +5540,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addQuestionnaireTagComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="tag" Type="int" Mode="In" />
+          <Parameter Name="comment" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
@@ -5909,6 +5927,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveQuestionnaireTagComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7322,6 +7343,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireRuleTargetTypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionnaireTagComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionnaireTagCommentAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8744,6 +8771,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyQuestionnaireTagComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="tag" Type="int" Mode="In" />
+          <Parameter Name="comment" Type="varchar" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="question" Type="int" Mode="In" />
@@ -9245,6 +9280,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeQuestionnaireTagComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
           <Parameter Name="response" Type="int" Mode="In" />
@@ -9542,6 +9580,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveQuestionnaireRuleTargetType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveQuestionnaireTagComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveQuestionResponseNarrativeSelectionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9859,6 +9900,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="questionnaireRule" EntityType="Self.questionnaireRule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireRuleActionDateType" EntityType="Self.questionnaireRuleActionDateType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireRuleTargetType" EntityType="Self.questionnaireRuleTargetType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="questionnaireTagComment" EntityType="Self.questionnaireTagComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionResponse" EntityType="Self.questionResponse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionResponseNarrativeSelectionList" EntityType="Self.questionResponseNarrativeSelectionList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionTranslation" EntityType="Self.questionTranslation" Schema="dbo" store:Type="Tables" />
@@ -17102,6 +17144,37 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="score" Mode="In" Type="Int32" />
             <Parameter Name="priority" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="questionnaireTagComment" EntityType="hs3MVCMTQa2Model.questionnaireTagComment" />
+          <FunctionImport Name="pr_addQuestionnaireTagComment" ReturnType="Collection(Decimal)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="tag" Mode="In" Type="Int32" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveQuestionnaireTagComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireTagComment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireTagComment_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireTagCommentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireTagCommentAll_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionnaireTagComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="tag" Mode="In" Type="Int32" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeQuestionnaireTagComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveQuestionnaireTagComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29231,6 +29304,33 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
           <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="23" />
         </ComplexType>
+        <EntityType Name="questionnaireTagComment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionnaire" Type="Int32" Nullable="false" />
+          <Property Name="tag" Type="Int32" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getQuestionnaireTagComment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="tag" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireTagCommentAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="questionnaire" Nullable="false" />
+          <Property Type="Int32" Name="tag" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40414,6 +40514,47 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" />
+          <EntitySetMapping Name="questionnaireTagComment">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireTagComment">
+              <MappingFragment StoreEntitySet="questionnaireTagComment">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireTagComment" />
+          <FunctionImportMapping FunctionImportName="pr_archiveQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveQuestionnaireTagComment" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireTagComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireTagComment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireTagCommentAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireTagCommentAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireTagCommentAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="questionnaire" ColumnName="questionnaire" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireTagComment" />
+          <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireTagComment" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireTagComment" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1142,6 +1142,11 @@ namespace Generic.Controllers
                                 objQuestion.name = excelQuestionnaire.Question;
                                 objQuestion.title = excelQuestionnaire.Title;
                                 objQuestion.tag = string.Empty;
+                                int intCommentValue = 0;
+                                if(int.TryParse(excelQuestionnaire.Comment, out intCommentValue))
+                                {
+                                    objQuestion.tag = excelQuestionnaire.Comment;
+                                }
                                 objQuestion.responseType = responseTypeId;
                                 objQuestion.required = responseTypeId == 17 || responseTypeId == 18 ? int.Parse(responseType.Split("_".ToArray(), StringSplitOptions.RemoveEmptyEntries)[responseTypeId == 17 ? 2 : 1]) : isRequired;
                                 objQuestion.calendarMessageTxt = excelQuestionnaire.CalendarMessageText;

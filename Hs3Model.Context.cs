@@ -220,6 +220,7 @@ namespace Generic
         public virtual DbSet<region> region { get; set; }
         public virtual DbSet<touchpointTeam> touchpointTeam { get; set; }
         public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
+        public virtual DbSet<questionnaireTagComment> questionnaireTagComment { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -21812,6 +21813,105 @@ namespace Generic
                 new ObjectParameter("priority", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority", idParameter, scoreParameter, priorityParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireTagComment(Nullable<int> questionnaire, Nullable<int> tag, string comment, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var tagParameter = tag.HasValue ?
+                new ObjectParameter("tag", tag) :
+                new ObjectParameter("tag", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireTagComment", questionnaireParameter, tagParameter, commentParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveQuestionnaireTagComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnaireTagComment", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireTagComment_Result> pr_getQuestionnaireTagComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireTagComment_Result>("pr_getQuestionnaireTagComment", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireTagCommentAll_Result> pr_getQuestionnaireTagCommentAll(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireTagCommentAll_Result>("pr_getQuestionnaireTagCommentAll", questionnaireParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireTagComment(Nullable<int> id, Nullable<int> questionnaire, Nullable<int> tag, string comment, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var tagParameter = tag.HasValue ?
+                new ObjectParameter("tag", tag) :
+                new ObjectParameter("tag", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireTagComment", idParameter, questionnaireParameter, tagParameter, commentParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeQuestionnaireTagComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireTagComment", idParameter);
+        }
+    
+        public virtual int pr_unArchiveQuestionnaireTagComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireTagComment", idParameter);
         }
     }
 }
