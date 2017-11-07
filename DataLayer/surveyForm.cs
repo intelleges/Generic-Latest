@@ -509,10 +509,23 @@ namespace Generic.DataLayer
             int tagNumber = 0;
             if (question.tag != null && int.TryParse(question.tag, out tagNumber))
             {
-                tableRow.CssClass = "disabledRow";
-                var pr_getQuestionnaireTagCommentresult = db.pr_getQuestionnaireTagCommentAll(questionnaire.id).FirstOrDefault(o=>o.tag== tagNumber);
-                if (pr_getQuestionnaireTagCommentresult != null)
-                    tableRow.ToolTip = pr_getQuestionnaireTagCommentresult.comment;
+                
+                var canBlock = true;
+                if (tagNumber != 0)
+                {
+                    if(objpptq.score.HasValue)
+                    {
+                        var intFlag = (int)objpptq.score;
+                        canBlock = (tagNumber & intFlag) == 0;
+                    }
+                }
+                if (canBlock)
+                {
+                    tableRow.CssClass = "disabledRow";
+                    var pr_getQuestionnaireTagCommentresult = db.pr_getQuestionnaireTagCommentAll(questionnaire.id).FirstOrDefault(o => o.tag == tagNumber);
+                    if (pr_getQuestionnaireTagCommentresult != null)
+                        tableRow.ToolTip = pr_getQuestionnaireTagCommentresult.comment;
+                }
             }
 
 
