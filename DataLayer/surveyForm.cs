@@ -516,7 +516,7 @@ namespace Generic.DataLayer
                     if(objpptq.score.HasValue)
                     {
                         var intFlag = (int)objpptq.score;
-                        canBlock = (tagNumber & intFlag) == 0;
+                        canBlock = (tagNumber & intFlag) != tagNumber;
                     }
                 }
                 if (canBlock)
