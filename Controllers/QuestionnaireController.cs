@@ -1129,8 +1129,12 @@ namespace Generic.Controllers
                                     case "0": isRequiredComment = 0; break;
                                     case "n": isRequiredComment = 0; break;
                                     default:
-                                        tagValue = excelQuestionnaire.Comment;
-                                        excelQuestionnaire.Comment = "N";
+                                        int intCommentValue1 = 0;
+                                        if (!int.TryParse(excelQuestionnaire.Comment, out intCommentValue1))
+                                        {
+                                            tagValue = excelQuestionnaire.Comment;
+                                            excelQuestionnaire.Comment = "N";
+                                        }
                                         //TODO: skiplogic with comment field
                                         break;
                                 }
