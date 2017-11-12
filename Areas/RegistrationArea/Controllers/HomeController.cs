@@ -7361,19 +7361,27 @@ Intelleges Team";
 
                     case 33843:
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-                        executives += (comments.Length > 1 ? comments[1] : comments[0]) + "<br/>";
+                        executives += (comments.Length > 1 ? comments[1] : comments[0]);
+                        if (item.response == _responseYES)
+                            executives += " ";
                         break;
                     case 33847:
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-                        executives += (comments.Length > 1 ? comments[1] : comments[0]) + "<br/>";
+                        executives += (comments.Length > 1 ? comments[1] : comments[0]);
+                        if (item.response == _responseYES)
+                            executives += " ";
                         break;
                     case 33851:
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-                        executives += (comments.Length > 1 ? comments[1] : comments[0]) + "<br/>";
+                        executives += (comments.Length > 1 ? comments[1] : comments[0]);
+                        if (item.response == _responseYES)
+                            executives += " ";
                         break;
                     case 33855:
                         comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-                        executives += (comments.Length > 1 ? comments[1] : comments[0]) + "<br/>";
+                        executives += (comments.Length > 1 ? comments[1] : comments[0]);
+                        if (item.response == _responseYES)
+                            executives += " ";
                         break;
 
                     case 33838:
