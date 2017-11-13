@@ -7619,30 +7619,20 @@ Intelleges Team";
 
                     #endregion
                     #region 1 Question
-                    case 33879:
+                    case 33877:
                         ViewBag.CheckboxSmall = item.response == 61989 ? _chacked : string.Empty;
                         ViewBag.CheckboxLarge = item.response == 61990 ? _chacked : string.Empty;
+                        ViewBag.Checkbox10 = item.response == 61993 ? _chacked : string.Empty;
+                        ViewBag.Checkbox9 = item.response == 61992 ? _chacked : string.Empty;
                         break;
                     case 33882:
-                        if (ViewBag.CheckboxLarge == _chacked)
-                        {
-                            ViewBag.Checkbox1 = item.response == _responseYES ? _chacked : string.Empty;
-                        }
-                        else if (ViewBag.CheckboxSmall == _chacked)
-                        {
-                            ViewBag.Checkbox3 = item.response == _responseYES ? _chacked : string.Empty;
-                        }
+                        ViewBag.Checkbox3 = item.response == _responseYES ? _chacked : string.Empty;
                         break;
                     case 33884:
-                        if (ViewBag.CheckboxLarge == _chacked)
-                        {
-                            ViewBag.Checkbox2 = item.response == _responseYES ? _chacked : string.Empty;
-                        }
-                        else if (ViewBag.CheckboxSmall == _chacked)
-                        {
-                            ViewBag.Checkbox4 = item.response == _responseYES ? _chacked : string.Empty;
-                        }
-                        ViewBag.Checkbox5 = item.response == 62002 ? _chacked : string.Empty;
+                        ViewBag.Checkbox4 = item.response == 62002  ? _chacked : string.Empty;
+                        break;
+                    case 33879:
+                        ViewBag.Checkbox5 = item.response == _responseYES ? _chacked : string.Empty;
                         break;
                     case 33880:
                         ViewBag.Checkbox6 = item.response == _responseYES ? _chacked : string.Empty;
@@ -7682,17 +7672,6 @@ Intelleges Team";
                     case 33885:
                         ViewBag.Checkbox12 = item.response == 62004 ? _chacked : string.Empty;
                         ViewBag.Checkbox13 = item.response == 62005 ? _chacked : string.Empty;
-                        break;
-                    case 33877:
-                        if (item.response == _responseYES)
-                        {
-                            ViewBag.Checkbox14 = _chacked;
-                            comments = System.Text.RegularExpressions.Regex.Split((String.IsNullOrEmpty(item.comment) ? string.Empty : item.comment), _responseSplitter);
-                            // if (comments.Length > 1)
-                            ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
-                        }
-                        ViewBag.Checkbox10 = item.response == 61993 ? _chacked : string.Empty;
-                        ViewBag.Checkbox9 = item.response == 61992 ? _chacked : string.Empty;
                         break;
                     case 33869:
                         ViewBag.Checkbox15 = item.response == _responseYES ? _chacked : string.Empty;
