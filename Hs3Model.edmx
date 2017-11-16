@@ -6718,6 +6718,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerByEmail2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerByEmailAndInternalID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -17154,13 +17158,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveQuestionnaireTagComment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireTagComment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireTagComment_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireTagCommentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireTagCommentAll_Result)">
-            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="questionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyQuestionnaireTagComment">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -17171,10 +17175,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeQuestionnaireTagComment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveQuestionnaireTagComment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerByEmail2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerByEmail2_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29331,6 +29339,34 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerByEmail2_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="province" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="dunsNumber" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="federalID" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="owner" Nullable="true" />
+          <Property Type="Int32" Name="author" Nullable="true" />
+          <Property Type="DateTime" Name="dateApproved" Nullable="true" Precision="16" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40555,6 +40591,38 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireTagComment" />
           <FunctionImportMapping FunctionImportName="pr_removeQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaireTagComment" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveQuestionnaireTagComment" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveQuestionnaireTagComment" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerByEmail2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerByEmail2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerByEmail2_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="dunsNumber" ColumnName="dunsNumber" />
+                <ScalarProperty Name="federalID" ColumnName="federalID" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="author" ColumnName="author" />
+                <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

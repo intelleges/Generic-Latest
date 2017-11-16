@@ -21913,5 +21913,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveQuestionnaireTagComment", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerByEmail2_Result> pr_getPartnerByEmail2(Nullable<int> enterprise, string email)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByEmail2_Result>("pr_getPartnerByEmail2", enterpriseParameter, emailParameter);
+        }
     }
 }

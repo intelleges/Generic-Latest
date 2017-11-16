@@ -1660,6 +1660,9 @@
     <Compile Include="pr_getPartnerAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerByEmail2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerByEmailAndInternalID_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
