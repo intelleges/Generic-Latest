@@ -912,6 +912,7 @@ namespace Generic.Controllers
                         objPartnertypeTouchpointQuestionnaire.partnerType = partnertype;
                         objPartnertypeTouchpointQuestionnaire.touchpoint = touchpoint;
                         objPartnertypeTouchpointQuestionnaire.questionnaire = questionnaireId;
+                        objPartnertypeTouchpointQuestionnaire.active = true;
                         db.partnerTypeTouchpointQuestionnaire.Add(objPartnertypeTouchpointQuestionnaire);
                         db.SaveChanges();
 
@@ -1129,12 +1130,8 @@ namespace Generic.Controllers
                                     case "0": isRequiredComment = 0; break;
                                     case "n": isRequiredComment = 0; break;
                                     default:
-                                        int intCommentValue1 = 0;
-                                        if (!int.TryParse(excelQuestionnaire.Comment, out intCommentValue1))
-                                        {
-                                            tagValue = excelQuestionnaire.Comment;
-                                            excelQuestionnaire.Comment = "N";
-                                        }
+                                        tagValue = excelQuestionnaire.Comment;
+                                        excelQuestionnaire.Comment = "N";
                                         //TODO: skiplogic with comment field
                                         break;
                                 }
@@ -1145,12 +1142,8 @@ namespace Generic.Controllers
                                 objQuestion.Question = excelQuestionnaire.Question;
                                 objQuestion.name = excelQuestionnaire.Question;
                                 objQuestion.title = excelQuestionnaire.Title;
-                                objQuestion.tag = string.Empty;
-                                int intCommentValue = 0;
-                                if(int.TryParse(excelQuestionnaire.Comment, out intCommentValue))
-                                {
-                                    objQuestion.tag = excelQuestionnaire.Comment;
-                                }
+                                objQuestion.tag = excelQuestionnaire.spinoffid.ToString();
+
                                 objQuestion.responseType = responseTypeId;
                                 objQuestion.required = responseTypeId == 17 || responseTypeId == 18 ? int.Parse(responseType.Split("_".ToArray(), StringSplitOptions.RemoveEmptyEntries)[responseTypeId == 17 ? 2 : 1]) : isRequired;
                                 objQuestion.calendarMessageTxt = excelQuestionnaire.CalendarMessageText;
