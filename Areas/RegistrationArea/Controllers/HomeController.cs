@@ -7422,7 +7422,7 @@ Intelleges Team";
                         }
                         switch (item.response)
                         {
-                            case 61979:
+                            case 61978:
                                 ViewBag.Checkbox54 = _chacked;
                                 break;
                         }
