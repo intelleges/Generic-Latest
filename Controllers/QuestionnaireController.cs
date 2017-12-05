@@ -1394,7 +1394,13 @@ namespace Generic.Controllers
                                     //}
                                     //else 
 
-                                    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
+                                    try
+                                    {
+                                        jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
+                                    }
+                                    catch (Exception exp) {
+                                        throw new Exception(exp.Message + " " + excelQuestionnaire.skipLogicJump);
+                                    }
 
                                     if (jumpToQIDstr.Length > 0)
                                     {
