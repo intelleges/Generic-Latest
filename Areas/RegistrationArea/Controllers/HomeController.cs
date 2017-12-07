@@ -9718,6 +9718,8 @@ Intelleges Team";
                     case 31854:
                         ViewBag.Q24817_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
                         ViewBag.Q24817_DropDownValues_Response = item.response;
+                        break;
+                    case 31855:
                         ViewBag.Q24817_Comment = item.comment;
                         break;
                     case 31856:

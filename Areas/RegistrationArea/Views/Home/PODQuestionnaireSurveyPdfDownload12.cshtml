@@ -387,7 +387,7 @@
                                                 <font size="1">, explain:	</font>
                                             </span>
                                         </span> <div style="font-size:x-small">
-                                            @ViewBag.Q31842_Comment
+                                            @Html.Raw(ViewBag.Q31842_Comment)
                                         </div>
                                         <span class="western" style="margin-top: 0.04in">
                                             <font color="#000000">
@@ -1154,16 +1154,16 @@ deployed, check “N/A”)</fomt></b></font>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIOR
 		PO #
 	</font>
-	</span>@ViewBag.Q24835_Value <span style="text-transform: uppercase"><font size="1">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE	</font></span>@ViewBag.Q24836_Value<span style="text-transform: uppercase">
+	</span>@Html.Raw(ViewBag.Q24835_Value) <span style="text-transform: uppercase"><font size="1">	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE	</font></span>@Html.Raw(ViewBag.Q24836_Value)<span style="text-transform: uppercase">
 		<font size="1">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY
 		</font>
-	</span>@ViewBag.Q24837_Value<span style="text-transform: uppercase">
+	</span>@Html.Raw(ViewBag.Q24837_Value)<span style="text-transform: uppercase">
 		<font size="1">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UNIT
 			PRICE
 		</font>
-	</span>@ViewBag.Q24838_Value
+	</span>@Html.Raw(ViewBag.Q24838_Value)
 </div>
 						
 </p>
@@ -1383,7 +1383,7 @@ comparison of bids in PO doc file)
 						</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #00ff00"></span></font></span><span style="text-transform: uppercase">
 							<font size="1">
 								ltc/apc/fpa/POPA
-								# &nbsp;&nbsp; @ViewBag.Q24844_Comment
+								# &nbsp;&nbsp; @Html.Raw(ViewBag.Q24844_Comment)
 							</font>
 						</span>
 												
@@ -1412,7 +1412,7 @@ comparison of bids in PO doc file)
 								</span>
 								<span>
 									<font size="1">
-										@ViewBag.Q24845_Comment
+                                        @Html.Raw(ViewBag.Q24845_Comment)
 									</font>
 								</span>
 							</span>
@@ -1502,14 +1502,14 @@ comparison of bids in PO doc file)
 						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.03in">
 							<font size="1">			Start Date:	</font>
 							<div style="font-size:x-small">
-								@ViewBag.Q24848_Value</div>
+								@Html.Raw(ViewBag.Q24848_Value)</div>
 							<font size="1">
 							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 </p>
 	<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.03in">
 		<font size="1">			End Date:	</font>
 		<div style="font-size:x-small">
-			@ViewBag.Q24849_Value
+			@Html.Raw(ViewBag.Q24849_Value)
 		</div>
 		<font size="1">
 		</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
@@ -1520,7 +1520,7 @@ comparison of bids in PO doc file)
 						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
 							<font size="1">			</font>
 							<div style="font-size:x-small">
-								@ViewBag.Q24850_Value</div>
+								@Html.Raw(ViewBag.Q24850_Value)</div>
 							<font size="1">
 							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 </p>
@@ -1533,7 +1533,7 @@ comparison of bids in PO doc file)
 						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
 							<font size="1">			</font>
 							<div style="font-size:x-small">
-								@ViewBag.Q24851_Value</div>
+								@Html.Raw(ViewBag.Q24851_Value)</div>
 							<font size="1">
 							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 </p>
@@ -1543,7 +1543,7 @@ comparison of bids in PO doc file)
 						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.17in">
 							<font size="1">			</font>
 							<div style="font-size:x-small">
-								@ViewBag.Q24852_Value</div>
+								@Html.Raw(ViewBag.Q24852_Value)</div>
 								<font size="1">
 								</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 </p>
@@ -1553,7 +1553,7 @@ comparison of bids in PO doc file)
 						<p class="western" style="margin-left: 0.11in; text-indent: -0.11in; margin-top: 0.03in; margin-bottom: 0.06in">
 							<font size="1">			</font>
 							<div style="font-size:x-small">
-								@ViewBag.Q24853_Value</div>
+								@Html.Raw(ViewBag.Q24853_Value)</div>
 							<font size="1">
 							</font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>
 </p>
