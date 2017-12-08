@@ -1566,8 +1566,27 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
             jumpToQuestion = 0;
+            var currentPage = -1;
+            
+            if (string.IsNullOrEmpty(formCollection["Page"]))
+            {
+                currentPage = db.pr_getPageByQuestionnaire(pptqObj.partnerTypeTouchpointQuestionnaire1.questionnaire).OrderBy(o => o.id).Select(o => o.id).FirstOrDefault();
+            }
+            else
+            {
+                int.TryParse(formCollection["Page"], out currentPage);
 
-
+            }
+            var surveySet = db.pr_getSurveysetByPage(currentPage).Select(o=>o.id).FirstOrDefault();
+            surveyId = db.pr_getSurveyBySurveyset(surveySet).Select(o => o.id).FirstOrDefault();
+            var questions = db.pr_getQuestionByPage(currentPage).Where(o => o.tag != null && o.tag == "0").ToList();
+            
+            foreach (var questionByPage in questions)
+            {
+                var blockedResponse = db.pr_getQuestionBlockedResponseByPPTQ(pptqObj.id).FirstOrDefault(o => o.question == questionByPage.id);
+                if (blockedResponse != null)
+                    formCollection.Add("question_" + questionByPage.id + "_" + surveyId, blockedResponse.response.ToString());
+            }
             foreach (var keyName in formCollection.Keys)
             {
                 answer = formCollection[keyName.ToString()];
@@ -7526,7 +7545,7 @@ Intelleges Team";
                         }
                         break;
 
-            
+
                     case 26551:
                         if (item.response == _responseYES)
                         {
@@ -7541,7 +7560,7 @@ Intelleges Team";
                         }
                         break;
 
-                  
+
                     case 26555:
                         if (item.response == _responseYES)
                         {
@@ -7556,7 +7575,7 @@ Intelleges Team";
                         }
                         break;
 
-                   
+
                     case 26559:
                         if (item.response == _responseYES)
                         {
@@ -7571,7 +7590,7 @@ Intelleges Team";
                         }
                         break;
 
-                  
+
 
                     #region Question 13
                     case 33859:
@@ -7615,7 +7634,7 @@ Intelleges Team";
                             //  if (comments.Length > 1)
                             ViewBag.Input0 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[1];
                         }
-                        break;     
+                        break;
 
                     #endregion
                     #region 1 Question
@@ -7629,7 +7648,7 @@ Intelleges Team";
                         ViewBag.Checkbox3 = item.response == _responseYES ? _chacked : string.Empty;
                         break;
                     case 33884:
-                        ViewBag.Checkbox4 = item.response == 62002  ? _chacked : string.Empty;
+                        ViewBag.Checkbox4 = item.response == 62002 ? _chacked : string.Empty;
                         break;
                     case 33879:
                         ViewBag.Checkbox5 = item.response == _responseYES ? _chacked : string.Empty;
@@ -10288,7 +10307,7 @@ Intelleges Team";
                         break;
                     case 31914:
                         ViewBag.Q24937_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
-                        ViewBag.Q24937_DropDownValues_Response = item.response;    
+                        ViewBag.Q24937_DropDownValues_Response = item.response;
                         break;
                     case 31915:
                         ViewBag.Q24937_Value = item.comment;
@@ -10342,10 +10361,10 @@ Intelleges Team";
                     case 31898:
                         ViewBag.Q31898_61325 = item.response == 61325 ? _chacked : string.Empty;
                         ViewBag.Q31898_61326 = item.response == 61326 ? _chacked : string.Empty;
-                        ViewBag.Q31898_Comment =  item.comment;
+                        ViewBag.Q31898_Comment = item.comment;
                         break;
 
-                    
+
 
 
                     case 25075:
@@ -10382,7 +10401,7 @@ Intelleges Team";
                     case 31902:
                         ViewBag.Q24945_Yes = item.response == 61335 ? _chacked : string.Empty;
                         ViewBag.Q24945_No = item.response == 61336 ? _chacked : string.Empty;
-                        ViewBag.Q24945_Comment = item.comment;          
+                        ViewBag.Q24945_Comment = item.comment;
                         break;
                     case 31903:
                         ViewBag.Q24943_Comment = item.comment;

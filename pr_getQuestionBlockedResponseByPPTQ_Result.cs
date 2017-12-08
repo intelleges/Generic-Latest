@@ -13,12 +13,13 @@ namespace Generic
     
     public partial class pr_getQuestionBlockedResponseByPPTQ_Result
     {
+        public Nullable<int> ID { get; set; }
         public int question { get; set; }
         public int response { get; set; }
         public string comment { get; set; }
         public Nullable<int> uploadedFile { get; set; }
         public Nullable<int> uploadedFileType { get; set; }
-        public System.DateTime actionDate { get; set; }
+        public string actionDate { get; set; }
         public Nullable<int> value { get; set; }
         public Nullable<int> score { get; set; }
         public Nullable<int> partnerPartnerTypeTouchpointQuestionnaire { get; set; }

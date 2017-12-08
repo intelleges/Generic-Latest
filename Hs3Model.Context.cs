@@ -21789,15 +21789,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
         }
     
-        public virtual ObjectResult<pr_getQuestionBlockedResponseByPPTQ_Result> pr_getQuestionBlockedResponseByPPTQ(Nullable<int> pptq)
-        {
-            var pptqParameter = pptq.HasValue ?
-                new ObjectParameter("pptq", pptq) :
-                new ObjectParameter("pptq", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBlockedResponseByPPTQ_Result>("pr_getQuestionBlockedResponseByPPTQ", pptqParameter);
-        }
-    
         public virtual ObjectResult<Nullable<int>> pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(Nullable<int> id, Nullable<int> score, Nullable<int> priority)
         {
             var idParameter = id.HasValue ?
@@ -21925,6 +21916,24 @@ namespace Generic
                 new ObjectParameter("email", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByEmail2_Result>("pr_getPartnerByEmail2", enterpriseParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionByPage_Result> pr_getQuestionByPage(Nullable<int> page)
+        {
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionByPage_Result>("pr_getQuestionByPage", pageParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionBlockedResponseByPPTQ_Result> pr_getQuestionBlockedResponseByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBlockedResponseByPPTQ_Result>("pr_getQuestionBlockedResponseByPPTQ", pptqParameter);
         }
     }
 }

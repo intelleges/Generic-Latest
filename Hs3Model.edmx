@@ -7254,6 +7254,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getQuestionByLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="language" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="page" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
@@ -17141,9 +17144,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getPPTQTeamRacixByPPTQ_Grid_2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getQuestionBlockedResponseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionBlockedResponseByPPTQ_Result)">
-          <Parameter Name="pptq" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" ReturnType="Collection(Int32)">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="score" Mode="In" Type="Int32" />
@@ -17183,6 +17183,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getPartnerByEmail2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerByEmail2_Result)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionByPage" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionByPage_Result)">
+          <Parameter Name="page" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionBlockedResponseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionBlockedResponseByPPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29300,18 +29306,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="Accountable_Approve_" Nullable="false" />
           <Property Type="DateTime" Name="approvalDueDate" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="pr_getQuestionBlockedResponseByPPTQ_Result">
-          <Property Type="Int32" Name="question" Nullable="false" />
-          <Property Type="Int32" Name="response" Nullable="false" />
-          <Property Type="String" Name="comment" Nullable="false" MaxLength="7" />
-          <Property Type="Int32" Name="uploadedFile" Nullable="true" />
-          <Property Type="Int32" Name="uploadedFileType" Nullable="true" />
-          <Property Type="DateTime" Name="actionDate" Nullable="false" Precision="23" />
-          <Property Type="Int32" Name="value" Nullable="true" />
-          <Property Type="Int32" Name="score" Nullable="true" />
-          <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
-          <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="23" />
-        </ComplexType>
         <EntityType Name="questionnaireTagComment">
           <Key>
             <PropertyRef Name="id" />
@@ -29366,6 +29360,46 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="DateTime" Name="dateApproved" Nullable="true" Precision="16" />
           <Property Type="Boolean" Name="active" Nullable="true" />
           <Property Type="DateTime" Name="lastModified" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionByPage_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="name" Nullable="true" />
+          <Property Type="String" Name="title" Nullable="false" />
+          <Property Type="String" Name="tag" Nullable="true" />
+          <Property Type="Int32" Name="responseType" Nullable="true" />
+          <Property Type="Int32" Name="required" Nullable="true" />
+          <Property Type="Int32" Name="weight" Nullable="true" />
+          <Property Type="Int32" Name="skipLogicAnswer" Nullable="true" />
+          <Property Type="String" Name="skipLogicJump" Nullable="true" />
+          <Property Type="String" Name="subCheckBoxChoice" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="commentRequired" Nullable="true" />
+          <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="commentType" Nullable="true" />
+          <Property Type="String" Name="calendarMessageTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="spinOffQID" Nullable="true" />
+          <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="emailAlertList" Nullable="true" />
+          <Property Type="Int32" Name="updated" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionBlockedResponseByPPTQ_Result">
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" MaxLength="7" />
+          <Property Type="Int32" Name="uploadedFile" Nullable="true" />
+          <Property Type="Int32" Name="uploadedFileType" Nullable="true" />
+          <Property Type="String" Name="actionDate" Nullable="true" MaxLength="4000" />
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="23" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -40533,22 +40567,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getQuestionBlockedResponseByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBlockedResponseByPPTQ">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionBlockedResponseByPPTQ_Result">
-                <ScalarProperty Name="question" ColumnName="question" />
-                <ScalarProperty Name="response" ColumnName="response" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
-                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
-                <ScalarProperty Name="actionDate" ColumnName="actionDate" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="score" ColumnName="score" />
-                <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority" />
           <EntitySetMapping Name="questionnaireTagComment">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaireTagComment">
@@ -40620,6 +40638,54 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="dateApproved" ColumnName="dateApproved" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="lastModified" ColumnName="lastModified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionByPage" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionByPage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionByPage_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="responseType" ColumnName="responseType" />
+                <ScalarProperty Name="required" ColumnName="required" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+                <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+                <ScalarProperty Name="subCheckBoxChoice" ColumnName="subCheckBoxChoice" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
+                <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
+                <ScalarProperty Name="commentUploadTxt" ColumnName="commentUploadTxt" />
+                <ScalarProperty Name="commentType" ColumnName="commentType" />
+                <ScalarProperty Name="calendarMessageTxt" ColumnName="calendarMessageTxt" />
+                <ScalarProperty Name="spinOffQuestionnaire" ColumnName="spinOffQuestionnaire" />
+                <ScalarProperty Name="spinOffQID" ColumnName="spinOffQID" />
+                <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
+                <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
+                <ScalarProperty Name="updated" ColumnName="updated" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionBlockedResponseByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionBlockedResponseByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionBlockedResponseByPPTQ_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+                <ScalarProperty Name="actionDate" ColumnName="actionDate" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
