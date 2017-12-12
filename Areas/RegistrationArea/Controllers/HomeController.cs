@@ -1567,7 +1567,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             jumpToQuestion = 0;
             var currentPage = -1;
-            
+
             if (string.IsNullOrEmpty(formCollection["Page"]))
             {
                 currentPage = db.pr_getPageByQuestionnaire(pptqObj.partnerTypeTouchpointQuestionnaire1.questionnaire).OrderBy(o => o.id).Select(o => o.id).FirstOrDefault();
@@ -1577,15 +1577,30 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 int.TryParse(formCollection["Page"], out currentPage);
 
             }
-            var surveySet = db.pr_getSurveysetByPage(currentPage).Select(o=>o.id).FirstOrDefault();
+            var surveySet = db.pr_getSurveysetByPage(currentPage).Select(o => o.id).FirstOrDefault();
             surveyId = db.pr_getSurveyBySurveyset(surveySet).Select(o => o.id).FirstOrDefault();
             var questions = db.pr_getQuestionByPage(currentPage).Where(o => o.tag != null && o.tag == "0").ToList();
-            
+            bool canGoNextByBlockedQuestions = false;
             foreach (var questionByPage in questions)
             {
                 var blockedResponse = db.pr_getQuestionBlockedResponseByPPTQ(pptqObj.id).FirstOrDefault(o => o.question == questionByPage.id);
+
                 if (blockedResponse != null)
                     formCollection.Add("question_" + questionByPage.id + "_" + surveyId, blockedResponse.response.ToString());
+                else
+                {
+                    if (!canGoNextByBlockedQuestions)
+                        canGoNextByBlockedQuestions = true;
+                }
+                //{
+                //    var responses = 
+                //}
+                //formCollection.Add("question_" + questionByPage.id + "_" + surveyId, "");
+            }
+            if (!formCollection.Keys.Cast<string>().Any(o => o.StartsWith("question_")) && canGoNextByBlockedQuestions)
+            {
+                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
+                return Redirect("QuestionnaireResponse?questionIndex=" + questionIndex + "&jumpToQuestion=" + jumpToQuestion + "&page=" + page + "&pageNumber=" + pageNumber);
             }
             foreach (var keyName in formCollection.Keys)
             {
