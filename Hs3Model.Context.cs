@@ -21935,5 +21935,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionBlockedResponseByPPTQ_Result>("pr_getQuestionBlockedResponseByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getPersonByEmail2_Result> pr_getPersonByEmail2(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonByEmail2_Result>("pr_getPersonByEmail2", emailParameter);
+        }
     }
 }

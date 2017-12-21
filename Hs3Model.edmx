@@ -7025,6 +7025,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonByEmail2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPersonByEmailForLoginAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
@@ -17188,7 +17191,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="page" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionBlockedResponseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionBlockedResponseByPPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonByEmail2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEmail2_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29401,6 +29407,39 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
           <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="23" />
         </ComplexType>
+        <ComplexType Name="pr_getPersonByEmail2_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="manager" Nullable="true" />
+          <Property Type="Int32" Name="personStatus" Nullable="true" />
+          <Property Type="Int32" Name="riskType" Nullable="true" />
+          <Property Type="Int32" Name="loadHistory" Nullable="true" />
+          <Property Type="Int32" Name="campaign" Nullable="true" />
+          <Property Type="String" Name="internalId" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nmNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="socialSecurity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="suffix" Nullable="true" />
+          <Property Type="String" Name="nickName" Nullable="true" />
+          <Property Type="String" Name="passWord" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="address1" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="address2" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="state" Nullable="true" />
+          <Property Type="String" Name="zipcode" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="phone" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="fax" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="ismanager" Nullable="true" />
+          <Property Type="Int32" Name="partnerPerPage" Nullable="true" />
+          <Property Type="DateTime" Name="resetDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsArchived" Nullable="true" />
+          <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40686,6 +40725,43 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="score" ColumnName="score" />
                 <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonByEmail2" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonByEmail2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonByEmail2_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="manager" ColumnName="manager" />
+                <ScalarProperty Name="personStatus" ColumnName="personStatus" />
+                <ScalarProperty Name="riskType" ColumnName="riskType" />
+                <ScalarProperty Name="loadHistory" ColumnName="loadHistory" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="nmNumber" ColumnName="nmNumber" />
+                <ScalarProperty Name="socialSecurity" ColumnName="socialSecurity" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="passWord" ColumnName="passWord" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="ismanager" ColumnName="ismanager" />
+                <ScalarProperty Name="partnerPerPage" ColumnName="partnerPerPage" />
+                <ScalarProperty Name="resetDate" ColumnName="resetDate" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

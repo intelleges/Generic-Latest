@@ -1921,6 +1921,9 @@
     <Compile Include="pr_getPersonAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPersonByEmail2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPersonByEmailForLoginAttempts_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

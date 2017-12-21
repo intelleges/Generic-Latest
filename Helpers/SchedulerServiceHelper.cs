@@ -75,8 +75,12 @@ namespace Generic.Helpers
 
                     try
                     {
-                        sendEmails(email, (int)ptq.partnerType1.enterprise, null, new EmailFormatSettings() {
-                              partner = objpartner, sender = person, ptq = ptq.id, touchpoint = objtouchpoint
+                        sendEmails(email, (int)ptq.partnerType1.enterprise, null, new EmailFormatSettings()
+                        {
+                            partner = objpartner,
+                            sender = person,
+                            ptq = ptq.id,
+                            touchpoint = objtouchpoint
                         }, db);
                         db.pr_addPPTQautoMailMessageLog(item.nextToSendPPTQ, item.nextToSendAutomailmessage);
 
@@ -187,6 +191,7 @@ namespace Generic.Helpers
             enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == enterpriseId).FirstOrDefault();
             int amid = -1;
             string tags = "";
+            string htmlHeader = "";
             if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
             {
                 var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
@@ -194,6 +199,44 @@ namespace Generic.Helpers
                 foreach (var item in attachments1)
                 {
                     string key = "c_" + DateTime.Now.Ticks;
+                    if (item.automailAttachmentType == 3)
+                    {
+                        string link = item.tags;
+                        if (settings != null)
+                        {
+                            try
+                            {
+                                if (settings.systemMaster != null && settings.ptq == 0)
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.touchpoint, settings.enterprise, settings.systemMaster);
+                                }
+                                else if (settings.systemMaster != null && settings.ptq != 0)
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.partner, settings.touchpoint, settings.enterprise, settings.systemMaster, settings.ptq);
+                                }
+                                else if (settings.enterprise != null)
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.enterprise, settings.touchpoint, settings.ptq);
+                                }
+                                else
+                                {
+                                    link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.touchpoint, settings.ptq);
+                                }
+                            }
+                            catch { }
+                        }
+
+                        htmlHeader += " <table width='100%'><tr><td align='center'><a href='" + link.Trim().Replace(" ", "-") + "'><img width='600' src='cid:" + key + "' /></a></td></tr></table><br/>";
+                        attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                        {
+                            Content = Convert.ToBase64String(item.attachment),
+                            ContentId = key,
+                            Disposition = "inline",
+                            Type = "image/png",
+                            Filename = item.note
+                        });
+                    }
+
                     if (item.automailAttachmentType == 1)
                     {
                         string link = item.tags;
@@ -254,12 +297,12 @@ namespace Generic.Helpers
             try
             {
                 string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
-                if(sendFrom ==null)
+                if (sendFrom == null)
                     msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
                 else
                     msg.SetFrom(sendFrom.Address, sendFrom.DisplayName);
 
-                msg.AddContent("text/html", html);
+                msg.AddContent("text/html", htmlHeader + html);
                 msg.Subject = email.subject;
                 msg.AddCustomArgs(additionalArguments);
                 if (!string.IsNullOrEmpty(htmlFooter))
@@ -392,6 +435,7 @@ namespace Generic.Helpers
 
                 int amid = -1;
                 string tags = "";
+                string htmlHeader = "";
                 if (!string.IsNullOrEmpty(email.automailMessage) && int.TryParse(email.automailMessage, out amid))
                 {
                     var attachments1 = db.pr_getAutoMailAttachmentAllByAutoMail(amid).ToList();
@@ -399,6 +443,44 @@ namespace Generic.Helpers
                     foreach (var item in attachments1)
                     {
                         string key = "c_" + DateTime.Now.Ticks;
+                        if (item.automailAttachmentType == 3)
+                        {
+                            string link = item.tags;
+                            if (settings != null)
+                            {
+                                try
+                                {
+                                    if (settings.systemMaster != null && settings.ptq == 0)
+                                    {
+                                        link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.touchpoint, settings.enterprise, settings.systemMaster);
+                                    }
+                                    else if (settings.systemMaster != null && settings.ptq != 0)
+                                    {
+                                        link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.partner, settings.touchpoint, settings.enterprise, settings.systemMaster, settings.ptq);
+                                    }
+                                    else if (settings.enterprise != null)
+                                    {
+                                        link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.enterprise, settings.touchpoint, settings.ptq);
+                                    }
+                                    else
+                                    {
+                                        link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.touchpoint, settings.ptq);
+                                    }
+                                }
+                                catch { }
+                            }
+
+                            htmlHeader += " <table width='100%'><tr><td align='center'><a href='" + link.Trim().Replace(" ", "-") + "'><img width='600' src='cid:" + key + "' /></a></td></tr></table><br/>";
+                            attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                            {
+                                Content = Convert.ToBase64String(item.attachment),
+                                ContentId = key,
+                                Disposition = "inline",
+                                Type = "image/png",
+                                Filename = item.note
+                            });
+                        }
+
                         if (item.automailAttachmentType == 1)
                         {
                             string link = item.tags;
@@ -451,7 +533,6 @@ namespace Generic.Helpers
                         }
                     }
                 }
-
                 if (attachments2.Count > 0)
                     msg.AddAttachments(attachments2);
                 additionalArguments.Add("tags", tags);
@@ -462,7 +543,7 @@ namespace Generic.Helpers
                     msg.AddCc(sendFrom.Address);
                 msg.AddTo(email.emailTo);
                 msg.SetFrom(sendFrom.Address, sendFrom.DisplayName);
-                msg.AddContent("text/html", html);
+                msg.AddContent("text/html", htmlHeader + html);
                 msg.Subject = email.subject;
                 msg.AddCustomArgs(additionalArguments);
                 if (!string.IsNullOrEmpty(htmlFooter))
@@ -489,7 +570,7 @@ namespace Generic.Helpers
             }
         }
 
-        public static void sendEmail(Email email, string filepath, EmailFormatSettings settings)
+        public static void sendEmail(Email email, string filepath, EmailFormatSettings settings, person cc = null)
         {
             key objSendGridPassword = null;
             using (var db = new EntitiesDBContext())
@@ -502,6 +583,7 @@ namespace Generic.Helpers
                 Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
                 var client = new SendGrid.SendGridClient(objSendGridPassword.api);
                 string htmlFooter = "";
+                string htmlHeader = "";
 
                 additionalArguments.Add("ApplicationName", "MVCMT");
                 additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
@@ -537,6 +619,44 @@ namespace Generic.Helpers
                         foreach (var item in attachments1)
                         {
                             string key = "c_" + DateTime.Now.Ticks;
+                            if (item.automailAttachmentType == 3)
+                            {
+                                string link = item.tags;
+                                if (settings != null)
+                                {
+                                    try
+                                    {
+                                        if (settings.systemMaster != null && settings.ptq == 0)
+                                        {
+                                            link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.touchpoint, settings.enterprise, settings.systemMaster);
+                                        }
+                                        else if (settings.systemMaster != null && settings.ptq != 0)
+                                        {
+                                            link = ef.sGetEmailBody(link, settings.sender, settings.receiver, settings.partner, settings.touchpoint, settings.enterprise, settings.systemMaster, settings.ptq);
+                                        }
+                                        else if (settings.enterprise != null)
+                                        {
+                                            link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.enterprise, settings.touchpoint, settings.ptq);
+                                        }
+                                        else
+                                        {
+                                            link = ef.sGetEmailBody(link, settings.sender, settings.partner, settings.touchpoint, settings.ptq);
+                                        }
+                                    }
+                                    catch { }
+                                }
+
+                                htmlHeader += " <table width='100%'><tr><td align='center'><a href='" + link.Trim().Replace(" ", "-") + "'><img width='600' src='cid:" + key + "' /></a></td></tr></table><br/>";
+                                attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                                {
+                                    Content = Convert.ToBase64String(item.attachment),
+                                    ContentId = key,
+                                    Disposition = "inline",
+                                    Type = "image/png",
+                                    Filename = item.note
+                                });
+                            }
+
                             if (item.automailAttachmentType == 1)
                             {
                                 string link = item.tags;
@@ -597,15 +717,18 @@ namespace Generic.Helpers
                     msg.AddTo(email.emailTo);
                     //  mail.AddTo("john@intelleges.com");
                     //   mail.AddTo("goldykhurmi@gmail.com");
+                    if (cc != null)
+                        msg.AddCc(cc.email, cc.FullName);
 
                     string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
 
                     msg.SetFrom("hs3admin2@intelleges.com", "Honeywell Supply Chain Security");
-                    msg.AddContent("text/html", html);
+                    msg.AddContent("text/html", htmlHeader + html);
                     msg.Subject = email.subject;
                     msg.AddCustomArgs(additionalArguments);
                     if (!string.IsNullOrEmpty(htmlFooter))
                         msg.SetFooterSetting(true, html: htmlFooter);
+
                     msg.SetSandBoxMode(false);
                     msg.TrackingSettings = new TrackingSettings()
                     {
@@ -739,9 +862,16 @@ namespace Generic.Helpers
             return result;
         }
 
-        public static void SendPassword(pr_getPasswordByEmail_Result person, string emailTo)
+        public static void SendPassword(pr_getPersonByEmail2_Result person, string emailTo)
         {
-            var htmlBody = string.Format(@"<br/><br/>
+            Generic.Helpers.CurrentInstance.EnterpriseID = person.enterprise.Value;
+            using (EntitiesDBContext db = new EntitiesDBContext())
+            {
+                var pr = db.pr_getPerson(person.id).First();
+                string accesscode = db.pr_getAccesscode().First();
+                db.pr_modifyPerson(pr.id, pr.enterprise, pr.manager, 5, pr.riskType, pr.loadHistory, pr.campaign, pr.internalId, pr.nmNumber, pr.socialSecurity, pr.firstName, pr.lastName, pr.title, pr.suffix, pr.nickName, accesscode, pr.email, pr.address1, pr.address2, pr.city, pr.state, pr.zipcode, pr.country, pr.phone, pr.fax, pr.active, pr.ismanager, pr.partnerPerPage, pr.resetDate, pr.IsArchived, pr.archivedDate);
+
+                var htmlBody = string.Format(@"<br/><br/>
 Hello {0} {1},<br/><br/>
 Your current password is: {2}<br/><br/>
 To set a new password for your intelleges.com account 
@@ -753,22 +883,35 @@ If you have any questions, please contact your Account
 Administrator.<br/><br/>
 Thank you.<br/>
 Intelleges Team
-", person.firstName, person.lastName, person.passWord);
+", person.firstName, person.lastName, accesscode);
 
-
-            using (EntitiesDBContext db = new EntitiesDBContext())
-            {
-                var pr = db.pr_getPerson(person.id);
+                var master = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
                 sendEmail(new Email()
                 {
                     subject = "Intelleges Account Request",
                     emailTo = emailTo,
                     body = htmlBody,
                     category = SendGridCategory.SendPassword,
-                    accesscode = pr.First().partnerPartnertypeTouchpointQuestionnaire.Last().accesscode
-                }, "", null);
-            }
+                    accesscode = accesscode,
+                }, "", null, master);
 
+                htmlBody = string.Format(@"<br/><br/>
+System Master:,<br/><br/>
+Please be advised that {0} addressed reset their password.<br/><br/>
+Please contact Intelleges team if you have any questions.<br/><br/>
+Thank you.<br/>
+Intelleges Team
+", emailTo);
+                if (master != null)
+                    sendEmail(new Email()
+                    {
+                        subject = "Intelleges: alert person.emailAddress Reset Password",
+                        emailTo = master.email,
+                        body = htmlBody,
+                        category = SendGridCategory.SendEmailAlert,
+                        accesscode = accesscode,
+                    }, "", null);
+            }
         }
 
         public static void SendPasswordChangedNotification(person person, string emailTo)
