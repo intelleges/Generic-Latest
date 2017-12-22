@@ -21944,5 +21944,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonByEmail2_Result>("pr_getPersonByEmail2", emailParameter);
         }
+    
+        public virtual ObjectResult<pr_getAutomailMessageAttachmentByPTQ_Result> pr_getAutomailMessageAttachmentByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageAttachmentByPTQ_Result>("pr_getAutomailMessageAttachmentByPTQ", ptqParameter);
+        }
     }
 }

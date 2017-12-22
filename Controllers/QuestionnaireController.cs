@@ -2028,9 +2028,18 @@ namespace Generic.Controllers
                 var questionnaireCMSinExcel = ExcelMapper.GetRows<ExcelAutoMailMessage>(physicalPath, sheetname, map);
                 List<Tuple<int, string>> uploadedquestionnaireCMS = new List<Tuple<int, string>>();
 
-                db.pr_removeAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid));
-
-
+                var a = db.pr_getAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid)).FirstOrDefault();
+                if (a != null)
+                {
+                    var items = db.pr_getAutoMailAttachmentByAutoMail(a.id).ToList();
+                    foreach (var item in items)
+                    {
+                        db.pr_removeAutoMailAttachment(item.id);
+                    }
+                    db.pr_removeAutomailMessageByQuestionnaire(Convert.ToInt32(autoMailid));
+                }
+                
+                
                 foreach (var questionnaireCMSitem in questionnaireCMSinExcel.ToList())
                 {
                     using (var context = new EntitiesDBContext())

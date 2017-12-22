@@ -6182,6 +6182,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getAutomailMessageAllByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getAutomailMessageAttachmentByPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAutomailMessageByMailtypeandPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mailtype" Type="int" Mode="In" />
           <Parameter Name="partnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -17194,7 +17197,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonByEmail2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonByEmail2_Result)">
-            <Parameter Name="email" Mode="In" Type="String" />
+          <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAutomailMessageAttachmentByPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getAutomailMessageAttachmentByPTQ_Result)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29440,6 +29446,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Boolean" Name="IsArchived" Nullable="true" />
           <Property Type="DateTime" Name="archivedDate" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="pr_getAutomailMessageAttachmentByPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="autoMail" Nullable="false" />
+          <Property Type="Binary" Name="attachment" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="tags" Nullable="true" />
+          <Property Type="String" Name="note" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="automailAttachmentType" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40762,6 +40778,20 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="resetDate" ColumnName="resetDate" />
                 <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
                 <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAutomailMessageAttachmentByPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getAutomailMessageAttachmentByPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getAutomailMessageAttachmentByPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="autoMail" ColumnName="autoMail" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="automailAttachmentType" ColumnName="automailAttachmentType" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
