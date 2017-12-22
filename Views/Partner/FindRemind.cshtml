@@ -88,7 +88,9 @@
 								<script>
 									// Replace the <textarea id="editor1"> with a CKEditor
 									// instance, using default configuration.
-									CKEDITOR.replace('emailText');
+                                    CKEDITOR.replace('emailText',{
+                                        extraAllowedContent: 'p{text-align}(tip)'
+                                    });
 								</script>
 							</div>
 							<div class="form-group">
@@ -289,7 +291,7 @@
 				$.get("@Url.Action("GetAutomail","Partner")" + "?id=" + control.val()).done(function (result) {
 					if (result) {
 						$("#emailSubject").val(result.subject);
-						CKEDITOR.instances["emailText"].setData(result.text + "<br> " + result.footer1)
+                        CKEDITOR.instances["emailText"].setData(result.text + "<br> " + unescape(result.footer1));
 						//$("#emailText").val(result.text+"/n "+result.footer1);
 					}
 				})
