@@ -269,7 +269,7 @@ namespace Generic.Controllers
             {
                 file.InputStream.CopyTo(stream);
                 stream.Seek(0, SeekOrigin.Begin);
-                var added = db.pr_addPPTQDoc(pptq.id, file.FileName, file.FileName, stream.ToArray(), (int)fileType,null, DateTime.Now, SessionSingleton.LoggedInUserId, 1, true).FirstOrDefault();
+                var added = db.pr_addPPTQDoc(pptq.id, file.FileName, file.FileName, stream.ToArray(), (int)fileType, null, DateTime.Now, SessionSingleton.LoggedInUserId, 1, true).FirstOrDefault();
             }
             return View(result);
         }
@@ -891,7 +891,7 @@ namespace Generic.Controllers
                         email.category = SendGridCategory.InvitePartnes;
 
                         SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint });
+                        objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.FullName));
 
                     }
                 }
@@ -1092,7 +1092,7 @@ namespace Generic.Controllers
             email.automailMessage = amm.id.ToString();
 
             SendEmail objSendEmail = new SendEmail();
-            objSendEmail.sendEmail(email, new EmailFormatSettings() { partner = objpartner, ptq = ptq, sender = person, touchpoint = objtouchpoint });
+            objSendEmail.sendEmail(email, new EmailFormatSettings() { partner = objpartner, ptq = ptq, sender = person, touchpoint = objtouchpoint }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.FullName));
 
             string message = "Invite Sent";
             ViewBag.Message = "2";
