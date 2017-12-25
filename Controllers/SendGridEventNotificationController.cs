@@ -20,35 +20,40 @@ namespace Generic.Controllers
         [HttpPost]
         public void Index(List<SendGridEvents> data)
         {
-            foreach (var eventDetails in data)
+            try
             {
-				if (!events.Contains(eventDetails.@event))
-					continue;
-
-                using (var context = new EntitiesDBContext())
+                foreach (var eventDetails in data)
                 {
+                    if (!events.Contains(eventDetails.@event))
+                        continue;
 
-					int? enterprise = null;
-					int? reminderSource = null;
-					int? automailMessage = null;
+                    using (var context = new EntitiesDBContext())
+                    {
 
-					int res = 0;
-					if (int.TryParse(eventDetails.enterprise, out res))
-						enterprise = res;
+                        int? enterprise = null;
+                        int? reminderSource = null;
+                        int? automailMessage = null;
 
-					if (int.TryParse(eventDetails.reminderSource, out res))
-						reminderSource = res;
+                        int res = 0;
+                        if (int.TryParse(eventDetails.enterprise, out res))
+                            enterprise = res;
+
+                        if (int.TryParse(eventDetails.reminderSource, out res))
+                            reminderSource = res;
 
 
-					if (int.TryParse(eventDetails.automailMessage, out res))
-						automailMessage = res;
+                        if (int.TryParse(eventDetails.automailMessage, out res))
+                            automailMessage = res;
 
 
-					context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, eventDetails.category, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, reminderSource, automailMessage, enterprise, eventDetails.loadgroup);
-							
+                        context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, eventDetails.category, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, reminderSource, automailMessage, enterprise, eventDetails.loadgroup);
+
+                    }
                 }
             }
-
+            catch (Exception e) {
+                logerror(e.Message);
+            }
         }
 
         private void logerror(string message)
