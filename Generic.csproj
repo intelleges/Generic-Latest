@@ -3741,6 +3741,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload12.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload14.cshtml" />
     <Content Include="Content\coi_draft.pdf" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload16.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
