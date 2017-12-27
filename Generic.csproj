@@ -1303,6 +1303,9 @@
     <Compile Include="pr_getDailyCountAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getDashboardCountForEventByPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getDashboardCountForReferenceByPTQAndGroup_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1403,6 +1406,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotificationByTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationCountByTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotificationDelivered_Result.cs">
@@ -5335,6 +5341,7 @@
     <Content Include="UploadTemplates\LCE_Scope_Template.xlsx" />
     <Content Include="Views\Admin\Dashboard2.cshtml" />
     <Content Include="Views\Admin\GetDashboard2Result.cshtml" />
+    <Content Include="Views\Admin\Dashboard2_1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

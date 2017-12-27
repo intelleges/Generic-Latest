@@ -1,0 +1,295 @@
+﻿
+@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.Dashboard1>
+@using System.Web.Mvc.Html;
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = ViewBag.enterpriseName + "Admin";
+    int counter = 0;
+
+    try
+    {
+        counter = Model.partnerType.Count() + 3;
+    }
+    catch { }
+
+    int groupCount = 0;
+    try
+    {
+
+        groupCount = Model.groups.Count();
+    }
+    catch { }
+
+    int groupAdded = 0;
+
+    decimal c = decimal.Parse(groupCount.ToString()) / 2;
+    int c2 = groupCount % 2 > 0 ? 1 : 0;
+    int partnerTablesCount = int.Parse(Math.Floor(c).ToString()) + c2;
+
+}
+<style type="text/css">
+    table.PartnerTypes {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+
+    table.TestTable {
+        border-collapse: collapse;
+        border: 1px solid black;
+        float: left;
+        margin-right: 10px;
+    }
+
+    table td {
+        border: 1px solid black;
+        font-size: 12px;
+    }
+
+    table th {
+        border: 1px solid black;
+        font-size: 12px;
+        text-align: right;
+        padding-right: 0;
+    }
+
+    table.PartnerTypes td.AlgnRight {
+        text-align: right;
+        color: darkblue;
+        padding-right: 0;
+    }
+
+    table.TestTable th {
+        border: 1px solid black;
+        font-size: 12px;
+        text-align: center;
+        padding-right: 0;
+    }
+
+    table.TestTable td.AlgnRight {
+        text-align: right;
+        color: darkblue;
+        padding-right: 0;
+        width: 47px;
+        font-weight: bold;
+    }
+
+    select#templates {
+        height: auto;
+        width: 244px;
+    }
+</style>
+
+@for (int m = 0; m < partnerTablesCount; m++)
+{
+
+
+    <table id="OuterTable">
+        <tr>
+            <td style="border-right:0">
+                <table class="PartnerTypes">
+                    <tr style="background-color: darkblue; color: white;">
+                        <th>
+                            PARTNER TYPE&nbsp;
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    @foreach (var partnerType in Model.partnerType)
+                    {
+                        <tr>
+                            <td id="@partnerType.ID" class="AlgnRight"><span>&nbsp;&nbsp;@partnerType.Description.Trim()&nbsp;&nbsp;</span></td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="AlgnRight"><span>&nbsp;&nbsp;<strong>Total</strong>&nbsp;&nbsp;</span></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="border-left:0">
+                @for (int n = 0; n < 2; n++)
+                {
+
+                    if (groupAdded < groupCount)
+                    {
+                        int? totalUC = 0, totalC = 0, totalNR = 0, totalRI = 0, totalRC = 0, totalRow = 0;
+                        <table class="TestTable">
+
+                            <tr style="background-color:darkblue;; color: white;">
+                                <th colspan="8" class="groupLabel">
+                                    @Model.groups[groupAdded].description
+
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td class="AlgnRight" title="Goal">G&nbsp;</td>
+                                <td class="AlgnRight" title="UnConfirmed">U&nbsp;</td>
+                                <td class="AlgnRight" title="Review">R&nbsp;</td>
+                                <td class="AlgnRight" title="Confirmed">C&nbsp;</td>
+                                <td class="AlgnRight" title="No Response">N/R&nbsp;</td>
+                                <td class="AlgnRight" title="Response Incomplete">R/I&nbsp;</td>
+                                <td class="AlgnRight" title="Response Complete">R/C&nbsp;</td>
+                                <td class="AlgnRight" title="Total">T&nbsp;</td>
+                            </tr>
+
+                            @foreach (var partnerType in Model.partnerType)
+                            {
+
+                                <tr>
+                                    <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal&nbsp; </td>
+                                    <td class="AlgnRight">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                            @{ int? uc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                totalUC += uc;
+                                            }
+
+                                            @uc
+
+                                        </a>
+
+
+
+                                    </td>
+                                    <td class="AlgnRight">0&nbsp;</td>
+                                    <td class="AlgnRight">
+
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                            @{ int? con = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                totalC += con;
+                                            }
+
+                                            @con
+
+                                        </a>
+
+
+                                    </td>
+                                    <td class="AlgnRight" style="background-color: #E56D38">
+
+
+
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                            @{ int? nr = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                totalNR += nr;
+                                            }
+
+                                            @nr
+
+                                        </a>
+                                    </td>
+                                    <td class="AlgnRight" style="background-color:#FDEB41">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                            @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                totalRI += ri;
+
+                                            }
+                                            @ri
+                                        </a>
+
+                                    </td>
+                                    <td class="AlgnRight" style="background-color: #BCD637">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                            @{int? rc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                totalRC += rc;
+                                            } @rc
+                                        </a>
+                                    </td>
+                                    <td class="AlgnRight">
+                                        @{
+
+                                            int? t = nr + ri + rc + uc + con;
+                                            totalRow += t;
+
+                                        }
+                                        @t&nbsp;
+                                    </td>
+                                </tr>
+
+                                            }
+
+
+                            <tr>
+                                <td class="AlgnRight" title="Goal">0&nbsp;</td>
+                                <td class="AlgnRight" title="UnConfirmed">@totalUC&nbsp;</td>
+                                <td class="AlgnRight" title="Review">0&nbsp;</td>
+                                <td class="AlgnRight" title="Confirmed">@totalC&nbsp;</td>
+                                <td class="AlgnRight" title="No Response">@totalNR&nbsp;</td>
+                                <td class="AlgnRight" title="Response Incomplete">@totalRI&nbsp;</td>
+                                <td class="AlgnRight" title="Response Complete">@totalRC&nbsp;</td>
+                                <td class="AlgnRight" title="Total">@totalRow&nbsp;</td>
+                            </tr>
+
+
+                        </table>
+
+
+                                                    groupAdded++;
+                                                }
+
+                                            }
+            </td>
+        </tr>
+    </table>
+
+
+                                            }
+
+<script>
+	$(document).ready(function () {
+		@if((bool)ViewBag.IsSystemMaster)
+  {
+	  <text>
+		$(".groupLabel").contextmenu({
+			//delegate: ".hasmenu",
+			menu: [
+				{title: "Edit/Correct"},//, cmd: "copy", uiIcon: "ui-icon-copy"},
+				{title: "Remove"}//,
+				//{title: "More", children: [
+				//	{title: "Sub 1", cmd: "sub1"},
+				//	{title: "Sub 2", cmd: "sub1"}
+				//]}
+			],
+			select: function(event, ui) {
+				alert("select "  + ui.target.text());
+			}
+		});
+		</text>
+	}
+        //debugger;
+        //$("#TestTable tr:eq(1)").each(function () {
+        //    $(this).find("td").css({
+        //        "color": "skyblue",
+        //        "text-align": "right",
+        //    "padding-right": "0",
+        //    "width": "25px",
+        //    "font-weight": "bold"                });
+        //});
+
+
+        //$("#TestTable tr:gt(1)").each(function () {
+        //    $(this).find("td:eq(0)").css({
+        //        "color": "black",
+        //        "text-align": "right",
+        //        "padding-right": "0",
+        //        "width": "25px",
+        //        "font-weight": "bold"                });
+        //});
+
+        //$("#TestTable tr:gt(1)").each(function () {
+        //    $(this).find("td:gt(0)").css({
+        //        "color": "blue",
+        //        "text-align": "right",
+        //        "padding-right": "0",
+        //        "width": "25px",
+        //        "font-weight": "bold"
+        //    });
+        //});
+    });
+
+</script>

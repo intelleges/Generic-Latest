@@ -234,20 +234,24 @@
                                     @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
                                     {
                                         <div id="rootMenu" style="float:left;">
-
-                                            <a href="@Url.Content("~/Admin/View1")">View 1</a>
+                                            <a href="#">Welcome</a>
+                                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
+                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
+                                            <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
+                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>
+                                            @*<a href="@Url.Content("~/Admin/View1")">View 1</a>
                                             <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                                            <a href="@Url.Content("~/Admin/View3")">View 3</a>
+                                            <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
                                             @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
                                             <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
 
-                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard</a>
+                                            
                                             <a href="@Url.Content("~/Admin/Icons")">Icons</a>
 
 
-                                            <a href="#">Welcome</a>
+                                            
 
-                                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
+                                            
 
                                             @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
                                             <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>

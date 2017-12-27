@@ -21953,5 +21953,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getAutomailMessageAttachmentByPTQ_Result>("pr_getAutomailMessageAttachmentByPTQ", ptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getDashboardCountForEventByPTQ_Result> pr_getDashboardCountForEventByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForEventByPTQ_Result>("pr_getDashboardCountForEventByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getEventNotificationCountByTouchpoint_Result> pr_getEventNotificationCountByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationCountByTouchpoint_Result>("pr_getEventNotificationCountByTouchpoint", touchpointParameter);
+        }
     }
 }

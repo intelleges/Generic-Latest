@@ -1074,6 +1074,13 @@ namespace Generic.Controllers
         }
 
         [Authorize]
+        public virtual ActionResult Dashboard2_1()
+        {
+            //var data = db.pr_getDashboardCountForEventByPTQ()
+            return View();
+        }
+
+        [Authorize]
         public ActionResult GetDashboard2Result(int pptq, int partner, int partnerType)
         {
             ViewBag.PartnerPartnertypeTouchpointQuestionnaireByPartner = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner).ToList();
