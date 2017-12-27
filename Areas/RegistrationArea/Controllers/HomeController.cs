@@ -7264,32 +7264,142 @@ Intelleges Team";
             string executives = "";
             foreach (var item in _PPTQQuestionResponse)
             {
-                #region Section 1
-                #endregion
+                switch (item.question)
+                {
+                    #region Section 1
+                    case 35499:
+                        ViewBag.Checkbox62353 = item.response == 62353 ? _chacked : string.Empty;
+                        ViewBag.Checkbox62354 = item.response == 62354 ? _chacked : string.Empty;
+                        ViewBag.Checkbox62355 = item.response == 62355 ? _chacked : string.Empty;
+                        ViewBag.Checkbox62356 = item.response == 62356 ? _chacked : string.Empty;
+                        break;
+                    case 35500:
+                        ViewBag.Checkbox35500_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35500_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35501:
+                        ViewBag.Checkbox35501_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35501_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    #endregion
 
-                #region Section 2
-                #endregion
+                    #region Section 2
+                    case 35505:
+                        ViewBag.Checkbox35505_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35505_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35506:
+                        ViewBag.Checkbox35506_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35506_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35508:
+                        ViewBag.Checkbox35508_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35508_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35509:
+                        ViewBag.Checkbox35509_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35509_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    #endregion
 
-                #region Section 3
-                #endregion
+                    #region Section 3
+                    case 35512:
+                        ViewBag.Checkbox35512_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35512_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35513:
+                        ViewBag.Checkbox35513_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35513_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35514:
+                        ViewBag.Checkbox35514_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35514_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35515:
+                        ViewBag.Checkbox35515_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35515_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35516:
+                        ViewBag.Checkbox62357 = item.response == 62357 ? _chacked : string.Empty;
+                        ViewBag.Checkbox62358 = item.response == 62358 ? _chacked : string.Empty;
+                        ViewBag.Checkbox62359 = item.response == 62359 ? _chacked : string.Empty;
+                        break;
+                    case 35517:
+                        ViewBag.Checkbox35517_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35517_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    #endregion
 
-                #region Section 4
-                #endregion
+                    #region Section 4
+                    case 35521:
+                        ViewBag.Checkbox35521_Yes = item.response == 62360 ? _chacked : string.Empty;
+                        ViewBag.Checkbox35521_No = item.response == 62361 ? _chacked : string.Empty;
+                        break;
+                    case 35523:
+                        ViewBag.Checkbox62362 = item.response == 62362 ? _chacked : string.Empty;
+                        ViewBag.Checkbox62363 = item.response == 62363 ? _chacked : string.Empty;
+                        break;
+                    case 35524:
+                        ViewBag.Checkbox35524_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35524_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35525:
+                        ViewBag.Checkbox35525_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35525_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 355287:
+                        ViewBag.Checkbox35527_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35527_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35528:
+                        ViewBag.Checkbox35528_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35528_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35529:
+                        ViewBag.Checkbox35529_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35529_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35530:
+                        ViewBag.Checkbox35530_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35530_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35534:
+                        ViewBag.Checkbox35534_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35534_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35537:
+                        ViewBag.Checkbox35537_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35537_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35538:
+                        ViewBag.Checkbox35538_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35538_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35539:
+                        ViewBag.Checkbox35539_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35539_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 35542:
+                        ViewBag.Checkbox35542_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox35542_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                        #endregion
 
-                #region Section 5
-                #endregion
+                        #region Section 5
+                        #endregion
 
-                #region Section 6
-                #endregion
+                        #region Section 6
+                        #endregion
 
-                #region Section 7
-                #endregion
+                        #region Section 7
+                        #endregion
 
-                #region Section 8
-                #endregion
+                        #region Section 8
+                        #endregion
 
-                #region Section 9
-                #endregion
+                        #region Section 9
+                        #endregion
+                }
             }
             return 0;
         }

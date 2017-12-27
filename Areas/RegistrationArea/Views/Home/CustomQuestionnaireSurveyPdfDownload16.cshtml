@@ -55,7 +55,12 @@
                     <li>b. Designation (e.g., VE ####, G00###, etc.):</li>
                     <li>c. Program Leader/Manager:</li>
                     <li>d. CID Package(s)#:</li>
-                    <li>e. Governing process (e.g., Triage, Value Engineering, Standard Transition Process-STP, Other):</li>
+                    <li>e. Governing process (e.g., Triage, Value Engineering, Standard Transition Process-STP, Other):
+                        <br /><input type="checkbox" @ViewBag.Checkbox62353 /> Standard Transition Process-STP
+                        <br /><input type="checkbox" @ViewBag.Checkbox62354 /> Triage
+                        <br /><input type="checkbox" @ViewBag.Checkbox62355 /> Value Engineering
+                        <br /><input type="checkbox" @ViewBag.Checkbox62356 /> Other
+                    </li>
                     <li>f. Identify the functional representatives involved in Project Planning (e.g., E&T, M&PM, ISC-VE, GS&I, SS):</li>
                 </ul>
             </li>
@@ -74,8 +79,14 @@
                         <br />Buy to Make (In sourcing)
                     </li>
                     <li>c. Project Scope file (fill in the embedded Excel file)</li>
-                    <li>d. Is there an assist or non-recurring payment?</li>
-                    <li>e. Does this product involve new designs or reuse?</li>
+                    <li>d. Is there an assist or non-recurring payment?
+                        <br /><input type="checkbox" @ViewBag.Checkbox35500_Yes /> Yes
+                        <br /><input type="checkbox" @ViewBag.Checkbox35500_No /> No
+                    </li>
+                    <li>e. Does this product involve new designs or reuse?
+                        <br /><input type="checkbox" @ViewBag.Checkbox35501_Yes /> Yes
+                        <br /><input type="checkbox" @ViewBag.Checkbox35501_No /> No
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -86,8 +97,8 @@
         <ul>
             <li>
                 1. Does the transition/reposition contemplate movement of any parts to or within China for manufacture?
-                <br />Yes.
-                <br />No. Skip the remainder of this Section 2 and proceed to Section 3.
+                <br /><input type="checkbox" @ViewBag.Checkbox35505_Yes /> Yes.
+                <br /><input type="checkbox" @ViewBag.Checkbox35505_No /> No. Skip the remainder of this Section 2 and proceed to Section 3.
             </li>
             <li>
                 2. Is the drawing assigned a Military technology export classification (TEC) code, regardless of the country of current design authority (CDA) to be confirmed by
@@ -95,8 +106,8 @@
                 of Commerce 500 or 600 series item.
                 <br />Instructions: Approver for this Section to mark “Y” in the “USML/500/600 (Y/N)” column of the “Project Scope” tab of the Scope and Export Data file.
                 <br />
-                <br />Yes. Part cannot be transitioned. Skip the remainder of this Section 2 for this particular part.
-                <br />No.
+                <br /><input type="checkbox" @ViewBag.Checkbox35508_Yes /> Yes. Part cannot be transitioned. Skip the remainder of this Section 2 for this particular part.
+                <br /><input type="checkbox" @ViewBag.Checkbox35508_No /> No.
             </li>
             <li>
                 3. For each part contemplated for transition/reposition to or within China, please answer the following:
@@ -104,20 +115,20 @@
                     <li>
                         a. In the CID file, was a usage code other than “C” (e.g., “CM”, “MC”, “M”, “OT”) found in the “Smart Usage Code” column of the “Workbook” tab?
                         <br />
-                        Yes. Provide end-use platform and customer information in the “China Optics” tab of the Project Scope file embedded in Section 1, Item 2.c of this checklist (see
+                        <input type="checkbox" @ViewBag.Checkbox35506_Yes /> Yes. Provide end-use platform and customer information in the “China Optics” tab of the Project Scope file embedded in Section 1, Item 2.c of this checklist (see
                         above).
                         <br />
                         Instructions: Find the Application/Model information listed under the “Military Rolled Up” column of the “Workbook” tab of the CID file. Insert this information in
                         the Project Scope file.
                         <br />
-                        No. Skip the remainder of this Section 2 for this particular part.
+                        <input type="checkbox" @ViewBag.Checkbox35506_No /> No. Skip the remainder of this Section 2 for this particular part.
                     </li>
                     <li>
                         b. Has General Counsel, Aerospace Global Operations and Transitions approved transition/reposition of this particular part to China?
                         <br />
-                        Yes. Proceed with transition of this particular part.
+                        <input type="checkbox" @ViewBag.Checkbox35509_Yes /> Yes. Proceed with transition of this particular part.
                         <br />
-                        No. Part cannot be transitioned.
+                        <input type="checkbox" @ViewBag.Checkbox35509_No /> No. Part cannot be transitioned.
                     </li>
                 </ul>
             </li>
@@ -134,44 +145,44 @@
                 <br />
                 N/A. The parts are being transitioned to a Honeywell site.
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35512_Yes /> Yes.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35512_No /> No.
             </li>
             <li>
                 2. Will any hardware manufacturing machines or equipment, tooling, fixtures and/or test equipment be
                 provided to the receiving Honeywell site or new supplier?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35513_Yes />  Yes.
                 <ul>
                     <li>
                         i.      If Yes, is the receiving Honeywell site or new supplier located offshore AND will the machine/tooling/test equipment be provided free of charge or at a reduced cost, AND will result in imports into the United States?
                         <br />
-                        Yes. Provide the name of the person who is most familiar with the transition of the machine/tooling/test equipment mentioned above.
+                        <input type="checkbox" @ViewBag.Checkbox35514_Yes /> Yes. Provide the name of the person who is most familiar with the transition of the machine/tooling/test equipment mentioned above.
                         <br />
-                        No.
+                        <input type="checkbox" @ViewBag.Checkbox35514_No /> No.
                     </li>
                 </ul>
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35513_No /> No.
             </li>
             <li>
                 3. Will the receiving Honeywell site or new supplier return the manufactured hardware exclusively to Honeywell in the US?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35515_Yes /> Yes.
                 <br />
-                No. They will transfer hardware to located in .
+                <input type="checkbox" @ViewBag.Checkbox35515_No /> No. They will transfer hardware to located in .
             </li>
             <li>
                 4. Has the receiving Honeywell site or new supplier obtained all necessary export authorizations to return the
                 manufactured hardware to Honeywell in the U.S. or to the entities identified in Question #3?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox62357 /> Yes.
                 <br />
-                Pending. The proposed receiving Honeywell site or supplier is working on obtaining the necessary local country
+                <input type="checkbox" @ViewBag.Checkbox62359 /> Pending. The proposed receiving Honeywell site or supplier is working on obtaining the necessary local country
                 export authorizations.
                 <br />
-                No. Obtain confirmation from local export focal(s) that no export authorizations are required.
+                <input type="checkbox" @ViewBag.Checkbox62358 /> No. Obtain confirmation from local export focal(s) that no export authorizations are required.
             </li>
             <li>
                 5. For any parts transitioned/repositioned outside the US, which will be shipped back to a US site, has the
@@ -179,9 +190,9 @@
                 go the following link and reference the Instructions Tab.
                 <a hrfe="https://teamsites2013.honeywell.com/sites/ICFS/ES/Shared%20Documents/Forms/AllItems.aspx">https://teamsites2013.honeywell.com/sites/ICFS/ES/Shared%20Documents/Forms/AllItems.aspx</a>
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35517_Yes /> Yes.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35517_No /> No.
             </li>
         </ul>
     </p>
@@ -197,12 +208,12 @@
             <li>
                 1. Can Honeywell and the new supplier (if applicable) execute this project using only documents and information that were/are created solely by Honeywell or the new supplier (if applicable) or are clearly within the public domain?  Note:  The execution of the project cannot rely on the use of any documents or information that are considered “proprietary,” in whole or in part, to Honeywell’s current supplier or another third party.  When responding to this question, consider all aspects of the project, from planning through production, including product specifications, product design documentation, documents needed for obtaining and reviewing proposals/quotes, responding to supplier inquiries, conducting design reviews, performing test/qual/cert activities, etc.  If any documents planned for use on this project are marked (or suspected to be) “Proprietary” or “Confidential” to a third party, mark “No/Not Sure”.
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35521_Yes /> Yes.
                 <br />
-                No/Not sure, contact IP Counsel for further reevaluation.
+                <input type="checkbox" @ViewBag.Checkbox35521_No /> No/Not sure, contact IP Counsel for further reevaluation.
                 <ul>
-                    <li>i.  IP Counsel contacted on [ date ], risk was cleared with recommendation to proceed.</li>
-                    <li>ii. IP Counsel contacted on [ date ], risk acknowledged and characterized for consideration by transition business stakeholders.</li>
+                    <li><input type="checkbox" @ViewBag.Checkbox62362 /> i.  IP Counsel contacted on [ date ], risk was cleared with recommendation to proceed.</li>
+                    <li><input type="checkbox" @ViewBag.Checkbox62363 /> ii. IP Counsel contacted on [ date ], risk acknowledged and characterized for consideration by transition business stakeholders.</li>
                 </ul>
             </li>
         </ul>
@@ -213,16 +224,16 @@
             <li>
                 2. As part of this project, will Honeywell need to “Reverse Engineer” the current supplier’s part or provide the current supplier’s part to the new supplier?   Note: For the purposes of this question, “Reverse Engineering” activities include obtaining information about the design, construction or operation of the part through inspection, testing, measurement, disassembly or reverse engineering of the current supplier’s part for use in any aspects of the project including design, test, qualification, certification, and production.
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35524_Yes /> Yes.
                 <br />
-                No. Skip remainder of Sub-Section B Reverse Engineering and proceed to Sub-Section C People and Stored Information.
+                <input type="checkbox" @ViewBag.Checkbox35524_No /> No. Skip remainder of Sub-Section B Reverse Engineering and proceed to Sub-Section C People and Stored Information.
             </li>
             <li>
                 3. Has the Sourcing L&C representative (if unsure, verify with the cognizant commodity manager or use assignment list to identify the Sourcing L&C representative) reviewed the Contract, PIA and purchase orders of the current supplier to ensure there are no prohibitions related to Honeywell using the part for these purposes and provided guidance on information that may be shared during reverse-engineering process?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35525_Yes />  Yes.
                 <br />
-                No. Please explain why not:_______
+                <input type="checkbox" @ViewBag.Checkbox35525_No /> No. Please explain why not:_______
             </li>
         </ul>
         <h3>C.     People and Stored Information (Buy to Buy & Buy to Make)</h3>
@@ -232,31 +243,31 @@
                 current supplier’s proprietary information that will be relevant to the employee’s role in the project? Note: When responding to this question, consider all aspects of the project, from planning through production, including creating
                 documents for and reviewing proposals/quotes, responding to supplier inquiries, conducting design reviews, performing test/qual/cert activities, etc
                 <br />
-                Yes. Consult with the Souring L&C representative to provide the guidance on what proprietary information can be shared with the supplier.
+                <input type="checkbox" @ViewBag.Checkbox35527_Yes /> Yes. Consult with the Souring L&C representative to provide the guidance on what proprietary information can be shared with the supplier.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35527_No /> No.
             </li>
             <li>
                 5. Does Honeywell have stored information (e.g., PDM, Team Center, etc.) that is proprietary to the current supplier and that is relevant to the part or product?
                 <br />
-                Yes. Consult with the Souring L&C representative to provide the guidance on what proprietary information can be shared with the supplier.
+                <input type="checkbox" @ViewBag.Checkbox35528_Yes /> Yes. Consult with the Souring L&C representative to provide the guidance on what proprietary information can be shared with the supplier.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35528_No /> No.
             </li>
         </ul>
         <h3>D.    Third Party Patents (Buy to Buy & Buy to Make)</h3>
         Is this a Build to Specification transition?
         <br />
-        No. Skip remainder of Sub-Section D and proceed to Sub-Section E.
+        <input type="checkbox" @ViewBag.Checkbox35529_No /> No. Skip remainder of Sub-Section D and proceed to Sub-Section E.
         <br />
-        Yes. Proceed to next question.
+        <input type="checkbox" @ViewBag.Checkbox35529_Yes /> Yes. Proceed to next question.
         <br />
         <ul>
             <li>
                 6. Do you have documentation identifying when Honeywell first sold and/or delivered a product or assembly containing this part?
                 <ul>
                     <li>
-                        Yes. Identify the date of delivery and/or sale and identity of supporting document(s):
+                        <input type="checkbox" @ViewBag.Checkbox35530_Yes /> Yes. Identify the date of delivery and/or sale and identity of supporting document(s):
                         <br />
                         i. First sale date:
                         <br />
@@ -265,11 +276,11 @@
                         iii. Supporting document(s):
                     </li>
                     <li>
-                        No. Do you have documentation, such as a schematic, which identifies the first production-approved version of the part?
+                        <input type="checkbox" @ViewBag.Checkbox35530_No />  No. Do you have documentation, such as a schematic, which identifies the first production-approved version of the part?
                         <br />
-                        i. No.
+                        <input type="checkbox" @ViewBag.Checkbox35534_No /> i. No.
                         <br />
-                        ii. Yes.
+                        <input type="checkbox" @ViewBag.Checkbox35534_Yes /> ii. Yes.
                         <ul>
                             <li>Date of first production-approved design:       </li>
                             <li>Supporting document(s):       </li>
@@ -280,31 +291,31 @@
             <li>
                 7.   Does the part or associated documentation include any patent markings?  Note: Patent markings can be on the part itself (such as by etching or on a name plate), on its packaging or packaging inserts, and possibly a company’s web site page for the part. Patent markings are commonly recited in a manner such as – “US Patent No. #,###,###” or “covered by one or more of the following US Patents: #,###,###; #,###,###; and #,###,###”.
                 <br />
-                Yes, consult with IP counsel and provide patent numbers or patent markings:
+                <input type="checkbox" @ViewBag.Checkbox35537_Yes /> Yes, consult with IP counsel and provide patent numbers or patent markings:
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35537_No /> No.
             </li>
             <li>
                 8.   Is patent infringement a significant risk for any part(s) to be transitioned?  High patent infringement risk parts include newer parts that include specific technology or features that are only currently available from the current supplier.  Low patent infringement risk parts include those parts that have been in production for a significant period of time (more than 20 years) years and include technology or features that are commonly available from other suppliers.  Note:  To determine if a current supplier owns any patents, use Google Patents and enter the supplier name in the search field.
                 <br />
-                Yes, consult with IP counsel and provide details regarding the current supplier and part(s) to be transitioned.
+                <input type="checkbox" @ViewBag.Checkbox35538_Yes /> Yes, consult with IP counsel and provide details regarding the current supplier and part(s) to be transitioned.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35538_No /> No.
             </li>
         </ul>
         <h3>E.    Third Party Licenses (Buy to Buy & Make to Buy & OIP)</h3>
         Does the transition scope include transfer of any software, tooling or test/manufacturing equipment?
         <br />
-        No. Skip remainder of Sub-Section E and proceed to Section 5.
+        <input type="checkbox" @ViewBag.Checkbox35539_No /> No. Skip remainder of Sub-Section E and proceed to Section 5.
         <br />
-        Yes. Proceed to next question.
+        <input type="checkbox" @ViewBag.Checkbox35539_Yes />  Yes. Proceed to next question.
         <ul>
             <li>
                 9. Are there any third party intellectual property licenses that will need to be transferred or assigned to the new supplier?  Consult with engineering, testing, supply chain, and licensing teams to determine if any third party intellectual property licenses apply to the software, tooling or test/manufacturing equipment to be transferred.  Note: We need to identify any third party licenses that will need to be transferred or assigned to the new supplier.  These licenses can include (1) software licenses for software used in manufacturing, testing, or as part of product operation, (2) data/documentation licenses for third party information (such as other supplier’s manuals) for use in assembly or testing, or (3) patent licenses needed to manufacture or sell the part.  When responding to this question, consider whether we use any third party intellectual property, such as software or information, in any aspect of our manufacturing process, from planning through production, including creating documents for and reviewing proposals/quotes, responding to supplier inquiries, conducting design reviews, performing test/qual/cert activities.  To determine if such third party licenses exist, we will need to review with the responsible engineering, testing, supply chain, and licensing teams.
                 <br />
-                Yes, consult the Sourcing L&C representative to review the identified licenses to determine what can be transferred or assigned the licenses to the new supplier.
+                <input type="checkbox" @ViewBag.Checkbox35542_Yes /> Yes, consult the Sourcing L&C representative to review the identified licenses to determine what can be transferred or assigned the licenses to the new supplier.
                 <br />
-                No. Skip remainder of Sub-Section E and proceed to Section 5.
+                <input type="checkbox" @ViewBag.Checkbox35542_No /> No. Skip remainder of Sub-Section E and proceed to Section 5.
             </li>
         </ul>
     </p>
