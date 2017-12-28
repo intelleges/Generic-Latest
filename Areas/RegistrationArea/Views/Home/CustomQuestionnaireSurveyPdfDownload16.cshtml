@@ -355,9 +355,9 @@
                         b. CFDB Translation for FAR 15 and FAR 12: Within your FINAL CFDB file (see “FAR15” column and “FAR 12” column), please identify whether any of the CFDB
                         responses in the “FAR 15” column or “FAR 12” column are “Y”.
                         <br />
-                        Any “FAR 15” = “Y”
+                        <input type="checkbox" @ViewBag.Checkbox35548_Yes /> Any “FAR 15” = “Y”
                         <br />
-                        Any “FAR 12” = “Y”
+                        <input type="checkbox" @ViewBag.Checkbox35549_Yes />Any “FAR 12” = “Y”
                     </li>
                     <li>
                         c. If CID Translation responses are (i) a usage code other than “C” (e.g., “CM”, “MC”, “M”, “OT”), or (ii) a “Y” to either “FAR 15” or “FAR 12”, have you obtained
@@ -402,41 +402,41 @@
             <li>
                 1. Within the CFDB for the parts to be transitioned/repositioned, was a Channel 1 contract found?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35563_Yes /> Yes.
                 <br />
-                No. Skip the remainder of this Section 5(b) and proceed to Section 6.
+                <input type="checkbox" @ViewBag.Checkbox35563_No /> No. Skip the remainder of this Section 5(b) and proceed to Section 6.
             </li>
             <li>
                 2. FAA Notification: For all “01” Distribution parts contained within CFDB Final, transitioning or repositioning to a
                 country outside of the US, has FAA Notification been submitted per AP-1612?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox62364 /> Yes.
                 <br />
-                No, requirements have been added to the TAC 3 RAIL.
+                <input type="checkbox" @ViewBag.Checkbox62365 /> No, requirements have been added to the TAC 3 RAIL.
                 <br />
-                N/A, transitions are within US or impact only Military customers.
+                <input type="checkbox" @ViewBag.Checkbox62366 /> N/A, transitions are within US or impact only Military customers.
             </li>
             <li>
                 3. Customer Notification: Have written Customer Notifications been submitted for all customers affected by the
                 transition/reposition and identified within the CFDB file? Customer Notification is identified by a “Y” in the CFDB column
                 “Supplier Change Noti”.
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox62367 /> Yes.
                 <br />
-                No, requirements have been added to the TAC 3 RAIL.
+                <input type="checkbox" @ViewBag.Checkbox62368 /> No, requirements have been added to the TAC 3 RAIL.
                 <br />
-                N/A, no customers require notification.
+                <input type="checkbox" @ViewBag.Checkbox62369 /> N/A, no customers require notification.
             </li>
             <li>
                 4. Customer Approval: Have Customer Approvals been submitted for all customers affected by the transition/reposition and
                 identified within the CFDB file? Customer Approval is identified by a “Y” in the CFDB column “Supplier Approval Apply” or
                 “Supplier Chg Apply”.
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox62370 /> Yes.
                 <br />
-                No, requirements have been added to the TAC 3 RAIL.
+                <input type="checkbox" @ViewBag.Checkbox62371 /> No, requirements have been added to the TAC 3 RAIL.
                 <br />
-                N/A, no customers require notification.
+                <input type="checkbox" @ViewBag.Checkbox62372 />  N/A, no customers require notification.
             </li>
         </ul>
     </p>
@@ -447,42 +447,42 @@
             <li>
                 1. Within the CID for the parts to be transitioned/repositioned, were any usage codes other than “C” found (e.g., “CM”, “MC”, “M”, “OT”)?
                 <br />
-                Yes.
+                <input type="checkbox" @ViewBag.Checkbox35570_Yes />  Yes.
                 <br />
-                No. If No, does the CFDB show any Channel 02 orders?
+                <input type="checkbox" @ViewBag.Checkbox35570_No /> No. If No, does the CFDB show any Channel 02 orders?
                 <br />
-                Yes. Proceed to Question 2 in this section.
+                <input type="checkbox" @ViewBag.Checkbox35571_Yes />  Yes. Proceed to Question 2 in this section.
                 <br />
-                No. Provide email from the Approver for this Section stating a “Not Required” for this Section. Skip the remainder of this Section 6 and proceed to Section 7.
+                <input type="checkbox" @ViewBag.Checkbox35571_No /> No. Provide email from the Approver for this Section stating a “Not Required” for this Section. Skip the remainder of this Section 6 and proceed to Section 7.
             </li>
             <li>
                 2. Is the project a US to US transition/reposition where the substantial transformation of the part is occurring within the US with greater than 50% Domestic content?
                 <br />
-                Yes. Attach evidence confirming US Content and build, then skip the remainder of this Section 6 and proceed to Section 7. (Note: only emails from the supplier or the Supplier Self-Assessment Letter are
+                <input type="checkbox" @ViewBag.Checkbox35573_Yes /> Yes. Attach evidence confirming US Content and build, then skip the remainder of this Section 6 and proceed to Section 7. (Note: only emails from the supplier or the Supplier Self-Assessment Letter are
                 acceptable forms of attachment).
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35573_No /> No.
             </li>
             <li>
                 3. Have the parts in this project gone through a BAA review under a different project name/number or CID request?
                 <br />
-                Yes. Please identify Project#, CID and BAA returned date:
+                <input type="checkbox" @ViewBag.Checkbox35574_Yes /> Yes. Please identify Project#, CID and BAA returned date:
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35574_No /> No.
             </li>
             <li>
                 4. Has the project scope changed from previous BAA reviews through a change in “Country Transitioning To” or a change in part scope (additions) since the BAA Response was returned to you?
                 <br />
-                Yes. Please resubmit BAA analysis for review.
+                <input type="checkbox" @ViewBag.Checkbox35575_Yes /> Yes. Please resubmit BAA analysis for review.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35575_No /> No.
             </li>
             <li>
                 5. Was the BAA review for this project performed more than 6 months prior to your submission of this LC&E checklist?
                 <br />
-                Yes. Please re-submit BAA analysis for review with new Final CFDB.
+                <input type="checkbox" @ViewBag.Checkbox35572_Yes /> Yes. Please re-submit BAA analysis for review with new Final CFDB.
                 <br />
-                No.
+                <input type="checkbox" @ViewBag.Checkbox35572_No />  No.
                 <br />
                 The BAA Approver will provide a BAA Response File. Within your returned BAA Response File, the “BAA Response” tab contains all of the BAA associated legal and business risks, along with actions to mitigate.
                 Three columns “Award Country”, “Documentation Type and Approver” and “Action Status” must be filled out for question 6 below along with your embedded file or link. For all Business or Legal risks identified,
@@ -491,10 +491,10 @@
             <li>
                 6. Have you completed all of the required BAA actions for the award country or modified scope as defined in your BAA Response File?
                 <br />
-                Yes. Please embed files, emails or link to diligence sharesite below.
+                <input type="checkbox" @ViewBag.Checkbox35576_Yes /> Yes. Please embed files, emails or link to diligence sharesite below.
                 [Embed files or insert link here]
                 <br />
-                No, part scope/countries have been redefined to mitigate risks and are updated within the “Response” tab of the attached BAA_Reponse File (See column labeled “Award Country (to be completed by
+                <input type="checkbox" @ViewBag.Checkbox35576_No />   No, part scope/countries have been redefined to mitigate risks and are updated within the “Response” tab of the attached BAA_Reponse File (See column labeled “Award Country (to be completed by
                 requestor)”).
             </li>
         </ul>
@@ -540,10 +540,10 @@
             <li>
                 3. If you (i) checked any boxes in question 1 above (clauses exist), and (ii) checked Yes to question 2 above, then did you confirm conformance to the “Berry” Amendment clauses through (check all that apply):
                 <br />
-                Yes, supplier confirmation of conformance to the requirements listed for the specific transition
+                <input type="checkbox" @ViewBag.Checkbox35581_Yes /> Yes, supplier confirmation of conformance to the requirements listed for the specific transition
                 type (i.e. confirmation of material source as US).
                 <br />
-                N/A, contract review clearance with Customer Contract Manager.
+                input type="checkbox" @ViewBag.Checkbox35581_No />N/A, contract review clearance with Customer Contract Manager.
                 <br />
                 N/A, specialty material review at a part level with ISC Compliance.
                 <br />
@@ -573,17 +573,17 @@
         provisions? Is there any provision that would prohibit Honeywell from in-sourcing the work or shifting work to another
         supplier? Are there any guaranteed % of future business provisions or guaranteed quantities provisions?
         <br />
-        Yes. Describe prohibitions or limitations:
+        <input type="checkbox" @ViewBag.Checkbox35590_Yes /> Yes. Describe prohibitions or limitations:
         <br />
-        No.
+        <input type="checkbox" @ViewBag.Checkbox35590_No /> No.
         <br />
         <br />
         Has Honeywell ever entered into an agreement wherein Honeywell sold the business related to this part or agreed not to
         compete in the manufacture or sale of the part?
         <br />
-        Yes.
+        <input type="checkbox" @ViewBag.Checkbox35591_Yes /> Yes.
         <br />
-        No.
+        <input type="checkbox" @ViewBag.Checkbox35591_No />  No.
     </p>
     <h2>Section 9: Offset (STP Phase 2 exit requirement)</h2>
     <p>
@@ -594,16 +594,16 @@
         Do any of the transition/reposition parts currently support offset requirements for the jurisdiction in which they are currently
         manufactured or from which they are currently sourced? Discuss with Offset Council to answer following questions.
         <br />
-        Yes.
+        <input type="checkbox" @ViewBag.Checkbox35595_Yes /> Yes.
         <br />
-        No.
+        <input type="checkbox" @ViewBag.Checkbox35595_No />  No.
         <br />
         <br />
         Has the Offset Council approved transition/reposition of each of the parts that currently support offset requirements?
         <br />
-        Yes.
+        <input type="checkbox" @ViewBag.Checkbox35596_Yes /> Yes.
         <br />
-        No.
+        <input type="checkbox" @ViewBag.Checkbox35596_No /> No.
     </p>
 </body>
 </html>
