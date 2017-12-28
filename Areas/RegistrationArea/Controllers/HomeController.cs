@@ -7200,7 +7200,12 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+           
+            var m = db.pr_getPerson(pptq.invitedBy).FirstOrDefault();
+            if (m != null){
+                ViewBag.Manager = m.firstName + " " + m.lastName;
+            }
+            
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -7248,9 +7253,7 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
-
-            //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
-
+            var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
 
 
@@ -7258,6 +7261,25 @@ Intelleges Team";
             var _responseNO = 75;
             var _chacked = "checked";
             var _responseSplitter = "--";
+
+
+            if (partnerType != null)
+            {
+                if (partnerType.id == 270)
+                    ViewBag.ActivityType270 = _chacked;
+
+                if (partnerType.id == 269)
+                    ViewBag.ActivityType269 = _chacked;
+
+                if (partnerType.id == 268)
+                    ViewBag.ActivityType268 = _chacked;
+
+                if (partnerType.id == 267)
+                    ViewBag.ActivityType267 = _chacked;
+
+                if (partnerType.id == 266)
+                    ViewBag.ActivityType266 = _chacked;
+            }
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
 
