@@ -432,7 +432,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="timestamp" Type="datetime" />
-          <Property Name="event" Type="varchar" MaxLength="50" />
+          <Property Name="event" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="reason" Type="varchar(max)" />
           <Property Name="url" Type="varchar" MaxLength="500" />
           <Property Name="category" Type="varchar" MaxLength="500" />
@@ -10769,7 +10769,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="enterpriseObjectName" EntityType="hs3MVCMTQa2Model.enterpriseObjectName" />
           <EntitySet Name="enterpriseSystemInfo" EntityType="hs3MVCMTQa2Model.enterpriseSystemInfo" />
           <EntitySet Name="eSignature" EntityType="hs3MVCMTQa2Model.eSignature" />
-          <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.eventNotification" />
           <EntitySet Name="eventNotificationBounce" EntityType="hs3MVCMTQa2Model.eventNotificationBounce" />
           <EntitySet Name="group" EntityType="hs3MVCMTQa2Model.group" />
           <EntitySet Name="groupCollection" EntityType="hs3MVCMTQa2Model.groupCollection" />
@@ -11806,10 +11805,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire" EntitySet="eSignature" ReturnType="Collection(hs3MVCMTQa2Model.eSignature)">
           <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getEventNotification" EntitySet="eventNotification" ReturnType="Collection(hs3MVCMTQa2Model.eventNotification)">
+          <FunctionImport Name="pr_getEventNotification">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getEventNotificationAll" EntitySet="eventNotification" ReturnType="Collection(hs3MVCMTQa2Model.eventNotification)">
+          <FunctionImport Name="pr_getEventNotificationAll">
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getGroup" EntitySet="group" ReturnType="Collection(hs3MVCMTQa2Model.group)">
@@ -17218,8 +17217,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getUserMaxTotalActiveUsers" ReturnType="Collection(hs3MVCMTQa2Model.pr_getUserMaxTotalActiveUsers_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.eventNotification" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -17436,25 +17436,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="completeDate" Precision="0" Type="DateTime" />
           <Property Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="false" Type="Int32" />
           <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_eSignature_partnerPartnertypeTouchpointQuestionnaire" FromRole="eSignature" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
-        </EntityType>
-        <EntityType Name="eventNotification">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="email" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="timestamp" Precision="3" Type="DateTime" />
-          <Property Name="event" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="reason" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="url" MaxLength="500" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="category" MaxLength="500" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="accesscode" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="protocolTouchpoint" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="applicationName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="enterprise" Type="Int32" />
-          <Property Type="String" Name="loadgroup" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="reminderSource" Type="Int32" />
-          <Property Name="automailMessage" Type="Int32" />
         </EntityType>
         <EntityType Name="eventNotificationBounce">
           <Key>
@@ -29488,6 +29469,25 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="enterprise_usermax" Nullable="true" />
           <Property Type="Int32" Name="total_active_users" Nullable="true" />
         </ComplexType>
+        <EntityType Name="eventNotification">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" Precision="3" />
+          <Property Name="event" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="accesscode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="protocolTouchpoint" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="applicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reminderSource" Type="Int32" />
+          <Property Name="automailMessage" Type="Int32" />
+          <Property Name="enterprise" Type="Int32" />
+          <Property Name="loadgroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -29905,33 +29905,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                   <ScalarProperty Name="id" ParameterName="id" Version="Current" />
                 </UpdateFunction>
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeEsignature">
-                  <ScalarProperty Name="id" ParameterName="id" />
-                </DeleteFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="eventNotification">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
-              <MappingFragment StoreEntitySet="eventNotification">
-                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
-                <ScalarProperty Name="reminderSource" ColumnName="reminderSource" />
-                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="event" ColumnName="event" />
-                <ScalarProperty Name="reason" ColumnName="reason" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="category" ColumnName="category" />
-                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
-                <ScalarProperty Name="protocolTouchpoint" ColumnName="protocolTouchpoint" />
-                <ScalarProperty Name="applicationName" ColumnName="applicationName" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
-              <ModificationFunctionMapping>
-                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeEventNotification">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
               </ModificationFunctionMapping>
@@ -40853,6 +40826,26 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="eventNotification">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.eventNotification">
+              <MappingFragment StoreEntitySet="eventNotification">
+                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="reminderSource" ColumnName="reminderSource" />
+                <ScalarProperty Name="applicationName" ColumnName="applicationName" />
+                <ScalarProperty Name="protocolTouchpoint" ColumnName="protocolTouchpoint" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

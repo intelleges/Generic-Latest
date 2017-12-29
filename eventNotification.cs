@@ -24,9 +24,9 @@ namespace Generic
         public string accesscode { get; set; }
         public string protocolTouchpoint { get; set; }
         public string applicationName { get; set; }
-        public Nullable<int> enterprise { get; set; }
-        public string loadgroup { get; set; }
         public Nullable<int> reminderSource { get; set; }
         public Nullable<int> automailMessage { get; set; }
+        public Nullable<int> enterprise { get; set; }
+        public string loadgroup { get; set; }
     }
 }

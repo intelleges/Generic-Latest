@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseObjectName" PointX="3" PointY="42.25" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseSystemInfo" PointX="3" PointY="45.25" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.eSignature" PointX="18" PointY="67.25" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.eventNotification" PointX="6.75" PointY="0.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.eventNotificationBounce" PointX="0.75" PointY="6.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.group" PointX="5.25" PointY="57.25" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.groupCollection" PointX="3" PointY="54.375" Width="1.5" IsExpanded="false" />
@@ -318,6 +317,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.touchpointTeam" Width="1.5" PointX="26.375" PointY="22.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personPPTQClause" Width="1.5" PointX="14.375" PointY="25.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireTagComment" Width="1.5" PointX="8.875" PointY="26.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.eventNotification" Width="1.5" PointX="23.375" PointY="26.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

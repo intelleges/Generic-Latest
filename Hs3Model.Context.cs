@@ -41,7 +41,6 @@ namespace Generic
         public virtual DbSet<enterpriseObjectName> enterpriseObjectName { get; set; }
         public virtual DbSet<enterpriseSystemInfo> enterpriseSystemInfo { get; set; }
         public virtual DbSet<eSignature> eSignature { get; set; }
-        public virtual DbSet<eventNotification> eventNotification { get; set; }
         public virtual DbSet<eventNotificationBounce> eventNotificationBounce { get; set; }
         public virtual DbSet<group> group { get; set; }
         public virtual DbSet<groupCollection> groupCollection { get; set; }
@@ -221,6 +220,7 @@ namespace Generic
         public virtual DbSet<touchpointTeam> touchpointTeam { get; set; }
         public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
         public virtual DbSet<questionnaireTagComment> questionnaireTagComment { get; set; }
+        public virtual DbSet<eventNotification> eventNotification { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -2883,40 +2883,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eSignature>("pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire", mergeOption, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual ObjectResult<eventNotification> pr_getEventNotification(Nullable<int> id)
+        public virtual int pr_getEventNotification(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotification", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getEventNotification", idParameter);
         }
     
-        public virtual ObjectResult<eventNotification> pr_getEventNotification(Nullable<int> id, MergeOption mergeOption)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotification", mergeOption, idParameter);
-        }
-    
-        public virtual ObjectResult<eventNotification> pr_getEventNotificationAll(Nullable<int> enterprise)
+        public virtual int pr_getEventNotificationAll(Nullable<int> enterprise)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotificationAll", enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<eventNotification> pr_getEventNotificationAll(Nullable<int> enterprise, MergeOption mergeOption)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<eventNotification>("pr_getEventNotificationAll", mergeOption, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getEventNotificationAll", enterpriseParameter);
         }
     
         public virtual ObjectResult<group> pr_getGroup(Nullable<int> id)
