@@ -35,6 +35,12 @@
         //    return false;
         //});
 
+        @if (ViewBag.MaxDone == true) {
+            <text>
+          alertify.alert('You can not add additional users at this time. Please contact your administrator.');
+                </text>
+        }
+
 
         $("#btnClear").click(function (e) {
             // debugger;
@@ -60,6 +66,15 @@
             return re.test(email);
         }
         function validateControl() {
+
+              @if (ViewBag.MaxDone == true) {
+            <text>
+            alertify.alert('You can not add additional users at this time. Please contact your administrator.');
+            return false;
+                </text>
+        }
+
+
             if ($("#firstName").val() == "") {
                 alertify.alert("First name is required");
                 return false;
@@ -108,7 +123,7 @@
                 alertify.alert("role is required");
                 return false;
             }
-            
+
         }
 
 

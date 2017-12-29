@@ -1067,17 +1067,101 @@ namespace Generic.Controllers
                 Value = o.person.partnerPartnertypeTouchpointQuestionnaire.First().id.ToString()
             }).ToList();
 
-            if(accessCodes.Count>0)
+            if (accessCodes.Count > 0)
                 vm.accessCode = accessCodes.First().id;
 
             return View(vm);
         }
 
         [Authorize]
-        public virtual ActionResult Dashboard2_1()
+        public virtual ActionResult Dashboard2_1(int? id, int? groupid)
         {
-            //var data = db.pr_getDashboardCountForEventByPTQ()
-            return View();
+            Dashboard21 dashBoard = new Dashboard21();
+            int _touchpoint = 0;
+            var groupList = new List<group>();
+
+
+            if (id == null || id == 0)
+                _touchpoint = SessionSingleton.Touchpoint;
+            else
+                _touchpoint = (int)id;
+
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
+
+            List<pr_getDashboardCountForEventByPTQ_Result> objs = new List<pr_getDashboardCountForEventByPTQ_Result>();
+            db.Database.CommandTimeout = 10000;
+            foreach (var ptqItem in ptq)
+            {
+                objs.AddRange(db.pr_getDashboardCountForEventByPTQ(ptqItem.id).ToList());
+            }
+
+            var grsIds = objs.Select(o => o.group).Distinct().ToList();
+            var partnertypesIds = objs.Select(o => o.partnertype).Distinct().ToList();
+            var groupsdb = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID).Where(gro => grsIds.Contains(gro.id)).ToList();
+            var partnerTypes = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).Where(gro => partnertypesIds.Contains(gro.id)).ToList();
+
+            dashBoard.Groups = new List<Dashboard21Group>();
+
+            if (groupid.HasValue)
+            {
+                foreach (var item in groupsdb.Where(o => o.id == groupid.Value))
+                {
+                    Dashboard21Group dg = new Dashboard21Group();
+                    dg.Description = item.description;
+                    dg.Id = item.id;
+                    dg.PartnerTypes = new List<Dashboard21PartnerType>();
+                    var objs1 = objs.Where(o => o.group == item.id).ToList();
+                    var ptIds = objs1.Select(o => o.partnertype).Distinct().ToList();
+                    foreach (var pid in ptIds)
+                    {
+                        Dashboard21PartnerType vmPt = new Dashboard21PartnerType();
+                        vmPt.Data = objs1.Where(o => o.partnertype == pid).ToList();
+                        vmPt.Description = partnerTypes.Where(o => o.id == pid).First().description;
+                        vmPt.Id = partnerTypes.Where(o => o.id == pid).First().id;
+                        dg.PartnerTypes.Add(vmPt);
+                    }
+
+                    dashBoard.Groups.Add(dg);
+                }
+            }
+            else
+            {
+                foreach (var item in groupsdb)
+                {
+                    Dashboard21Group dg = new Dashboard21Group();
+                    dg.Description = item.description;
+                    dg.Id = item.id;
+                    dg.PartnerTypes = new List<Dashboard21PartnerType>();
+                    var objs1 = objs.Where(o => o.group == item.id).ToList();
+                    var ptIds = objs1.Select(o => o.partnertype).Distinct().ToList();
+                    foreach (var pid in ptIds)
+                    {
+                        Dashboard21PartnerType vmPt = new Dashboard21PartnerType();
+                        vmPt.Data = objs1.Where(o => o.partnertype == pid).ToList();
+                        vmPt.Description = partnerTypes.Where(o => o.id == pid).First().description;
+                        vmPt.Id = partnerTypes.Where(o => o.id == pid).First().id;
+                        dg.PartnerTypes.Add(vmPt);
+                    }
+
+                    dashBoard.Groups.Add(dg);
+                }
+            }
+
+
+            if (groupsdb != null && groupsdb.Count > 0)
+            {
+                var groups = new SelectList(groupsdb, "id", "description", groupid);
+                ViewBag.Groups = groups;
+            }
+            else
+            {
+                ViewBag.Groups = null;
+            }
+
+            ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
+            return View(dashBoard);
         }
 
         [Authorize]

@@ -21971,5 +21971,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationCountByTouchpoint_Result>("pr_getEventNotificationCountByTouchpoint", touchpointParameter);
         }
+    
+        public virtual ObjectResult<pr_getUserMaxTotalActiveUsers_Result> pr_getUserMaxTotalActiveUsers(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getUserMaxTotalActiveUsers_Result>("pr_getUserMaxTotalActiveUsers", enterpriseParameter);
+        }
     }
 }

@@ -49,4 +49,28 @@ namespace Generic.ViewModel
         public string groupDescription { get; set; }
         public string pieChart { get; set; }
     }
+
+
+
+    public class Dashboard21
+    {
+        public List<Dashboard21Group> Groups { get; set; }
+    }
+
+    public class Dashboard21Group {
+
+        public int Id { get; set; }
+
+        public string Description { get; set; }
+
+        public List<Dashboard21PartnerType> PartnerTypes { get; set; }
+    }
+
+    public class Dashboard21PartnerType
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+
+        public List<pr_getDashboardCountForEventByPTQ_Result> Data { get; set; }
+    }
 }

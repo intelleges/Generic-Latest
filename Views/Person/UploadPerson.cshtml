@@ -33,6 +33,12 @@
             alertify.alert('Invitation Sent');
         }
 
+           @if (ViewBag.MaxDone == true) {
+            <text>
+          alertify.alert('You can not add additional users at this time. Please contact your administrator.');
+                </text>
+        }
+
 
        @* $('#protocol').change(function () {
             var objProtocolID = $('#protocol').val();
@@ -87,7 +93,7 @@
         });
 
 
-        
+
 
         $('#btnInvite').click(function (e) {
             e.preventDefault();
@@ -170,7 +176,7 @@
                         alertify.alert(data.Data.message);
                     }
                 });
-          });*@       
+          });*@
 
     });
 </script>
@@ -201,8 +207,16 @@
         </div>
     </div>
     <p id="btnUploadDiv" >
-        <input type="submit" name="button" id="btnUpload" value="Upload" />
+       
 
+        @if (ViewBag.MaxDone == true)
+        {
+            <input type="button" name="button" id="btnUpload" value="Upload"  onclick="alertify.alert('You can not add additional users at this time. Please contact your administrator.'); return false;"/>
+        }
+        else
+        {
+            <input type="submit" name="button" id="btnUpload" value="Upload" />
+        }
     </p>
    @* <p>
         <input type="submit" name="button" id="btnInvite" style="display: none" value="Send invites now" />

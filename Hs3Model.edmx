@@ -7689,6 +7689,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getTranslationByResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="response" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getUserMaxTotalActiveUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getViewPartnerDataByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -17212,7 +17215,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getEventNotificationCountByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationCountByTouchpoint_Result)">
-            <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getUserMaxTotalActiveUsers" ReturnType="Collection(hs3MVCMTQa2Model.pr_getUserMaxTotalActiveUsers_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29478,6 +29484,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="event" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Column1" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getUserMaxTotalActiveUsers_Result">
+          <Property Type="Int32" Name="enterprise_usermax" Nullable="true" />
+          <Property Type="Int32" Name="total_active_users" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40832,6 +40842,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationCountByTouchpoint_Result">
                 <ScalarProperty Name="event" ColumnName="event" />
                 <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getUserMaxTotalActiveUsers" FunctionName="hs3MVCMTQa2Model.Store.pr_getUserMaxTotalActiveUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getUserMaxTotalActiveUsers_Result">
+                <ScalarProperty Name="enterprise_usermax" ColumnName="enterprise_usermax" />
+                <ScalarProperty Name="total_active_users" ColumnName="total_active_users" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

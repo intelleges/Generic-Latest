@@ -231,7 +231,7 @@
 
                                 <div style="margin-top: -20px;">
 
-                                    @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
+                                    @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
                                     {
                                         <div id="rootMenu" style="float:left;">
                                             <a href="#">Welcome</a>
@@ -613,25 +613,29 @@
     </text>)
     )
 
+@if (Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
+{
+
     <script>
         function Update_Dashboard_Values() {
             var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
             var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
             window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
-            @*$.ajax({
-            url: '@Url.Action("Dashbord1", "Admin")',
-            type: 'GET',
-            dataType: 'html',
-            // we set cache: false because GET requests are often cached by browsers
-            // IE is particularly aggressive in that respect
-            cache: false,
-            data: { id: touchPointId, groupid: groupId },
-            success: function (data) {
-                debugger;
-            }
-        });*@
         }
     </script>
+}
+
+
+@if (Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
+{
+    <script>
+        function Update_Dashboard_Values() {
+            var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+            var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+            window.location = "dashboard2_1?id=" + touchPointId + "&groupid=" + groupId;
+        }
+    </script>
+}
 
 </body>
 

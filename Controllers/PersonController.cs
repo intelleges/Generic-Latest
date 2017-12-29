@@ -53,8 +53,13 @@ namespace Generic.Controllers
 
         public ActionResult UploadPerson()
         {
+            var max = db.pr_getUserMaxTotalActiveUsers(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            if (max.total_active_users >= max.enterprise_usermax)
+                ViewBag.MaxDone = true;
+
             return View();
         }
+
         [HttpPost]
         public ActionResult UploadPerson(HttpPostedFileBase uploadPerson)
         {
@@ -212,6 +217,11 @@ namespace Generic.Controllers
                 ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
                 ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             }
+           
+            var max = db.pr_getUserMaxTotalActiveUsers(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            if (max.total_active_users >= max.enterprise_usermax)
+                ViewBag.MaxDone = true;
+
             return View();
         }
 
