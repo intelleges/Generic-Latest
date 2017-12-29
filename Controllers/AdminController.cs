@@ -1090,11 +1090,11 @@ namespace Generic.Controllers
             var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
             ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
 
-            List<pr_getDashboardCountForEventByPTQ_Result> objs = new List<pr_getDashboardCountForEventByPTQ_Result>();
+            List<pr_getDashboardCountForEventByPTQ2_Result> objs = new List<pr_getDashboardCountForEventByPTQ2_Result>();
             db.Database.CommandTimeout = 10000;
             foreach (var ptqItem in ptq)
             {
-                objs.AddRange(db.pr_getDashboardCountForEventByPTQ(ptqItem.id).ToList());
+                objs.AddRange(db.pr_getDashboardCountForEventByPTQ2(ptqItem.id).ToList());
             }
 
             var grsIds = objs.Select(o => o.group).Distinct().ToList();

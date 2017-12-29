@@ -21962,5 +21962,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getUserMaxTotalActiveUsers_Result>("pr_getUserMaxTotalActiveUsers", enterpriseParameter);
         }
+    
+        public virtual ObjectResult<pr_getDashboardCountForEventByPTQ2_Result> pr_getDashboardCountForEventByPTQ2(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForEventByPTQ2_Result>("pr_getDashboardCountForEventByPTQ2", ptqParameter);
+        }
     }
 }

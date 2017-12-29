@@ -71,6 +71,6 @@ namespace Generic.ViewModel
         public int Id { get; set; }
         public string Description { get; set; }
 
-        public List<pr_getDashboardCountForEventByPTQ_Result> Data { get; set; }
+        public List<pr_getDashboardCountForEventByPTQ2_Result> Data { get; set; }
     }
 }

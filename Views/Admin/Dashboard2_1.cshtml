@@ -114,61 +114,37 @@
                     @foreach (var partnerType in item.PartnerTypes.Distinct())
                     {
 
-                        var sent = partnerType.Data.Where(o => o.@event == "sent").FirstOrDefault();
+                        var sent = partnerType.Data.Where(o => o.@event == "sent").ToList();
                         int sentTotal = 0;
-                        if (sent != null)
-                        {
-                            sentTotal = sent.total ?? 0;
-                        }
+                        sentTotal = sent.Sum(o => o.total ?? 0);
 
-                        var processed = partnerType.Data.Where(o => o.@event == "processed").FirstOrDefault();
+                        var processed = partnerType.Data.Where(o => o.@event == "processed").ToList();
                         int processedTotal = 0;
-                        if (processed != null)
-                        {
-                            processedTotal = processed.total ?? 0;
-                        }
+                        processedTotal = processed.Sum(o => o.total ?? 0);
 
-                        var bounced = partnerType.Data.Where(o => o.@event == "bounced").FirstOrDefault();
+                        var bounced = partnerType.Data.Where(o => o.@event == "bounce").ToList();
                         int bouncedTotal = 0;
-                        if (bounced != null)
-                        {
-                            bouncedTotal = bounced.total ?? 0;
-                        }
+                        bouncedTotal = bounced.Sum(o => o.total ?? 0);
 
-                        var deferred = partnerType.Data.Where(o => o.@event == "deferred").FirstOrDefault();
+                        var deferred = partnerType.Data.Where(o => o.@event == "deferred").ToList();
                         int deferredTotal = 0;
-                        if (deferred != null)
-                        {
-                            deferredTotal = deferred.total ?? 0;
-                        }
+                        deferredTotal = deferred.Sum(o => o.total ?? 0);
 
-                        var dropped = partnerType.Data.Where(o => o.@event == "dropped").FirstOrDefault();
+                        var dropped = partnerType.Data.Where(o => o.@event == "dropped").ToList();
                         int droppedTotal = 0;
-                        if (dropped != null)
-                        {
-                            droppedTotal = dropped.total ?? 0;
-                        }
+                        droppedTotal = dropped.Sum(o => o.total ?? 0);
 
-                        var delivered = partnerType.Data.Where(o => o.@event == "delivered").FirstOrDefault();
+                        var delivered = partnerType.Data.Where(o => o.@event == "delivered").ToList();
                         int deliveredTotal = 0;
-                        if (delivered != null)
-                        {
-                            deliveredTotal = delivered.total ?? 0;
-                        }
+                        deliveredTotal = delivered.Sum(o => o.total ?? 0);
 
-                        var opened = partnerType.Data.Where(o => o.@event == "opened").FirstOrDefault();
+                        var opened = partnerType.Data.Where(o => o.@event == "open").ToList();
                         int openedTotal = 0;
-                        if (opened != null)
-                        {
-                            openedTotal = opened.total ?? 0;
-                        }
+                        openedTotal = opened.Sum(o => o.total ?? 0);
 
-                        var clicked = partnerType.Data.Where(o => o.@event == "clicked").FirstOrDefault();
+                        var clicked = partnerType.Data.Where(o => o.@event == "click").ToList();
                         int clickedTotal = 0;
-                        if (clicked != null)
-                        {
-                            clickedTotal = clicked.total ?? 0;
-                        }
+                        clickedTotal = clicked.Sum(o => o.total ?? 0);
 
                         <tr>
                             <td class="AlgnRight"> @sentTotal&nbsp; </td>

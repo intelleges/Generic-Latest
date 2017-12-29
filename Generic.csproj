@@ -1303,6 +1303,9 @@
     <Compile Include="pr_getDailyCountAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getDashboardCountForEventByPTQ2_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getDashboardCountForEventByPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
