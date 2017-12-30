@@ -1092,9 +1092,23 @@ namespace Generic.Controllers
 
             List<pr_getDashboardCountForEventByPTQ2_Result> objs = new List<pr_getDashboardCountForEventByPTQ2_Result>();
             db.Database.CommandTimeout = 10000;
+            Dictionary<int, string> grptq = new Dictionary<int, string>();
             foreach (var ptqItem in ptq)
             {
-                objs.AddRange(db.pr_getDashboardCountForEventByPTQ2(ptqItem.id).ToList());
+                var items = db.pr_getDashboardCountForEventByPTQ2(ptqItem.id).ToList();
+                objs.AddRange(items);
+                var gIds = items.Select(o => o.group).Distinct().ToList();
+                foreach (var item in gIds)
+                {
+                    if (grptq.ContainsKey(item))
+                    {
+                        grptq[item] = grptq[item] + ptqItem.id.ToString() + ",";
+                    }
+                    else
+                    {
+                        grptq.Add(item, ptqItem.id.ToString() + ",");
+                    }
+                }
             }
 
             var grsIds = objs.Select(o => o.group).Distinct().ToList();
@@ -1111,6 +1125,11 @@ namespace Generic.Controllers
                     Dashboard21Group dg = new Dashboard21Group();
                     dg.Description = item.description;
                     dg.Id = item.id;
+                    if (grptq.ContainsKey(item.id))
+                    {
+                        dg.PtqId = grptq[item.id].Substring(0, grptq[item.id].Length - 1);
+                    }
+
                     dg.PartnerTypes = new List<Dashboard21PartnerType>();
                     var objs1 = objs.Where(o => o.group == item.id).ToList();
                     var ptIds = objs1.Select(o => o.partnertype).Distinct().ToList();
@@ -1136,6 +1155,11 @@ namespace Generic.Controllers
                     Dashboard21Group dg = new Dashboard21Group();
                     dg.Description = item.description;
                     dg.Id = item.id;
+                    if (grptq.ContainsKey(item.id))
+                    {
+                        dg.PtqId = grptq[item.id].Substring(0, grptq[item.id].Length - 1);
+                    }
+
                     dg.PartnerTypes = new List<Dashboard21PartnerType>();
                     var objs1 = objs.Where(o => o.group == item.id).ToList();
                     var ptIds = objs1.Select(o => o.partnertype).Distinct().ToList();
@@ -1168,6 +1192,49 @@ namespace Generic.Controllers
 
             ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
             return View(dashBoard);
+        }
+
+        [Authorize]
+        public virtual ActionResult Notifications(string ptq, int group, int partnerType, string ev)
+        {
+            Session["notificationsearch"] = new NotificationsSearchModel()
+            {
+                ev = ev,
+                group = group,
+                partnerType = partnerType,
+                ptq = ptq
+
+            };
+            return RedirectToAction("NotificationsResult");
+        }
+
+        [Authorize]
+        public ActionResult NotificationsResult()
+        {
+            NotificationsSearchModel model = Session["notificationsearch"] as NotificationsSearchModel;
+            List<NotificationItem> items = new List<NotificationItem>();
+            if (model != null)
+            {
+                string[] arr = model.ptq.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                var gr = db.pr_getGroup(model.group).First().description;
+                var pr = db.pr_getParnterType(model.partnerType).First().description;
+
+                foreach (var item in arr)
+                {
+                    items.AddRange(db.pr_getEventNotificationByPTQPartnerTypeGroupAndEvent(Convert.ToInt32(item), model.partnerType, model.group, model.ev).Select(o => new NotificationItem()
+                    {
+                        Title = o.protocolTouchpoint,
+                        AccessCode = o.accesscode,
+                        Event = o.@event,
+                        Email = o.email,
+                        Reason = o.reason,
+                        TimeStamp = o.timestamp,
+                        Group = gr,
+                        PartnerType = pr
+                    }).ToList());
+                }
+            }
+            return View(items);
         }
 
         [Authorize]

@@ -143,21 +143,28 @@
                         clickedTotal = clicked.Sum(o => o.total ?? 0);
 
                         <tr>
-                            <td class="AlgnRight"> @sentTotal&nbsp; </td>
-                            <td class="AlgnRight"> @processedTotal&nbsp; </td>
-                            <td class="AlgnRight"> @bouncedTotal&nbsp; </td>
-                            <td class="AlgnRight"> @deferredTotal&nbsp; </td>
-                            <td class="AlgnRight"> @droppedTotal&nbsp; </td>
+                            <td class="AlgnRight">
+                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=sent" target="_blank">
+                                    @sentTotal
+                                </a>
+
+                           &nbsp; </td>
+                            <td class="AlgnRight"> <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=processed" target="_blank">@processedTotal </a>&nbsp; </td>
+
+
+                            <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=bounce" target="_blank"> @bouncedTotal&nbsp;</a> </td>
+                            <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=deferred" target="_blank"> @deferredTotal&nbsp; </a></td>
+                            <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=dropped" target="_blank"> @droppedTotal&nbsp; </a></td>
                             <td class="AlgnRight" style="background-color: #E56D38">
-                                @deliveredTotal&nbsp;
-                            </td>
+                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=delivered" target="_blank"> @deliveredTotal</a>&nbsp;
+</td>
 
                             <td class="AlgnRight" style="background-color:#FDEB41">
-                                @openedTotal&nbsp;
-                            </td>
+                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=open" target="_blank"> @openedTotal</a>&nbsp;
+</td>
                             <td class="AlgnRight" style="background-color: #BCD637">
-                                @clickedTotal&nbsp;
-                            </td>
+                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=click" target="_blank"> @clickedTotal</a>&nbsp;
+</td>
 
                         </tr>
                     }

@@ -61,6 +61,8 @@ namespace Generic.ViewModel
 
         public int Id { get; set; }
 
+        public string PtqId { get; set; }
+
         public string Description { get; set; }
 
         public List<Dashboard21PartnerType> PartnerTypes { get; set; }

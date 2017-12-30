@@ -1,0 +1,97 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.NotificationItem>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Notifications";
+}
+
+<style>
+    div#PartnerGrid {
+        font-size: 11px;
+    }
+
+    #modal {
+        height: 489px;
+    }
+
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
+
+    .modal-dialog {
+        z-index: 1050;
+    }
+
+    #partnersDocGrid {
+        font-size: 11px;
+    }
+
+        #partnersDocGrid .t-header {
+            padding: .8em .8em !important;
+        }
+</style>
+
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Title).Title("Title").Width(150).Encoded(false);
+            columns.Bound(o => o.Group).Title("Group");
+            columns.Bound(o => o.PartnerType).Title("PartnerType");
+            columns.Bound(o => o.Event).Title("Event");
+            columns.Bound(o => o.Email).Title("Email").Width(200);
+            columns.Bound(o => o.TimeStamp).Title("TimeStamp");
+            columns.Bound(o => o.AccessCode).Title("AccessCode");
+            columns.Bound(o => o.Reason).Title("Reason").Width(200);
+        })
+                        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                        .Sortable(sorting => sorting.Enabled(true))
+
+                        .Scrollable(scrolling => scrolling
+                        .Enabled(true)
+                        .Height(380))
+                        .HtmlAttributes(new { @class = "ra" })
+)
+
+
+<style>
+    .t-grid-content {
+        overflow-x: scroll !important;
+    }
+
+        .t-grid-content tr > td:hover .menu_block + .display_menu {
+            display: block !important;
+        }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+
+    #madalEmailForm .table td[colspan='5'] {
+        text-align: center;
+    }
+</style>
+

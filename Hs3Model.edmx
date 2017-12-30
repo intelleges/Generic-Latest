@@ -6466,6 +6466,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="protocoltouchpoint" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getEventNotificationByPTQPartnerTypeGroupAndEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ptq" Type="int" Mode="In" />
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="group" Type="int" Mode="In" />
+          <Parameter Name="event" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getEventNotificationByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="touchpoint" Type="int" Mode="In" />
@@ -17224,7 +17230,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </FunctionImport>
           <EntitySet Name="eventNotification" EntityType="hs3MVCMTQa2Model.eventNotification" />
           <FunctionImport Name="pr_getDashboardCountForEventByPTQ2" ReturnType="Collection(hs3MVCMTQa2Model.pr_getDashboardCountForEventByPTQ2_Result)">
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getEventNotificationByPTQPartnerTypeGroupAndEvent" ReturnType="Collection(hs3MVCMTQa2Model.pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result)">
             <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="group" Mode="In" Type="Int32" />
+            <Parameter Name="event" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29501,6 +29513,22 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="event" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="total" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="event" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="category" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="accesscode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="protocolTouchpoint" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="applicationName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="reminderSource" Nullable="true" />
+          <Property Type="Int32" Name="automailMessage" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40867,6 +40895,26 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="partnertype" ColumnName="partnertype" />
                 <ScalarProperty Name="event" ColumnName="event" />
                 <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getEventNotificationByPTQPartnerTypeGroupAndEvent" FunctionName="hs3MVCMTQa2Model.Store.pr_getEventNotificationByPTQPartnerTypeGroupAndEvent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="event" ColumnName="event" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="protocolTouchpoint" ColumnName="protocolTouchpoint" />
+                <ScalarProperty Name="applicationName" ColumnName="applicationName" />
+                <ScalarProperty Name="reminderSource" ColumnName="reminderSource" />
+                <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

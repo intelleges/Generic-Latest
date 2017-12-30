@@ -21971,5 +21971,26 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForEventByPTQ2_Result>("pr_getDashboardCountForEventByPTQ2", ptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result> pr_getEventNotificationByPTQPartnerTypeGroupAndEvent(Nullable<int> ptq, Nullable<int> partnertype, Nullable<int> group, string @event)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var eventParameter = @event != null ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result>("pr_getEventNotificationByPTQPartnerTypeGroupAndEvent", ptqParameter, partnertypeParameter, groupParameter, eventParameter);
+        }
     }
 }

@@ -882,6 +882,7 @@
     <Compile Include="Models\FindPODSViewModel.cs" />
     <Compile Include="Models\FRPJModel.cs" />
     <Compile Include="Models\LCEModel.cs" />
+    <Compile Include="Models\NotificationsModels.cs" />
     <Compile Include="Models\SendGridCategory.cs" />
     <Compile Include="multiTenantProjectType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
@@ -1397,6 +1398,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotificationByProtocolTouchpointCategoryDailyCount_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getEventNotificationByTouchpointAndEvent_Result.cs">
@@ -5348,6 +5352,7 @@
     <Content Include="Views\Admin\Dashboard2.cshtml" />
     <Content Include="Views\Admin\GetDashboard2Result.cshtml" />
     <Content Include="Views\Admin\Dashboard2_1.cshtml" />
+    <Content Include="Views\Admin\NotificationsResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
