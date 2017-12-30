@@ -1104,7 +1104,7 @@ namespace Generic.Controllers
 
             dashBoard.Groups = new List<Dashboard21Group>();
 
-            if (groupid.HasValue)
+            if (groupid.HasValue && groupid != 0)
             {
                 foreach (var item in groupsdb.Where(o => o.id == groupid.Value))
                 {
@@ -1116,10 +1116,13 @@ namespace Generic.Controllers
                     var ptIds = objs1.Select(o => o.partnertype).Distinct().ToList();
                     foreach (var pid in ptIds)
                     {
+                        var p = partnerTypes.Where(o => o.id == pid).FirstOrDefault();
+                        if (p == null) continue;
+
                         Dashboard21PartnerType vmPt = new Dashboard21PartnerType();
                         vmPt.Data = objs1.Where(o => o.partnertype == pid).ToList();
-                        vmPt.Description = partnerTypes.Where(o => o.id == pid).First().description;
-                        vmPt.Id = partnerTypes.Where(o => o.id == pid).First().id;
+                        vmPt.Description = p.description;
+                        vmPt.Id = p.id;
                         dg.PartnerTypes.Add(vmPt);
                     }
 
@@ -1138,10 +1141,13 @@ namespace Generic.Controllers
                     var ptIds = objs1.Select(o => o.partnertype).Distinct().ToList();
                     foreach (var pid in ptIds)
                     {
+                        var p = partnerTypes.Where(o => o.id == pid).FirstOrDefault();
+                        if (p == null) continue;
+
                         Dashboard21PartnerType vmPt = new Dashboard21PartnerType();
                         vmPt.Data = objs1.Where(o => o.partnertype == pid).ToList();
-                        vmPt.Description = partnerTypes.Where(o => o.id == pid).First().description;
-                        vmPt.Id = partnerTypes.Where(o => o.id == pid).First().id;
+                        vmPt.Description = p.description;
+                        vmPt.Id = p.id;
                         dg.PartnerTypes.Add(vmPt);
                     }
 
