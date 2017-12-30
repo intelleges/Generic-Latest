@@ -6,7 +6,22 @@
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = ViewBag.enterpriseName + "Admin";
+
+    int groupCount = 0;
+    try
+    {
+
+        groupCount = Model.Groups.Count();
+    }
+    catch { }
+
+    int groupAdded = 0;
+
+    decimal c = decimal.Parse(groupCount.ToString()) / 2;
+    int c2 = groupCount % 2 > 0 ? 1 : 0;
+    int partnerTablesCount = int.Parse(Math.Floor(c).ToString()) + c2;
 }
+
 <style type="text/css">
     table.PartnerTypes {
         border-collapse: collapse;
@@ -59,7 +74,7 @@
     }
 </style>
 
-@foreach (var item in Model.Groups)
+@for (int m = 0; m < partnerTablesCount; m++)
 {
     <table id="OuterTable">
         <tr>
@@ -75,117 +90,137 @@
                             &nbsp;
                         </td>
                     </tr>
-                    @foreach (var partnerType in item.PartnerTypes.Distinct())
+                    @foreach (var partnerType in Model.PartnerTypes.Distinct())
                     {
+
                         <tr>
-                            <td id="@partnerType.Id" class="AlgnRight"><span>&nbsp;&nbsp;@partnerType.Description.Trim()&nbsp;&nbsp;</span></td>
+                            <td id="@partnerType.id" class="AlgnRight"><span>&nbsp;&nbsp;@partnerType.description.Trim()&nbsp;&nbsp;</span></td>
                         </tr>
                     }
 
                     <tr>
-                        <td class="AlgnRight"> &nbsp;</td>
+                        <td class="AlgnRight"><span>&nbsp;&nbsp;<strong>Total</strong>&nbsp;&nbsp;</span></td>
                     </tr>
                 </table>
             </td>
             <td style="border-left:0">
-                <table class="TestTable">
-
-                    <tr style="background-color:darkblue; color: white;">
-                        <th colspan="8" class="groupLabel">
-                            @item.Description
-
-                        </th>
-                    </tr>
-
-                    <tr>
-                        <td class="AlgnRight" title="Sent">S&nbsp;</td>
-                        <td class="AlgnRight" title="Processed">P&nbsp;</td>
-                        <td class="AlgnRight" title="Bounced">B&nbsp;</td>
-                        <td class="AlgnRight" title="Deferred">F&nbsp;</td>
-                        <td class="AlgnRight" title="Dropped">X&nbsp;</td>
-                        <td class="AlgnRight" title="Delivered">D&nbsp;</td>
-                        <td class="AlgnRight" title="Opened">O&nbsp;</td>
-                        <td class="AlgnRight" title="Clicked">C&nbsp;</td>
-                    </tr>
-                    @foreach (var partnerType in item.PartnerTypes.Distinct())
+                @for (int n = 0; n < 2; n++)
+                {
+                    if (groupAdded < groupCount)
                     {
+                        int? totalSent = 0, totalProcessed = 0, totalBounce = 0, totalDeferred = 0, totalDropped = 0, totalDelivered = 0, totalOpen = 0, totalClick = 0;
 
-                        var sent = partnerType.Data.Where(o => o.@event == "sent").ToList();
-                        int sentTotal = 0;
-                        sentTotal = sent.Sum(o => o.total ?? 0);
+                        <table class="TestTable">
 
-                        var processed = partnerType.Data.Where(o => o.@event == "processed").ToList();
-                        int processedTotal = 0;
-                        processedTotal = processed.Sum(o => o.total ?? 0);
+                            <tr style="background-color:darkblue; color: white;">
+                                <th colspan="8" class="groupLabel">
+                                    @Model.Groups[groupAdded].Description
 
-                        var bounced = partnerType.Data.Where(o => o.@event == "bounce").ToList();
-                        int bouncedTotal = 0;
-                        bouncedTotal = bounced.Sum(o => o.total ?? 0);
+                                </th>
+                            </tr>
 
-                        var deferred = partnerType.Data.Where(o => o.@event == "deferred").ToList();
-                        int deferredTotal = 0;
-                        deferredTotal = deferred.Sum(o => o.total ?? 0);
+                            <tr>
+                                <td class="AlgnRight" title="Sent">S&nbsp;</td>
+                                <td class="AlgnRight" title="Processed">P&nbsp;</td>
+                                <td class="AlgnRight" title="Bounced">B&nbsp;</td>
+                                <td class="AlgnRight" title="Deferred">F&nbsp;</td>
+                                <td class="AlgnRight" title="Dropped">X&nbsp;</td>
+                                <td class="AlgnRight" title="Delivered">D&nbsp;</td>
+                                <td class="AlgnRight" title="Opened">O&nbsp;</td>
+                                <td class="AlgnRight" title="Clicked">C&nbsp;</td>
+                            </tr>
+                            @foreach (var partnerType in Model.PartnerTypes)
+                            {
+                                <tr>
+                                    <td class="AlgnRight">
+                                        <a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=sent" target="_blank">
+                                            @{ int? sentTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "sent").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                totalSent += sentTotal;
+                                            }
 
-                        var dropped = partnerType.Data.Where(o => o.@event == "dropped").ToList();
-                        int droppedTotal = 0;
-                        droppedTotal = dropped.Sum(o => o.total ?? 0);
+                                            @sentTotal
 
-                        var delivered = partnerType.Data.Where(o => o.@event == "delivered").ToList();
-                        int deliveredTotal = 0;
-                        deliveredTotal = delivered.Sum(o => o.total ?? 0);
+                                        </a>
 
-                        var opened = partnerType.Data.Where(o => o.@event == "open").ToList();
-                        int openedTotal = 0;
-                        openedTotal = opened.Sum(o => o.total ?? 0);
+                                       
+                                    </td>
+                                    <td class="AlgnRight"> <a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=processed" target="_blank">
+                                                               @{ int? processedTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "processed").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                                   totalProcessed += processedTotal;
+                                                               }
 
-                        var clicked = partnerType.Data.Where(o => o.@event == "click").ToList();
-                        int clickedTotal = 0;
-                        clickedTotal = clicked.Sum(o => o.total ?? 0);
-
-                        <tr>
-                            <td class="AlgnRight">
-                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=sent" target="_blank">
-                                    @sentTotal
-                                </a>
-
-                           &nbsp; </td>
-                            <td class="AlgnRight"> <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=processed" target="_blank">@processedTotal </a>&nbsp; </td>
+                                                               @processedTotal
+                                          </a></td>
 
 
-                            <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=bounce" target="_blank"> @bouncedTotal&nbsp;</a> </td>
-                            <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=deferred" target="_blank"> @deferredTotal&nbsp; </a></td>
-                            <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=dropped" target="_blank"> @droppedTotal&nbsp; </a></td>
-                            <td class="AlgnRight" style="background-color: #E56D38">
-                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=delivered" target="_blank"> @deliveredTotal</a>&nbsp;
-</td>
+                                    <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=bounce" target="_blank">
+                                                              @{ int? bouncedTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "bounce").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                                  totalBounce += bouncedTotal;
+                                                              }
 
-                            <td class="AlgnRight" style="background-color:#FDEB41">
-                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=open" target="_blank"> @openedTotal</a>&nbsp;
-</td>
-                            <td class="AlgnRight" style="background-color: #BCD637">
-                                <a style="text-decoration:none" href="~/admin/notifications?ptq=@item.PtqId&partnerType=@partnerType.Id&group=@item.Id&ev=click" target="_blank"> @clickedTotal</a>&nbsp;
-</td>
+                                                             @bouncedTotal
+                                   
+                                    </a> </td>
+                                    <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=deferred" target="_blank"> 
+                                                              @{ int? deferredTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "deferred").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                                  totalDeferred += deferredTotal;
+                                                              }
 
-                        </tr>
+
+                                        @deferredTotal
+                                       </a></td>
+                                    <td class="AlgnRight"><a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=dropped" target="_blank"> 
+                                                              @{ int? droppedTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "dropped").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                                                  totalDropped += droppedTotal;
+                                                              }
+
+
+                                        @droppedTotal</a></td>
+                                    <td class="AlgnRight" style="background-color: #E56D38">
+                                        <a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=delivered" target="_blank"> 
+                                        @{ int? deliveredTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "delivered").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                            totalDelivered += deliveredTotal;
+                                        }
+                                        @deliveredTotal</a>
+                                    </td>
+
+                                    <td class="AlgnRight" style="background-color:#FDEB41">
+                                        <a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=open" target="_blank"> 
+                                        @{ int? openedTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "open").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                            totalOpen += openedTotal;
+                                        }
+                                        @openedTotal</a>
+                                    </td>
+                                    <td class="AlgnRight" style="background-color: #BCD637">
+                                        <a style="text-decoration:none" href="~/admin/notifications?ptq=@Model.Groups[groupAdded].PtqId&partnerType=@partnerType.id&group=@Model.Groups[groupAdded].Id&ev=click" target="_blank"> 
+                                        @{ int? clickedTotal = Model.Objs.Where(x => x.partnertype == partnerType.id && x.group == Model.Groups[groupAdded].Id && x.@event == "click").Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
+                                            totalClick += clickedTotal;
+                                        }
+                                        @clickedTotal</a>
+                                    </td>
+
+                                </tr>
+                            }
+
+
+                            <tr>
+                                <td class="AlgnRight" title="Sent">@totalSent&nbsp;</td>
+                                <td class="AlgnRight" title="Processed">@totalProcessed&nbsp;</td>
+                                <td class="AlgnRight" title="Bounced">@totalBounce&nbsp;</td>
+                                <td class="AlgnRight" title="Deferred">@totalDeferred&nbsp;</td>
+                                <td class="AlgnRight" title="Dropped">@totalDropped&nbsp;</td>
+                                <td class="AlgnRight" title="Delivered">@totalDelivered&nbsp;</td>
+                                <td class="AlgnRight" title="Opened">@totalOpen&nbsp;</td>
+                                <td class="AlgnRight" title="Clicked">@totalClick&nbsp;</td>
+                            </tr>
+                        </table>
+
+                        groupAdded++;
                     }
-
-                    <tr>
-                        <td class="AlgnRight" title="Sent">S&nbsp;</td>
-                        <td class="AlgnRight" title="Processed">P&nbsp;</td>
-                        <td class="AlgnRight" title="Bounced">B&nbsp;</td>
-                        <td class="AlgnRight" title="Deferred">F&nbsp;</td>
-                        <td class="AlgnRight" title="Dropped">X&nbsp;</td>
-                        <td class="AlgnRight" title="Delivered">D&nbsp;</td>
-                        <td class="AlgnRight" title="Opened">O&nbsp;</td>
-                        <td class="AlgnRight" title="Clicked">C&nbsp;</td>
-                    </tr>
-                </table>
-
+                }
             </td>
         </tr>
     </table>
-
-
 }
 
 <script>

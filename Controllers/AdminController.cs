@@ -1077,6 +1077,8 @@ namespace Generic.Controllers
         public virtual ActionResult Dashboard2_1(int? id, int? groupid)
         {
             Dashboard21 dashBoard = new Dashboard21();
+            dashBoard.Objs = new List<pr_getDashboardCountForEventByPTQ2_Result>();
+            dashBoard.PartnerTypes = new List<partnerType>();
             int _touchpoint = 0;
             var groupList = new List<group>();
 
@@ -1091,12 +1093,12 @@ namespace Generic.Controllers
             ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
 
             List<pr_getDashboardCountForEventByPTQ2_Result> objs = new List<pr_getDashboardCountForEventByPTQ2_Result>();
-            db.Database.CommandTimeout = 10000;
             Dictionary<int, string> grptq = new Dictionary<int, string>();
             foreach (var ptqItem in ptq)
             {
                 var items = db.pr_getDashboardCountForEventByPTQ2(ptqItem.id).ToList();
                 objs.AddRange(items);
+                dashBoard.Objs.AddRange(items);
                 var gIds = items.Select(o => o.group).Distinct().ToList();
                 foreach (var item in gIds)
                 {
@@ -1115,6 +1117,7 @@ namespace Generic.Controllers
             var partnertypesIds = objs.Select(o => o.partnertype).Distinct().ToList();
             var groupsdb = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID).Where(gro => grsIds.Contains(gro.id)).ToList();
             var partnerTypes = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).Where(gro => partnertypesIds.Contains(gro.id)).ToList();
+            dashBoard.PartnerTypes = partnerTypes;
 
             dashBoard.Groups = new List<Dashboard21Group>();
 

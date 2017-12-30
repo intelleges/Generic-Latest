@@ -55,6 +55,10 @@ namespace Generic.ViewModel
     public class Dashboard21
     {
         public List<Dashboard21Group> Groups { get; set; }
+
+        public List<pr_getDashboardCountForEventByPTQ2_Result> Objs { get; set; }
+
+        public List<partnerType> PartnerTypes { get; set; }
     }
 
     public class Dashboard21Group {
