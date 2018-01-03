@@ -3392,7 +3392,7 @@
  <li><a href='#' onclick='changeLastContact(<#=id#>,15);'>No Touchpoint</a></li>
         </ul>
     </div>
-").Filterable(false);
+").Filterable(true);
     columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120).Filterable(false);
     columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
     columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
