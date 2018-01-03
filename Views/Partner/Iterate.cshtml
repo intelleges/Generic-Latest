@@ -760,7 +760,22 @@
             	$("#updateDialog #lastName").val(rowData.lastname);
             	$("#updateDialog #title").val(rowData.title);
             	$("#updateDialog #email").val(rowData.email);
-            	$("#updateDialog #phone").val(rowData.phone);
+                $("#updateDialog #phone").val(rowData.phone);
+
+                if (rowData.phone == 9999999999) {
+                    $.fancybox.showLoading();
+                    $.post("@Url.Action("SearchAlternative", "Partner")", { name: rowData.name, email: rowData.email, lastname: rowData.lastname })
+                        .done(function (data) {
+                            $.fancybox.hideLoading();
+                            if (data.length != 0) {
+                                //alertify.alert('we have match would you like to update.');
+                            }
+                            else {
+                                //alertify.alert('there is no match, sorry.');
+                            }
+                        });
+                }
+
             	$("#updateDialog").modal("toggle");
             }
             if ($(this).text() === "Nurture/Remind") {

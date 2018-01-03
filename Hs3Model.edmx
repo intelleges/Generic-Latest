@@ -6625,6 +6625,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getIteratePersonAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getIteratePersonAlternative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getIteratePersonNextAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIteratePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getIterateStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -17237,6 +17242,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="group" Mode="In" Type="Int32" />
             <Parameter Name="event" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getIteratePersonAlternative" ReturnType="Collection(hs3MVCMTQa2Model.pr_getIteratePersonAlternative_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29529,6 +29539,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="enterprise" Nullable="true" />
           <Property Type="String" Name="loadgroup" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="pr_getIteratePersonAlternative_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="parent" Nullable="true" />
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="middlename" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="duns2" Nullable="false" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40915,6 +40936,21 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="automailMessage" ColumnName="automailMessage" />
                 <ScalarProperty Name="enterprise" ColumnName="enterprise" />
                 <ScalarProperty Name="loadgroup" ColumnName="loadgroup" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getIteratePersonAlternative" FunctionName="hs3MVCMTQa2Model.Store.pr_getIteratePersonAlternative">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getIteratePersonAlternative_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="parent" ColumnName="parent" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="duns2" ColumnName="duns2" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

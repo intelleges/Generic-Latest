@@ -1556,6 +1556,9 @@
     <Compile Include="pr_getIteratePersonAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getIteratePersonAlternative_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getIteratePersonNextAction_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

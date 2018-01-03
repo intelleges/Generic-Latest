@@ -1727,6 +1727,12 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public ActionResult SearchAlternative(string email, string name, string lastname) {
+            var items = db.pr_getIteratePersonAlternative(email, name, lastname).ToList();
+            return Json(items);
+        }
+
+        [HttpPost]
         public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
         {
             db.xx_removePDFFrom5346();

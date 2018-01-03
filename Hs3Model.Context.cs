@@ -21992,5 +21992,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEventNotificationByPTQPartnerTypeGroupAndEvent_Result>("pr_getEventNotificationByPTQPartnerTypeGroupAndEvent", ptqParameter, partnertypeParameter, groupParameter, eventParameter);
         }
+    
+        public virtual ObjectResult<pr_getIteratePersonAlternative_Result> pr_getIteratePersonAlternative(string email, string name, string lastname)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonAlternative_Result>("pr_getIteratePersonAlternative", emailParameter, nameParameter, lastnameParameter);
+        }
     }
 }
