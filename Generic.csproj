@@ -3279,6 +3279,7 @@
     <Content Include="Content\fancybox\fancybox_overlay.png" />
     <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
     <Content Include="Content\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\green-box.png" />
     <Content Include="Content\image-chat.png" />
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
@@ -3583,6 +3584,7 @@
     <Content Include="Content\kendo\2015.2.624\Uniform\sprite_2x.png" />
     <Content Include="Content\kendo\2015.2.624\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo\2015.2.624\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\red-box.png" />
     <Content Include="Content\Site.css" />
     <EmbeddedResource Include="Content\swagger.html" />
     <Content Include="Content\template - download.png" />

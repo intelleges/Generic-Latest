@@ -11,13 +11,14 @@
     ViewBag.Title = "Iterate";
     #endregion
 
-	List<Generic.person> persons = ViewBag.PersonAll as List<Generic.person>;
+    List<Generic.person> persons = ViewBag.PersonAll as List<Generic.person>;
 }
 
 <style type="text/css">
-    #nad{
-        font-size: 11px !important; 
+    #nad {
+        font-size: 11px !important;
     }
+
     html, body {
         height: 100%;
         padding: 0;
@@ -91,14 +92,14 @@
         display: block !important;
     }
 
-	.remove-link {
-		color:red!important;
-		font-weight: bold;
-		font-size: 1.2em;
-		float:right;
-		margin-bottom: 5px;
-		margin-right: 20px;
-	}
+    .remove-link {
+        color: red !important;
+        font-weight: bold;
+        font-size: 1.2em;
+        float: right;
+        margin-bottom: 5px;
+        margin-right: 20px;
+    }
 
     .display_menu {
         left: 65px;
@@ -145,13 +146,13 @@
     }
 
 
-	.display_menu .sub-items {
-		display:none;
-	}
+    .display_menu .sub-items {
+        display: none;
+    }
 
-	.display_menu > ul > li:hover > .sub-items {
-		/*display:block;*/
-	}
+    .display_menu > ul > li:hover > .sub-items {
+        /*display:block;*/
+    }
 </style>
 
 
@@ -159,7 +160,7 @@
 <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 
 <script>
-	
+
 	jQuery(document).ready(function () {
 
         $("#tabstrip a.t-link[href='#tabstrip-5']").append("<i class='glyphicon glyphicon-cog'></i>");
@@ -523,7 +524,7 @@
 
             				CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
             					callback: function () {
-            					
+
             					}
             				});
 
@@ -567,7 +568,7 @@
         var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
         splitter.expand(pane);
     }
-    function showBottomPanel() {        
+    function showBottomPanel() {
         var splitterFirst = $("#Splitter1").data("tSplitter");
         var pane = $("#Splitter1 > .t-pane")[2]; // the bottom pane
         var firstPane = $("#Splitter1 > .t-pane")[0]; // the top pane
@@ -611,6 +612,10 @@
     	$('#closeNoteHistoryPopup').removeClass('disabled');
     }
 
+    var alternatives = [];
+    var alternativeIndex = 0;
+    var rowDataMain = null;
+
     function Grid_onDataBound(e) {
     	$("#IteratePartners td").mouseover(function () {
     		if ($(this).find('.display_menu').length > 0) {
@@ -624,7 +629,7 @@
     			$(this).find('.display_menu_right').css({ position: 'fixed', left: offset.left - 178, top: offset.top - $(document).scrollTop() });
     			$(this).find('.display_menu_right').show();
     		}
-    		
+
     	}).mouseout(function () {
     		$(this).find('.display_menu').hide();
     		$(this).find('.display_menu_right').hide();
@@ -673,11 +678,11 @@
                             if (cMoment.isBetween(moment(startMoment).hours(6), moment(startMoment).hours(11).minutes(59).seconds(59))) {
                         result = "MORNING - ";
                     } else {
-                        //00.01 PM -5.59 PM 
+                        //00.01 PM -5.59 PM
                         if (cMoment.isBetween(moment(startMoment).hours(12), moment(startMoment).hours(17).minutes(59).seconds(59))) {
                             result = "AFTERNOON - ";
                         } else
-                            //06.00 PM -11.59 PM 
+                            //06.00 PM -11.59 PM
                             if (cMoment.isBetween(moment(startMoment).hours(18), moment(startMoment).hours(23).minutes(59).seconds(59))) {
                             result = "EVENING - ";
                         }
@@ -700,41 +705,41 @@
                 showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
             }
             if ($(this).text() === "Email") {
-            	e.preventDefault();
-            	var partnerGrid = $("#IteratePartners").data("tGrid");
-            	var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
-            	var pptq = rowData.pptq;
-            	if (pptq === undefined)
-            		pptq = null;
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                var pptq = rowData.pptq;
+                if (pptq === undefined)
+                    pptq = null;
 
-            	person = rowData.person;
-            	
-            	if (pptq)
-            		$('#DropDownSubjects').data("pptq", pptq);
-            	else
-            		$('#DropDownSubjects').removeData("pptq");
-            	$.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + rowData.person + "&pptq=" + pptq).done(function (result) {
-            		if (result) {
+                person = rowData.person;
 
-            			$('#DropDownSubjects')
-							.empty()
-							.append('<option selected="selected">Please select automail</option>');
+                if (pptq)
+                    $('#DropDownSubjects').data("pptq", pptq);
+                else
+                    $('#DropDownSubjects').removeData("pptq");
+                $.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + rowData.person + "&pptq=" + pptq).done(function (result) {
+                    if (result) {
+
+                        $('#DropDownSubjects')
+                            .empty()
+                            .append('<option selected="selected">Please select automail</option>');
 
 
-            			$.each(result.list, function (index, val) {
-            				$('#DropDownSubjects')
-		.append($("<option></option>")
-				   .attr("value", val.id)
-				   .text(val.subject));
-            			});
-            		}
-            	});
-             
+                        $.each(result.list, function (index, val) {
+                            $('#DropDownSubjects')
+                                .append($("<option></option>")
+                                    .attr("value", val.id)
+                                    .text(val.subject));
+                        });
+                    }
+                });
+
                 //data can be used for whatever it needed
-            	iterate.selectedPartnerId = rowData.id;
-            	iterate.selectedPartnerId1 = rowData.id;
-            	iterate.person = rowData.person;
-            	iterate.email = rowData.email;
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartnerId1 = rowData.id;
+                iterate.person = rowData.person;
+                iterate.email = rowData.email;
 
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
@@ -742,33 +747,61 @@
                 //if (!checkoAuth()) return;
                 $("#emailDialog").modal("toggle");
             }
-        	if ($(this).text() === "Meet") {
-        		e.preventDefault();
-        		alertify.alert('Functionality not available yet.');
-        	}
+            if ($(this).text() === "Meet") {
+                e.preventDefault();
+                alertify.alert('Functionality not available yet.');
+            }
 
             if ($(this).text() === "Update") {
-            	e.preventDefault();
-            	var partnerGrid = $("#IteratePartners").data("tGrid");
-            	var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
-            	//data can be used for whatever it needed
-            	iterate.selectedPartnerId = rowData.id;
-            	iterate.selectedPartner = rowData.name;
-            	$("#updateDialog #id").val(rowData.id);
-            	$("#updateDialog #name").val(rowData.name);
-            	$("#updateDialog #firstName").val(rowData.firstname);
-            	$("#updateDialog #lastName").val(rowData.lastname);
-            	$("#updateDialog #title").val(rowData.title);
-            	$("#updateDialog #email").val(rowData.email);
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                $("#updateDialog #id").val(rowData.id);
+                $("#updateDialog #name").val(rowData.name);
+                $("#updateDialog #firstName").val(rowData.firstname);
+                $("#updateDialog #lastName").val(rowData.lastname);
+                $("#updateDialog #title").val(rowData.title);
+                $("#updateDialog #email").val(rowData.email);
                 $("#updateDialog #phone").val(rowData.phone);
 
-                if (rowData.phone == 9999999999) {
+                $('#alternativeForm').parent().hide();
+                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
+                $("#updateDialog .modal-dialog").removeClass('modal-lg');
+                $('#alternativeForm .previous').hide();
+                $('#alternativeForm .next').hide();
+
+                rowDataMain = rowData;
+                alternatives = [];
+                alternativeIndex = 0;
+
+                if (rowData.phone == 9999999999 || rowData.email == '') {
                     $.fancybox.showLoading();
                     $.post("@Url.Action("SearchAlternative", "Partner")", { name: rowData.name, email: rowData.email, lastname: rowData.lastname })
                         .done(function (data) {
                             $.fancybox.hideLoading();
                             if (data.length != 0) {
-                                //alertify.alert('we have match would you like to update.');
+
+                                alternatives = data;
+                                alternativeIndex = 0;
+
+                                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-6');
+                                $("#updateDialog .modal-dialog").addClass('modal-lg');
+
+                                $('#firstName_a').val(data[0].firstname);
+                                $('#lastName_a').val(data[0].lastname);
+                                $('#title_a').val(data[0].title);
+                                $('#phone_a').val(data[0].phone);
+                                $('#email_a').val(data[0].email);
+
+                                if (data.length > 1) {
+                                    $('#alternativeForm .previous').show();
+                                    $('#alternativeForm .next').show();
+                                }
+
+                                $('#alternativeForm').parent().show();
                             }
                             else {
                                 //alertify.alert('there is no match, sorry.');
@@ -822,8 +855,8 @@
                             }
                         });
                     }
-                }); */             
-               
+                }); */
+
             }
             if ($(this).text() === "Text") {
                 var partnerGrid = $("#IteratePartners").data("tGrid");
@@ -841,6 +874,40 @@
         else {
             iterate.selectedPartnerId = 0;
             clearFields();
+        }
+    }
+
+    function redgreenBox(element) {
+        if ($(element).hasClass('red-box')) {
+            $(element).removeClass('red-box');
+            $(element).addClass('green-box');
+        }
+        else {
+            $(element).removeClass('green-box');
+            $(element).addClass('red-box');
+        }
+    }
+
+    function alternativeDialogPrevious()
+    {
+        if (alternativeIndex - 1 >= 0) {
+            alternativeIndex = alternativeIndex-1;
+            $('#firstName_a').val(alternatives[alternativeIndex].firstname);
+            $('#lastName_a').val(alternatives[alternativeIndex].lastname);
+            $('#title_a').val(alternatives[alternativeIndex].title);
+            $('#phone_a').val(alternatives[alternativeIndex].phone);
+            $('#email_a').val(alternatives[alternativeIndex].email);
+        }
+    }
+
+    function alternativeDialogNext() {
+        if (alternativeIndex + 1 < alternatives.length) {
+            alternativeIndex = alternativeIndex+1;
+            $('#firstName_a').val(alternatives[alternativeIndex].firstname);
+            $('#lastName_a').val(alternatives[alternativeIndex].lastname);
+            $('#title_a').val(alternatives[alternativeIndex].title);
+            $('#phone_a').val(alternatives[alternativeIndex].phone);
+            $('#email_a').val(alternatives[alternativeIndex].email);
         }
     }
 
@@ -961,7 +1028,7 @@
         $("#updateDialog").submit(function (e) {
         	e.preventDefault();
         	var formdata = new FormData(); //FormData object
-		
+
         	formdata.append("id", $("#updateDialog #id").val());
         	formdata.append("name", $("#updateDialog #name").val());
         	formdata.append("firstName", $("#updateDialog #firstName").val());
@@ -969,7 +1036,7 @@
         	formdata.append("title", $("#updateDialog #title").val());
         	formdata.append("email", $("#updateDialog #email").val());
         	formdata.append("phone", $("#updateDialog #phone").val());
-        
+
         	$.ajax({
         		url: 'UpdateIterate',
         		type: 'POST',
@@ -984,9 +1051,9 @@
         			alertify.alert(result.error);
         		} else {
         				$("#IteratePartners").data("tGrid").ajaxRequest();
-        				$("#evernotesDiv").jstree(true).refresh();
+        				//$("#evernotesDiv").jstree(true).refresh();
         				$("#updateDialog").modal("toggle");
-        			
+
         		}
 
         	});
@@ -995,7 +1062,7 @@
     	//send email to partner
         $("#noteUpdateDialog").submit(function (e) {
         	e.preventDefault();
-        	var formdata = new FormData(); 
+        	var formdata = new FormData();
         	formdata.append("id", selectedItemNote.iteratePartnerNote);
         	formdata.append("text", $("#noteUpdateText").val());
 
@@ -1031,7 +1098,7 @@
 
         //send email to partner
         $("#emailDialog").submit(function (e) {
-            
+
         	e.preventDefault();
         	//Email Sent to {IteatePartner.Email]
 
@@ -1108,7 +1175,7 @@
 
         });
 
-        
+
 
 
 
@@ -1369,19 +1436,19 @@
     	$('#footer1').parent().removeClass('hidden');
     	$('#emailText').parent().addClass('hidden');
 
-    	if ($('#EmailAttachmentUpload_attach2').hasClass('hidden')) 
+    	if ($('#EmailAttachmentUpload_attach2').hasClass('hidden'))
     		$('#EmailAttachmentUpload4').parent().removeClass('hidden');
     	else
     		$('#EmailAttachmentUpload_attach2').find('.remove-link').removeClass('hidden');
-    	
+
     	if ($('#EmailAttachmentUpload_attach').hasClass('hidden'))
     		$('#EmailAttachmentUpload3').parent().removeClass('hidden');
     	else
     		$('#EmailAttachmentUpload_attach').find('.remove-link').removeClass('hidden');
-    	
+
     	$('#EmailAttachmentUpload').parent().addClass('hidden');
     	$('#EmailAttachmentUpload2').parent().addClass('hidden');
- 	
+
     	$('#sendButton').addClass('hidden');
     	$('#testButton').addClass('hidden');
     	$('#addButton').addClass('hidden');
@@ -1395,7 +1462,7 @@
     	istwoattachremoved = false;
     }
 
-   
+
     function addIterateEmailText() {
     	$("#DropDownSubjects").parent().hide();
     	$('#text1').parent().removeClass('hidden');
@@ -1451,9 +1518,9 @@
     				refreshPopup();
     			});
     		} else {
-    			
+
     		}
-    	});	
+    	});
     }
 
     function refreshPopup() {
@@ -1511,7 +1578,7 @@
     	dropDownSubjectsChanged();
 	}
 
-	
+
 	function removeAttachment(type, element) {
 		if (type == 'one') {
 			isoneattachremoved = true;
@@ -1526,7 +1593,7 @@
 	}
 
     function saveIterateEmailText() {
-    	var formdata = new FormData(); 
+    	var formdata = new FormData();
     	var fileInput = document.getElementById('EmailAttachmentUpload3');
     	for (i = 0; i < fileInput.files.length; i++) {
     		formdata.append('one', fileInput.files[i]);
@@ -1639,11 +1706,33 @@
         display: inline-block;
     }
 
-	#noteText1 {
-		overflow-y: auto;
-    min-height: 150px;
-    overflow-x: hidden;
-	}
+    #noteText1 {
+        overflow-y: auto;
+        min-height: 150px;
+        overflow-x: hidden;
+    }
+
+    .green-box, .red-box {
+        background-image: url(/Content/green-box.png);
+        display: inline-block;
+        margin: 0 auto;
+        text-indent: -9999px;
+        width: 34px;
+        height: 34px;
+        background-size: cover;
+        cursor: pointer;
+        float:left;
+    }
+
+    .red-box {
+        background-image: url(/Content/red-box.png);
+    }
+
+
+    #alternativeForm input[type=text] {
+        float: left;
+        width:80%;
+    }
 
     /*.twocol .editor-label {
             width: 10%;
@@ -1833,12 +1922,12 @@
                                 CKEDITOR.replace('noteText');
                             </script>
                         </div>
-						<div class="form-group">
-							<label class="control-label" for="noteText1">Previous Note(s)</label>
-							<div id="noteText1" name="noteText1" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></div>
-							<span data-valmsg-replace="true" data-valmsg-for="noteText1" class="field-validation-valid help-inline" />
-							
-						</div>
+                        <div class="form-group">
+                            <label class="control-label" for="noteText1">Previous Note(s)</label>
+                            <div id="noteText1" name="noteText1" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></div>
+                            <span data-valmsg-replace="true" data-valmsg-for="noteText1" class="field-validation-valid help-inline" />
+
+                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -1858,14 +1947,14 @@
                     <h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="madalEmailForm" >
-						<div class="form-group">
-							<label class="control-label" for="emailSubject">Automail</label>
-							@Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
-
-						</div>
+                    <form id="madalEmailForm">
                         <div class="form-group">
-                           
+                            <label class="control-label" for="emailSubject">Automail</label>
+                            @Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+
+                        </div>
+                        <div class="form-group">
+
                             <label class="control-label" for="emailSubject">Subject</label>
                             <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
                             <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
@@ -1873,7 +1962,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="emailText">Text</label>
-                            <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;"/>
+                            <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
                             <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
                             <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
                             <script>
@@ -1882,64 +1971,64 @@
                                 CKEDITOR.replace('emailText');
                             </script>
                         </div>
-						<div class="form-group hidden">
-							<label class="control-label" for="text1">Text</label>
-							<textarea id="text1" name="text1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
-							<span data-valmsg-replace="true" data-valmsg-for="text1" class="field-validation-valid help-inline" />
-							<script>
-								// Replace the <textarea id="editor1"> with a CKEditor
-								// instance, using default configuration.
-								CKEDITOR.replace('text1');
-							</script>
-						</div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="text1">Text</label>
+                            <textarea id="text1" name="text1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="text1" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('text1');
+                            </script>
+                        </div>
 
-						<div class="form-group hidden">
-							<label class="control-label" for="footer1">Footer</label>
-							<textarea id="footer1" name="footer1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
-							<span data-valmsg-replace="true" data-valmsg-for="footer1" class="field-validation-valid help-inline" />
-							<script>
-								// Replace the <textarea id="editor1"> with a CKEditor
-								// instance, using default configuration.
-								CKEDITOR.replace('footer1');
-							</script>
-						</div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="footer1">Footer</label>
+                            <textarea id="footer1" name="footer1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="footer1" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('footer1');
+                            </script>
+                        </div>
 
                         <div class="form-group">
                             <label class="control-label" for="EmailAttachmentUpload">Attachment1 (optional)</label>
-                            <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload"/>                                   
+                            <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" />
                         </div>
-						<div class="form-group hidden" id="EmailAttachmentUpload_attach">
-							<label class="control-label"></label>
-							<a href="#" class="remove-link" onclick="removeAttachment('one', this); return false;">Remove</a>
-						</div>
-						<div class="form-group">
-							<label class="control-label" for="EmailAttachmentUpload2">Attachment2 (optional)</label>
-							<input class="form-control" id="EmailAttachmentUpload2" type="file" name="EmailAttachmentUpload2" />
-						</div>
-						<div class="form-group hidden" id="EmailAttachmentUpload_attach2">
-							<label class="control-label"></label>
-							<a href="#" class="remove-link" onclick="removeAttachment('two', this); return false;">Remove</a>
-						</div>
-						<div class="form-group hidden">
-							<label class="control-label" for="EmailAttachmentUpload3">Attachment1 (optional)</label>
-							<input class="form-control" id="EmailAttachmentUpload3" type="file" name="EmailAttachmentUpload3" />
-						</div>
-						<div class="form-group hidden">
-							<label class="control-label" for="EmailAttachmentUpload4">Attachment2 (optional)</label>
-							<input class="form-control" id="EmailAttachmentUpload4" type="file" name="EmailAttachmentUpload4" />
-						</div>
+                        <div class="form-group hidden" id="EmailAttachmentUpload_attach">
+                            <label class="control-label"></label>
+                            <a href="#" class="remove-link" onclick="removeAttachment('one', this); return false;">Remove</a>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="EmailAttachmentUpload2">Attachment2 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload2" type="file" name="EmailAttachmentUpload2" />
+                        </div>
+                        <div class="form-group hidden" id="EmailAttachmentUpload_attach2">
+                            <label class="control-label"></label>
+                            <a href="#" class="remove-link" onclick="removeAttachment('two', this); return false;">Remove</a>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="EmailAttachmentUpload3">Attachment1 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload3" type="file" name="EmailAttachmentUpload3" />
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="EmailAttachmentUpload4">Attachment2 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload4" type="file" name="EmailAttachmentUpload4" />
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-9">
-									<button type="submit" class="btn btn-primary" name="submit" id="sendButton">Send</button>
-									<button type="button" class="btn btn-primary" name="submit" id="testButton" onclick="emailDialogSendTest();">Test</button>
-									<button type="button" class="btn btn-primary hidden" name="submit" onclick="editIterateEmailText();" id="editButton">Edit</button>
-									<button type="button" class="btn btn-primary hidden" name="submit" id="saveButton" onclick="saveIterateEmailText();">Save</button>
-									<button type="button" class="btn btn-primary" name="submit" onclick="addIterateEmailText();" id="addButton">Add</button>
-									<button type="button" class="btn btn-primary hidden" name="submit" id="removeButton" onclick="removeIterateEmailText();">Remove</button>
-									<button type="button" class="btn btn-primary hidden" name="submit" id="cancelButton" onclick="cancelChangesIterateEmailText();">Cancel</button>
-									
-									<button type="button" class="btn btn-primary" name="submit">Tags</button>
+                                    <button type="submit" class="btn btn-primary" name="submit" id="sendButton">Send</button>
+                                    <button type="button" class="btn btn-primary" name="submit" id="testButton" onclick="emailDialogSendTest();">Test</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" onclick="editIterateEmailText();" id="editButton">Edit</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" id="saveButton" onclick="saveIterateEmailText();">Save</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="addIterateEmailText();" id="addButton">Add</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" id="removeButton" onclick="removeIterateEmailText();">Remove</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" id="cancelButton" onclick="cancelChangesIterateEmailText();">Cancel</button>
+
+                                    <button type="button" class="btn btn-primary" name="submit">Tags</button>
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="checkbox">
@@ -1956,132 +2045,191 @@
     </div>
 
 
-	<div class="modal fade" id="transferDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only"></span>
-					</button>
-					<h4 class="modal-title" id="gpsLabel">Transfer</h4>
-				</div>
-				<div class="modal-body">
-					<form id="madalEmailForm">
-						<div class="form-group">
-							@Html.DropDownList("DropDownTransfer", (IEnumerable<SelectListItem>)ViewBag.PersonAllDropDown, htmlAttributes: new { @class = "form-control" })
-						</div>
+    <div class="modal fade" id="transferDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Transfer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        <div class="form-group">
+                            @Html.DropDownList("DropDownTransfer", (IEnumerable<SelectListItem>)ViewBag.PersonAllDropDown, htmlAttributes: new { @class = "form-control" })
+                        </div>
 
-						<div class="form-group">
-							<div class="row">
-								<div class="col-xs-9">
-									<button type="button" class="btn btn-primary" name="submit" onclick="transfer2();">Ok</button>
-									<button type="button" class="btn btn-primary" name="submit" onclick="$('#transferDialog').modal('toggle');">Cancel</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-	<div class="modal fade" id="noteUpdateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only"></span>
-					</button>
-					<h4 class="modal-title" id="gpsLabel">Edit note</h4>
-				</div>
-				<div class="modal-body">
-					<form id="madalEmailForm">
-						<div class="form-group">
-							<label class="control-label" for="noteUpdateText">Text</label>
-							<textarea id="noteUpdateText" name="noteUpdateText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
-							<span data-valmsg-replace="true" data-valmsg-for="noteUpdateText" class="field-validation-valid help-inline" />
-							<script>
-								CKEDITOR.replace('noteUpdateText');
-							</script>
-						</div>
-				
-						<div class="form-group">
-							<div class="row">
-								<div class="col-xs-9">
-									<button type="submit" class="btn btn-primary" name="submit">Update</button>
-								</div>
-							</div>
-
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="transfer2();">Ok</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#transferDialog').modal('toggle');">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
 
 
-	<div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
-		<div class="modal-dialog">
+    <div class="modal fade" id="noteUpdateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Edit note</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        <div class="form-group">
+                            <label class="control-label" for="noteUpdateText">Text</label>
+                            <textarea id="noteUpdateText" name="noteUpdateText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="noteUpdateText" class="field-validation-valid help-inline" />
+                            <script>
+                                CKEDITOR.replace('noteUpdateText');
+                            </script>
+                        </div>
 
-			<input id="id" name="id" class="form-control" type="hidden" />
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only"></span>
-					</button>
-					<h4 class="modal-title" id="gpsLabel">Update</h4>
-				</div>
-				<div class="modal-body">
-					<form id="madalEmailForm">
-						<div class="form-group">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <button type="submit" class="btn btn-primary" name="submit">Update</button>
+                                </div>
+                            </div>
 
-							<label class="control-label" for="name">Name</label>
-							<input id="name" name="name" class="form-control" type="text" placeholder="Please Enter name" data-val-required="*" data-val="true" />
-						</div>
-						<div class="form-group">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-							<label class="control-label" for="firstName">First Name</label>
-							<input id="firstName" name="firstName" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" />
-						</div>
-						<div class="form-group">
 
-							<label class="control-label" for="lastName">Last Name</label>
-							<input id="lastName" name="lastName" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" />
-						</div>
-						<div class="form-group">
 
-							<label class="control-label" for="email">Email</label>
-							<input id="email" name="email" class="form-control" type="text" placeholder="Please Enter email" data-val-required="*" data-val="true" />
-						</div>
-						<div class="form-group">
 
-							<label class="control-label" for="phone">Phone</label>
-							<input id="phone" name="phone" class="form-control" type="text" placeholder="Please Enter phone" data-val-required="*" data-val="true" />
-						</div>
-						<div class="form-group">
+    <div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
 
-							<label class="control-label" for="title">Title</label>
-							<input id="title" name="title" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" />
-						</div>
-						<div class="form-group text-right">
-							<button type="button" class="btn btn-primary" name="submit" onclick="updateDialogPrevious();">Previous</button>
-							<button type="button" class="btn btn-primary" name="submit" onclick="updateDialogNext();">Next</button>
-							<button type="button" class="btn btn-primary" name="submit" onclick="updateDialogClear();">Clear</button>
-							<button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
-							<button type="submit" class="btn btn-primary" name="submit">Save</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+            <input id="id" name="id" class="form-control" type="hidden" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Update</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form id="madalEmailForm">
+                                <div class="form-group">
+
+                                    <label class="control-label" for="name">Name</label>
+                                    <input id="name" name="name" class="form-control" type="text" placeholder="Please Enter name" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="firstName">First Name</label>
+                                    <input id="firstName" name="firstName" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="lastName">Last Name</label>
+                                    <input id="lastName" name="lastName" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="email">Email</label>
+                                    <input id="email" name="email" class="form-control" type="text" placeholder="Please Enter email" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="phone">Phone</label>
+                                    <input id="phone" name="phone" class="form-control" type="text" placeholder="Please Enter phone" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Title</label>
+                                    <input id="title" name="title" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group text-right">
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogPrevious();">Previous</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogNext();">Next</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogClear();">Clear</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" name="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6" style="display:none;">
+                            <form id="alternativeForm">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">Alternative</label>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">First Name </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="firstName_a" name="firstName_a" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #firstName').val(rowDataMain.firstname); return false;"></a><a class="green-box" onclick="$('#updateDialog #firstName').val($('#firstName_a').val()); return false;"></a>
+                                  </div>
+                                <div class="clearfix"></div>
+                                <br/>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="lastName">Last Name </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="lastName_a" name="lastName_a" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #lastName').val(rowDataMain.lastname); return false;"></a><a class="green-box"  onclick="$('#updateDialog #lastName').val($('#lastName_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="email_a" name="email_a" class="form-control" type="text" placeholder="Please Enter email" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #email').val(rowDataMain.email); return false;"></a><a class="green-box" onclick="$('#updateDialog #email').val($('#email_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label" for="phone">Phone </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="phone_a" name="phone_a" class="form-control" type="text" placeholder="Please Enter phone" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #phone').val(rowDataMain.phone); return false;"></a><a class="green-box" onclick="$('#updateDialog #phone').val($('#phone_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label" for="title">Title </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="title_a" name="title_a" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #title').val(rowDataMain.title); return false;"></a><a class="green-box" onclick="$('#updateDialog #title').val($('#title_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group text-right">
+                                    <button type="button" class="btn btn-primary previous" name="submit" style="display:none;" onclick="alternativeDialogPrevious();">Previous</button>
+                                    <button type="button" class="btn btn-primary next" name="submit" style="display:none;" onclick="alternativeDialogNext();">Next</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog #madalEmailForm').submit();">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -2197,15 +2345,15 @@
                 <div class="modal-body">
                     <form id="IterateUploadingErrorDialogForm">
                         <div class="form-group">
-                            
+
 
                         </div>
                         <div class="form-group">
                             <textarea id="IterateUploadingErrorDialogFormFooter" name="IterateUploadingErrorDialogFormFooter" class="form-control" readonly rows="8"></textarea>
                         </div>
                         @*<div class="form-group">
-                            <button type="button" class="btn btn-primary" name="submit">Close</button>
-                        </div>*@
+                                <button type="button" class="btn btn-primary" name="submit">Close</button>
+                            </div>*@
                     </form>
                 </div>
             </div>
@@ -2495,23 +2643,23 @@
 
                     tabstrip.Add().Text("Calendar")
                     .Content(@<text>
-                            <div class="mytab">
-                                @*@Html.Raw(ViewBag.Scheduler)*@
-                                <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
-                                    <div class="dhx_cal_navline">
-                                        <div class="dhx_cal_prev_button">&nbsp;</div>
-                                        <div class="dhx_cal_next_button">&nbsp;</div>
-                                        <div class="dhx_cal_today_button"></div>
-                                        <div class="dhx_cal_date"></div>
-                                        <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-                                        <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-                                        <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
-                                    </div>
-                                    <div class="dhx_cal_header"></div>
-                                    <div class="dhx_cal_data"></div>
+                        <div class="mytab">
+                            @*@Html.Raw(ViewBag.Scheduler)*@
+                            <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
+                                <div class="dhx_cal_navline">
+                                    <div class="dhx_cal_prev_button">&nbsp;</div>
+                                    <div class="dhx_cal_next_button">&nbsp;</div>
+                                    <div class="dhx_cal_today_button"></div>
+                                    <div class="dhx_cal_date"></div>
+                                    <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+                                    <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+                                    <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
                                 </div>
+                                <div class="dhx_cal_header"></div>
+                                <div class="dhx_cal_data"></div>
                             </div>
-            <script>
+                        </div>
+                        <script>
     $(function () {
         scheduler.config.week_date = "%D";
         scheduler.init('scheduler_here', new Date(), "month");
@@ -2525,64 +2673,64 @@
             dp.init(scheduler);
             dp.setTransactionMode("POST", false);
         });
-        
+
 
     });
-            </script>
+                        </script>
                     </text>);
 
                     tabstrip.Add().Text("SMS")
                     .Content(@<text>
-                            <div class="mytab">
-                                <p>It's other</p>
-                            </div>
+                        <div class="mytab">
+                            <p>It's other</p>
+                        </div>
                     </text>);
                     tabstrip.Add().Text("Email")
                     .Content(@<text>
-                            <div class="mytab">
-                                <p>It's settings</p>
-                            </div>
+                        <div class="mytab">
+                            <p>It's settings</p>
+                        </div>
                     </text>);
                     tabstrip.Add()
                          .Content(@<text>
-                            <div class="mytab">
-                                <div class="row">
-                                    <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
-                                    <div class="col-md-6 text-right">
-                                        <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
-                                        <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
-                                    </div>
+                        <div class="mytab">
+                            <div class="row">
+                                <div class="col-md-6"><p>Calendar - Ical (Gmail)</p></div>
+                                <div class="col-md-6 text-right">
+                                    <div id="setiCal" class="dhx_cal_today_button pull-right">Set</div>
+                                    <div id="getiCal" class="dhx_cal_today_button  pull-right">Get</div>
+                                </div>
 
-                                    <div class="col-md-12" style="overflow:auto">
-                                        <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
-                                        @(Html.Telerik().Upload()
+                                <div class="col-md-12" style="overflow:auto">
+                                    <a class="excelBtn" href="/Partner/ExportPartnerExcel" style="float:left;" title="Export to Excel"></a>
+                                    @(Html.Telerik().Upload()
                                             .Name("excelFile")
                                             .Multiple(false)
                                             .Async(a => a.Save("UploadPartnerExcelData", "Partner")
                                                 .AutoUpload(true))
                                             .ClientEvents(e => e.OnError("onError")
                                                                                 .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
-                                        )
+                                    )
 
 
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">Stuff Script</div>
-                                    @(Html.Telerik().Upload()
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">Stuff Script</div>
+                                @(Html.Telerik().Upload()
                                             .Name("stuffScriptUpload")
                                             .Multiple(false)
                                                     .Async(a => a.Save("UploadStuffScript", "Partner")
                                                 .AutoUpload(true))
                                             .ClientEvents(e => e.OnError("onError")
                                                                                 .OnSuccess("onSuccess")).HtmlAttributes(new { style = "float:left;font-size:12px;" })
-                                    )
-                                </div>                                
-                                <div class="row">
-                                    <input type="button" value="Email footer" onclick="editEmailFooter()" class="btn btn-primary" style="font-size:14px;margin-left: 10px;" />
-
-                                </div>
+                                )
                             </div>
+                            <div class="row">
+                                <input type="button" value="Email footer" onclick="editEmailFooter()" class="btn btn-primary" style="font-size:14px;margin-left: 10px;" />
+
+                            </div>
+                        </div>
                         </text>);
                 })
             )
@@ -2604,7 +2752,7 @@
 					CKEDITOR.instances["emailText"].setData(result.text + '<br/>'+result.footer1);
 					CKEDITOR.instances["text1"].setData(result.text);
 					CKEDITOR.instances["footer1"].setData(result.footer1);
-					
+
 					if (result.attachmentOneName!=null&& result.attachmentOneName.length > 0) {
 						$('#EmailAttachmentUpload').parent().addClass('hidden');
 						$('#EmailAttachmentUpload_attach label').html(result.attachmentOneName);
@@ -2637,7 +2785,7 @@
 		} else {
 			$("#emailSubject").val("");
 			CKEDITOR.instances["emailText"].setData("");
-			
+
 			$('#editButton').addClass('hidden');
 			$('#removeButton').addClass('hidden');
 
@@ -2702,7 +2850,7 @@
         $("#IteratePartners").show();
         $("#btnTips").click(function () {
             var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
-            if (!iterate.globalVars.tipsShowed) {                
+            if (!iterate.globalVars.tipsShowed) {
                 CKEDITOR.instances.emailText.setData(tip);
                 iterate.globalVars.tipsShowed = true;
             } else {
@@ -2711,10 +2859,10 @@
             }
         });
         $("#AccessCode").click(function () {
-            if (iterate.selectedPartnerData) {               
+            if (iterate.selectedPartnerData) {
                 $.post("CheckIteratePartnerAccessCodePartnNumber", { iPartner: iterate.selectedPartnerData }).done(function (result) {
                     if (result) {
-                        $("#partNumbersGridPanel").show();                        
+                        $("#partNumbersGridPanel").show();
                         $("#partNumbersGrid").data("tGrid").ajaxRequest();
                         showBottomPanel();
                     } else {
@@ -2782,7 +2930,7 @@
             objectionId: objection
         }).done(function (result) {
             if (result === true) {
-                $("#IteratePartners").data("tGrid").ajaxRequest();               
+                $("#IteratePartners").data("tGrid").ajaxRequest();
                 clearFields();
             }
         });
@@ -2828,7 +2976,7 @@
     		}
     	});
 
-    	
+
     }
 
 
@@ -3337,11 +3485,12 @@
     @{
         var counter = 1;
 
-		string subItemsPersons = "";
-		foreach (Generic.person item in persons) {
-			subItemsPersons += "<li><a onclick='transfer(<#=id#>," + item.id + ",this);' href='#'>" + item.nickName + "</a></li>";
-		}
-			
+        string subItemsPersons = "";
+        foreach (Generic.person item in persons)
+        {
+            subItemsPersons += "<li><a onclick='transfer(<#=id#>," + item.id + ",this);' href='#'>" + item.nickName + "</a></li>";
+        }
+
     }
     @Html.DropDownList("iterateObjections", (System.Web.Mvc.SelectList)ViewBag.iterateObjections, new { @style = "display:none" });
     @Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
@@ -3376,7 +3525,7 @@
 <li><a href='#' onclick='changeNextAction(<#=id#>,5);'>Email Follow-up</a></li>
 <li><a href='#' onclick='changeNextAction(<#=id#>,15);'>Call</a></li>
 <li><a href='#'>Transfer</a>
-<ul class='sub-items'>"+subItemsPersons+"</ul></li></ul></div>");
+<ul class='sub-items'>" + subItemsPersons + "</ul></li></ul></div>");
     columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
     columns.Bound(o => o.lastname).Title("Last name").Width(100);
     columns.Bound(o => o.title).Title("Title").Width(90).Filterable(false).ClientTemplate(@"
@@ -3412,9 +3561,9 @@
     columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
     columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
     columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-	columns.Bound(o => o.iteratePartnerStatus).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatus_Description#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
-     
-	columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
+    columns.Bound(o => o.iteratePartnerStatus).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatus_Description#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
+
+    columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
 <a href='#' id='note<#=id#>' class='menu_block'><#=Note#></a>
     <div class='display_menu_right' style='display: none;'>
         <ul>
@@ -3609,7 +3758,7 @@
 
     </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
 	var selectedItemNote = null;
 	function setSelectedRowData(e) {
@@ -3658,7 +3807,7 @@
 			$("#noteUpdateDialog").modal("toggle");
 		});
 	}
-</script>
+    </script>
 }
 
 @section header{
