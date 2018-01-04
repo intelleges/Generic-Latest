@@ -5361,6 +5361,7 @@
     <Content Include="Views\Admin\GetDashboard2Result.cshtml" />
     <Content Include="Views\Admin\Dashboard2_1.cshtml" />
     <Content Include="Views\Admin\NotificationsResult.cshtml" />
+    <Content Include="Views\Error\InternalError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
