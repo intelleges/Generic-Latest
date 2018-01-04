@@ -90,8 +90,8 @@
                     <li>a. Does access code VU not have a description?</li>
                     <li>
                         b. If the Project is Transition related, which type of activity is this?
-                        <br /><input type="checkbox"  @ViewBag.ActivityType270/> Make to Make Transition (HON to HON)
-                        <br /><input type="checkbox" @ViewBag.ActivityType269/> Make to Buy (Outsourcing)
+                        <br /><input type="checkbox" @ViewBag.ActivityType270 /> Make to Make Transition (HON to HON)
+                        <br /><input type="checkbox" @ViewBag.ActivityType269 /> Make to Buy (Outsourcing)
                         <br /><input type="checkbox" @ViewBag.ActivityType267 /> Buy to Buy (Supplier to Supplier)
                         <ul>
                             <li>
@@ -104,7 +104,7 @@
                                 <input type="checkbox" /> Supplier Reposition
                             </li>
                         </ul>
-                        <input type="checkbox" @ViewBag.ActivityType268/>Buy to Make (In sourcing)
+                        <input type="checkbox" @ViewBag.ActivityType268 />Buy to Make (In sourcing)
                         <br /><input type="checkbox" @ViewBag.ActivityType266 />Other
                     </li>
                     <li>
@@ -119,7 +119,7 @@
                     </li>
                     <li>
                         e. In the part a programmble electronic component OR is it used on any of the following military platforms?
-                        <br /><input type="checkbox"  /> US Government technology demonstrations
+                        <br /><input type="checkbox" /> US Government technology demonstrations
                         <br /><input type="checkbox" /> B-1B, B-2, B-21
                         <br /><input type="checkbox" /> F-15SE, F/A-18E/F, F-22, F-23, F-17
                         <br /><input type="checkbox" /> EA-18G
@@ -173,14 +173,14 @@
     </p>
 
 
-    <h2>Section 3: Export and Import (STP Phase 2 exit requirement)</h2>
+    <h2>Section 3: Export and Import</h2>
     <p>
         <ul>
             <li>
                 1. Are the new suppliers listed on the Denied Parties List (Transition Manager must run check against the
                 Denied Parties List in accordance with Aerospace Policy AP-1025)?
                 <br />
-                N/A. The parts are being transitioned to a Honeywell site.
+                <input type="checkbox" /> N/A. The parts are being transitioned to a Honeywell site.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35512_Yes /> Yes.
                 <br />
@@ -222,9 +222,7 @@
             </li>
             <li>
                 5. For any parts transitioned/repositioned outside the US, which will be shipped back to a US site, has the
-                HTSUS (Harmonized Tariff Schedule of the United States) submittal been completed to prevent customs delays? Please
-                go the following link and reference the Instructions Tab.
-                <a hrfe="https://teamsites2013.honeywell.com/sites/ICFS/ES/Shared%20Documents/Forms/AllItems.aspx">https://teamsites2013.honeywell.com/sites/ICFS/ES/Shared%20Documents/Forms/AllItems.aspx</a>
+                HTSUS (Harmonized Tariff Schedule of the United States) submittal been completed to prevent customs delays
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35517_Yes /> Yes.
                 <br />
@@ -233,12 +231,12 @@
         </ul>
     </p>
 
-    <h2>Section 4:  IP Compliance (STP Phase 2 exit requirement)</h2>
+    <h2>Section 4:  IP Compliance</h2>
     <p>
         <h3>A.   Third Party Proprietary Information (Buy to Buy & Make to Buy & Buy to Make & OIP)</h3>
         <ul>
             <li>
-                1. Can Honeywell and the new supplier (if applicable) execute this project using only documents and information that were/are created solely by Honeywell or the new supplier (if applicable) or are clearly within the public domain?  Note:  The execution of the project cannot rely on the use of any documents or information that are considered "proprietary," in whole or in part, to Honeywell's current supplier or another third party.  When responding to this question, consider all aspects of the project, from planning through production, including product specifications, product design documentation, documents needed for obtaining and reviewing proposals/quotes, responding to supplier inquiries, conducting design reviews, performing test/qual/cert activities, etc.  If any documents planned for use on this project are marked (or suspected to be) "Proprietary" or "Confidential" to a third party, mark "No/Not Sure".
+                1. Can Honeywell and the new supplier (if applicable) execute this project using only documents and information that were/are created solely by Honeywell or the new supplier (if applicable) or are clearly within the public domain?
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35521_Yes /> Yes.
                 <br />
@@ -249,12 +247,11 @@
                 </ul>
             </li>
         </ul>
-        <br/>
-        <br /><br /><br /><br /><br /><br /><br /><br />
+        <br />
         <h3>B.    Reverse Engineering (Buy to Buy & Buy to Make)</h3>
         <ul>
             <li>
-                2. As part of this project, will Honeywell need to "Reverse Engineer" the current supplier's part or provide the current supplier's part to the new supplier? Note: For the purposes of this question, "Reverse Engineering" activities include obtaining information about the design, construction or operation of the part through inspection, testing, measurement, disassembly or reverse engineering of the current supplier's part for use in any aspects of the project including design, test, qualification, certification, and production.
+                2. As part of this project, will Honeywell need to "Reverse Engineer" the current supplier's part or provide the current supplier's part to the new supplier?
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35524_Yes /> Yes.
                 <br />
@@ -272,8 +269,7 @@
         <ul>
             <li>
                 4. Does any Honeywell employee that will participate in the project (including members of the Engineering & Technology, Marketing & Product Management, and Integrated Supply Chain functions) have knowledge of the
-                current supplier's proprietary information that will be relevant to the employee's role in the project? Note: When responding to this question, consider all aspects of the project, from planning through production, including creating
-                documents for and reviewing proposals/quotes, responding to supplier inquiries, conducting design reviews, performing test/qual/cert activities, etc
+                current supplier's proprietary information that will be relevant to the employee's role in the project
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35527_Yes /> Yes. Consult with the Souring L&C representative to provide the guidance on what proprietary information can be shared with the supplier.
                 <br />
@@ -311,27 +307,26 @@
                         <input type="checkbox" @ViewBag.Checkbox35534_No /> i. No.
                         <br />
                         <input type="checkbox" @ViewBag.Checkbox35534_Yes /> ii. Yes.&nbsp;&nbsp;&nbsp;Date of first production-approved design:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Supporting document(s):
-                       
+
                     </li>
                 </ul>
             </li>
-      
-        <li>
-            7.   Does the part or associated documentation include any patent markings?  Note: Patent markings can be on the part itself (such as by etching or on a name plate), on its packaging or packaging inserts, and possibly a company's web site page for the part. Patent markings are commonly recited in a manner such as - "US Patent No. #,###,###" or "covered by one or more of the following US Patents: #,###,###; #,###,###; and #,###,###".
-            <br />
-            <input type="checkbox" @ViewBag.Checkbox35537_Yes /> Yes, consult with IP counsel and provide patent numbers or patent markings:
-            <br />
-            <input type="checkbox" @ViewBag.Checkbox35537_No /> No.
-        </li>
-        <li>
-            8.   Is patent infringement a significant risk for any part(s) to be transitioned?  High patent infringement risk parts include newer parts that include specific technology or features that are only currently available from the current supplier.  Low patent infringement risk parts include those parts that have been in production for a significant period of time (more than 20 years) years and include technology or features that are commonly available from other suppliers.  Note:  To determine if a current supplier owns any patents, use Google Patents and enter the supplier name in the search field.
-            <br />
-            <input type="checkbox" @ViewBag.Checkbox35538_Yes /> Yes, consult with IP counsel and provide details regarding the current supplier and part(s) to be transitioned.
-            <br />
-            <input type="checkbox" @ViewBag.Checkbox35538_No /> No.
-        </li>
+
+            <li>
+                7.   Does the part or associated documentation include any patent markings?  Note: Patent markings can be on the part itself (such as by etching or on a name plate), on its packaging or packaging inserts, and possibly a company's web site page for the part. Patent markings are commonly recited in a manner such as - "US Patent No. #,###,###" or "covered by one or more of the following US Patents: #,###,###; #,###,###; and #,###,###".
+                <br />
+                <input type="checkbox" @ViewBag.Checkbox35537_Yes /> Yes, consult with IP counsel and provide patent numbers or patent markings:
+                <br />
+                <input type="checkbox" @ViewBag.Checkbox35537_No /> No.
+            </li>
+            <li>
+                8.   Is patent infringement a significant risk for any part(s) to be transitioned?  High patent infringement risk parts include newer parts that include specific technology or features that are only currently available from the current supplier.  Low patent infringement risk parts include those parts that have been in production for a significant period of time (more than 20 years) years and include technology or features that are commonly available from other suppliers.  Note:  To determine if a current supplier owns any patents, use Google Patents and enter the supplier name in the search field.
+                <br />
+                <input type="checkbox" @ViewBag.Checkbox35538_Yes /> Yes, consult with IP counsel and provide details regarding the current supplier and part(s) to be transitioned.
+                <br />
+                <input type="checkbox" @ViewBag.Checkbox35538_No /> No.
+            </li>
         </ul>
-        <br/>
         <h3>E.    Third Party Licenses (Buy to Buy & Make to Buy & OIP)</h3>
         Does the transition scope include transfer of any software, tooling or test/manufacturing equipment?
         <br />
@@ -340,7 +335,7 @@
         <input type="checkbox" @ViewBag.Checkbox35539_Yes />  Yes. Proceed to next question.
         <ul>
             <li>
-                9. Are there any third party intellectual property licenses that will need to be transferred or assigned to the new supplier?  Consult with engineering, testing, supply chain, and licensing teams to determine if any third party intellectual property licenses apply to the software, tooling or test/manufacturing equipment to be transferred.  Note: We need to identify any third party licenses that will need to be transferred or assigned to the new supplier.  These licenses can include (1) software licenses for software used in manufacturing, testing, or as part of product operation, (2) data/documentation licenses for third party information (such as other supplier's manuals) for use in assembly or testing, or (3) patent licenses needed to manufacture or sell the part.  When responding to this question, consider whether we use any third party intellectual property, such as software or information, in any aspect of our manufacturing process, from planning through production, including creating documents for and reviewing proposals/quotes, responding to supplier inquiries, conducting design reviews, performing test/qual/cert activities.  To determine if such third party licenses exist, we will need to review with the responsible engineering, testing, supply chain, and licensing teams.
+                9. Are there any third party intellectual property licenses that will need to be transferred or assigned to the new supplier?  Consult with engineering, testing, supply chain, and licensing teams to determine if any third party intellectual property licenses apply to the software, tooling or test/manufacturing equipment to be transferred.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35542_Yes /> Yes, consult the Sourcing L&C representative to review the identified licenses to determine what can be transferred or assigned the licenses to the new supplier.
                 <br />
@@ -363,18 +358,40 @@
         </ul>
     </p>
 
-    <h2>Section 5(a):  Channel 2 Customer Contracts (STP Phase 2 exit requirement)</h2>
+    <h2>Section 5(a):  Channel 2 Customer Contracts</h2>
     <p>
         <ul>
             <li>
-                1. FAR 15 and FAR 12 Capability Confirmation
+                1. Are there Distribution Channel 02, FAR Pat 12, FAR Part 15, or Foreign Military Sales (FMS) orders in the Final CFDB file?
+                <ul>
+                    <li>
+                        <input type="checkbox" /> Yes - mark each field below as applicable:
+                        <ul>
+                            <li>
+                                <input type="checkbox" /> Distribution Channel 02
+                            </li>
+                            <li>
+                                <input type="checkbox" /> "FAR Part 15 applies" = "Y"
+                            </li>
+                            <li>
+                                <input type="checkbox" /> "FAR Part 12 applies" = "Y"
+                            </li>
+                            <li>
+                                <input type="checkbox" /> "FMS" = "Y"
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <input type="checkbox" /> No - Skip the remainder of this Section 5(a) and proceed to Section 5(b) of the checklist.
+                    </li>
+                </ul>
                 <ul>
                     <li>
                         a. CID Translation for FAR-15 and FAR-12: Within your returned CID file (see "CID Request" Worksheet", "Final Usage" column) please (i) identify classifications of
                         the transition parts into the categories below, and (ii) confirm (including through supplier confirmation of supplemental PO provisions) that the receiving Honeywell
                         site/supplier is is capable for FAR-12 and FAR-15 work.
                         <br />
-                        <input type="checkbox"/> M, MC or OT (FAR-15)
+                        <input type="checkbox" /> M, MC or OT (FAR-15)
                         <br />
                         <input type="checkbox" /> CM (FAR-12)
                         <br />
@@ -397,17 +414,17 @@
                         <br />
                         <input type="checkbox" /> N/A, all CID Translation responses are "C" only, and CFDB File Translation responses are "N" in the FAR 15 and FAR 12 columns. Proceed to section i immediately
                         below.<ul>
-                                  <li>
-                                      i. Are there orders for which the CFDB Column labeled "FMS" is "Y"?
-                                      <br />
-                                      <input type="checkbox" /> Yes, and order is Distribution Channel 01. Engage appropriate Contract Manager to determine if there are U.S. Government restrictions.
-                                      <br />
-                                      <input type="checkbox" /> Yes, and order is Distribution Channel 02, Proceed to question 3 in this Section 5(a).
-                                      <br />
-                                      <input type="checkbox" />  No or blank. Skip the remainder of this Section 5(a) and proceed to Section 5(b) below.
-                                  </li>
+                            <li>
+                                i. Are there orders for which the CFDB Column labeled "FMS" is "Y"?
+                                <br />
+                                <input type="checkbox" /> Yes, and order is Distribution Channel 01. Engage appropriate Contract Manager to determine if there are U.S. Government restrictions.
+                                <br />
+                                <input type="checkbox" /> Yes, and order is Distribution Channel 02, Proceed to question 3 in this Section 5(a).
+                                <br />
+                                <input type="checkbox" />  No or blank. Skip the remainder of this Section 5(a) and proceed to Section 5(b) below.
+                            </li>
                         </ul>
-                    </li>       
+                    </li>
                 </ul>
             </li>
             <li>
@@ -417,7 +434,7 @@
                 <input type="checkbox" /> Yes.&nbsp;&nbsp;&nbsp; <input type="checkbox" />  No, why?&nbsp;&nbsp;&nbsp;<input type="checkbox" /> N/A, why?
             </li>
             <li>
-                <br/>
+                <br />
                 3. Customer Contracts Review:  For the table below please answer from the CFDB output file (CFDB Final Worksheet).  Please use Column “D” for the contact information and Owners surrounding Sourcing Transitions, Sourcing Repositions, and In-Sourcing Activities.  Please Use Column “E” when performing Make to Make, Make to Buy or In-Sourcing Activities.
             </li>
             <li>
@@ -433,37 +450,39 @@
             </li>
             <li>
                 6.    Customer Notification and Approval:
-               <ul>
-                   <li>a.       Did any of the following fields have a “Y” in the CFDB file and/or an approval or notification requirement in the Entanglement Summary: supplier change or subcontracting restrictions, place of performance, disclosure to third parties, citizenship restrictions, and security restrictions?
-                       <br />
-                       <input type="checkbox" /> Yes, customer approval(s) and/or notification(s) required for the transition/reposition.
-                       <br />
-                       <input type="checkbox" />   No.
-                   </li>
-                   <li>b.       Have Customer approvals and/or notifications been requested and completed for all customers with approval and/or notification requirements applicable to the transition/reposition?
-                       <br />
-                       <input type="checkbox" /> Yes.
-                       <br />
-                       <input type="checkbox" />  No, requirements have been added to the TAC 3 RAIL.   
-                       <br />
-                       <input type="checkbox" />  N/A, no customers require notification or approval.
-                   </li>
-                   <li>
-                       7.  Have all issues/follow-up actions identified in the Final CFDB and Entanglement Summary been completed?
-                       <br />
-                       <input type="checkbox" /> Yes.
-                       <br />
-                       <input type="checkbox" /> No, requirements have been added to the TAC 3 RAIL.
-                       <br />
-                       <input type="checkbox" /> N/A, no issues/follow-up actions identified in Final CFDB and Entanglement Summary.
-                   </li>
-               </ul>
+                <ul>
+                    <li>
+                        a.       Did any of the following fields have a “Y” in the CFDB file and/or an approval or notification requirement in the Entanglement Summary: supplier change or subcontracting restrictions, place of performance, disclosure to third parties, citizenship restrictions, and security restrictions?
+                        <br />
+                        <input type="checkbox" /> Yes, customer approval(s) and/or notification(s) required for the transition/reposition.
+                        <br />
+                        <input type="checkbox" />   No.
+                    </li>
+                    <li>
+                        b.       Have Customer approvals and/or notifications been requested and completed for all customers with approval and/or notification requirements applicable to the transition/reposition?
+                        <br />
+                        <input type="checkbox" /> Yes.
+                        <br />
+                        <input type="checkbox" />  No, requirements have been added to the TAC 3 RAIL.
+                        <br />
+                        <input type="checkbox" />  N/A, no customers require notification or approval.
+                    </li>
+                    <li>
+                        7.  Have all issues/follow-up actions identified in the Final CFDB and Entanglement Summary been completed?
+                        <br />
+                        <input type="checkbox" /> Yes.
+                        <br />
+                        <input type="checkbox" /> No, requirements have been added to the TAC 3 RAIL.
+                        <br />
+                        <input type="checkbox" /> N/A, no issues/follow-up actions identified in Final CFDB and Entanglement Summary.
+                    </li>
+                </ul>
             </li>
         </ul>
     </p>
 
 
-    <h2>Section 5(b): Channel 1 Customer Contracts (STP Phase 2 exit requirement)</h2>
+    <h2>Section 5(b): Channel 1 Customer Contracts</h2>
     <p>
         <ul>
             <li>
@@ -507,8 +526,7 @@
             </li>
         </ul>
     </p>
-    <br/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <h2>Section 6: Buy American Act (STP Phase 2 exit requirement)</h2>
+    <h2>Section 6: Buy American Act</h2>
     <p>
         <ul>
             <li>
@@ -565,7 +583,7 @@
                 6. Have you completed all of the required BAA actions for the award country or modified scope as defined in your BAA Response File?
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35576_Yes /> Yes. Please embed files, emails or link to diligence sharesite below.
-                [Embed files or insert link here]
+               
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35576_No />   No, part scope/countries have been redefined to mitigate risks and are updated within the "Response" tab of the attached BAA_Reponse File (See column labeled "Award Country (to be completed by
                 requestor)").
@@ -573,53 +591,40 @@
         </ul>
     </p>
 
-    <h2>Section 7: Berry Amendment (STP Phase 2 exit requirement)</h2>
+    <h2>Section 7: Berry Amendment and Other Domestic Preference Restrictions (STP Phase 2 exit requirement)</h2>
     <p>
-        You will use the following CFDB columns for this section: "Domestic Pref Rest Other" or "Domestic Pref Rest Clause".
         <input type="checkbox" /> N/A. Check here if (i) no Channel 2 Customer Contracts were found in the Final CFDB, and (ii) all CID usage codes are "C".
         If N/A, then skip the remainder of this Section 7 and proceed to Section 8.
 
         <ul>
             <li>
-                1. In the Final CFDB file, have you located any of the following clauses within the "Domestic Pref Rest Other" or "Domestic Pref Rest Clause" columns? Check all that apply.
+                1. Berry Amendment: Has Sourcing Compliance (Kevin R. Walker) confirmed Supplier's ability to comply with Berry Amendment?
                 <br />
-                <input type="checkbox" /> "Metallic" clauses: 252.225-7008, 252.225-7009, 252.225-7014
+                <input type="checkbox" /> Yes (evidenced in verification of supplier responsibility documentation)
                 <br />
-                <input type="checkbox" /> "Cloth, Fabric, Composites": 252.225-7012
+                <input type="checkbox" /> No, why?
                 <br />
-                <input type="checkbox" /> "Hand or Measuring Tool": 252.225-7015
-                <br />
-                <input type="checkbox" /> "Roller or Ball" Bearing: 252.225-7016
-                <br />
-                <input type="checkbox" />N/A, None of the above Specialty Metals related clauses appeared in the Final CFDB.b If N/A, then skip the remainder of this Section 7 and proceed to Section 8.
+                <input type="checkbox" /> N/A (Make to Make, Buy to Make, or Supplier Reposition project where Supplier doesc not change)
             </li>
             <li>
-                2. If you checked any of the boxes for the clauses in question 1 immediately above, does your product fit into the category named?
-                <br />
-                <input type="checkbox" /> Yes. Answer question 3 below.
-                <br />
-                <input type="checkbox" /> No. My transition/reposition products do not fit within any of the categories listed.
-                <br />
-                <input type="checkbox" /> "Metallic" clauses: 252.225-7008, 252.225-7009, 252.225-7014
-                <br />
-                <input type="checkbox" /> "Roller or Ball" Bearing: 252.225-7016
-                <br />
-                <input type="checkbox" /> "Cloth, Fabric, Composites": 252.225-7012
-                <br />
-                <input type="checkbox" /> "Hand or Measuring Tool": is the 252.225-7015
+                2. Other Domestic reference Restrictions:
+               <ul>
+                   <li>a. Does the project include products that qualify as: (1) roller or ball bearings or components thereof; of (2) hand or measuring tools?
+                   
+                       <br/><input type="checkbox" /> Yes
+                       <br /><input type="checkbox" /> No - Skip to Question 2 below
+                   </li>
+                   <li>
+                       b. Will the transition cause the product to be manufactured or produced outside of the United States:
+                       <br /><input type="checkbox" /> Yes - do not proceed without ISC  General Counsel approval
+                       <br /><input type="checkbox" /> No
+                   </li>
+               </ul>
             </li>
-            <li>
-                3. If you (i) checked any boxes in question 1 above (clauses exist), and (ii) checked Yes to question 2 above, then did you confirm conformance to the "Berry" Amendment clauses through (check all that apply):
-                <br />
-                <input type="checkbox" @ViewBag.Checkbox35581_Yes /> Yes, supplier confirmation of conformance to the requirements listed for the specific transition
-                type (i.e. confirmation of material source as US).
-                <br />
-                <input type="checkbox" @ViewBag.Checkbox35581_No />N/A, contract review clearance with Customer Contract Manager. N/A, specialty material review at a part level with ISC Compliance.  Note: please provide/attach or link evidence of the confirmations or reviews
-                
-            </li>
+            
         </ul>
     </p>
-    <h2>Section 8: Supplier Contracts (Supplier Relationship) (STP Phase 2 exit requirement)</h2>
+    <h2>Section 8: Supplier Contracts (Supplier Relationship)</h2>
     <p>
         <input type="checkbox" /> N/A. Check here if this is not a Buy to Buy or Buy to Make transition. If N/A, then skip the remainder of this Section 8 and proceed to Section 9.
         <br />
@@ -660,7 +665,7 @@
             </li>
         </ul>
     </p>
-    <h2>Section 9: Offset (STP Phase 2 exit requirement)</h2>
+    <h2>Section 9: Offset</h2>
     <p>
         <input type="checkbox" /> N/A. Check here if this is a Make to Make, Make to buy, Buy to make, or OIP transition. If N/A, then skip the remainder of this Section 9.
         <br />
