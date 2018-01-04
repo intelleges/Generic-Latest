@@ -619,6 +619,7 @@
     var alternatives = [];
     var alternativeIndex = 0;
     var rowDataMain = null;
+    var element = null;
 
     function Grid_onDataBound(e) {
     	$("#IteratePartners td").mouseover(function () {
@@ -760,10 +761,14 @@
                 e.preventDefault();
                 var partnerGrid = $("#IteratePartners").data("tGrid");
                 var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                element = $(this).parents("tr")[0];
+                console.log(element);
+
                 //data can be used for whatever it needed
                 iterate.selectedPartnerId = rowData.id;
                 iterate.selectedPartner = rowData.name;
                 $("#updateDialog #id").val(rowData.id);
+                $("#updateDialog #pptq").val(rowData.pptq);
                 $("#updateDialog #name").val(rowData.name);
                 $("#updateDialog #firstName").val(rowData.firstname);
                 $("#updateDialog #lastName").val(rowData.lastname);
@@ -778,6 +783,8 @@
                 $('#alternativeForm .next').hide();
 
                 rowDataMain = rowData;
+                console.log(rowDataMain);
+                console.log($(this).parents("tr")[0]);
                 alternatives = [];
                 alternativeIndex = 0;
 
@@ -879,6 +886,84 @@
             iterate.selectedPartnerId = 0;
             clearFields();
         }
+    }
+
+    function updateDialogPrevious()
+    {
+        console.log(element);
+        var el = $(element).prev()[0];
+        if (el != undefined)
+         openElement(el);
+    }
+
+    function updateDialogNext() {
+        console.log(el);
+        var el = $(element).next()[0];
+        if (el != undefined)
+            openElement(el);
+    }
+
+    function openElement(el) {
+        
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                element = el;
+                var rowData = partnerGrid.dataItem(el);
+                console.log(rowData);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                $("#updateDialog #id").val(rowData.id);
+                $("#updateDialog #pptq").val(rowData.pptq);
+                $("#updateDialog #name").val(rowData.name);
+                $("#updateDialog #firstName").val(rowData.firstname);
+                $("#updateDialog #lastName").val(rowData.lastname);
+                $("#updateDialog #title").val(rowData.title);
+                $("#updateDialog #email").val(rowData.email);
+                $("#updateDialog #phone").val(rowData.phone);
+
+                $('#alternativeForm').parent().hide();
+                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
+                $("#updateDialog .modal-dialog").removeClass('modal-lg');
+                $('#alternativeForm .previous').hide();
+                $('#alternativeForm .next').hide();
+
+                rowDataMain = rowData;
+                alternatives = [];
+                alternativeIndex = 0;
+
+                if (rowData.phone == 9999999999 || rowData.email == '') {
+                    $.fancybox.showLoading();
+                    $.post("@Url.Action("SearchAlternative", "Partner")", { name: rowData.name, email: rowData.email, lastname: rowData.lastname })
+                        .done(function (data) {
+                            $.fancybox.hideLoading();
+                            if (data.length != 0) {
+
+                                alternatives = data;
+                                alternativeIndex = 0;
+
+                                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-6');
+                                $("#updateDialog .modal-dialog").addClass('modal-lg');
+
+                                $('#firstName_a').val(data[0].firstname);
+                                $('#lastName_a').val(data[0].lastname);
+                                $('#title_a').val(data[0].title);
+                                $('#phone_a').val(data[0].phone);
+                                $('#email_a').val(data[0].email);
+
+                                if (data.length > 1) {
+                                    $('#alternativeForm .previous').show();
+                                    $('#alternativeForm .next').show();
+                                }
+
+                                $('#alternativeForm').parent().show();
+                            }
+                            else {
+                                //alertify.alert('there is no match, sorry.');
+                            }
+                        });
+                }
+
+            	//$("#updateDialog").modal("toggle");
     }
 
     function redgreenBox(element) {
@@ -1039,7 +1124,8 @@
         	formdata.append("lastName", $("#updateDialog #lastName").val());
         	formdata.append("title", $("#updateDialog #title").val());
         	formdata.append("email", $("#updateDialog #email").val());
-        	formdata.append("phone", $("#updateDialog #phone").val());
+            formdata.append("phone", $("#updateDialog #phone").val());
+            formdata.append("pptq", $("#updateDialog #pptq").val());
 
         	$.ajax({
         		url: 'UpdateIterate',
@@ -2123,6 +2209,7 @@
         <div class="modal-dialog modal-lg">
 
             <input id="id" name="id" class="form-control" type="hidden" />
+            <input id="pptq" name="pptq" class="form-control" type="hidden" />
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">
