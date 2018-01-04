@@ -3968,8 +3968,12 @@ namespace Generic.Controllers
             if (t != null)
                 pt = t.description;
 
-            //db.pr_getGroupByPPTQ()
-            return Json(new { pt = pt, gr ="" }, JsonRequestBehavior.AllowGet);
+            var g = db.pr_getGroupByPPTQ(pptq).FirstOrDefault();
+            string gr = "";
+            if (g != null)
+                gr = g.description;
+
+            return Json(new { pt = pt, gr = gr }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

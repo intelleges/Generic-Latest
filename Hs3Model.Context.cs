@@ -22009,5 +22009,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePersonAlternative_Result>("pr_getIteratePersonAlternative", emailParameter, nameParameter, lastnameParameter);
         }
+    
+        public virtual ObjectResult<pr_getGroupByPPTQ_Result> pr_getGroupByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByPPTQ_Result>("pr_getGroupByPPTQ", pptqParameter);
+        }
     }
 }
