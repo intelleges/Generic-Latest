@@ -3961,6 +3961,17 @@ namespace Generic.Controllers
             return Json(true);
         }
 
+
+        public ActionResult GetInfoByPptq(int pptq) {
+            var t = db.pr_getPartnertypeByPPTQ(pptq).FirstOrDefault();
+            string pt = "";
+            if (t != null)
+                pt = t.description;
+
+            //db.pr_getGroupByPPTQ()
+            return Json(new { pt = pt, gr ="" }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult UpdateIterate(int id, string name, string firstName, string lastName, string phone, string title, string email, int pptq)

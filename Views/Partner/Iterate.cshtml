@@ -775,7 +775,12 @@
                 $("#updateDialog #title").val(rowData.title);
                 $("#updateDialog #email").val(rowData.email);
                 $("#updateDialog #phone").val(rowData.phone);
-
+       
+                $.get("@Url.Action("GetInfoByPptq", "Partner")" + '?pptq=' + rowData.pptq, function (data) {
+                    $("#updateDialog #gr").val(data.gr);
+                    $("#updateDialog #pt").val(data.pt);
+                });
+    
                 $('#alternativeForm').parent().hide();
                 $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
                 $("#updateDialog .modal-dialog").removeClass('modal-lg');
@@ -920,6 +925,11 @@
                 $("#updateDialog #title").val(rowData.title);
                 $("#updateDialog #email").val(rowData.email);
                 $("#updateDialog #phone").val(rowData.phone);
+
+                $.get("@Url.Action("GetInfoByPptq", "Partner")" + '?pptq=' + rowData.pptq, function (data) {
+                    $("#updateDialog #gr").val(data.gr);
+                    $("#updateDialog #pt").val(data.pt);
+                });
 
                 $('#alternativeForm').parent().hide();
                 $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
@@ -2250,6 +2260,16 @@
 
                                     <label class="control-label" for="title">Title</label>
                                     <input id="title" name="title" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Partner Type</label>
+                                    <input id="pt" name="pt" class="form-control" type="text" placeholder="" data-val-required="*" data-val="true" disabled />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Group</label>
+                                    <input id="gr" name="gr" class="form-control" type="text" placeholder="" data-val-required="*" data-val="true" disabled />
                                 </div>
                                 <div class="form-group text-right">
                                     <button type="button" class="btn btn-primary" name="submit" onclick="Email2(rowDataMain.pptq, rowDataMain.person, rowDataMain.id, $('#updateDialog #email').val(), $('#updateDialog #name').val());">Email</button>
