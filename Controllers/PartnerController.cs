@@ -1727,7 +1727,8 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchAlternative(string email, string name, string lastname) {
+        public ActionResult SearchAlternative(string email, string name, string lastname)
+        {
             var items = db.pr_getIteratePersonAlternative(email, name, lastname).ToList();
             return Json(items);
         }
@@ -2564,6 +2565,21 @@ namespace Generic.Controllers
             }
             return Json(null);
         }
+        [HttpPost]
+        public ActionResult FindAndRedirectToLinkedInProfile(FindAndRedirectToLinkedInProfileModel model)
+        {
+            var service = new Google.Apis.Customsearch.v1.CustomsearchService(new BaseClientService.Initializer()
+            {
+                ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"]
+                
+            });
+            
+            var listRequest = service.Cse.List("site:linkedin.com/in OR site:linkedin.com/pub -pub.dir " + model.GetSearchString());
+            listRequest.Cx = ConfigurationManager.AppSettings["GoogleCse"];
+            Google.Apis.Customsearch.v1.Data.Search search = listRequest.Execute();
+            var firstItem = search.Items!=null?search.Items.FirstOrDefault():null;
+            return Json(firstItem != null ? firstItem.Link : "");
+        }
 
         public virtual async Task<ActionResult> Iterate(bool? showNotes, bool needGmailAuth = false)
         {
@@ -2681,7 +2697,7 @@ namespace Generic.Controllers
             //var data = new SchedulerAjaxData();
 
             var iCal = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
-            if (iCal != null)
+            if (iCal != null && iCal != "None")
             {
                 var request = WebRequest.Create(iCal);
                 var response = request.GetResponse();
@@ -3757,7 +3773,7 @@ namespace Generic.Controllers
             return phone.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "").Replace("_", "");
         }
         [HttpPost]
-        public ActionResult CallPartnerNow(int id)
+        public ActionResult CallPartnerNow(int id, string phone)
         {
 
 
@@ -3765,7 +3781,7 @@ namespace Generic.Controllers
             var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == id);
 
             var currentUser = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-            if (iPerson != null && currentUser != null)
+            if ((iPerson != null || !string.IsNullOrEmpty(phone)) && currentUser != null)
             {
                 string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
                 string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token
@@ -3776,7 +3792,7 @@ namespace Generic.Controllers
                 var options = new CallOptions();
                 options.To = phoneNumberTo;
                 options.From = phoneNumberFrom;
-                options.Url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["Twilio.URL"].ToString() + "?number=" + PreparePhoneString(iPerson.phone); //url for twilio
+                options.Url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["Twilio.URL"].ToString() + "?number=" + PreparePhoneString(string.IsNullOrEmpty(phone)?iPerson.phone: phone); //url for twilio
                 options.Method = "GET";
                 options.FallbackMethod = "GET";
                 options.StatusCallbackMethod = "GET";
@@ -3962,7 +3978,8 @@ namespace Generic.Controllers
         }
 
 
-        public ActionResult GetInfoByPptq(int pptq) {
+        public ActionResult GetInfoByPptq(int pptq)
+        {
             var t = db.pr_getPartnertypeByPPTQ(pptq).FirstOrDefault();
             string pt = "";
             if (t != null)

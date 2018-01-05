@@ -91,7 +91,9 @@
     #IteratePartners tr > td:hover .menu_block + .display_menu_right {
         display: block !important;
     }
-
+    .left-panel-group .btn.btn-primary {
+        font-size: 9px !important;
+    }
     .btn.btn-primary {
         font-size: 12px !important;
     }
@@ -775,12 +777,12 @@
                 $("#updateDialog #title").val(rowData.title);
                 $("#updateDialog #email").val(rowData.email);
                 $("#updateDialog #phone").val(rowData.phone);
-       
+
                 $.get("@Url.Action("GetInfoByPptq", "Partner")" + '?pptq=' + rowData.pptq, function (data) {
                     $("#updateDialog #gr").val(data.gr);
                     $("#updateDialog #pt").val(data.pt);
                 });
-    
+
                 $('#alternativeForm').parent().hide();
                 $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
                 $("#updateDialog .modal-dialog").removeClass('modal-lg');
@@ -909,7 +911,7 @@
     }
 
     function openElement(el) {
-        
+
                 var partnerGrid = $("#IteratePartners").data("tGrid");
                 element = el;
                 var rowData = partnerGrid.dataItem(el);
@@ -1768,6 +1770,15 @@
 
     	});
     }
+    function findLinkedInProfile(profile) {
+        $.post('FindAndRedirectToLinkedInProfile', profile, function (result) {
+            if (result) {
+                window.open(result, "_blank");
+            } else {
+                alertify.alert("Sorry. Can't find linkedin profile");
+            }
+        });
+    }
 </script>
 
 <style type="text/css">
@@ -1821,7 +1832,7 @@
         height: 34px;
         background-size: cover;
         cursor: pointer;
-        float:left;
+        float: left;
     }
 
     .red-box {
@@ -1831,7 +1842,7 @@
 
     #alternativeForm input[type=text] {
         float: left;
-        width:80%;
+        width: 80%;
     }
 
     /*.twocol .editor-label {
@@ -2271,7 +2282,10 @@
                                     <label class="control-label" for="title">Group</label>
                                     <input id="gr" name="gr" class="form-control" type="text" placeholder="" data-val-required="*" data-val="true" disabled />
                                 </div>
-                                <div class="form-group text-right">
+                                <div class="form-group text-right left-panel-group">
+                                    <button type="button" class="btn btn-primary" onclick="findLinkedInProfile({firstName: $('#updateDialog #firstName').val(), lastName:$('#updateDialog #lastName').val(), name:$('#updateDialog #name').val()})">
+                                        <i class="fa fa-linkedin-square" aria-hidden="true" style="font-size:18px;"></i>
+                                    </button>
                                     <button type="button" class="btn btn-primary" name="submit" onclick="Email2(rowDataMain.pptq, rowDataMain.person, rowDataMain.id, $('#updateDialog #email').val(), $('#updateDialog #name').val());">Email</button>
                                     <button type="button" class="btn btn-primary" name="submit" onclick="TwilioCall2(rowDataMain.id, $('#updateDialog #phone').val());">Call</button>
                                     <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogPrevious();">Previous</button>
@@ -2294,15 +2308,15 @@
                                     <div class="clear-fix"></div>
                                     <input id="firstName_a" name="firstName_a" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" disabled />
                                     <a class="red-box" onclick="$('#updateDialog #firstName').val(rowDataMain.firstname); return false;"></a><a class="green-box" onclick="$('#updateDialog #firstName').val($('#firstName_a').val()); return false;"></a>
-                                  </div>
+                                </div>
                                 <div class="clearfix"></div>
-                                <br/>
+                                <br />
                                 <div class="form-group">
 
                                     <label class="control-label" for="lastName">Last Name </label>
                                     <div class="clear-fix"></div>
                                     <input id="lastName_a" name="lastName_a" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" disabled />
-                                    <a class="red-box" onclick="$('#updateDialog #lastName').val(rowDataMain.lastname); return false;"></a><a class="green-box"  onclick="$('#updateDialog #lastName').val($('#lastName_a').val()); return false;"></a>
+                                    <a class="red-box" onclick="$('#updateDialog #lastName').val(rowDataMain.lastname); return false;"></a><a class="green-box" onclick="$('#updateDialog #lastName').val($('#lastName_a').val()); return false;"></a>
                                 </div>
                                 <div class="clearfix"></div>
                                 <br />
@@ -2330,9 +2344,12 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <br />
-                                <div class="form-group text-right">
+                                <div class="form-group text-right ">
+                                    <button type="button" class="btn btn-primary" onclick="findLinkedInProfile({firstName: $('#updateDialog #firstName_a').val(), lastName:$('#updateDialog #lastName_a').val(), name:$('#updateDialog #name').val()})">
+                                        <i class="fa fa-linkedin-square" aria-hidden="true" style="font-size:18px;"></i>
+                                    </button>
                                     <button type="button" class="btn btn-primary" name="submit" onclick="Email2(alternatives[alternativeIndex].pptq, alternatives[alternativeIndex].id, alternatives[alternativeIndex].id, $('#email_a').val(), $('#firstName_a').val());">Email</button>
-                                    <button type="button" class="btn btn-primary" name="submit" onclick="TwilioCall2(alternatives[alternativeIndex].id, $('#phone_a').val());">Call</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="TwilioCall2(-1, $('#phone_a').val());">Call</button>
                                     <button type="button" class="btn btn-primary previous" name="submit" style="display:none;" onclick="alternativeDialogPrevious();">Previous</button>
                                     <button type="button" class="btn btn-primary next" name="submit" style="display:none;" onclick="alternativeDialogNext();">Next</button>
                                     <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
@@ -3997,6 +4014,6 @@
     <link href="~/Content/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" />
     <script src="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.js"></script>
     <script src="~/Scripts/moment.min.js"></script>
-
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
 }
