@@ -81,7 +81,8 @@
                         <br /><input type="checkbox" @ViewBag.Checkbox62355 /> Value Engineering
                         <br /><input type="checkbox" @ViewBag.Checkbox62356 /> Other
                     </li>
-                    <li>e. Identify the functional representatives involved in Project Planning (e.g., E&T, M&PM, ISC-VE, GS&I, SS):</li>
+                    <li>e. Insert document link to project folder where due diligence and documentation is stored:</li>
+                    <li>f. Identify the functional representatives involved in Project Planning (e.g., E&T, M&PM, ISC-VE, GS&I, SS):</li>
                 </ul>
             </li>
             <li>
@@ -107,25 +108,19 @@
                         <input type="checkbox" @ViewBag.ActivityType268 />Buy to Make (In sourcing)
                         <br /><input type="checkbox" @ViewBag.ActivityType266 />Other
                     </li>
-                    <li>
-                        c. Is there an assist or non-recurring payment?
-                        <br /><input type="checkbox" @ViewBag.Checkbox35500_Yes /> Yes
-                        <br /><input type="checkbox" @ViewBag.Checkbox35500_No /> No
-                    </li>
-                    <li>
-                        d. Does this product involve new designs or reuse?
-                        <br /><input type="checkbox" @ViewBag.Checkbox35501_Yes /> Yes
-                        <br /><input type="checkbox" @ViewBag.Checkbox35501_No /> No
-                    </li>
-                    <li>
-                        e. In the part a programmble electronic component OR is it used on any of the following military platforms?
-                        <br /><input type="checkbox" /> US Government technology demonstrations
-                        <br /><input type="checkbox" /> B-1B, B-2, B-21
-                        <br /><input type="checkbox" /> F-15SE, F/A-18E/F, F-22, F-23, F-17
-                        <br /><input type="checkbox" /> EA-18G
-                        <br /><input type="checkbox" /> Abrams 1
-                    </li>
+                    
+                    
                 </ul>
+            </li>
+            <li>
+                3. Is there an assist or non-recurring payment?
+                <br /><input type="checkbox" @ViewBag.Checkbox35500_Yes /> Yes
+                <br /><input type="checkbox" @ViewBag.Checkbox35500_No /> No
+            </li>
+            <li>
+                4. Does this product involve new designs or reuse?
+                <br /><input type="checkbox" @ViewBag.Checkbox35501_Yes /> Yes
+                <br /><input type="checkbox" @ViewBag.Checkbox35501_No /> No
             </li>
         </ul>
     </p>
@@ -172,7 +167,7 @@
         </ul>
     </p>
 
-
+    <br/>
     <h2>Section 3: Export and Import</h2>
     <p>
         <ul>
@@ -247,7 +242,6 @@
                 </ul>
             </li>
         </ul>
-        <br />
         <h3>B.    Reverse Engineering (Buy to Buy & Buy to Make)</h3>
         <ul>
             <li>
@@ -328,35 +322,25 @@
             </li>
         </ul>
         <h3>E.    Third Party Licenses (Buy to Buy & Make to Buy & OIP)</h3>
-        Does the transition scope include transfer of any software, tooling or test/manufacturing equipment?
-        <br />
-        <input type="checkbox" @ViewBag.Checkbox35539_No /> No. Skip remainder of Sub-Section E and proceed to Section 5.
-        <br />
-        <input type="checkbox" @ViewBag.Checkbox35539_Yes />  Yes. Proceed to next question.
+      
         <ul>
             <li>
-                9. Are there any third party intellectual property licenses that will need to be transferred or assigned to the new supplier?  Consult with engineering, testing, supply chain, and licensing teams to determine if any third party intellectual property licenses apply to the software, tooling or test/manufacturing equipment to be transferred.
+                1. Does the transition scope include transfer of any software, tooling or test/manufacturing equipment?
                 <br />
-                <input type="checkbox" @ViewBag.Checkbox35542_Yes /> Yes, consult the Sourcing L&C representative to review the identified licenses to determine what can be transferred or assigned the licenses to the new supplier.
+                <input type="checkbox" @ViewBag.Checkbox35539_No /> No. Skip remainder of Sub-Section E and proceed to Section 5.
+                <br />
+                <input type="checkbox" @ViewBag.Checkbox35539_Yes />  Yes. Proceed to next question.
+            </li>
+            <li>
+                2. Are there any third party intellectual property licenses that will need to be transferred or assigned to the new supplier?
+                <br />
+                <input type="checkbox" @ViewBag.Checkbox35542_Yes /> Yes, consult the Sourcing L&C representative to review the identified licenses to determine what can be transferred or assigned to the new supplier.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35542_No /> No. Skip remainder of Sub-Section E and proceed to Section 5.
             </li>
         </ul>
     </p>
 
-
-    <h2>Section 5:  Customer Contracts (STP Phase 2 exit requirement)</h2>
-    <p>
-        The contract review section will require that both the CID and CFDB Final documents have been completed.
-        <ul>
-            <li>
-                1. Embed final CFDB, CID, and Entanglement summary files, or if files are too large, please provide links with access for LC&E Checklist approvers:
-            </li>
-            <li>
-                2. Insert document link to project folder where due diligence and documentation is stored:
-            </li>
-        </ul>
-    </p>
 
     <h2>Section 5(a):  Channel 2 Customer Contracts</h2>
     <p>
@@ -467,16 +451,17 @@
                         <br />
                         <input type="checkbox" />  N/A, no customers require notification or approval.
                     </li>
-                    <li>
-                        7.  Have all issues/follow-up actions identified in the Final CFDB and Entanglement Summary been completed?
-                        <br />
-                        <input type="checkbox" /> Yes.
-                        <br />
-                        <input type="checkbox" /> No, requirements have been added to the TAC 3 RAIL.
-                        <br />
-                        <input type="checkbox" /> N/A, no issues/follow-up actions identified in Final CFDB and Entanglement Summary.
-                    </li>
+                    
                 </ul>
+            </li>
+            <li>
+                7.  Have all issues/follow-up actions identified in the Final CFDB and Entanglement Summary been completed?
+                <br />
+                <input type="checkbox" /> Yes.
+                <br />
+                <input type="checkbox" /> No, requirements have been added to the TAC 3 RAIL.
+                <br />
+                <input type="checkbox" /> N/A, no issues/follow-up actions identified in Final CFDB and Entanglement Summary.
             </li>
         </ul>
     </p>
@@ -591,7 +576,7 @@
         </ul>
     </p>
 
-    <h2>Section 7: Berry Amendment and Other Domestic Preference Restrictions (STP Phase 2 exit requirement)</h2>
+    <h2>Section 7: Berry Amendment and Other Domestic Preference Restrictions</h2>
     <p>
         <input type="checkbox" /> N/A. Check here if (i) no Channel 2 Customer Contracts were found in the Final CFDB, and (ii) all CID usage codes are "C".
         If N/A, then skip the remainder of this Section 7 and proceed to Section 8.
