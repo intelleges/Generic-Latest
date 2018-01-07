@@ -1792,6 +1792,9 @@
     <Compile Include="pr_getPartnerSiteTeamByPartner_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerSpreadsheetDataLoadByEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerStatusAllByEnterprise_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2761,6 +2764,7 @@
     <Compile Include="UM_M_Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CheckEmailAndCreateNewPartnerModel.cs" />
     <Compile Include="ViewModel\ClauseViewModel.cs" />
     <Compile Include="ViewModel\FindAndRedirectToLinkedInProfileModel.cs" />
     <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />

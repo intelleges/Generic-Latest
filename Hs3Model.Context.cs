@@ -22018,5 +22018,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByPPTQ_Result>("pr_getGroupByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerSpreadsheetDataLoadByEmail_Result> pr_getPartnerSpreadsheetDataLoadByEmail(Nullable<int> enterprise, string email)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerSpreadsheetDataLoadByEmail_Result>("pr_getPartnerSpreadsheetDataLoadByEmail", enterpriseParameter, emailParameter);
+        }
     }
 }

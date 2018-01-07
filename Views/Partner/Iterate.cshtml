@@ -2348,7 +2348,7 @@
                                     <button type="button" class="btn btn-primary" onclick="findLinkedInProfile({firstName: $('#updateDialog #firstName_a').val(), lastName:$('#updateDialog #lastName_a').val(), name:$('#updateDialog #name').val()})">
                                         <i class="fa fa-linkedin-square" aria-hidden="true" style="font-size:18px;"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary" name="submit" onclick="Email2(alternatives[alternativeIndex].pptq, alternatives[alternativeIndex].id, alternatives[alternativeIndex].id, $('#email_a').val(), $('#firstName_a').val());">Email</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="Email2(rowDataMain.pptq, rowDataMain.person, alternatives[alternativeIndex].id, $('#email_a').val(), $('#firstName_a').val(), $('#phone_a').val(), $('#firstName_a').val(), $('#lastName_a').val(), $('#title_a').val(), $('#updateDialog #email').val());">Email</button>
                                     <button type="button" class="btn btn-primary" name="submit" onclick="TwilioCall2(-1, $('#phone_a').val());">Call</button>
                                     <button type="button" class="btn btn-primary previous" name="submit" style="display:none;" onclick="alternativeDialogPrevious();">Previous</button>
                                     <button type="button" class="btn btn-primary next" name="submit" style="display:none;" onclick="alternativeDialogNext();">Next</button>
@@ -3910,18 +3910,18 @@
             });
         }
 
-        function Email2(pptq, person, id, email, name) {
-
-                $("#updateDialog").modal("toggle");
-
-                if (pptq === undefined)
+        function Email2(pptq, person, id, email, name, phone, firstName, lastName, title, mainEmail) {
+            $("#updateDialog").modal("toggle");
+            $.post("CheckEmailAndCreateNewPartnerIfNeeded", { pptq: pptq, person: person, id: id, email: email, name: name, phone: phone, firstName: firstName, lastName: lastName, title: title, mainEmail: mainEmail}, function (checkResult) {
+                //if (result)
+                if (checkResult.pptq === undefined)
                     pptq = null;
-
+        
                 if (pptq)
                     $('#DropDownSubjects').data("pptq", pptq);
                 else
                     $('#DropDownSubjects').removeData("pptq");
-                $.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + person + "&pptq=" + pptq).done(function (result) {
+                $.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + checkResult.person + "&pptq=" + checkResult.pptq).done(function (result) {
                     if (result) {
 
                         $('#DropDownSubjects')
@@ -3949,6 +3949,10 @@
                 CKEDITOR.instances.emailText.setData("");
                 //if (!checkoAuth()) return;
                 $("#emailDialog").modal("toggle");
+            });
+               
+
+                
             }
 
 

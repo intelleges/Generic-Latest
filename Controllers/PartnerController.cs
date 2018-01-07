@@ -2571,14 +2571,43 @@ namespace Generic.Controllers
             var service = new Google.Apis.Customsearch.v1.CustomsearchService(new BaseClientService.Initializer()
             {
                 ApiKey = ConfigurationManager.AppSettings["GoogleTranslateApiKey"]
-                
+
             });
-            
+
             var listRequest = service.Cse.List("site:linkedin.com/in OR site:linkedin.com/pub -pub.dir " + model.GetSearchString());
             listRequest.Cx = ConfigurationManager.AppSettings["GoogleCse"];
             Google.Apis.Customsearch.v1.Data.Search search = listRequest.Execute();
-            var firstItem = search.Items!=null?search.Items.FirstOrDefault():null;
+            var firstItem = search.Items != null ? search.Items.FirstOrDefault() : null;
             return Json(firstItem != null ? firstItem.Link : "");
+        }
+        public ActionResult CheckEmailAndCreateNewPartnerIfNeeded(CheckEmailAndCreateNewPartnerModel model)
+        {
+            if (model != null)
+            {
+                var result = db.pr_getPartnerByEmail(CurrentInstance.EnterpriseID, model.email).FirstOrDefault();
+                if (result == null)
+                {
+                    var loadGroup = db.pr_getAccesscode().FirstOrDefault();
+                    //var spreadSheet = db.pr_getPartnerSpreadsheetDataLoadByEmail()
+                    var partnerPtq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(model.pptq).FirstOrDefault();
+                    var person = db.pr_getPerson(model.person).FirstOrDefault();
+                    //var spreadsheetGroup = db.pr_getPartnerSpreadsheetDataLoadByEmail(CurrentInstance.EnterpriseID, model.mainEmail).FirstOrDefault();
+                    var group = db.pr_getPPTQGroupByPPTQ(partnerPtq.id).FirstOrDefault();
+                    var pptqId = db.pr_addPartnerSpreadsheetDataLoad(model.phone, model.phone, model.phone, partnerPtq.partner1.name, partnerPtq.partner1.address1, partnerPtq.partner1.address2, partnerPtq.partner1.city, partnerPtq.partner1.state.ToString(), partnerPtq.partner1.zipcode, partnerPtq.partner1.country.ToString(), model.firstName, model.lastName, model.title, model.phone, model.email, person.firstName, person.lastName, person.email, DateTime.Now, CurrentInstance.EnterpriseID, partnerPtq.partnerTypeTouchpointQuestionnaire1.partnerType, partnerPtq.partnerTypeTouchpointQuestionnaire1.touchpoint, model.person, null, loadGroup, DateTime.Now, group.group).FirstOrDefault();
+                    var _partners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
+                    var newPptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(_partners.FirstOrDefault().accesscode).FirstOrDefault();
+                    model.pptq = newPptq.id;
+                }
+                else
+                {
+                    var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(result.id).FirstOrDefault();
+                    model.pptq = pptq.id;                    
+                }
+                return Json(model);
+            }
+
+            return Json(model);
+
         }
 
         public virtual async Task<ActionResult> Iterate(bool? showNotes, bool needGmailAuth = false)
@@ -3792,7 +3821,7 @@ namespace Generic.Controllers
                 var options = new CallOptions();
                 options.To = phoneNumberTo;
                 options.From = phoneNumberFrom;
-                options.Url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["Twilio.URL"].ToString() + "?number=" + PreparePhoneString(string.IsNullOrEmpty(phone)?iPerson.phone: phone); //url for twilio
+                options.Url = Request.Url.GetLeftPart(UriPartial.Authority) + ConfigurationManager.AppSettings["Twilio.URL"].ToString() + "?number=" + PreparePhoneString(string.IsNullOrEmpty(phone) ? iPerson.phone : phone); //url for twilio
                 options.Method = "GET";
                 options.FallbackMethod = "GET";
                 options.StatusCallbackMethod = "GET";

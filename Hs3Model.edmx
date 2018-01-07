@@ -6878,6 +6878,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getPartnerSiteTeamByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerSpreadsheetDataLoadByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPartnerStatusAllByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -17252,7 +17256,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="lastname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getGroupByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGroupByPPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerSpreadsheetDataLoadByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerSpreadsheetDataLoadByEmail_Result)">
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29570,6 +29578,35 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Int32" Name="active" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerSpreadsheetDataLoadByEmail_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="partner_internal_id" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="partner_sap_id" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_duns_number" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="partner_name" Nullable="true" />
+          <Property Type="String" Name="partner_address_one" Nullable="true" />
+          <Property Type="String" Name="partner_address_two" Nullable="true" />
+          <Property Type="String" Name="partner_city" Nullable="true" />
+          <Property Type="String" Name="partner_state" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="partner_zipcode" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="partner_country" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_first_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_last_name" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_title" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="partner_poc_phone_number" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="partner_poc_email_address" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="ro_first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ro_email" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_loaded" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="enterprise" Nullable="false" />
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="touchpoint" Nullable="false" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnerSpreadsheetDataLoadStatus" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -40989,6 +41026,39 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerSpreadsheetDataLoadByEmail" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerSpreadsheetDataLoadByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerSpreadsheetDataLoadByEmail_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner_internal_id" ColumnName="partner_internal_id" />
+                <ScalarProperty Name="partner_sap_id" ColumnName="partner_sap_id" />
+                <ScalarProperty Name="partner_duns_number" ColumnName="partner_duns_number" />
+                <ScalarProperty Name="partner_name" ColumnName="partner_name" />
+                <ScalarProperty Name="partner_address_one" ColumnName="partner_address_one" />
+                <ScalarProperty Name="partner_address_two" ColumnName="partner_address_two" />
+                <ScalarProperty Name="partner_city" ColumnName="partner_city" />
+                <ScalarProperty Name="partner_state" ColumnName="partner_state" />
+                <ScalarProperty Name="partner_zipcode" ColumnName="partner_zipcode" />
+                <ScalarProperty Name="partner_country" ColumnName="partner_country" />
+                <ScalarProperty Name="partner_poc_first_name" ColumnName="partner_poc_first_name" />
+                <ScalarProperty Name="partner_poc_last_name" ColumnName="partner_poc_last_name" />
+                <ScalarProperty Name="partner_poc_title" ColumnName="partner_poc_title" />
+                <ScalarProperty Name="partner_poc_phone_number" ColumnName="partner_poc_phone_number" />
+                <ScalarProperty Name="partner_poc_email_address" ColumnName="partner_poc_email_address" />
+                <ScalarProperty Name="ro_first_name" ColumnName="ro_first_name" />
+                <ScalarProperty Name="ro_last_name" ColumnName="ro_last_name" />
+                <ScalarProperty Name="ro_email" ColumnName="ro_email" />
+                <ScalarProperty Name="date_loaded" ColumnName="date_loaded" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="partnerSpreadsheetDataLoadStatus" ColumnName="partnerSpreadsheetDataLoadStatus" />
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
