@@ -1,0 +1,132 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Gigfest";
+}
+
+<style>
+    #panelFind select {
+        width: 210px;
+    }
+
+    .txtBox {
+        width: 205px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none;
+        margin: 0 0 0 0;
+    }
+
+    .txtBox2 {
+        width: 205px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none;
+    }
+
+    .t-input {
+        height: 16px;
+    }
+
+    #panelFind td {
+        padding: 0 0 0 0;
+    }
+</style>
+
+<h2>Gigfest</h2>
+
+<form id="Create" method="post" enctype="multipart/form-data">
+    <div id="panelFind">       
+        <table width="70%; " style="float: left" border="0">
+            <tbody>
+                <tr>
+                    <td class="tLeftColumn">Search Term</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="searchTerm" class="txtBox" type="text" name="searchTerm">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 1</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier1" class="txtBox" type="text" name="qualifier1">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 2</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier2" class="txtBox" type="text" name="qualifier2">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 3</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier3" class="txtBox" type="text" name="qualifier3">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 4</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier4" class="txtBox" type="text" name="qualifier4">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 5</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier5" class="txtBox" type="text" name="qualifier5">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tLeftColumn">Qualifier 6</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier6" class="txtBox" type="text" name="qualifier6">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 7</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier7" class="txtBox" type="text" name="qualifier7">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Qualifier 8</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="qualifier8" class="txtBox" type="text" name="qualifier8">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="float: left">
+            <tr>
+                <td></td>
+                <td>
+
+                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</form>

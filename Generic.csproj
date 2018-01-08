@@ -656,6 +656,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FRPJController.cs" />
     <Compile Include="Controllers\GenericController.cs" />
+    <Compile Include="Controllers\GigfestController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IvrController .cs" />
@@ -2766,6 +2767,7 @@
     </Compile>
     <Compile Include="ViewModel\CheckEmailAndCreateNewPartnerModel.cs" />
     <Compile Include="ViewModel\ClauseViewModel.cs" />
+    <Compile Include="ViewModel\CreateGigfestModel.cs" />
     <Compile Include="ViewModel\FindAndRedirectToLinkedInProfileModel.cs" />
     <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
@@ -5399,6 +5401,8 @@
     <Content Include="Views\Admin\Dashboard2_1.cshtml" />
     <Content Include="Views\Admin\NotificationsResult.cshtml" />
     <Content Include="Views\Error\InternalError.cshtml" />
+    <Content Include="Views\Gigfest\Create.cshtml" />
+    <Content Include="Views\Gigfest\GigfestResultView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
