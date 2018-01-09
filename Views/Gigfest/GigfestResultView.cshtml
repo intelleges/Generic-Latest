@@ -73,8 +73,8 @@
         <div class="display_menu" style="display: none;">
             <ul>
 
-                <li><a href="https://www.google.com/search?q=@item.CompanyName+@item.JobTitle&as_eq=pub.dir&as_sitesearch=linkedin.com%2Fin">LinkedIn</a></li>
-                <li><a href="@item.JobUrl">Job AD</a></li>
+                <li><a href="https://www.google.com/search?q=@item.CompanyName+@item.JobTitle&as_eq=pub.dir&as_sitesearch=linkedin.com%2Fin" target="_blank">LinkedIn</a></li>
+                <li><a href="@item.JobUrl" target="_blank">Job AD</a></li>
             </ul>
         </div>
         </text>);
@@ -87,7 +87,7 @@
            
             columns.Bound(o => o.JobAdDate).Format("{0:MM/dd/yyyy}").Title("Job Date").Width(80);
             columns.Bound(o => o.JobUrl).Title("URL").Width(150).Template(@<text>
-              <a href="@item.JobUrl">@item.JobUrl</a>
+              <a href="@item.CompanyWebsite" target="_blank">@item.CompanyWebsite</a>
             </text>);
 
         })
