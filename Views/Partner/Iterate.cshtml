@@ -747,7 +747,7 @@
                 iterate.selectedPartnerId1 = rowData.id;
                 iterate.person = rowData.person;
                 iterate.email = rowData.email;
-
+                iterate.pptq = rowData.pptq;
                 iterate.selectedPartner = rowData.name;
                 $("#emailSubject").val("");
                 CKEDITOR.instances.emailText.setData("");
@@ -1227,7 +1227,8 @@
         				formdata.append(fileInput.files[i].name, fileInput.files[i]);
         			}
         			formdata.append("iterateTextId", $("#DropDownSubjects").val());
-        			formdata.append("partnerId", iterate.selectedPartnerId);
+                    formdata.append("partnerId", iterate.selectedPartnerId);
+                    formdata.append("pptq", iterate.pptq);
         			formdata.append("subject", $("#emailSubject").val());
         			formdata.append("text", $("#emailText").val());
         			formdata.append("userDate", new Date().toISOString());

@@ -4224,25 +4224,25 @@ namespace Generic.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, string subject, string text, DateTime userDate, bool ccSender, string iterateTextId)
+        public async Task<ActionResult> SendIteratePartnerEmail(int partnerId, int pptq, string subject, string text, DateTime userDate, bool ccSender, int iterateTextId)
         {
             try
             {
                 var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
                 var iPartner = db.iteratePartners.FirstOrDefault(o => o.id == partnerId);
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+                var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
                 var staff = db.pr_getPersonStuff(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                 var currentEnterprise = db.enterprise.FirstOrDefault(o => o.id == SessionSingleton.MyEnterPriseId);
                 if (iPerson != null && !string.IsNullOrEmpty(iPerson.email) && currentPerson != null)
                 {
 
-                    int iteratetId = -1;
-                    iterateEmailText iterateEmailText = null;
-                    if (int.TryParse(iterateTextId, out iteratetId))
-                    {
-                        iterateEmailText = db.pr_getIterateEmailText(iteratetId).FirstOrDefault();
-                    }
+                    //int iteratetId = -1;
+                    //iterateEmailText iterateEmailText = null;
+                    //if (int.TryParse(iterateTextId, out iteratetId))
+                    //{
+                    //    iterateEmailText = db.pr_getIterateEmailText(iteratetId).FirstOrDefault();
+                    //}
 
                     EmailFormat formatter = new EmailFormat();
                     if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
@@ -4250,17 +4250,17 @@ namespace Generic.Controllers
                     SchedulerServiceHelper.sendEmail(
                         new Email()
                         {
-                            accesscode = pptq.accesscode,
+                            accesscode = pptqObj.accesscode,
                             emailTo = iPerson.email,
                             subject = subject,
                             url = Request.Url.ToString(),
                             body = resultBody,
-                            protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+                            protocolTouchpoint = pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
                             category = SendGridCategory.SendIteratePartnerEmail,
                             reminderSource = (int)Reminders.IerateEmail,
-                            automailMessage = iterateEmailText.id.ToString()
+                            automailMessage = iterateTextId.ToString()
                         },
-                         new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, null, iterateEmailText);
+                         new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), ccSender, Request.Files, null);
 
 
                     iPerson.nextAction = (int)InteratePartnerStatus.EmailSent;
