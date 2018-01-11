@@ -850,11 +850,12 @@
                 });
             }
             if ($(this).text() === "Add") {
-                var partnerGrid = $("#IteratePartners").data("tGrid");
-                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //var partnerGrid = $("#IteratePartners").data("tGrid");
+                //var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
                 //data can be used for whatever it needed
-                iterate.selectedPartnerId = rowData.id;
-                $("#newIteratePartner").modal("toggle");
+                //iterate.selectedPartnerId = rowData.id;
+                //$("#newIteratePartner").modal("toggle");
+                window.location.href = "@Url.Action("Create", "Partner")";
             }
             if ($(this).text() === "Sample\\Subscribe") {
             	alertify.alert('Functionality not available yet.');
