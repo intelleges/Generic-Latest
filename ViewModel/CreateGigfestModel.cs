@@ -5,6 +5,11 @@ using System.Web;
 
 namespace Generic.ViewModel
 {
+    public class GigfestSessionModel
+    {
+        public CreateGigfestModel CreateModel { get; set; }
+        public IEnumerable<GigfestResponse> Response { get; set; }
+    }
     public class CreateGigfestModel
     {
         public string SearchTerm { get; set; }
@@ -57,6 +62,13 @@ namespace Generic.ViewModel
             }
             return result;
         }
+        
+        public override bool Equals(object obj)
+        {
+            var casted = (CreateGigfestModel)obj;
+            if (casted == null) return false;
+            return casted.Qualifier1 == Qualifier1 && casted.SearchTerm == SearchTerm && Qualifier2 == casted.Qualifier2 && Qualifier3 == casted.Qualifier3 && Qualifier4 == casted.Qualifier4 && Qualifier5 == casted.Qualifier5 && Qualifier6 == casted.Qualifier6 && Qualifier7 == casted.Qualifier7 && Qualifier8 == casted.Qualifier8;
+        }
     }
 
     public class GigfestRequest
@@ -67,11 +79,6 @@ namespace Generic.ViewModel
 
     public class GigfestResponse
     {
-        //public string SearchTerm { get; set; }
-        //public string CompanyName { get; set; }
-        //public string JobTitle { get; set; }
-        //public string JobDate { get; set; }
-        //public string JobLink { get; set; }
         public string CompanyAddress { get; set; }
         public string CompanyCity { get; set; }
         public string CompanyCountry { get; set; }
