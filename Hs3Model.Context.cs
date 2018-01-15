@@ -221,6 +221,7 @@ namespace Generic
         public virtual DbSet<personPPTQClause> personPPTQClause { get; set; }
         public virtual DbSet<questionnaireTagComment> questionnaireTagComment { get; set; }
         public virtual DbSet<eventNotification> eventNotification { get; set; }
+        public virtual DbSet<personSignature> personSignature { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -22030,6 +22031,105 @@ namespace Generic
                 new ObjectParameter("email", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerSpreadsheetDataLoadByEmail_Result>("pr_getPartnerSpreadsheetDataLoadByEmail", enterpriseParameter, emailParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonSignature_Result> pr_getPersonSignature(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonSignature_Result>("pr_getPersonSignature", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPersonSignature(Nullable<int> person, string footer2, byte[] eSignature, byte[] photo, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            var eSignatureParameter = eSignature != null ?
+                new ObjectParameter("eSignature", eSignature) :
+                new ObjectParameter("eSignature", typeof(byte[]));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("photo", photo) :
+                new ObjectParameter("photo", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPersonSignature", personParameter, footer2Parameter, eSignatureParameter, photoParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePersonSignature(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonSignature", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonSignatureAll_Result> pr_getPersonSignatureAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonSignatureAll_Result>("pr_getPersonSignatureAll");
+        }
+    
+        public virtual int pr_modifyPersonSignature(Nullable<int> person, string footer2, byte[] eSignature, byte[] photo, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var footer2Parameter = footer2 != null ?
+                new ObjectParameter("footer2", footer2) :
+                new ObjectParameter("footer2", typeof(string));
+    
+            var eSignatureParameter = eSignature != null ?
+                new ObjectParameter("eSignature", eSignature) :
+                new ObjectParameter("eSignature", typeof(byte[]));
+    
+            var photoParameter = photo != null ?
+                new ObjectParameter("photo", photo) :
+                new ObjectParameter("photo", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonSignature", personParameter, footer2Parameter, eSignatureParameter, photoParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePersonSignature(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonSignature", personParameter);
+        }
+    
+        public virtual int pr_unArchivePersonSignature(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonSignature", personParameter);
         }
     }
 }

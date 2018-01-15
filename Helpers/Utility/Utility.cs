@@ -193,6 +193,18 @@ namespace Generic.Helpers.Utility
                             tags = item.tags + ";";
                     }
                 }
+                //int ac
+                if (string.IsNullOrEmpty(htmlFooter) && settings != null && settings.sender != null)
+                {
+
+                    var autoMailObj = db.pr_getAutomailMessage(amid).FirstOrDefault();
+                    if (autoMailObj != null && autoMailObj.footer2 == "[footer2]")
+                    {
+                        var personSignature = db.pr_getPersonSignature(settings.sender.id).FirstOrDefault();
+                        if (personSignature != null)
+                            htmlFooter = personSignature.footer2;
+                    }
+                }
             }
 
             if (attachments != null)

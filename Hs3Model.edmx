@@ -1489,6 +1489,17 @@
           <Property Name="queryDateTime" Type="datetime" Nullable="false" />
           <Property Name="countSearch" Type="bigint" />
         </EntityType>
+        <EntityType Name="personSignature">
+          <Key>
+            <PropertyRef Name="person" />
+          </Key>
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="footer2" Type="varchar(max)" />
+          <Property Name="eSignature" Type="varbinary(max)" />
+          <Property Name="photo" Type="varbinary(max)" />
+          <Property Name="sortOrder" Type="int" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="personStatus">
           <Key>
             <PropertyRef Name="id" />
@@ -5291,6 +5302,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPersonSignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
+          <Parameter Name="eSignature" Type="varbinary" Mode="In" />
+          <Parameter Name="photo" Type="varbinary" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -5888,6 +5907,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_archivePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archivePersonSignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -7173,6 +7195,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getPersonRoleByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPersonSignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPersonSignatureAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPersonSiteNickNameAndLocationAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPersonStuff" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
@@ -8612,6 +8638,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPersonSignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="footer2" Type="varchar(max)" Mode="In" />
+          <Parameter Name="eSignature" Type="varbinary" Mode="In" />
+          <Parameter Name="photo" Type="varbinary" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -9253,6 +9287,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="person" Type="int" Mode="In" />
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePersonSignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9585,6 +9622,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_unArchivePersonRelationshipType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchivePersonSignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchivePersonStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9915,6 +9955,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="personRelationshipType" EntityType="Self.personRelationshipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personRole" EntityType="Self.personRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personSearchCount" EntityType="Self.personSearchCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personSignature" EntityType="Self.personSignature" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="personStatus" EntityType="Self.personStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqAutoMailMessageLog" EntityType="Self.pptqAutoMailMessageLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqDoc" EntityType="Self.pptqDoc" Schema="dbo" store:Type="Tables" />
@@ -17261,6 +17302,36 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getPartnerSpreadsheetDataLoadByEmail" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerSpreadsheetDataLoadByEmail_Result)">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
             <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonSignature" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSignature_Result)">
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="personSignature" EntityType="hs3MVCMTQa2Model.personSignature" />
+          <FunctionImport Name="pr_addPersonSignature" ReturnType="Collection(Int32)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="footer2" Mode="In" Type="String" />
+            <Parameter Name="eSignature" Mode="In" Type="Binary" />
+            <Parameter Name="photo" Mode="In" Type="Binary" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePersonSignature">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPersonSignatureAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSignatureAll_Result)" />
+          <FunctionImport Name="pr_modifyPersonSignature">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="footer2" Mode="In" Type="String" />
+            <Parameter Name="eSignature" Mode="In" Type="Binary" />
+            <Parameter Name="photo" Mode="In" Type="Binary" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePersonSignature">
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePersonSignature">
+            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29607,6 +29678,33 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="loadGroup" Nullable="false" MaxLength="8" />
           <Property Type="DateTime" Name="dueDate" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getPersonSignature_Result">
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Binary" Name="eSignature" Nullable="true" />
+          <Property Type="Binary" Name="photo" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="personSignature">
+          <Key>
+            <PropertyRef Name="person" />
+          </Key>
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="footer2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="eSignature" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPersonSignatureAll_Result">
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="footer2" Nullable="true" />
+          <Property Type="Binary" Name="eSignature" Nullable="true" />
+          <Property Type="Binary" Name="photo" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -41062,6 +41160,47 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonSignature">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonSignature_Result">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="eSignature" ColumnName="eSignature" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="personSignature">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.personSignature">
+              <MappingFragment StoreEntitySet="personSignature">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="eSignature" ColumnName="eSignature" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="person" ColumnName="person" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonSignature" />
+          <FunctionImportMapping FunctionImportName="pr_archivePersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePersonSignature" />
+          <FunctionImportMapping FunctionImportName="pr_getPersonSignatureAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPersonSignatureAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPersonSignatureAll_Result">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="footer2" ColumnName="footer2" />
+                <ScalarProperty Name="eSignature" ColumnName="eSignature" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonSignature" />
+          <FunctionImportMapping FunctionImportName="pr_removePersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonSignature" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePersonSignature" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

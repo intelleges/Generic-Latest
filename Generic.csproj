@@ -1016,6 +1016,9 @@
     <Compile Include="personSearchCount.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="personSignature.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="personStatus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2019,6 +2022,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonRoleByRole_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonSignatureAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonSignature_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonSiteNickNameAndLocationAll_Result.cs">
