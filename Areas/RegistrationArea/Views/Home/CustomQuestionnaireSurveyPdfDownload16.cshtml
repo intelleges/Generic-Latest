@@ -88,7 +88,7 @@
             <li>
                 2. Provide a general description of the project including the following:
                 <ul>
-                    <li>a. Project Description (provide overview of project): @ViewBag.partner.dunsNumber</li>
+                    <li>a. Project Description (provide overview of project): @Html.Raw(ViewBag.partner.dunsNumber)</li>
                     <li>
                         b. If the Project is Transition related, which type of activity is this?
                         <br /><input type="checkbox" @ViewBag.ActivityType270 /> Make to Make Transition (HON to HON)
@@ -618,7 +618,7 @@
     </p>
     <h2>Section 8: Supplier Contracts (Supplier Relationship)</h2>
     <p>
-        <input type="checkbox" @ViewBag.Checkbox35589_No/> N/A. Check here if this is not a Buy to Buy or Buy to Make transition. If N/A, then skip the remainder of this Section 8 and proceed to Section 9.
+        <input type="checkbox" @ViewBag.CheckboxS8_Na/> N/A. Check here if this is not a Buy to Buy or Buy to Make transition. If N/A, then skip the remainder of this Section 8 and proceed to Section 9.
         <br />
         <ul>
             <li>
@@ -653,7 +653,7 @@
     </p>
     <h2>Section 9: Offset</h2>
     <p>
-        <input type="checkbox" @ViewBag.Checkbox35594_Yes/> N/A. Check here if this is a Make to Make, Make to buy, Buy to make, or OIP transition. If N/A, then skip the remainder of this Section 9.
+        <input type="checkbox" @ViewBag.CheckboxS9_Na /> N/A. Check here if this is a Make to Make, Make to buy, Buy to make, or OIP transition. If N/A, then skip the remainder of this Section 9.
         <br />
         <ul>
             <li>

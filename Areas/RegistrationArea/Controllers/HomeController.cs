@@ -7266,26 +7266,53 @@ Intelleges Team";
             if (partnerType != null)
             {
                 if (partnerType.id == 270)
+                {
+                    ViewBag.CheckboxS8_Na = _chacked;
                     ViewBag.ActivityType270 = _chacked;
+                    ViewBag.CheckboxS9_Na = _chacked;
+                }
 
                 if (partnerType.id == 269)
+                {
+                    ViewBag.CheckboxS8_Na = _chacked;
                     ViewBag.ActivityType269 = _chacked;
+                    ViewBag.CheckboxS9_Na = _chacked;
+                }
 
                 if (partnerType.id == 268)
+                {
                     ViewBag.ActivityType268 = _chacked;
+                    ViewBag.CheckboxS9_Na = _chacked;
+                }
 
                 if (partnerType.id == 267)
                     ViewBag.ActivityType267 = _chacked;
 
                 if (partnerType.id == 266)
+                {
                     ViewBag.ActivityType266 = _chacked;
+                    ViewBag.CheckboxS8_Na = _chacked;
+                }
+               
             }
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
 
             string executives = "";
+            var idsq = _PPTQQuestionResponse.Select(o => o.question).ToList();
+          /*  List<question> qs = new List<Generic.question>();
+            string qss = "";
+            foreach (var item in idsq) {
+                var q = db.pr_getQuestion(item).First();
+                qs.Add(q);
+                qss += item + "  " + q.title+ Environment.NewLine;
+            }
+
+            qss.ToString();*/
+
             foreach (var item in _PPTQQuestionResponse)
             {
+              
                 switch (item.question)
                 {
                     #region Section 1
@@ -7372,11 +7399,11 @@ Intelleges Team";
                         ViewBag.Checkbox35525_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox35525_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
-                    case 355286:
+                    /*case 35526:
                         ViewBag.Checkbox35527_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox35527_No = item.response == _responseNO ? _chacked : string.Empty;
-                        break;
-                    case 355287:
+                        break;*/
+                    case 35527:
                         ViewBag.Checkbox35527_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox35527_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
@@ -7488,10 +7515,6 @@ Intelleges Team";
                     case 35588:
                         ViewBag.Checkbox35588_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox35588_No = item.response == _responseNO ? _chacked : string.Empty;
-                        break;
-                    case 35589:
-                        ViewBag.Checkbox35589_Yes = item.response == _responseYES ? _chacked : string.Empty;
-                        ViewBag.Checkbox35589_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
                     case 35590:
                         ViewBag.Checkbox35590_Yes = item.response == _responseYES ? _chacked : string.Empty;
