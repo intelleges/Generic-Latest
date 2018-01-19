@@ -134,36 +134,64 @@
                 <br /><input type="checkbox" @ViewBag.Checkbox35505_No /> No. Skip the remainder of this Section 2 and proceed to Section 3.
             </li>
             <li>
-                2. Is the drawing assigned a Military technology export classification (TEC) code, regardless of the country of current design authority (CDA) to be confirmed by
-                the Approver/Export Compliance for this Section? A military technology export classification is any Department of State ITAR/USML item, as well as any Department
-                of Commerce 500 or 600 series item.
-                <br />Instructions: Approver for this Section to mark "Y" in the "USML/500/600 (Y/N)" column of the "Project Scope" tab of the Scope and Export Data file.
-                <br /><input type="checkbox" @ViewBag.Checkbox35508_Yes /> Yes. Part cannot be transitioned. Skip the remainder of this Section 2 for this particular part.
-                <br /><input type="checkbox" @ViewBag.Checkbox35508_No /> No.
-            </li>
-            <li>
-                3. For each part contemplated for transition/reposition to or within China, please answer the following:
+                2. For each part contemplated for transition/reposition to or within China, please answer the following:
                 <ul>
                     <li>
                         a. In the CID file, was a usage code other than "C" (e.g., "CM", "MC", "M", "OT") found in the "Smart Usage Code" column of the "Workbook" tab?
-                        <br />
-                        <input type="checkbox" @ViewBag.Checkbox35506_Yes /> Yes. Provide end-use platform and customer information in the "China Optics" tab of the Project Scope file embedded in Section 1, Item 2.c of this checklist (see
-                        above).
-                        <br />
-                        Instructions: Find the Application/Model information listed under the "Military Rolled Up" column of the "Workbook" tab of the CID file. Insert this information in
-                        the Project Scope file.
-                        <br />
-                        <input type="checkbox" @ViewBag.Checkbox35506_No /> No. Skip the remainder of this Section 2 for this particular part.
+                        <ul>
+                            <li><input type="checkbox" @ViewBag.Checkbox35506_Yes /> Yes.</li>
+                            <li><input type="checkbox" @ViewBag.Checkbox35506_No /> No. Skip the remainder of this Section 2 for this particular part.</li>
+                        </ul>
                     </li>
                     <li>
-                        b. Has General Counsel, Aerospace Global Operations and Transitions approved transition/reposition of this particular part to China?
-                        <br />
-                        <input type="checkbox" @ViewBag.Checkbox35509_Yes /> Yes. Proceed with transition of this particular part.
-                        <br />
-                        <input type="checkbox" @ViewBag.Checkbox35509_No /> No. Part cannot be transitioned.
+                        b. In the part a programmable electronic component OR is it used on any of the following military platforms?
+                        <ul>
+                            <li style="margin-left:50px">
+                            - US Government technology demonstrators
+                            </li>
+                            <li style="margin-left:50px">
+                                - B-1B, B-2, B-21
+                            </li>
+                            <li style="margin-left:50px">
+                                - F-15SE, F/A-18E/F, F-22, F-35, F-17
+                            </li>
+                            <li style="margin-left:50px">
+                                - EA-18G
+                            </li>
+                            <li style="margin-left:50px">
+                                - Abrams 1
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <input type="checkbox" @ViewBag.Checkbox35509_Yes /> Yes. Part cannot be transitioned - remove from transition. Skip the remainder of this Section 2 for this particular part.
+                            </li>
+                            <li>
+                                <input type="checkbox" @ViewBag.Checkbox35509_No /> No. Proceed to the next question.
+                            </li>
+                            </ul>
+</li>
+                </ul>
+            </li>
+            <li>
+                3. Is the drawing assigned a Military technology export classification (TEC) code, regardless of the country of current design authority (CDA) to be confirmed by
+                the Approver/Export Compliance for this Section? A military technology export classification is any Department of State ITAR/USML item, as well as any Department
+                of Commerce 500 or 600 series item.
+                <ul>
+                    <li><span style="font-style:italic;">Instructions</span>: Approver for this Section to mark "Y" in the "USML/500/600 (Y/N)" column of the "Project Scope" tab of the Scope and Export Data file.</li>
+                    <li>
+                        <input type="checkbox" @ViewBag.Checkbox35508_Yes /> Yes. Part cannot be transitioned. Skip the remainder of this Section 2 for this particular part.
+                    </li>
+                    <li>
+                        <input type="checkbox" @ViewBag.Checkbox35508_No /> No. Question 4 of this Section 2 needs to be addressed.
                     </li>
                 </ul>
             </li>
+         <li>
+             4. Complete this question only AFTER LC&amp;E Checklist is approved.
+             <br/>
+             Fill in "China Optics" tab of the Project Scope file embedded in Section 1, Item 2c of this checklist. All US Government Platforms impacted by the contemplated transition must be identified. Send "China Optics"
+         </li>
         </ul>
     </p>
 
