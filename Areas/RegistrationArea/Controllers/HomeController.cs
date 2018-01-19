@@ -7384,7 +7384,7 @@ Intelleges Team";
                         ViewBag.Checkbox35521_Yes = item.response == 62360 ? _chacked : string.Empty;
                         ViewBag.Checkbox35521_No = item.response == 62361 ? _chacked : string.Empty;
                         break;
-                    case 1024:
+                    case 35522:
                         ViewBag.Q1024 = item.comment;
                         break;
                     case 35523:
