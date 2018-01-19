@@ -11,6 +11,7 @@ namespace Generic.Controllers
 {
     public class GigfestController : Controller
     {
+        private EntitiesDBContext db = new EntitiesDBContext();
         // GET: Gigfest
         public ActionResult Index()
         {
@@ -36,8 +37,11 @@ namespace Generic.Controllers
                 var client = new RestClient(ConfigurationManager.AppSettings["CompanyProfilerApiHost"]);
                 var request = new RestRequest(ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequest"], Method.POST);
                 request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
+               // request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
                 request.RequestFormat = DataFormat.Json;
-                request.AddBody(model.GetRequest());
+                var requestBody = model.GetRequest(db.pr_getAccesscode().FirstOrDefault());
+                db.pr_addToken(requestBody.token, DateTime.Now, null, null, true).FirstOrDefault();
+                request.AddBody(requestBody);
                 var response = client.Execute<List<GigfestResponse>>(request);
                 SessionModel = new GigfestSessionModel()
                 {
@@ -46,6 +50,17 @@ namespace Generic.Controllers
                 };
                 return View("GigfestResultView", response.Data);
             }
+        }
+
+        public ActionResult CheckData(string token)
+        {
+            var client = new RestClient(ConfigurationManager.AppSettings["CompanyProfilerApiHost"]);
+            var request = new RestRequest(ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequest"], Method.GET);
+            request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
+            request.AddQueryParameter("token", token);
+
+            
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         private GigfestSessionModel SessionModel

@@ -788,7 +788,7 @@
     <Compile Include="hs3Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Hs3Model.Context.cs">
+    <Compile Include="Hs3Model.Context1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Hs3Model.Context.tt</DependentUpon>
@@ -2507,6 +2507,12 @@
     <Compile Include="pr_getTemplate_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getTokenAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getToken_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getTotalCallCount_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2745,6 +2751,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="tmpPartnerConfirm.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="token.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="touchpoint.cs">
@@ -3625,8 +3634,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Hs3Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Hs3Model.Context.cs</LastGenOutput>
       <DependentUpon>Hs3Model.edmx</DependentUpon>
+      <LastGenOutput>Hs3Model.Context1.cs</LastGenOutput>
     </Content>
     <Content Include="Hs3Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

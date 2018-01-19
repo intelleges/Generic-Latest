@@ -88,7 +88,7 @@
             <li>
                 2. Provide a general description of the project including the following:
                 <ul>
-                    <li>a. Does access code VU not have a description?</li>
+                    <li>a. Project Description (provide overview of project): @ViewBag.partner.dunsNumber</li>
                     <li>
                         b. If the Project is Transition related, which type of activity is this?
                         <br /><input type="checkbox" @ViewBag.ActivityType270 /> Make to Make Transition (HON to HON)
@@ -190,9 +190,17 @@
                     <li>
                         i.      If Yes, is the receiving Honeywell site or new supplier located offshore AND will the machine/tooling/test equipment be provided free of charge or at a reduced cost, AND will result in imports into the United States?
                         <br />
-                        <input type="checkbox" @ViewBag.Checkbox35514_Yes /> Yes. Provide the name of the person who is most familiar with the transition of the machine/tooling/test equipment mentioned above.
+                        @if (ViewBag.Checkbox35513_Yes != string.Empty) {
+                        <input type="checkbox" @ViewBag.Checkbox35514_Yes /><text> Yes.Provide the name of the person who is most familiar with the transition of the machine/ tooling / test equipment mentioned above.</text>
                         <br />
-                        <input type="checkbox" @ViewBag.Checkbox35514_No /> No.
+                        <input type="checkbox" @ViewBag.Checkbox35514_No /> <text>No.</text>
+                                }
+                        else
+                        {
+                            <input type="checkbox"/><text> Yes.Provide the name of the person who is most familiar with the transition of the machine/ tooling / test equipment mentioned above.</text>
+                                <br />
+                                <input type="checkbox"  /> <text>No.</text>
+                        }
                     </li>
                 </ul>
                 <input type="checkbox" @ViewBag.Checkbox35513_No /> No.
@@ -217,7 +225,7 @@
             </li>
             <li>
                 5. For any parts transitioned/repositioned outside the US, which will be shipped back to a US site, has the
-                HTSUS (Harmonized Tariff Schedule of the United States) submittal been completed to prevent customs delays
+                HTSUS (Harmonized Tariff Schedule of the United States) submittal been completed to prevent customs delays?
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35517_Yes /> Yes.
                 <br />
@@ -237,8 +245,8 @@
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35521_No /> No/Not sure, contact IP Counsel for further reevaluation.
                 <ul>
-                    <li><input type="checkbox" @ViewBag.Checkbox62362 /> i.  IP Counsel contacted on [ date ], risk was cleared with recommendation to proceed.</li>
-                    <li><input type="checkbox" @ViewBag.Checkbox62363 /> ii. IP Counsel contacted on [ date ], risk acknowledged and characterized for consideration by transition business stakeholders.</li>
+                    <li><input type="checkbox" @ViewBag.Checkbox62362 /> i.  IP Counsel contacted on @ViewBag.Q1024, risk was cleared with recommendation to proceed.</li>
+                    <li><input type="checkbox" @ViewBag.Checkbox62363 /> ii. IP Counsel contacted on @ViewBag.Q1024, risk acknowledged and characterized for consideration by transition business stakeholders.</li>
                 </ul>
             </li>
         </ul>
@@ -307,14 +315,14 @@
             </li>
 
             <li>
-                7.   Does the part or associated documentation include any patent markings?  Note: Patent markings can be on the part itself (such as by etching or on a name plate), on its packaging or packaging inserts, and possibly a company's web site page for the part. Patent markings are commonly recited in a manner such as - "US Patent No. #,###,###" or "covered by one or more of the following US Patents: #,###,###; #,###,###; and #,###,###".
+                7.   Does the part or associated documentation include any patent markings? 
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35537_Yes /> Yes, consult with IP counsel and provide patent numbers or patent markings:
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35537_No /> No.
             </li>
             <li>
-                8.   Is patent infringement a significant risk for any part(s) to be transitioned?  High patent infringement risk parts include newer parts that include specific technology or features that are only currently available from the current supplier.  Low patent infringement risk parts include those parts that have been in production for a significant period of time (more than 20 years) years and include technology or features that are commonly available from other suppliers.  Note:  To determine if a current supplier owns any patents, use Google Patents and enter the supplier name in the search field.
+                8.   Is patent infringement a significant risk for any part(s) to be transitioned?  High patent infringement risk parts include newer parts that include specific technology or features that are only currently available from the current supplier.  Low patent infringement risk parts include those parts that have been in production for a significant period of time (more than 20 years) years and include technology or features that are commonly available from other suppliers.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35538_Yes /> Yes, consult with IP counsel and provide details regarding the current supplier and part(s) to be transitioned.
                 <br />
@@ -429,8 +437,6 @@
                 <input type="checkbox" />  No.
                 <br />
                 <input type="checkbox" />  N/A, no Supplemental PO review required.
-                <br />
-                Note: In critical cases, there may be a need for Customer Contract mods.  Contact associated Customer Contract Manager (see link: <a href="http://in.honeywell.com/sites/aero/LCE/Contracts/Organization/Documents/Aerospace%20Contracts%20Assignment%20Listings.xlsx"><span style="font-family:&quot;Times New Roman&quot;,serif">Contract Manager Assignments</span></a>)
             </li>
             <li>
                 6.    Customer Notification and Approval:
@@ -536,8 +542,7 @@
             <li>
                 2. Is the project a US to US transition/reposition where the substantial transformation of the part is occurring within the US with greater than 50% Domestic content?
                 <br />
-                <input type="checkbox" @ViewBag.Checkbox35573_Yes /> Yes. Attach evidence confirming US Content and build, then skip the remainder of this Section 6 and proceed to Section 7. (Note: only emails from the supplier or the Supplier Self-Assessment Letter are
-                acceptable forms of attachment).
+                <input type="checkbox" @ViewBag.Checkbox35573_Yes /> Yes. Attach evidence confirming US Content and build, then skip the remainder of this Section 6 and proceed to Section 7.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35573_No /> No.
             </li>
@@ -563,6 +568,8 @@
                 <input type="checkbox" @ViewBag.Checkbox35572_No />  No.
                 <br />
                 The BAA Approver will provide a BAA Response File. Within your returned BAA Response File, the "BAA Response" tab contains all of the BAA associated legal and business risks, along with actions to mitigate.
+                <br />
+                Three columns "Award Country", "Documentation Type and Approver" and "Action Status" must be filled out for question 6 below <a>along with your embedded file or link.</a> For all Business or Legal risks identified, there must be an approved closure response or change in scope identified within the "Documentation Type" and "Approver" cells.
             </li>
             <li>
                 6. Have you completed all of the required BAA actions for the award country or modified scope as defined in your BAA Response File?
@@ -589,7 +596,7 @@
                 <br />
                 <input type="checkbox" /> No, why?
                 <br />
-                <input type="checkbox" /> N/A (Make to Make, Buy to Make, or Supplier Reposition project where Supplier doesc not change)
+                <input type="checkbox" /> N/A (Make to Make, Buy to Make, or Supplier Reposition project where Supplier does not change)
             </li>
             <li>
                 2. Other Domestic reference Restrictions:
@@ -597,7 +604,7 @@
                    <li>a. Does the project include products that qualify as: (1) roller or ball bearings or components thereof; of (2) hand or measuring tools?
                    
                        <br/><input type="checkbox" /> Yes
-                       <br /><input type="checkbox" /> No - Skip to Question 2 below
+                       <br /><input type="checkbox" /> No - Skip to Section 8
                    </li>
                    <li>
                        b. Will the transition cause the product to be manufactured or produced outside of the United States:
@@ -611,7 +618,7 @@
     </p>
     <h2>Section 8: Supplier Contracts (Supplier Relationship)</h2>
     <p>
-        <input type="checkbox" /> N/A. Check here if this is not a Buy to Buy or Buy to Make transition. If N/A, then skip the remainder of this Section 8 and proceed to Section 9.
+        <input type="checkbox" @ViewBag.Checkbox35589_No/> N/A. Check here if this is not a Buy to Buy or Buy to Make transition. If N/A, then skip the remainder of this Section 8 and proceed to Section 9.
         <br />
         <ul>
             <li>
@@ -631,15 +638,9 @@
             </li>
             <li>
                 2. With assistance from the identified commodity manager, determine whether the current procurement contract prohibits or
-                limits Honeywell's right to move the source of the product to another source at Honeywell's discretion. Examples are as follows:
-                Are we obligated to purchase all Honeywell requirements from the current supplier until sometime in the future? Are there noncompete
-                provisions? Is there any provision that would prohibit Honeywell from in-sourcing the work or shifting work to another
-                supplier? Are there any guaranteed % of future business provisions or guaranteed quantities provisions?
+                limits Honeywell's right to move the source of the product to another source at Honeywell's discretion.
                 <br />
-                <input type="checkbox" @ViewBag.Checkbox35590_Yes /> Yes. Describe prohibitions or limitations:
-                <br />
-                <input type="checkbox" @ViewBag.Checkbox35590_No /> No.
-            </li>
+                <input type="checkbox" @ViewBag.Checkbox35590_Yes /> Yes. Describe prohibitions or limitations: @ViewBag.Checkbox35590_Comment
             <li>
                 3. Has Honeywell ever entered into an agreement wherein Honeywell sold the business related to this part or agreed not to
                 compete in the manufacture or sale of the part?
@@ -652,7 +653,7 @@
     </p>
     <h2>Section 9: Offset</h2>
     <p>
-        <input type="checkbox" /> N/A. Check here if this is a Make to Make, Make to buy, Buy to make, or OIP transition. If N/A, then skip the remainder of this Section 9.
+        <input type="checkbox" @ViewBag.Checkbox35594_Yes/> N/A. Check here if this is a Make to Make, Make to buy, Buy to make, or OIP transition. If N/A, then skip the remainder of this Section 9.
         <br />
         <ul>
             <li>

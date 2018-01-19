@@ -21,7 +21,7 @@ namespace Generic.ViewModel
         public string Qualifier6 { get; set; }
         public string Qualifier7 { get; set; }
         public string Qualifier8 { get; set; }
-        public GigfestRequest GetRequest()
+        public GigfestRequest GetRequest(string token)
         {
             var result = new GigfestRequest
             {
@@ -60,6 +60,7 @@ namespace Generic.ViewModel
             {
                 result.qualifiers.Add(Qualifier8);
             }
+            result.token = token;
             return result;
         }
         
@@ -75,6 +76,7 @@ namespace Generic.ViewModel
     {
         public string searchTerm { get; set; }
         public List<string> qualifiers { get; set; }
+        public string token { get; set; }
     }
 
     public class GigfestResponse

@@ -2315,6 +2315,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.sizingStandard' does not have a pr
           <Property Name="person" Type="int" />
           <Property Name="timestamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
+        <EntityType Name="token">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="token" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="timestampCreated" Type="datetime" />
+          <Property Name="timestampReturned" Type="datetime" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="touchpoint">
           <Key>
             <PropertyRef Name="id" />
@@ -5746,6 +5757,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Token" Type="varchar" Mode="In" />
+          <Parameter Name="timestampCreated" Type="datetime" Mode="In" />
+          <Parameter Name="timestampReturned" Type="datetime" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="protocol" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -6013,6 +6031,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7687,6 +7708,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getTemplateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTokenAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getTotalCall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
@@ -9034,6 +9059,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="Token" Type="varchar" Mode="In" />
+          <Parameter Name="timestampCreated" Type="datetime" Mode="In" />
+          <Parameter Name="timestampReturned" Type="datetime" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="protocol" Type="int" Mode="In" />
@@ -9456,6 +9489,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9718,6 +9754,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveTemplate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -10021,6 +10060,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="team" EntityType="Self.team" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="template" EntityType="Self.template" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tmpPartnerConfirm" EntityType="Self.tmpPartnerConfirm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="token" EntityType="Self.token" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpoint" EntityType="Self.touchpoint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointGroup" EntityType="Self.touchpointGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="Self.touchpointPartnerTypeScoreAutoMail" Schema="dbo" store:Type="Tables" />
@@ -17316,7 +17356,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archivePersonSignature">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPersonSignatureAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPersonSignatureAll_Result)" />
           <FunctionImport Name="pr_modifyPersonSignature">
@@ -17328,10 +17368,39 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removePersonSignature">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchivePersonSignature">
-            <Parameter Name="person" Mode="In" Type="Int32" />
+          <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="token" EntityType="hs3MVCMTQa2Model.token" />
+          <FunctionImport Name="pr_addToken" ReturnType="Collection(Decimal)">
+            <Parameter Name="Token" Mode="In" Type="String" />
+            <Parameter Name="timestampCreated" Mode="In" Type="DateTime" />
+            <Parameter Name="timestampReturned" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveToken">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getToken" ReturnType="Collection(hs3MVCMTQa2Model.pr_getToken_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTokenAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTokenAll_Result)" />
+          <FunctionImport Name="pr_modifyToken">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="Token" Mode="In" Type="String" />
+            <Parameter Name="timestampCreated" Mode="In" Type="DateTime" />
+            <Parameter Name="timestampReturned" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeToken">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveToken">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -29705,6 +29774,33 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="token">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="token1" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="timestampCreated" Type="DateTime" Precision="3" />
+          <Property Name="timestampReturned" Type="DateTime" Precision="3" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getToken_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="token" Nullable="false" MaxLength="8" />
+          <Property Type="DateTime" Name="timestampCreated" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="timestampReturned" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTokenAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="token" Nullable="false" MaxLength="8" />
+          <Property Type="DateTime" Name="timestampCreated" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="timestampReturned" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -41201,6 +41297,47 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_modifyPersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPersonSignature" />
           <FunctionImportMapping FunctionImportName="pr_removePersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_removePersonSignature" />
           <FunctionImportMapping FunctionImportName="pr_unArchivePersonSignature" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePersonSignature" />
+          <EntitySetMapping Name="token">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.token">
+              <MappingFragment StoreEntitySet="token">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="timestampReturned" ColumnName="timestampReturned" />
+                <ScalarProperty Name="timestampCreated" ColumnName="timestampCreated" />
+                <ScalarProperty Name="token1" ColumnName="token" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addToken" FunctionName="hs3MVCMTQa2Model.Store.pr_addToken" />
+          <FunctionImportMapping FunctionImportName="pr_archiveToken" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveToken" />
+          <FunctionImportMapping FunctionImportName="pr_getToken" FunctionName="hs3MVCMTQa2Model.Store.pr_getToken">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getToken_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="timestampCreated" ColumnName="timestampCreated" />
+                <ScalarProperty Name="timestampReturned" ColumnName="timestampReturned" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTokenAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTokenAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTokenAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="timestampCreated" ColumnName="timestampCreated" />
+                <ScalarProperty Name="timestampReturned" ColumnName="timestampReturned" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyToken" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyToken" />
+          <FunctionImportMapping FunctionImportName="pr_removeToken" FunctionName="hs3MVCMTQa2Model.Store.pr_removeToken" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveToken" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveToken" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
