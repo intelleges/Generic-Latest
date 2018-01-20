@@ -43,6 +43,7 @@
 
         ul {
             list-style-type: none;
+            margin-top:5px;
         }
 
         li {
@@ -405,98 +406,111 @@
                         <input type="checkbox" /> No - Skip the remainder of this Section 5(a) and proceed to Section 5(b) of the checklist.
                     </li>
                 </ul>
+            </li>
+            <li>
+                2. Site Capability/Supplier Responsibility Verification - Answer (a), or (b), as applicable to the transition type.
                 <ul>
                     <li>
-                        a. CID Translation for FAR-15 and FAR-12: Within your returned CID file (see "CID Request" Worksheet", "Final Usage" column) please (i) identify classifications of
-                        the transition parts into the categories below, and (ii) confirm (including through supplier confirmation of supplemental PO provisions) that the receiving Honeywell
-                        site/supplier is is capable for FAR-12 and FAR-15 work.
-                        <br />
-                        <input type="checkbox" /> M, MC or OT (FAR-15)
-                        <br />
-                        <input type="checkbox" /> CM (FAR-12)
-                        <br />
-                        <input type="checkbox" /> C (Commercial)
-                    </li>
-                    <li>
-                        b. CFDB Translation for FAR 15 and FAR 12: Within your FINAL CFDB file (see "FAR15" column and "FAR 12" column), please identify whether any of the CFDB responses in the "FAR 15" column or "FAR 12" column are "Y".
-                        <br />
-                        <input type="checkbox" @ViewBag.Checkbox35548_Yes /> Any "FAR 15" = "Y"
-                        <br />
-                        <input type="checkbox" @ViewBag.Checkbox35549_Yes />Any "FAR 12" = "Y"
-                    </li>
-                    <li>
-                        c. If CID Translation responses are (i) a usage code other than "C" (e.g., "CM", "MC", "M", "OT"), or (ii) a "Y" to either "FAR 15" or "FAR 12", have you obtained
-                        receiving Honeywell site/supplier confirmation of FAR-12 and/or FAR-15 capability?
-                        <br />
-                        <input type="checkbox" /> Yes. Proceed to question 2 below
-                        <br />
-                        <input type="checkbox" /> No, why? . Proceed to question 2 below.
-                        <br />
-                        <input type="checkbox" /> N/A, all CID Translation responses are "C" only, and CFDB File Translation responses are "N" in the FAR 15 and FAR 12 columns. Proceed to section i immediately
-                        below.<ul>
+                        a. <strong>Make to Make and Buy to Make Transitions</strong> - Has the proposed receiving site been confirmed as capable of performing U.S. Government and use contracts?
+                        <ul>
                             <li>
-                                i. Are there orders for which the CFDB Column labeled "FMS" is "Y"?
-                                <br />
-                                <input type="checkbox" /> Yes, and order is Distribution Channel 01. Engage appropriate Contract Manager to determine if there are U.S. Government restrictions.
-                                <br />
-                                <input type="checkbox" /> Yes, and order is Distribution Channel 02, Proceed to question 3 in this Section 5(a).
-                                <br />
-                                <input type="checkbox" />  No or blank. Skip the remainder of this Section 5(a) and proceed to Section 5(b) below.
+                                FAR Part 15 work (e.g. CAS, TINA)
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> No. why?</li>
+                                    <li><input type="checkbox" /> N/A - no FAR 15 work</li>
+                                </ul>
+                            </li>
+                            <li>
+                                FAR Part 12 work
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li ><input type="checkbox" /> No. why?</li>
+                                    <li><input type="checkbox" /> N/A - no FAR 12 work</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Berry Amendment and Other Domestic Preference Restrictions
+                                <ul>
+                                    <li ><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li ><input type="checkbox" /> No. why?</li>
+                                </ul>
+                            </li>
+                            <li>
+                                DPAS
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> No. why?</li>
+                                </ul>
+                            </li>
+                            <li>
+                                SectK Reps &amp; Certs (FAR 52.203-15, DFARS 252.206-7000, DFARS 252.225-7028)
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> No. why?</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        b. <strong>OIP, Make to Buy, Buy to Buy, and Supplier Reposition Transitions</strong> - Has supplier responsibility been validated via AP-1802 by Sourcing Compliance (<strong>Kevin R. Walker</strong>) for performance of U.S. Government end use contracts?
+                        <ul>
+                            <li>
+                                FAR Part 15 work (e.g. CAS, TINA)
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> No. why?</li>
+                                    <li><input type="checkbox" /> N/A - no FAR 15 work</li>
+                                </ul>
+                            </li>
+                            <li>
+                                FAR Part 12 work
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> No. why?</li>
+                                    <li><input type="checkbox" /> N/A - no FAR 12 work</li>
+                                </ul>
+                            </li>
+                            <li>
+                                DPAS
+                                <ul>
+                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> No. why?</li>
+                                </ul>
+                            </li>
+                            <li>
+                                SectK Reps &amp; Certs (FAR 52.203-15, DFARS 252.206-7000, DFARS 252.225-7028)
+                                <ul>
+                                    <li ><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li ><input type="checkbox" /> No. why?</li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li>
-                2. For transitions to a supplier where either (i) the CID file has a usage code other than "C" (e.g., "CM", "MC", "M", "OT") for any part to be transitioned, or (ii) a "Y" is found in the "FAR 15" column of the CFDB file, have you confirmed with the award Commodity Manager that the quote package/response conforms to
-                FAR-15 requirements (i.e., confirmation that the contract add process (AP1245) meets TINA requirements)?
-                <br />
-                <input type="checkbox" /> Yes.&nbsp;&nbsp;&nbsp; <input type="checkbox" />  No, why?&nbsp;&nbsp;&nbsp;<input type="checkbox" /> N/A, why?
-            </li>
-            <li>
-                <br />
-                3. Customer Contracts Review:  For the table below please answer from the CFDB output file (CFDB Final Worksheet).  Please use Column “D” for the contact information and Owners surrounding Sourcing Transitions, Sourcing Repositions, and In-Sourcing Activities.  Please Use Column “E” when performing Make to Make, Make to Buy or In-Sourcing Activities.
-            </li>
-            <li>
-                5. For any of the Customer Contracts review sections above requiring supplier confirmation for Supplemental PO provisions or clauses, did the supplier identify any clauses they cannot conform to?
-                <br />
-                <input type="checkbox" /> Yes.  Part(s) will need to have a revised award strategy.
-                <br />
-                <input type="checkbox" />  No.
-                <br />
-                <input type="checkbox" />  N/A, no Supplemental PO review required.
-            </li>
-            <li>
-                6.    Customer Notification and Approval:
+                3. Have you confirmed all applicable FAR Part 15, FAR Part 12, DPAS and SectK Reps &amp; requirements have been flowed down and accepted in the supplier contract?
                 <ul>
-                    <li>
-                        a.       Did any of the following fields have a “Y” in the CFDB file and/or an approval or notification requirement in the Entanglement Summary: supplier change or subcontracting restrictions, place of performance, disclosure to third parties, citizenship restrictions, and security restrictions?
-                        <br />
-                        <input type="checkbox" /> Yes, customer approval(s) and/or notification(s) required for the transition/reposition.
-                        <br />
-                        <input type="checkbox" />   No.
-                    </li>
-                    <li>
-                        b.       Have Customer approvals and/or notifications been requested and completed for all customers with approval and/or notification requirements applicable to the transition/reposition?
-                        <br />
-                        <input type="checkbox" /> Yes.
-                        <br />
-                        <input type="checkbox" />  No, requirements have been added to the TAC 3 RAIL.
-                        <br />
-                        <input type="checkbox" />  N/A, no customers require notification or approval.
-                    </li>
-                    
+                    <li><input type="checkbox" /> Yes (evidenced in supplier self-assessment letter)</li>
+                    <li><input type="checkbox" /> No. why?</li>
+                    <li><input type="checkbox" /> N/A (Make to Make or Buy to Make)</li>
                 </ul>
             </li>
             <li>
-                7.  Have all issues/follow-up actions identified in the Final CFDB and Entanglement Summary been completed?
-                <br />
-                <input type="checkbox" /> Yes.
-                <br />
-                <input type="checkbox" /> No, requirements have been added to the TAC 3 RAIL.
-                <br />
-                <input type="checkbox" /> N/A, no issues/follow-up actions identified in Final CFDB and Entanglement Summary.
+                4. Using the Final CFDB, complete the actions in the table below as applicable toy your project type:
             </li>
+        <li>
+            5. Classified Contracts - <strong>Make to Make, OIP, and Make to Buy Transitions</strong> - Has the proposed receiving site been identified by Aero Chief Security Officer (<strong>Jeff Miller</strong>) as requiting further analysis?
+            <ul>
+                <li><input type="checkbox" /> No - Proceed to Section 5(b) of the checklist</li>
+                <li><input type="checkbox"/> Yes - Contact USG End Use Contracts POC (<strong>Jana Moodie</strong>) for determination on mitigating actions</li>
+            </ul>
+        </li>
+     
+        <li>
+            6.  For Make to Maake, OIP, and Make to Buy transitions, copy USG End Use contracts POC (<strong>Jana Moodie</strong>) on nandoff of outstanding actions between Phase 2 and Phase 3, and provide SharePoint cess/link to where documentations of action completion is stored.
+        </li>
         </ul>
     </p>
 
@@ -542,6 +556,28 @@
                 <input type="checkbox" @ViewBag.Checkbox62371 /> No, requirements have been added to the TAC 3 RAIL.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox62372 />  N/A, no customers require notification.
+            </li>
+            <li>
+                5. Customer Notification and Approval:
+                <ul>
+                    <li>
+                        a.       Did any of the following fields have a “Y” in the CFDB file and/or an approval or notification requirement in the Entanglement Summary: supplier change or subcontracting restrictions, place of performance, disclosure to third parties, citizenship restrictions, and security restrictions?
+                        <br />
+                        <input type="checkbox" /> Yes, customer approval(s) and/or notification(s) required for the transition/reposition.
+                        <br />
+                        <input type="checkbox" />   No.
+                    </li>
+                    <li>
+                        b.       Have Customer approvals and/or notifications been requested and completed for all customers with approval and/or notification requirements applicable to the transition/reposition?
+                        <br />
+                        <input type="checkbox" /> Yes.
+                        <br />
+                        <input type="checkbox" />  No, requirements have been added to the TAC 3 RAIL.
+                        <br />
+                        <input type="checkbox" />  N/A, no customers require notification or approval.
+                    </li>
+
+                </ul>
             </li>
         </ul>
     </p>

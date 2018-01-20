@@ -51,6 +51,8 @@
 </style>
 
 @( Html.Telerik().Grid(Model).Name("PersonGrid")
+        .DataBinding(dataBinding=> dataBinding.Ajax().Select("CheckData", "Gigfest"))
+        .EnableCustomBinding(true)
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -58,7 +60,7 @@
                     .Action("ExportExcel", "person"))
         .Columns(columns =>
         {
-        columns.Bound(o => o.SearchTerm).Title("Search Term").Width(100);        
+        columns.Bound(o => o.SearchTerm).Title("Search Term").Width(100);
         columns.Bound(o => o.CompanyName).Title("Company Name").Width(100).Template(@<text>
         @{
             var columnData = item.CompanyName;
@@ -92,8 +94,8 @@
 
         })
                             .DataKeys(keys => keys.Add(o => o.JobInternalId))
-                            .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
-                            .Sortable(sorting => sorting.Enabled(true))
+                            .Pageable(pager => pager.Enabled(true))
+                            //.Sortable(sorting => sorting.Enabled(true))
                             .Scrollable(scrolling => scrolling
                                .Enabled(true)
                                .Height(380))

@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Telerik.Web.Mvc;
 
 namespace Generic.Controllers
 {
@@ -28,39 +29,44 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Create(CreateGigfestModel model)
         {
-            if (SessionModel != null && SessionModel.CreateModel != null && SessionModel.CreateModel.Equals(model))
-            {
-                return View("GigfestResultView", SessionModel.Response);
-            }
-            else
-            {
-                var client = new RestClient(ConfigurationManager.AppSettings["CompanyProfilerApiHost"]);
-                var request = new RestRequest(ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequest"], Method.POST);
-                request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
-               // request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
-                request.RequestFormat = DataFormat.Json;
-                var requestBody = model.GetRequest(db.pr_getAccesscode().FirstOrDefault());
-                db.pr_addToken(requestBody.token, DateTime.Now, null, null, true).FirstOrDefault();
-                request.AddBody(requestBody);
-                var response = client.Execute<List<GigfestResponse>>(request);
-                SessionModel = new GigfestSessionModel()
-                {
-                    CreateModel = model,
-                    Response = response.Data
-                };
-                return View("GigfestResultView", response.Data);
-            }
+            //if (SessionModel != null && SessionModel.CreateModel != null && SessionModel.CreateModel.Equals(model))
+            //{
+            //    return View("GigfestResultView", SessionModel.Response);
+            //}
+            //else
+            //{
+            var client = new RestClient(ConfigurationManager.AppSettings["CompanyProfilerApiHost"]);
+            var request = new RestRequest(ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequest"], Method.POST);
+            request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
+            // request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
+            request.RequestFormat = DataFormat.Json;
+            var requestBody = model.GetRequest(db.pr_getAccesscode().FirstOrDefault());
+            Session["token"] = requestBody.token;
+            db.pr_addToken(requestBody.token, DateTime.Now, null, 0, true).FirstOrDefault();
+            request.AddBody(requestBody);
+            client.Execute(request);
+            //SessionModel = new GigfestSessionModel()
+            //{
+            //    CreateModel = model,
+            //    Response = response.Data
+            //};
+            return View("GigfestResultView", new List<GigfestResponse>());
+            //}
         }
 
-        public ActionResult CheckData(string token)
+        [GridAction(EnableCustomBinding = true)]
+        public ActionResult CheckData(GridCommand command)
         {
+            var offset = ((command.Page - 1) * command.PageSize);
+            var limit = command.PageSize;
             var client = new RestClient(ConfigurationManager.AppSettings["CompanyProfilerApiHost"]);
-            var request = new RestRequest(ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequest"], Method.GET);
-            request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestCodeParam"]);
-            request.AddQueryParameter("token", token);
-
-            
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            var request = new RestRequest(ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestData"], Method.GET);
+            request.AddQueryParameter("code", ConfigurationManager.AppSettings["CompanyProfilerApiGigfestRestRequestDataCodeParam"]);
+            request.AddQueryParameter("token", Session["token"].ToString());
+            request.AddQueryParameter("limit", limit.ToString());
+            request.AddQueryParameter("offset", offset.ToString());
+            var response = client.Execute<List<GigfestResponse>>(request);            
+            return Json(new GridModel() { Data = response.Data, Total = (response.Data != null && response.Data.Count == limit ? offset + limit + 1 : offset + response.Data.Count) },  JsonRequestBehavior.AllowGet);
         }
 
         private GigfestSessionModel SessionModel
