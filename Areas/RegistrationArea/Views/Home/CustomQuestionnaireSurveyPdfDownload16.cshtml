@@ -145,7 +145,7 @@
                         </ul>
                     </li>
                     <li>
-                        b. In the part a programmable electronic component OR is it used on any of the following military platforms?
+                        b. Is the part a programmable electronic component OR is it used on any of the following military platforms?
                         <ul>
                             <li style="margin-left:50px">
                             - US Government technology demonstrators
@@ -181,7 +181,7 @@
                 <ul>
                     <li><span style="font-style:italic;">Instructions</span>: Approver for this Section to mark "Y" in the "USML/500/600 (Y/N)" column of the "Project Scope" tab of the Scope and Export Data file.</li>
                     <li>
-                        <input type="checkbox" @ViewBag.Checkbox35508_Yes /> Yes. Part cannot be transitioned. Skip the remainder of this Section 2 for this particular part.
+                        <input type="checkbox" @ViewBag.Checkbox35508_Yes /> Yes. Part <strong style="font-style:italic;">cannot</strong> be transitioned. Skip the remainder of this Section 2 for this particular part.
                     </li>
                     <li>
                         <input type="checkbox" @ViewBag.Checkbox35508_No /> No. Question 4 of this Section 2 needs to be addressed.
@@ -191,7 +191,10 @@
          <li>
              4. Complete this question only AFTER LC&amp;E Checklist is approved.
              <br/>
-             Fill in "China Optics" tab of the Project Scope file embedded in Section 1, Item 2c of this checklist. All US Government Platforms impacted by the contemplated transition must be identified. Send "China Optics"
+             Fill in "China Optics" tab of the Project Scope file embedded in Section 1, Item 2c of this checklist. All US Government Platforms impacted by the contemplated transition must be identified. Send "China Optics" spreadsheet to Export Compliance for secondary review. After the checklist is approved by Export Compliance, send the completed spreadsheet to LC&E Checklist POC for General Counsel review and approval.
+             <br/>
+             <br/>
+             General Counsel reviewed and approved on      .
          </li>
         </ul>
     </p>
@@ -458,7 +461,7 @@
                             <li>
                                 FAR Part 15 work (e.g. CAS, TINA)
                                 <ul>
-                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> Yes. Supplier responsibility validated</li>
                                     <li><input type="checkbox" /> No. why?</li>
                                     <li><input type="checkbox" /> N/A - no FAR 15 work</li>
                                 </ul>
@@ -466,7 +469,7 @@
                             <li>
                                 FAR Part 12 work
                                 <ul>
-                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> Yes. Supplier responsibility validated</li>
                                     <li><input type="checkbox" /> No. why?</li>
                                     <li><input type="checkbox" /> N/A - no FAR 12 work</li>
                                 </ul>
@@ -474,14 +477,14 @@
                             <li>
                                 DPAS
                                 <ul>
-                                    <li><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li><input type="checkbox" /> Yes. Supplier responsibility validated</li>
                                     <li><input type="checkbox" /> No. why?</li>
                                 </ul>
                             </li>
                             <li>
                                 SectK Reps &amp; Certs (FAR 52.203-15, DFARS 252.206-7000, DFARS 252.225-7028)
                                 <ul>
-                                    <li ><input type="checkbox" /> Yes. Site capability confirmed.</li>
+                                    <li ><input type="checkbox" /> Yes. Supplier responsibility validated</li>
                                     <li ><input type="checkbox" /> No. why?</li>
                                 </ul>
                             </li>
@@ -498,10 +501,10 @@
                 </ul>
             </li>
             <li>
-                4. Using the Final CFDB, complete the actions in the table below as applicable toy your project type:
+                4. Using the Final CFDB, complete the actions in the table below as applicable to your project type:
             </li>
         <li>
-            5. Classified Contracts - <strong>Make to Make, OIP, and Make to Buy Transitions</strong> - Has the proposed receiving site been identified by Aero Chief Security Officer (<strong>Jeff Miller</strong>) as requiting further analysis?
+            5. Classified Contracts - <strong>Make to Make, OIP, and Make to Buy Transitions</strong> - Has the proposed receiving site been identified by Aero Chief Security Officer (<strong>Jeff Miller</strong>) as requiring further analysis?
             <ul>
                 <li><input type="checkbox" /> No - Proceed to Section 5(b) of the checklist</li>
                 <li><input type="checkbox"/> Yes - Contact USG End Use Contracts POC (<strong>Jana Moodie</strong>) for determination on mitigating actions</li>
@@ -509,7 +512,7 @@
         </li>
      
         <li>
-            6.  For Make to Maake, OIP, and Make to Buy transitions, copy USG End Use contracts POC (<strong>Jana Moodie</strong>) on nandoff of outstanding actions between Phase 2 and Phase 3, and provide SharePoint cess/link to where documentations of action completion is stored.
+            6.  For Make to Maake, OIP, and Make to Buy transitions, copy USG End Use contracts POC (<strong>Jana Moodie</strong>) on handoff of outstanding actions between Phase 2 and Phase 3, and provide SharePoint acess/link to where documentations of action completion is stored.
         </li>
         </ul>
     </p>
@@ -704,17 +707,48 @@
                 2. With assistance from the identified commodity manager, determine whether the current procurement contract prohibits or
                 limits Honeywell's right to move the source of the product to another source at Honeywell's discretion.
                 <br />
-                <input type="checkbox" @ViewBag.Checkbox35590_Yes /> Yes. Describe prohibitions or limitations: @ViewBag.Checkbox35590_Comment
-                <br />
-                <input type="checkbox" @ViewBag.Checkbox35590_No />  No.
+
+                @if (ViewBag.CheckboxS8_Na== "checked")
+                {
+                    <text>
+                    <input type="checkbox" /> Yes.Describe prohibitions or limitations: 
+                        <br />
+                        <input type="checkbox"  />  No.
+                </text>
+                }
+                else
+                {
+                    <text>
+                    <input type="checkbox" @ViewBag.Checkbox35590_Yes /> Yes.Describe prohibitions or limitations: @ViewBag.Checkbox35590_Comment
+                        <br />
+                        <input type="checkbox" @ViewBag.Checkbox35590_No />  No.
+                </text>
+                }
             <li>
                 3. Has Honeywell ever entered into an agreement wherein Honeywell sold the business related to this part or agreed not to
                 compete in the manufacture or sale of the part?
                 <br />
+
+@if (ViewBag.CheckboxS8_Na == "checked")
+{
+    <text>
+
+                <input type="checkbox" /> Yes.
+                <br />
+                <input type="checkbox" />  No.
+                </text>
+}
+else
+{
+    <text>
+
                 <input type="checkbox" @ViewBag.Checkbox35591_Yes /> Yes.
                 <br />
                 <input type="checkbox" @ViewBag.Checkbox35591_No />  No.
-            </li>
+    </text>
+}
+
+</li>
         </ul>
     </p>
     <h2>Section 9: Offset</h2>
