@@ -662,6 +662,7 @@
     <Compile Include="Controllers\IvrController .cs" />
     <Compile Include="Controllers\jsTree3Controller.cs" />
     <Compile Include="Controllers\LCEController.cs" />
+    <Compile Include="Controllers\LinkedInController.cs" />
     <Compile Include="Controllers\MerckController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PartnerTypeController.cs" />
@@ -851,6 +852,15 @@
     <Compile Include="letterSeed.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="linkedInFullProfile.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="linkedInProfileDataLoad.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="linkedInSearch.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="loadHistory.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -877,6 +887,7 @@
     <Compile Include="Models\ContactDataTouchpoint.cs" />
     <Compile Include="Models\ContactDataZcodeModel.cs" />
     <Compile Include="Models\ContractModel.cs" />
+    <Compile Include="Models\CreateLinkedInSearchModel.cs" />
     <Compile Include="Models\CreatePartnerTypeModel.cs" />
     <Compile Include="Models\enterprise.extension.cs" />
     <Compile Include="Models\FindPODSViewModel.cs" />
@@ -1614,6 +1625,27 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getLCE_Special_Data_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInFullProfileAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInFullProfileByLinkedInID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInFullProfile_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInProfileDataLoadAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInProfileDataLoad_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInSearchAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInSearch_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getLogicAll_Result.cs">
@@ -5421,6 +5453,8 @@
     <Content Include="Views\Error\InternalError.cshtml" />
     <Content Include="Views\Gigfest\Create.cshtml" />
     <Content Include="Views\Gigfest\GigfestResultView.cshtml" />
+    <Content Include="Views\LinkedIn\Create.cshtml" />
+    <Content Include="Views\LinkedIn\CreateLinkedInSearchView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

@@ -742,6 +742,66 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="linkedInFullProfile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="linkedInID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="formattedName" Type="varchar" MaxLength="600" Nullable="false" />
+          <Property Name="location" Type="varchar" MaxLength="600" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="industry" Type="varchar" MaxLength="600" Nullable="false" />
+          <Property Name="submittedURL" Type="varchar" MaxLength="600" />
+          <Property Name="resolvedURL" Type="varchar" MaxLength="600" />
+          <Property Name="title" Type="varchar" MaxLength="600" />
+          <Property Name="submittedImageURL" Type="varchar" MaxLength="600" />
+          <Property Name="thumbnailURL" Type="varchar" MaxLength="600" />
+          <Property Name="eyebrowURL" Type="varchar" MaxLength="600" />
+          <Property Name="numberOfConnections" Type="int" />
+          <Property Name="positionTitle" Type="varchar" MaxLength="100" />
+          <Property Name="summary" Type="text" />
+          <Property Name="startDateYear" Type="int" />
+          <Property Name="startDateMonth" Type="int" />
+          <Property Name="positionName" Type="varchar" MaxLength="200" />
+          <Property Name="pictureURL" Type="varchar" MaxLength="500" />
+          <Property Name="linkedInURL" Type="varchar" MaxLength="500" />
+          <Property Name="publicProfileURL" Type="varchar" MaxLength="500" />
+          <Property Name="emailAddress" Type="varchar" MaxLength="500" />
+          <Property Name="person" Type="int" />
+        </EntityType>
+        <EntityType Name="linkedInProfileDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="linkedInSearch" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="link" Type="varchar(max)" Nullable="false" />
+          <Property Name="subtitle" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkedInSearch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="searchTerm" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="qualifier1" Type="varchar" MaxLength="500" />
+          <Property Name="qualifier2" Type="varchar" MaxLength="500" />
+          <Property Name="qualifier3" Type="varchar" MaxLength="500" />
+          <Property Name="excluded1" Type="varchar" MaxLength="500" />
+          <Property Name="excluded2" Type="varchar" MaxLength="500" />
+          <Property Name="excluded3" Type="varchar" MaxLength="500" />
+          <Property Name="returnCount" Type="int" />
+          <Property Name="searchDate" Type="date" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="loadHistory">
           <Key>
             <PropertyRef Name="id" />
@@ -4973,6 +5033,28 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="linkedInSearch" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="link" Type="varchar(max)" Mode="In" />
+          <Parameter Name="subtitle" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_addLinkedInSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchTerm" Type="varchar" Mode="In" />
+          <Parameter Name="qualifier1" Type="varchar" Mode="In" />
+          <Parameter Name="qualifier2" Type="varchar" Mode="In" />
+          <Parameter Name="qualifier3" Type="varchar" Mode="In" />
+          <Parameter Name="excluded1" Type="varchar" Mode="In" />
+          <Parameter Name="excluded2" Type="varchar" Mode="In" />
+          <Parameter Name="excluded3" Type="varchar" Mode="In" />
+          <Parameter Name="returnCount" Type="int" Mode="In" />
+          <Parameter Name="searchDate" Type="date" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="nvarchar" Mode="In" />
           <Parameter Name="url" Type="nvarchar" Mode="In" />
@@ -5893,6 +5975,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_archiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveLinkedInSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6713,6 +6801,21 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="programName" Type="varchar" Mode="In" />
           <Parameter Name="dueDate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="pr_getLinkedInFullProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getLinkedInFullProfileAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getLinkedInFullProfileByLinkedInID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="linkedInID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_getLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getLinkedInProfileDataLoadAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getLinkedInSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getLinkedInSearchAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getLogicAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -8342,6 +8445,57 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyLinkedInFullProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="linkedInID" Type="varchar" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="formattedName" Type="varchar" Mode="In" />
+          <Parameter Name="location" Type="varchar" Mode="In" />
+          <Parameter Name="country" Type="varchar" Mode="In" />
+          <Parameter Name="industry" Type="varchar" Mode="In" />
+          <Parameter Name="submittedURL" Type="varchar" Mode="In" />
+          <Parameter Name="resolvedURL" Type="varchar" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="submittedImageURL" Type="varchar" Mode="In" />
+          <Parameter Name="thumbnailURL" Type="varchar" Mode="In" />
+          <Parameter Name="eyebrowURL" Type="varchar" Mode="In" />
+          <Parameter Name="numberOfConnections" Type="int" Mode="In" />
+          <Parameter Name="positionTitle" Type="varchar" Mode="In" />
+          <Parameter Name="summary" Type="text" Mode="In" />
+          <Parameter Name="startDateYear" Type="int" Mode="In" />
+          <Parameter Name="startDateMonth" Type="int" Mode="In" />
+          <Parameter Name="positionName" Type="varchar" Mode="In" />
+          <Parameter Name="pictureURL" Type="varchar" Mode="In" />
+          <Parameter Name="linkedInURL" Type="varchar" Mode="In" />
+          <Parameter Name="publicProfileURL" Type="varchar" Mode="In" />
+          <Parameter Name="emailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="linkedInSearch" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="link" Type="varchar(max)" Mode="In" />
+          <Parameter Name="subtitle" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="pr_modifyLinkedInSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="searchTerm" Type="varchar" Mode="In" />
+          <Parameter Name="qualifier1" Type="varchar" Mode="In" />
+          <Parameter Name="qualifier2" Type="varchar" Mode="In" />
+          <Parameter Name="qualifier3" Type="varchar" Mode="In" />
+          <Parameter Name="excluded1" Type="varchar" Mode="In" />
+          <Parameter Name="excluded2" Type="varchar" Mode="In" />
+          <Parameter Name="excluded3" Type="varchar" Mode="In" />
+          <Parameter Name="returnCount" Type="int" Mode="In" />
+          <Parameter Name="searchDate" Type="date" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="nvarchar" Mode="In" />
@@ -9231,10 +9385,22 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeLandingPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeLinkedInFullProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeLinkedInSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -9622,6 +9788,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_unArchiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveLinkedInSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9941,6 +10113,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="languageInfo" EntityType="Self.languageInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="letter" EntityType="Self.letter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="letterSeed" EntityType="Self.letterSeed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="linkedInFullProfile" EntityType="Self.linkedInFullProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="linkedInProfileDataLoad" EntityType="Self.linkedInProfileDataLoad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="linkedInSearch" EntityType="Self.linkedInSearch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="loadHistory" EntityType="Self.loadHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="menu" EntityType="Self.menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="menuAccessLevel" EntityType="Self.menuAccessLevel" Schema="dbo" store:Type="Tables" />
@@ -17382,10 +17557,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveToken">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getToken" ReturnType="Collection(hs3MVCMTQa2Model.pr_getToken_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getTokenAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTokenAll_Result)" />
           <FunctionImport Name="pr_modifyToken">
@@ -17397,9 +17572,124 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeToken">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveToken">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="linkedInFullProfile" EntityType="hs3MVCMTQa2Model.linkedInFullProfile" />
+          <EntitySet Name="linkedInProfileDataLoad" EntityType="hs3MVCMTQa2Model.linkedInProfileDataLoad" />
+          <EntitySet Name="linkedInSearch" EntityType="hs3MVCMTQa2Model.linkedInSearch" />
+          <FunctionImport Name="pr_addLinkedInProfileDataLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="linkedInSearch" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="subtitle" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addLinkedInSearch" ReturnType="Collection(Decimal)">
+            <Parameter Name="searchTerm" Mode="In" Type="String" />
+            <Parameter Name="qualifier1" Mode="In" Type="String" />
+            <Parameter Name="qualifier2" Mode="In" Type="String" />
+            <Parameter Name="qualifier3" Mode="In" Type="String" />
+            <Parameter Name="excluded1" Mode="In" Type="String" />
+            <Parameter Name="excluded2" Mode="In" Type="String" />
+            <Parameter Name="excluded3" Mode="In" Type="String" />
+            <Parameter Name="returnCount" Mode="In" Type="Int32" />
+            <Parameter Name="searchDate" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveLinkedInProfileDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveLinkedInSearch">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInFullProfile" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInFullProfile_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInFullProfileAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInFullProfileAll_Result)" />
+          <FunctionImport Name="pr_getLinkedInFullProfileByLinkedInID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInFullProfileByLinkedInID_Result)">
+            <Parameter Name="linkedInID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInProfileDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInProfileDataLoad_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInProfileDataLoadAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInProfileDataLoadAll_Result)" />
+          <FunctionImport Name="pr_getLinkedInSearch" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInSearch_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInSearchAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInSearchAll_Result)" />
+          <FunctionImport Name="pr_modifyLinkedInFullProfile">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="linkedInID" Mode="In" Type="String" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="formattedName" Mode="In" Type="String" />
+            <Parameter Name="location" Mode="In" Type="String" />
+            <Parameter Name="country" Mode="In" Type="String" />
+            <Parameter Name="industry" Mode="In" Type="String" />
+            <Parameter Name="submittedURL" Mode="In" Type="String" />
+            <Parameter Name="resolvedURL" Mode="In" Type="String" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="submittedImageURL" Mode="In" Type="String" />
+            <Parameter Name="thumbnailURL" Mode="In" Type="String" />
+            <Parameter Name="eyebrowURL" Mode="In" Type="String" />
+            <Parameter Name="numberOfConnections" Mode="In" Type="Int32" />
+            <Parameter Name="positionTitle" Mode="In" Type="String" />
+            <Parameter Name="summary" Mode="In" Type="String" />
+            <Parameter Name="startDateYear" Mode="In" Type="Int32" />
+            <Parameter Name="startDateMonth" Mode="In" Type="Int32" />
+            <Parameter Name="positionName" Mode="In" Type="String" />
+            <Parameter Name="pictureURL" Mode="In" Type="String" />
+            <Parameter Name="linkedInURL" Mode="In" Type="String" />
+            <Parameter Name="publicProfileURL" Mode="In" Type="String" />
+            <Parameter Name="emailAddress" Mode="In" Type="String" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyLinkedInProfileDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="linkedInSearch" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="subtitle" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyLinkedInSearch">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="searchTerm" Mode="In" Type="String" />
+            <Parameter Name="qualifier1" Mode="In" Type="String" />
+            <Parameter Name="qualifier2" Mode="In" Type="String" />
+            <Parameter Name="qualifier3" Mode="In" Type="String" />
+            <Parameter Name="excluded1" Mode="In" Type="String" />
+            <Parameter Name="excluded2" Mode="In" Type="String" />
+            <Parameter Name="excluded3" Mode="In" Type="String" />
+            <Parameter Name="returnCount" Mode="In" Type="Int32" />
+            <Parameter Name="searchDate" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeLandingPage">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeLinkedInFullProfile">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeLinkedInProfileDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeLinkedInSearch">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveLinkedInProfileDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveLinkedInSearch">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -29801,6 +30091,195 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="linkedInFullProfile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="linkedInID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="formattedName" Type="String" Nullable="false" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="location" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="industry" Type="String" Nullable="false" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="submittedURL" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="resolvedURL" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="submittedImageURL" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="thumbnailURL" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="eyebrowURL" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+          <Property Name="numberOfConnections" Type="Int32" />
+          <Property Name="positionTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="startDateYear" Type="Int32" />
+          <Property Name="startDateMonth" Type="Int32" />
+          <Property Name="positionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="pictureURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="linkedInURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="publicProfileURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="emailAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="person" Type="Int32" />
+        </EntityType>
+        <EntityType Name="linkedInProfileDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="linkedInSearch" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="subtitle" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="linkedInSearch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="searchTerm" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="qualifier1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="qualifier2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="qualifier3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="excluded1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="excluded2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="excluded3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="returnCount" Type="Int32" />
+          <Property Name="searchDate" Type="DateTime" Precision="0" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getLinkedInFullProfile_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="linkedInID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="formattedName" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="location" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="industry" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="submittedURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="resolvedURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="submittedImageURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="thumbnailURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="eyebrowURL" Nullable="true" MaxLength="600" />
+          <Property Type="Int32" Name="numberOfConnections" Nullable="true" />
+          <Property Type="String" Name="positionTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="summary" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="startDateYear" Nullable="true" />
+          <Property Type="Int32" Name="startDateMonth" Nullable="true" />
+          <Property Type="String" Name="positionName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="pictureURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="linkedInURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="publicProfileURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="emailAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="person" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInFullProfileAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="linkedInID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="formattedName" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="location" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="industry" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="submittedURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="resolvedURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="submittedImageURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="thumbnailURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="eyebrowURL" Nullable="true" MaxLength="600" />
+          <Property Type="Int32" Name="numberOfConnections" Nullable="true" />
+          <Property Type="String" Name="positionTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="summary" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="startDateYear" Nullable="true" />
+          <Property Type="Int32" Name="startDateMonth" Nullable="true" />
+          <Property Type="String" Name="positionName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="pictureURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="linkedInURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="publicProfileURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="emailAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="person" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInFullProfileByLinkedInID_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="linkedInID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="formattedName" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="location" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="country" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="industry" Nullable="false" MaxLength="600" />
+          <Property Type="String" Name="submittedURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="resolvedURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="submittedImageURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="thumbnailURL" Nullable="true" MaxLength="600" />
+          <Property Type="String" Name="eyebrowURL" Nullable="true" MaxLength="600" />
+          <Property Type="Int32" Name="numberOfConnections" Nullable="true" />
+          <Property Type="String" Name="positionTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="summary" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="startDateYear" Nullable="true" />
+          <Property Type="Int32" Name="startDateMonth" Nullable="true" />
+          <Property Type="String" Name="positionName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="pictureURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="linkedInURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="publicProfileURL" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="emailAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="person" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInProfileDataLoad_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="linkedInSearch" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="link" Nullable="false" />
+          <Property Type="String" Name="subtitle" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInProfileDataLoadAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="linkedInSearch" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="link" Nullable="false" />
+          <Property Type="String" Name="subtitle" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInSearch_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="searchTerm" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="qualifier1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="qualifier2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="qualifier3" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="excluded1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="excluded2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="excluded3" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="returnCount" Nullable="true" />
+          <Property Type="DateTime" Name="searchDate" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInSearchAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="searchTerm" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="qualifier1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="qualifier2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="qualifier3" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="excluded1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="excluded2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="excluded3" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="returnCount" Nullable="true" />
+          <Property Type="DateTime" Name="searchDate" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -41338,6 +41817,239 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_modifyToken" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyToken" />
           <FunctionImportMapping FunctionImportName="pr_removeToken" FunctionName="hs3MVCMTQa2Model.Store.pr_removeToken" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveToken" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveToken" />
+          <EntitySetMapping Name="linkedInFullProfile">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.linkedInFullProfile">
+              <MappingFragment StoreEntitySet="linkedInFullProfile">
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="publicProfileURL" ColumnName="publicProfileURL" />
+                <ScalarProperty Name="linkedInURL" ColumnName="linkedInURL" />
+                <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
+                <ScalarProperty Name="positionName" ColumnName="positionName" />
+                <ScalarProperty Name="startDateMonth" ColumnName="startDateMonth" />
+                <ScalarProperty Name="startDateYear" ColumnName="startDateYear" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="numberOfConnections" ColumnName="numberOfConnections" />
+                <ScalarProperty Name="eyebrowURL" ColumnName="eyebrowURL" />
+                <ScalarProperty Name="thumbnailURL" ColumnName="thumbnailURL" />
+                <ScalarProperty Name="submittedImageURL" ColumnName="submittedImageURL" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="resolvedURL" ColumnName="resolvedURL" />
+                <ScalarProperty Name="submittedURL" ColumnName="submittedURL" />
+                <ScalarProperty Name="industry" ColumnName="industry" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="formattedName" ColumnName="formattedName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="linkedInID" ColumnName="linkedInID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkedInProfileDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.linkedInProfileDataLoad">
+              <MappingFragment StoreEntitySet="linkedInProfileDataLoad">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="subtitle" ColumnName="subtitle" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="linkedInSearch" ColumnName="linkedInSearch" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="linkedInSearch">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.linkedInSearch">
+              <MappingFragment StoreEntitySet="linkedInSearch">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="searchDate" ColumnName="searchDate" />
+                <ScalarProperty Name="returnCount" ColumnName="returnCount" />
+                <ScalarProperty Name="excluded3" ColumnName="excluded3" />
+                <ScalarProperty Name="excluded2" ColumnName="excluded2" />
+                <ScalarProperty Name="excluded1" ColumnName="excluded1" />
+                <ScalarProperty Name="qualifier3" ColumnName="qualifier3" />
+                <ScalarProperty Name="qualifier2" ColumnName="qualifier2" />
+                <ScalarProperty Name="qualifier1" ColumnName="qualifier1" />
+                <ScalarProperty Name="searchTerm" ColumnName="searchTerm" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addLinkedInProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_addLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_addLinkedInSearch" />
+          <FunctionImportMapping FunctionImportName="pr_archiveLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveLinkedInProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_archiveLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveLinkedInSearch" />
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInFullProfile" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInFullProfile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInFullProfile_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="linkedInID" ColumnName="linkedInID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="formattedName" ColumnName="formattedName" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="industry" ColumnName="industry" />
+                <ScalarProperty Name="submittedURL" ColumnName="submittedURL" />
+                <ScalarProperty Name="resolvedURL" ColumnName="resolvedURL" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="submittedImageURL" ColumnName="submittedImageURL" />
+                <ScalarProperty Name="thumbnailURL" ColumnName="thumbnailURL" />
+                <ScalarProperty Name="eyebrowURL" ColumnName="eyebrowURL" />
+                <ScalarProperty Name="numberOfConnections" ColumnName="numberOfConnections" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="startDateYear" ColumnName="startDateYear" />
+                <ScalarProperty Name="startDateMonth" ColumnName="startDateMonth" />
+                <ScalarProperty Name="positionName" ColumnName="positionName" />
+                <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
+                <ScalarProperty Name="linkedInURL" ColumnName="linkedInURL" />
+                <ScalarProperty Name="publicProfileURL" ColumnName="publicProfileURL" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="person" ColumnName="person" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInFullProfileAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInFullProfileAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInFullProfileAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="linkedInID" ColumnName="linkedInID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="formattedName" ColumnName="formattedName" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="industry" ColumnName="industry" />
+                <ScalarProperty Name="submittedURL" ColumnName="submittedURL" />
+                <ScalarProperty Name="resolvedURL" ColumnName="resolvedURL" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="submittedImageURL" ColumnName="submittedImageURL" />
+                <ScalarProperty Name="thumbnailURL" ColumnName="thumbnailURL" />
+                <ScalarProperty Name="eyebrowURL" ColumnName="eyebrowURL" />
+                <ScalarProperty Name="numberOfConnections" ColumnName="numberOfConnections" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="startDateYear" ColumnName="startDateYear" />
+                <ScalarProperty Name="startDateMonth" ColumnName="startDateMonth" />
+                <ScalarProperty Name="positionName" ColumnName="positionName" />
+                <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
+                <ScalarProperty Name="linkedInURL" ColumnName="linkedInURL" />
+                <ScalarProperty Name="publicProfileURL" ColumnName="publicProfileURL" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="person" ColumnName="person" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInFullProfileByLinkedInID" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInFullProfileByLinkedInID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInFullProfileByLinkedInID_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="linkedInID" ColumnName="linkedInID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="formattedName" ColumnName="formattedName" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="industry" ColumnName="industry" />
+                <ScalarProperty Name="submittedURL" ColumnName="submittedURL" />
+                <ScalarProperty Name="resolvedURL" ColumnName="resolvedURL" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="submittedImageURL" ColumnName="submittedImageURL" />
+                <ScalarProperty Name="thumbnailURL" ColumnName="thumbnailURL" />
+                <ScalarProperty Name="eyebrowURL" ColumnName="eyebrowURL" />
+                <ScalarProperty Name="numberOfConnections" ColumnName="numberOfConnections" />
+                <ScalarProperty Name="positionTitle" ColumnName="positionTitle" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="startDateYear" ColumnName="startDateYear" />
+                <ScalarProperty Name="startDateMonth" ColumnName="startDateMonth" />
+                <ScalarProperty Name="positionName" ColumnName="positionName" />
+                <ScalarProperty Name="pictureURL" ColumnName="pictureURL" />
+                <ScalarProperty Name="linkedInURL" ColumnName="linkedInURL" />
+                <ScalarProperty Name="publicProfileURL" ColumnName="publicProfileURL" />
+                <ScalarProperty Name="emailAddress" ColumnName="emailAddress" />
+                <ScalarProperty Name="person" ColumnName="person" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInProfileDataLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInProfileDataLoad_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="linkedInSearch" ColumnName="linkedInSearch" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="subtitle" ColumnName="subtitle" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInProfileDataLoadAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInProfileDataLoadAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInProfileDataLoadAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="linkedInSearch" ColumnName="linkedInSearch" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="subtitle" ColumnName="subtitle" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInSearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInSearch_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="searchTerm" ColumnName="searchTerm" />
+                <ScalarProperty Name="qualifier1" ColumnName="qualifier1" />
+                <ScalarProperty Name="qualifier2" ColumnName="qualifier2" />
+                <ScalarProperty Name="qualifier3" ColumnName="qualifier3" />
+                <ScalarProperty Name="excluded1" ColumnName="excluded1" />
+                <ScalarProperty Name="excluded2" ColumnName="excluded2" />
+                <ScalarProperty Name="excluded3" ColumnName="excluded3" />
+                <ScalarProperty Name="returnCount" ColumnName="returnCount" />
+                <ScalarProperty Name="searchDate" ColumnName="searchDate" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInSearchAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInSearchAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInSearchAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="searchTerm" ColumnName="searchTerm" />
+                <ScalarProperty Name="qualifier1" ColumnName="qualifier1" />
+                <ScalarProperty Name="qualifier2" ColumnName="qualifier2" />
+                <ScalarProperty Name="qualifier3" ColumnName="qualifier3" />
+                <ScalarProperty Name="excluded1" ColumnName="excluded1" />
+                <ScalarProperty Name="excluded2" ColumnName="excluded2" />
+                <ScalarProperty Name="excluded3" ColumnName="excluded3" />
+                <ScalarProperty Name="returnCount" ColumnName="returnCount" />
+                <ScalarProperty Name="searchDate" ColumnName="searchDate" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyLinkedInFullProfile" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyLinkedInFullProfile" />
+          <FunctionImportMapping FunctionImportName="pr_modifyLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyLinkedInProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_modifyLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyLinkedInSearch" />
+          <FunctionImportMapping FunctionImportName="pr_removeLandingPage" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLandingPage" />
+          <FunctionImportMapping FunctionImportName="pr_removeLinkedInFullProfile" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLinkedInFullProfile" />
+          <FunctionImportMapping FunctionImportName="pr_removeLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLinkedInProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_removeLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLinkedInSearch" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveLinkedInProfileDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveLinkedInSearch" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

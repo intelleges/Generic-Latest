@@ -223,6 +223,9 @@ namespace Generic
         public virtual DbSet<eventNotification> eventNotification { get; set; }
         public virtual DbSet<personSignature> personSignature { get; set; }
         public virtual DbSet<token> token { get; set; }
+        public virtual DbSet<linkedInFullProfile> linkedInFullProfile { get; set; }
+        public virtual DbSet<linkedInProfileDataLoad> linkedInProfileDataLoad { get; set; }
+        public virtual DbSet<linkedInSearch> linkedInSearch { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -22226,6 +22229,406 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveToken", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addLinkedInProfileDataLoad(Nullable<int> linkedInSearch, string title, string link, string subtitle, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var linkedInSearchParameter = linkedInSearch.HasValue ?
+                new ObjectParameter("linkedInSearch", linkedInSearch) :
+                new ObjectParameter("linkedInSearch", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var linkParameter = link != null ?
+                new ObjectParameter("link", link) :
+                new ObjectParameter("link", typeof(string));
+    
+            var subtitleParameter = subtitle != null ?
+                new ObjectParameter("subtitle", subtitle) :
+                new ObjectParameter("subtitle", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addLinkedInProfileDataLoad", linkedInSearchParameter, titleParameter, linkParameter, subtitleParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addLinkedInSearch(string searchTerm, string qualifier1, string qualifier2, string qualifier3, string excluded1, string excluded2, string excluded3, Nullable<int> returnCount, Nullable<System.DateTime> searchDate, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var searchTermParameter = searchTerm != null ?
+                new ObjectParameter("searchTerm", searchTerm) :
+                new ObjectParameter("searchTerm", typeof(string));
+    
+            var qualifier1Parameter = qualifier1 != null ?
+                new ObjectParameter("qualifier1", qualifier1) :
+                new ObjectParameter("qualifier1", typeof(string));
+    
+            var qualifier2Parameter = qualifier2 != null ?
+                new ObjectParameter("qualifier2", qualifier2) :
+                new ObjectParameter("qualifier2", typeof(string));
+    
+            var qualifier3Parameter = qualifier3 != null ?
+                new ObjectParameter("qualifier3", qualifier3) :
+                new ObjectParameter("qualifier3", typeof(string));
+    
+            var excluded1Parameter = excluded1 != null ?
+                new ObjectParameter("excluded1", excluded1) :
+                new ObjectParameter("excluded1", typeof(string));
+    
+            var excluded2Parameter = excluded2 != null ?
+                new ObjectParameter("excluded2", excluded2) :
+                new ObjectParameter("excluded2", typeof(string));
+    
+            var excluded3Parameter = excluded3 != null ?
+                new ObjectParameter("excluded3", excluded3) :
+                new ObjectParameter("excluded3", typeof(string));
+    
+            var returnCountParameter = returnCount.HasValue ?
+                new ObjectParameter("returnCount", returnCount) :
+                new ObjectParameter("returnCount", typeof(int));
+    
+            var searchDateParameter = searchDate.HasValue ?
+                new ObjectParameter("searchDate", searchDate) :
+                new ObjectParameter("searchDate", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addLinkedInSearch", searchTermParameter, qualifier1Parameter, qualifier2Parameter, qualifier3Parameter, excluded1Parameter, excluded2Parameter, excluded3Parameter, returnCountParameter, searchDateParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveLinkedInProfileDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveLinkedInProfileDataLoad", idParameter);
+        }
+    
+        public virtual int pr_archiveLinkedInSearch(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveLinkedInSearch", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInFullProfile_Result> pr_getLinkedInFullProfile(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInFullProfile_Result>("pr_getLinkedInFullProfile", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInFullProfileAll_Result> pr_getLinkedInFullProfileAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInFullProfileAll_Result>("pr_getLinkedInFullProfileAll");
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInFullProfileByLinkedInID_Result> pr_getLinkedInFullProfileByLinkedInID(string linkedInID)
+        {
+            var linkedInIDParameter = linkedInID != null ?
+                new ObjectParameter("linkedInID", linkedInID) :
+                new ObjectParameter("linkedInID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInFullProfileByLinkedInID_Result>("pr_getLinkedInFullProfileByLinkedInID", linkedInIDParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInProfileDataLoad_Result> pr_getLinkedInProfileDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInProfileDataLoad_Result>("pr_getLinkedInProfileDataLoad", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInProfileDataLoadAll_Result> pr_getLinkedInProfileDataLoadAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInProfileDataLoadAll_Result>("pr_getLinkedInProfileDataLoadAll");
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInSearch_Result> pr_getLinkedInSearch(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInSearch_Result>("pr_getLinkedInSearch", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInSearchAll_Result> pr_getLinkedInSearchAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInSearchAll_Result>("pr_getLinkedInSearchAll");
+        }
+    
+        public virtual int pr_modifyLinkedInFullProfile(Nullable<int> id, string linkedInID, string firstName, string lastName, string formattedName, string location, string country, string industry, string submittedURL, string resolvedURL, string title, string submittedImageURL, string thumbnailURL, string eyebrowURL, Nullable<int> numberOfConnections, string positionTitle, string summary, Nullable<int> startDateYear, Nullable<int> startDateMonth, string positionName, string pictureURL, string linkedInURL, string publicProfileURL, string emailAddress, Nullable<int> person)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var linkedInIDParameter = linkedInID != null ?
+                new ObjectParameter("linkedInID", linkedInID) :
+                new ObjectParameter("linkedInID", typeof(string));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            var formattedNameParameter = formattedName != null ?
+                new ObjectParameter("formattedName", formattedName) :
+                new ObjectParameter("formattedName", typeof(string));
+    
+            var locationParameter = location != null ?
+                new ObjectParameter("location", location) :
+                new ObjectParameter("location", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(string));
+    
+            var industryParameter = industry != null ?
+                new ObjectParameter("industry", industry) :
+                new ObjectParameter("industry", typeof(string));
+    
+            var submittedURLParameter = submittedURL != null ?
+                new ObjectParameter("submittedURL", submittedURL) :
+                new ObjectParameter("submittedURL", typeof(string));
+    
+            var resolvedURLParameter = resolvedURL != null ?
+                new ObjectParameter("resolvedURL", resolvedURL) :
+                new ObjectParameter("resolvedURL", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var submittedImageURLParameter = submittedImageURL != null ?
+                new ObjectParameter("submittedImageURL", submittedImageURL) :
+                new ObjectParameter("submittedImageURL", typeof(string));
+    
+            var thumbnailURLParameter = thumbnailURL != null ?
+                new ObjectParameter("thumbnailURL", thumbnailURL) :
+                new ObjectParameter("thumbnailURL", typeof(string));
+    
+            var eyebrowURLParameter = eyebrowURL != null ?
+                new ObjectParameter("eyebrowURL", eyebrowURL) :
+                new ObjectParameter("eyebrowURL", typeof(string));
+    
+            var numberOfConnectionsParameter = numberOfConnections.HasValue ?
+                new ObjectParameter("numberOfConnections", numberOfConnections) :
+                new ObjectParameter("numberOfConnections", typeof(int));
+    
+            var positionTitleParameter = positionTitle != null ?
+                new ObjectParameter("positionTitle", positionTitle) :
+                new ObjectParameter("positionTitle", typeof(string));
+    
+            var summaryParameter = summary != null ?
+                new ObjectParameter("summary", summary) :
+                new ObjectParameter("summary", typeof(string));
+    
+            var startDateYearParameter = startDateYear.HasValue ?
+                new ObjectParameter("startDateYear", startDateYear) :
+                new ObjectParameter("startDateYear", typeof(int));
+    
+            var startDateMonthParameter = startDateMonth.HasValue ?
+                new ObjectParameter("startDateMonth", startDateMonth) :
+                new ObjectParameter("startDateMonth", typeof(int));
+    
+            var positionNameParameter = positionName != null ?
+                new ObjectParameter("positionName", positionName) :
+                new ObjectParameter("positionName", typeof(string));
+    
+            var pictureURLParameter = pictureURL != null ?
+                new ObjectParameter("pictureURL", pictureURL) :
+                new ObjectParameter("pictureURL", typeof(string));
+    
+            var linkedInURLParameter = linkedInURL != null ?
+                new ObjectParameter("linkedInURL", linkedInURL) :
+                new ObjectParameter("linkedInURL", typeof(string));
+    
+            var publicProfileURLParameter = publicProfileURL != null ?
+                new ObjectParameter("publicProfileURL", publicProfileURL) :
+                new ObjectParameter("publicProfileURL", typeof(string));
+    
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("emailAddress", emailAddress) :
+                new ObjectParameter("emailAddress", typeof(string));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyLinkedInFullProfile", idParameter, linkedInIDParameter, firstNameParameter, lastNameParameter, formattedNameParameter, locationParameter, countryParameter, industryParameter, submittedURLParameter, resolvedURLParameter, titleParameter, submittedImageURLParameter, thumbnailURLParameter, eyebrowURLParameter, numberOfConnectionsParameter, positionTitleParameter, summaryParameter, startDateYearParameter, startDateMonthParameter, positionNameParameter, pictureURLParameter, linkedInURLParameter, publicProfileURLParameter, emailAddressParameter, personParameter);
+        }
+    
+        public virtual int pr_modifyLinkedInProfileDataLoad(Nullable<int> id, Nullable<int> linkedInSearch, string title, string link, string subtitle, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var linkedInSearchParameter = linkedInSearch.HasValue ?
+                new ObjectParameter("linkedInSearch", linkedInSearch) :
+                new ObjectParameter("linkedInSearch", typeof(int));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var linkParameter = link != null ?
+                new ObjectParameter("link", link) :
+                new ObjectParameter("link", typeof(string));
+    
+            var subtitleParameter = subtitle != null ?
+                new ObjectParameter("subtitle", subtitle) :
+                new ObjectParameter("subtitle", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyLinkedInProfileDataLoad", idParameter, linkedInSearchParameter, titleParameter, linkParameter, subtitleParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_modifyLinkedInSearch(Nullable<int> id, string searchTerm, string qualifier1, string qualifier2, string qualifier3, string excluded1, string excluded2, string excluded3, Nullable<int> returnCount, Nullable<System.DateTime> searchDate, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var searchTermParameter = searchTerm != null ?
+                new ObjectParameter("searchTerm", searchTerm) :
+                new ObjectParameter("searchTerm", typeof(string));
+    
+            var qualifier1Parameter = qualifier1 != null ?
+                new ObjectParameter("qualifier1", qualifier1) :
+                new ObjectParameter("qualifier1", typeof(string));
+    
+            var qualifier2Parameter = qualifier2 != null ?
+                new ObjectParameter("qualifier2", qualifier2) :
+                new ObjectParameter("qualifier2", typeof(string));
+    
+            var qualifier3Parameter = qualifier3 != null ?
+                new ObjectParameter("qualifier3", qualifier3) :
+                new ObjectParameter("qualifier3", typeof(string));
+    
+            var excluded1Parameter = excluded1 != null ?
+                new ObjectParameter("excluded1", excluded1) :
+                new ObjectParameter("excluded1", typeof(string));
+    
+            var excluded2Parameter = excluded2 != null ?
+                new ObjectParameter("excluded2", excluded2) :
+                new ObjectParameter("excluded2", typeof(string));
+    
+            var excluded3Parameter = excluded3 != null ?
+                new ObjectParameter("excluded3", excluded3) :
+                new ObjectParameter("excluded3", typeof(string));
+    
+            var returnCountParameter = returnCount.HasValue ?
+                new ObjectParameter("returnCount", returnCount) :
+                new ObjectParameter("returnCount", typeof(int));
+    
+            var searchDateParameter = searchDate.HasValue ?
+                new ObjectParameter("searchDate", searchDate) :
+                new ObjectParameter("searchDate", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyLinkedInSearch", idParameter, searchTermParameter, qualifier1Parameter, qualifier2Parameter, qualifier3Parameter, excluded1Parameter, excluded2Parameter, excluded3Parameter, returnCountParameter, searchDateParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeLandingPage(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLandingPage", idParameter);
+        }
+    
+        public virtual int pr_removeLinkedInFullProfile(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLinkedInFullProfile", idParameter);
+        }
+    
+        public virtual int pr_removeLinkedInProfileDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLinkedInProfileDataLoad", idParameter);
+        }
+    
+        public virtual int pr_removeLinkedInSearch(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLinkedInSearch", idParameter);
+        }
+    
+        public virtual int pr_unArchiveLinkedInProfileDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLinkedInProfileDataLoad", idParameter);
+        }
+    
+        public virtual int pr_unArchiveLinkedInSearch(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLinkedInSearch", idParameter);
         }
     }
 }

@@ -26,6 +26,11 @@ namespace Generic.Controllers
                 return View("GigfestResultView", SessionModel.Response);
             return View();
         }
+
+        public ActionResult GetLoadStatus()
+        {
+            return Json(Loaded, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult Create(CreateGigfestModel model)
         {
@@ -65,8 +70,29 @@ namespace Generic.Controllers
             request.AddQueryParameter("token", Session["token"].ToString());
             request.AddQueryParameter("limit", limit.ToString());
             request.AddQueryParameter("offset", offset.ToString());
-            var response = client.Execute<List<GigfestResponse>>(request);            
-            return Json(new GridModel() { Data = response.Data, Total = (response.Data != null && response.Data.Count == limit ? offset + limit + 1 : offset + response.Data.Count) },  JsonRequestBehavior.AllowGet);
+            var response = client.Execute<List<GigfestResponse>>(request);
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    Loaded = response.Data.Count != 0;
+                    break;
+                default:
+                    Loaded = true;
+                    break;
+            }
+            return Json(new GridModel() { Data = response.Data, Total = (response.Data != null && response.Data.Count == limit ? offset + limit + 1 : offset + response.Data.Count) }, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool? Loaded
+        {
+            get
+            {
+                return (bool?)Session["Gigfest_Loaded"];
+            }
+            set
+            {
+                Session["Gigfest_Loaded"] = value;
+            }
         }
 
         private GigfestSessionModel SessionModel

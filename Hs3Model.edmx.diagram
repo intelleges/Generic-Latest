@@ -320,6 +320,9 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.eventNotification" Width="1.5" PointX="23.375" PointY="26.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personSignature" Width="1.5" PointX="26.375" PointY="25.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.token" Width="1.5" PointX="27.375" PointY="0.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInFullProfile" Width="1.5" PointX="27.375" PointY="3.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInProfileDataLoad" Width="1.5" PointX="3.375" PointY="27.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInSearch" Width="1.5" PointX="27.375" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
