@@ -226,6 +226,7 @@ namespace Generic
         public virtual DbSet<linkedInFullProfile> linkedInFullProfile { get; set; }
         public virtual DbSet<linkedInProfileDataLoad> linkedInProfileDataLoad { get; set; }
         public virtual DbSet<linkedInSearch> linkedInSearch { get; set; }
+        public virtual DbSet<linkedInConnectionDataLoad> linkedInConnectionDataLoad { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -22629,6 +22630,245 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLinkedInSearch", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addLinkedInConnectionDataLoad(string firstName, string lastName, string email, string company, string position, string personTitle, string personLink, string personSubtitle, string personDescription, string url, string phone, string alternateEmail, string nAICS, Nullable<decimal> revenue, Nullable<int> employeeCount, string companyTitle, string companyLInk, string companySubtitle, string companyDescription, Nullable<System.DateTime> connectedOn, Nullable<int> person, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var companyParameter = company != null ?
+                new ObjectParameter("company", company) :
+                new ObjectParameter("company", typeof(string));
+    
+            var positionParameter = position != null ?
+                new ObjectParameter("position", position) :
+                new ObjectParameter("position", typeof(string));
+    
+            var personTitleParameter = personTitle != null ?
+                new ObjectParameter("personTitle", personTitle) :
+                new ObjectParameter("personTitle", typeof(string));
+    
+            var personLinkParameter = personLink != null ?
+                new ObjectParameter("personLink", personLink) :
+                new ObjectParameter("personLink", typeof(string));
+    
+            var personSubtitleParameter = personSubtitle != null ?
+                new ObjectParameter("personSubtitle", personSubtitle) :
+                new ObjectParameter("personSubtitle", typeof(string));
+    
+            var personDescriptionParameter = personDescription != null ?
+                new ObjectParameter("personDescription", personDescription) :
+                new ObjectParameter("personDescription", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var alternateEmailParameter = alternateEmail != null ?
+                new ObjectParameter("alternateEmail", alternateEmail) :
+                new ObjectParameter("alternateEmail", typeof(string));
+    
+            var nAICSParameter = nAICS != null ?
+                new ObjectParameter("NAICS", nAICS) :
+                new ObjectParameter("NAICS", typeof(string));
+    
+            var revenueParameter = revenue.HasValue ?
+                new ObjectParameter("revenue", revenue) :
+                new ObjectParameter("revenue", typeof(decimal));
+    
+            var employeeCountParameter = employeeCount.HasValue ?
+                new ObjectParameter("employeeCount", employeeCount) :
+                new ObjectParameter("employeeCount", typeof(int));
+    
+            var companyTitleParameter = companyTitle != null ?
+                new ObjectParameter("companyTitle", companyTitle) :
+                new ObjectParameter("companyTitle", typeof(string));
+    
+            var companyLInkParameter = companyLInk != null ?
+                new ObjectParameter("companyLInk", companyLInk) :
+                new ObjectParameter("companyLInk", typeof(string));
+    
+            var companySubtitleParameter = companySubtitle != null ?
+                new ObjectParameter("companySubtitle", companySubtitle) :
+                new ObjectParameter("companySubtitle", typeof(string));
+    
+            var companyDescriptionParameter = companyDescription != null ?
+                new ObjectParameter("companyDescription", companyDescription) :
+                new ObjectParameter("companyDescription", typeof(string));
+    
+            var connectedOnParameter = connectedOn.HasValue ?
+                new ObjectParameter("connectedOn", connectedOn) :
+                new ObjectParameter("connectedOn", typeof(System.DateTime));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addLinkedInConnectionDataLoad", firstNameParameter, lastNameParameter, emailParameter, companyParameter, positionParameter, personTitleParameter, personLinkParameter, personSubtitleParameter, personDescriptionParameter, urlParameter, phoneParameter, alternateEmailParameter, nAICSParameter, revenueParameter, employeeCountParameter, companyTitleParameter, companyLInkParameter, companySubtitleParameter, companyDescriptionParameter, connectedOnParameter, personParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveLinkedInConnectionDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveLinkedInConnectionDataLoad", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInConnectionDataLoad_Result> pr_getLinkedInConnectionDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInConnectionDataLoad_Result>("pr_getLinkedInConnectionDataLoad", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLinkedInConnectionDataLoadAll_Result> pr_getLinkedInConnectionDataLoadAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLinkedInConnectionDataLoadAll_Result>("pr_getLinkedInConnectionDataLoadAll");
+        }
+    
+        public virtual int pr_modifyLinkedInConnectionDataLoad(Nullable<int> id, string firstName, string lastName, string email, string company, string position, string personTitle, string personLink, string personSubtitle, string personDescription, string url, string phone, string alternateEmail, string nAICS, Nullable<decimal> revenue, Nullable<int> employeeCount, string companyTitle, string companyLInk, string companySubtitle, string companyDescription, Nullable<System.DateTime> connectedOn, Nullable<int> person, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var firstNameParameter = firstName != null ?
+                new ObjectParameter("firstName", firstName) :
+                new ObjectParameter("firstName", typeof(string));
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var companyParameter = company != null ?
+                new ObjectParameter("company", company) :
+                new ObjectParameter("company", typeof(string));
+    
+            var positionParameter = position != null ?
+                new ObjectParameter("position", position) :
+                new ObjectParameter("position", typeof(string));
+    
+            var personTitleParameter = personTitle != null ?
+                new ObjectParameter("personTitle", personTitle) :
+                new ObjectParameter("personTitle", typeof(string));
+    
+            var personLinkParameter = personLink != null ?
+                new ObjectParameter("personLink", personLink) :
+                new ObjectParameter("personLink", typeof(string));
+    
+            var personSubtitleParameter = personSubtitle != null ?
+                new ObjectParameter("personSubtitle", personSubtitle) :
+                new ObjectParameter("personSubtitle", typeof(string));
+    
+            var personDescriptionParameter = personDescription != null ?
+                new ObjectParameter("personDescription", personDescription) :
+                new ObjectParameter("personDescription", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var phoneParameter = phone != null ?
+                new ObjectParameter("phone", phone) :
+                new ObjectParameter("phone", typeof(string));
+    
+            var alternateEmailParameter = alternateEmail != null ?
+                new ObjectParameter("alternateEmail", alternateEmail) :
+                new ObjectParameter("alternateEmail", typeof(string));
+    
+            var nAICSParameter = nAICS != null ?
+                new ObjectParameter("NAICS", nAICS) :
+                new ObjectParameter("NAICS", typeof(string));
+    
+            var revenueParameter = revenue.HasValue ?
+                new ObjectParameter("revenue", revenue) :
+                new ObjectParameter("revenue", typeof(decimal));
+    
+            var employeeCountParameter = employeeCount.HasValue ?
+                new ObjectParameter("employeeCount", employeeCount) :
+                new ObjectParameter("employeeCount", typeof(int));
+    
+            var companyTitleParameter = companyTitle != null ?
+                new ObjectParameter("companyTitle", companyTitle) :
+                new ObjectParameter("companyTitle", typeof(string));
+    
+            var companyLInkParameter = companyLInk != null ?
+                new ObjectParameter("companyLInk", companyLInk) :
+                new ObjectParameter("companyLInk", typeof(string));
+    
+            var companySubtitleParameter = companySubtitle != null ?
+                new ObjectParameter("companySubtitle", companySubtitle) :
+                new ObjectParameter("companySubtitle", typeof(string));
+    
+            var companyDescriptionParameter = companyDescription != null ?
+                new ObjectParameter("companyDescription", companyDescription) :
+                new ObjectParameter("companyDescription", typeof(string));
+    
+            var connectedOnParameter = connectedOn.HasValue ?
+                new ObjectParameter("connectedOn", connectedOn) :
+                new ObjectParameter("connectedOn", typeof(System.DateTime));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyLinkedInConnectionDataLoad", idParameter, firstNameParameter, lastNameParameter, emailParameter, companyParameter, positionParameter, personTitleParameter, personLinkParameter, personSubtitleParameter, personDescriptionParameter, urlParameter, phoneParameter, alternateEmailParameter, nAICSParameter, revenueParameter, employeeCountParameter, companyTitleParameter, companyLInkParameter, companySubtitleParameter, companyDescriptionParameter, connectedOnParameter, personParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeLinkedInConnectionDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeLinkedInConnectionDataLoad", idParameter);
+        }
+    
+        public virtual int pr_unArchiveLinkedInConnectionDataLoad(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLinkedInConnectionDataLoad", idParameter);
         }
     }
 }

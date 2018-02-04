@@ -122,6 +122,9 @@
     <Reference Include="EvernoteSDK">
       <HintPath>..\packages\evernote-cloud-sdk-windows.1.0.7\lib\net40\EvernoteSDK.dll</HintPath>
     </Reference>
+    <Reference Include="FileHelpers, Version=3.2.7.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileHelpers.3.2.7\lib\net45\FileHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Apis, Version=1.32.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.32.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
@@ -662,6 +665,7 @@
     <Compile Include="Controllers\IvrController .cs" />
     <Compile Include="Controllers\jsTree3Controller.cs" />
     <Compile Include="Controllers\LCEController.cs" />
+    <Compile Include="Controllers\LinkedInConnectionController.cs" />
     <Compile Include="Controllers\LinkedInController.cs" />
     <Compile Include="Controllers\MerckController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
@@ -850,6 +854,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="letterSeed.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="linkedInConnectionDataLoad.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="linkedInFullProfile.cs">
@@ -1625,6 +1632,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getLCE_Special_Data_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInConnectionDataLoadAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getLinkedInConnectionDataLoad_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getLinkedInFullProfileAll_Result.cs">
@@ -2841,6 +2854,7 @@
     <Compile Include="Session\IntellegesAuthorizationCodeMvcApp.cs" />
     <Compile Include="Session\SessionSingleton.cs" />
     <Compile Include="ViewModel\ConfirmPartnerViewModel.cs" />
+    <Compile Include="ViewModel\LinkedInCsvConnection.cs" />
     <Compile Include="ViewModel\QuestionnaireAutoMailViewModel.cs" />
     <Compile Include="ViewModel\ExcelQuestionnaireQuestionnireCMS.cs" />
     <Compile Include="ViewModel\GroupViewModel.cs" />
@@ -5459,6 +5473,8 @@
     <Content Include="Views\Gigfest\GigfestResultView.cshtml" />
     <Content Include="Views\LinkedIn\Create.cshtml" />
     <Content Include="Views\LinkedIn\CreateLinkedInSearchView.cshtml" />
+    <Content Include="Views\LinkedInConnection\Create.cshtml" />
+    <Content Include="UploadTemplates\Connections.csv" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

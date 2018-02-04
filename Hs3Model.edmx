@@ -742,6 +742,35 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="linkedInConnectionDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="300" />
+          <Property Name="lastName" Type="varchar" MaxLength="300" />
+          <Property Name="email" Type="varchar" MaxLength="300" />
+          <Property Name="company" Type="varchar" MaxLength="300" />
+          <Property Name="position" Type="varchar(max)" />
+          <Property Name="personTitle" Type="varchar" MaxLength="100" />
+          <Property Name="personLink" Type="varchar" MaxLength="300" />
+          <Property Name="personSubtitle" Type="varchar" MaxLength="300" />
+          <Property Name="personDescription" Type="varchar(max)" />
+          <Property Name="url" Type="varchar" MaxLength="300" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="alternateEmail" Type="varchar" MaxLength="300" />
+          <Property Name="NAICS" Type="varchar" MaxLength="6" />
+          <Property Name="revenue" Type="money" />
+          <Property Name="employeeCount" Type="int" />
+          <Property Name="companyTitle" Type="varchar" MaxLength="100" />
+          <Property Name="companyLInk" Type="varchar" MaxLength="300" />
+          <Property Name="companySubtitle" Type="varchar" MaxLength="300" />
+          <Property Name="companyDescription" Type="varchar(max)" />
+          <Property Name="connectedOn" Type="date" />
+          <Property Name="person" Type="int" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="linkedInFullProfile">
           <Key>
             <PropertyRef Name="id" />
@@ -5033,6 +5062,31 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="active" Type="bit" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addLinkedInConnectionDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="company" Type="varchar" Mode="In" />
+          <Parameter Name="position" Type="varchar(max)" Mode="In" />
+          <Parameter Name="personTitle" Type="varchar" Mode="In" />
+          <Parameter Name="personLink" Type="varchar" Mode="In" />
+          <Parameter Name="personSubtitle" Type="varchar" Mode="In" />
+          <Parameter Name="personDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="url" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="alternateEmail" Type="varchar" Mode="In" />
+          <Parameter Name="NAICS" Type="varchar" Mode="In" />
+          <Parameter Name="revenue" Type="money" Mode="In" />
+          <Parameter Name="employeeCount" Type="int" Mode="In" />
+          <Parameter Name="companyTitle" Type="varchar" Mode="In" />
+          <Parameter Name="companyLInk" Type="varchar" Mode="In" />
+          <Parameter Name="companySubtitle" Type="varchar" Mode="In" />
+          <Parameter Name="companyDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="connectedOn" Type="date" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="linkedInSearch" Type="int" Mode="In" />
           <Parameter Name="title" Type="varchar" Mode="In" />
@@ -5975,6 +6029,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_archiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_archiveLinkedInConnectionDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_archiveLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -6801,6 +6858,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="programName" Type="varchar" Mode="In" />
           <Parameter Name="dueDate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="pr_getLinkedInConnectionDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getLinkedInConnectionDataLoadAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getLinkedInFullProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -8445,6 +8506,32 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyLinkedInConnectionDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="company" Type="varchar" Mode="In" />
+          <Parameter Name="position" Type="varchar(max)" Mode="In" />
+          <Parameter Name="personTitle" Type="varchar" Mode="In" />
+          <Parameter Name="personLink" Type="varchar" Mode="In" />
+          <Parameter Name="personSubtitle" Type="varchar" Mode="In" />
+          <Parameter Name="personDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="url" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="alternateEmail" Type="varchar" Mode="In" />
+          <Parameter Name="NAICS" Type="varchar" Mode="In" />
+          <Parameter Name="revenue" Type="money" Mode="In" />
+          <Parameter Name="employeeCount" Type="int" Mode="In" />
+          <Parameter Name="companyTitle" Type="varchar" Mode="In" />
+          <Parameter Name="companyLInk" Type="varchar" Mode="In" />
+          <Parameter Name="companySubtitle" Type="varchar" Mode="In" />
+          <Parameter Name="companyDescription" Type="varchar(max)" Mode="In" />
+          <Parameter Name="connectedOn" Type="date" Mode="In" />
+          <Parameter Name="person" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyLinkedInFullProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="linkedInID" Type="varchar" Mode="In" />
@@ -9394,6 +9481,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeLinkedInConnectionDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeLinkedInFullProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9788,6 +9878,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_unArchiveLanguageinfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_unArchiveLinkedInConnectionDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_unArchiveLinkedInProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10113,6 +10206,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="languageInfo" EntityType="Self.languageInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="letter" EntityType="Self.letter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="letterSeed" EntityType="Self.letterSeed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="linkedInConnectionDataLoad" EntityType="Self.linkedInConnectionDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="linkedInFullProfile" EntityType="Self.linkedInFullProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="linkedInProfileDataLoad" EntityType="Self.linkedInProfileDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="linkedInSearch" EntityType="Self.linkedInSearch" Schema="dbo" store:Type="Tables" />
@@ -17603,24 +17697,24 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveLinkedInProfileDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveLinkedInSearch">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInFullProfile" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInFullProfile_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInFullProfileAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInFullProfileAll_Result)" />
           <FunctionImport Name="pr_getLinkedInFullProfileByLinkedInID" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInFullProfileByLinkedInID_Result)">
-            <Parameter Name="linkedInID" Mode="In" Type="String" />
+          <Parameter Name="linkedInID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInProfileDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInProfileDataLoad_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInProfileDataLoadAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInProfileDataLoadAll_Result)" />
           <FunctionImport Name="pr_getLinkedInSearch" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInSearch_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInSearchAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInSearchAll_Result)" />
           <FunctionImport Name="pr_modifyLinkedInFullProfile">
@@ -17675,21 +17769,86 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeLandingPage">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeLinkedInFullProfile">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeLinkedInProfileDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeLinkedInSearch">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveLinkedInProfileDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveLinkedInSearch">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="linkedInConnectionDataLoad" EntityType="hs3MVCMTQa2Model.linkedInConnectionDataLoad" />
+          <FunctionImport Name="pr_addLinkedInConnectionDataLoad" ReturnType="Collection(Decimal)">
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="company" Mode="In" Type="String" />
+            <Parameter Name="position" Mode="In" Type="String" />
+            <Parameter Name="personTitle" Mode="In" Type="String" />
+            <Parameter Name="personLink" Mode="In" Type="String" />
+            <Parameter Name="personSubtitle" Mode="In" Type="String" />
+            <Parameter Name="personDescription" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="alternateEmail" Mode="In" Type="String" />
+            <Parameter Name="NAICS" Mode="In" Type="String" />
+            <Parameter Name="revenue" Mode="In" Type="Decimal" />
+            <Parameter Name="employeeCount" Mode="In" Type="Int32" />
+            <Parameter Name="companyTitle" Mode="In" Type="String" />
+            <Parameter Name="companyLInk" Mode="In" Type="String" />
+            <Parameter Name="companySubtitle" Mode="In" Type="String" />
+            <Parameter Name="companyDescription" Mode="In" Type="String" />
+            <Parameter Name="connectedOn" Mode="In" Type="DateTime" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveLinkedInConnectionDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInConnectionDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInConnectionDataLoad_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getLinkedInConnectionDataLoadAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInConnectionDataLoadAll_Result)" />
+          <FunctionImport Name="pr_modifyLinkedInConnectionDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="company" Mode="In" Type="String" />
+            <Parameter Name="position" Mode="In" Type="String" />
+            <Parameter Name="personTitle" Mode="In" Type="String" />
+            <Parameter Name="personLink" Mode="In" Type="String" />
+            <Parameter Name="personSubtitle" Mode="In" Type="String" />
+            <Parameter Name="personDescription" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="alternateEmail" Mode="In" Type="String" />
+            <Parameter Name="NAICS" Mode="In" Type="String" />
+            <Parameter Name="revenue" Mode="In" Type="Decimal" />
+            <Parameter Name="employeeCount" Mode="In" Type="Int32" />
+            <Parameter Name="companyTitle" Mode="In" Type="String" />
+            <Parameter Name="companyLInk" Mode="In" Type="String" />
+            <Parameter Name="companySubtitle" Mode="In" Type="String" />
+            <Parameter Name="companyDescription" Mode="In" Type="String" />
+            <Parameter Name="connectedOn" Mode="In" Type="DateTime" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeLinkedInConnectionDataLoad">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveLinkedInConnectionDataLoad">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -30280,6 +30439,87 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <EntityType Name="linkedInConnectionDataLoad">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="position" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="personTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="personLink" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="personSubtitle" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="personDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alternateEmail" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NAICS" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="revenue" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="employeeCount" Type="Int32" />
+          <Property Name="companyTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="companyLInk" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="companySubtitle" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="companyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="connectedOn" Type="DateTime" Precision="0" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getLinkedInConnectionDataLoad_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="company" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="position" Nullable="true" />
+          <Property Type="String" Name="personTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="personLink" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="personSubtitle" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="personDescription" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="alternateEmail" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="NAICS" Nullable="true" MaxLength="6" />
+          <Property Type="Decimal" Name="revenue" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="employeeCount" Nullable="true" />
+          <Property Type="String" Name="companyTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="companyLInk" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="companySubtitle" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="companyDescription" Nullable="true" />
+          <Property Type="DateTime" Name="connectedOn" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getLinkedInConnectionDataLoadAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="lastName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="company" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="position" Nullable="true" />
+          <Property Type="String" Name="personTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="personLink" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="personSubtitle" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="personDescription" Nullable="true" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="alternateEmail" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="NAICS" Nullable="true" MaxLength="6" />
+          <Property Type="Decimal" Name="revenue" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="employeeCount" Nullable="true" />
+          <Property Type="String" Name="companyTitle" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="companyLInk" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="companySubtitle" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="companyDescription" Nullable="true" />
+          <Property Type="DateTime" Name="connectedOn" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42050,6 +42290,101 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_removeLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLinkedInSearch" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveLinkedInProfileDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveLinkedInProfileDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveLinkedInSearch" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveLinkedInSearch" />
+          <EntitySetMapping Name="linkedInConnectionDataLoad">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.linkedInConnectionDataLoad">
+              <MappingFragment StoreEntitySet="linkedInConnectionDataLoad">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="connectedOn" ColumnName="connectedOn" />
+                <ScalarProperty Name="companyDescription" ColumnName="companyDescription" />
+                <ScalarProperty Name="companySubtitle" ColumnName="companySubtitle" />
+                <ScalarProperty Name="companyLInk" ColumnName="companyLInk" />
+                <ScalarProperty Name="companyTitle" ColumnName="companyTitle" />
+                <ScalarProperty Name="employeeCount" ColumnName="employeeCount" />
+                <ScalarProperty Name="revenue" ColumnName="revenue" />
+                <ScalarProperty Name="NAICS" ColumnName="NAICS" />
+                <ScalarProperty Name="alternateEmail" ColumnName="alternateEmail" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="personDescription" ColumnName="personDescription" />
+                <ScalarProperty Name="personSubtitle" ColumnName="personSubtitle" />
+                <ScalarProperty Name="personLink" ColumnName="personLink" />
+                <ScalarProperty Name="personTitle" ColumnName="personTitle" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_addLinkedInConnectionDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_archiveLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveLinkedInConnectionDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInConnectionDataLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInConnectionDataLoad_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="personTitle" ColumnName="personTitle" />
+                <ScalarProperty Name="personLink" ColumnName="personLink" />
+                <ScalarProperty Name="personSubtitle" ColumnName="personSubtitle" />
+                <ScalarProperty Name="personDescription" ColumnName="personDescription" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="alternateEmail" ColumnName="alternateEmail" />
+                <ScalarProperty Name="NAICS" ColumnName="NAICS" />
+                <ScalarProperty Name="revenue" ColumnName="revenue" />
+                <ScalarProperty Name="employeeCount" ColumnName="employeeCount" />
+                <ScalarProperty Name="companyTitle" ColumnName="companyTitle" />
+                <ScalarProperty Name="companyLInk" ColumnName="companyLInk" />
+                <ScalarProperty Name="companySubtitle" ColumnName="companySubtitle" />
+                <ScalarProperty Name="companyDescription" ColumnName="companyDescription" />
+                <ScalarProperty Name="connectedOn" ColumnName="connectedOn" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getLinkedInConnectionDataLoadAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getLinkedInConnectionDataLoadAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getLinkedInConnectionDataLoadAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="personTitle" ColumnName="personTitle" />
+                <ScalarProperty Name="personLink" ColumnName="personLink" />
+                <ScalarProperty Name="personSubtitle" ColumnName="personSubtitle" />
+                <ScalarProperty Name="personDescription" ColumnName="personDescription" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="alternateEmail" ColumnName="alternateEmail" />
+                <ScalarProperty Name="NAICS" ColumnName="NAICS" />
+                <ScalarProperty Name="revenue" ColumnName="revenue" />
+                <ScalarProperty Name="employeeCount" ColumnName="employeeCount" />
+                <ScalarProperty Name="companyTitle" ColumnName="companyTitle" />
+                <ScalarProperty Name="companyLInk" ColumnName="companyLInk" />
+                <ScalarProperty Name="companySubtitle" ColumnName="companySubtitle" />
+                <ScalarProperty Name="companyDescription" ColumnName="companyDescription" />
+                <ScalarProperty Name="connectedOn" ColumnName="connectedOn" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyLinkedInConnectionDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_removeLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLinkedInConnectionDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveLinkedInConnectionDataLoad" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

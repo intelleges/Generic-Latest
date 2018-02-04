@@ -1,0 +1,20 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Upload Linkedin Connection";
+}
+
+@using (Html.BeginForm("Create", "LinkedInConnection", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label for="currentFile">Please select a CSV file containing the partner information</label>
+        <input type="file" class="form-control" name="currentFile" id="currentFile" />
+        <p class="small"><a href="@Url.Action("Template","LinkedInConnection")">Click here to download partner upload template</a></p>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+}
