@@ -900,6 +900,7 @@
     <Compile Include="Models\FindPODSViewModel.cs" />
     <Compile Include="Models\FRPJModel.cs" />
     <Compile Include="Models\LCEModel.cs" />
+    <Compile Include="Models\LnResult.cs" />
     <Compile Include="Models\NotificationsModels.cs" />
     <Compile Include="Models\SendGridCategory.cs" />
     <Compile Include="multiTenantProjectType.cs">

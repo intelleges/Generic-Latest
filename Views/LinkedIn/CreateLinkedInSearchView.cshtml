@@ -4,7 +4,7 @@
 @using Telerik.Web.Mvc.UI;
 @{
     Layout = LayoutHelper.GetLayout();
-    ViewBag.Title = "Gigfest results";
+    ViewBag.Title = "LinkedIn results";
 }
 <script type="text/javascript">
     function formatter(value) {
@@ -414,7 +414,7 @@
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
                     .Text("Export to Excel")
-                    .Action("ExportExcel", "person"))
+                    .Action("ExportExcel", "LinkedIn"))
         .Columns(columns =>
         {
         columns.Bound(o => o.Title).Title("Title").Width(100);

@@ -3,9 +3,11 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Serialization;
 using Telerik.Web.Mvc;
 
 namespace Generic.Controllers
@@ -57,6 +59,18 @@ namespace Generic.Controllers
             //};
             return View("GigfestResultView", new List<GigfestResponse>());
             //}
+        }
+
+        public ActionResult ExportExcel()
+        {;
+            List<GigfestResponse> abc = SessionModel.Response.ToList();
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<GigfestResponse>));
+          
+            serializer.Serialize(stream, abc);
+            stream.Position = 0;
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "Gigfest.xls");
         }
 
         [GridAction(EnableCustomBinding = true)]

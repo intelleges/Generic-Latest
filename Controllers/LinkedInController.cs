@@ -4,9 +4,11 @@ using Google.Apis.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Serialization;
 
 namespace Generic.Controllers
 {
@@ -53,9 +55,30 @@ namespace Generic.Controllers
             {
 
             }
+
+
+            Session["LinkedInResult"] = results;
+
             //listRequest.Num = 2200;
             //Google.Apis.Customsearch.v1.Data.Search search = listRequest.Execute();
             return View("CreateLinkedInSearchView", results);
+        }
+
+        public ActionResult ExportExcel()
+        {
+            List<Result> abc = Session["LinkedInResult"] as List<Result>;
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<LnResult>));
+
+            serializer.Serialize(stream, abc.Select(o => new LnResult()
+            {
+                HtmlFormattedUrl = o.HtmlFormattedUrl,              
+                Snippet = o.Snippet,
+                Title = o.Title
+            }).ToList());
+            stream.Position = 0;
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "LinkedIn.xls");
         }
     }
 }
