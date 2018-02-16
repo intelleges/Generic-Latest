@@ -5,9 +5,7 @@
     Layout = null;
 }
 
-<script>
-    var enterpriseId = @ViewBag.EnterpriseId ;
-</script>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -19,7 +17,7 @@
     ============================================= -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Content/login/css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="~/Content/login/style.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/style.css?v=1" type="text/css" />
     <link rel="stylesheet" href="~/Content/login/css/dark.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/login/css/font-icons.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/login/css/animate.css" type="text/css" />
@@ -37,18 +35,25 @@
 </head>
 
 <body class="stretched">
+    
     <!-- Modal Window
     ============================================= -->
-    <div class="modal fade" id="needHelp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="guideTour" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4>Need help?</h4>
+                    <h4 class="modal-title">Intelleges Guided Tour</h4>
                 </div>
                 <div class="modal-body">
 
-                    <p>	Please call: <br /> 917 818 0225 <br /> or email us at <br /> <a href="mailto:help@intelleges.com"> help@intelleges.com</a></p>
+                    <p class="lead">Want to know more? Let us guide you. </p>
+                    <p class="lead">Your guided tour starts here Observe-Orient-Decide-Act.</p>
+                    <button type="button" class="btn btn-primary take-the-tour">take the tour</button>
+                    <img src="~/Content/login/images/intelleges/guide-slide.png" alt="guide slide">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -78,55 +83,27 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="guideTour" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Intelleges Guided Tour</h4>
-                </div>
-                <div class="modal-body">
-
-
-                    <p class="lead">Want to know more? Let us guide you. </p>
-                    <p class="lead">Your guided tour starts here Observe-Orient-Decide-Act.</p>
-                    <button type="button" class="btn btn-primary take-the-tour">take the tour</button>
-
-                    <img src="~/Content/login/images/intelleges/guide-slide.png" alt="guide slide">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Document Wrapper
     ============================================= -->
     <div id="wrapper" class="clearfix">
-
         <!-- Content
         ============================================= -->
         <section id="content">
-
             <div class="content-wrap nopadding">
-
                 <div class="section nopadding nomargin" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: #444;"></div>
-
                 <div class="section nobg full-screen nopadding nomargin">
-                    <div class="container vertical-middle divcenter clearfix">
-
+                    <div id="login-wrapper" class="container vertical-middle divcenter clearfix">
                         <div class="panel panel-default divcenter noradius noborder login">
-                            <div class="panel-body" style="padding: 40px;">
-                                <form id="login-form" name="login-form"  class="nobottommargin" action="~/Admin/Index" method="post">
+                            <div class="panel-body">
+                                <form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
                                     <div class="login-logo">
-                                        <a href="https://www.intelleges.com"> <img src="~/Content/login/images/intelleges/intelleges-logo.png" alt="logo"></a>
+                                        <a href="index.html"> <img src="~/Content/login/images/intelleges/intelleges-logo.png" alt="logo"></a>
                                     </div>
-                                    <div class="col_full">
+                                    <div class="form-cell">
                                         <label for="login-form-email">Enter your email:</label>
-                                        <input type="email" id="login-form-email" name="username" value="" class="form-control not-dark" />
+                                        <input type="email" id="login-form-email"  name="username" value="" class="form-control not-dark" />
                                     </div>
-
-                                    <div class="col_full">
+                                    <div class="form-cell">
                                         <label for="login-form-password">Enter your password:</label>
                                         <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
                                     </div>
@@ -145,8 +122,7 @@
                                             }
                                         }
                                     </div>
-                                    <div class="col_full nobottommargin">
-
+                                    <div class="help-links">
 
                                         <div class="remember-me-container">
                                             <input id="remember-me" class="checkbox-style" name="checkbox-1" type="checkbox" checked>
@@ -155,27 +131,26 @@
                                         <div class="forgot-pw-container">
                                             <a href="#" id="forgotPasswordLinq">Forgot Password?</a>
                                         </div>
-
                                     </div>
                                 </form>
                                 <div class="submit-container">
                                     <button class="button button-3d nomargin fright" value="login" onclick="$('#login-form').submit();">Log In</button>
                                 </div>
-
-                                <a data-toggle="modal" href="#" data-target="#needHelp" class="need-help">Need help?</a>
+                                <div class="need-help-wrapper">
+                                    <h3>Need help?</h3>
+                                    <p>	Please call: 917 818 0225 <br /> or email us at <a href="mailto:help@intelleges.com"> help@intelleges.com</a></p>
+                                </div>
                             </div>
                         </div>
-
                         <div class="row center dark"><small>Copyrights &copy; All Rights Reserved by Intelleges.</small></div>
-
                     </div>
                 </div>
-
             </div>
-
         </section><!-- #content end -->
-
     </div><!-- #wrapper end -->
+    <!-- Go To Top
+
+
     <!-- Go To Top
     ============================================= -->
     <div id="gotoTop" class="icon-angle-up"></div>
@@ -184,7 +159,9 @@
     ============================================= -->
     <script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
     <script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
-
+    <script>
+    var enterpriseId = @ViewBag.EnterpriseId ;
+    </script>
     <!-- Footer Scripts
     ============================================= -->
     <script type="text/javascript" src="~/Content/login/js/functions.js"></script>

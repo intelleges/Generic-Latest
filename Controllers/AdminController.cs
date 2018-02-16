@@ -460,7 +460,7 @@ namespace Generic.Controllers
             }
 
             var enterprises = db.pr_getEnterprise(1);
-
+            ViewBag.EnterpriseId = 1;
             // If we got this far, something failed, redisplay form
             return View(enterprises.FirstOrDefault());
         }

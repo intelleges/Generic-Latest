@@ -13827,6 +13827,9 @@ ul.no-styled-list > li {
   font-weight: bold;
   margin-top: 8px;
   color: #61a043;
+  margin-bottom: 30px;
+  max-width: 300px;
+  width: 100%;
 }
 .need-help:hover {
   cursor: pointer;
@@ -13855,15 +13858,36 @@ ul.no-styled-list > li {
 #needHelp .modal-body {
   text-align: center;
 }
+#needHelp .modal-content {
+  border-radius: 0;
+  height: 100%;
+  max-height: 470px;
+}
 #needHelp .modal-dialog {
-  min-width: 300px;
+  border-radius: 0;
+  width: 100%;
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+  max-width: 590px;
+  max-height: 540px;
+  height: 100%;
 }
 #needHelp p {
-  font-size: 18px;
+  font-size: 21px;
   margin-bottom: 5px;
+}
+#needHelp .modal-header {
+  border: 0;
+  padding: 35px 15px 50px;
+}
+#needHelp .login-logo {
+  text-align: center;
+}
+#needHelp img {
+  margin-bottom: 30px;
+  max-width: 300px;
+  width: 100%;
 }
 .register-here {
   text-transform: uppercase;
@@ -13963,4 +13987,20 @@ ul.no-styled-list > li {
   -webkit-transition: all 300ms ease-in-out;
   -moz-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
+}
+.need-help-wrapper {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  margin-top: 20px;
+}
+.need-help-wrapper h3 {
+  margin-bottom: 0;
+}
+.need-help-wrapper p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+.need-help-wrapper p a {
+  color: #61a043;
 }
