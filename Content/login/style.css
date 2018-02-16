@@ -13515,11 +13515,16 @@ ul.no-styled-list > li {
     float: left !important;
   }
 }
-/*------------------------------
-remember styles
--------------------------------*/
 .panel.login {
   max-width: 600px;
+}
+.panel.login .panel-body {
+  padding: 40px;
+}
+@media only screen and (max-width: 480px) {
+  .panel.login .panel-body {
+    padding: 20px;
+  }
 }
 .panel.login label {
   text-transform: uppercase;
@@ -13555,16 +13560,16 @@ remember styles
   float: left;
   margin-top: 5px;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 480px) {
   .remember-me-container {
-    width: 50%;
+    width: 100%;
     display: inline;
   }
 }
 .remember-me-container label {
   color: #61a043;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 480px) {
   .remember-me-container button {
     width: 100%;
   }
@@ -13572,10 +13577,14 @@ remember styles
 .forgot-pw-container {
   float: right;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 480px) {
   .forgot-pw-container {
-    width: 50%;
+    float: left;
+    width: 100%;
     display: inline;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
   }
 }
 .forgot-pw-container a {
@@ -13586,9 +13595,17 @@ remember styles
   margin-top: 8px;
   color: #61a043;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 480px) {
   .forgot-pw-container a {
     margin-left: 0;
+    float: none;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .help-links {
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 100%;
   }
 }
 .submit-container {
@@ -13596,6 +13613,11 @@ remember styles
   display: inline-block;
   width: 100%;
   text-align: center;
+}
+@media only screen and (max-width: 480px) {
+  .submit-container {
+    margin-top: 0px;
+  }
 }
 .submit-container button {
   width: 100%;
@@ -13761,6 +13783,11 @@ remember styles
 .take-the-tour {
   display: block;
 }
+@media only screen and (max-width: 480px) {
+  #login-wrapper {
+    width: 100% !important;
+  }
+}
 #login-form input {
   box-shadow: none;
   border-radius: 6px;
@@ -13780,6 +13807,15 @@ remember styles
 #login-form .login-logo img {
   margin-bottom: 30px;
   max-width: 300px;
+  width: 100%;
+}
+#login-form .form-cell {
+  margin-bottom: 20px;
+}
+@media only screen and (max-width: 480px) {
+  #login-form .form-cell {
+    margin-bottom: 10px;
+  }
 }
 #shadow {
   position: absolute;
@@ -13794,6 +13830,16 @@ remember styles
 }
 .need-help:hover {
   cursor: pointer;
+}
+@media only screen and (max-width: 480px) {
+  .need-help {
+    width: 100%;
+    display: inline;
+    margin-left: 0px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
 }
 #needHelp.modal {
   text-align: center;
@@ -13826,6 +13872,16 @@ remember styles
   margin-top: 8px;
   color: #61a043;
   float: right;
+}
+@media only screen and (max-width: 480px) {
+  .register-here {
+    width: 100%;
+    display: inline;
+    margin-left: 0px;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 }
 #header-wrap.not-dark .header-logo img {
   max-width: 45px;
