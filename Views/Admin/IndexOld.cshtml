@@ -1,0 +1,108 @@
+﻿@using System.Web.Optimization
+
+@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@{
+	Layout = Generic.Helpers.LayoutHelper.GetNewLayout();
+}
+<script>
+    var enterpriseId = @ViewBag.EnterpriseId ;
+</script>
+
+<div class="modal fade" id="get_password_dialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                </button>
+                <h4 class="modal-title" id="gpsLabel">Get Your Password</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalGetPassword">
+                    <p>
+                        If you have forgotten your password or haven't created one, enter your email address and click Submit.
+                    </p>
+                    <div class="form-group">
+                        <label class="control-label" for="inputEmailGetPassword">Your Email Address</label>
+                        <input id="inputEmailGetPassword" class="form-control" type="email" placeholder="Please Enter Your Email" required data-error="Incorect email adress" />
+                        <div class="help-block with-errors"></div>
+                        <button type="button" class="btn btn-primary" name="GetPassword">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="banner"></div>
+    <section class="page-inner">
+        <form id="loginForm" action="~/Admin/Index" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/connect-enterprise.png")" alt="" />
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="login-form">
+                        <h1 class="small">Data &amp; Document Collection Experts</h1>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Enter your email</label>
+                            <input type="email" name="username" class="form-control" id="txtUserName" placeholder="Intelleges ID">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Enter your Password</label>
+                            <input type="password" name="password" class="form-control" id="txtPassword" placeholder="Password">
+                        </div>
+                        <div id="loginerrordiv" style="color: red">
+                            @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
+                        {
+                            foreach (System.Web.Mvc.ModelError error in modelState.Errors)
+                            {
+                                if (error != null)
+                                {
+
+                                    <span>Your Intelleges ID or password was entered incorrectly.</span>
+
+                                }
+
+                            }
+                        }
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <a class="forgot-password-link" id="forgotPasswordLinq" href="#">Forgot Password?</a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-custom btn-md pull-right">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="login-content">
+                            @*<span>Develop a Knowledge-Centered Support (KCS) culture in which reliable information is integrated with all aspects of service delivery; issue resolution; customer support; compliance; quality assurance; safety and security; and, employee, customer and supplier satisfaction wiath a creditable data and document collection system that is incorporated in all core business processes.</span>
+                    <h4 class="primary-color tt_u">Collect - Store - Share</h4>
+    <ul>
+        <li>Organise your team with our software</li>
+        <li>Create a Knowledge Centered Organization</li>
+        <li>Make better decisions</li>
+    </ul>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </section>
+</div>
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/validator.min.js")
