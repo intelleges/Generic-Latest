@@ -849,7 +849,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UploadQuestionnaire(int protocol, string protocolName
             , int touchpoint, string touchpointName
-            , int partnertype, string partnertypeName, int level
+            , int partnertype, string partnertypeName, int level, int splitterId
             )
         {
             int rowNumber = 0;
@@ -907,6 +907,9 @@ namespace Generic.Controllers
                         Session["touchpointId"] = touchpoint;
                         Session["partnertypeId"] = partnertype;
                         Session["level"] = level;
+
+
+                        var splitterResult =   db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId);
 
                         partnerTypeTouchpointQuestionnaire objPartnertypeTouchpointQuestionnaire = new partnerTypeTouchpointQuestionnaire();
                         objPartnertypeTouchpointQuestionnaire.partnerType = partnertype;

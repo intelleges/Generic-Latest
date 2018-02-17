@@ -94,6 +94,7 @@
             $('#level').change(function () {
                 $('#uploadDiv').show();
                 $('#uploadButtonDiv').show();
+                $('#splitterDiv').show();
             });
 
 
@@ -111,7 +112,9 @@
                 var objlevelID = $('#level').val();
                // var objlevelName = $('#level option[value="' + $('#level').val() + '"]').text();
 
-                var formData = { protocol: objProtocolID, protocolName: objProtocolName, touchpoint: objtouchpointID, touchpointName: objtouchpointName, partnertype: objpartnertypeID, partnertypeName: objpartnertypeName, level: objlevelID };
+                var objSplitter = $('#splitter').val();
+
+                var formData = { protocol: objProtocolID, protocolName: objProtocolName, touchpoint: objtouchpointID, touchpointName: objtouchpointName, partnertype: objpartnertypeID, partnertypeName: objpartnertypeName, level: objlevelID, splitterId: objSplitter };
                 $.ajax({
                     url: '@Url.Action("UploadQuestionnaire","Questionnaire")',
                     type: "POST",
@@ -172,9 +175,21 @@
             @Html.DropDownList("level", String.Empty)
         </div>
     </div>
+    <div id="splitterDiv" style="display: none">
+        <div class="editor-label">
+            5. Please select a splitter
+        </div>
+        <div class="editor-field">
+            <select id="splitter" name="splitter">
+                <option value=""></option>
+                <option value="1">With Splitters</option>
+                <option value="0">Without Splitters</option>
+            </select>
+        </div>
+    </div>
     <div id="uploadDiv" style="display: none">
         <div class="editor-label">
-            5. Please select an Excel file containing the questionnaire information. Click here if you need to download the template.
+            6. Please select an Excel file containing the questionnaire information. Click here if you need to download the template.
         </div>
         <div class="editor-field">
             @(Html.Telerik().Upload()
