@@ -12,13 +12,13 @@
 
 @*@Styles.Render("~/Content/css")*@
 @*@Styles.Render("~/Content/themes/base/css")
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryui")*@
 
 @*<script src="~/Scripts/jquery-ui-1.10.2.js"></script>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>*@
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>*@
 
 <script>
     $(document).ready(function () {
@@ -40,15 +40,26 @@
             $("#agency").val("0");
         });
         //$('#startDate').datepicker();
-        
+
     });
     jQuery(document).ready(function () {
         if ('@ViewBag.ID' != '0' && '@ViewBag.ID' != '') {
-            debugger;
             alertify.alert('You have successfully added the @ViewBag.Name Protocol to Intelleges with an expiry of @ViewBag.EndDate');
             clearForm();
         }
+
     });
+
+    $(document).on('submit', 'form', function (e) {
+        if ($('#startDate').val() != '' && $('#endDate').val() != '') {
+            if (new Date($('#startDate').val()) > new Date($('#endDate').val())) {
+                alertify.alert('End date should be greater or equal to start date.');
+                return false;
+            }
+        }
+    });
+
+
 
     function clearForm() {
         $("#name").val("");
@@ -178,7 +189,7 @@
                     @Html.LabelFor(model => model.background)
                 </div>
                 <div class="editor-field">
-                    @Html.TextAreaFor(model => model.background, new { @style="width:300px !important" })
+                    @Html.TextAreaFor(model => model.background, new { @style = "width:300px !important" })
                     @Html.ValidationMessageFor(model => model.background)
                 </div>
 
@@ -208,30 +219,30 @@
             </div>
             <div class="twocol">
                 @*<div class="editor-label">
-                    @Html.LabelFor(model => model.startDate)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.startDate, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.startDate)
-                </div>*@
-                 <div class="editor-label">
+                        @Html.LabelFor(model => model.startDate)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.startDate, new { @class = "txtClass" })
+                        @Html.ValidationMessageFor(model => model.startDate)
+                    </div>*@
+                <div class="editor-label">
                     @Html.Label("Start Date")
                 </div>
                 <div class="editor-field">
-                    @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
+                    @Html.Telerik().DatePicker().Name("startDate").HtmlAttributes(new { @style = "width:100%;", @class = "txtClass" })
                 </div>
                 @*<div class="editor-label">
-                    @Html.LabelFor(model => model.endDate)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.endDate, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.endDate)
-                </div>*@
+                        @Html.LabelFor(model => model.endDate)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.endDate, new { @class = "txtClass" })
+                        @Html.ValidationMessageFor(model => model.endDate)
+                    </div>*@
                 <div class="editor-label">
                     @Html.Label("End Date")
                 </div>
                 <div class="editor-field">
-                    @Html.Telerik().DatePicker().Name("endDate").HtmlAttributes(new { @style="width:100%;",@class="txtClass"})
+                    @Html.Telerik().DatePicker().Name("endDate").HtmlAttributes(new { @style = "width:100%;", @class = "txtClass" })
                 </div>
             </div>
             <div class="twocol">
@@ -290,33 +301,33 @@
                     )
                     @Html.ValidationMessageFor(model => model.bestPractice)
                 </div>
-                    <p style="float: right; width: 20%">
-                        <input type="submit" value="Save" class="btn" />
-                        <input type="button" value="Clear" class="btn" id="btnClear" />
-                    </p>
+                <p style="float: right; width: 20%">
+                    <input type="submit" value="Save" class="btn" id="btnSave" />
+                    <input type="button" value="Clear" class="btn" id="btnClear" />
+                </p>
             </div>
             <div class="twocol">
                 <div class="editor-label">
                     @Html.LabelFor(model => model.purpose)
                 </div>
                 <div class="editor-field">
-                    @Html.TextAreaFor(model => model.purpose, new { @style="width:300px !important" })
+                    @Html.TextAreaFor(model => model.purpose, new { @style = "width:300px !important" })
                     @Html.ValidationMessageFor(model => model.purpose)
                 </div>
-             @*   <div class="editor-label">
-                    @Html.LabelFor(model => model.removeWithoutTouchpointExpiry)
-                </div>
-                <div class="editor-field">
-                    <div style="width: 150px">
-                        <input name="removeWithoutTouchpointExpiry" style="width: 20px" type="radio" value="True" />
-                        True
-                                                                <input name="removeWithoutTouchpointExpiry" style="width: 20px" type="radio" value="False" />
-                        False
-                                                                @Html.ValidationMessageFor(model => model.removeWithoutTouchpointExpiry)
+                @*   <div class="editor-label">
+                        @Html.LabelFor(model => model.removeWithoutTouchpointExpiry)
                     </div>
-                </div>*@
+                    <div class="editor-field">
+                        <div style="width: 150px">
+                            <input name="removeWithoutTouchpointExpiry" style="width: 20px" type="radio" value="True" />
+                            True
+                                                                    <input name="removeWithoutTouchpointExpiry" style="width: 20px" type="radio" value="False" />
+                            False
+                                                                    @Html.ValidationMessageFor(model => model.removeWithoutTouchpointExpiry)
+                        </div>
+                    </div>*@
             </div>
-           
+
         </div>
     </fieldset>
 }
