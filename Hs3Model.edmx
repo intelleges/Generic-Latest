@@ -9064,6 +9064,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyQuestionnaireLetterForSplitter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="questionnaire" Type="int" Mode="In" />
+          <Parameter Name="splitter" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyQuestionnaireLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -17813,10 +17817,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archiveLinkedInConnectionDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInConnectionDataLoad" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInConnectionDataLoad_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getLinkedInConnectionDataLoadAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getLinkedInConnectionDataLoadAll_Result)" />
           <FunctionImport Name="pr_modifyLinkedInConnectionDataLoad">
@@ -17846,10 +17850,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeLinkedInConnectionDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveLinkedInConnectionDataLoad">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyQuestionnaireLetterForSplitter" ReturnType="Collection(hs3MVCMTQa2Model.pr_modifyQuestionnaireLetterForSplitter_Result)">
+            <Parameter Name="questionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="splitter" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -30520,6 +30528,21 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_modifyQuestionnaireLetterForSplitter_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="locked" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="Int32" Name="partnerType" Nullable="false" />
+          <Property Type="Int32" Name="letter" Nullable="true" />
+          <Property Type="Int32" Name="levelType" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42385,6 +42408,25 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_modifyLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyLinkedInConnectionDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_removeLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_removeLinkedInConnectionDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveLinkedInConnectionDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveLinkedInConnectionDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_modifyQuestionnaireLetterForSplitter" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaireLetterForSplitter">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_modifyQuestionnaireLetterForSplitter_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="footer" ColumnName="footer" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="letter" ColumnName="letter" />
+                <ScalarProperty Name="levelType" ColumnName="levelType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

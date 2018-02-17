@@ -22870,5 +22870,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveLinkedInConnectionDataLoad", idParameter);
         }
+    
+        public virtual ObjectResult<pr_modifyQuestionnaireLetterForSplitter_Result> pr_modifyQuestionnaireLetterForSplitter(Nullable<int> questionnaire, Nullable<int> splitter)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var splitterParameter = splitter.HasValue ?
+                new ObjectParameter("splitter", splitter) :
+                new ObjectParameter("splitter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyQuestionnaireLetterForSplitter_Result>("pr_modifyQuestionnaireLetterForSplitter", questionnaireParameter, splitterParameter);
+        }
     }
 }
