@@ -5940,6 +5940,27 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addTransactionRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="orderNumber" Type="int" Mode="In" />
+          <Parameter Name="orderTime" Type="datetime" Mode="In" />
+          <Parameter Name="orderType" Type="int" Mode="In" />
+          <Parameter Name="size" Type="bigint" Mode="In" />
+          <Parameter Name="symbol" Type="varchar" Mode="In" />
+          <Parameter Name="orderPrice" Type="money" Mode="In" />
+          <Parameter Name="stopLoss" Type="money" Mode="In" />
+          <Parameter Name="takeProfit" Type="money" Mode="In" />
+          <Parameter Name="tradeTime" Type="datetime" Mode="In" />
+          <Parameter Name="tradePrice" Type="money" Mode="In" />
+          <Parameter Name="swap" Type="money" Mode="In" />
+          <Parameter Name="profit" Type="money" Mode="In" />
+          <Parameter Name="country" Type="int" Mode="In" />
+          <Parameter Name="entityName" Type="varchar" Mode="In" />
+          <Parameter Name="bankName" Type="varchar" Mode="In" />
+          <Parameter Name="bankRole" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="description" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -6185,6 +6206,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archiveTransactionRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archiveZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7919,6 +7943,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getTouchpointTeamUnassigned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getTransactionRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getTransactionRecordAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getTranslationByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question" Type="int" Mode="In" />
         </Function>
@@ -9341,6 +9369,28 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyTransactionRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="orderNumber" Type="int" Mode="In" />
+          <Parameter Name="orderTime" Type="datetime" Mode="In" />
+          <Parameter Name="orderType" Type="int" Mode="In" />
+          <Parameter Name="size" Type="bigint" Mode="In" />
+          <Parameter Name="symbol" Type="varchar" Mode="In" />
+          <Parameter Name="orderPrice" Type="money" Mode="In" />
+          <Parameter Name="stopLoss" Type="money" Mode="In" />
+          <Parameter Name="takeProfit" Type="money" Mode="In" />
+          <Parameter Name="tradeTime" Type="datetime" Mode="In" />
+          <Parameter Name="tradePrice" Type="money" Mode="In" />
+          <Parameter Name="swap" Type="money" Mode="In" />
+          <Parameter Name="profit" Type="money" Mode="In" />
+          <Parameter Name="country" Type="int" Mode="In" />
+          <Parameter Name="entityName" Type="varchar" Mode="In" />
+          <Parameter Name="bankName" Type="varchar" Mode="In" />
+          <Parameter Name="bankRole" Type="int" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="userRole" Type="varchar" Mode="In" />
@@ -9771,6 +9821,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeTransactionRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10032,6 +10085,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveTouchpointTarget" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchiveTransactionRecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchiveZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -17858,6 +17914,62 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_modifyQuestionnaireLetterForSplitter" ReturnType="Collection(hs3MVCMTQa2Model.pr_modifyQuestionnaireLetterForSplitter_Result)">
             <Parameter Name="questionnaire" Mode="In" Type="Int32" />
             <Parameter Name="splitter" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addTransactionRecord" ReturnType="Collection(Decimal)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="orderNumber" Mode="In" Type="Int32" />
+            <Parameter Name="orderTime" Mode="In" Type="DateTime" />
+            <Parameter Name="orderType" Mode="In" Type="Int32" />
+            <Parameter Name="size" Mode="In" Type="Int64" />
+            <Parameter Name="symbol" Mode="In" Type="String" />
+            <Parameter Name="orderPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="stopLoss" Mode="In" Type="Decimal" />
+            <Parameter Name="takeProfit" Mode="In" Type="Decimal" />
+            <Parameter Name="tradeTime" Mode="In" Type="DateTime" />
+            <Parameter Name="tradePrice" Mode="In" Type="Decimal" />
+            <Parameter Name="swap" Mode="In" Type="Decimal" />
+            <Parameter Name="profit" Mode="In" Type="Decimal" />
+            <Parameter Name="country" Mode="In" Type="Int32" />
+            <Parameter Name="entityName" Mode="In" Type="String" />
+            <Parameter Name="bankName" Mode="In" Type="String" />
+            <Parameter Name="bankRole" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveTransactionRecord">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTransactionRecord" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTransactionRecord_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getTransactionRecordAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getTransactionRecordAll_Result)" />
+          <FunctionImport Name="pr_modifyTransactionRecord">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="orderNumber" Mode="In" Type="Int32" />
+            <Parameter Name="orderTime" Mode="In" Type="DateTime" />
+            <Parameter Name="orderType" Mode="In" Type="Int32" />
+            <Parameter Name="size" Mode="In" Type="Int64" />
+            <Parameter Name="symbol" Mode="In" Type="String" />
+            <Parameter Name="orderPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="stopLoss" Mode="In" Type="Decimal" />
+            <Parameter Name="takeProfit" Mode="In" Type="Decimal" />
+            <Parameter Name="tradeTime" Mode="In" Type="DateTime" />
+            <Parameter Name="tradePrice" Mode="In" Type="Decimal" />
+            <Parameter Name="swap" Mode="In" Type="Decimal" />
+            <Parameter Name="profit" Mode="In" Type="Decimal" />
+            <Parameter Name="country" Mode="In" Type="Int32" />
+            <Parameter Name="entityName" Mode="In" Type="String" />
+            <Parameter Name="bankName" Mode="In" Type="String" />
+            <Parameter Name="bankRole" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeTransactionRecord">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveTransactionRecord">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -30543,6 +30655,50 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="letter" Nullable="true" />
           <Property Type="Int32" Name="levelType" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getTransactionRecord_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="orderNumber" Nullable="false" />
+          <Property Type="DateTime" Name="orderTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="orderType" Nullable="false" />
+          <Property Type="Int64" Name="size" Nullable="false" />
+          <Property Type="String" Name="symbol" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="orderPrice" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="stopLoss" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="takeProfit" Nullable="true" Precision="19" />
+          <Property Type="DateTime" Name="tradeTime" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="tradePrice" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="swap" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="profit" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="entityName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="bankName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="bankRole" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getTransactionRecordAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="orderNumber" Nullable="false" />
+          <Property Type="DateTime" Name="orderTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="orderType" Nullable="false" />
+          <Property Type="Int64" Name="size" Nullable="false" />
+          <Property Type="String" Name="symbol" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="orderPrice" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="stopLoss" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="takeProfit" Nullable="true" Precision="19" />
+          <Property Type="DateTime" Name="tradeTime" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="tradePrice" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="swap" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="profit" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="country" Nullable="true" />
+          <Property Type="String" Name="entityName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="bankName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="bankRole" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42427,6 +42583,63 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addTransactionRecord" FunctionName="hs3MVCMTQa2Model.Store.pr_addTransactionRecord" />
+          <FunctionImportMapping FunctionImportName="pr_archiveTransactionRecord" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveTransactionRecord" />
+          <FunctionImportMapping FunctionImportName="pr_getTransactionRecord" FunctionName="hs3MVCMTQa2Model.Store.pr_getTransactionRecord">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTransactionRecord_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="orderTime" ColumnName="orderTime" />
+                <ScalarProperty Name="orderType" ColumnName="orderType" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="symbol" ColumnName="symbol" />
+                <ScalarProperty Name="orderPrice" ColumnName="orderPrice" />
+                <ScalarProperty Name="stopLoss" ColumnName="stopLoss" />
+                <ScalarProperty Name="takeProfit" ColumnName="takeProfit" />
+                <ScalarProperty Name="tradeTime" ColumnName="tradeTime" />
+                <ScalarProperty Name="tradePrice" ColumnName="tradePrice" />
+                <ScalarProperty Name="swap" ColumnName="swap" />
+                <ScalarProperty Name="profit" ColumnName="profit" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="entityName" ColumnName="entityName" />
+                <ScalarProperty Name="bankName" ColumnName="bankName" />
+                <ScalarProperty Name="bankRole" ColumnName="bankRole" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getTransactionRecordAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getTransactionRecordAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getTransactionRecordAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="orderNumber" ColumnName="orderNumber" />
+                <ScalarProperty Name="orderTime" ColumnName="orderTime" />
+                <ScalarProperty Name="orderType" ColumnName="orderType" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="symbol" ColumnName="symbol" />
+                <ScalarProperty Name="orderPrice" ColumnName="orderPrice" />
+                <ScalarProperty Name="stopLoss" ColumnName="stopLoss" />
+                <ScalarProperty Name="takeProfit" ColumnName="takeProfit" />
+                <ScalarProperty Name="tradeTime" ColumnName="tradeTime" />
+                <ScalarProperty Name="tradePrice" ColumnName="tradePrice" />
+                <ScalarProperty Name="swap" ColumnName="swap" />
+                <ScalarProperty Name="profit" ColumnName="profit" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="entityName" ColumnName="entityName" />
+                <ScalarProperty Name="bankName" ColumnName="bankName" />
+                <ScalarProperty Name="bankRole" ColumnName="bankRole" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyTransactionRecord" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyTransactionRecord" />
+          <FunctionImportMapping FunctionImportName="pr_removeTransactionRecord" FunctionName="hs3MVCMTQa2Model.Store.pr_removeTransactionRecord" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveTransactionRecord" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveTransactionRecord" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -22883,5 +22883,212 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyQuestionnaireLetterForSplitter_Result>("pr_modifyQuestionnaireLetterForSplitter", questionnaireParameter, splitterParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addTransactionRecord(Nullable<int> pptq, Nullable<int> orderNumber, Nullable<System.DateTime> orderTime, Nullable<int> orderType, Nullable<long> size, string symbol, Nullable<decimal> orderPrice, Nullable<decimal> stopLoss, Nullable<decimal> takeProfit, Nullable<System.DateTime> tradeTime, Nullable<decimal> tradePrice, Nullable<decimal> swap, Nullable<decimal> profit, Nullable<int> country, string entityName, string bankName, Nullable<int> bankRole, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var orderNumberParameter = orderNumber.HasValue ?
+                new ObjectParameter("orderNumber", orderNumber) :
+                new ObjectParameter("orderNumber", typeof(int));
+    
+            var orderTimeParameter = orderTime.HasValue ?
+                new ObjectParameter("orderTime", orderTime) :
+                new ObjectParameter("orderTime", typeof(System.DateTime));
+    
+            var orderTypeParameter = orderType.HasValue ?
+                new ObjectParameter("orderType", orderType) :
+                new ObjectParameter("orderType", typeof(int));
+    
+            var sizeParameter = size.HasValue ?
+                new ObjectParameter("size", size) :
+                new ObjectParameter("size", typeof(long));
+    
+            var symbolParameter = symbol != null ?
+                new ObjectParameter("symbol", symbol) :
+                new ObjectParameter("symbol", typeof(string));
+    
+            var orderPriceParameter = orderPrice.HasValue ?
+                new ObjectParameter("orderPrice", orderPrice) :
+                new ObjectParameter("orderPrice", typeof(decimal));
+    
+            var stopLossParameter = stopLoss.HasValue ?
+                new ObjectParameter("stopLoss", stopLoss) :
+                new ObjectParameter("stopLoss", typeof(decimal));
+    
+            var takeProfitParameter = takeProfit.HasValue ?
+                new ObjectParameter("takeProfit", takeProfit) :
+                new ObjectParameter("takeProfit", typeof(decimal));
+    
+            var tradeTimeParameter = tradeTime.HasValue ?
+                new ObjectParameter("tradeTime", tradeTime) :
+                new ObjectParameter("tradeTime", typeof(System.DateTime));
+    
+            var tradePriceParameter = tradePrice.HasValue ?
+                new ObjectParameter("tradePrice", tradePrice) :
+                new ObjectParameter("tradePrice", typeof(decimal));
+    
+            var swapParameter = swap.HasValue ?
+                new ObjectParameter("swap", swap) :
+                new ObjectParameter("swap", typeof(decimal));
+    
+            var profitParameter = profit.HasValue ?
+                new ObjectParameter("profit", profit) :
+                new ObjectParameter("profit", typeof(decimal));
+    
+            var countryParameter = country.HasValue ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(int));
+    
+            var entityNameParameter = entityName != null ?
+                new ObjectParameter("entityName", entityName) :
+                new ObjectParameter("entityName", typeof(string));
+    
+            var bankNameParameter = bankName != null ?
+                new ObjectParameter("bankName", bankName) :
+                new ObjectParameter("bankName", typeof(string));
+    
+            var bankRoleParameter = bankRole.HasValue ?
+                new ObjectParameter("bankRole", bankRole) :
+                new ObjectParameter("bankRole", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addTransactionRecord", pptqParameter, orderNumberParameter, orderTimeParameter, orderTypeParameter, sizeParameter, symbolParameter, orderPriceParameter, stopLossParameter, takeProfitParameter, tradeTimeParameter, tradePriceParameter, swapParameter, profitParameter, countryParameter, entityNameParameter, bankNameParameter, bankRoleParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveTransactionRecord(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveTransactionRecord", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTransactionRecord_Result> pr_getTransactionRecord(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTransactionRecord_Result>("pr_getTransactionRecord", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTransactionRecordAll_Result> pr_getTransactionRecordAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTransactionRecordAll_Result>("pr_getTransactionRecordAll");
+        }
+    
+        public virtual int pr_modifyTransactionRecord(Nullable<int> id, Nullable<int> pptq, Nullable<int> orderNumber, Nullable<System.DateTime> orderTime, Nullable<int> orderType, Nullable<long> size, string symbol, Nullable<decimal> orderPrice, Nullable<decimal> stopLoss, Nullable<decimal> takeProfit, Nullable<System.DateTime> tradeTime, Nullable<decimal> tradePrice, Nullable<decimal> swap, Nullable<decimal> profit, Nullable<int> country, string entityName, string bankName, Nullable<int> bankRole, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var orderNumberParameter = orderNumber.HasValue ?
+                new ObjectParameter("orderNumber", orderNumber) :
+                new ObjectParameter("orderNumber", typeof(int));
+    
+            var orderTimeParameter = orderTime.HasValue ?
+                new ObjectParameter("orderTime", orderTime) :
+                new ObjectParameter("orderTime", typeof(System.DateTime));
+    
+            var orderTypeParameter = orderType.HasValue ?
+                new ObjectParameter("orderType", orderType) :
+                new ObjectParameter("orderType", typeof(int));
+    
+            var sizeParameter = size.HasValue ?
+                new ObjectParameter("size", size) :
+                new ObjectParameter("size", typeof(long));
+    
+            var symbolParameter = symbol != null ?
+                new ObjectParameter("symbol", symbol) :
+                new ObjectParameter("symbol", typeof(string));
+    
+            var orderPriceParameter = orderPrice.HasValue ?
+                new ObjectParameter("orderPrice", orderPrice) :
+                new ObjectParameter("orderPrice", typeof(decimal));
+    
+            var stopLossParameter = stopLoss.HasValue ?
+                new ObjectParameter("stopLoss", stopLoss) :
+                new ObjectParameter("stopLoss", typeof(decimal));
+    
+            var takeProfitParameter = takeProfit.HasValue ?
+                new ObjectParameter("takeProfit", takeProfit) :
+                new ObjectParameter("takeProfit", typeof(decimal));
+    
+            var tradeTimeParameter = tradeTime.HasValue ?
+                new ObjectParameter("tradeTime", tradeTime) :
+                new ObjectParameter("tradeTime", typeof(System.DateTime));
+    
+            var tradePriceParameter = tradePrice.HasValue ?
+                new ObjectParameter("tradePrice", tradePrice) :
+                new ObjectParameter("tradePrice", typeof(decimal));
+    
+            var swapParameter = swap.HasValue ?
+                new ObjectParameter("swap", swap) :
+                new ObjectParameter("swap", typeof(decimal));
+    
+            var profitParameter = profit.HasValue ?
+                new ObjectParameter("profit", profit) :
+                new ObjectParameter("profit", typeof(decimal));
+    
+            var countryParameter = country.HasValue ?
+                new ObjectParameter("country", country) :
+                new ObjectParameter("country", typeof(int));
+    
+            var entityNameParameter = entityName != null ?
+                new ObjectParameter("entityName", entityName) :
+                new ObjectParameter("entityName", typeof(string));
+    
+            var bankNameParameter = bankName != null ?
+                new ObjectParameter("bankName", bankName) :
+                new ObjectParameter("bankName", typeof(string));
+    
+            var bankRoleParameter = bankRole.HasValue ?
+                new ObjectParameter("bankRole", bankRole) :
+                new ObjectParameter("bankRole", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyTransactionRecord", idParameter, pptqParameter, orderNumberParameter, orderTimeParameter, orderTypeParameter, sizeParameter, symbolParameter, orderPriceParameter, stopLossParameter, takeProfitParameter, tradeTimeParameter, tradePriceParameter, swapParameter, profitParameter, countryParameter, entityNameParameter, bankNameParameter, bankRoleParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeTransactionRecord(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeTransactionRecord", idParameter);
+        }
+    
+        public virtual int pr_unArchiveTransactionRecord(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTransactionRecord", idParameter);
+        }
     }
 }

@@ -2595,6 +2595,12 @@
     <Compile Include="pr_getTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getTransactionRecordAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getTransactionRecord_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getTranslationByResponse_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
