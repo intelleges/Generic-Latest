@@ -664,6 +664,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IvrController .cs" />
     <Compile Include="Controllers\jsTree3Controller.cs" />
+    <Compile Include="Controllers\AMLMMController.cs" />
     <Compile Include="Controllers\LCEController.cs" />
     <Compile Include="Controllers\LinkedInConnectionController.cs" />
     <Compile Include="Controllers\LinkedInController.cs" />
@@ -5816,6 +5817,8 @@
     <Content Include="Views\LinkedInConnection\Create.cshtml" />
     <Content Include="UploadTemplates\Connections.csv" />
     <Content Include="Views\Admin\IndexOld.cshtml" />
+    <Content Include="Views\AMLMM\Create.cshtml" />
+    <Content Include="Views\AMLMM\CreateResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
