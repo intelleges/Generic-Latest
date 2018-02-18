@@ -908,7 +908,6 @@ namespace Generic.Controllers
                         Session["partnertypeId"] = partnertype;
                         Session["level"] = level;
 
-
                         var splitterResult =   db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId);
 
                         partnerTypeTouchpointQuestionnaire objPartnertypeTouchpointQuestionnaire = new partnerTypeTouchpointQuestionnaire();
@@ -1489,6 +1488,8 @@ namespace Generic.Controllers
                             CreateNarrativeHintsForQuestion(hint.Key, hint.Value, questions);
                         }
                         scope.Commit();
+                        splitterResult = db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId);
+
                         return RedirectToAction("UploadCMS");
                     }
                     catch (Exception ex)
