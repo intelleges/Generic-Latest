@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.LCEModel>
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.AMLMMModel>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
@@ -533,7 +533,7 @@
                         <select multiple class="form-control" id="list1">
                             @foreach (var item in list.Where(o => !unassignedByEnterprise.Select(b => b.id).ToList().Contains(o.id)))
                             {
-                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -555,7 +555,7 @@
                         <select multiple class="form-control" id="list2">
                             @foreach (var item in unassignedByEnterprise)
                             {
-                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -592,7 +592,7 @@
                         <select multiple class="form-control" id="list3">
                             @foreach (var item in allClause)
                             {
-                                <option value="@item.id">@item.clause</option>
+                            <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -614,7 +614,7 @@
                         <select multiple class="form-control" id="list4">
                             @foreach (var item in selectedClauses)
                             {
-                                <option value="@item.id">@item.clause</option>
+                            <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -689,106 +689,161 @@
             {
     @Html.ValidationSummary(true)
     Html.EnableClientValidation();
-    @Html.HiddenFor(m => m.BuyToBuyType)
+    @*@Html.HiddenFor(m => m.BuyToBuyType)*@
 
     <fieldset>
         <legend>AML & MM Alert Materialization Test Generation</legend>
         <div id="addPartner" class="addPartnerDiv">
+
+            <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.group, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                            @Html.DropDownList("group", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.group)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.protocol, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("protocol", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.protocol)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.touchpoint, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.touchpoint)
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.state, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("state", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.state)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
+                            @Html.ValidationMessageFor(model => model.partnertype)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.country, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("country", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.country)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <h2>Task Assignment</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("Owner", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.Owner)
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Duedate)
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.CustomerEntityReviewer, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("CustomerEntityReviewer", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.CustomerEntityReviewer)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.CustomerEntityReviewerDuedate, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.Telerik().DatePickerFor(model => model.CustomerEntityReviewerDuedate).InputHtmlAttributes(new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CustomerEntityReviewerDuedate)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.CustomerEntityRelationshipReviewer, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("CustomerEntityRelationshipReviewer", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.CustomerEntityRelationshipReviewer)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.CustomerEntityRelationshipReviewerDuedate, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.Telerik().DatePickerFor(model => model.CustomerEntityRelationshipReviewerDuedate).InputHtmlAttributes(new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CustomerEntityRelationshipReviewerDuedate)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.TransactionReviewer, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.DropDownList("TransactionReviewer", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @Html.ValidationMessageFor(model => model.TransactionReviewer)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(o => o.TransactionReviewerDuedate, new { @class = "control-label col-sm-3" })
+                        <div class="col-sm-9">
+                            @Html.Telerik().DatePickerFor(model => model.TransactionReviewerDuedate).InputHtmlAttributes(new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TransactionReviewerDuedate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="twocol">
-                <!-- #region Name-->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.ProgramName, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.ProgramName, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ProgramName)
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Designation)
-                            </div>
-                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-3">
-                                @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Duedate)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.DropDownList("Owner", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.Owner)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
-                                @Html.ValidationMessageFor(model => model.partnertype)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.From, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.From)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.To)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.Score, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Score, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Score)
-                            </div>
-                            @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Priority)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.ProjectUrl, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.ProjectUrl, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ProjectUrl)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+              
                 <div class="row">
                     <div class="col-lg-12">
                         <br />
@@ -798,95 +853,67 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
+                            @Html.LabelFor(o => o.FileFinancialInstitution, new { @class = "control-label col-sm-2" })
                             <div class="col-sm-1">
                                 <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
                             </div>
                             <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.FileScope)
+                                @(Html.Telerik().Upload().Name("FileFinancialInstitution").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FileFinancialInstitution)
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
+                            @Html.LabelFor(o => o.FilePersonEntity, new { @class = "control-label col-sm-2" })
                             <div class="col-sm-1">
                                 <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                             </div>
                             <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.File)
+                                @(Html.Telerik().Upload().Name("FilePersonEntity").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FilePersonEntity)
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
+                            @Html.LabelFor(o => o.FileFocalRelationship, new { @class = "control-label col-sm-2" })
                             <div class="col-sm-1">
                                 <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                             </div>
                             <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.FileCID)
+                                @(Html.Telerik().Upload().Name("FileFocalRelationship").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FileFocalRelationship)
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
+                            @Html.LabelFor(o => o.FileTransactionHistory, new { @class = "control-label col-sm-2" })
                             <div class="col-sm-1">
                                 <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                             </div>
                             <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.FileEntanglement)
+                                @(Html.Telerik().Upload().Name("FileTransactionHistory").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @Html.ValidationMessageFor(model => model.FileTransactionHistory)
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                
+                
             </div>
             <div class="row">
                 <div class="col-lg-12">

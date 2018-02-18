@@ -38,7 +38,26 @@ namespace Generic.Controllers
                 Value = o.id.ToString()
             }).ToList();
 
-            ViewBag.Owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
+            var owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
+
+            ViewBag.Owner = owner;
+            ViewBag.CustomerEntityReviewer = owner;
+            ViewBag.CustomerEntityRelationshipReviewer = owner;
+            ViewBag.TransactionReviewer = owner;
+
+
+            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
+            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+            
+
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+            ViewBag.state = new SelectList(db.state, "id", "name");
+            ViewBag.country = new SelectList(db.country, "id", "name");
+           
+           
+          //  ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname");
+            
+
         }
 
         [HttpPost]
