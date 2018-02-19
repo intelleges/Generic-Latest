@@ -155,7 +155,7 @@ namespace Generic.Controllers
 
 			var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
 
-			var email = 
+            var email = 
 				new Email()
 				{
 					accesscode = accessCode,

@@ -103,24 +103,47 @@
         });
     });
 
-    function onchangePartnerType(el) {
-        if ($(el).val() == 253) {
-            $.fancybox({
-                'content': $('#buy-buy').html(),
-                closeBtn: false,
-                closeClick: false,
-                modal: true,
-                type: 'html',
-                width: 500,
-                height: 220,
-                minWidth: 500,
-                minHeight: 220,
-                maxHeight: 220
+    function onchangetouchpoint(el) {
+        var touchpointid = $(el).val();
+
+
+        $.get('@Url.Content("~/AMLMM/getPartnerClass")' + '?touchpointid=' + touchpointid , function (data) {
+
+
+            $('#partnertype')
+                    .find('option')
+                    .remove();
+
+                $.each(data.all, function (key, value) {
+                    $('#partnertype')
+                        .append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.description));
+                });
+                
             });
-        }
-        else {
-            $('#BuyToBuyType').val('');
-        }
+
+    }
+
+
+    function onchangePartnerType(el) {
+        //if ($(el).val() == 253) {
+        //    $.fancybox({
+        //        'content': $('#buy-buy').html(),
+        //        closeBtn: false,
+        //        closeClick: false,
+        //        modal: true,
+        //        type: 'html',
+        //        width: 500,
+        //        height: 220,
+        //        minWidth: 500,
+        //        minHeight: 220,
+        //        maxHeight: 220
+        //    });
+        //}
+        //else {
+        //    $('#BuyToBuyType').val('');
+        //}
     }
 
     function setBuyToBuy()
@@ -718,7 +741,7 @@
                         <div class="form-group">
                             @Html.LabelFor(o => o.touchpoint, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangetouchpoint(this);" })
                                 @Html.ValidationMessageFor(model => model.touchpoint)
                             </div>
                         </div>
@@ -739,7 +762,12 @@
                     <div class="form-group">
                         @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
                         <div class="col-sm-9">
-                            @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
+                            @*@Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })*@
+
+                            <select  class="form-control" id="partnertype" name="partnertype">
+                               
+                            </select>
+
                             @Html.ValidationMessageFor(model => model.partnertype)
                         </div>
                     </div>

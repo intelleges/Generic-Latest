@@ -11,7 +11,34 @@ namespace Generic.ViewModel
         public string CountryName { get; set; }
 
     }
+    public class ExcelAMLMM
+    {
+        public int orderNumber { get; set; }
+        public DateTime orderTime { get; set; }
+        public string Type { get; set; }
+        public int orderType { get; set; }
+        public long size { get; set; }
+        public string symbol { get; set; }
+        public decimal orderPrice { get; set; }
+        public decimal stopLoss { get; set; }
+        public decimal takeProfit { get; set; }
+        public DateTime tradeTime { get; set; }
+        public string tPrice { get; set; }
+        public decimal tradePrice { get; set; }
+        public decimal swap { get; set; }
+        public decimal profit { get; set; }
+        public string countryName { get; set; }
+        public int country { get; set; }
+        public string entityName { get; set; }
+        public string bankName { get; set; }
+        public int bankRole { get; set; }
+        public string ac { get; set; }
 
+
+
+
+
+    }
     public class ExcelLCE
     {
         public string SalesOffice { get; set; }

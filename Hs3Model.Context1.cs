@@ -23090,5 +23090,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTransactionRecord", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerClassByTouchpoint_Result> pr_getPartnerClassByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerClassByTouchpoint_Result>("pr_getPartnerClassByTouchpoint", touchpointParameter);
+        }
     }
 }

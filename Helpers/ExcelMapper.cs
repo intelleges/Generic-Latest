@@ -247,6 +247,7 @@ namespace Generic.Helpers
                     case "Boolean": property.SetValue(obj, bool.Parse(value.ToString())); break;
                     case "DateTime": property.SetValue(obj, DateTime.Parse(value.ToString())); break;
                     case "Int64": property.SetValue(obj, long.Parse(value.ToString())); break;
+                    case "Decimal": property.SetValue(obj, decimal.Parse(value.ToString())); break;
                     default:
                         property.SetValue(obj, value);
                         break;

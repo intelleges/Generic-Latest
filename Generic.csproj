@@ -1760,6 +1760,9 @@
     <Compile Include="pr_getPartnerClassAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerClassByTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerClass_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
