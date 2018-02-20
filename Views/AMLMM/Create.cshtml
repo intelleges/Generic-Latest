@@ -138,8 +138,26 @@
                 });
 
         });
-        
 
+
+    }
+
+
+    
+    function onchangeprotocol(el) {
+        var protocolid = $(el).val();
+        $.get('@Url.Content("~/AMLMM/GetTouchpointByProtocol")' + '?protocolid=' + protocolid , function (data) {
+            $('#touchpoint')
+                    .find('option')
+                .remove();
+            $('#touchpoint').append($("<option></option>"));
+                $.each(data.all, function (key, value) {
+                    $('#touchpoint')
+                        .append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.description));
+                });
+        });
     }
 
 
@@ -749,7 +767,7 @@
                         <div class="form-group">
                             @Html.LabelFor(o => o.protocol, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.DropDownList("protocol", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.DropDownList("protocol", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeprotocol(this);" })
                                 @Html.ValidationMessageFor(model => model.protocol)
                             </div>
                         </div>
@@ -758,7 +776,8 @@
                         <div class="form-group">
                             @Html.LabelFor(o => o.touchpoint, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangetouchpoint(this);" })
+                                @*@Html.DropDownList("touchpoint", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangetouchpoint(this);" })*@
+                                <select class="form-control" id="touchpoint" name="touchpoint" onchange = "onchangetouchpoint(this);" ><option></option></select>
                                 @Html.ValidationMessageFor(model => model.touchpoint)
                             </div>
                         </div>
@@ -803,7 +822,7 @@
             </div>
 
 
-            <h2>Task Assignment</h2>
+            @*<h2>Task Assignment</h2>*@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">

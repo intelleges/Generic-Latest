@@ -234,13 +234,27 @@ namespace Generic.Controllers
         }
 
         public ActionResult GetScenarioByTouchpoint(int touchpointid)
-        {
+        {          
 
             var scenario = db.pr_getScenarioByTouchpoint(touchpointid).ToList();
 
             return Json(new
             {
                 all = scenario
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTouchpointByProtocol(int protocolid)
+        {
+
+            var touchpoint = db.pr_getTouchpointByProtocol(protocolid).ToList();
+
+            return Json(new
+            {
+                all = touchpoint.Select(x=>new {
+                    id = x.id,
+                    description = x.description
+                })
             }, JsonRequestBehavior.AllowGet);
         }
 
