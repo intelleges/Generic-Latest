@@ -7763,6 +7763,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getRuletypeAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getScenarioByTouchpoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="touchpoint" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getSendDataToDefaultPersonByClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="clause" Type="int" Mode="In" />
         </Function>
@@ -17975,6 +17978,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerClassByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerClassByTouchpoint_Result)">
+          <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getScenarioByTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getScenarioByTouchpoint_Result)">
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -30711,6 +30717,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getScenarioByTouchpoint_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="stateCode" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="enterprise" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42659,6 +42673,18 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getScenarioByTouchpoint" FunctionName="hs3MVCMTQa2Model.Store.pr_getScenarioByTouchpoint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getScenarioByTouchpoint_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stateCode" ColumnName="stateCode" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -2420,6 +2420,9 @@
     <Compile Include="pr_getRule_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getScenarioByTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getSendDataToDefaultPersonByClause_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

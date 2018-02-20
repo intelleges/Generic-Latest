@@ -120,8 +120,25 @@
                             .attr("value", value.id)
                             .text(value.description));
                 });
-                
-            });
+
+        });
+
+        $.get('@Url.Content("~/AMLMM/GetScenarioByTouchpoint")' + '?touchpointid=' + touchpointid , function (data) {
+
+
+            $('#state')
+                    .find('option')
+                    .remove();
+
+                $.each(data.all, function (key, value) {
+                    $('#state')
+                        .append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.name));
+                });
+
+        });
+        
 
     }
 
@@ -753,7 +770,8 @@
                     <div class="form-group">
                         @Html.LabelFor(o => o.state, new { @class = "control-label col-sm-3" })
                         <div class="col-sm-9">
-                            @Html.DropDownList("state", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                            @*@Html.DropDownList("state", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })*@
+                            <select class="form-control" id="state" name="state"></select>
                             @Html.ValidationMessageFor(model => model.state)
                         </div>
                     </div>

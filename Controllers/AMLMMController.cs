@@ -233,6 +233,16 @@ namespace Generic.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetScenarioByTouchpoint(int touchpointid)
+        {
+
+            var scenario = db.pr_getScenarioByTouchpoint(touchpointid).ToList();
+
+            return Json(new
+            {
+                all = scenario
+            }, JsonRequestBehavior.AllowGet);
+        }
 
 
         [HttpPost]
