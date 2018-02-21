@@ -534,30 +534,54 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         break;
                 }
 
+
+                Tags tags = new Tags();
+                if (ptq != null && ptq.partnerType1 != null)
+                    tags.PartnerType = ptq.partnerType1.name;
+
+                if (ptq.partnerPartnertypeTouchpointQuestionnaire.Count > 0)
+                {
+                    var stateID = ptq.partnerPartnertypeTouchpointQuestionnaire.First().partner1.state;
+                    tags.State = db.pr_getState(stateID).First().name;
+                    tags.CurrentPOC = ptq.partnerPartnertypeTouchpointQuestionnaire.First().partner1.email;
+                    tags.PartnerName = ptq.partnerPartnertypeTouchpointQuestionnaire.First().partner1.name;
+                }
+
+                var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                if (enterprise != null)
+                {
+                    tags.Enterprise = enterprise.description;
+                    var systeminfo = db.pr_getEnterpriseSystemInfoByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    if (systeminfo != null)
+                    {
+                        tags.CustomerURL = systeminfo.companyWebSite;
+                    }
+                }
+
                 int qusetionnarie = ptq != null ? ptq.questionnaire : 0;
                 cms = questionnairCmsAll.FirstOrDefault(q => q.description == pageTitle);
                 cms_id = cms != null ? cms.id : 0;
                 var cmsPageTitle = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                 if (cmsPageTitle != null)
-                    objViewBagModel.CMS_PAGE_TITLE = cmsPageTitle;
+                    objViewBagModel.CMS_PAGE_TITLE = cmsPageTitle.ApplyTags(tags);
 
                 cms = questionnairCmsAll.FirstOrDefault(q => q.description == pageSubTitle);
                 cms_id = cms != null ? cms.id : 0;
                 var cmsPageSubtitle = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                 if (cmsPageSubtitle != null)
-                    objViewBagModel.CMS_PAGE_SUBTITLE = cmsPageSubtitle;
+                    objViewBagModel.CMS_PAGE_SUBTITLE = cmsPageSubtitle.ApplyTags(tags);
 
                 cms = questionnairCmsAll.FirstOrDefault(q => q.description == pagePanelOne);
                 cms_id = cms != null ? cms.id : 0;
                 var cmsPagePanelOne = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                 if (cmsPagePanelOne != null)
-                    objViewBagModel.CMS_PAGE_PANEL_ONE = cmsPagePanelOne;
+                    objViewBagModel.CMS_PAGE_PANEL_ONE = cmsPagePanelOne.ApplyTags(tags);
 
                 cms = questionnairCmsAll.FirstOrDefault(q => q.description == pagePanelTwo);
                 cms_id = cms != null ? cms.id : 0;
                 var cmsPagePanelTwo = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                 if (cmsPagePanelTwo != null)
-                    objViewBagModel.CMS_PAGE_PANEL_TWO = cmsPagePanelTwo;
+                    objViewBagModel.CMS_PAGE_PANEL_TWO = cmsPagePanelTwo.ApplyTags(tags);
                 if (pageName != "Index")
                 {
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == pagePreviousText);
@@ -565,21 +589,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var cmsPagePreviousText = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage,
                         cms_id);
                     if (cmsPagePreviousText != null)
-                        objViewBagModel.CMS_PAGE_PREVIOUS_TEXT = cmsPagePreviousText;
+                        objViewBagModel.CMS_PAGE_PREVIOUS_TEXT = cmsPagePreviousText.ApplyTags(tags);
 
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == pageNextText);
                     cms_id = cms != null ? cms.id : 0;
                     var cmsPageNextText = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage,
                         cms_id);
                     if (cmsPageNextText != null)
-                        objViewBagModel.CMS_PAGE_NEXT_TEXT = cmsPageNextText;
+                        objViewBagModel.CMS_PAGE_NEXT_TEXT = cmsPageNextText.ApplyTags(tags);
                 }
                 if (pageName == "ESignature")
                 {
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ESIGNATURE_PAGE_TEXT);
                     cms_id = cms != null ? cms.id : 0;
                     var floatText = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
-                    objViewBagModel.ESIGNATURE_PAGE_TEXT = new EmailFormat().sGetEmailBody(floatText, null, pptq != null ? pptq.partner1 : null, null, ptq != null ? ptq.id : 0);
+                    objViewBagModel.ESIGNATURE_PAGE_TEXT = new EmailFormat().sGetEmailBody(floatText, null, pptq != null ? pptq.partner1 : null, null, ptq != null ? ptq.id : 0).ApplyTags(tags);
 
 
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2);
@@ -587,7 +611,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var questionnaireDocOther2 = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                     if (questionnaireDocOther2 != null)
                     {
-                        objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = questionnaireDocOther2;
+                        objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = questionnaireDocOther2.ApplyTags(tags);
                     }
                 }
                 if (pageName == "Finish")
@@ -596,7 +620,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2);
                         cms_id = cms != null ? cms.id : 0;
-                        objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id).ApplyTags(tags);
                     }
                     catch { }
                     try
@@ -637,7 +661,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.CONFIRMATION_PAGE_SIGNOFF_STATEMENT);
                         cms_id = cms != null ? cms.id : 0;
-                        objViewBagModel.CONFIRMATION_PAGE_SIGNOFF_STATEMENT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        objViewBagModel.CONFIRMATION_PAGE_SIGNOFF_STATEMENT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id).ApplyTags(tags);
                     }
                     catch { }
 
@@ -645,21 +669,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.CONFIRMATION_PAGE_HEADLINE);
                         cms_id = cms != null ? cms.id : 0;
-                        objViewBagModel.CONFIRMATION_PAGE_HEADLINE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        objViewBagModel.CONFIRMATION_PAGE_HEADLINE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id).ApplyTags(tags);
                     }
                     catch { }
                     try
                     {
                         cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT);
                         cms_id = cms != null ? cms.id : 0;
-                        objViewBagModel.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        objViewBagModel.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id).ApplyTags(tags);
                     }
                     catch { }
                     try
                     {
                         cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.WARNING);
                         cms_id = cms != null ? cms.id : 0;
-                        objViewBagModel.WARNING = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        objViewBagModel.WARNING = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id).ApplyTags(tags);
 
                     }
                     catch { }
@@ -670,65 +694,64 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     cms_id = cms != null ? cms.id : 0;
                     var questionaireDoc2 = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
                     if (questionaireDoc2 != null)
-                        objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = questionaireDoc2;
+                        objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = questionaireDoc2.ApplyTags(tags);
 
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT_NOTICE);
                     cms_id = cms != null ? cms.id : 0;
                     var textNotice = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
                     if (textNotice != null)
-                        objViewBagModel.SAVE_FOR_LATER_TEXT_NOTICE = textNotice;
+                        objViewBagModel.SAVE_FOR_LATER_TEXT_NOTICE = textNotice.ApplyTags(tags);
                 }
-                if (pageName == "Index")
-                {
-                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE);
-                    cms_id = cms != null ? cms.id : 0;
-                    var cmsFooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                    if (cmsFooterOne != null)
+                    if (pageName == "Index")
                     {
-                        objViewBagModel.CMS_FOOTER_ONE = cmsFooterOne;
-                    }
+                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE);
+                        cms_id = cms != null ? cms.id : 0;
+                        var cmsFooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        if (cmsFooterOne != null)
+                        {
+                            objViewBagModel.CMS_FOOTER_ONE = cmsFooterOne.ApplyTags(tags);
+                        }
 
-                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO);
-                    cms_id = cms != null ? cms.id : 0;
-                    var cmsFooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                    if (cmsFooterTwo != null)
-                    {
-                        objViewBagModel.CMS_FOOTER_TWO = cmsFooterTwo;
-                    }
+                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO);
+                        cms_id = cms != null ? cms.id : 0;
+                        var cmsFooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        if (cmsFooterTwo != null)
+                        {
+                            objViewBagModel.CMS_FOOTER_TWO = cmsFooterTwo.ApplyTags(tags);
+                        }
 
-                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT);
-                    cms_id = cms != null ? cms.id : 0;
-                    var cmsSubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                    if (cmsSubmitText != null)
-                    {
-                        objViewBagModel.CMS_SUBMIT_TEXT = cmsSubmitText;
-                    }
+                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT);
+                        cms_id = cms != null ? cms.id : 0;
+                        var cmsSubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        if (cmsSubmitText != null)
+                        {
+                            objViewBagModel.CMS_SUBMIT_TEXT = cmsSubmitText.ApplyTags(tags);
+                        }
 
-                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT);
-                    cms_id = cms != null ? cms.id : 0;
-                    var retAccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                    if (retAccCode != null)
+                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT);
+                        cms_id = cms != null ? cms.id : 0;
+                        var retAccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        if (retAccCode != null)
+                        {
+                            objViewBagModel.RETRIEVE_ACCESS_CODE_TEXT = retAccCode.ApplyTags(tags);
+                        }
+                    }
+                    if (pageName == "QuestionnaireResponse")
                     {
-                        objViewBagModel.RETRIEVE_ACCESS_CODE_TEXT = retAccCode;
+                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT);
+                        cms_id = cms != null ? cms.id : 0;
+                        var cmsSaveForLater = questionareCMS.FirstOrDefault(x => x.questionnaireCMS == cms_id);
+                        if (cmsSaveForLater != null)
+                            objViewBagModel.SAVE_FOR_LATER_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
                     }
                 }
-                if (pageName == "QuestionnaireResponse")
-                {
-                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT);
-                    cms_id = cms != null ? cms.id : 0;
-                    var cmsSaveForLater = questionareCMS.FirstOrDefault(x => x.questionnaireCMS == cms_id);
-                    if (cmsSaveForLater != null)
-                        objViewBagModel.SAVE_FOR_LATER_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                }
-            }
             catch (Exception ex)
             {
 
             }
             return objViewBagModel;
         }
-
-
+        
         public virtual ActionResult CompanyInformation()
         {
             try
@@ -7200,12 +7223,13 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-           
+
             var m = db.pr_getPerson(pptq.invitedBy).FirstOrDefault();
-            if (m != null){
+            if (m != null)
+            {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
-            
+
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -7293,26 +7317,26 @@ Intelleges Team";
                     ViewBag.ActivityType266 = _chacked;
                     ViewBag.CheckboxS8_Na = _chacked;
                 }
-               
+
             }
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
 
             string executives = "";
             var idsq = _PPTQQuestionResponse.Select(o => o.question).ToList();
-          /*  List<question> qs = new List<Generic.question>();
-            string qss = "";
-            foreach (var item in idsq) {
-                var q = db.pr_getQuestion(item).First();
-                qs.Add(q);
-                qss += item + "  " + q.title+ Environment.NewLine;
-            }
+            /*  List<question> qs = new List<Generic.question>();
+              string qss = "";
+              foreach (var item in idsq) {
+                  var q = db.pr_getQuestion(item).First();
+                  qs.Add(q);
+                  qss += item + "  " + q.title+ Environment.NewLine;
+              }
 
-            qss.ToString();*/
+              qss.ToString();*/
 
             foreach (var item in _PPTQQuestionResponse)
             {
-              
+
                 switch (item.question)
                 {
                     #region Section 1
@@ -7491,7 +7515,7 @@ Intelleges Team";
                         ViewBag.Checkbox35575_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
                     case 35576:
-                        ViewBag.Checkbox35576_Yes = item.response ==62373 ? _chacked : string.Empty;
+                        ViewBag.Checkbox35576_Yes = item.response == 62373 ? _chacked : string.Empty;
                         ViewBag.Checkbox35576_No = item.response == 62374 ? _chacked : string.Empty;
                         break;
                     #endregion
@@ -7515,7 +7539,7 @@ Intelleges Team";
                     case 35590:
                         ViewBag.Checkbox35590_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox35590_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if(ViewBag.Checkbox35590_Yes == _chacked)
+                        if (ViewBag.Checkbox35590_Yes == _chacked)
                             ViewBag.Checkbox35590_Comment = item.comment ?? "";
                         break;
                     case 35591:
@@ -8197,7 +8221,7 @@ Intelleges Team";
                     #endregion
 
                     #region Section 6
-                 
+
                     case 35758:
                         ViewBag.Checkbox35570_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox35570_No = item.response == _responseNO ? _chacked : string.Empty;
@@ -13580,6 +13604,44 @@ Intelleges Team";
             //270740JR
             return Json(db.pr_getQuestionResponseNarrativeSelectionListByQuestion(question).ToList(), JsonRequestBehavior.AllowGet);
 
+        }
+    }
+
+    public class Tags
+    {
+        public string PartnerType { get; set; }
+        public string State { get; set; }
+        public string Enterprise { get; set; }
+        public string CurrentPOC { get; set; }
+        public string PartnerName { get; set; }
+        public string CustomerURL { get; set; }
+    }
+
+    public static class StringExtension
+    {
+        public static string ApplyTags(this string obj, Tags tags)
+        {
+            obj = TagReplace(obj, DateTime.Now.Year.ToString(), "[Current Year]");
+            obj = TagReplace(obj, tags.PartnerType, "[Partnertype]");
+            obj = TagReplace(obj, tags.State, "[State]");
+            obj = TagReplace(obj, tags.Enterprise, "[Enterprise]");
+            obj = TagReplace(obj, tags.CurrentPOC, "[CurrentPOC]");
+            obj = TagReplace(obj, tags.CustomerURL, "[CustomerURL]");
+            obj = TagReplace(obj, tags.PartnerName, "[PartnerName]");
+            return obj;
+        }
+
+        private static string TagReplace(string obj, string tagValue, string tagName)
+        {
+            while (obj.ToLower().Contains(tagName.ToLower()))
+            {
+                var startIndex = obj.ToLower().IndexOf(tagName.ToLower());
+                var len = tagName.ToLower().Length;
+                string val = tagValue;
+                obj = obj.Remove(startIndex, len).Insert(startIndex, val);
+               
+            }
+            return obj;
         }
     }
 }

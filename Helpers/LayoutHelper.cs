@@ -63,6 +63,17 @@ namespace Generic.Helpers
 				return "~/tmp/Views/Shared/_NewRegistrationLayout.cshtml";
 			}
 		}
+        public static string GetQuestionnaireResponseMaster()
+        {
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                return "~/Views/Shared/_NewRegistrationPartner.cshtml";
+            }
+            else
+            {
+                return "~/tmp/Views/Shared/_NewRegistrationPartner.cshtml";
+            }
+        }
 
         public static string GetMasterLayout()
         {

@@ -5826,6 +5826,7 @@
     <Content Include="Views\Admin\IndexOld.cshtml" />
     <Content Include="Views\AMLMM\Create.cshtml" />
     <Content Include="Views\AMLMM\CreateResult.cshtml" />
+    <Content Include="Views\Shared\_NewRegistrationPartner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

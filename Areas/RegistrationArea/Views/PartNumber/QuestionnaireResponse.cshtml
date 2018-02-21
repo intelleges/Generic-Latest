@@ -5,7 +5,7 @@
 @using Generic.Helpers
 @using System.Web.Optimization;
 @{
-	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+	Layout = Generic.Helpers.LayoutHelper.GetQuestionnaireResponseMaster();
    // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
     //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     ViewBag.Title = "Questionnaire Response";
@@ -324,7 +324,9 @@
 
 
 
- 
+ @section zCodes{
+    @Html.Raw(ViewBag.zcodeList)
+}
     <div class="top-margin">
 
     </div>

@@ -1,0 +1,320 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@*@using Recaptcha.Web.Mvc;*@
+@using Generic.Areas.RegistrationArea.Models
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@{
+    Layout = Generic.Helpers.LayoutHelper.GetMasterLayout();
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
+
+}
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-7827202-1");
+        pageTracker._trackPageview();
+    } catch (err) { }</script>
+
+<link href="@Url.Content("~/Contents/RegistrationStyle/css/styles.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Contents/RegistrationStyle/css/menu.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Contents/RegistrationStyle/divwindow/css/dhtmlwindow.css")" type="text/css" />
+<script type="text/javascript" src="https://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js">s</script>
+<link href="@Url.Content("~/Contents/css/gfdynamicfeedcontroller.css")" type="text/css" rel="stylesheet" />
+
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/registrationJs")
+@RenderSection("styles", false)
+
+@Styles.Render("~/bundles/alertifyCss")
+<script src="@Url.Content("~/Scripts/alertify.js")"></script>
+<!-- Bootstrap Core CSS -->
+@Styles.Render("~/bundles/HomebootstrapCss")
+<!-- Custom CSS -->
+@Styles.Render("~/bundles/HomeStyles")
+<!-- Custom Fonts -->
+@Styles.Render("~/bundles/Font-awesome")
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+@Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
+
+
+
+
+
+
+@(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+                .Add("telerik.common.css")
+                .Add("telerik.rtl.css")
+                .Add("telerik.vista.css")
+                .Combined(true)
+                .Compress(true)))
+
+
+<div id="splitterWrapper">
+    @{Html.Telerik().Splitter().Name("Splitter1")
+                                          //.ClientEvents(ev => ev.OnLoad("onLoad"))
+                                          //.ClientEvents(ev => ev.OnCollapse("onCollapsed"))
+                                          //.ClientEvents(ev => ev.OnExpand("onExpand"))
+                                          .HtmlAttributes(new { style = "height: 1300px" })
+
+
+                                          .Orientation(SplitterOrientation.Vertical)
+                                          .Panes(vPanes =>
+                                          {
+                                          vPanes.Add()
+                  .Size("100px")
+                  //.HtmlAttributes(new { style = "height: 100px;"})
+                  .Collapsible(true)
+                  .Collapsed(true)
+                  .Resizable(false)
+                  .Content(@<div>
+                    @RenderSection("zCodes", required: false)
+                </div>);
+
+                                          vPanes.Add()
+                                              .Scrollable(false)
+                                              .Size("1000px")
+                                              .Content(@<div class="wrap">
+                                                <header>
+                                                    <div class="header-inner">
+                                                        <div class="row">
+                                                            <div class="container">
+                                                                <div class="col-sm-3">
+                                                                    <div class="logo-new">
+                                                                        <a href="https://www.intelleges.com/"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-9">
+                                                                    <div class="header-right">
+
+                                                                        <ul>
+                                                                            @if (!string.IsNullOrEmpty(formData.CONTACT_US_EMAIL) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK))
+                                                                {
+                                                                <li><a href="mailto:@formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@formData.CONTACT_US_EMAIL</a></li>
+                                                                }
+                                                                @*<li><a href="~/Registration/Home/PDFConfirmation" target="_blank"></a></li>*@
+                                                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_PDF))
+                                                                {
+                                                                <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank"> @formData.QUESTIONNAIRE_PDF</a></li>
+                                                                }
+                                                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_FAQ))
+                                                                {
+                                                                <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@formData.QUESTIONNAIRE_FAQ</a> </li>
+                                                                }
+                                                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER))
+                                                                {
+                                                                <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                                                }
+                                                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO_LINK))
+                                                                {
+                                                                <li><a href="@formData.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@formData.QUESTIONNAIRE_VIDEO</a> </li>
+                                                                }
+                                                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_2))
+                                                                {
+                                                                <li>
+                                                                    <a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER_2" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER_2</a>
+                                                                </li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Navigation -->
+                                                <nav class="navbar" role="navigation">
+                                                    <div class="topnav">
+                                                        <!-- Brand and toggle get grouped for better mobile display -->
+                                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                                            <span class="sr-only">Toggle navigation</span>
+                                                            <span class="icon-bar"></span>
+                                                            <span class="icon-bar"></span>
+                                                            <span class="icon-bar"></span>
+                                                        </button>
+                                                        <!-- Collect the nav links, forms, and other content for toggling -->
+                                                        <div class="container">
+                                                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                                                <ul class="nav navbar-nav">
+                                                                    <li class="dropdown">
+                                                                        <a href="#" data-toggle="dropdown">Company<i class="fa fa-angle-down"></i></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a href="about-us.html">About</a></li>
+                                                                            <li><a href="products.html">Products</a></li>
+                                                                            <li><a href="#">Link 3</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Industries</a>
+                                                                    </li>
+                                                                    <li class="dropdown">
+                                                                        <a href="#" data-toggle="dropdown">Solutions<i class="fa fa-angle-down"></i></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a href="#">Link 1</a></li>
+                                                                            <li><a href="#">Link 2</a></li>
+                                                                            <li><a href="#">Link 3</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Customer</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Support</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Demo</a>
+                                                                    </li>
+                                                                    <li class="dropdown">
+                                                                        <a href="#" data-toggle="dropdown">News and Events<i class="fa fa-angle-down"></i></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a href="#">Link 1</a></li>
+                                                                            <li><a href="#">Link 2</a></li>
+                                                                            <li><a href="#">Link 3</a></li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Partner</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.navbar-collapse -->
+                                                    </div>
+                                                    <!-- /.container -->
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </header>
+
+                                    <div class="content-new">
+
+                                        @RenderBody()
+
+
+                                        <!-- Footer -->
+                                        <footer class="footer-outer">
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div class="col-md-5">
+                                                        <p class="copyright small">&copy; @DateTime.Now.Year Intelleges - 3960 Broadway, New York, New York 10032</p>
+                                                    </div>
+                                                    <div class="col-md-5">
+
+                                                        <div class="footer-logo">
+                                                            Powered by Intelleges&nbsp;&nbsp;&nbsp;&nbsp;<img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/footer-logo.png")" alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="footer-contact">
+
+                                                            <p class="footer-tele">
+                                                                <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/call-foot.png")" alt="" />&nbsp;&nbsp;(917) 818 0225
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </footer>
+                                    </div>
+                                                          
+                                </div>);
+
+                                          vPanes.Add()
+                                              .Size("100px")
+                                               .Resizable(false)
+                                              .Collapsible(true)
+                                              .Collapsed(true)
+                                              .Content(@<div>Bottom</div>);
+                                          })
+      .Render();
+    }
+    
+</div>
+
+
+<!-- jQuery -->
+@RenderSection("scripts", required: false)
+@*@Scripts.Render("~/bundles/Homejquery")*@
+@Scripts.Render("~/Scripts/validator.js")
+<!-- Bootstrap Core JavaScript -->
+@Scripts.Render("~/bundles/HomeBootstrapJs")
+
+<script>
+		(function ($) {
+			$(document).ready(function () {
+				//$(".footer-outer").insertAfter(".page-inner");
+				//$(".pre-next-btn").insertAfter(".shadow-outer");
+				//$(".box-shadow-dropdown").insertBefore("table:first");
+				if ('@ViewBag.googleError' !== '') {
+					alertify.alert('@ViewBag.googleError');
+				}
+
+			});
+		})(jQuery);
+
+</script>
+<script type="text/javascript">
+    //jQuery.noConflict();
+    jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+
+
+
+    function onCollapsed(e) {
+        localStorage["collapsed"] = 1;
+
+    }
+    function onExpand(e) {
+        localStorage["collapsed"] = 2;
+
+    }
+    function onLoad(e) {
+        $('#splitterWrapper').css('display', '');
+
+
+        var splitter = $("#Splitter1").data("tSplitter");
+
+        if (splitter == null || splitter == undefined) {
+            return;
+        }
+        var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
+
+        if (window.location.href.indexOf('PartNumber') == -1) {
+            splitter.collapse(pane);
+        }
+        else if (localStorage["collapsed"] == 1) {
+            splitter.collapse(pane);
+        }
+        //$(pane).height($(window).height());
+        else {
+            splitter.expand(pane);
+        }
+
+    }
+
+
+</script>
+
+
+
+
+
+
+@(Html.Telerik().ScriptRegistrar()
+    .DefaultGroup(group => group
+        .Combined(false)
+        .Compress(false)
+         ).jQuery(false).jQueryValidation(false)
+)
+
+
+@section header{
+    <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+}
