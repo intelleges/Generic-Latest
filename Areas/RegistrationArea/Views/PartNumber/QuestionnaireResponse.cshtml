@@ -321,15 +321,19 @@
   
 </script>
 
-
+<style>
+    body section.page-inner {
+        padding-bottom:0;
+    }
+</style>
 
 
  @section zCodes{
     @Html.Raw(ViewBag.zcodeList)
 }
-    <div class="top-margin">
+    @*<div class="top-margin">
 
-    </div>
+    </div>*@
 
 
     <section class="page-inner">
@@ -373,9 +377,12 @@
 								</div>
 							</div>
 						</div>
+                        
+                            @Html.Raw(ViewBag.questions+ "</table>")
 
-						@Html.Raw(ViewBag.questions)
-					</div>
+
+
+                    </div>
 
 				</div>
 				<div class="hiddenValues">
@@ -401,6 +408,7 @@
 
 
 </section>
+
 
 
 

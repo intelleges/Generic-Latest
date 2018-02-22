@@ -185,18 +185,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             Session["partnumberstatus"] = partnumberStatusSelectList;
             int questionnaireId = (int)Session["questionnaire"];
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
-
-            if (objQuestionnaire.letter ==1)
-            {
-                //show panel
-                ViewBag.showSplitter = true; 
-            }
-            else
-            {
-                //hide panel
-                ViewBag.showSplitter = false;
-            }
-
+            ViewBag.showSplitter = objQuestionnaire.letter == 1;
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);

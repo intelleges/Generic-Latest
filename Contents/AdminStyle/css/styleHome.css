@@ -1719,7 +1719,7 @@ div#lblThankYou p {
 
 @media all and (min-width: 767px) {
     header {
-        position: fixed;
+        /*position: fixed;*/
         top: 0;
         left: 0;
         width: 100%;
