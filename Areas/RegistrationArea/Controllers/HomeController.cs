@@ -154,7 +154,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, ptq != null ? ptq.questionnaire : 0, objViewBag);
                     //try
                     //{
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "SaveForLaterConfirm");
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptqCms, "SaveForLaterConfirm");
                     if (!string.IsNullOrEmpty(model.CMS_PAGE_TITLE))
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     if (!string.IsNullOrEmpty(model.CMS_PAGE_PANEL_ONE))
@@ -274,7 +274,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                     //try
                     //{
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "Index");
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "Index");
 
                     objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
@@ -349,7 +349,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                     try
                     {
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "Index");
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "Index");
 
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
@@ -447,7 +447,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return View();
         }
 
-        public ViewBagModel GetPageTitles(int cms_id, List<pr_getQuestionnaireCMSAll_Result> questionnairCmsAll, partnerTypeTouchpointQuestionnaire ptq, string pageName, partnerPartnertypeTouchpointQuestionnaire pptq = null, List<questionnaireQuestionnaireCMS> questionareCMS = null)
+        public ViewBagModel GetPageTitles(int cms_id, List<pr_getQuestionnaireCMSAll_Result> questionnairCmsAll, partnerTypeTouchpointQuestionnaire ptq, partnerPartnertypeTouchpointQuestionnaire ppptq, string pageName, partnerPartnertypeTouchpointQuestionnaire pptq = null, List<questionnaireQuestionnaireCMS> questionareCMS = null)
         {
             ViewBagModel objViewBagModel = new ViewBagModel();
             try
@@ -539,12 +539,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 if (ptq != null && ptq.partnerType1 != null)
                     tags.PartnerType = ptq.partnerType1.name;
 
-                if (ptq.partnerPartnertypeTouchpointQuestionnaire.Count > 0)
+                if (ppptq != null)
                 {
-                    var stateID = ptq.partnerPartnertypeTouchpointQuestionnaire.First().partner1.state;
-                    tags.State = db.pr_getState(stateID).First().name;
-                    tags.CurrentPOC = ptq.partnerPartnertypeTouchpointQuestionnaire.First().partner1.email;
-                    tags.PartnerName = ptq.partnerPartnertypeTouchpointQuestionnaire.First().partner1.name;
+                    try
+                    {
+                        var stateID = ppptq.partner1.state;
+                        var s = db.pr_getState(stateID).FirstOrDefault();
+                        if(s!=null)
+                            tags.State =s.name;
+                        tags.CurrentPOC = ppptq.partner1.email;
+                        tags.PartnerName = ppptq.partner1.name;
+                    }
+                    catch { }
                 }
 
                 var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
@@ -702,56 +708,56 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (textNotice != null)
                         objViewBagModel.SAVE_FOR_LATER_TEXT_NOTICE = textNotice.ApplyTags(tags);
                 }
-                    if (pageName == "Index")
+                if (pageName == "Index")
+                {
+                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE);
+                    cms_id = cms != null ? cms.id : 0;
+                    var cmsFooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                    if (cmsFooterOne != null)
                     {
-                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_ONE);
-                        cms_id = cms != null ? cms.id : 0;
-                        var cmsFooterOne = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                        if (cmsFooterOne != null)
-                        {
-                            objViewBagModel.CMS_FOOTER_ONE = cmsFooterOne.ApplyTags(tags);
-                        }
-
-                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO);
-                        cms_id = cms != null ? cms.id : 0;
-                        var cmsFooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                        if (cmsFooterTwo != null)
-                        {
-                            objViewBagModel.CMS_FOOTER_TWO = cmsFooterTwo.ApplyTags(tags);
-                        }
-
-                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT);
-                        cms_id = cms != null ? cms.id : 0;
-                        var cmsSubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                        if (cmsSubmitText != null)
-                        {
-                            objViewBagModel.CMS_SUBMIT_TEXT = cmsSubmitText.ApplyTags(tags);
-                        }
-
-                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT);
-                        cms_id = cms != null ? cms.id : 0;
-                        var retAccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
-                        if (retAccCode != null)
-                        {
-                            objViewBagModel.RETRIEVE_ACCESS_CODE_TEXT = retAccCode.ApplyTags(tags);
-                        }
+                        objViewBagModel.CMS_FOOTER_ONE = cmsFooterOne.ApplyTags(tags);
                     }
-                    if (pageName == "QuestionnaireResponse")
+
+                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_FOOTER_TWO);
+                    cms_id = cms != null ? cms.id : 0;
+                    var cmsFooterTwo = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                    if (cmsFooterTwo != null)
                     {
-                        cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT);
-                        cms_id = cms != null ? cms.id : 0;
-                        var cmsSaveForLater = questionareCMS.FirstOrDefault(x => x.questionnaireCMS == cms_id);
-                        if (cmsSaveForLater != null)
-                            objViewBagModel.SAVE_FOR_LATER_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                        objViewBagModel.CMS_FOOTER_TWO = cmsFooterTwo.ApplyTags(tags);
+                    }
+
+                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.ACCESS_CODE_SUBMIT_TEXT);
+                    cms_id = cms != null ? cms.id : 0;
+                    var cmsSubmitText = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                    if (cmsSubmitText != null)
+                    {
+                        objViewBagModel.CMS_SUBMIT_TEXT = cmsSubmitText.ApplyTags(tags);
+                    }
+
+                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.RETRIEVE_ACCESS_CODE_TEXT);
+                    cms_id = cms != null ? cms.id : 0;
+                    var retAccCode = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                    if (retAccCode != null)
+                    {
+                        objViewBagModel.RETRIEVE_ACCESS_CODE_TEXT = retAccCode.ApplyTags(tags);
                     }
                 }
+                if (pageName == "QuestionnaireResponse")
+                {
+                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.SAVE_FOR_LATER_TEXT);
+                    cms_id = cms != null ? cms.id : 0;
+                    var cmsSaveForLater = questionareCMS.FirstOrDefault(x => x.questionnaireCMS == cms_id);
+                    if (cmsSaveForLater != null)
+                        objViewBagModel.SAVE_FOR_LATER_TEXT = _translator.Translate(ptq.questionnaire, TranslationType.CMS, CurrentLanguage, cms_id);
+                }
+            }
             catch (Exception ex)
             {
 
             }
             return objViewBagModel;
         }
-        
+
         public virtual ActionResult CompanyInformation()
         {
             try
@@ -806,7 +812,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                     try
                     {
-                        var model = GetPageTitles(cms_id, questionnairCmsAll, ptq, "CompanyInformation");
+                        var model = GetPageTitles(cms_id, questionnairCmsAll, ptq, ppptq, "CompanyInformation", ppptq);
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -893,7 +899,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                         try
                         {
-                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
+                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "ContactInformation", ppptq);
                             objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                             objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                             objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -916,7 +922,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                         try
                         {
-                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ContactInformation");
+                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "ContactInformation");
                             objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                             objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                             objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -1153,7 +1159,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                     try
                     {
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "QuestionnaireResponse", null, cms);
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "QuestionnaireResponse", null, cms);
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2350,7 +2356,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     try
                     {
                         int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditCompanyInformation");
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "EditCompanyInformation");
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2392,7 +2398,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 try
                 {
                     int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditCompanyInformation");
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "EditCompanyInformation");
                     objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                     objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2543,7 +2549,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     try
                     {
                         int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditCompanyInformation");
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "EditCompanyInformation");
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2583,7 +2589,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 try
                 {
                     int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditCompanyInformation");
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "EditCompanyInformation");
                     objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                     objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2666,7 +2672,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 try
                 {
                     int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditContactInformation");
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "EditContactInformation");
                     objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                     objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2766,7 +2772,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
 
                         int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "EditContactInformation");
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "EditContactInformation");
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2839,7 +2845,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
 
                         int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ESignature", pptq);
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "ESignature", pptq);
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -2931,7 +2937,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
 
                         int questionnaire = ptq != null ? ptq.questionnaire : 0;
-                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "ESignature", pptq);
+                        var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "ESignature", pptq);
                         objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                         objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                         objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -3410,7 +3416,7 @@ Intelleges Team";
                 }
                 catch { }
                 int cmsId = 0;
-                var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, "Finish", null, cms);
+                var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "Finish", null, cms);
                 objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                 objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                 objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -13639,7 +13645,7 @@ Intelleges Team";
                 var len = tagName.ToLower().Length;
                 string val = tagValue;
                 obj = obj.Remove(startIndex, len).Insert(startIndex, val);
-               
+
             }
             return obj;
         }

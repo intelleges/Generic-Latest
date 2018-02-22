@@ -186,6 +186,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int questionnaireId = (int)Session["questionnaire"];
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
 
+            if (objQuestionnaire.letter ==1)
+            {
+                //show panel
+                ViewBag.showSplitter = true; 
+            }
+            else
+            {
+                //hide panel
+                ViewBag.showSplitter = false;
+            }
+
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
