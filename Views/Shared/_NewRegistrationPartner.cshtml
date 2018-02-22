@@ -61,158 +61,145 @@
 
 <div id="splitterWrapper">
 
-    <div class="wrap">
-        <header>
-            <div class="header-inner">
-                <div class="row">
-                    <div class="container">
-                        <div class="col-sm-3">
-                            <div class="logo-new">
-                                <a href="https://www.intelleges.com/"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="header-right">
 
-                                <ul>
-                                    @if (!string.IsNullOrEmpty(formData.CONTACT_US_EMAIL) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK))
-                                    {
-                                        <li><a href="mailto:@formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@formData.CONTACT_US_EMAIL</a></li>
-                                    }
-                                    @*<li><a href="~/Registration/Home/PDFConfirmation" target="_blank"></a></li>*@
-                                    @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_PDF))
-                                    {
-                                        <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank"> @formData.QUESTIONNAIRE_PDF</a></li>
-                                    }
-                                    @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_FAQ))
-                                    {
-                                        <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@formData.QUESTIONNAIRE_FAQ</a> </li>
-                                    }
-                                    @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER))
-                                    {
-                                        <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
-                                    }
-                                    @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO_LINK))
-                                    {
-                                        <li><a href="@formData.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@formData.QUESTIONNAIRE_VIDEO</a> </li>
-                                    }
-                                    @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_2))
-                                    {
-                                        <li>
-                                            <a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER_2" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER_2</a>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
+    @{Html.Telerik().Splitter().Name("Splitter1").ClientEvents(ev => ev.OnLoad("onLoad"))
+                                                                                                      //.ClientEvents(ev => ev.OnCollapse("onCollapsed"))
+                                                                                                      //.ClientEvents(ev => ev.OnExpand("onExpand"))
+                                                                                                      .HtmlAttributes(new { style = "height: 1400px" })
+
+
+                                                                                                      .Orientation(SplitterOrientation.Vertical)
+                                                                                                      .Panes(vPanes =>
+                                                                                                      {
+                                                                                                      vPanes.Add()
+                      .Size("100px")
+                      //.HtmlAttributes(new { style = "height: 100px;"})
+                      .Collapsible(true)
+                      .Collapsed(true)
+                      .Resizable(false)
+                      .Content(@<div>
+                        @RenderSection("zCodes", required: false)
+
+                    </div>).HtmlAttributes(new { @style = "display:" + ((showSplitter).HasValue && showSplitter.Value ? "''" : "none") });
+
+                                                                                                    vPanes.Add()
+                                                                                                        .Scrollable(false)
+                                                                                                        .Size("1200px")
+                                                                                                        .Content(@<div class="wrap">
+                                                                                                            <header>
+                                                                                                                <div class="header-inner">
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="container">
+                                                                                                                            <div class="col-sm-3">
+                                                                                                                                <div class="logo-new">
+                                                                                                                                    <a href="https://www.intelleges.com/"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-sm-9">
+                                                                                                                                <div class="header-right">
+
+                                                                                                                                    <ul>
+                                                                                                                                        @if (!string.IsNullOrEmpty(formData.CONTACT_US_EMAIL) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK))
+                                {
+                                <li><a href="mailto:@formData.QUESTIONNAIRE_CONTACT_US_EMAIL_LINK" id="contactUS">@formData.CONTACT_US_EMAIL</a></li>
+                                }
+                                @*<li><a href="~/Registration/Home/PDFConfirmation" target="_blank"></a></li>*@
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_PDF))
+                                {
+                                <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_PDF" target="_blank"> @formData.QUESTIONNAIRE_PDF</a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_FAQ))
+                                {
+                                <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@formData.QUESTIONNAIRE_FAQ</a> </li>
+                                }
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER))
+                                {
+                                <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                }
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO_LINK))
+                                {
+                                <li><a href="@formData.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@formData.QUESTIONNAIRE_VIDEO</a> </li>
+                                }
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_2))
+                                {
+                                <li>
+                                    <a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER_2" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER_2</a>
+                                </li>
+                                }
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- Navigation -->
-                    <nav class="navbar" role="navigation">
-                        <div class="topnav">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="container">
-                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                    <ul class="nav navbar-nav">
-                                        <li class="dropdown">
-                                            <a href="#" data-toggle="dropdown">Company<i class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="about-us.html">About</a></li>
-                                                <li><a href="products.html">Products</a></li>
-                                                <li><a href="#">Link 3</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Industries</a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" data-toggle="dropdown">Solutions<i class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Link 1</a></li>
-                                                <li><a href="#">Link 2</a></li>
-                                                <li><a href="#">Link 3</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Customer</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Support</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Demo</a>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" data-toggle="dropdown">News and Events<i class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Link 1</a></li>
-                                                <li><a href="#">Link 2</a></li>
-                                                <li><a href="#">Link 3</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">Partner</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- /.navbar-collapse -->
-                        </div>
-                        <!-- /.container -->
-                    </nav>
-                </div>
             </div>
-        </header>
-        @{Html.Telerik().Splitter().Name("Splitter1").ClientEvents(ev => ev.OnLoad("onLoad"))
-                            .ClientEvents(ev => ev.OnCollapse("onCollapsed"))
-                            .ClientEvents(ev => ev.OnExpand("onExpand"))
-                                                                                        .HtmlAttributes(new { style = "height: 1000px" })
+            <div class="row">
+                <!-- Navigation -->
+                <nav class="navbar" role="navigation">
+                    <div class="topnav">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="container">
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown">Company<i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="about-us.html">About</a></li>
+                                            <li><a href="products.html">Products</a></li>
+                                            <li><a href="#">Link 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Industries</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown">Solutions<i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Link 1</a></li>
+                                            <li><a href="#">Link 2</a></li>
+                                            <li><a href="#">Link 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Customer</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Support</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Demo</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" data-toggle="dropdown">News and Events<i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Link 1</a></li>
+                                            <li><a href="#">Link 2</a></li>
+                                            <li><a href="#">Link 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Partner</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                    <!-- /.container -->
+                </nav>
+            </div>
+        </div>
+    </header><div class="content-new">
+
+        @RenderBody()
 
 
-                                                                                        .Orientation(SplitterOrientation.Vertical)
-                                                                                        .Panes(vPanes =>
-                                                                                        {
-                                                                                        vPanes.Add()
-                    .Size("100px")
-                    //.HtmlAttributes(new { style = "height: 100px;"})
-                    .Collapsible(true)
-                    .Collapsed(false)
-                    .Resizable(false)
-                    .Content(@<div>
-                        @RenderSection("zCodes", required: false)
-
-                    </div>).HtmlAttributes(new { @style = "display:" + ((showSplitter).HasValue&& showSplitter.Value ? "''" : "none") });
-
-                                                                                        vPanes.Add()
-                                                                                            .Scrollable(false)
-                                                                                            .Size("800px")
-                                                                                            .Content(@<div class="content-new">
-
-                                                                                                @RenderBody()
-
-
-                                                                                                <!-- Footer -->
-
-                                                                                            </div>);
-
-                                                                                        vPanes.Add()
-                                                                                            .Size("100px")
-                                                                                             .Resizable(false)
-                                                                                            .Collapsible(true)
-                                                                                            .Collapsed(true)
-                                                                                            .HtmlAttributes(new { @id = "bottom-panel" })
-                                                                                            .Content(@<div></div>).HtmlAttributes(new { @style = "display:" + ((showSplitter.HasValue&& showSplitter.Value) ? "''" : "none") });
-                                                                                        })
-      .Render();
-        }
+        <!-- Footer -->
         <footer class="footer-outer">
             <div class="row">
                 <div class="container">
@@ -237,10 +224,23 @@
             </div>
         </footer>
     </div>
+</div>);
+
+                                                                                                    vPanes.Add()
+                                                                                                    .Size("100px")
+                                                                                                    .Resizable(false)
+                                                                                                    .Collapsible(true)
+                                                                                                    .Collapsed(true)
+                                                                                                    .HtmlAttributes(new { @id = "bottom-panel" })
+                                                                                                    .Content(@<div></div>).HtmlAttributes(new { @style = "display:" + ((showSplitter.HasValue && showSplitter.Value) ? "''" : "none") });
+                                                                                                    })
+    .Render();
+    }
+
 </div>
 
 
-<!-- jQuery -->
+<!--jQuery-->
 @RenderSection("scripts", required: false)
 @*@Scripts.Render("~/bundles/Homejquery")*@
 @Scripts.Render("~/Scripts/validator.js")
