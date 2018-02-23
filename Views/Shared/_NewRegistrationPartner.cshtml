@@ -72,7 +72,7 @@
                                                                                                       .Panes(vPanes =>
                                                                                                       {
                                                                                                       vPanes.Add()
-                      .Size("100px")
+                     
                       //.HtmlAttributes(new { style = "height: 100px;"})
                       .Collapsible(true)
                       .Collapsed(true)
@@ -84,7 +84,8 @@
 
                                                                                                     vPanes.Add()
                                                                                                         .Scrollable(false)
-                                                                                                        .Size("1200px")
+                                                                                                        .Size("800px")
+                                                                                                         
                                                                                                         .Content(@<div class="wrap">
                                                                                                             <header>
                                                                                                                 <div class="header-inner">
@@ -230,7 +231,7 @@
                                                                                                     .Size("100px")
                                                                                                     .Resizable(false)
                                                                                                     .Collapsible(true)
-                                                                                                    .Collapsed(true)
+                                                                                                    .Collapsed(false)
                                                                                                     .HtmlAttributes(new { @id = "bottom-panel" })
                                                                                                     .Content(@<div></div>).HtmlAttributes(new { @style = "display:" + ((showSplitter.HasValue && showSplitter.Value) ? "''" : "none") });
                                                                                                     })
@@ -298,7 +299,7 @@
         }
         //$(pane).height($(window).height());
         else {
-            splitter.expand(pane);
+            //splitter.expand(pane);
         }
 
     }

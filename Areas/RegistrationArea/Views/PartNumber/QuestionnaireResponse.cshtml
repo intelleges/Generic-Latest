@@ -4,6 +4,7 @@
 @using Generic.Areas.RegistrationArea.Models
 @using Generic.Helpers
 @using System.Web.Optimization;
+@using Telerik.Web.Mvc.UI;
 @{
 	Layout = Generic.Helpers.LayoutHelper.GetQuestionnaireResponseMaster();
    // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
@@ -22,6 +23,21 @@
 @Styles.Render("~/bundles/registrationCss")
 @Styles.Render("~/bundles/progressBarCss")
 @Scripts.Render("~/bundles/animatedCollapseJs")
+
+<style type="text/css">
+    .t-grid td, t-grid-pager t-grid-bottom {
+        font-size: 10px !important;
+    }
+
+    .t-grid-header .t-header .t-link {
+        font-size: 10px !important;
+        height: 25px !important;
+    }
+
+    .t-splitter .t-scrollable {
+        overflow-x: hidden;
+    }
+</style>
 
 <script type="text/javascript">
 
@@ -329,85 +345,129 @@
 
 
  @section zCodes{
-    @Html.Raw(ViewBag.zcodeList)
-}
-    @*<div class="top-margin">
+     @if (ViewBag.zcodeList is List<Generic.pr_getTransactionRecordAll_Result>)
+     {
+         List<Generic.pr_getTransactionRecordAll_Result> list = ViewBag.zcodeList as List<Generic.pr_getTransactionRecordAll_Result>;
 
-    </div>*@
-
-
-    <section class="page-inner">
-	<div class="container">
-		@Html.Partial("_TopSection")
-		@using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
-		{
-			<div class="questionaire-table">
-
-				<div class="shadow-outer">
-					<div class="shadow-box">
-
-						<div class="box-shadow-dropdown shd-box-btn pre-next-btn">
-							<div class="row">
-								<div class="col-md-2">
-									@Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
-									<br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
-								</div>
-
-								<div class="col-md-3">
-									<span style="font-size: 12px;">
-
-										@Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
-
-									</span>
-									@Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
-									<br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
-								</div>
-
-								<div class="col-md-4">
-									<span style="font-size: 12px;">
-										@Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_SITE)
-									</span>
-									@Html.DropDownList("siteSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Site is required." })
-									<br />     <span class="field-validation-valid" data-valmsg-for="siteSelectList" data-valmsg-replace="true"></span>
-								</div>
-
-								<div class="col-md-3 text-right">
-									<button class="btn btn-default" id="imgBtnPrevious" type="button"><i class="fa fa-angle-double-left"></i></button>
-									<button class="btn btn-default" id="imgBtnNext" type="button"><i class="fa fa-angle-double-right"></i></button>
-								</div>
-							</div>
-						</div>
-                        
-                            @Html.Raw(ViewBag.questions+ "</table>")
+        @Html.Telerik().Grid(list).Name("getTransactionRecordAllGrid").Columns(columns =>
+   {
+       columns.Bound(o => o.id).Title("Id");
+       columns.Bound(o => o.bankName).Title("Bank Name").Width(150);
+       columns.Bound(o => o.bankRole).Title("Bank Role").Width(250);
+       columns.Bound(o => o.country).Title("Country").Width(100);
+       columns.Bound(o => o.entityName).Title("Entity Name").Width(250);
+       columns.Bound(o => o.orderNumber).Title("Order Number");
+       columns.Bound(o => o.orderPrice).Title("Order Price");
+       columns.Bound(o => o.orderTime).Title("Order Time");
+       columns.Bound(o => o.orderType).Title("Order Type");
+       columns.Bound(o => o.pptq).Title("Pptq");
+       columns.Bound(o => o.profit).Title("Profit");
+       columns.Bound(o => o.size).Title("Size");
+       columns.Bound(o => o.sortOrder).Title("Sort Order");
+       columns.Bound(o => o.stopLoss).Title("Stop Loss");
+       columns.Bound(o => o.swap).Title("Swap");
+       columns.Bound(o => o.symbol).Title("Symbol");
+       columns.Bound(o => o.takeProfit).Title("Take Profit");
+       columns.Bound(o => o.tradePrice).Title("Take Price");
+       columns.Bound(o => o.tradeTime).Title("Take Time");
+   }).Filterable(o => o.Enabled(true)).Resizable(o => o.Columns(true));
+     }
+     else if (ViewBag.zcodeList is List<Generic.ZcodeGridItem>)
+     {
+         List<Generic.ZcodeGridItem> list = ViewBag.zcodeList as List<Generic.ZcodeGridItem>;
+        @Html.Telerik().Grid(list).Name("getTransactionRecordAllGrid").Columns(columns =>
+   {
+       columns.Bound(o => o.PartNumber).Title("Part Number");
+       columns.Bound(o => o.Site).Title("Site");
+       columns.Bound(o => o.Zcode).Title("Zcode");
+       columns.Bound(o => o.LIFNR).Title("LIFNR");
+       columns.Bound(o => o.MATNR).Title("MATNR");
+       columns.Bound(o => o.WERKS).Title("WERKS");
+       columns.Bound(o => o.ZPOST).Title("ZPOST");
+       columns.Bound(o => o.ZCFLAG).Title("ZCFLAG");
+       columns.Bound(o => o.COMPLETED_DATE).Title("COMPLETED DATE");
+   }).Filterable(o => o.Enabled(true)).Resizable(o => o.Columns(true));
+     }
 
 
+        }
+        @*<div class="top-margin">
+
+            </div>*@
+
+
+        <section class="page-inner">
+            <div class="container">
+                @Html.Partial("_TopSection")
+                @using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="questionaire-table">
+
+                        <div class="shadow-outer">
+                            <div class="shadow-box">
+
+                                <div class="box-shadow-dropdown shd-box-btn pre-next-btn">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            @Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+                                            <br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <span style="font-size: 12px;">
+
+                                                @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
+
+                                            </span>
+                                            @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+                                            <br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <span style="font-size: 12px;">
+                                                @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_SITE)
+                                            </span>
+                                            @Html.DropDownList("siteSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Site is required." })
+                                            <br />     <span class="field-validation-valid" data-valmsg-for="siteSelectList" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="col-md-3 text-right">
+                                            <button class="btn btn-default" id="imgBtnPrevious" type="button"><i class="fa fa-angle-double-left"></i></button>
+                                            <button class="btn btn-default" id="imgBtnNext" type="button"><i class="fa fa-angle-double-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @Html.Raw(ViewBag.questions + "</table>")
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="hiddenValues">
+                            <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                            <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                            <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+
+                            <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+                            <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
+
+                        </div>
+
+
+                        <div class="pre-next-btn">
+                            <button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            <button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                        </div>
 
                     </div>
-
-				</div>
-				<div class="hiddenValues">
-					<input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
-					<input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
-					<input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
-
-					<input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
-					<input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
-
-				</div>
-
-
-				<div class="pre-next-btn">
-					<button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
-					<button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
-				</div>
-
-			</div>
-		}
-	</div>
+                }
+            </div>
 
 
 
-</section>
+        </section>
 
 
 

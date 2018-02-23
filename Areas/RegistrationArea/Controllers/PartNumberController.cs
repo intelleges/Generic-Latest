@@ -185,7 +185,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             Session["partnumberstatus"] = partnumberStatusSelectList;
             int questionnaireId = (int)Session["questionnaire"];
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
-            ViewBag.showSplitter = objQuestionnaire.letter == 1;
+            ViewBag.showSplitter = (objQuestionnaire.letter == 1 
+                || objQuestionnaire.letter == 99);
+
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
@@ -235,7 +237,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //JB: questionnaire creation part
 
             //JB: setting zcodes (for partnumbers that are completed)
-            getZcodeByProviderProtocolCampaignQuestionnaire();
+            getZcodeByProviderProtocolCampaignQuestionnaire(objQuestionnaire.letter ?? 0);
             //JB: end setting zcodes for partnumer
 
             ViewBag.FormData = objViewBag;
@@ -1198,43 +1200,45 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             catch { }
         }
-        public void getZcodeByProviderProtocolCampaignQuestionnaire()
+
+        public void getZcodeByProviderProtocolCampaignQuestionnaire(int letter)
         {
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             var psz = db.pr_getPartnumberSiteZcodeByPPTQForUI(pptq.id).ToList().Where(x => x.status == "Completed");
-
-            List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
-
-
-            string labeltext = "";
-            if (psz.Count() > 0)
+            //
+            if (letter == 99)
             {
-                labeltext += "<table cellpadding='2' cellspacing='0' border='1' style='width: 100%;'>";
-                labeltext += "<tr><td>Part Number</td><td>Site</td><td>Zcode</td><td>LIFNR</td><td>MATNR</td><td>WERKS</td><td>ZPOST</td><td>ZCFLAG</td><td>COMPLETED DATE</td></tr>";
-                foreach (var dr in psz)
-                {
-                    labeltext += "<tr>";
-                    try
-                    {
-                        labeltext += "<td>" + dr.partnumber + "</td><td>" + dr.site + "</td><td>" + dr.zcode + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().LIFNR + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().MATNR + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().WERKS + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().ZPOST + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().ZCFLAG + "</td><td>" + customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault().COMPLETED_DATE.ToString("MM-dd-yyyy") + "</td>";
-                    }
-                    catch
-                    {
-                        labeltext += "<td>" + dr.partnumber + "</td><td>" + dr.site + "</td><td>" + dr.zcode + "</td><td></td><td></td><td></td><td></td><td></td><td></td>";
-                    }
-                    labeltext += "</tr>";
-                }
-                labeltext += "</table>";
+                var items = db.pr_getTransactionRecordAll().ToList();
+                ViewBag.zcodeList = items;
             }
+            else
+            {
+                List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
+                List<Generic.ZcodeGridItem> list = new List<Generic.ZcodeGridItem>();
+                string labeltext = "";
+                if (psz.Count() > 0)
+                {
+                    foreach (var dr in psz)
+                    {
+                        labeltext += "<tr>";
+                        try
+                        {
+                            var o = customizedLSMW.Where(x => x.PartnumberSiteZcode == dr.id).FirstOrDefault();
 
+                            if (o == null)
+                                list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode, });
+                            else
+                                list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode, LIFNR = o.LIFNR, MATNR = o.MATNR, WERKS=o.WERKS , ZPOST =o.ZPOST, ZCFLAG=o.ZCFLAG, COMPLETED_DATE= o.COMPLETED_DATE.ToString("MM-dd-yyyy") });
+                        }
+                        catch
+                        {
+                            list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode,  });
+                        }
+                    }
+                }
 
-
-
-
-
-            ViewBag.zcodeList = labeltext;
-
-
+                ViewBag.zcodeList = list;
+            }
         }
 
         public ActionResult GetQuestionnaire()

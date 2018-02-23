@@ -2890,6 +2890,7 @@
     <Compile Include="ViewModel\ProtocolViewModel.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="ViewModel\TouchpointViewModel.cs" />
+    <Compile Include="ViewModel\ZcodeGridItem.cs" />
     <Compile Include="view_EnterpriseData.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
