@@ -908,7 +908,7 @@ namespace Generic.Controllers
                         Session["partnertypeId"] = partnertype;
                         Session["level"] = level;
 
-                        var splitterResult =   db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId);
+                        var splitterResult =   db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId).FirstOrDefault();
 
                         partnerTypeTouchpointQuestionnaire objPartnertypeTouchpointQuestionnaire = new partnerTypeTouchpointQuestionnaire();
                         objPartnertypeTouchpointQuestionnaire.partnerType = partnertype;
@@ -1488,7 +1488,7 @@ namespace Generic.Controllers
                             CreateNarrativeHintsForQuestion(hint.Key, hint.Value, questions);
                         }
                         scope.Commit();
-                        splitterResult = db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId);
+                        splitterResult = db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId).FirstOrDefault();
 
                         return RedirectToAction("UploadCMS");
                     }
