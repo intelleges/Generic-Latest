@@ -74,7 +74,7 @@
                                                                                                       vPanes.Add()
                      
                       //.HtmlAttributes(new { style = "height: 100px;"})
-                      .Collapsible(true)
+                      .Collapsible(showSplitter??false)
                       .Collapsed(true)
                       .Resizable(false)
                       .Content(@<div>
@@ -86,7 +86,8 @@
                                                                                                         .Scrollable(false)
                                                                                                         .Size("800px")
                                                                                                          
-                                                                                                        .Content(@<div class="wrap">
+                                                                                                        .Content(
+                                                                                                        @<div class="wrap">
                                                                                                             <header>
                                                                                                                 <div class="header-inner">
                                                                                                                     <div class="row">
@@ -227,13 +228,13 @@
     </div>
 </div>);
 
-                                                                                                    vPanes.Add()
-                                                                                                    .Size("100px")
-                                                                                                    .Resizable(false)
-                                                                                                    .Collapsible(true)
-                                                                                                    .Collapsed(false)
-                                                                                                    .HtmlAttributes(new { @id = "bottom-panel" })
-                                                                                                    .Content(@<div></div>).HtmlAttributes(new { @style = "display:" + ((showSplitter.HasValue && showSplitter.Value) ? "''" : "none") });
+                                                                                                      vPanes.Add()
+                                                                                                      .Size("100px")
+                                                                                                      .Resizable(false)
+                                                                                                      .Collapsible(showSplitter ?? false)
+                                                                                                      .Collapsed(false)
+                                                                                                      .HtmlAttributes(new { @id = "bottom-panel" })
+                                                                                                      .Content(@<div></div>).HtmlAttributes(new { @style = "display:" + ((showSplitter.HasValue && showSplitter.Value) ? "''" : "none") });
                                                                                                     })
     .Render();
     }
@@ -288,8 +289,10 @@
         var pane = $("#Splitter1 > .t-pane")[0]; // the first pane
         if ('@ViewBag.showSplitter'!='True')
         {
-            $(pane).css("display", "none");
-            $($("#Splitter1 > .t-pane")[2]).css("display", "none");
+            //$(pane).replaceWith("");
+            //$($("#Splitter1 > .t-pane")[2]).replaceWith("");
+            //$(pane).css("display", "none");
+            //$($("#Splitter1 > .t-pane")[2]).css("display", "none");
         }
         if (window.location.href.indexOf('PartNumber') == -1) {
             splitter.collapse(pane);
