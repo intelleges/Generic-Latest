@@ -1401,7 +1401,7 @@ namespace Generic.Controllers
                                         jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
                                     }
                                     catch (Exception exp) {
-                                        throw new Exception(exp.Message + " " + excelQuestionnaire.skipLogicJump);
+                                        throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
                                     }
 
                                     if (jumpToQIDstr.Length > 0)

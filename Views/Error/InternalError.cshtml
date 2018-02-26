@@ -44,6 +44,7 @@
                     </h2>
                     <div class="error-details">
                         Sorry, an error has occured, but we're already working to resolve it as soon as possible!
+                        Please contact to us with this error reference: <b>@String.Format("Error Id {0}",HttpContext.Current.Cache != null ? HttpContext.Current.Cache["IncidentId"].ToString() : string.Empty)</b> to get more information.
                     </div>
                     <div class="error-actions">
                         <a href="https://www.intelleges.com" class="btn btn-primary btn-lg">

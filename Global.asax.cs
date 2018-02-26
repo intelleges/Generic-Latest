@@ -1,4 +1,5 @@
-﻿using Generic.Helpers;
+﻿using Elmah;
+using Generic.Helpers;
 using Google.Apis.Services;
 using LightInject;
 using LightInject.Mvc;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -44,8 +46,14 @@ namespace Generic
             routes.IgnoreRoute("elmah.axd");
         }
 
-         
-
-
-      }
+        protected void ErrorLog_Logged(object sender, ErrorLoggedEventArgs args)
+        {
+            args.Entry.Error.Exception.Data.Add("IncidentId", args.Entry.Id);           
+            HttpContext.Current.Cache.Insert("IncidentId", args.Entry.Id, null, DateTime.Now.AddMinutes(10d), Cache.NoSlidingExpiration);
+        }
+        protected void ErrorMail_Mailing(object sender, ErrorMailEventArgs e)
+        {
+            e.Mail.Subject = e.Error.Exception.Data["IncidentId"].ToString();
+        }
+    }
 }

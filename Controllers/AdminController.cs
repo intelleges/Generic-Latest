@@ -53,8 +53,7 @@ namespace Generic.Controllers
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult Index(int? contactUs = 1, string returnUrl = null)
-        {
-
+        {            
             try
             {
                 ViewBag.returnUrl = returnUrl;
@@ -71,7 +70,7 @@ namespace Generic.Controllers
             {
                 //Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
                 return View();
-            }
+            }           
         }
 
         [HttpPost]
