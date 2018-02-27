@@ -1826,8 +1826,9 @@ namespace Generic.Controllers
             }
             catch
             {
-                return RedirectToAction("FindPartner");
-
+                if (!Response.IsRequestBeingRedirected)
+                    return RedirectToAction("FindPartner");
+                else return Json("false");
             }
 
             //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
@@ -1872,19 +1873,19 @@ namespace Generic.Controllers
                         if ((pptq.status == 8 && cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().link != null)
                             || (questionnair != null && questionnair.footer != null && questionnair.footer != "1"))
                         {
-                            Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                            return Redirect("~/Registration/Home/CustomizedPDFConfirmation");
                         }
                         else
                             //otherwise redirect to standart pdf
-                            Response.Redirect("~/Registration/Home/PDFConfirmation");
+                            return Redirect("~/Registration/Home/PDFConfirmation");
                     }
                     else
                     {
-                        Response.Redirect("~/Registration/Home/PDFCustomizedConfirmation");
+                        return Redirect("~/Registration/Home/PDFCustomizedConfirmation");
                     }
                 }
                 else
-                    Response.Redirect("~/Registration/Home/PDFConfirmation");
+                    return Redirect("~/Registration/Home/PDFConfirmation");
 
                 ///Registration/Home/PDFConfirmation
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
@@ -1900,7 +1901,7 @@ namespace Generic.Controllers
                 Session["accessCode"] = accesscode;
                 ///Registration/Home/PDFConfirmation
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
-                Response.Redirect("~/Registration/Home/OrdersInHTML");
+                return Redirect("~/Registration/Home/OrdersInHTML");
             }
             return RedirectToAction("FindPartnerResult");
 

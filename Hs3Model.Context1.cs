@@ -18809,27 +18809,6 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeByPPTQ_Result>("pr_getPartnertypeByPPTQ", pptqParameter);
         }
     
-        public virtual ObjectResult<pr_getLCE_Special_Data_Result> pr_getLCE_Special_Data(Nullable<int> person, string designationNumber, string programName, Nullable<System.DateTime> dueDate)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var designationNumberParameter = designationNumber != null ?
-                new ObjectParameter("designationNumber", designationNumber) :
-                new ObjectParameter("designationNumber", typeof(string));
-    
-            var programNameParameter = programName != null ?
-                new ObjectParameter("programName", programName) :
-                new ObjectParameter("programName", typeof(string));
-    
-            var dueDateParameter = dueDate.HasValue ?
-                new ObjectParameter("dueDate", dueDate) :
-                new ObjectParameter("dueDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLCE_Special_Data_Result>("pr_getLCE_Special_Data", personParameter, designationNumberParameter, programNameParameter, dueDateParameter);
-        }
-    
         public virtual ObjectResult<pr_getPPTQTeamRacixByPPTQ_Grid_Result> pr_getPPTQTeamRacixByPPTQ_Grid(Nullable<int> pptq)
         {
             var pptqParameter = pptq.HasValue ?
@@ -21777,11 +21756,11 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQTeamRacixByPPTQ_Grid_2_Result1>("pr_getPPTQTeamRacixByPPTQ_Grid_2", pptqParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(Nullable<int> id, Nullable<int> score, Nullable<int> priority)
+        public virtual ObjectResult<Nullable<int>> pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(Nullable<int> pptq, Nullable<int> score, Nullable<int> priority)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
     
             var scoreParameter = score.HasValue ?
                 new ObjectParameter("score", score) :
@@ -21791,7 +21770,7 @@ namespace Generic
                 new ObjectParameter("priority", priority) :
                 new ObjectParameter("priority", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority", idParameter, scoreParameter, priorityParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority", pptqParameter, scoreParameter, priorityParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireTagComment(Nullable<int> questionnaire, Nullable<int> tag, string comment, Nullable<int> sortOrder, Nullable<bool> active)
@@ -23107,6 +23086,31 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getScenarioByTouchpoint_Result>("pr_getScenarioByTouchpoint", touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getLCE_Special_Data_Result> pr_getLCE_Special_Data(Nullable<int> person, string designationNumber, string programName, Nullable<System.DateTime> dueDate, Nullable<int> activitytype)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var designationNumberParameter = designationNumber != null ?
+                new ObjectParameter("designationNumber", designationNumber) :
+                new ObjectParameter("designationNumber", typeof(string));
+    
+            var programNameParameter = programName != null ?
+                new ObjectParameter("programName", programName) :
+                new ObjectParameter("programName", typeof(string));
+    
+            var dueDateParameter = dueDate.HasValue ?
+                new ObjectParameter("dueDate", dueDate) :
+                new ObjectParameter("dueDate", typeof(System.DateTime));
+    
+            var activitytypeParameter = activitytype.HasValue ?
+                new ObjectParameter("activitytype", activitytype) :
+                new ObjectParameter("activitytype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLCE_Special_Data_Result>("pr_getLCE_Special_Data", personParameter, designationNumberParameter, programNameParameter, dueDateParameter, activitytypeParameter);
         }
     }
 }
