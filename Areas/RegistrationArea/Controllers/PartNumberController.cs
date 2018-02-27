@@ -572,7 +572,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (goEsignature == "true")
                     {
 
-                        Response.Redirect("../Home/eSignature");
+                        return Redirect("../Home/eSignature");
 
                     }
 
@@ -739,7 +739,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return result;
         }
 
-        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)
+        private RedirectResult goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 0, int pageQ = 0, int pageNumberQ = 0)
         {
             int pageId = 0;
             int pageNumber = 0;
@@ -802,18 +802,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
+                        return Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
  "&siteSelectList=" + siteSelectList + "&partnumberStatusSelectList=" + partnumberStatusSelectList + "&pageNumber=" + pageNumber.ToString() +
                                 "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                                 + "&questionIndex=" + questionIndex.ToString() + skip);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
                     }
                     else
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
                     }
                 }
                 else
@@ -883,7 +883,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         if (flag == 0)
                         {
-                            Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + Session["NextPartnumber"] +
+                            return Redirect("QuestionnaireResponse?partNumberSelectList=" + Session["NextPartnumber"] +
 "&siteSelectList=" + Session["site"] + "&partnumberStatusSelectList=" + Session["partnumberstatus"]);
 
                         }
@@ -893,7 +893,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             Session["partnumber"] = null;
                             Session["site"] = null;
                             Session["partnumberstatus"] = null;
-                            Response.Redirect("~/Registration/Home/eSignature");
+                            return Redirect("~/Registration/Home/eSignature");
                         }
                     }
                     else
@@ -903,7 +903,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         Session["partnumber"] = null;
                         Session["site"] = null;
                         Session["partnumberstatus"] = null;
-                        Response.Redirect("~/Registration/Home/eSignature");
+                        return Redirect("~/Registration/Home/eSignature");
                     }
                 }
 
@@ -914,25 +914,25 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        Response.Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
+                        return Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
 "&siteSelectList=" + siteSelectList + "&partnumberStatusSelectList=" + partnumberStatusSelectList + "&pageNumber=" + pageNumber.ToString() +
                               "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                               + "&questionIndex=" + questionIndex.ToString() + skip);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
                     }
                     else
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
                     }
                 }
                 else
                 {
 
 
-                    Response.Redirect("~/Registration/Home/eSignature");
+                    return Redirect("~/Registration/Home/eSignature");
 
                 }
             }

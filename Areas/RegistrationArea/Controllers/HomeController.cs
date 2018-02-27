@@ -1630,10 +1630,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             if (!formCollection.Keys.Cast<string>().Any(o => o.StartsWith("question_")) && canGoNextByBlockedQuestions)
             {
-                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
-                if (!Response.IsRequestBeingRedirected)
-                    return Redirect("QuestionnaireResponse?questionIndex=" + questionIndex + "&jumpToQuestion=" + jumpToQuestion + "&page=" + page + "&pageNumber=" + pageNumber);
-                else return QuestionnaireResponse(questionIndex, jumpToQuestion, page, pageNumber);
+                return goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
+                //if (!Response.IsRequestBeingRedirected)
+                //    return Redirect("QuestionnaireResponse?questionIndex=" + questionIndex + "&jumpToQuestion=" + jumpToQuestion + "&page=" + page + "&pageNumber=" + pageNumber);
+                //else return QuestionnaireResponse(questionIndex, jumpToQuestion, page, pageNumber);
             }
             foreach (var keyName in formCollection.Keys)
             {
@@ -1962,7 +1962,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             else
             {
-                goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
+                return goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
             }
 
             #endregion
@@ -1989,7 +1989,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
 
-        private void goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int pageQ = 0, int pageNumberQ = 0)
+        private RedirectResult goToNextPage(int surveyId, int jumpToQuestion, int questionIndex, question question, string skip, int errorQuestion, string errorMessage, int pageQ = 0, int pageNumberQ = 0)
         {
             int pageId = 0;
             int pageNumber = 0;
@@ -2077,17 +2077,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        Response.Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
+                        return Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
                                 "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                                 + "&questionIndex=" + questionIndex.ToString() + skip);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
                     }
                     else
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
                     }
                 }
                 else
@@ -2105,7 +2105,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //Provider provider = new Provider(new Id(providerId));
                     //Campaign campaign = new Campaign(new Id(Convert.ToInt32(Session["campaign"])));
                     //provider.updateSurveyProgressBar(provider, campaign, 80);
-                    Response.Redirect("~/Registration/Home/eSignature");
+                    return Redirect("~/Registration/Home/eSignature");
                     // }
                 }
             }
@@ -2115,17 +2115,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        Response.Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
+                        return Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
                            "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                            + "&questionIndex=" + questionIndex.ToString() + skip);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString() + errorQueryString);
                     }
                     else
                     {
-                        Response.Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
+                        return Redirect("QuestionnaireResponse?" + Request.QueryString.ToString());
                     }
                 }
                 else
@@ -2137,7 +2137,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     //else
                     //{
 
-                    Response.Redirect("~/Registration/Home/eSignature");
+                    return Redirect("~/Registration/Home/eSignature");
                     //}
                 }
             }
@@ -3696,7 +3696,7 @@ Intelleges Team";
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                Response.Redirect("~/Registration/Home/PDFConfirmation");
+                return Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("~/Registration/Home");
         }
@@ -13603,8 +13603,8 @@ Intelleges Team";
                 Session["accessCode"] = accesscode;
                 var prGetQuestionnaireByAccesscodeResult = db.pr_getQuestionnaireByAccesscode(accesscode).FirstOrDefault();
                 if (prGetQuestionnaireByAccesscodeResult != null && prGetQuestionnaireByAccesscodeResult.footer != "1")
-                    Response.Redirect("~/Registration/Home/CustomizedPDFConfirmation");
-                else Response.Redirect("~/Registration/Home/PDFConfirmation");
+                    return Redirect("~/Registration/Home/CustomizedPDFConfirmation");
+                else return Redirect("~/Registration/Home/PDFConfirmation");
             }
             return RedirectToAction("~/Registration/Home");
         }
