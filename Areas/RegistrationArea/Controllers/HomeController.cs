@@ -1555,7 +1555,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             #region Method Body
             if (Session["hs3Registration"] == null)
             {
-                return RedirectToAction("Default");
+                if (!Response.IsRequestBeingRedirected)
+                    return RedirectToAction("Default");
+                else return View();
             }
 
             //[2] = "question_454_1171_fileUploadComment"
@@ -1629,7 +1631,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             if (!formCollection.Keys.Cast<string>().Any(o => o.StartsWith("question_")) && canGoNextByBlockedQuestions)
             {
                 goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, page, pageNumber);
-                return Redirect("QuestionnaireResponse?questionIndex=" + questionIndex + "&jumpToQuestion=" + jumpToQuestion + "&page=" + page + "&pageNumber=" + pageNumber);
+                if (!Response.IsRequestBeingRedirected)
+                    return Redirect("QuestionnaireResponse?questionIndex=" + questionIndex + "&jumpToQuestion=" + jumpToQuestion + "&page=" + page + "&pageNumber=" + pageNumber);
+                else return QuestionnaireResponse(questionIndex, jumpToQuestion, page, pageNumber);
             }
             foreach (var keyName in formCollection.Keys)
             {
@@ -1915,7 +1919,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 //    partnerId = (int)Session["partnerId"];
                 //    quetionnaireId = (int)Session["questionnaire"];
 
-                Response.Redirect("eSignature");
+                return Redirect("eSignature");
                 // }
             }
 
