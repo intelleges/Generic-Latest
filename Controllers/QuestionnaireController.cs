@@ -17,6 +17,7 @@ using Generic.Helpers;
 using System.Data.Entity;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Generic.Helpers.Exceptions;
 
 namespace Generic.Controllers
 {
@@ -1400,6 +1401,10 @@ namespace Generic.Controllers
                                     {
                                         jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
                                     }
+                                    catch(WrongSkipLogicJumpColumn ex)
+                                    {
+                                        throw ex;
+                                    }
                                     catch (Exception exp) {
                                         throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
                                     }
@@ -1494,11 +1499,11 @@ namespace Generic.Controllers
                     }
                     catch (Exception ex)
                     {
-                        try
+                        if (ex.InnerException != null)
                         {
                             ViewBag.Error = ex.InnerException.Message;
                         }
-                        catch
+                        else
                         {
                             ViewBag.Error = ex.Message;
                         }
@@ -1719,6 +1724,10 @@ namespace Generic.Controllers
                             var response = responses.FirstOrDefault(o => o.description.Contains("(" + value + ")"));
                             if (response != null)
                                 value = response.id.ToString();
+                            else
+                            {
+                                throw new WrongSkipLogicJumpColumn(value);
+                            }
                             //}
                         }
                         if (j != subSrting.Length - 1)
@@ -1919,7 +1928,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public void UploadExcelData(string id)
+        public ActionResult UploadExcelData(string id)
         {
             string questionnaireid = id;
 
@@ -1976,7 +1985,7 @@ namespace Generic.Controllers
             }
 
 
-            Response.Redirect(Url.Action("QuestionnaireQuestionnaireCMS", "Questionnaire", new { id = id }));
+            return Redirect(Url.Action("QuestionnaireQuestionnaireCMS", "Questionnaire", new { id = id }));
             // return RedirectToAction("QuestionnaireQuestionnaireCMS", new { id = int.Parse(id) });
             // return QuestionnaireQuestionnaireCMS(int.Parse(id));
             //  return RedirectToAction("QuestionnaireQuestionnaireCMS");

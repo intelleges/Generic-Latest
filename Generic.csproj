@@ -768,6 +768,7 @@
     <Compile Include="Helpers\DatabaseTranslationService.cs" />
     <Compile Include="Helpers\EvernoteAuthorizer.cs" />
     <Compile Include="Helpers\ExcelMapper.cs" />
+    <Compile Include="Helpers\Exceptions\WrongSkipLogicJumpColumn.cs" />
     <Compile Include="Helpers\ExtentionMethods.cs" />
     <Compile Include="Helpers\GmailHelper.cs" />
     <Compile Include="Helpers\GoogleTranslatorHelper.cs" />

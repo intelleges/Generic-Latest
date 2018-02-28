@@ -19,7 +19,7 @@ namespace Generic.Areas.RegistrationArea.Services
                 var bitwiseDocs = (FilesUploaded)db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault().score;
                 if (!bitwiseDocs.HasFlag(bitwiseValue)) return 0;
             }
-            string[] strQuestionLogic = objQuestion.skipLogicJump.Split(';');
+            string[] strQuestionLogic = objQuestion.skipLogicJump.Split(";".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
             for (int k = 0; k < strQuestionLogic.Length - 1; k++)
             {
                 string[] subStrQuestionlogic = strQuestionLogic[k].Split("&|".ToCharArray());
