@@ -91,6 +91,15 @@
             width: 215px !important;
         }
     </style>
+    <style>
+        #fb-content1 {
+            font-family: 'Avenir LT Std' !important;
+        }
+
+            #fb-content1 .btn-send-contactUs {
+                background-color: #ff5f67;
+            }
+    </style>
 </head>
 
 
@@ -145,28 +154,28 @@
     }
 
     @{Html.Telerik().Splitter().Name("Splitter1")
-                .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
-                .Orientation(SplitterOrientation.Vertical)
-                .Panes(vPanes =>
-                {
-                    vPanes.Add()
-                    .Size("70%")
-                    //.MaxSize("50%")
-                    .Collapsible(true)
-                    .Collapsed(true)
-                    .Resizable(false)
-                    .Content(gridHtml);
+                            .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
+                            .Orientation(SplitterOrientation.Vertical)
+                            .Panes(vPanes =>
+                            {
+                                vPanes.Add()
+                                .Size("70%")
+                                //.MaxSize("50%")
+                                .Collapsible(true)
+                                .Collapsed(true)
+                                .Resizable(false)
+                                .Content(gridHtml);
 
-                    vPanes.Add()
-                    .Scrollable(false)
-                    .Size("100%")
-                    .Content(Html.Telerik().Splitter().Name("Splitter2")
-                    .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; " })
-                    .Orientation(SplitterOrientation.Horizontal)
-                    .ClientEvents(events => events.OnLoad("onSplitter2Load"))
-                    .Panes(hPanes =>
-                    {
-                    hPanes.Add()
+                                vPanes.Add()
+                                .Scrollable(false)
+                                .Size("100%")
+                                .Content(Html.Telerik().Splitter().Name("Splitter2")
+                                .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; " })
+                                .Orientation(SplitterOrientation.Horizontal)
+                                .ClientEvents(events => events.OnLoad("onSplitter2Load"))
+                                .Panes(hPanes =>
+                                {
+                                hPanes.Add()
                 .Size("35%")
                 .Collapsible(true).Collapsed(true)
                 .Content(@<div>
@@ -175,199 +184,233 @@
                 </div>
 );
 
-                    hPanes.Add()
-                    .Content(@<div id="body">
-                            @RenderSection("featured", required: false)
-                            <header>
-                                <div class="content-wrapper main-content clear-fix">
-                                    <div>
-                                        <div class="admin-logo">
-                                            <div class="site-title">
-                                                <a id="IntellegesLogoHref" href="#">
-                                                    @Html.Action("InstanceLogo", "Admin")
-                                                </a>
-                                                @*<div class="chat-image">
-                                                    <img src="~/Content/image-chat.png" width="32" style="width:32px;" onclick="opennSubmitPopup();" />
-                                            <p class="img__description">
-                                                Your suggestions, ideas and complaints will greatly help us.
-                                            </p>
-                                        </div>*@
-                                        </div>
+                                hPanes.Add()
+                                .Content(@<div id="body">
+                                        @RenderSection("featured", required: false)
+                                        <header>
+                                            <div class="content-wrapper main-content clear-fix">
+                                                <div>
+                                                    <div class="admin-logo">
+                                                        <div class="site-title">
+                                                            <a id="IntellegesLogoHref" href="#">
+                                                                @Html.Action("InstanceLogo", "Admin")
+                                                            </a>
+                                                            @*<div class="chat-image">
+                                                                            <img src="~/Content/image-chat.png" width="32" style="width:32px;" onclick="opennSubmitPopup();" />
+                                                                    <p class="img__description">
+                                                                        Your suggestions, ideas and complaints will greatly help us.
+                                                                    </p>
+                                                                </div>*@
+                                                        </div>
 
-                                        <form id="selectlogoForm" enctype="multipart/form-data">
-                                            <input type="file" id="selectlogo" style="display:none;" />
-                                        </form>
+                                                        <form id="selectlogoForm" enctype="multipart/form-data">
+                                                            <input type="file" id="selectlogo" style="display:none;" />
+                                                        </form>
+                                                    </div>
+
+                                                    <div style="float: left; top: -20px; position: relative; left: 20px;">
+                                                        @* <h1>STANDARD EDITION</h1>*@
+                                                    </div>
+                                                    <div class="admin-nav-about">
+                                                        <nav>
+                                                            <ul id="menu">
+
+                                                                <li>@Html.ActionLink("Home", "Home", "Admin")</li>
+                                                                <li>@Html.ActionLink("About", "About", "Home")</li>
+                                                                <li><a href="#" onclick="opennSubmitPopup();">Contact Us</a></li>
+                                                                <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+
+                                                </div>
+
+                                                @*<div class="clear-fix"></div>*@
+
+                                                <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
+                                                <div class="clear-fix"></div>
+
+                                                @Html.Action("Menu", "Admin")
+
+
+                                            </div>
+                                        </header>
+                                        <section class="content-wrapper main-content clear-fix">
+
+
+                                            <div style="margin-top: -20px;">
+
+                                                @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
+                                                {
+                                                    <div id="rootMenu" style="float:left;">
+                                                        @*<a href="#">Welcome</a>
+                                                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
+                                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
+                                                            <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
+                                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>*@
+                                                        @*<a href="@Url.Content("~/Admin/View1")">View 1</a>
+                                                            <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                                                            <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
+                                                        @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
+                                                        <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
+
+
+                                                        <a href="@Url.Content("~/Admin/Icons")">Icons</a>
+
+
+
+
+
+
+                                                        @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
+                                                        <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
+
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    //touchpoints = objAdminController.GetAllTouchPoints();
+                                                    touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+                                                    groups = ViewBag.Groups as IEnumerable<SelectListItem>;
+
+                                                    <div style="float:left;" id="type">
+                                                        @*<b>Select Touchpoint</b>*@
+                                                        @if (touchpoints != null)
+                                                        {
+                                                            @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
+                                                        }
+                                                        else
+                                                        {
+                                                            <select id="Touchpoint" name="Touchpoint">
+                                                                <option value="">Select Touchpoint</option>
+                                                            </select>
+                                                        }
+                                                        @if (groups != null)
+                                                        {
+                                                            @Html.DropDownList("Group", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
+                                                        }
+                                                        else
+                                                        {
+                                                            <select id="Group" name="group">
+                                                                <option value="">Select Group</option>
+                                                            </select>
+                                                        }
+
+                                                    </div>
+                                                }
+                                                <div>
+                                                    <select id="reports" name="reports" style="margin: 10px 10px 10px 1px;">
+                                                        <option value="">Select Report</option>
+
+                                                        @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
+                                                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
+
+                                                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
+                                                        <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
+                                                        <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
+                                                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
+                                                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
+                                                        <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
+                                                        <option value="@Url.Content("~/Partner/GetTwillioCallsHistory")">Calls Report</option>
+                                                    </select>
+
+
+
+                                                    @Html.Action("downloadTemplate", "Admin")
+                                                </div>
+
+                                            </div>
+
+
+
+                                            @RenderBody()
+
+                                        </section>
+                                    </div>);
+
+
+                                }).ToString());
+
+                            vPanes.Add()
+                            .Size("35%")
+                            .Collapsible(true).Collapsed(true)
+                            .Content(@<footer>
+                                @RenderSection("bottomSplitter", required: false)
+                                <div class="content-wrapper">
+
+                                    <div class="float-left">
+                                        <p>
+                                            <div class="admin-touchpoints">
+                                                @try
+                                                {
+                                                    <text>Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")</text>
+                                                }
+                                                catch { }
+
+
+
+                                            </div>
+                                        </p>
                                     </div>
 
-                                        <div style="float: left; top: -20px; position: relative; left: 20px;">
-                                            @* <h1>STANDARD EDITION</h1>*@
-                                        </div>
-                                        <div class="admin-nav-about">
-                                            <nav>
-                                                <ul id="menu">
-
-                                                    <li>@Html.ActionLink("Home", "Home", "Admin")</li>
-                                                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                                                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                                                    <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-
+                                    <div class="float-right">
+                                        <p>&copy; @DateTime.Now.Year - Intelleges</p>
                                     </div>
-
-                                    @*<div class="clear-fix"></div>*@
-
-                                    <div style="float: right">Hello, @LoginName - @EnterpriseName -- @ProductName, @SubscriptionTypeName, @SubscriptionStatusName</div>
-                                    <div class="clear-fix"></div>
-
-                                    @Html.Action("Menu", "Admin")
-
-
                                 </div>
-                            </header>
-                            <section class="content-wrapper main-content clear-fix">
-
-
-                                <div style="margin-top: -20px;">
-
-                                    @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
-                                    {
-                                        <div id="rootMenu" style="float:left;">
-                                            @*<a href="#">Welcome</a>
-                                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
-                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
-                                            <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
-                                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>*@
-                                            @*<a href="@Url.Content("~/Admin/View1")">View 1</a>
-                                            <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                                            <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
-                                            @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
-                                            <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
-
-                                            
-                                            <a href="@Url.Content("~/Admin/Icons")">Icons</a>
-
-
-                                            
-
-                                            
-
-                                            @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
-                                            <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
-
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        //touchpoints = objAdminController.GetAllTouchPoints();
-                                        touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
-                                        groups = ViewBag.Groups as IEnumerable<SelectListItem>;
-
-                                        <div style="float:left;" id="type">
-                                            @*<b>Select Touchpoint</b>*@
-                                            @if (touchpoints != null)
-                                            {
-                                                @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
-                                            }
-                                            else
-                                            {
-                                                <select id="Touchpoint" name="Touchpoint">
-                                                    <option value="">Select Touchpoint</option>
-                                                </select>
-                                            }
-                                            @if (groups != null)
-                                            {
-                                                @Html.DropDownList("Group", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
-                                            }
-                                            else
-                                            {
-                                                <select id="Group" name="group">
-                                                    <option value="">Select Group</option>
-                                                </select>
-                                            }
-
-                                        </div>
-                                    }
-                                    <div>
-                                        <select id="reports" name="reports" style="margin: 10px 10px 10px 1px;">
-                                            <option value="">Select Report</option>
-
-                                            @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
-                                                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
-
-                                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
-                                            <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
-                                            <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
-                                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
-                                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
-                                            <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
-                                            <option value="@Url.Content("~/Partner/GetTwillioCallsHistory")">Calls Report</option>
-                                        </select>
-
-
-
-                                        @Html.Action("downloadTemplate", "Admin")
-                                    </div>
-
-                                </div>
-
-
-
-                                @RenderBody()
-
-                            </section>
-                        </div>);
-
-
-                    }).ToString());
-
-                vPanes.Add()
-                .Size("35%")
-                .Collapsible(true).Collapsed(true)
-                .Content(@<footer>
-                    @RenderSection("bottomSplitter", required: false)
-                    <div class="content-wrapper">
-
-                        <div class="float-left">
-                            <p>
-                                <div class="admin-touchpoints">
-                                    @try
-                                    {
-                                        <text>Default Touchpoint: @Html.Action("TouchpointCombobox", "Admin")</text>
-                                    }
-                                    catch { }
-
-
-
-                                </div>
-                            </p>
-                        </div>
-
-                        <div class="float-right">
-                            <p>&copy; @DateTime.Now.Year - Intelleges</p>
-                        </div>
-                    </div>
-                </footer>);
-                })
+                            </footer>);
+                            })
                 .Render();
     }
 
-    <div id="fb-content1" style="display:none;">
-        <div class="support-popup">
-            <p class="header-popup"><img src="~/Content/image-chat.png" width="32" style="width:32px;" /></p>
-            <p class="header-popup-p"> How can we make this web/mobile application better for you?</p>
-            <textarea placeholder="Your suggestions, ideas and complaints will greatly help us." maxlength="1500" required></textarea>
-            <br />
-        
-                <div class="tw-bs buttons">
-                    <button type="button" class="btn btn-primary" onclick="sendRequest($(this).parent().parent().find('textarea').val());">Send</button>
-                    <button type="button" class="btn btn-default" onclick="$.fancybox.close();">Cancel</button>
+    @*<div id="fb-content1" style="display:none;">
+            <div class="support-popup">
+
+                <div class="header-popup"><h2 class="header-popup"> How can we help you?</h2><img src="~/Content/login/images/intelleges/intelleges-icon.png" width="64" style="width:64px;" />
+        </div>
+                <p class="header-popup">For immediate assistance please call <b>@ViewBag.masterFirstLastNames @@ @ViewBag.masterPhone</b></p>
+                <textarea placeholder="Your suggestions, ideas and complaints will greatly help us." maxlength="1500" required></textarea>
+                <br />
+
+                    <div class="tw-bs buttons">
+                        <button type="button" style="background-color: #ff5f67;" class="btn btn-primary" onclick="sendRequest($(this).parent().parent().find('textarea').val());">Submit</button>
+                        <button type="button" class="btn btn-default" onclick="$.fancybox.close();">Cancel</button>
+                    </div>
+
+            </div>
+        </div>*@
+    <style>
+        .tw-bs .container  .modal-backdrop{
+            z-index:initial;
+        }
+    </style>
+    <div class="tw-bs">
+        <div class="container">
+            <div class="modal fade" tabindex="-1" role="dialog" id="fb-content1" area-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title" style="font-size:22px;"><b>How can we help you?</b>
+                                <img class="pull-right" src="~/Content/login/images/intelleges/intelleges-icon.jpg" style="    width: 38px;
+    " />
+                                @*margin-left: 250px;<button type="button" class="pull-right close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>*@
+                            </div>
+                        </div>
+                        <div class="modal-body">  
+                            
+                            <textarea maxlength="1500" required style="height: 150px;" class="form-control"></textarea>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <span class="pull-left"> For immediate assistance please call <b>@ViewBag.masterFirstLastNames @@ @ViewBag.masterPhone</b></span>
+                            <button type="button" style="background-color: #ff5f67;" class="btn btn-primary" onclick="sendRequest($(this).parent().parent().find('textarea').val());">Submit</button>
+                        </div>
+                    </div>
                 </div>
-           
+            </div>
         </div>
     </div>
-
     <div id="popup" style="display:none;">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
@@ -391,8 +434,8 @@
 
                     });
                 });
-
-            $.fancybox.close();
+            $("#fb-content1").modal("toggle");
+            //$.fancybox.close();
         }
 
         function onSplitter2Load(e) {
@@ -422,30 +465,31 @@
 
         function opennSubmitPopup()
         {
-            $.fancybox({
-                'content': $('#fb-content1').html(),
-                closeBtn: false,
-                closeClick: false,
-                modal: false,
-                type: 'html',
-                width: 400,
-                height: 300,
-                padding:0,
-                afterClose: function () {
-                },
-                afterShow: function () {
-                    $('html').removeClass('fancybox-lock');
+            $("#fb-content1").modal("toggle");
+            //$.fancybox({
+            //    'content': $('#fb-content1').html(),
+            //    closeBtn: false,
+            //    closeClick: false,
+            //    modal: false,
+            //    type: 'html',
+            //    width: 400,
+            //    height: 300,
+            //    padding:0,
+            //    afterClose: function () {
+            //    },
+            //    afterShow: function () {
+            //        $('html').removeClass('fancybox-lock');
 
-                    // fancybox-margin fancybox-lock
-                },
-                helpers: {
-                    overlay: {
-                        css: {
-                            'background': 'rgba(0, 0, 0, 0.5)'
-                        }
-                    }
-                }
-            });
+            //        // fancybox-margin fancybox-lock
+            //    },
+            //    helpers: {
+            //        overlay: {
+            //            css: {
+            //                'background': 'rgba(0, 0, 0, 0.5)'
+            //            }
+            //        }
+            //    }
+            //});
         }
 
         //function OpenManualAddModalFullWidth(url) {
@@ -613,29 +657,29 @@
     </text>)
     )
 
-@if (Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
-{
+    @if (Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
+    {
 
-    <script>
-        function Update_Dashboard_Values() {
-            var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
-            var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
-            window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
-        }
-    </script>
-}
+        <script>
+            function Update_Dashboard_Values() {
+                var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+                var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+                window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
+            }
+        </script>
+    }
 
 
-@if (Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
-{
-    <script>
-        function Update_Dashboard_Values() {
-            var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
-            var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
-            window.location = "dashboard2_1?id=" + touchPointId + "&groupid=" + groupId;
-        }
-    </script>
-}
+    @if (Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
+    {
+        <script>
+            function Update_Dashboard_Values() {
+                var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+                var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+                window.location = "dashboard2_1?id=" + touchPointId + "&groupid=" + groupId;
+            }
+        </script>
+    }
 
 </body>
 

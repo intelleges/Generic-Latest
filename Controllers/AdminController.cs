@@ -536,6 +536,12 @@ namespace Generic.Controllers
             //db.pr_getrol
             if (enterprise != null)
             {
+                var master = db.pr_getSystemMaster(enterprise.id).FirstOrDefault();
+                if (master != null)
+                {
+                    ViewBag.masterFirstLastNames = master.firstName + " " + master.lastName;
+                    ViewBag.masterPhone = master.phone;
+                }
                 ViewBag.enterpriseName = enterprise.description;
                 try
                 {
