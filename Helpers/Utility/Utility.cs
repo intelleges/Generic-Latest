@@ -24,7 +24,7 @@ namespace Generic.Helpers.Utility
             // TODO: Add constructor logic here
             //
         }
-
+       
         public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null, List<AttachmentInfo> attachments = null)
         {
             EntitiesDBContext db = new EntitiesDBContext();
@@ -368,124 +368,6 @@ namespace Generic.Helpers.Utility
             set { _emailBounceType = value; }
         }
     }
-
-    //public class GridViewTemplate : Page, ITemplate
-    //{
-    //    public GridViewTemplate(ListItemType listItemType, string columnName, string controlType)
-    //    {
-    //        this.listItemType = listItemType;
-    //        this.columnName = columnName;
-    //        this.controlType = controlType;
-    //    }
-
-    //    //control types: 1 textBox; 2 checkBox; 3 radioButton; 4 dropDownList; 5 linkButton; 6 literal 
-    //    private ListItemType _listItemType;
-    //    private string _columnName;
-    //    private string _controlType;
-
-    //    public string controlType
-    //    {
-    //        get { return _controlType; }
-    //        set { _controlType = value; }
-    //    }
-
-    //    public string columnName
-    //    {
-    //        get { return _columnName; }
-    //        set { _columnName = value; }
-    //    }
-
-    //    public ListItemType listItemType
-    //    {
-    //        get { return _listItemType; }
-    //        set { _listItemType = value; }
-    //    }
-
-    //    public void InstantiateIn(Control container)
-    //    {
-
-    //        Literal literal = new Literal();
-    //        Literal literal1 = new Literal();
-    //        Literal literal2 = new Literal();
-    //        LinkButton linkButton = new LinkButton();
-    //        CheckBox checkBox = new CheckBox();
-    //        TextBox textBox = new TextBox();
-    //        DropDownList dropDownList = new DropDownList();
-    //        RadioButton radioButton = new RadioButton();
-    //        RadioButtonList radioButtonList = new RadioButtonList();
-
-    //        switch (listItemType)
-    //        {
-
-    //            case ListItemType.Header:
-    //                if (this.controlType == "literal")
-    //                {
-    //                    literal.ID = "literalHeader";
-    //                }
-    //                else
-    //                {
-    //                    literal.Text = columnName;
-    //                }
-    //                container.Controls.Add(literal);
-    //                break;
-
-    //            case ListItemType.Item:
-    //                //control types: 1 textBox; 2 checkBox; 3 radioButtonList; 4 dropDownList; 5 linkButton; 6 literal 
-    //                switch (this.controlType)
-    //                {
-    //                    case "textBox":
-    //                        textBox.ID = "textBox";
-    //                        container.Controls.Add(textBox);
-    //                        break;
-    //                    case "checkBox":
-    //                        checkBox.ID = "checkBox";
-    //                        container.Controls.Add(checkBox);
-    //                        break;
-    //                    case "radioButton":
-    //                        radioButton.ID = "radioButton";
-    //                        container.Controls.Add(radioButton);
-    //                        break;
-    //                    case "dropDownList":
-    //                        dropDownList.ID = "dropDownList";
-    //                        container.Controls.Add(dropDownList);
-    //                        break;
-    //                    case "linkButton":
-    //                        linkButton.ID = "linkButton";
-    //                        container.Controls.Add(linkButton);
-    //                        break;
-    //                    case "literal":
-    //                        literal.ID = "literal";
-    //                        container.Controls.Add(literal);
-    //                        break;
-    //                    case "literal1":
-    //                        literal1.ID = "literal1";
-    //                        container.Controls.Add(literal1);
-    //                        break;
-    //                    case "literal2":
-    //                        literal2.ID = "literal2";
-    //                        container.Controls.Add(literal2);
-    //                        break;
-    //                    default:
-    //                        break;
-    //                }
-
-    //                break;
-
-    //            case ListItemType.EditItem:
-    //                TextBox newTextBox = new TextBox();
-    //                newTextBox.Text = "";
-    //                container.Controls.Add(newTextBox);
-    //                break;
-
-    //            case ListItemType.Footer:
-
-    //                literal.Text = "<I>" + columnName + "</I>";
-    //                container.Controls.Add(literal);
-    //                break;
-    //        }
-    //    }
-    //}
-
     public class FormatedPhone
     {
         public FormatedPhone(string phone)

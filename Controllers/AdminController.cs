@@ -1596,52 +1596,33 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult SendRequest(string text)
         {
+            SendEmail objSendEmail = new SendEmail();
             var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).First();
-
-            var phone = Regex.Replace(person.phone, @"(\d{1,3})(\d{0,3})(\d{0,4})", "($1) $2-$3");
-            int numbers3 = 0;
-            var resultString = Regex.Match(phone, @"\d+").Value;
-
-            if (resultString[0] != '1' && resultString.Length > 2)
-                numbers3 = int.Parse(resultString.Substring(0, 3));
-            else if (resultString[0] == '1' && resultString.Length > 3)
-                numbers3 = int.Parse(resultString.Substring(1, 3));
-
-            var ac = db.pr_getAreaCodeTimeZoneByAreaCode(numbers3).FirstOrDefault();
-            string msg = "Email: " + person.email + "\n" + "Phone: " + phone;
-            msg += "\nFirst Name: " + person.firstName;
-            msg += "\nLast Name: " + person.lastName;
-            msg += "\nCountry: " + person.country;
-            msg += "\nText: " + text;
-            string ip = Request.UserHostAddress;
-
-            /* try
-             {
-                 using (WebClient wc = new WebClient())
-                 {
-                     var json = wc.DownloadString("https://freegeoip.net/json/" + ip);
-                     dynamic stuff = JsonConvert.DeserializeObject(json);
-                     msg += "\nCountry: " + stuff.country_name;
-                     msg += "\nRegion: " + stuff.region_name;
-                     msg += "\nCity: " + stuff.city;
-                     msg += "\nZip/Postal code: " + stuff.zip_code;
-                     msg += "\nLat/Long: " + stuff.latitude + " " + stuff.longitude;
-                     msg += "\nMetro code: " + stuff.metro_code;
-                     msg += "\nTime zone: " + stuff.time_zone;
-                 }
-             }
-             catch { }*/
-
-            msg += "\nIP: " + ip;
-
-            if (ac != null)
+            var master = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();           
+            if (person != null)
             {
-                msg += "\nState: " + ac.state;
-                msg += "\nTime Zone: " + ac.stdTimeZone;
-                msg += "\nArea Code: " + ac.areaCode;
-            }
+                Email email = new Email();
+                
+                email.subject = "Intelleges Message";
+                email.body = text;
+                email.category = SendGridCategory.EmailSend;
+                email.url = Request.Url.ToString();
+                email.emailTo = master!=null&&!string.IsNullOrEmpty(master.email)? master.email: "g0v6y5c6p3u5b1e0@startcritical.slack.com";
 
-            return Json(new { success = true, msg = msg });
+                objSendEmail.sendEmail(email, new EmailFormatSettings()
+                {
+                    enterprise = new enterprise()
+                    {
+                        id = Generic.Helpers.CurrentInstance.EnterpriseID
+                    }
+                }, new System.Net.Mail.MailAddress(person.email, person.firstName+" "+person.lastName));
+            }
+            else
+            {
+                return Json(new { success = false, msg = text });
+            }           
+
+            return Json(new { success = true, msg = text });
         }
 
 
