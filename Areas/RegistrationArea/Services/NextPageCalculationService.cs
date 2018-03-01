@@ -20,7 +20,7 @@ namespace Generic.Areas.RegistrationArea.Services
                 if (!bitwiseDocs.HasFlag(bitwiseValue)) return 0;
             }
             string[] strQuestionLogic = objQuestion.skipLogicJump.Split(";".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
-            for (int k = 0; k < strQuestionLogic.Length - 1; k++)
+            for (int k = 0; k < strQuestionLogic.Length; k++)
             {
                 string[] subStrQuestionlogic = strQuestionLogic[k].Split("&|".ToCharArray());
                 var resultString = "";
