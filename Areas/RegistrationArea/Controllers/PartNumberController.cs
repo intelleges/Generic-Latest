@@ -584,7 +584,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     else
                     {
                         //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
-                        goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
+                        return goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
                     }
                 }
                 ViewBag.message = meesage;
