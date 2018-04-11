@@ -14,6 +14,7 @@ using System.Web.Http.ModelBinding;
 using Generic.Helpers.PartnerHelper;
 using System.Data.Entity;
 using Generic.Helpers.Utility;
+using Generic.ViewModel;
 
 namespace Generic.Controllers
 {
@@ -107,6 +108,104 @@ namespace Generic.Controllers
             }
             else return BadRequest(ModelState);
         }
+
+        [Route("QuestionnaireByAccessCode")]
+        [HttpGet]
+        [SwaggerResponse(200, "OK", Type = typeof(QuestionnaireByAccessCodeModel))]
+        [SwaggerResponse(404, "Not found")]
+        public IHttpActionResult QuestionnaireByAccessCode(string accessCode)
+        {            
+            var questionnaireByAccessCode = db.pr_getQuestionnaireByAccessCodeForAPI(accessCode).ToList();
+            if (questionnaireByAccessCode.Count > 0)
+            {
+                var firstRow = questionnaireByAccessCode.FirstOrDefault();
+                var result = new QuestionnaireByAccessCodeModel()
+                {
+                    accessCode = firstRow.accesscode,
+                    status = firstRow.status,
+                    questionnaire = new QuestionnaireByAccessCodeModel_Questionnaire()
+                    {
+                        footer = firstRow.footer,
+                        multiLanguage = firstRow.multiLanguage
+                    }
+                };
+                foreach (var row in questionnaireByAccessCode)
+                {
+                    var foundPage = result.questionnaire.pages.FirstOrDefault(o => o.description == row.page);
+                    if (foundPage == null)
+                    {
+                        foundPage = new QuestionnaireByAccessCodeModel_Page()
+                        {
+                            description = row.page
+                        };
+                        result.questionnaire.pages.Add(foundPage);
+                    }
+                    var foundSurveySet = foundPage.surveySets.FirstOrDefault(o => o.description == row.surveySet);
+                    if (foundSurveySet == null)
+                    {
+                        foundSurveySet = new QuestionnaireByAccessCodeModel_SurveySet()
+                        {
+                            description = row.surveySet
+                        };
+                        foundPage.surveySets.Add(foundSurveySet);
+                    }
+                    var foundSurvey = foundSurveySet.surveys.FirstOrDefault(o => o.description == row.survey);
+                    if(foundSurvey==null)
+                    {
+                        foundSurvey = new QuestionnaireByAccessCodeModel_Survey()
+                        {
+                            description = row.survey
+                        };
+                        foundSurveySet.surveys.Add(foundSurvey);
+                    }
+                    var foundQuestion = foundSurvey.questions.FirstOrDefault(o => o.id == row.id);
+                    if (foundQuestion == null)
+                    {
+                        foundQuestion = new QuestionnaireByAccessCodeModel_question()
+                        {
+                            accessLevel = row.accessLevel,
+                            commentUploadTxt = row.commentUploadTxt,
+                            id = row.id,
+                            // = row.a
+                            calendarMessageTxt = row.calendarMessageTxt,
+                            commentBoxTxt = row.commentBoxTxt,
+                            commentRequired  =row.commentRequired,
+                            commentType= row.commentType,
+                            emailAlert = row.emailAlert,
+                            emailAlertList =  row.emailAlertList,
+                            //enterprise = row.en
+                            question = row.question,
+                            required = row.required,
+                            skipLogicAnswer = row.skipLogicAnswer,
+                            skipLogicJump = row.skipLogicJump,
+                            //sortOrder = row.sor
+                            spinOffQID = row.spinOffQID,
+                            spinOffQuestionnaire = row.spinOffQuestionnaire,
+                            subCheckBoxChoice = row.subCheckBoxChoice,
+                            tag = row.tag,
+                            //updated = row.upda
+                            weight = row.weight                            
+                        };
+                        foundSurvey.questions.Add(foundQuestion);
+                    }
+                    foundQuestion.responses.Add(new QuestionnaireByAccessCodeModel_response()
+                    {
+                        description = row.response,
+                        id = row.responseID,
+                        responseType = row.responsetype,
+                        //sortOrder = r
+                    });
+                }
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+
+
         [Route("AddPartnerSpreadsheetDataLoad")]
         [HttpPost]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]

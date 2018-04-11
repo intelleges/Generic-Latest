@@ -7560,6 +7560,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getQuestionnaireByAccesscode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionnaireByAccessCodeForAPI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionnaireByFooter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="footer" Type="varchar" Mode="In" />
         </Function>
@@ -17984,6 +17987,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="programName" Mode="In" Type="String" />
             <Parameter Name="dueDate" Mode="In" Type="DateTime" />
             <Parameter Name="activitytype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireByAccessCodeForAPI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByAccessCodeForAPI_Result)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -30727,6 +30733,36 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="DateTime" Name="dueDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="group" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireByAccessCodeForAPI_Result">
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="footer" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="multiLanguage" Nullable="true" />
+          <Property Type="String" Name="page" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="surveySet" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="survey" Nullable="false" MaxLength="2000" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="tag" Nullable="true" />
+          <Property Type="Int32" Name="required" Nullable="true" />
+          <Property Type="Int32" Name="weight" Nullable="true" />
+          <Property Type="Int32" Name="skipLogicAnswer" Nullable="true" />
+          <Property Type="String" Name="skipLogicJump" Nullable="true" />
+          <Property Type="String" Name="subCheckBoxChoice" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="commentRequired" Nullable="true" />
+          <Property Type="String" Name="commentBoxTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="commentUploadTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="commentType" Nullable="false" MaxLength="12" />
+          <Property Type="String" Name="calendarMessageTxt" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="spinOffQuestionnaire" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="spinOffQID" Nullable="true" />
+          <Property Type="String" Name="emailAlert" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="emailAlertList" Nullable="true" />
+          <Property Type="String" Name="responsetype" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="responseID" Nullable="false" />
+          <Property Type="String" Name="response" Nullable="false" MaxLength="2000" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42687,6 +42723,40 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
                 <ScalarProperty Name="dueDate" ColumnName="dueDate" />
                 <ScalarProperty Name="group" ColumnName="group" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireByAccessCodeForAPI" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireByAccessCodeForAPI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireByAccessCodeForAPI_Result">
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="footer" ColumnName="footer" />
+                <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+                <ScalarProperty Name="page" ColumnName="page" />
+                <ScalarProperty Name="surveySet" ColumnName="surveySet" />
+                <ScalarProperty Name="survey" ColumnName="survey" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="tag" ColumnName="tag" />
+                <ScalarProperty Name="required" ColumnName="required" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="skipLogicAnswer" ColumnName="skipLogicAnswer" />
+                <ScalarProperty Name="skipLogicJump" ColumnName="skipLogicJump" />
+                <ScalarProperty Name="subCheckBoxChoice" ColumnName="subCheckBoxChoice" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="commentRequired" ColumnName="commentRequired" />
+                <ScalarProperty Name="commentBoxTxt" ColumnName="commentBoxTxt" />
+                <ScalarProperty Name="commentUploadTxt" ColumnName="commentUploadTxt" />
+                <ScalarProperty Name="commentType" ColumnName="commentType" />
+                <ScalarProperty Name="calendarMessageTxt" ColumnName="calendarMessageTxt" />
+                <ScalarProperty Name="spinOffQuestionnaire" ColumnName="spinOffQuestionnaire" />
+                <ScalarProperty Name="spinOffQID" ColumnName="spinOffQID" />
+                <ScalarProperty Name="emailAlert" ColumnName="emailAlert" />
+                <ScalarProperty Name="emailAlertList" ColumnName="emailAlertList" />
+                <ScalarProperty Name="responsetype" ColumnName="responsetype" />
+                <ScalarProperty Name="responseID" ColumnName="responseID" />
+                <ScalarProperty Name="response" ColumnName="response" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -23112,5 +23112,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLCE_Special_Data_Result>("pr_getLCE_Special_Data", personParameter, designationNumberParameter, programNameParameter, dueDateParameter, activitytypeParameter);
         }
+    
+        public virtual ObjectResult<pr_getQuestionnaireByAccessCodeForAPI_Result> pr_getQuestionnaireByAccessCodeForAPI(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByAccessCodeForAPI_Result>("pr_getQuestionnaireByAccessCodeForAPI", accesscodeParameter);
+        }
     }
 }

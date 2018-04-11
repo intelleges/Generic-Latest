@@ -2217,6 +2217,9 @@
     <Compile Include="pr_getQuestionnaireAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionnaireByAccessCodeForAPI_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaireByAccesscode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2889,6 +2892,13 @@
     <Compile Include="ViewModel\GroupsVM.cs" />
     <Compile Include="ViewModel\MainGirdVM.cs" />
     <Compile Include="ViewModel\ProtocolViewModel.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_Page.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_question.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_Questionnaire.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_response.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_Survey.cs" />
+    <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_SurveySet.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="ViewModel\TouchpointViewModel.cs" />
     <Compile Include="ViewModel\ZcodeGridItem.cs" />

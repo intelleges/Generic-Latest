@@ -49,9 +49,11 @@
     $(document).ready(function () {
         $("#lce_form").submit(function (e) {
             e.preventDefault();
-            $.post('@Url.Action("EditPartial","LCE")', $("#lce_form").serialize()).done(function (result) {
+            $.post('@Url.Action("EditPartial","LCE")'+'/'+'@ViewBag.PptqId', $("#lce_form").serialize()).done(function (result) {
                 if (result) {
-                    alertify.alert('Updated!')
+                    alertify.alert('Updated!', function () {
+                        $("#editLCE").toggle();
+                    });
                 }
             });
         });
@@ -703,7 +705,7 @@
 @*<div class="addPartnerDiv" style="margin-top:-30px;">
     <h2>Create LC &amp; E Checklist</h2>
 </div>*@
-@using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "submitform1();", id = "lce_form" }))
+@using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "lce_form" }))
             {
     @Html.ValidationSummary(true)
     Html.EnableClientValidation();
