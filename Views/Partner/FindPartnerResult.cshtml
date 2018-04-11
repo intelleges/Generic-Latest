@@ -6,7 +6,10 @@
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Partner";
 }
-
+@section header{
+    <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+}
 <style>
     div#PartnerGrid {
         font-size: 11px;
@@ -33,6 +36,10 @@
             padding: .8em .8em !important;
         }
 </style>
+<script>
+
+</script>
+
 <div class="tw-bs">
     <div class="container">
         <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
@@ -52,6 +59,22 @@
                                     <input type="file" class="form-control" id="uploadedFile" />
                                 </div>
                             </form>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editLCE" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Edit LC&amp;E Checklist Form</h4>
+                    </div>
+                    <div class="modal-body">
+
 
                     </div>
                 </div>
@@ -84,7 +107,7 @@
         <div class="display_menu" style="display: none;">
             <ul>
 
-                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID)">Edit/Correct</a></li>
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -117,8 +140,8 @@
                 }
 
 
-            </text>); 
-            columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
+            </text>);
+                    columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
 
                 @{
                     var columnData = item.Contact;
@@ -132,39 +155,39 @@
                 }
 
 
-            </text>);
+                    </text>);
             columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
 
-                @{
-                    var columnData = item.AccessCode;
-                    var width = 8;
-                    var visibleText = string.Empty;
-                    if (columnData != null)
-                    {
-                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                    }
+                        @{
+                            var columnData = item.AccessCode;
+                            var width = 8;
+                            var visibleText = string.Empty;
+                            if (columnData != null)
+                            {
+                                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                            }
 
-                    <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
+                            <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
 
-                    if (!string.IsNullOrEmpty(visibleText))
-                    {
-                        <div class="display_menu" style="display: none;">
-                            <ul>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'>
-                                    <a href="javascript:remind('@item.AccessCode')">
-                                        Remind
-                                    </a>
-                                </li>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (racix.net)</a></li>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Rescind</a></li>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Remove</a></li>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Retrieve</a></li>
-                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
-                            </ul>
-                        </div>
-                    }
-                }
+                            if (!string.IsNullOrEmpty(visibleText))
+                            {
+                                <div class="display_menu" style="display: none;">
+                                    <ul>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'>
+                                            <a href="javascript:remind('@item.AccessCode')">
+                                                Remind
+                                            </a>
+                                        </li>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (racix.net)</a></li>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Rescind</a></li>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Remove</a></li>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Retrieve</a></li>
+                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
+                                    </ul>
+                                </div>
+                            }
+                        }
             </text>);
             columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode&listing=y');">@item.ContactEmail</a></text>);
 
@@ -486,13 +509,24 @@
 
 	});
 
-	function openEditPopup(id) {
-		$.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
-			$("#genericPopup").html(data);
+    function openEditPopup(id, touchpointId) {
+        if (touchpointId == 4235) {
+            $.get("@Url.Content("~/LCE/EditPartial?pptqId=")" + id, function (data) {
+                $("#editLCE .modal-body").html(data);
+                $("#editLCE").modal("toggle");
+            });
+        } else {
+            $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
+                $("#genericPopup").html(data);
+                $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+                $("#genericPopup").dialog('open');
 		});
 
-		$("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
-		$("#genericPopup").dialog('open');
+
+        }
+
+		//$("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+		//$("#genericPopup").dialog('open');
 	}
 
 	function openRemovePopup(id, internalid, name) {

@@ -1,0 +1,961 @@
+﻿
+@inherits System.Web.Mvc.WebViewPage<Generic.Models.LCEModel>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+
+@{
+    #region My
+    //Layout = LayoutHelper.GetLayout();
+    //ViewBag.Title = "LC & E Checklist";
+    #endregion
+
+    List<Generic.pr_getPersonTeamAssignedByTouchpoint_Result> list = ViewBag.TeamAssigned as List<Generic.pr_getPersonTeamAssignedByTouchpoint_Result>;
+    List<Generic.pr_getCFDBClauseAllForDisplay_Result> allClause = ViewBag.AllClause as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
+    List<Generic.pr_getCFDBClauseAll_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBClauseAll_Result>;
+    List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> unassignedByEnterprise = ViewBag.UnassignedByEnterprise as List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>;
+}
+
+<script type="text/javascript">
+    function onUpload(e) {
+        // Array with information about the uploaded files
+        var files = e.files;
+
+        // Check the extension of each file and abort the upload if it is not .jpg
+        $.each(files, function () {
+            if (this.
+                extension != ".xlsx") {
+                alert("Only .xlsx files can be uploaded")
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+
+    var timerId = null;
+    function submitform1(e)
+    {
+        //$.fancybox({
+        //    'content': $('#send-email-progress').html(),
+        //    closeBtn: false,
+        //    closeClick: false,
+        //    modal: true,
+        //    type: 'html',
+        //    minWidth: 400,
+        //    minHeight: 40
+        //});
+    }
+
+    $(document).ready(function () {
+        $("#lce_form").submit(function (e) {
+            e.preventDefault();
+            $.post('@Url.Action("EditPartial","LCE")', $("#lce_form").serialize()).done(function (result) {
+                if (result) {
+                    alertify.alert('Updated!')
+                }
+            });
+        });
+        $('#rootMenu').parent().hide();
+        CKEDITOR.replace('Comments', {
+            toolbarCanCollapse: true,
+            toolbarStartupExpanded: false,
+            height: 100,
+            removePlugins :'elementspath'
+        });
+
+        @if (ViewBag.Count != null && ViewBag.Count != 0) {
+            <text>
+                alertify.set({
+                    labels: {
+                    ok: "Ok", cancel: "Close"
+				}
+        });
+                alertify.confirm("Congratulations, you just loaded @ViewBag.Count CFDB records", function (e) {
+                    $.fancybox({
+                        'content': $('#clause').html(),
+                        closeBtn: false,
+                        closeClick: false,
+                        modal: true,
+                        type: 'html',
+                        width: 600,
+                        height: 300,
+                        minWidth: 600,
+                        minHeight: 300
+                    });
+                });
+            </text>
+        }
+        else if (ViewBag.Count == 0) {
+              <text>
+                $.fancybox({
+                    'content': $('#clause').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    width: 600,
+                    height: 300,
+                    minWidth: 600,
+                    minHeight: 300
+                });
+            </text>
+        }
+
+
+		$("#btnClear").click(function (e) {
+            alertify.confirm("Are you sure?", function (result) {
+                if (result) {
+                    window.location = '@Url.Content("~/lce/Create")';
+                }
+            });
+
+        });
+    });
+
+    function onchangePartnerType(el) {
+        if ($(el).val() == 253) {
+            $.fancybox({
+                'content': $('#buy-buy').html(),
+                closeBtn: false,
+                closeClick: false,
+                modal: true,
+                type: 'html',
+                width: 500,
+                height: 220,
+                minWidth: 500,
+                minHeight: 220,
+                maxHeight: 220
+            });
+        }
+        else {
+            $('#BuyToBuyType').val('');
+        }
+    }
+
+    function setBuyToBuy()
+    {
+        $('#BuyToBuyType').val($('.fancybox-inner [name="bbType"]').val());
+        $.fancybox.close();
+    }
+
+    function onchangeType()
+    {
+        partnerType = $('.fancybox-inner #partnertype').val();
+        $.fancybox.showLoading();
+        $.get('@Url.Content("~/lce/getClause")' + '?id=' + partnerType + '&channel=' + $('.fancybox-inner [name="bbChannel"]:checked').val(), function (data) {
+            $('.fancybox-inner #list3')
+                    .find('option')
+                    .remove();
+
+                $.each(data.all, function (key, value) {
+                    $('.fancybox-inner #list3')
+                        .append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.clause));
+                });
+
+
+                $('.fancybox-inner #list4')
+                    .find('option')
+                    .remove();
+
+                $.each(data.selected, function (key, value) {
+                    $('.fancybox-inner #list4')
+                        .append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.clause));
+                });
+
+                $.fancybox.hideLoading();
+            });
+    }
+
+    function selectItems() {
+        $(".fancybox-inner #list1 option:selected").remove().appendTo('.fancybox-inner #list2');
+    }
+
+    function unselectItems() {
+        $(".fancybox-inner #list2 option:selected").remove().appendTo('.fancybox-inner #list1');
+    }
+
+    function selectAll() {
+        $(".fancybox-inner #list1 option").remove().appendTo('.fancybox-inner #list2');
+    }
+
+    function unselectAll() {
+        $(".fancybox-inner #list2 option").remove().appendTo('.fancybox-inner #list1');
+    }
+
+
+    function selectClausesItems() {
+        $(".fancybox-inner #list3 option:selected").remove().appendTo('.fancybox-inner #list4');
+    }
+
+    function unselectClausesItems() {
+        $(".fancybox-inner #list4 option:selected").remove().appendTo('.fancybox-inner #list3');
+    }
+
+    function selectClausesAll() {
+        $(".fancybox-inner #list3 option").remove().appendTo('.fancybox-inner #list4');
+    }
+
+    function unselectClausesAll() {
+        $(".fancybox-inner #list4 option").remove().appendTo('.fancybox-inner #list3');
+    }
+
+    var teams = [];
+    var clauses = [];
+    var ac = '';
+    var defs = [];
+
+    function next()
+    {
+        teams = [];
+
+        var arr = [];
+        $.each($(".fancybox-inner #list2 option"), function (index, val) {
+            arr.push(Number($(val).attr('value')));
+            teams.push({ text: $(val).text(), id: Number($(val).attr('value')) });
+        });
+
+        $.post('@Url.Content("~/lce/addPPTQTeam")', { Id: '@ViewBag.Pptq', Ids: arr })
+            .done(function (data) {
+
+                $('#clause-members tbody').html('');
+
+                $.each(clauses, function (index, val) {
+
+                    var val1 = '';
+                    var val2 = '';
+
+                    for (var i = 0; i < defs.length; i++) {
+                        if (defs[i].id == val.id) {
+                            val1 = defs[i].defSendData;
+                            val2 = defs[i].defApproval;
+                        }
+                    }
+
+                    var selected1 = false;
+                    var options1 = '';
+
+                    $.each(teams, function (index, val) {
+                        if (val1 == val.id) {
+                            options1 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected1 = true;
+                        }
+                        else
+                            options1 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected1 == false) options1 = '<option disabled selected value></option>' + options1;
+
+                    var selected2 = false;
+                    var options2 = '';
+
+                    $.each(teams, function (index, val) {
+                        if (val2 == val.id) {
+                            options2 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected2 = true;
+                        }
+                        else
+                            options2 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected2 == false) options2 = '<option disabled selected value></option>' + options2;
+
+
+                    $('#clause-members tbody').append('<tr>' +
+                        '<input type="hidden" class="id" value="' + val.id + '"/>' +
+                        '<td class="text">' + val.text + '</td>' +
+                        '<td><select value="" class="form-control sendDataTo">' + options1+'</select></td>'+
+                        '<td><select value="" class="form-control getApprovalFrom">' + options2 +'</select></td>'+
+                        '<td><input class="form-control approvalNeededBy" type="date"></td>'
+                        +'</tr>');
+                });
+
+                $.fancybox({
+                    'content': $('#clause-members').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    width: 600,
+                    height: 300,
+                    minWidth: 600,
+                    minHeight: 300,
+                    maxHeight: 400
+                });
+            });
+
+    }
+
+    function next3()
+    {
+        var arr = [];
+
+        $.each($('.fancybox-inner tbody tr'), function (index, obj) {
+            arr.push({
+                id: $(obj).find('.id').val(),
+                sendDataTo: $(obj).find('.sendDataTo').val(),
+                text: $(obj).find('.text').text(),
+                getApprovalFrom: $(obj).find('.getApprovalFrom').val(),
+                approvalNeededBy: $(obj).find('.approvalNeededBy').val()
+            });
+        });
+
+        $.fancybox.showLoading();
+        $.post('@Url.Content("~/lce/setClauses")', { pptq: Number('@ViewBag.Pptq'), partnerType: partnerType, items: arr })
+            .done(function (data) {
+                $.each(data.list, function (index, obj) {
+
+                    var val1 = '';
+                    var val2 = '';
+                    var options1 = '';
+                    var selected1 = false;
+
+                    $.each(teams, function (index1, val) {
+                        if (val1 == val.id) {
+                            options1 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected1 = true;
+                        }
+                        else
+                            options1 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected1 == false) options1 = '<option disabled selected value></option>' + options1;
+
+                    var selected2 = false;
+                    var options2 = '';
+
+                    $.each(teams, function (index1, val) {
+                        if (val2 == val.id) {
+                            options2 += '<option selected value="' + val.id + '">' + val.text + '</option>';
+                            selected2 = true;
+                        }
+                        else
+                            options2 += '<option value="' + val.id + '">' + val.text + '</option>';
+                    });
+
+                    if (selected2 == false) options2 = '<option disabled selected value></option>' + options2;
+
+                    $('#PPTQ-team tbody').append('<tr>' +
+                        '<input type="hidden" class="id" value="' + obj.section + '"/>' +
+                        '<td class="text">' + obj.sectionDesc + '</td>' +
+                        '<td><select value="" class="form-control responsible">' + options1 + '</select></td>' +
+                        '<td><input class="form-control dueDate" type="date" value="' + obj.dueDate+'"></td>'+
+                        '<td><select value="" class="form-control accountableApprove">' + options2 + '</select></td>' +
+                        '<td><input class="form-control approvalDueDate" type="date" value="' + obj.approvalDueDate + '"></td>'
+                        + '</tr>');
+                });
+                $.fancybox.hideLoading();
+
+
+                $.fancybox({
+                    'content': $('#PPTQ-team').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    width: 600,
+                    height: 300,
+                    minWidth: 600,
+                    minHeight: 300,
+                    maxHeight: 400
+                });
+          });
+    }
+
+    function next4() {
+           $.fancybox.hideLoading();
+           $.fancybox.close();
+           window.location = '@Url.Content("~/lce/Create")';
+    }
+
+    var partnerType = null;
+    var channel = '@ViewBag.ChannelValue';
+
+    function next2() {
+        clauses = [];
+        channel = $('.fancybox-inner [name="bbChannel"]:checked').val();
+
+        var arr = [];
+        $.each($(".fancybox-inner #list4 option"), function (index, val) {
+            arr.push(Number($(val).attr('value')));
+            clauses.push({ text: $(val).text(), id: Number($(val).attr('value')) });
+        });
+        $.fancybox.showLoading();
+
+        $.post('@Url.Content("~/lce/addClause")', { channel: channel, Id: '@ViewBag.Pptq', partnerSpreadsheetDataLoadId: '@ViewBag.PartnerSpreadsheetDataLoadId', partnerType: partnerType, Ids: arr })
+            .done(function (data) {
+                defs = data.list;
+
+                onchangeType();
+
+                $.fancybox.hideLoading();
+
+                $.fancybox({
+                    'content': $('#team').html(),
+                    closeBtn: false,
+                    closeClick: false,
+                    modal: true,
+                    type: 'html',
+                    width: 600,
+                    height: 300,
+                    minWidth: 600,
+                    minHeight: 300
+                });
+            });
+    }
+</script>
+<style type="text/css">
+    .fancybox-inner .table > thead > tr > th {
+        font-size: 14px;
+    }
+
+    .fancybox-inner #table-body {
+        height: 320px;
+        overflow-y: auto;
+    }
+
+    select[multiple] {
+        height: 250px;
+        font-size: 14px;
+    }
+
+    .t-input[type="text"] {
+        padding: 5px;
+    }
+
+    .t-upload-button {
+        margin-top: 5px;
+        float: left;
+    }
+
+    .control-label {
+        font-size: 12px;
+        font-family: "Segoe UI",Arial,sans-serif;
+        font-weight: normal;
+        padding: 5px;
+    }
+
+    .form-control {
+        font-size: 12px;
+        height: 28px;
+        padding: 5px;
+    }
+
+    .field-validation-error {
+        display: none;
+    }
+
+
+    .controls .btn {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 20px;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+        min-width: 66px;
+    }
+
+        .controls .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+
+    .fancybox-inner .btn {
+        min-width: 85px;
+        font-size: 14px;
+    }
+
+    .fancybox-inner .col-lg-2 .btn {
+        margin-bottom: 10px;
+    }
+
+    .fancybox-lock body {
+        overflow: unset !important;
+    }
+
+    .fancybox-inner input[type=radio] {
+        width: 20px;
+    }
+    .textContainer {        
+        line-height: 30px;
+    }
+
+        .textContainer span {
+            vertical-align: middle;
+            display: inline-block;
+            margin-left: 5px;
+        }
+</style>
+
+
+<div id="buy-buy" style="display:none;">
+    <div style="padding: 10px 20px;">
+        <h3>Which type of Buy to Buy (Supplier to Supplier) activity is this?</h3>
+        <div class="form-group">
+            <div class="radio">
+                <label><input type="radio" name="bbType" value="Build to Print (BTP)">Build to Print (BTP)</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="bbType" value="Build to Spec (ASL)">Build to Spec (ASL)</label>
+            </div>
+            <div class="radio disabled">
+                <label><input type="radio" name="bbType" value="Supplier Reposition">Supplier Reposition</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12" style="text-align: right;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="setBuyToBuy();">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="send-email-progress" style="display:none;">
+    <div style="padding: 10px 20px;">
+        <div class="progress-bar progress-bar-striped active" role="progressbar"
+             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+            Uploading please wait...
+        </div>
+    </div>
+</div>
+
+
+@if (list != null)
+            {
+                var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
+    <div id="team" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <h3>Select @ViewBag.PrName Team Member</h3>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Available names:</h4>
+                        <select multiple class="form-control" id="list1">
+                            @foreach (var item in list.Where(o => !unassignedByEnterprise.Select(b => b.id).ToList().Contains(o.id)))
+                            {
+                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <h4>&nbsp;</h4>
+                        <h4>&nbsp;</h4>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectAll();"><i class="glyphicon glyphicon-forward"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectItems();"><i class="glyphicon glyphicon-chevron-right"></i></button>
+
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectItems();"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectAll();"><i class="glyphicon glyphicon-backward"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Selected names:</h4>
+                        <select multiple class="form-control" id="list2">
+                            @foreach (var item in unassignedByEnterprise)
+                            {
+                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="clause" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <div class="row">
+                <div class="col-lg-7">
+                    @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.partnertype, (List<SelectListItem>)ViewBag.partnertype, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeType()" })
+                        @Html.ValidationMessageFor(model => model.partnertype)
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 1 ? "checked" : "") value="1" @ViewBag.Check onchange="onchangeType()">Channel 1 Only</label>&nbsp;&nbsp;&nbsp;
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 2 ? "checked" : "") value="2" @ViewBag.Check onchange="onchangeType()">Channel 2 Only</label>
+                    <label><input type="radio" name="bbChannel" @(ViewBag.ChannelValue == 3 ? "checked" : "") value="3" @ViewBag.Check onchange="onchangeType()">Both Channel 1 &amp; 2</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Available clauses:</h4>
+                        <select multiple class="form-control" id="list3">
+                            @foreach (var item in allClause)
+                            {
+                                <option value="@item.id">@item.clause</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+
+                    <div class="form-group">
+                        <h4>&nbsp;</h4>
+                        <h4>&nbsp;</h4>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectClausesAll();"><i class="glyphicon glyphicon-forward"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="selectClausesItems();"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesItems();"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="unselectClausesAll();"><i class="glyphicon glyphicon-backward"></i></button>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <h4>Selected clauses:</h4>
+                        <select multiple class="form-control" id="list4">
+                            @foreach (var item in selectedClauses)
+                            {
+                                <option value="@item.id">@item.clause</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next2();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="clause-members" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <div class="row">
+                <div class="col-lg-12" id="table-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th id="at">Section/Clause Review</th>
+                                <th>Send Data To</th>
+                                <th>Get Approval From</th>
+                                <th>Approval Needed By</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next3();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="PPTQ-team" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <div class="row">
+                <div class="col-lg-12" id="table-body">
+                    <h4>Checklist Section</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Section</th>
+                                <th>Responsible(Edit)</th>
+                                <th>Due Date</th>
+                                <th>Accountable(Approve)</th>
+                                <th>Approval Due Date </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="next4();">Next></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@*<div class="addPartnerDiv" style="margin-top:-30px;">
+    <h2>Create LC &amp; E Checklist</h2>
+</div>*@
+@using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "submitform1();", id = "lce_form" }))
+            {
+    @Html.ValidationSummary(true)
+    Html.EnableClientValidation();
+    @Html.HiddenFor(m => m.BuyToBuyType)
+
+    <fieldset>
+        @*<legend>Create LC&amp;E Checklist Form</legend>*@
+        <div id="addPartner" class="addPartnerDiv">
+            <div class="twocol">
+                <!-- #region Name-->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.ProgramName, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ProgramName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProgramName)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Designation)
+                            </div>
+                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-3">
+                                @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Duedate)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(m=>m.Owner, (SelectList)ViewBag.OwnerList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.ValidationMessageFor(model => model.Owner)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
+                                @Html.ValidationMessageFor(model => model.partnertype)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.From, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.From)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.To)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.Score, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(model => model.Score, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Score)
+                            </div>
+                            @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Priority)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.ProjectUrl, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.ProjectUrl, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProjectUrl)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br />
+                        <p>Please provide a general description of the project. This will be used to inform other team members about the project scope, overview, etc.</p>
+                        @Html.TextAreaFor(model => model.Comments)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
+                            </div>
+                           
+                            <div class="col-sm-8 textContainer">
+                                @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @if (!string.IsNullOrEmpty(Model.FileScopeName))
+                                {
+                                    <span>Already uploaded: @Model.FileScopeName</span>
+                                }
+                                @Html.ValidationMessageFor(model => model.FileScope)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8 textContainer">
+                                @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @if (!string.IsNullOrEmpty(Model.FileName))
+                                {
+                                    <span>Already uploaded: @Model.FileName</span>
+                                }
+                                @Html.ValidationMessageFor(model => model.File)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8 textContainer">
+                                @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @if (!string.IsNullOrEmpty(Model.FileCIDName))
+                                {
+                                    <span>Already uploaded: @Model.FileCIDName</span>
+                                }
+                                @Html.ValidationMessageFor(model => model.FileCID)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8 textContainer">
+                                @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @if (!string.IsNullOrEmpty(Model.FileEntanglementName))
+                                {
+                                    <span>Already uploaded: @Model.FileEntanglementName</span>
+                                }
+                                @Html.ValidationMessageFor(model => model.FileEntanglement)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8 textContainer">
+                                @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @if (!string.IsNullOrEmpty(Model.SupplierSelfAssessmentUploadName))
+                                {
+                                    <span>Already uploaded: @Model.SupplierSelfAssessmentUploadName</span>
+                                }
+                                @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
+                            <div class="col-sm-1">
+                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                            </div>
+                            <div class="col-sm-8 textContainer">
+                                @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                @if (!string.IsNullOrEmpty(Model.BAATransitionScopeUploadName))
+                                {
+                                    <span>Already uploaded: @Model.BAATransitionScopeUploadName</span>
+                                }
+                                @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <br />
+                    <br />
+                    <div style="float: right;" class="controls">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="button" value="Clear" class="btn btn-default" id="btnClear" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}
+<div style="height:300px;"></div>
+@section header{
+
+    <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+}
+
+
+@*
+    @section scripts{
+        @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    }
+
+*@

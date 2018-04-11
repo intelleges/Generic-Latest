@@ -44,27 +44,29 @@ namespace Generic.Models
         [DisplayName("CFDB Upload")]
         // [Required]
         public HttpPostedFileBase File { get; set; }
+        public string FileName { get; set; }
 
         [DisplayName("LC&E Scope Upload")]
         // [Required]
         public HttpPostedFileBase FileScope { get; set; }
+        public string FileScopeName { get; set; }
 
         [DisplayName("CID Upload")]
         // [Required]
         public HttpPostedFileBase FileCID { get; set; }
-
+        public string FileCIDName { get; set; }
         [DisplayName("Entanglement Upload")]
         // [Required]
         public HttpPostedFileBase FileEntanglement { get; set; }
-
+        public string FileEntanglementName { get; set; }
         [DisplayName("Supplier Self-Assessment Upload")]
         // [Required]
         public HttpPostedFileBase SupplierSelfAssessmentUpload { get; set; }
-
+        public string SupplierSelfAssessmentUploadName { get; set; }
         [DisplayName("BAA Diligence File Upload")]
         // [Required]
         public HttpPostedFileBase BAATransitionScopeUpload { get; set; }
-
+        public string BAATransitionScopeUploadName { get; set; }
         [Required]
         [DisplayName("Due date")]
         public DateTime? Duedate { get; set; }

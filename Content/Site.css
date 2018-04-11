@@ -847,11 +847,11 @@ tr.pager td {
 
 
 .download-temp {
-    background-image: url('../Content/template - download.png');
+    background-image: url('../Content/template - download.png') !important;
     display: block;
     margin: 5px;
     text-indent: -9999px;
     width: 24px;
     height: 24px;
-    background-size: cover;
+    background-size: cover !important;
 }

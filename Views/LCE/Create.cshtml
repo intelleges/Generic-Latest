@@ -728,7 +728,7 @@
                         <div class="form-group">
                             @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.DropDownList("Owner", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                @Html.DropDownListFor(m => m.Owner, (SelectList)ViewBag.OwnerList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
                                 @Html.ValidationMessageFor(model => model.Owner)
                             </div>
                         </div>
@@ -737,7 +737,7 @@
                         <div class="form-group">
                             @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
+                                @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
                                 @Html.ValidationMessageFor(model => model.partnertype)
                             </div>
                         </div>
