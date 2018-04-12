@@ -183,7 +183,7 @@ namespace Generic.Controllers
                             spinOffQuestionnaire = row.spinOffQuestionnaire,
                             subCheckBoxChoice = row.subCheckBoxChoice,
                             tag = row.tag,
-                            //updated = row.upda
+                            responseType = row.responsetype,
                             weight = row.weight                            
                         };
                         foundSurvey.questions.Add(foundQuestion);
@@ -191,8 +191,7 @@ namespace Generic.Controllers
                     foundQuestion.responses.Add(new QuestionnaireByAccessCodeModel_response()
                     {
                         description = row.response,
-                        id = row.responseID,
-                        responseType = row.responsetype,
+                        id = row.responseID                       
                         //sortOrder = r
                     });
                 }

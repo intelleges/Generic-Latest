@@ -10,6 +10,6 @@ namespace Generic.ViewModel
         public string description { get; set; }
         public int id { get; set; }
         //public string sortOrder { get; set; }
-        public string responseType { get; set; }
+        //public string responseType { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace Generic.ViewModel
         public int? spinOffQID { get; set; }
         public string emailAlert { get; set; }
         public string emailAlertList { get; set; }
+        public string responseType { get; set; }
         //public string updated { get; set; }
         //public int? sortOrder { get; set; }
         //public bool active { get; set; }
