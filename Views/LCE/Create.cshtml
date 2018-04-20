@@ -575,7 +575,7 @@
                 <div class="col-lg-7">
                     @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
                     <div class="col-sm-9">
-                        @Html.DropDownListFor(m => m.partnertype, (List<SelectListItem>)ViewBag.partnertype, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeType()" })
+                        @Html.DropDownListFor(m => m.partnertype, (System.Web.Mvc.SelectList)ViewBag.partnertypeList, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangeType()" })
                         @Html.ValidationMessageFor(model => model.partnertype)
                     </div>
                 </div>
