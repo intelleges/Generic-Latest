@@ -22,84 +22,8 @@
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script>
-    @*function BindGroup(objtouchpointID) {
-
-        $('#Touchpoint').val(objtouchpointID);
-
-
-        var formData = { touchpointId: objtouchpointID };
-        $.ajax({
-            url: "@Url.Content("~/Group/GetGroupsByTouchpoint")",
-            type: "post",
-        data: formData,
-        success: function (data) {
-            var len = data.Data.length;
-            var i = 0;
-            var groupSelectList = "<option value=''>Select Group</option>";
-            for (i = 0; i < len; i++) {
-                groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
-            }
-
-            $('#group').html(groupSelectList);
-
-            var objgroupid = GetURLParameter(1);
-
-
-            $('#group').val(objgroupid);
-
-        },
-        error: function (data) {
-            var touchpointSelectList = "<option value=''>Select Group</option>";
-            $('#group').html(touchpointSelectList);
-        }
-    });
-        }
-
-
-
-        *@
 	jQuery(document).ready(function () {
 		var touchpointid = GetURLParameter(0);
-
-
-
-		//BindGroup(touchpointid);
-
-
-
-		//$('#Touchpoint').change(function () {
-
-		//    var objtouchpointID = $('#Touchpoint').val();
-
-		//    if (objtouchpointID == "") {
-		//        objtouchpointID = 0;
-		//    }
-
-		//    else {
-
-		//        //window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
-		//        window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID);
-		//    }
-		//});
-
-		//$('#group').change(function () {
-
-		//    var objtouchpointID = $('#Touchpoint').val();
-		//    var objgroupID = $('#group').val();
-
-		//    if (objtouchpointID == "" && objgroupID == "") {
-		//        objtouchpointID = 0;
-		//    }
-
-		//    else {
-
-		//        window.location.assign("/mvcmt/Generic/Admin/Dashbord1/" + objtouchpointID + "/" + objgroupID);
-		//    }
-		//});
-		$(document).ready(function () {
-
-		});
-
 		$("#touchpoint").change(function () {
 			var touchpoint = $("#touchpoint").val();
 
@@ -196,7 +120,6 @@
                 });
                 } else {
                     // click yes
-
                 }
             });
         }
@@ -217,17 +140,11 @@
     		dataClear();
     	}
 
-
-        if ("@ViewBag.Message" == "2") {
-
-			alertify.alert('@ViewBag.MessageDetail');
+        if ("@ViewBag.Message"&&"@ViewBag.Message"!="1")
+        {
+            alertify.alert('@ViewBag.MessageDetail');
 			dataClear();
-		}
-		if ("@ViewBag.Message" == "error") {
-
-			alertify.alert('@ViewBag.MessageDetail');
-			dataClear();
-		}
+        }
 
 
 		$('#btnInvite').click(function (e) {
@@ -343,7 +260,7 @@
 </script>
 <script>
     //#region First declaration
-    $(document).ready(function () {
+    $(document).ready(function () {        
         $("form").submit(function () {
             return validateControl();
 
