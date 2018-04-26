@@ -9,6 +9,7 @@
 @section header{
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 }
 <style>
     div#PartnerGrid {
@@ -118,7 +119,7 @@
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
                 @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
                 {
-                    <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
                 }
                 <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
                 <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>

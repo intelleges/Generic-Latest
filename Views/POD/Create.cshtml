@@ -722,7 +722,7 @@
                 </div>
                 <div class="editor-field">
 
-                    @Html.DropDownList("owner", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
+                    @Html.DropDownListFor(model => model.owner, (SelectList)ViewBag.ownerList, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " " })
                     @Html.ValidationMessageFor(model => model.owner)
                     @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Owner</a>*@
                 </div>

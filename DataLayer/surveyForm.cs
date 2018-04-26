@@ -2451,7 +2451,7 @@ namespace Generic.DataLayer
 
                 if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
                 {
-                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault(); ;
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault();
                     try
                     {
                         pptqResponse = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(question.id, PartNumberSiteZcodepptq.id).ToList()

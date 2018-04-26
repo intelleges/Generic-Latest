@@ -47,15 +47,27 @@
     }
 
     $(document).ready(function () {
+        $.validator.unobtrusive.addValidation = function (selector) {
+            //get the relevant form
+            var form = $(selector);
+            // delete validator in case someone called form.validate()
+            $(form).removeData("validator");
+            $.validator.unobtrusive.parse(form);
+        }
+        $.validator.unobtrusive.addValidation("#lce_form");
         $("#lce_form").submit(function (e) {
             e.preventDefault();
-            $.post('@Url.Action("EditPartial","LCE")'+'/'+'@ViewBag.PptqId', $("#lce_form").serialize()).done(function (result) {
-                if (result) {
-                    alertify.alert('Updated!', function () {
-                        $("#editLCE").toggle();
-                    });
-                }
-            });
+            if ($("#lce_form").validate().valid()) {
+                $.post('@Url.Action("EditPartial","LCE")' + '/' + '@ViewBag.PptqId', $("#lce_form").serialize()).done(function (result) {
+                    if (result) {
+                        alertify.alert('Updated!', function () {
+                            $("#editLCE").toggle();
+                        });
+                    } else {
+                        alertify.alert('some internal error. please get advise from administrator');
+                    }
+                });
+            }
         });
         $('#rootMenu').parent().hide();
         CKEDITOR.replace('Comments', {
@@ -495,7 +507,7 @@
     .fancybox-inner input[type=radio] {
         width: 20px;
     }
-    .textContainer {        
+    .textContainer {
         line-height: 30px;
     }
 
@@ -553,7 +565,7 @@
                         <select multiple class="form-control" id="list1">
                             @foreach (var item in list.Where(o => !unassignedByEnterprise.Select(b => b.id).ToList().Contains(o.id)))
                             {
-                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -575,7 +587,7 @@
                         <select multiple class="form-control" id="list2">
                             @foreach (var item in unassignedByEnterprise)
                             {
-                                <option value="@item.id">@item.firstName @item.lastName</option>
+                            <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -612,7 +624,7 @@
                         <select multiple class="form-control" id="list3">
                             @foreach (var item in allClause)
                             {
-                                <option value="@item.id">@item.clause</option>
+                            <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -634,7 +646,7 @@
                         <select multiple class="form-control" id="list4">
                             @foreach (var item in selectedClauses)
                             {
-                                <option value="@item.id">@item.clause</option>
+                            <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -702,262 +714,262 @@
 }
 
 
-@*<div class="addPartnerDiv" style="margin-top:-30px;">
-    <h2>Create LC &amp; E Checklist</h2>
-</div>*@
-@using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "lce_form" }))
+    @*<div class="addPartnerDiv" style="margin-top:-30px;">
+            <h2>Create LC &amp; E Checklist</h2>
+        </div>*@
+    @using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "lce_form" }))
             {
-    @Html.ValidationSummary(true)
-    Html.EnableClientValidation();
-    @Html.HiddenFor(m => m.BuyToBuyType)
+        @Html.ValidationSummary(true)
+        Html.EnableClientValidation();
+        @Html.HiddenFor(m => m.BuyToBuyType)
 
-    <fieldset>
-        @*<legend>Create LC&amp;E Checklist Form</legend>*@
-        <div id="addPartner" class="addPartnerDiv">
-            <div class="twocol">
-                <!-- #region Name-->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.ProgramName, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.ProgramName, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ProgramName)
+        <fieldset>
+            @*<legend>Create LC&amp;E Checklist Form</legend>*@
+            <div id="addPartner" class="addPartnerDiv">
+                <div class="twocol">
+                    <!-- #region Name-->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.ProgramName, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.ProgramName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ProgramName)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Designation)
+                                </div>
+                                @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-3">
+                                    @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Duedate)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(m=>m.Owner, (SelectList)ViewBag.OwnerList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                    @Html.ValidationMessageFor(model => model.Owner)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
+                                    @Html.ValidationMessageFor(model => model.partnertype)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.From, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.From)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.To)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.Score, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(model => model.Score, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Score)
+                                </div>
+                                @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-3">
+                                    @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Priority)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.ProjectUrl, new { @class = "control-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(model => model.ProjectUrl, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ProjectUrl)
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.Designation, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Designation, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Designation)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <br />
+                            <p>Please provide a general description of the project. This will be used to inform other team members about the project scope, overview, etc.</p>
+                            @Html.TextAreaFor(model => model.Comments)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
+                                </div>
+
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @if (!string.IsNullOrEmpty(Model.FileScopeName))
+                                {
+                                <span>Already uploaded: @Model.FileScopeName</span>
+                                }
+                                    @Html.ValidationMessageFor(model => model.FileScope)
+                                </div>
+
                             </div>
-                            @Html.LabelFor(o => o.Duedate, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-3">
-                                @Html.Telerik().DatePickerFor(model => model.Duedate).InputHtmlAttributes(new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Duedate)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                                </div>
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @if (!string.IsNullOrEmpty(Model.FileName))
+                                {
+                                <span>Already uploaded: @Model.FileName</span>
+                                }
+                                    @Html.ValidationMessageFor(model => model.File)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                                </div>
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @if (!string.IsNullOrEmpty(Model.FileCIDName))
+                                {
+                                <span>Already uploaded: @Model.FileCIDName</span>
+                                }
+                                    @Html.ValidationMessageFor(model => model.FileCID)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                                </div>
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @if (!string.IsNullOrEmpty(Model.FileEntanglementName))
+                                {
+                                <span>Already uploaded: @Model.FileEntanglementName</span>
+                                }
+                                    @Html.ValidationMessageFor(model => model.FileEntanglement)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                                </div>
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @if (!string.IsNullOrEmpty(Model.SupplierSelfAssessmentUploadName))
+                                {
+                                <span>Already uploaded: @Model.SupplierSelfAssessmentUploadName</span>
+                                }
+                                    @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                                </div>
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @if (!string.IsNullOrEmpty(Model.BAATransitionScopeUploadName))
+                                {
+                                <span>Already uploaded: @Model.BAATransitionScopeUploadName</span>
+                                }
+                                    @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.DropDownListFor(m=>m.Owner, (SelectList)ViewBag.OwnerList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
-                                @Html.ValidationMessageFor(model => model.Owner)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
-                                @Html.ValidationMessageFor(model => model.partnertype)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.From, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.From, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.From)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.To)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.Score, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Score, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Score)
-                            </div>
-                            @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Priority)
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.ProjectUrl, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.ProjectUrl, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ProjectUrl)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-lg-12">
                         <br />
-                        <p>Please provide a general description of the project. This will be used to inform other team members about the project scope, overview, etc.</p>
-                        @Html.TextAreaFor(model => model.Comments)
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
-                            </div>
-                           
-                            <div class="col-sm-8 textContainer">
-                                @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @if (!string.IsNullOrEmpty(Model.FileScopeName))
-                                {
-                                    <span>Already uploaded: @Model.FileScopeName</span>
-                                }
-                                @Html.ValidationMessageFor(model => model.FileScope)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8 textContainer">
-                                @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @if (!string.IsNullOrEmpty(Model.FileName))
-                                {
-                                    <span>Already uploaded: @Model.FileName</span>
-                                }
-                                @Html.ValidationMessageFor(model => model.File)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8 textContainer">
-                                @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @if (!string.IsNullOrEmpty(Model.FileCIDName))
-                                {
-                                    <span>Already uploaded: @Model.FileCIDName</span>
-                                }
-                                @Html.ValidationMessageFor(model => model.FileCID)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8 textContainer">
-                                @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @if (!string.IsNullOrEmpty(Model.FileEntanglementName))
-                                {
-                                    <span>Already uploaded: @Model.FileEntanglementName</span>
-                                }
-                                @Html.ValidationMessageFor(model => model.FileEntanglement)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8 textContainer">
-                                @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @if (!string.IsNullOrEmpty(Model.SupplierSelfAssessmentUploadName))
-                                {
-                                    <span>Already uploaded: @Model.SupplierSelfAssessmentUploadName</span>
-                                }
-                                @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8 textContainer">
-                                @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @if (!string.IsNullOrEmpty(Model.BAATransitionScopeUploadName))
-                                {
-                                    <span>Already uploaded: @Model.BAATransitionScopeUploadName</span>
-                                }
-                                @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
-                            </div>
-
+                        <br />
+                        <div style="float: right;" class="controls">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <input type="button" value="Clear" class="btn btn-default" id="btnClear" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <br />
-                    <br />
-                    <div style="float: right;" class="controls">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                        <input type="button" value="Clear" class="btn btn-default" id="btnClear" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-}
-<div style="height:300px;"></div>
-@section header{
+        </fieldset>
+    }
+    <div style="height:300px;"></div>
+    @section header{
 
-    <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
-    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-}
-
-
-@*
-    @section scripts{
-        @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+        <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+        <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />       
     }
 
-*@
+
+    @*
+        @section scripts{
+            @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+        }
+
+    *@

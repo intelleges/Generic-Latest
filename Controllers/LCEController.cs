@@ -273,17 +273,18 @@ namespace Generic.Controllers
                     {
                         AddModifyPptqDoc(model.SupplierSelfAssessmentUpload, pptq.id, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
                     }
-                    using (var dbEntityes = new EntitiesDBContext())
-                    {
-                        var files = dbEntityes.pr_getPPTQDocByPPTQ(pptq.id).ToList();
-                        var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
-                        requesredPptq.score = files.Sum(o => o.sortOrder);
-                        dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
-                        dbEntityes.SaveChanges();
-                    }
+                    //using (var dbEntityes = new EntitiesDBContext())
+                    //{
+                    //    var files = dbEntityes.pr_getPPTQDocByPPTQ(pptq.id).ToList();
+                    //    var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
+                    //    requesredPptq.score = files.Sum(o => o.sortOrder);
+                    //    dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
+                    //    dbEntityes.SaveChanges();
+                    //}
+                    return Json(true);
                 }
             }
-            return Json(true);
+            return Json(false);
         }
 
         private void GenerateViewBag(int? partnertypeId = null, int? ownerId = null)
