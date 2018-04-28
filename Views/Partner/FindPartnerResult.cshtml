@@ -512,7 +512,7 @@
 
     function openEditPopup(id, touchpointId) {
         if (touchpointId == 4235) {
-            $.get("@Url.Content("~/LCE/EditPartial?pptqId=")" + id, function (data) {
+            $.get("@Url.Content("~/LCE/EditPartial?pptqId=")" + id + '&_=' + new Date().getTime(), function (data) {
                 $("#editLCE .modal-body").html(data);
                 $("#editLCE").modal("toggle");
             });

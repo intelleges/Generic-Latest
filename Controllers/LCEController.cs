@@ -52,6 +52,7 @@ namespace Generic.Controllers
             var fileScope = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.FileScope).FirstOrDefault();
             var supplierSelfAssessmentUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.SupplierSelfAssessmentUpload).FirstOrDefault();
             var BAATransitionScopeUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.BAATransitionScopeUpload).FirstOrDefault();
+
             var model = new LCEModel()
             {
                 ProgramName = pptq.partner1.name,
