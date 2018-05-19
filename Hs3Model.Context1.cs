@@ -23121,5 +23121,135 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByAccessCodeForAPI_Result>("pr_getQuestionnaireByAccessCodeForAPI", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result> pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result>("pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBAllowableCostForDataSend_Result> pr_getCFDBAllowableCostForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBAllowableCostForDataSend_Result>("pr_getCFDBAllowableCostForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBCitizenshipRestrictionForDataSend_Result> pr_getCFDBCitizenshipRestrictionForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBCitizenshipRestrictionForDataSend_Result>("pr_getCFDBCitizenshipRestrictionForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBCostActgForDataSend_Result> pr_getCFDBCostActgForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBCostActgForDataSend_Result>("pr_getCFDBCostActgForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBGovtPropertyReviewForDataSend_Result> pr_getCFDBGovtPropertyReviewForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBGovtPropertyReviewForDataSend_Result>("pr_getCFDBGovtPropertyReviewForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBOutSourceRestrictionsForDataSend_Result> pr_getCFDBOutSourceRestrictionsForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBOutSourceRestrictionsForDataSend_Result>("pr_getCFDBOutSourceRestrictionsForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPartnertypeClauseByPartnertypeAndChannel_Result> pr_getCFDBPartnertypeClauseByPartnertypeAndChannel(Nullable<int> partnertype, Nullable<int> channel)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var channelParameter = channel.HasValue ?
+                new ObjectParameter("channel", channel) :
+                new ObjectParameter("channel", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPartnertypeClauseByPartnertypeAndChannel_Result>("pr_getCFDBPartnertypeClauseByPartnertypeAndChannel", partnertypeParameter, channelParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBPlaceOfPerformanceForDataSend_Result> pr_getCFDBPlaceOfPerformanceForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBPlaceOfPerformanceForDataSend_Result>("pr_getCFDBPlaceOfPerformanceForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSecurityReqsForDataSend_Result> pr_getCFDBSecurityReqsForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSecurityReqsForDataSend_Result>("pr_getCFDBSecurityReqsForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSpecialToolingForDataSend_Result> pr_getCFDBSpecialToolingForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSpecialToolingForDataSend_Result>("pr_getCFDBSpecialToolingForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSubNotConsForDataSend_Result> pr_getCFDBSubNotConsForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSubNotConsForDataSend_Result>("pr_getCFDBSubNotConsForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSupplierApprovalForDataSend_Result> pr_getCFDBSupplierApprovalForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSupplierApprovalForDataSend_Result>("pr_getCFDBSupplierApprovalForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBSupplierChgForDataSend_Result> pr_getCFDBSupplierChgForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBSupplierChgForDataSend_Result>("pr_getCFDBSupplierChgForDataSend", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCFDBTINAForDataSend_Result> pr_getCFDBTINAForDataSend(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBTINAForDataSend_Result>("pr_getCFDBTINAForDataSend", pptqParameter);
+        }
     }
 }

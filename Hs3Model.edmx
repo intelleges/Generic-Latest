@@ -6474,7 +6474,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCFDB3rdPartyDisclosureRestrictions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getCFDBAllowableCostForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBBuyAmericanClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -6482,6 +6488,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDBCitizenshipRestriction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBCitizenshipRestrictionForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6494,10 +6503,19 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCFDBCostAccountClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBCostActgForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBGovtPropClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBGovtPropertyReviewForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBOutsourceRestrictions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBOutSourceRestrictionsForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDBPartnertypeClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6509,13 +6527,29 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCFDBPartnertypeClauseByPartnertype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBPartnertypeClauseByPartnertypeAndChannel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="channel" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBPlaceOfPerformanceClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBPlaceOfPerformanceForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDBSecurityReqs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBSecurityReqsForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBSpecialToolingForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBStandardClauses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBSubNotConsForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDBSubsNotCons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -6524,7 +6558,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCFDBSupplierApproval" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBSupplierApprovalForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBSupplierChgForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBTina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCFDBTINAForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getClauseFromCFDBAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -17989,7 +18032,50 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="activitytype" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireByAccessCodeForAPI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireByAccessCodeForAPI_Result)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBAllowableCostForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBAllowableCostForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBCitizenshipRestrictionForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBCitizenshipRestrictionForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBCostActgForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBCostActgForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBGovtPropertyReviewForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBGovtPropertyReviewForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBOutSourceRestrictionsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBOutSourceRestrictionsForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertypeAndChannel" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertypeAndChannel_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="channel" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBPlaceOfPerformanceForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPlaceOfPerformanceForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBSecurityReqsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSecurityReqsForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBSpecialToolingForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSpecialToolingForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBSubNotConsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSubNotConsForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBSupplierApprovalForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSupplierApprovalForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBSupplierChgForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSupplierChgForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBTINAForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBTINAForDataSend_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -30763,6 +30849,105 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="responseID" Nullable="false" />
           <Property Type="String" Name="response" Nullable="false" MaxLength="2000" />
         </ComplexType>
+        <ComplexType Name="pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result">
+          <Property Type="String" Name="C3rdPartyDisclosureRestrictions" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBAllowableCostForDataSend_Result">
+          <Property Type="String" Name="Allowablecostclauses" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseapply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseOthers" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CostActgClauseXemptDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBCitizenshipRestrictionForDataSend_Result">
+          <Property Type="String" Name="CitizenshipClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="CitizenshipRestrictionApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CitizenshipRestrOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBCostActgForDataSend_Result">
+          <Property Type="String" Name="Allowablecostclauses" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseapply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="CostActgClauseOthers" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CostActgClauseXemptDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBGovtPropertyReviewForDataSend_Result">
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="GovtPropClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="GovtPropertyClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SAPMasterContract" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBOutSourceRestrictionsForDataSend_Result">
+          <Property Type="String" Name="Outsourceclauses" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="OutsourceRestrictionsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBPartnertypeClauseByPartnertypeAndChannel_Result">
+          <Property Type="Int32" Name="partnertype" Nullable="false" />
+          <Property Type="Int32" Name="clause" Nullable="false" />
+          <Property Type="Int32" Name="channel" Nullable="false" />
+          <Property Type="Int32" Name="sendDataToPerson" Nullable="false" />
+          <Property Type="Int32" Name="getApprovalFromPerson" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBPlaceOfPerformanceForDataSend_Result">
+          <Property Type="String" Name="PlaceOfPerformApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="PlaceofPerformClses" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PlaceofPerformOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBSecurityReqsForDataSend_Result">
+          <Property Type="String" Name="SecurityDetailsText" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SecurityReqsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SecurityReqsClses" Nullable="true" MaxLength="300" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBSpecialToolingForDataSend_Result">
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SAPMasterContract" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SpecialToolingclause" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBSubNotConsForDataSend_Result">
+          <Property Type="String" Name="AribaID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SAPMasterContract" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SubsNotConsApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SubsnotconsClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="SubsNotConsOthers" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBSupplierApprovalForDataSend_Result">
+          <Property Type="String" Name="SupplierApprovalApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBSupplierChgForDataSend_Result">
+          <Property Type="String" Name="SupplierChgApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="SalesOrderNumber" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getCFDBTINAForDataSend_Result">
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SAPMasterContract" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TINA" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -42757,6 +42942,161 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="responsetype" ColumnName="responsetype" />
                 <ScalarProperty Name="responseID" ColumnName="responseID" />
                 <ScalarProperty Name="response" ColumnName="response" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result">
+                <ScalarProperty Name="C3rdPartyDisclosureRestrictions" ColumnName="3rdPartyDisclosureRestrictions" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBAllowableCostForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBAllowableCostForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBAllowableCostForDataSend_Result">
+                <ScalarProperty Name="Allowablecostclauses" ColumnName="Allowablecostclauses" />
+                <ScalarProperty Name="CostActgClause" ColumnName="CostActgClause" />
+                <ScalarProperty Name="CostActgClauseapply" ColumnName="CostActgClauseapply" />
+                <ScalarProperty Name="CostActgClauseOthers" ColumnName="CostActgClauseOthers" />
+                <ScalarProperty Name="CostActgClauseXemptDesc" ColumnName="CostActgClauseXemptDesc" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBCitizenshipRestrictionForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBCitizenshipRestrictionForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBCitizenshipRestrictionForDataSend_Result">
+                <ScalarProperty Name="CitizenshipClauses" ColumnName="CitizenshipClauses" />
+                <ScalarProperty Name="CitizenshipRestrictionApply" ColumnName="CitizenshipRestrictionApply" />
+                <ScalarProperty Name="CitizenshipRestrOthers" ColumnName="CitizenshipRestrOthers" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBCostActgForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBCostActgForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBCostActgForDataSend_Result">
+                <ScalarProperty Name="Allowablecostclauses" ColumnName="Allowablecostclauses" />
+                <ScalarProperty Name="CostActgClause" ColumnName="CostActgClause" />
+                <ScalarProperty Name="CostActgClauseapply" ColumnName="CostActgClauseapply" />
+                <ScalarProperty Name="CostActgClauseOthers" ColumnName="CostActgClauseOthers" />
+                <ScalarProperty Name="CostActgClauseXemptDesc" ColumnName="CostActgClauseXemptDesc" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBGovtPropertyReviewForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBGovtPropertyReviewForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBGovtPropertyReviewForDataSend_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="GovtPropClauseApply" ColumnName="GovtPropClauseApply" />
+                <ScalarProperty Name="GovtPropertyClauses" ColumnName="GovtPropertyClauses" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="SAPMasterContract" ColumnName="SAPMasterContract" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBOutSourceRestrictionsForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBOutSourceRestrictionsForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBOutSourceRestrictionsForDataSend_Result">
+                <ScalarProperty Name="Outsourceclauses" ColumnName="Outsourceclauses" />
+                <ScalarProperty Name="OutsourceRestrictionsApply" ColumnName="OutsourceRestrictionsApply" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPartnertypeClauseByPartnertypeAndChannel" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPartnertypeClauseByPartnertypeAndChannel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertypeAndChannel_Result">
+                <ScalarProperty Name="partnertype" ColumnName="partnertype" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="sendDataToPerson" ColumnName="sendDataToPerson" />
+                <ScalarProperty Name="getApprovalFromPerson" ColumnName="getApprovalFromPerson" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBPlaceOfPerformanceForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBPlaceOfPerformanceForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBPlaceOfPerformanceForDataSend_Result">
+                <ScalarProperty Name="PlaceOfPerformApply" ColumnName="PlaceOfPerformApply" />
+                <ScalarProperty Name="PlaceofPerformClses" ColumnName="PlaceofPerformClses" />
+                <ScalarProperty Name="PlaceofPerformOthers" ColumnName="PlaceofPerformOthers" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBSecurityReqsForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBSecurityReqsForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBSecurityReqsForDataSend_Result">
+                <ScalarProperty Name="SecurityDetailsText" ColumnName="SecurityDetailsText" />
+                <ScalarProperty Name="SecurityReqsApply" ColumnName="SecurityReqsApply" />
+                <ScalarProperty Name="SecurityReqsClses" ColumnName="SecurityReqsClses" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBSpecialToolingForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBSpecialToolingForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBSpecialToolingForDataSend_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="SAPMasterContract" ColumnName="SAPMasterContract" />
+                <ScalarProperty Name="SpecialToolingclause" ColumnName="SpecialToolingclause" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBSubNotConsForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBSubNotConsForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBSubNotConsForDataSend_Result">
+                <ScalarProperty Name="AribaID" ColumnName="AribaID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="SAPMasterContract" ColumnName="SAPMasterContract" />
+                <ScalarProperty Name="SubsNotConsApply" ColumnName="SubsNotConsApply" />
+                <ScalarProperty Name="SubsnotconsClauses" ColumnName="SubsnotconsClauses" />
+                <ScalarProperty Name="SubsNotConsOthers" ColumnName="SubsNotConsOthers" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBSupplierApprovalForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBSupplierApprovalForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBSupplierApprovalForDataSend_Result">
+                <ScalarProperty Name="SupplierApprovalApply" ColumnName="SupplierApprovalApply" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBSupplierChgForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBSupplierChgForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBSupplierChgForDataSend_Result">
+                <ScalarProperty Name="SupplierChgApply" ColumnName="SupplierChgApply" />
+                <ScalarProperty Name="SalesOrderNumber" ColumnName="SalesOrderNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBTINAForDataSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBTINAForDataSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBTINAForDataSend_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="SAPMasterContract" ColumnName="SAPMasterContract" />
+                <ScalarProperty Name="TINA" ColumnName="TINA" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
