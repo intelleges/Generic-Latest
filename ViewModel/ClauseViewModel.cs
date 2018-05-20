@@ -26,4 +26,22 @@ namespace Generic.ViewModel
 
         public DateTime approvalNeededBy { get; set; }
     }
+
+
+    public class SendDataViewModel
+    {
+        public List<SendDataViewModelItem> items { get; set; }
+
+        public int pptq { get; set; }
+
+    }
+
+    public class SendDataViewModelItem
+    {
+        public int id { get; set; }
+
+        public int sendDataTo { get; set; }
+
+        public string text { get; set; }
+    }
 }

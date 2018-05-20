@@ -6506,6 +6506,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCFDBCostActgForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCFDBDataForSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCFDBGovtPropClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
@@ -6571,6 +6575,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getClauseFromCFDBAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getClausePersonPartnertypeSortOrderByPartnertype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getCommentByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -18035,47 +18042,54 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBAllowableCostForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBAllowableCostForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBCitizenshipRestrictionForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBCitizenshipRestrictionForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBCostActgForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBCostActgForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBGovtPropertyReviewForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBGovtPropertyReviewForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBOutSourceRestrictionsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBOutSourceRestrictionsForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBPartnertypeClauseByPartnertypeAndChannel" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPartnertypeClauseByPartnertypeAndChannel_Result)">
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="channel" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBPlaceOfPerformanceForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBPlaceOfPerformanceForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSecurityReqsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSecurityReqsForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSpecialToolingForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSpecialToolingForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSubNotConsForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSubNotConsForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSupplierApprovalForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSupplierApprovalForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBSupplierChgForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBSupplierChgForDataSend_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBTINAForDataSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBTINAForDataSend_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCFDBDataForSend" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBDataForSend_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getClausePersonPartnertypeSortOrderByPartnertype" ReturnType="Collection(hs3MVCMTQa2Model.pr_getClausePersonPartnertypeSortOrderByPartnertype_Result)">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -30948,6 +30962,21 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="TINA" Nullable="true" MaxLength="2" />
           <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
         </ComplexType>
+        <ComplexType Name="pr_getCFDBDataForSend_Result">
+          <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="GovtPropClauseApply" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="GovtPropertyClauses" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="PartNumber" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="SAPMasterContract" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TransPN" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pr_getClausePersonPartnertypeSortOrderByPartnertype_Result">
+          <Property Type="Int32" Name="cfdbclause" Nullable="false" />
+          <Property Type="String" Name="clause" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="person" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="401" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43097,6 +43126,29 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="SAPMasterContract" ColumnName="SAPMasterContract" />
                 <ScalarProperty Name="TINA" ColumnName="TINA" />
                 <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCFDBDataForSend" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBDataForSend">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCFDBDataForSend_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="GovtPropClauseApply" ColumnName="GovtPropClauseApply" />
+                <ScalarProperty Name="GovtPropertyClauses" ColumnName="GovtPropertyClauses" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="SAPMasterContract" ColumnName="SAPMasterContract" />
+                <ScalarProperty Name="TransPN" ColumnName="TransPN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getClausePersonPartnertypeSortOrderByPartnertype" FunctionName="hs3MVCMTQa2Model.Store.pr_getClausePersonPartnertypeSortOrderByPartnertype">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getClausePersonPartnertypeSortOrderByPartnertype_Result">
+                <ScalarProperty Name="cfdbclause" ColumnName="cfdbclause" />
+                <ScalarProperty Name="clause" ColumnName="clause" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

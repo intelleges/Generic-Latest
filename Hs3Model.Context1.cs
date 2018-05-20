@@ -23251,5 +23251,27 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBTINAForDataSend_Result>("pr_getCFDBTINAForDataSend", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getCFDBDataForSend_Result> pr_getCFDBDataForSend(Nullable<int> pptq, Nullable<int> clause)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDBDataForSend_Result>("pr_getCFDBDataForSend", pptqParameter, clauseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getClausePersonPartnertypeSortOrderByPartnertype_Result> pr_getClausePersonPartnertypeSortOrderByPartnertype(Nullable<int> partnertype)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getClausePersonPartnertypeSortOrderByPartnertype_Result>("pr_getClausePersonPartnertypeSortOrderByPartnertype", partnertypeParameter);
+        }
     }
 }

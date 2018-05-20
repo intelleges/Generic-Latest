@@ -42,7 +42,7 @@ namespace Generic.Controllers
         public ActionResult EditPartial(int pptqId)
         {
             ModelState.Clear();
-            ViewBag.Count = null;            
+            ViewBag.Count = null;
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(pptqId).FirstOrDefault();
             ViewBag.PptqId = pptqId;
             var pptqDocs = db.pr_getPPTQDocByPPTQ(pptq.id).ToList();
@@ -67,9 +67,9 @@ namespace Generic.Controllers
                 Score = (int?)pptq.score,
                 Priority = pptq.priority,
                 partnertype = pptq.partnerTypeTouchpointQuestionnaire1.partnerType,
-                FileName  = file!=null? file.title:null,
-                FileCIDName = fileCID != null? fileCID.title:null,
-                FileEntanglementName = fileEntanglement != null? fileEntanglement.title:null,
+                FileName = file != null ? file.title : null,
+                FileCIDName = fileCID != null ? fileCID.title : null,
+                FileEntanglementName = fileEntanglement != null ? fileEntanglement.title : null,
                 FileScopeName = fileScope != null ? fileScope.title : null,
                 SupplierSelfAssessmentUploadName = supplierSelfAssessmentUpload != null ? supplierSelfAssessmentUpload.title : null,
                 BAATransitionScopeUploadName = BAATransitionScopeUpload != null ? BAATransitionScopeUpload.title : null
@@ -510,6 +510,10 @@ namespace Generic.Controllers
 
                 ViewBag.SelectedClauses = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList();
                 Session["LceModel"] = model;
+
+                ViewBag.Items = db.pr_getClausePersonPartnertypeSortOrderByPartnertype(model.partnertype).ToList();
+                var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+                ViewBag.ActiveType = partnertype.Where(o => o.id == model.partnertype).First().description;
                 return View(model);
             }
 
@@ -545,6 +549,202 @@ namespace Generic.Controllers
                         db.pr_addPPTQTeam(model.Id, item, 0, true);
                     }
                     catch { }
+                }
+            }
+
+            return Json(new { success = true });
+        }
+
+
+        [HttpPost]
+        public ActionResult SendData(SendDataViewModel model)
+        {
+            LCEModel vm = Session["LceModel"] as LCEModel;
+            SendEmail objSendEmail = new SendEmail();
+            var owner = db.pr_getPerson(vm.Owner).First();
+            var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
+            var activityType = db.pr_getParnterType(vm.partnertype).First().description;
+            foreach (var item in model.items)
+            {
+                byte[] barr;
+                List<AttachmentInfo> attachments = new List<AttachmentInfo>();
+                switch (item.id) {
+                    case 8:
+                        var items = db.pr_getCFDBGovtPropertyReviewForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBGovtPropertyReviewForDataSend_Result>(new MemoryStream(), "CFDBGovtPropertyReviewForDataSend", items);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBGovtPropertyReviewForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBGovtPropertyReviewForDataSend.xls"
+                        });
+                        break;
+                    case 2:
+                        var items2 = db.pr_getCFDBCitizenshipRestrictionForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestrictionForDataSend_Result>(new MemoryStream(), "CFDBCitizenshipRestrictionForDataSend", items2);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBCitizenshipRestrictionForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBCitizenshipRestrictionForDataSend.xls"
+                        });
+                        break;
+                    case 19:
+                        var items3 = db.pr_getCFDBSecurityReqsForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSecurityReqsForDataSend_Result>(new MemoryStream(), "CFDBSecurityReqsForDataSend", items3);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBSecurityReqsForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBSecurityReqsForDataSend.xls"
+                        });
+                        break;
+                    case 12:
+                        var items4 = db.pr_getCFDBOutSourceRestrictionsForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBOutSourceRestrictionsForDataSend_Result>(new MemoryStream(), "CFDBOutSourceRestrictionsForDataSend", items4);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBOutSourceRestrictionsForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBOutSourceRestrictionsForDataSend.xls"
+                        });
+                        break;
+                    case 21:
+                        var items5 = db.pr_getCFDBSupplierApprovalForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApprovalForDataSend_Result>(new MemoryStream(), "CFDBSupplierApprovalForDataSend", items5);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBSupplierApprovalForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBSupplierApprovalForDataSend.xls"
+                        });
+                        break;
+                    case 22:
+                        var items6 = db.pr_getCFDBSupplierChgForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierChgForDataSend_Result>(new MemoryStream(), "CFDBSupplierChgForDataSend", items6);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBSupplierChgForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBSupplierChgForDataSend.xls"
+                        });
+                        break;
+                    case 49:
+                        var items7 = db.pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result>(new MemoryStream(), "CFDB3rdPartyDisclosureRestrictionsForDataSend", items7);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDB3rdPartyDisclosureRestrictionsForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDB3rdPartyDisclosureRestrictionsForDataSend.xls"
+                        });
+                        break;
+                    case 20:
+                        var items8 = db.pr_getCFDBSubNotConsForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSubNotConsForDataSend_Result>(new MemoryStream(), "CFDBSubNotConsForDataSend", items8);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBSubNotConsForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBSubNotConsForDataSend.xls"
+                        });
+                        break;
+                    case 53:
+                        var items9 = db.pr_getCFDBTINAForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBTINAForDataSend_Result>(new MemoryStream(), "CFDBTINAForDataSend", items9);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBTINAForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBTINAForDataSend.xls"
+                        });
+                        break;
+                    case 3:
+                        var items10 = db.pr_getCFDBCostActgForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBCostActgForDataSend_Result>(new MemoryStream(), "CFDBCostActgForDataSend", items10);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBCostActgForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBCostActgForDataSend.xls"
+                        });
+                        break;
+                    case 52:
+                        var items11 = db.pr_getCFDBAllowableCostForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBAllowableCostForDataSend_Result>(new MemoryStream(), "CFDBAllowableCostForDataSend", items11);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBAllowableCostForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBAllowableCostForDataSend.xls"
+                        });
+                        break;
+                    case 13:
+                        var items12 = db.pr_getCFDBPlaceOfPerformanceForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBPlaceOfPerformanceForDataSend_Result>(new MemoryStream(), "CFDBPlaceOfPerformanceForDataSend", items12);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBPlaceOfPerformanceForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBPlaceOfPerformanceForDataSend.xls"
+                        });
+                        break;
+                    case 50:
+                        var items1 = db.pr_getCFDBSpecialToolingForDataSend(model.pptq).ToList();
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSpecialToolingForDataSend_Result>(new MemoryStream(), "CFDBSpecialToolingForDataSend", items1);
+                        attachments.Add(new AttachmentInfo()
+                        {
+                            Content = Convert.ToBase64String(barr),
+                            ContentId = "CFDBSpecialToolingForDataSend.xls",
+                            Disposition = "inline",
+                            Type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            Filename = "CFDBSpecialToolingForDataSend.xls"
+                        });
+                        break;
+                }
+
+                var person = db.pr_getPerson(item.sendDataTo).FirstOrDefault();
+                if (person != null)
+                {
+                    Email email = new Email();
+                    string strEmailBody = "Hi " + person.firstName + ",<br/>";
+                    email.subject = "Clause Description";
+                    email.body = strEmailBody;
+                    email.category = SendGridCategory.EmailSend;
+                    email.url = Request.Url.ToString();
+                    email.emailTo = person.email;
+
+                    objSendEmail.sendEmail(email, new EmailFormatSettings()
+                    {
+                        enterprise = new enterprise()
+                        {
+                            id = Generic.Helpers.CurrentInstance.EnterpriseID
+                        }
+                    }, from, attachments);
                 }
             }
 
