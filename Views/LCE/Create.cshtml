@@ -31,6 +31,21 @@
         });
     }
 
+    function onCompleteCfdb(e) {
+        $.fancybox({
+            //'content': $('#clause').html(),
+            'content': $('#clausePersonPartnertype').html(),
+            closeBtn: false,
+            closeClick: false,
+            modal: true,
+            type: 'html',
+            width: 600,
+            height: 300,
+            minWidth: 600,
+            minHeight: 300
+        });
+    }
+
     var timerId = null;
     function submitform1()
     {
@@ -54,7 +69,19 @@
             removePlugins :'elementspath'
         });
 
-        @if (ViewBag.Count != null && ViewBag.Count != 0) {
+        @if (ViewBag.Pptq != null) {
+            <text>
+            alertify.set({
+                labels: {
+                    ok: "Ok", cancel: "Close"
+                }
+            });
+            alertify.confirm("Congratulations LC&E Created!", function (e) {
+
+            });
+        </text>
+        }
+        @*if (ViewBag.Count != null && ViewBag.Count != 0) {
             <text>
                 alertify.set({
                     labels: {
@@ -92,7 +119,7 @@
                     minHeight: 300
                 });
             </text>
-        }
+        }*@
 
 
 		$("#btnClear").click(function (e) {
@@ -305,10 +332,7 @@
                         ok: "Ok", cancel: "Close"
                     }
                 });
-                alertify.confirm("Congratulations LC&E Created!", function (e) {
-                       
-           window.location = '@Url.Content("~/lce/Create")';
-                });
+               window.location = '@Url.Content("~/lce/Create")';
 
             });
     }
@@ -680,9 +704,10 @@
                                 foreach (var item in items)
                                 {
                                     <tr>
-                                        <input type="hidden" class="id" value="@item.cfdbclause"/>
+                                        <input type="hidden" class="id" value="@item.cfdbclause" />
                                         <td class="text">@item.clause</td>
-                                        <td><select value="" class="form-control sendDataTo">
+                                        <td>
+                                            <select value="" class="form-control sendDataTo">
                                                 @foreach (var item1 in unassignedByEnterprise)
                                                 {
                                                     if (item1.id == item.person)
@@ -694,7 +719,8 @@
                                                         <option value="@item1.id">@item1.firstName @item1.lastName</option>
                                                     }
                                                 }
-                                            </select></td>
+                                            </select>
+                                        </td>
                                     </tr>
                                 }
                             }
@@ -880,111 +906,120 @@
                         @Html.TextAreaFor(model => model.Comments)
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.FileScope)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.File)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.FileCID)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.FileEntanglement)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="form-group">
-                            @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
-                            <div class="col-sm-1">
-                                <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
-                            </div>
-                            <div class="col-sm-8">
-                                @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
-                                @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <br />
-                    <br />
-                    <div style="float: right;" class="controls">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                        <input type="button" value="Clear" class="btn btn-default" id="btnClear" />
+            @if (ViewBag.Pptq == null)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br />
+                        <br />
+                        <div style="float: right;" class="controls">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <input type="button" value="Clear" class="btn btn-default" id="btnClear" />
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>}
         </div>
     </fieldset>
 }
+
+@if (ViewBag.Pptq != null)
+{
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-1">
+                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
+                </div>
+                <div class="col-sm-8">
+                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.FileScope)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-1">
+                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                </div>
+                <div class="col-sm-8">
+                    @(Html.Telerik().Upload().Name("files").Multiple(false).ClientEvents(events => { events.OnSelect("onUpload"); events.OnComplete("onCompleteCfdb"); }).Async(a => a
+            .Save("UploadCfdb", "lce", new { pptq = ViewBag.Pptq })
+            .AutoUpload(true)
+        ))
+                    @Html.ValidationMessageFor(model => model.File)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-1">
+                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                </div>
+                <div class="col-sm-8">
+                    @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.FileCID)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-1">
+                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                </div>
+                <div class="col-sm-8">
+                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.FileEntanglement)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-1">
+                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                </div>
+                <div class="col-sm-8">
+                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="form-group">
+                @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
+                <div class="col-sm-1">
+                    <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                </div>
+                <div class="col-sm-8">
+                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
 <div style="height:300px;"></div>
 @section header{
 
