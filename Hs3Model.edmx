@@ -11831,7 +11831,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="partner" Mode="In" Type="Int32" />
             <Parameter Name="group" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addPartnerPartnertypeTouchpointQuestionnaire" ReturnType="Collection(Decimal)">
+          <FunctionImport Name="pr_addPartnerPartnertypeTouchpointQuestionnaire" ReturnType="Collection(Int32)">
             <Parameter Name="partner" Mode="In" Type="Int32" />
             <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
             <Parameter Name="accesscode" Mode="In" Type="String" />

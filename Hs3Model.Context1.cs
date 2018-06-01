@@ -1090,7 +1090,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addPartnerGroup", partnerParameter, groupParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> status, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score, string loadgroup)
+        public virtual ObjectResult<Nullable<int>> pr_addPartnerPartnertypeTouchpointQuestionnaire(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> status, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score, string loadgroup)
         {
             var partnerParameter = partner.HasValue ?
                 new ObjectParameter("partner", partner) :
@@ -1144,7 +1144,7 @@ namespace Generic
                 new ObjectParameter("loadgroup", loadgroup) :
                 new ObjectParameter("loadgroup", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaire", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter, loadgroupParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerPartnertypeTouchpointQuestionnaire", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter, loadgroupParameter);
         }
     
         public virtual int pr_addPartnerRelationshipOwner(Nullable<int> partner, Nullable<int> person)
