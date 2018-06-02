@@ -297,6 +297,12 @@ namespace Generic.Controllers
             ViewBag.OwnerList = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "Id", "FullName", ownerId);
         }
 
+        public ActionResult GetCountByPptqId(int pptqId)
+        {
+            var c = db.pr_getCFDBRecordCountByPPTQ(pptqId).FirstOrDefault().Value;
+            return Json(new { count = c }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Create(LCEModel model)
@@ -313,14 +319,15 @@ namespace Generic.Controllers
                 int enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate, model.partnertype).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                //result.partner_internal_id
-                var pdi = db.pr_getPartnerByPartnerType(model.partnertype).FirstOrDefault().id;
+               
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(model.partnertype).FirstOrDefault().id;
                 decimal? score = 0;
-                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
-             
-                var pptqId = db.pr_addPartnerPartnertypeTouchpointQuestionnaire(pdi, ptq, loadGroup, SessionSingleton.LoggedInUserId, DateTime.Now, DateTime.Now.AddDays(2), (int)PartnerStatus.Invited_NoResponse, 0, "", null, "", score, loadGroup).FirstOrDefault().Value;
-              
+                var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
+
+                int pptqId = Convert.ToInt32( db.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerId, ptq, loadGroup, SessionSingleton.LoggedInUserId, DateTime.Now, DateTime.Now.AddDays(2), (int)PartnerStatus.Invited_NoResponse, 0, "", null, "", score, loadGroup).FirstOrDefault().Value);
+
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(loadGroup).FirstOrDefault();
+
                 db.pr_addPPTQDocShellForLCE(pptqId, SessionSingleton.LoggedInUserId).FirstOrDefault();
                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, model.Score, model.Priority);
 
@@ -354,7 +361,7 @@ namespace Generic.Controllers
                 }*/
                 //ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
-                ViewBag.PartnerSpreadsheetDataLoadId = partnerSpreadsheetDataLoadId;
+                ViewBag.PartnerSpreadsheetDataLoadId = partnerId;
                 ViewBag.TeamAssigned = db.pr_getPersonTeamAssignedByTouchpoint(result.touchpoint).ToList();
                 ViewBag.UnassignedByEnterprise = db.pr_getPersonTouchpointTeamUnassignedByEnterprise(CurrentInstance.EnterpriseID).ToList();
 
@@ -373,6 +380,7 @@ namespace Generic.Controllers
                 ViewBag.Items = db.pr_getClausePersonPartnertypeSortOrderByPartnertype(model.partnertype).ToList();
                 var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
                 ViewBag.ActiveType = partnertype.Where(o => o.id == model.partnertype).First().description;
+                ViewBag.AccessCode = loadGroup;
                 return View(model);
             }
 

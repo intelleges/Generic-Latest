@@ -23273,5 +23273,71 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getClausePersonPartnertypeSortOrderByPartnertype_Result>("pr_getClausePersonPartnertypeSortOrderByPartnertype", partnertypeParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getCFDBRecordCountByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getCFDBRecordCountByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnaire2(Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<int> status, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score, string loadgroup)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var invitedByParameter = invitedBy.HasValue ?
+                new ObjectParameter("invitedBy", invitedBy) :
+                new ObjectParameter("invitedBy", typeof(int));
+    
+            var invitedDateParameter = invitedDate.HasValue ?
+                new ObjectParameter("invitedDate", invitedDate) :
+                new ObjectParameter("invitedDate", typeof(System.DateTime));
+    
+            var completedDateParameter = completedDate.HasValue ?
+                new ObjectParameter("completedDate", completedDate) :
+                new ObjectParameter("completedDate", typeof(System.DateTime));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var progressParameter = progress.HasValue ?
+                new ObjectParameter("progress", progress) :
+                new ObjectParameter("progress", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            var pdfParameter = pdf != null ?
+                new ObjectParameter("pdf", pdf) :
+                new ObjectParameter("pdf", typeof(byte[]));
+    
+            var docFolderAddressParameter = docFolderAddress != null ?
+                new ObjectParameter("docFolderAddress", docFolderAddress) :
+                new ObjectParameter("docFolderAddress", typeof(string));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(decimal));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaire2", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter, loadgroupParameter);
+        }
     }
 }

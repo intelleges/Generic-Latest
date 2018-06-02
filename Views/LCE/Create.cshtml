@@ -32,6 +32,10 @@
     }
 
     function onCompleteCfdb(e) {
+
+        $.get('/lce/GetCountByPptqId?pptqId=@ViewBag.Pptq', function (data) {
+           alertify.confirm("Congratulations, you just loaded "+data.count+" CFDB records", function (e) {
+
         $.fancybox({
             //'content': $('#clause').html(),
             'content': $('#clausePersonPartnertype').html(),
@@ -43,6 +47,8 @@
             height: 300,
             minWidth: 600,
             minHeight: 300
+               });
+            });
         });
     }
 
@@ -76,7 +82,7 @@
                     ok: "Ok", cancel: "Close"
                 }
             });
-            alertify.confirm("Congratulations LC&E Created!", function (e) {
+            alertify.confirm("Congratulations LC&E Created!<br/>AccessCode:  @ViewBag.AccessCode <br/> PptqId: @ViewBag.Pptq", function (e) {
 
             });
         </text>
@@ -731,7 +737,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12" style="text-align: right;">
-                    <button type="button" class="btn btn-default btn-sm" onclick="$.fancybox.close(); window.location.reload();">Skip</button>
+                    <button type="button" class="btn btn-default btn-sm" onclick="$.fancybox.close(); window.location = '@Url.Content("~/lce/Create")';">Skip</button>
                     <button type="button" class="btn btn-primary btn-sm" onclick="next1_new();">Next></button>
                 </div>
             </div>
