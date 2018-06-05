@@ -351,14 +351,7 @@ namespace Generic.Controllers
                 {
                     AddModifyPptqDoc(model.SupplierSelfAssessmentUpload, pptqId, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
                 }
-                /*using (var dbEntityes = new EntitiesDBContext())
-                {
-                    var files = dbEntityes.pr_getPPTQDocByPPTQ(pptqId).ToList();
-                    var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-                    requesredPptq.score = files.Sum(o => o.sortOrder);
-                    dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
-                    dbEntityes.SaveChanges();
-                }*/
+              
                 //ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
                 ViewBag.PartnerSpreadsheetDataLoadId = partnerId;
@@ -817,8 +810,15 @@ namespace Generic.Controllers
             var owner = db.pr_getPerson(vm.Owner).First();
             var from = new System.Net.Mail.MailAddress(owner.email, owner.firstName + " " + owner.lastName);
             var activityType = db.pr_getParnterType(vm.partnertype).First().description;
+            var items101 = db.pr_getClausePersonPartnertypeSortOrderByPartnertype(vm.partnertype).ToList();
+
+            string subject = "";
+            string accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(model.pptq).First().accesscode;
+
             foreach (var item in model.items)
             {
+                subject = items101.Where(o => o.cfdbclause == item.id).First().clause;
+
                 byte[] barr;
                 List<AttachmentInfo> attachments = new List<AttachmentInfo>();
                 switch (item.id)
@@ -987,7 +987,8 @@ namespace Generic.Controllers
                 {
                     Email email = new Email();
                     string strEmailBody = "Hi " + person.firstName + ",<br/>";
-                    email.subject = "Clause Description";
+                    // email.subject = "Clause Description";
+                    email.subject = subject + " AccessCode: " + accessCode;
                     email.body = strEmailBody;
                     email.category = SendGridCategory.EmailSend;
                     email.url = Request.Url.ToString();
