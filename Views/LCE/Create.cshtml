@@ -33,7 +33,7 @@
 
     function onCompleteCfdb(e) {
 
-        $.get('/lce/GetCountByPptqId?pptqId=@ViewBag.Pptq', function (data) {
+        $.get('@Url.Content("~/lce/GetCountByPptqId")'+ '?pptqId=@ViewBag.Pptq', function (data) {
            alertify.confirm("Congratulations, you just loaded "+data.count+" CFDB records", function (e) {
 
         $.fancybox({
