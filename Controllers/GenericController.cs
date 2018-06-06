@@ -204,6 +204,15 @@ namespace Generic.Controllers
 
         }
 
+        [Route("GetQuestionnaireCMSByAccessCode")]
+        [HttpGet]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult GetQuestionnaireCMSByAccessCode(string accessCode)
+        {
+            return Ok(db.pr_getQuestionnaireByAccessCodeForAPI(accessCode).ToList());
+        }
+
 
         [Route("AddPartnerSpreadsheetDataLoad")]
         [HttpPost]

@@ -19505,13 +19505,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonPPTQClause", idParameter);
         }
     
-        public virtual ObjectResult<pr_getCFDB_Result> pr_getCFDB(Nullable<int> id)
+        public virtual ObjectResult<pr_getCFDB_Result> pr_getCFDB(Nullable<int> pptq)
         {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDB_Result>("pr_getCFDB", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCFDB_Result>("pr_getCFDB", pptqParameter);
         }
     
         public virtual ObjectResult<pr_getCFDBAll_Result> pr_getCFDBAll()
@@ -23338,6 +23338,15 @@ namespace Generic
                 new ObjectParameter("loadgroup", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnaire2", partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter, loadgroupParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireCMSByAccessCodeForAPI_Result> pr_getQuestionnaireCMSByAccessCodeForAPI(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireCMSByAccessCodeForAPI_Result>("pr_getQuestionnaireCMSByAccessCodeForAPI", accesscodeParameter);
         }
     }
 }

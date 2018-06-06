@@ -6484,7 +6484,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_getCampaignStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getCFDB3rdPartyDisclosureRestrictions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -7654,6 +7654,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getQuestionnaireCMSAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pr_getQuestionnaireCMSByAccessCodeForAPI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionnaireInitZcode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
@@ -17052,7 +17055,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDB" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDB_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCFDBAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBAll_Result)" />
           <FunctionImport Name="pr_getCFDBClause" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCFDBClause_Result)">
@@ -18126,6 +18129,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="docFolderAddress" Mode="In" Type="String" />
             <Parameter Name="score" Mode="In" Type="Decimal" />
             <Parameter Name="loadgroup" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionnaireCMSByAccessCodeForAPI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireCMSByAccessCodeForAPI_Result)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31013,6 +31019,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="person" Nullable="false" />
           <Property Type="String" Name="name" Nullable="false" MaxLength="401" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionnaireCMSByAccessCodeForAPI_Result">
+          <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="text" Nullable="false" />
+          <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFiletype" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43190,6 +43202,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getCFDBRecordCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getCFDBRecordCountByPPTQ" />
           <FunctionImportMapping FunctionImportName="pr_addPartnerPartnertypeTouchpointQuestionnaire2" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaire2" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionnaireCMSByAccessCodeForAPI" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireCMSByAccessCodeForAPI">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionnaireCMSByAccessCodeForAPI_Result">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="doc" ColumnName="doc" />
+                <ScalarProperty Name="uploadedFiletype" ColumnName="uploadedFiletype" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -2289,6 +2289,9 @@
     <Compile Include="pr_getQuestionnaireCMSAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionnaireCMSByAccessCodeForAPI_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaireCMS_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
