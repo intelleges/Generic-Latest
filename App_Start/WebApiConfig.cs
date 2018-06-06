@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Generic
 {
@@ -9,8 +10,8 @@ namespace Generic
     {
         public static void Register(HttpConfiguration config)
         {
-            //config.EnableCors();
-			config.MapHttpAttributeRoutes();
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
