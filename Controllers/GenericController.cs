@@ -210,7 +210,7 @@ namespace Generic.Controllers
         [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
         public IHttpActionResult GetQuestionnaireCMSByAccessCode(string accessCode)
         {
-            return Ok(db.pr_getQuestionnaireByAccessCodeForAPI(accessCode).ToList());
+            return Ok(db.pr_getQuestionnaireCMSByAccessCodeForAPI(accessCode).ToList());
         }
 
 
