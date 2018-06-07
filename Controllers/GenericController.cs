@@ -218,7 +218,9 @@ namespace Generic.Controllers
             sBuilder.Append("{");
             foreach (var item in data)
             {
-                sBuilder.Append("\"" + CamelCase(item.description) + "\":\"" + HttpUtility.HtmlEncode(item.text) + "\",");
+                var text = HttpUtility.HtmlEncode(item.text);
+
+                sBuilder.Append("\"" + CamelCase(item.description) + "\":" + (text.ToLower() == "true" || text.ToLower() == "false" ? text.ToLower() : " \"" + text + "\"") + ",");
             }
             sBuilder.Remove(sBuilder.Length - 1, 1);
             sBuilder.Append("}");
@@ -237,7 +239,7 @@ namespace Generic.Controllers
             var count = splitted.Count();
             if (count == 0) return "";
             if (count > 1)
-            {                
+            {
                 result.Append(splitted[0].ToLowerInvariant());
                 for (int i = 1; i < splitted.Count(); i++)
                 {
