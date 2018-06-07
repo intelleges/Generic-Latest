@@ -15,6 +15,9 @@ using Generic.Helpers.PartnerHelper;
 using System.Data.Entity;
 using Generic.Helpers.Utility;
 using Generic.ViewModel;
+using System.Text;
+using Newtonsoft.Json;
+using System.Web;
 
 namespace Generic.Controllers
 {
@@ -114,7 +117,7 @@ namespace Generic.Controllers
         [SwaggerResponse(200, "OK", Type = typeof(QuestionnaireByAccessCodeModel))]
         [SwaggerResponse(404, "Not found")]
         public IHttpActionResult QuestionnaireByAccessCode(string accessCode)
-        {            
+        {
             var questionnaireByAccessCode = db.pr_getQuestionnaireByAccessCodeForAPI(accessCode).ToList();
             if (questionnaireByAccessCode.Count > 0)
             {
@@ -150,7 +153,7 @@ namespace Generic.Controllers
                         foundPage.surveySets.Add(foundSurveySet);
                     }
                     var foundSurvey = foundSurveySet.surveys.FirstOrDefault(o => o.description == row.survey);
-                    if(foundSurvey==null)
+                    if (foundSurvey == null)
                     {
                         foundSurvey = new QuestionnaireByAccessCodeModel_Survey()
                         {
@@ -169,10 +172,10 @@ namespace Generic.Controllers
                             // = row.a
                             calendarMessageTxt = row.calendarMessageTxt,
                             commentBoxTxt = row.commentBoxTxt,
-                            commentRequired  =row.commentRequired,
-                            commentType= row.commentType,
+                            commentRequired = row.commentRequired,
+                            commentType = row.commentType,
                             emailAlert = row.emailAlert,
-                            emailAlertList =  row.emailAlertList,
+                            emailAlertList = row.emailAlertList,
                             //enterprise = row.en
                             question = row.question,
                             required = row.required,
@@ -184,14 +187,14 @@ namespace Generic.Controllers
                             subCheckBoxChoice = row.subCheckBoxChoice,
                             tag = row.tag,
                             responseType = row.responsetype,
-                            weight = row.weight                            
+                            weight = row.weight
                         };
                         foundSurvey.questions.Add(foundQuestion);
                     }
                     foundQuestion.responses.Add(new QuestionnaireByAccessCodeModel_response()
                     {
                         description = row.response,
-                        id = row.responseID                       
+                        id = row.responseID
                         //sortOrder = r
                     });
                 }
@@ -210,7 +213,43 @@ namespace Generic.Controllers
         [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
         public IHttpActionResult GetQuestionnaireCMSByAccessCode(string accessCode)
         {
-            return Ok(db.pr_getQuestionnaireCMSByAccessCodeForAPI(accessCode).ToList());
+            var data = db.pr_getQuestionnaireCMSByAccessCodeForAPI(accessCode).ToList();
+            StringBuilder sBuilder = new StringBuilder();
+            sBuilder.Append("{");
+            foreach (var item in data)
+            {
+                sBuilder.Append("\"" + CamelCase(item.description) + "\":\"" + HttpUtility.HtmlEncode(item.text) + "\",");
+            }
+            sBuilder.Remove(sBuilder.Length - 1, 1);
+            sBuilder.Append("}");
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeHtml
+            };
+            var result = JsonConvert.DeserializeObject(sBuilder.ToString(), settings);
+            return Ok(result);
+        }
+
+        private string CamelCase(string value)
+        {
+            StringBuilder result = new StringBuilder();
+            var splitted = value.Split("_".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var count = splitted.Count();
+            if (count == 0) return "";
+            if (count > 1)
+            {                
+                result.Append(splitted[0].ToLowerInvariant());
+                for (int i = 1; i < splitted.Count(); i++)
+                {
+                    var str = splitted[i];
+                    result.Append(Char.ToUpperInvariant(str[0]) + str.Substring(1).ToLowerInvariant());
+                }
+            }
+            else
+            {
+                return splitted[0].ToLower();
+            }
+            return result.ToString();
         }
 
 
