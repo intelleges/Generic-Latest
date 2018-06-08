@@ -166,40 +166,96 @@ namespace Generic.Helpers
             return result;
         }
 
-        public static byte[] CreateExcel<T>(Stream stream, string sheetName, List<T> objects)
+        public static byte[] CreateExcel<T>(Stream stream, string sheetName, List<T> objects, List<string> map = null)
         {
-            List<T> result = new List<T>();
-            using (ExcelPackage pck = new ExcelPackage(stream))
+
+            if (map == null)
             {
-                ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add(sheetName);
+
+                List<T> result = new List<T>();
+                using (ExcelPackage pck = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add(sheetName);
+                    if (objects.Count > 0)
+                    {
+                        Type myType = objects[0].GetType();
+                        IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+                        int j = 1;
+                        foreach (PropertyInfo prop in props)
+                        {
+                            worksheet.Cells[1, j].Value = prop.Name;
+                            j++;
+                        }
+                    }
+
+                    int i = 2;
+                    foreach (T item in objects)
+                    {
+                        Type myType = item.GetType();
+                        IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+
+                        int j = 1;
+                        foreach (PropertyInfo prop in props)
+                        {
+                            object propValue = prop.GetValue(item, null);
+                            worksheet.Cells[i, j].Value = propValue == null ? "" : propValue.ToString();
+                            j++;
+                        }
+                        i++;
+                    }
+
+                    return pck.GetAsByteArray();
+                }
+            }
+            else
+            {
+
+                List<string> propsSorted = new List<string>();
+                propsSorted.AddRange(map);
                 if (objects.Count > 0)
                 {
                     Type myType = objects[0].GetType();
                     IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-                    int j = 1;
-                    foreach (PropertyInfo prop in props){
-                        worksheet.Cells[1, j].Value = prop.Name;
-                        j++;
-                    }
-                }
-
-                int i = 2;
-                foreach (T item in objects)
-                {
-                    Type myType = item.GetType();
-                    IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-
-                    int j = 1;
                     foreach (PropertyInfo prop in props)
                     {
-                        object propValue = prop.GetValue(item, null);
-                        worksheet.Cells[i, j].Value = propValue == null ? "" : propValue.ToString();
-                        j++;
+                        if (!propsSorted.Contains(prop.Name))
+                            propsSorted.Add(prop.Name);
                     }
-                    i++;
                 }
 
-                return pck.GetAsByteArray();
+                List<T> result = new List<T>();
+                using (ExcelPackage pck = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add(sheetName);
+                    if (objects.Count > 0)
+                    {
+                        int j = 1;
+                        foreach (string prop in propsSorted)
+                        {
+                            worksheet.Cells[1, j].Value = prop;
+                            j++;
+                        }
+                    }
+
+                    int i = 2;
+                    foreach (T item in objects)
+                    {
+                        Type myType = item.GetType();
+                        IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+
+                        int j = 1;
+                        foreach (string prop in propsSorted)
+                        {
+                            var p = props.Where(o => o.Name == prop).First();
+                            object propValue = p.GetValue(item, null);
+                            worksheet.Cells[i, j].Value = propValue == null ? "" : propValue.ToString();
+                            j++;
+                        }
+                        i++;
+                    }
+
+                    return pck.GetAsByteArray();
+                }
             }
         }
 

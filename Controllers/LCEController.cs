@@ -825,7 +825,8 @@ namespace Generic.Controllers
                 {
                     case 8:
                         var items = db.pr_getCFDBGovtPropertyReviewForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBGovtPropertyReviewForDataSend_Result>(new MemoryStream(), "CFDBGovtPropertyReviewForDataSend", items);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBGovtPropertyReviewForDataSend_Result>(new MemoryStream(), "CFDBGovtPropertyReviewForDataSend", items,
+                            new List<string>() { "PartNumber", "TransPN", "CustomerName", "CustomerID", "SAPMasterContract", "GovtPropClauseApply", "GovtPropertyClauses" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -837,7 +838,7 @@ namespace Generic.Controllers
                         break;
                     case 2:
                         var items2 = db.pr_getCFDBCitizenshipRestrictionForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestrictionForDataSend_Result>(new MemoryStream(), "CFDBCitizenshipRestrictionForDataSend", items2);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestrictionForDataSend_Result>(new MemoryStream(), "CFDBCitizenshipRestrictionForDataSend", items2, new List<string>() { "SalesOrderNumber", "CitizenshipClauses" , "CitizenshipRestrOthers", "CitizenshipRestrictionApply" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -849,7 +850,7 @@ namespace Generic.Controllers
                         break;
                     case 19:
                         var items3 = db.pr_getCFDBSecurityReqsForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSecurityReqsForDataSend_Result>(new MemoryStream(), "CFDBSecurityReqsForDataSend", items3);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSecurityReqsForDataSend_Result>(new MemoryStream(), "CFDBSecurityReqsForDataSend", items3, new List<string>() { "SecurityReqsApply", "SecurityReqsClses", "SecurityDetailsText" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -861,7 +862,8 @@ namespace Generic.Controllers
                         break;
                     case 12:
                         var items4 = db.pr_getCFDBOutSourceRestrictionsForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBOutSourceRestrictionsForDataSend_Result>(new MemoryStream(), "CFDBOutSourceRestrictionsForDataSend", items4);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBOutSourceRestrictionsForDataSend_Result>(new MemoryStream(), "CFDBOutSourceRestrictionsForDataSend", 
+                            items4, new List<string>() { "SalesOrderNumber", "Outsourceclauses", "OutsourceRestrictionsApply" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -873,7 +875,8 @@ namespace Generic.Controllers
                         break;
                     case 21:
                         var items5 = db.pr_getCFDBSupplierApprovalForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApprovalForDataSend_Result>(new MemoryStream(), "CFDBSupplierApprovalForDataSend", items5);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApprovalForDataSend_Result>(new MemoryStream(), "CFDBSupplierApprovalForDataSend", items5, 
+                            new List<string>() {"SalesOrderNumber", "SupplierApprovalApply" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -885,7 +888,8 @@ namespace Generic.Controllers
                         break;
                     case 22:
                         var items6 = db.pr_getCFDBSupplierChgForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierChgForDataSend_Result>(new MemoryStream(), "CFDBSupplierChgForDataSend", items6);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierChgForDataSend_Result>(new MemoryStream(), "CFDBSupplierChgForDataSend", 
+                            items6, new List<string>() { "SalesOrderNumber", "SupplierChgApply" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -897,7 +901,8 @@ namespace Generic.Controllers
                         break;
                     case 49:
                         var items7 = db.pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result>(new MemoryStream(), "CFDB3rdPartyDisclosureRestrictionsForDataSend", items7);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDB3rdPartyDisclosureRestrictionsForDataSend_Result>(new MemoryStream(), "CFDB3rdPartyDisclosureRestrictionsForDataSend", items7,
+                            new List<string>() { "SalesOrderNumber", "C3rdPartyDisclosureRestrictions" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -909,7 +914,9 @@ namespace Generic.Controllers
                         break;
                     case 20:
                         var items8 = db.pr_getCFDBSubNotConsForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSubNotConsForDataSend_Result>(new MemoryStream(), "CFDBSubNotConsForDataSend", items8);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSubNotConsForDataSend_Result>(new MemoryStream(), "CFDBSubNotConsForDataSend", 
+                            items8, new List<string>() { "TransPN", "PartNumber", "CustomerName", "CustomerID", "SAPMasterContract",
+                            "AribaID", "SubsNotConsApply", "SubsnotconsClauses", "SubsNotConsOthers"});
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -921,7 +928,8 @@ namespace Generic.Controllers
                         break;
                     case 53:
                         var items9 = db.pr_getCFDBTINAForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBTINAForDataSend_Result>(new MemoryStream(), "CFDBTINAForDataSend", items9);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBTINAForDataSend_Result>(new MemoryStream(), "CFDBTINAForDataSend", items9, 
+                            new List<string>() { "PartNumber", "TransPN", "CustomerName", "CustomerID", "SAPMasterContract", "TINA" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -933,7 +941,9 @@ namespace Generic.Controllers
                         break;
                     case 3:
                         var items10 = db.pr_getCFDBCostActgForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBCostActgForDataSend_Result>(new MemoryStream(), "CFDBCostActgForDataSend", items10);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBCostActgForDataSend_Result>(new MemoryStream(), "CFDBCostActgForDataSend", items10, 
+                            new List<string>() { "PartNumber", "TransPN", "CustomerName", "CostActgClauseapply",
+                                "CostActgClause", "CostActgClauseOthers", "Allowablecostclauses", "CostActgClauseXemptDesc" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -945,7 +955,8 @@ namespace Generic.Controllers
                         break;
                     case 52:
                         var items11 = db.pr_getCFDBAllowableCostForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBAllowableCostForDataSend_Result>(new MemoryStream(), "CFDBAllowableCostForDataSend", items11);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBAllowableCostForDataSend_Result>(new MemoryStream(), "CFDBAllowableCostForDataSend", items11,
+                            new List<string>() { "PartNumber", "TransPN", "CustomerName", "CostActgClauseapply", "CostActgClause", "CostActgClauseOthers", "Allowablecostclauses", "CostActgClauseXemptDesc" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -957,7 +968,8 @@ namespace Generic.Controllers
                         break;
                     case 13:
                         var items12 = db.pr_getCFDBPlaceOfPerformanceForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBPlaceOfPerformanceForDataSend_Result>(new MemoryStream(), "CFDBPlaceOfPerformanceForDataSend", items12);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBPlaceOfPerformanceForDataSend_Result>(new MemoryStream(), "CFDBPlaceOfPerformanceForDataSend", items12, new List<string>() {
+                        "SalesOrderNumber","PlaceofPerformClses","PlaceofPerformOthers","PlaceOfPerformApply"});
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -969,7 +981,8 @@ namespace Generic.Controllers
                         break;
                     case 50:
                         var items1 = db.pr_getCFDBSpecialToolingForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSpecialToolingForDataSend_Result>(new MemoryStream(), "CFDBSpecialToolingForDataSend", items1);
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSpecialToolingForDataSend_Result>(new MemoryStream(), "CFDBSpecialToolingForDataSend", items1, 
+                            new List<string>() { "PartNumber", "TransPN", "CustomerName", "CustomerID", "SAPMasterContract", "SpecialToolingclause" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
