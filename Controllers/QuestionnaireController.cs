@@ -537,9 +537,13 @@ namespace Generic.Controllers
                             email.category = SendGridCategory.QuestionnaireQuestionnaireTestAutomailAll;
 
                             SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(email, new EmailFormatSettings() {
-                                 enterprise = _enterprise, partner = _partner, ptq = _ptq.id, touchpoint = _touchpoint,
-                                  sender = _currentPerson
+                            objSendEmail.sendEmail(email, new EmailFormatSettings()
+                            {
+                                enterprise = _enterprise,
+                                partner = _partner,
+                                ptq = _ptq.id,
+                                touchpoint = _touchpoint,
+                                sender = _currentPerson
                             });
                         }
                     }
@@ -909,7 +913,7 @@ namespace Generic.Controllers
                         Session["partnertypeId"] = partnertype;
                         Session["level"] = level;
 
-                        var splitterResult =   db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId).FirstOrDefault();
+                        var splitterResult = db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId).FirstOrDefault();
 
                         partnerTypeTouchpointQuestionnaire objPartnertypeTouchpointQuestionnaire = new partnerTypeTouchpointQuestionnaire();
                         objPartnertypeTouchpointQuestionnaire.partnerType = partnertype;
@@ -1171,7 +1175,7 @@ namespace Generic.Controllers
                                 {
                                     objQuestion.skipLogicAnswer = SkipLogicAnswer.D;
                                 }
-                                else if ((excelQuestionnaire.skipLogicAnswer??"").ToUpper() == "B")
+                                else if ((excelQuestionnaire.skipLogicAnswer ?? "").ToUpper() == "B")
                                 {
                                     objQuestion.skipLogicAnswer = SkipLogicAnswer.B;
                                 }
@@ -1366,6 +1370,7 @@ namespace Generic.Controllers
                                     excelQuestionnaire.skipLogicJump = null;
                                 }
                                 questions.Add(excelQuestionnaire.QID, db.pr_getQuestion(objQuestion.id).FirstOrDefault());
+
                                 #endregion
 
                                 if (!string.IsNullOrEmpty(excelQuestionnaire.NarrativeHint))
@@ -1401,11 +1406,12 @@ namespace Generic.Controllers
                                     {
                                         jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
                                     }
-                                    catch(WrongSkipLogicJumpColumn ex)
+                                    catch (WrongSkipLogicJumpColumn ex)
                                     {
                                         throw ex;
                                     }
-                                    catch (Exception exp) {
+                                    catch (Exception exp)
+                                    {
                                         throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
                                     }
 
@@ -1419,6 +1425,13 @@ namespace Generic.Controllers
                                     {
                                         hasSkipLogicQuestionId = 0;
                                     }
+
+                                }
+                                var question = db.pr_getQuestion(questionId).FirstOrDefault();
+                                if (question != null && question.emailAlert == "A" && !string.IsNullOrEmpty(question.emailAlertList))
+                                {
+                                    question.emailAlertList = getEmailAlertList(questions, question.emailAlertList);
+                                    db.SaveChanges();
                                 }
                                 if (!string.IsNullOrEmpty(tagValue))
                                 {
@@ -1429,7 +1442,7 @@ namespace Generic.Controllers
                                         var stringsToSplit = stringtoParse.Split("@");
                                         if (stringsToSplit.Length == 2)
                                         {
-                                            tagResultValue += stringsToSplit[0] + "@" + getskipLogicJumpQuestionIdLogic(questions, stringsToSplit[1], isCalculation:true);
+                                            tagResultValue += stringsToSplit[0] + "@" + getskipLogicJumpQuestionIdLogic(questions, stringsToSplit[1], isCalculation: true);
                                         }
                                     }
                                     db.pr_modifyQuestionTag(questionId, tagResultValue);
@@ -1672,7 +1685,61 @@ namespace Generic.Controllers
             }
             return result;
         }
+        /// <summary>
+        /// returns EmailAlertList for question with changed QIDs with data in DB
+        /// </summary>
+        /// <param name="questionsIds"></param>
+        /// <param name="rawEmailAlertList"></param>
+        /// <returns></returns>
+        private string getEmailAlertList(Dictionary<int, question> questionsIds, string rawEmailAlertList)
+        {
+            var splittedRaw = rawEmailAlertList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            var blockCResult = "";
+            var blockFResult = "";
+            int outputTry = 0;
+            if (splittedRaw.Length > 1)
+            {
+                var blockC = splittedRaw[1].Replace("[", "").Replace("]", "").Replace(" ", "");
+                var splittedBlockC = blockC.Split(",");
+                foreach (var splittedBlockCItem in splittedBlockC)
+                {
 
+                    if (int.TryParse(splittedBlockCItem, out outputTry))
+                    {
+                        if (questionsIds.ContainsKey(outputTry))
+                        {
+                            blockCResult += questionsIds[outputTry].id + ",";
+                        }
+                        else throw new Exception("Wrong EmailAlertList value=" + outputTry + ". There is no a such QID");
+                    }
+                    else throw new Exception("Wrong EmailAlertList value=" + splittedBlockCItem + ". There is no a such QID");
+                }
+                blockCResult = blockCResult.Remove(blockCResult.Length - 1);
+                splittedRaw[1] = "[" + blockCResult + "]";
+                if (splittedRaw.Length > 4)
+                {
+                    var blockF = splittedRaw[4].Replace("[", "").Replace("]", "").Replace(" ", "");
+                    var splittedBlockF = blockF.Split(",");
+                    foreach (var splittedBlockFItem in splittedBlockF)
+                    {
+                        if (int.TryParse(splittedBlockFItem, out outputTry))
+                        {
+                            if (questionsIds.ContainsKey(outputTry))
+                            {
+                                blockFResult += questionsIds[outputTry].id + ",";
+                            }
+                            else throw new Exception("Wrong EmailAlertList value=" + outputTry + ". There is no a such QID");
+                        }
+                        else throw new Exception("Wrong EmailAlertList value=" + splittedBlockFItem + ". There is no a such QID");
+                    }
+                    blockFResult = blockFResult.Remove(blockFResult.Length - 1);
+                    splittedRaw[4] = "[" + blockFResult + "]";
+                }
+                return splittedRaw.Aggregate("", (result, item) => result + "," + item);
+            }
+            return rawEmailAlertList;
+
+        }
         private string getskipLogicJumpQuestionIdLogic(Dictionary<int, question> questionsIds, string skipLogicJump, bool isCalculation = false)
         {
             //1=Y&3=Y:15;1=Y&3=N:16;
