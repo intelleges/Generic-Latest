@@ -193,7 +193,12 @@ namespace Generic.Controllers
             return RedirectToAction("UploadAutoMailMessage", "AutoMailMessage");
         }
 
-
+        [AllowAnonymous]
+        public ActionResult QuestionnaireDetailQuestion(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
+        {
+            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+            return RedirectToAction("home", "admin");
+        }
 
         [Authorize]
         public ActionResult QuestionnaireDetailView(int id, int? ptqId, int? questionId, int? partnerId, int? responseId)

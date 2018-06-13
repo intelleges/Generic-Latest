@@ -545,8 +545,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         var stateID = ppptq.partner1.state;
                         var s = db.pr_getState(stateID).FirstOrDefault();
-                        if(s!=null)
-                            tags.State =s.name;
+                        if (s != null)
+                            tags.State = s.name;
                         tags.CurrentPOC = ppptq.partner1.email;
                         tags.PartnerName = ppptq.partner1.name;
                     }
@@ -1010,7 +1010,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
 
             var question = db.pr_getQuestion(questionId).FirstOrDefault();
-            db.Entry<question>(question).Reload();
+            //db.Entry<question>(question).Reload();
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestion(question.id).FirstOrDefault();
 
             var answer = db.pr_getResponse(answerId).FirstOrDefault();
@@ -1082,6 +1082,25 @@ namespace Generic.Areas.RegistrationArea.Controllers
             autoMailMessage objamm = new autoMailMessage();
             objamm.subject = "Intelleges: Email Alert";
             objamm.text = partnerName.name + "(" + partnerName.email + ") answered '" + answer + "' to '" + question + "' for access code " + accessCode;
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
+            var person = db.pr_getPerson(pptqObj.invitedBy).FirstOrDefault();
+
+            if (responseId != -1)
+            {
+                var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
+
+                var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
+
+                var survey = db.pr_getSurveySetByQuestion(questionId).First().description;
+                var pt = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1;
+
+                objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
+                objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The access code for this project's LCE Checklist is " + accessCode + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "]. Please provide your approval using the Yes button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
+                     "<br/><br/>Thanks.<br/><br/>" +
+                     person.firstName + " " + person.lastName + "<br>" + "---------- - ";
+            }
+
             if (!string.IsNullOrEmpty(comment))
             {
                 objamm.text += " with comment '" + comment + "'.";
@@ -1093,13 +1112,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
             else objamm.text += ".";
+
             Email mail = new Email(objamm);
             mail.type = "emailAlert";
             mail.emailTo = emailTo;
             mail.url = Request.Url.ToString();
             mail.accesscode = accessCode;
             mail.category = SendGridCategory.SendEmailAlert;
-            var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
 
             if (pptq != null)
             {
@@ -1110,16 +1129,30 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
-            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            SendEmail objSendEmail = new SendEmail();
-            objSendEmail.sendEmail(mail, new EmailFormatSettings()
+            if (person != null)
             {
-                sender = null,
-                enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
-                partner = pptqObj.partner1,
-                ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
-                touchpoint = null
-            });
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(mail, new EmailFormatSettings()
+                {
+                    sender = null,
+                    enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    partner = pptqObj.partner1,
+                    ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                    touchpoint = null
+                }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.firstName + " " + person.lastName));
+            }
+            else
+            {
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(mail, new EmailFormatSettings()
+                {
+                    sender = null,
+                    enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    partner = pptqObj.partner1,
+                    ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                    touchpoint = null
+                });
+            }
         }
 
         public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)

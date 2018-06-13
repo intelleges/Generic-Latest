@@ -7941,6 +7941,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getSurveysetByPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getSurveySetByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getSurveySetByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
@@ -18131,7 +18134,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="loadgroup" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionnaireCMSByAccessCodeForAPI" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionnaireCMSByAccessCodeForAPI_Result)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getSurveySetByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetByQuestion_Result)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31025,6 +31031,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Binary" Name="doc" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="uploadedFiletype" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_getSurveySetByQuestion_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="2000" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="true" />
+          <Property Type="Int32" Name="accessLevel" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43209,6 +43222,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="text" ColumnName="text" />
                 <ScalarProperty Name="doc" ColumnName="doc" />
                 <ScalarProperty Name="uploadedFiletype" ColumnName="uploadedFiletype" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getSurveySetByQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_getSurveySetByQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getSurveySetByQuestion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

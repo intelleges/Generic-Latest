@@ -23348,5 +23348,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireCMSByAccessCodeForAPI_Result>("pr_getQuestionnaireCMSByAccessCodeForAPI", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<pr_getSurveySetByQuestion_Result> pr_getSurveySetByQuestion(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetByQuestion_Result>("pr_getSurveySetByQuestion", questionParameter);
+        }
     }
 }

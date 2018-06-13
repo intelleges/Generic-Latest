@@ -2578,6 +2578,9 @@
     <Compile Include="pr_getSurveySetByQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getSurveySetByQuestion_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getSurveysetBySurvey_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -5890,6 +5893,7 @@
     <Content Include="Views\Shared\_NewRegistrationPartner.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\LCE\EditPartial.cshtml" />
+    <Content Include="Views\Questionnaire\QuestionnaireDetailQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

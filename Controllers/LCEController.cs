@@ -324,12 +324,18 @@ namespace Generic.Controllers
                 decimal? score = 0;
                 var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
 
-                int pptqId = Convert.ToInt32( db.pr_addPartnerPartnertypeTouchpointQuestionnaire(partnerId, ptq, loadGroup, SessionSingleton.LoggedInUserId, DateTime.Now, DateTime.Now.AddDays(2), (int)PartnerStatus.Invited_NoResponse, 0, "", null, "", score, loadGroup).FirstOrDefault().Value);
-
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(loadGroup).FirstOrDefault();
-
+                string acc = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault().accesscode;
+                int pptqId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(acc).FirstOrDefault().id;
+              
                 db.pr_addPPTQDocShellForLCE(pptqId, SessionSingleton.LoggedInUserId).FirstOrDefault();
-                db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, model.Score, model.Priority);
+                try
+                {
+                    //Not clear why again there generated error
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, model.Score, model.Priority);
+                }
+                catch (Exception e) {
+                    Console.Write(e);
+                }
 
                 if (model.FileScope != null)
                 {
@@ -373,7 +379,7 @@ namespace Generic.Controllers
                 ViewBag.Items = db.pr_getClausePersonPartnertypeSortOrderByPartnertype(model.partnertype).ToList();
                 var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
                 ViewBag.ActiveType = partnertype.Where(o => o.id == model.partnertype).First().description;
-                ViewBag.AccessCode = loadGroup;
+                ViewBag.AccessCode = acc;
                 return View(model);
             }
 
