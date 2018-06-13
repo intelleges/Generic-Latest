@@ -40,12 +40,12 @@ namespace Generic.Controllers
             return View();
         }
 
-        public ActionResult EditPartial(int pptqId)
+        public ActionResult EditPartial(string accessCode)
         {
             ModelState.Clear();
             ViewBag.Count = null;
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(pptqId).FirstOrDefault();
-            ViewBag.PptqId = pptqId;
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            ViewBag.PptqId = pptq.id;
             var pptqDocs = db.pr_getPPTQDocByPPTQ(pptq.id).ToList();
             var file = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.File).FirstOrDefault();
             var fileCID = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.FileCID).FirstOrDefault();
@@ -86,7 +86,7 @@ namespace Generic.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(Id).FirstOrDefault();
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(Id).FirstOrDefault();
                 if (pptq != null)
                 {
                     var partner = pptq.partner1;

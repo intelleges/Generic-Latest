@@ -108,7 +108,7 @@
         <div class="display_menu" style="display: none;">
             <ul>
 
-                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID)">Edit/Correct</a></li>
+                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit/Correct</a></li>
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -510,9 +510,9 @@
 
 	});
 
-    function openEditPopup(id, touchpointId) {
+    function openEditPopup(id, touchpointId, accessCode) {
         if (touchpointId == 4235) {
-            $.get("@Url.Content("~/LCE/EditPartial?pptqId=")" + id + '&_=' + new Date().getTime(), function (data) {
+            $.get("@Url.Content("~/LCE/EditPartial?accessCode=")" + accessCode + '&_=' + new Date().getTime(), function (data) {
                 $("#editLCE .modal-body").html(data);
                 $("#editLCE").modal("toggle");
             });
