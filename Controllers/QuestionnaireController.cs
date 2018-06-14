@@ -195,8 +195,8 @@ namespace Generic.Controllers
 
         [AllowAnonymous]
         public ActionResult QuestionnaireDetailQuestion(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
-        {
-            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+        {  
+            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
             return RedirectToAction("home", "admin");
         }
 

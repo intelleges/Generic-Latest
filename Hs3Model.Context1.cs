@@ -23357,5 +23357,46 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSurveySetByQuestion_Result>("pr_getSurveySetByQuestion", questionParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<double> value, Nullable<double> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var uploadedFileParameter = uploadedFile != null ?
+                new ObjectParameter("uploadedFile", uploadedFile) :
+                new ObjectParameter("uploadedFile", typeof(byte[]));
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            var actionDateParameter = actionDate.HasValue ?
+                new ObjectParameter("actionDate", actionDate) :
+                new ObjectParameter("actionDate", typeof(System.DateTime));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(double));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(double));
+    
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2", questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, actionDateParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
     }
 }

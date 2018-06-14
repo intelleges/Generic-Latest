@@ -5252,6 +5252,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="score" Type="float" Mode="In" />
           <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
+          <Parameter Name="comment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="uploadedFile" Type="image" Mode="In" />
+          <Parameter Name="uploadedFileType" Type="varchar" Mode="In" />
+          <Parameter Name="actionDate" Type="datetime2" Mode="In" />
+          <Parameter Name="value" Type="float" Mode="In" />
+          <Parameter Name="score" Type="float" Mode="In" />
+          <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_addPartnerRelationshipOwner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -18137,7 +18148,18 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getSurveySetByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getSurveySetByQuestion_Result)">
+          <Parameter Name="question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2" ReturnType="Collection(Int32)">
             <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="uploadedFile" Mode="In" Type="Binary" />
+            <Parameter Name="uploadedFileType" Mode="In" Type="String" />
+            <Parameter Name="actionDate" Mode="In" Type="DateTime" />
+            <Parameter Name="value" Mode="In" Type="Double" />
+            <Parameter Name="score" Mode="In" Type="Double" />
+            <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -43236,6 +43258,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
