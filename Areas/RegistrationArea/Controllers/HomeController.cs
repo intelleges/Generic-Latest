@@ -1016,7 +1016,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var answer = db.pr_getResponse(answerId).FirstOrDefault();
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
             var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.FirstOrDefault(o => o.question == questionId);
-            if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null && qresponse != null)
+            if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null /*&& qresponse != null*/)
             {
                 if (answer != null)
                 {
@@ -1120,9 +1120,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             mail.accesscode = accessCode;
             mail.category = SendGridCategory.SendEmailAlert;
 
-            if (pptq != null)
+            if (pptqObj != null && pptqObj.partnerTypeTouchpointQuestionnaire1 != null)
             {
-                var tp = db.pr_getTouchpoint(pptq.touchpoint).FirstOrDefault();
+                var tp = pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint1;
                 if (tp != null)
                 {
                     mail.protocolTouchpoint = tp.description;
