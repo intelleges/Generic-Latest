@@ -1088,17 +1088,28 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (responseId != -1)
             {
-                var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
+                var p = db.pr_getPersonByEmail(1137, emailTo).FirstOrDefault();
+                if (p == null)
+                {
+                    emailTo = "g0v6y5c6p3u5b1e0@startcritical.slack.com";
+                    objamm.subject = "bad data from approval access code " + accessCode;
+                    objamm.text = "";
+                }
+                else
+                {
+                    var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
 
-                var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
+                    var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
 
-                var survey = db.pr_getSurveySetByQuestion(questionId).First().description;
-                var pt = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1;
+                    var survey = db.pr_getSurveySetByQuestion(questionId).First().description;
+                    var pt = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1;
 
-                objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
-                objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The access code for this project's LCE Checklist is " + accessCode + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "]. Please provide your approval using the Yes button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
-                     "<br/><br/>Thanks.<br/><br/>" +
-                     person.firstName + " " + person.lastName + "<br>" + "---------- - ";
+                    objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
+
+                    objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The access code for this project's LCE Checklist is " + accessCode + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "]. Please provide your approval using the Yes button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
+                         "<br/><br/>Thanks.<br/><br/>" +
+                         person.firstName + " " + person.lastName + "<br>" + "---------- - ";
+                }
             }
 
             if (!string.IsNullOrEmpty(comment))
