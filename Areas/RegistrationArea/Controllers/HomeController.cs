@@ -1026,7 +1026,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var keyPair = choiceStr.Split(new char[] { ':' });
                         if (keyPair.Length > 1 && answer.zcode != null && keyPair[0].ToLower() == answer.zcode.ToLower())
                         {
-                            SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text, keyPair[1], ptq.questionnaire, question.id, answerId);
+                            string qnextId ="";
+                            try{
+                                qnextId = choices[2].Replace("[", "").Replace("]", "");
+                            }
+                            catch (Exception) { }
+                            SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text, keyPair[1], ptq.questionnaire, question.id, answerId, qnextId);
 
                         }
                     }
@@ -1077,7 +1082,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
 
-        private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo, int ptqId, int questionId, int responseId = -1)
+        private void SendEmailAlert(partner partnerName, string answer, string question, string accessCode, string comment, string emailTo, int ptqId, int questionId, int responseId = -1, string qnextId  = null)
         {
             autoMailMessage objamm = new autoMailMessage();
             objamm.subject = "Intelleges: Email Alert";
@@ -1097,9 +1102,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 else
                 {
-                    var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
+                    var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
 
-                    var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = questionId, area = String.Empty, pptqId = pptqObj.id, questionId = questionId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
+                    var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
 
                     var survey = db.pr_getSurveySetByQuestion(questionId).First().description;
                     var pt = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1;
