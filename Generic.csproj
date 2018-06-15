@@ -2407,6 +2407,9 @@
     <Compile Include="pr_getReminderSentCountDaily_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getRequestApprovalDashboard1_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getResponseAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

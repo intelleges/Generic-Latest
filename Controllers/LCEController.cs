@@ -40,12 +40,20 @@ namespace Generic.Controllers
             return View();
         }
 
+        public ActionResult DownloadDashboard(int pptq)
+        {
+            var items = db.pr_getRequestApprovalDashboard1(pptq).ToList();
+            byte[] barr = ExcelMapper.CreateExcel<pr_getRequestApprovalDashboard1_Result>(new MemoryStream(), "Dashboard", items);
+            return File(barr, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Dashboard.xls");
+        }
+
         public ActionResult EditPartial(string accessCode)
         {
             ModelState.Clear();
             ViewBag.Count = null;
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             ViewBag.PptqId = pptq.id;
+            ViewBag.accessCode = accessCode;
             var pptqDocs = db.pr_getPPTQDocByPPTQ(pptq.id).ToList();
             var file = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.File).FirstOrDefault();
             var fileCID = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.FileCID).FirstOrDefault();
@@ -54,6 +62,8 @@ namespace Generic.Controllers
             var supplierSelfAssessmentUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.SupplierSelfAssessmentUpload).FirstOrDefault();
             var BAATransitionScopeUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.BAATransitionScopeUpload).FirstOrDefault();
 
+            ViewBag.Dashboard = db.pr_getRequestApprovalDashboard1(pptq.id).ToList();
+           
             var model = new LCEModel()
             {
                 ProgramName = pptq.partner1.name,
@@ -319,21 +329,22 @@ namespace Generic.Controllers
                 int enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate, model.partnertype).FirstOrDefault();
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-               
+
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(model.partnertype).FirstOrDefault().id;
                 decimal? score = 0;
                 var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
 
                 string acc = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault().accesscode;
                 int pptqId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(acc).FirstOrDefault().id;
-              
+
                 db.pr_addPPTQDocShellForLCE(pptqId, SessionSingleton.LoggedInUserId).FirstOrDefault();
                 try
                 {
                     //Not clear why again there generated error
                     db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, model.Score, model.Priority);
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     Console.Write(e);
                 }
 
@@ -357,7 +368,7 @@ namespace Generic.Controllers
                 {
                     AddModifyPptqDoc(model.SupplierSelfAssessmentUpload, pptqId, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
                 }
-              
+
                 //ViewBag.Count = i;
                 ViewBag.Pptq = pptqId;
                 ViewBag.PartnerSpreadsheetDataLoadId = partnerId;
@@ -844,7 +855,7 @@ namespace Generic.Controllers
                         break;
                     case 2:
                         var items2 = db.pr_getCFDBCitizenshipRestrictionForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestrictionForDataSend_Result>(new MemoryStream(), "CFDBCitizenshipRestrictionForDataSend", items2, new List<string>() { "SalesOrderNumber", "CitizenshipClauses" , "CitizenshipRestrOthers", "CitizenshipRestrictionApply" });
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBCitizenshipRestrictionForDataSend_Result>(new MemoryStream(), "CFDBCitizenshipRestrictionForDataSend", items2, new List<string>() { "SalesOrderNumber", "CitizenshipClauses", "CitizenshipRestrOthers", "CitizenshipRestrictionApply" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -868,7 +879,7 @@ namespace Generic.Controllers
                         break;
                     case 12:
                         var items4 = db.pr_getCFDBOutSourceRestrictionsForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBOutSourceRestrictionsForDataSend_Result>(new MemoryStream(), "CFDBOutSourceRestrictionsForDataSend", 
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBOutSourceRestrictionsForDataSend_Result>(new MemoryStream(), "CFDBOutSourceRestrictionsForDataSend",
                             items4, new List<string>() { "SalesOrderNumber", "Outsourceclauses", "OutsourceRestrictionsApply" });
                         attachments.Add(new AttachmentInfo()
                         {
@@ -881,8 +892,8 @@ namespace Generic.Controllers
                         break;
                     case 21:
                         var items5 = db.pr_getCFDBSupplierApprovalForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApprovalForDataSend_Result>(new MemoryStream(), "CFDBSupplierApprovalForDataSend", items5, 
-                            new List<string>() {"SalesOrderNumber", "SupplierApprovalApply" });
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierApprovalForDataSend_Result>(new MemoryStream(), "CFDBSupplierApprovalForDataSend", items5,
+                            new List<string>() { "SalesOrderNumber", "SupplierApprovalApply" });
                         attachments.Add(new AttachmentInfo()
                         {
                             Content = Convert.ToBase64String(barr),
@@ -894,7 +905,7 @@ namespace Generic.Controllers
                         break;
                     case 22:
                         var items6 = db.pr_getCFDBSupplierChgForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierChgForDataSend_Result>(new MemoryStream(), "CFDBSupplierChgForDataSend", 
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSupplierChgForDataSend_Result>(new MemoryStream(), "CFDBSupplierChgForDataSend",
                             items6, new List<string>() { "SalesOrderNumber", "SupplierChgApply" });
                         attachments.Add(new AttachmentInfo()
                         {
@@ -920,7 +931,7 @@ namespace Generic.Controllers
                         break;
                     case 20:
                         var items8 = db.pr_getCFDBSubNotConsForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSubNotConsForDataSend_Result>(new MemoryStream(), "CFDBSubNotConsForDataSend", 
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSubNotConsForDataSend_Result>(new MemoryStream(), "CFDBSubNotConsForDataSend",
                             items8, new List<string>() { "TransPN", "PartNumber", "CustomerName", "CustomerID", "SAPMasterContract",
                             "AribaID", "SubsNotConsApply", "SubsnotconsClauses", "SubsNotConsOthers"});
                         attachments.Add(new AttachmentInfo()
@@ -934,7 +945,7 @@ namespace Generic.Controllers
                         break;
                     case 53:
                         var items9 = db.pr_getCFDBTINAForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBTINAForDataSend_Result>(new MemoryStream(), "CFDBTINAForDataSend", items9, 
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBTINAForDataSend_Result>(new MemoryStream(), "CFDBTINAForDataSend", items9,
                             new List<string>() { "PartNumber", "TransPN", "CustomerName", "CustomerID", "SAPMasterContract", "TINA" });
                         attachments.Add(new AttachmentInfo()
                         {
@@ -947,7 +958,7 @@ namespace Generic.Controllers
                         break;
                     case 3:
                         var items10 = db.pr_getCFDBCostActgForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBCostActgForDataSend_Result>(new MemoryStream(), "CFDBCostActgForDataSend", items10, 
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBCostActgForDataSend_Result>(new MemoryStream(), "CFDBCostActgForDataSend", items10,
                             new List<string>() { "PartNumber", "TransPN", "CustomerName", "CostActgClauseapply",
                                 "CostActgClause", "CostActgClauseOthers", "Allowablecostclauses", "CostActgClauseXemptDesc" });
                         attachments.Add(new AttachmentInfo()
@@ -987,7 +998,7 @@ namespace Generic.Controllers
                         break;
                     case 50:
                         var items1 = db.pr_getCFDBSpecialToolingForDataSend(model.pptq).ToList();
-                        barr = ExcelMapper.CreateExcel<pr_getCFDBSpecialToolingForDataSend_Result>(new MemoryStream(), "CFDBSpecialToolingForDataSend", items1, 
+                        barr = ExcelMapper.CreateExcel<pr_getCFDBSpecialToolingForDataSend_Result>(new MemoryStream(), "CFDBSpecialToolingForDataSend", items1,
                             new List<string>() { "PartNumber", "TransPN", "CustomerName", "CustomerID", "SAPMasterContract", "SpecialToolingclause" });
                         attachments.Add(new AttachmentInfo()
                         {

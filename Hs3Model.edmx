@@ -6394,6 +6394,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getApprovalDefaultPersonByClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="clause" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getApprovalEmailStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="question" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getAreaCodeTimeZoneByAreaCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="areaCode" Type="int" Mode="In" />
         </Function>
@@ -7763,6 +7768,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="applicationName" Type="varchar" Mode="In" />
           <Parameter Name="protocolTouchpoint" Type="varchar" Mode="In" />
           <Parameter Name="enterprise" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getRequestApprovalDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -18160,6 +18168,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="value" Mode="In" Type="Double" />
             <Parameter Name="score" Mode="In" Type="Double" />
             <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRequestApprovalDashboard">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getApprovalEmailStatus" ReturnType="Collection(Int32)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="question" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRequestApprovalDashboard1" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRequestApprovalDashboard1_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31060,6 +31079,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Boolean" Name="active" Nullable="true" />
           <Property Type="Int32" Name="accessLevel" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getRequestApprovalDashboard1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="question" Nullable="true" />
+          <Property Type="String" Name="response" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="approver" Nullable="true" />
+          <Property Type="String" Name="actiondate" Nullable="true" MaxLength="30" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43259,6 +43285,18 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2" FunctionName="hs3MVCMTQa2Model.Store.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2" />
+          <FunctionImportMapping FunctionImportName="pr_getApprovalEmailStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getApprovalEmailStatus" />
+          <FunctionImportMapping FunctionImportName="pr_getRequestApprovalDashboard1" FunctionName="hs3MVCMTQa2Model.Store.pr_getRequestApprovalDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRequestApprovalDashboard1_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="approver" ColumnName="approver" />
+                <ScalarProperty Name="actiondate" ColumnName="actiondate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

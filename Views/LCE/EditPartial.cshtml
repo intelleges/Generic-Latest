@@ -14,6 +14,7 @@
     List<Generic.pr_getCFDBClauseAllForDisplay_Result> allClause = ViewBag.AllClause as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
     List<Generic.pr_getCFDBClauseAll_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBClauseAll_Result>;
     List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> unassignedByEnterprise = ViewBag.UnassignedByEnterprise as List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>;
+    List<Generic.pr_getRequestApprovalDashboard1_Result> dashboardItems = ViewBag.Dashboard as List<Generic.pr_getRequestApprovalDashboard1_Result>;
 }
 
 <script type="text/javascript">
@@ -379,6 +380,20 @@
           });
     }
 
+    function showDashboard() {
+        $.fancybox({
+            'content': $('#dashPopup').html(),
+            closeBtn: false,
+            closeClick: false,
+            modal: true,
+            type: 'html',
+            width: 600,
+            height: 300,
+            minWidth: 600,
+            minHeight: 300
+        });
+    }
+
     function next4() {
            $.fancybox.hideLoading();
            $.fancybox.close();
@@ -518,6 +533,42 @@
         }
 </style>
 
+
+
+<div id="dashPopup" style="display:none;">
+    <div style="padding: 10px 20px;">
+        <div class="row">
+            <div class="col-lg-12" id="table-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th id="at">Question</th>
+                            <th>Response</th>
+                            <th>Approver</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in dashboardItems) {
+                            <tr>
+                                <td>@item.question</td>
+                                <td>@item.response</td>
+                                <td>@item.approver</td>
+                                <td>@item.actiondate</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" style="text-align: right;">
+                <a class="btn btn-primary btn-sm" href="@Url.Content("~/lce/DownloadDashboard")?pptq=@ViewBag.PptqId">Download</a>
+                <button type="button" class="btn btn-default btn-sm" onclick="$.fancybox.close();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="buy-buy" style="display:none;">
     <div style="padding: 10px 20px;">
@@ -717,6 +768,10 @@
     @*<div class="addPartnerDiv" style="margin-top:-30px;">
             <h2>Create LC &amp; E Checklist</h2>
         </div>*@
+<div style="margin-top:-10px;text-align: right;margin-right: 40px;
+    margin-bottom: 20px;">
+    <button type="button" class="btn btn-default btn-sm" onclick="showDashboard();">Dashboard</button>
+</div>
     @using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "lce_form" }))
             {
         @Html.ValidationSummary(true)
@@ -958,13 +1013,8 @@
             </div>
         </fieldset>
     }
-    <div style="height:300px;"></div>
-    @section header{
-
-        <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
-        <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
-        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />       
-    }
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />   
 
 
     @*

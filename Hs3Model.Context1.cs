@@ -23398,5 +23398,40 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2", questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, actionDateParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
+    
+        public virtual int pr_getRequestApprovalDashboard(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getRequestApprovalDashboard", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getApprovalEmailStatus(Nullable<int> pptq, Nullable<int> question, Nullable<int> response)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getApprovalEmailStatus", pptqParameter, questionParameter, responseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRequestApprovalDashboard1_Result> pr_getRequestApprovalDashboard1(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRequestApprovalDashboard1_Result>("pr_getRequestApprovalDashboard1", pptqParameter);
+        }
     }
 }
