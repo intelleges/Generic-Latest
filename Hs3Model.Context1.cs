@@ -23433,5 +23433,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRequestApprovalDashboard1_Result>("pr_getRequestApprovalDashboard1", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore_Result> pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore(Nullable<int> pptq, Nullable<int> score)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore_Result>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore", pptqParameter, scoreParameter);
+        }
     }
 }

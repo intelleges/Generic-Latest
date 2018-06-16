@@ -31,9 +31,6 @@ namespace Generic.Models
         [Required]
         public string ProjectUrl { get; set; }
 
-        [DisplayName("Score (UAT ONLY)")]
-        public int? Score { get; set; }
-
         [DisplayName("Priority (UAT ONLY)")]
         public int? Priority { get; set; }
 

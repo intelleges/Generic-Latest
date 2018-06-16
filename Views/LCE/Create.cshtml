@@ -884,13 +884,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.Score, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
-                                @Html.TextBoxFor(model => model.Score, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Score)
-                            </div>
-                            @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-3">
+                            @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-6" })
+                            <div class="col-sm-6">
                                 @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Priority)
                             </div>
@@ -941,7 +936,8 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 6 })
+            .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.FileScope)
                 </div>
 
@@ -974,7 +970,8 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => { events.OnSelect("onUpload"); }).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position=3 })
+            .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.FileCID)
                 </div>
 
@@ -989,7 +986,8 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position =2 })
+            .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.FileEntanglement)
                 </div>
 
@@ -1004,7 +1002,8 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 4 })
+            .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
                 </div>
 
@@ -1019,7 +1018,8 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 5 })
+            .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
                 </div>
 

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Web.Mvc;
@@ -63,7 +64,7 @@ namespace Generic.Controllers
             var BAATransitionScopeUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.BAATransitionScopeUpload).FirstOrDefault();
 
             ViewBag.Dashboard = db.pr_getRequestApprovalDashboard1(pptq.id).ToList();
-           
+
             var model = new LCEModel()
             {
                 ProgramName = pptq.partner1.name,
@@ -75,7 +76,6 @@ namespace Generic.Controllers
                 ProjectUrl = pptq.partner1.title,
                 Owner = pptq.person.id,
                 Duedate = pptq.dueDate,
-                Score = (int?)pptq.score,
                 Priority = pptq.priority,
                 partnertype = pptq.partnerTypeTouchpointQuestionnaire1.partnerType,
                 FileName = file != null ? file.title : null,
@@ -110,14 +110,12 @@ namespace Generic.Controllers
                     partner.title = model.ProjectUrl;
                     pptq.invitedBy = model.Owner;
                     pptq.dueDate = model.Duedate;
-                    pptq.score = model.Score;
                     pptq.priority = model.Priority;
                     pptq.partnerTypeTouchpointQuestionnaire1.partnerType = model.partnertype;
                     db.Entry(partner).CurrentValues.SetValues(partner);
                     db.Entry(pptq.partnerTypeTouchpointQuestionnaire1).CurrentValues.SetValues(pptq.partnerTypeTouchpointQuestionnaire1);
                     db.Entry(pptq).CurrentValues.SetValues(pptq);
                     db.SaveChanges();
-                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptq.id, model.Score, model.Priority).FirstOrDefault();
 
                     string sheetname = "CFDB";
                     var map = new Dictionary<string, string>();
@@ -262,28 +260,40 @@ namespace Generic.Controllers
                         {
                             //sometime generated error
                             AddModifyPptqDoc(model.File, pptq.id, "CFDB uploaded document", FilesUploaded.File);
+                            //position 1
+                            UpdateScore(pptq.id, 1);
                         }
                         catch { }
                     }
                     if (model.FileScope != null)
                     {
                         AddModifyPptqDoc(model.FileScope, pptq.id, "LC&E Scope Uploaded document", FilesUploaded.FileScope);
+                        //position 6
+                        UpdateScore(pptq.id, 6);
                     }
                     if (model.FileCID != null)
                     {
                         AddModifyPptqDoc(model.FileCID, pptq.id, "CID Uploaded document", FilesUploaded.FileCID);
+                        //position 3
+                        UpdateScore(pptq.id, 3);
                     }
                     if (model.FileEntanglement != null)
                     {
                         AddModifyPptqDoc(model.FileEntanglement, pptq.id, "Entanglement Uploaded document", FilesUploaded.FileEntanglement);
+                        //position 2
+                        UpdateScore(pptq.id, 2);
                     }
                     if (model.BAATransitionScopeUpload != null)
                     {
                         AddModifyPptqDoc(model.BAATransitionScopeUpload, pptq.id, "BAA Transition Scope Upload", FilesUploaded.BAATransitionScopeUpload);
+                        //position 5
+                        UpdateScore(pptq.id, 5);
                     }
                     if (model.SupplierSelfAssessmentUpload != null)
                     {
                         AddModifyPptqDoc(model.SupplierSelfAssessmentUpload, pptq.id, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
+                        //position 4
+                        UpdateScore(pptq.id, 4);
                     }
                     //using (var dbEntityes = new EntitiesDBContext())
                     //{
@@ -297,6 +307,23 @@ namespace Generic.Controllers
                 }
             }
             return Json(false);
+        }
+
+        private void UpdateScore(int pptqId, int position)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+            int score = Convert.ToInt32(pptq.score ?? 0);
+            string binary = Convert.ToString(score, 2).PadLeft(6, '0');
+            if (binary.Length < 6 || binary.Length > 6)
+                binary = "000000";
+
+            var aStringBuilder = new StringBuilder(binary);
+            aStringBuilder.Remove(position - 1, 1);
+            aStringBuilder.Insert(position - 1, "1");
+            binary = aStringBuilder.ToString();
+
+            int val = Convert.ToInt32(binary, 2);
+            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore(pptq.id, val);
         }
 
         private void GenerateViewBag(int? partnertypeId = null, int? ownerId = null)
@@ -331,7 +358,7 @@ namespace Generic.Controllers
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(model.partnertype).FirstOrDefault().id;
-                decimal? score = 0;
+             
                 var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
 
                 string acc = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault().accesscode;
@@ -340,8 +367,9 @@ namespace Generic.Controllers
                 db.pr_addPPTQDocShellForLCE(pptqId, SessionSingleton.LoggedInUserId).FirstOrDefault();
                 try
                 {
+                    int val = Convert.ToInt32("000000", 2);
                     //Not clear why again there generated error
-                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, model.Score, model.Priority);
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, val, model.Priority);
                 }
                 catch (Exception e)
                 {
@@ -546,6 +574,7 @@ namespace Generic.Controllers
                 {
                     //sometime generated error
                     AddModifyPptqDoc(files.First(), pptq, "CFDB uploaded document", FilesUploaded.File);
+                    UpdateScore(pptq, 1);
                 }
                 catch { }
             }
@@ -554,234 +583,34 @@ namespace Generic.Controllers
             return Content("");
         }
 
-        /*
-        
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Create(LCEModel model)
+        public ActionResult UploadFile(IEnumerable<HttpPostedFileBase> files, int pptq, int position)
         {
-            GenerateViewBag();
-            if (ModelState.IsValid)
+            // The Name of the Upload component is "files"
+            if (Request.Files != null && Request.Files.Count > 0)
             {
-                if ((model.Comments ?? "").Length > 255)
-                {
-                    ModelState.AddModelError("", "Description max length 255!");
-                    return View(model);
-                }
-                //db.lce
-                int enterpriseID = Generic.Helpers.CurrentInstance.EnterpriseID;
-                var result = db.pr_getLCE_Special_Data(model.Owner, model.Designation, model.ProgramName, model.Duedate, model.partnertype).FirstOrDefault();
-                string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-                var partnerSpreadsheetDataLoadId = db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
-                var pptq = db.pr_getPerson(result.person).First().partnerPartnertypeTouchpointQuestionnaire.First();
-                var pptqId = pptq.id;
-                db.pr_addPPTQDocShellForLCE(pptqId, SessionSingleton.LoggedInUserId).FirstOrDefault();
+                var file = Request.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
 
-                db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, model.Score, model.Priority);
+                if (position == 6)
+                    AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "LC&E Scope Uploaded document", FilesUploaded.FileScope);
 
-                string sheetname = "CFDB";
-                var map = new Dictionary<string, string>();
+                if (position == 3)
+                    AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "CID Uploaded document", FilesUploaded.FileCID);
 
-                map.Add("SalesOffice", "SalesOffice");
-                map.Add("DistributionChannel", "DistributionChannel");
-                map.Add("SalesOrderType", "SalesOrderType");
-                map.Add("SalesOrderNumber", "SalesOrderNumber");
-                map.Add("ContractTypeDescription", "ContractTypeDescription");
-                map.Add("DPAS", "DPAS");
-                map.Add("FMS", "FMS");
-                map.Add("ForeignInterestsText", "ForeignInterestsText");
-                map.Add("SecurityReqsApply", "SecurityReqsApply");
-                map.Add("SecurityReqsClses", "SecurityReqsClses");
-                map.Add("SecurityDetailsText", "SecurityDetailsText");
-                map.Add("SectkRepsCertsApply", "SectkRepsCertsApply");
-                map.Add("ContractorPurchasingSystemAdmin252234-7001", "ContractorPurchasingSystemAdmin252234");
-                map.Add("EarnedValueMgmtSystems252234-7002", "EarnedValueMgmtSystems252234");
-                map.Add("MMASApply", "MMASApply");
-                map.Add("MMASClauses", "MMASClauses");
-                map.Add("SalesOrderItemStatusDesc", "SalesOrderItemStatusDesc");
-                map.Add("SalesOrderDataDescription", "SalesOrderDataDescription");
-                map.Add("CustomerGroup", "CustomerGroup");
-                map.Add("SBU", "SBU");
-                map.Add("AribaID", "AribaID");
-                map.Add("HWContractManager", "HWContractManager");
-                map.Add("ContractingEntity", "ContractingEntity");
-                map.Add("ProgramName", "ProgramName");
-                map.Add("PlaceofPerformClses", "PlaceofPerformClses");
-                map.Add("PlaceofPerformOthers", "PlaceofPerformOthers");
-                map.Add("ChangeinLocation", "ChangeinLocation");
-                map.Add("CustomerApproval", "CustomerApproval");
-                map.Add("SubsNotConsApply", "SubsNotConsApply");
-                map.Add("SubsnotconsClauses", "SubsnotconsClauses");
-                map.Add("SubsNotConsOthers", "SubsNotConsOthers");
-                map.Add("SupplierApprovalApply", "SupplierApprovalApply");
-                map.Add("TradeAgreeActApply", "TradeAgreeActApply");
-                map.Add("TradeAgreementsCls", "TradeAgreementsCls");
-                map.Add("DomesticPrefRestApply", "DomesticPrefRestApply");
-                map.Add("DomesticPrefRestOther", "DomesticPrefRestOther");
-                map.Add("DomesticPrefRestClause", "DomesticPrefRestClause");
-                map.Add("Outsourcerestrict's", "Outsourcerestricts");
-                map.Add("ID", "ID");
-                map.Add("SalesLineItem", "SalesLineItem");
-                map.Add("SalesOrderHeaderStatus", "SalesOrderHeaderStatus");
-                map.Add("SalesOrderHdrStatusDesc", "SalesOrderHdrStatusDesc");
-                map.Add("SalesOrderItemStatus", "SalesOrderItemStatus");
-                map.Add("CBT", "CBT");
-                map.Add("CBT2", "CBT2");
-                map.Add("PONumber", "PONumber");
-                map.Add("CustomerID", "CustomerID");
-                map.Add("FARPart12applies?", "FARPart12applies");
-                map.Add("FARPart15applies?", "FARPart15applies");
-                map.Add("TINA", "TINA");
-                map.Add("CostActgClauseApply", "CostActgClauseApply");
-                map.Add("ContractStartDate", "ContractStartDate");
-                map.Add("ContractEndDate", "ContractEndDate");
-                map.Add("PartNumber", "PartNumber");
-                map.Add("ContractAdminName", "ContractAdminName");
-                map.Add("AllowableCostClauses", "AllowableCostClauses");
-                map.Add("CostActgClauseXemptDesc", "CostActgClauseXemptDesc");
-                map.Add("PropOnContractApply", "PropOnContractApply");
-                map.Add("PlaceOfPerformApply", "PlaceOfPerformApply");
-                map.Add("p3rdPartyDisclosureRestrictions", "p3rdPartyDisclosureRestrictions");
-                map.Add("WarrantyClausesApply", "WarrantyClausesApply");
-                map.Add("WarrantyClauses", "WarrantyClauses");
-                map.Add("WarrantyClausesOthers", "WarrantyClausesOthers");
-                map.Add("CustomerName", "CustomerName");
-                map.Add("CustomerCountry", "CustomerCountry");
-                map.Add("SAPMasterContract", "SAPMasterContract");
-                map.Add("ContractLine", "ContractLine");
-                map.Add("CostActgClause", "CostActgClause");
-                map.Add("CostActgClauseDesc", "CostActgClauseDesc");
-                map.Add("CostActgClauseOthers", "CostActgClauseOthers");
-                map.Add("CommercialItemStatus", "CommercialItemStatus");
-                map.Add("ExportReqClauses", "ExportReqClauses");
-                map.Add("ReportingDisclosureApply", "ReportingDisclosureApply");
-                map.Add("RptgDisclosClses", "RptgDisclosClses");
-                map.Add("ReportingDisclosureOther", "ReportingDisclosureOther");
-                map.Add("Outsourceclauses", "Outsourceclauses");
-                map.Add("ExportCusUniqReq", "ExportCusUniqReq");
-                map.Add("PropAgmtType", "PropAgmtType");
-                map.Add("BuyAmericanClauseApply", "BuyAmericanClauseApply");
-                map.Add("BuyAmericanClauses", "BuyAmericanClauses");
-                map.Add("BuyAmericanClauseOther", "BuyAmericanClauseOther");
-                map.Add("RequiredTagsApply", "RequiredTagsApply");
-                map.Add("RequiredTagsDesc", "RequiredTagsDesc");
-                map.Add("Mil129Apply", "Mil129Apply");
-                map.Add("Mil130Apply", "Mil130Apply");
-                map.Add("EndUse", "EndUse");
-                map.Add("EndUseDescription", "EndUseDescription");
-                map.Add("PrimeContractNumber", "PrimeContractNumber");
-                map.Add("ContractType", "ContractType");
-                map.Add("GovtPropClauseApply", "GovtPropClauseApply");
-                map.Add("GovtPropertyClauses", "GovtPropertyClauses");
-                map.Add("SpecialToolingClause", "SpecialToolingClause");
-                map.Add("GFP/CFP", "GFP_CFP");
-                map.Add("Requalification", "Requalification");
-                map.Add("CitizenshipRestrictionApply", "CitizenshipRestrictionApply");
-                map.Add("CitizenshipClauses", "CitizenshipClauses");
-                map.Add("CitizenshipRestrOthers", "CitizenshipRestrOthers");
-                map.Add("SectkRepsCertsOthers", "SectkRepsCertsOthers");
-                map.Add("SectkRepsCertsClses", "SectkRepsCertsClses");
-                map.Add("ConfigMgmtClass1", "ConfigMgmtClass1");
-                map.Add("ConfigMgmtClass2", "ConfigMgmtClass2");
-                map.Add("SupplierChgApply", "SupplierChgApply");
-                map.Add("AcctgSystemAdminstration252234-7006", "AcctgSystemAdminstration252234");
-                map.Add("ContractorBusSystems252234-7005", "ContractorBusSystems252234");
-                map.Add("ContractorPropertyMgmtSystemAdmin252234-7003", "ContractorPropertyMgmtSystemAdmin252234");
-                map.Add("MMASOthers", "MMASOthers");
-                map.Add("CounterfeitPartsClausesApply", "CounterfeitPartsClausesApply");
-                map.Add("CounterfeitClauses", "CounterfeitClauses");
-                map.Add("NationalStockNumber", "NationalStockNumber");
-                map.Add("NasaQualReqd", "NasaQualReqd");
-                map.Add("NasaQualText", "NasaQualText");
-                map.Add("PropertyType", "PropertyType");
-                map.Add("PropertyTypeDesc", "PropertyTypeDesc");
-                map.Add("ConfigMgmtChangesText", "ConfigMgmtChangesText");
-                map.Add("QualityReqApply", "QualityReqApply");
-                map.Add("QualityReqOthers", "QualityReqOthers");
-                map.Add("OtherShipPkgReq", "OtherShipPkgReq");
-                map.Add("TransPN", "TransPN");
-                map.Add("TransDesc", "TransDesc");
+                if (position == 2)
+                    AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "Entanglement Uploaded document", FilesUploaded.FileEntanglement);
 
-                int i = 0;
-                FilesUploaded? filesUploadedResult = (FilesUploaded?)null;
-                int channel = 2;
-                if (model.File != null)
-                {
-                    ViewBag.Check = "disabled";
-                    var personinExcel = ExcelMapper.GetRows<ExcelLCE>(model.File.InputStream, sheetname, map).ToList();
-                    foreach (var item in personinExcel)
-                    {
-                        db.pr_addCFDB(pptqId, item.SalesOffice, item.DistributionChannel, item.SalesOrderType, item.SalesOrderNumber, item.SalesLineItem, item.SalesOrderHeaderStatus, item.SalesOrderHdrStatusDesc, item.SalesOrderItemStatus, item.SalesOrderItemStatusDesc, item.SalesOrderDataDescription, item.CustomerGroup, item.SBU, item.CBT, item.CBT2, item.PONumber, item.CustomerID, item.CustomerName, item.CustomerCountry, item.SAPMasterContract ?? "", item.ContractLine, item.ContractStartDate, item.ContractEndDate, item.PartNumber, item.ContractAdminName, item.AribaID, item.HWContractManager, item.ContractingEntity, item.ProgramName, item.EndUse, item.EndUseDescription, item.PrimeContractNumber, item.ContractType, item.ContractTypeDescription, item.DPAS, item.FMS, item.ForeignInterestsText, item.GovtPropClauseApply, item.GovtPropertyClauses, item.SpecialToolingClause, item.GFP_CFP, item.NasaQualReqd, item.NasaQualText, item.PropertyType, item.PropertyTypeDesc, item.PropAgmtType, item.BuyAmericanClauseApply, item.BuyAmericanClauses, item.BuyAmericanClauseOther, item.BuyAmericanClauseApply, item.TradeAgreementsCls, item.FARPart12applies, item.FARPart15applies, item.TINA, item.CostActgClauseApply, item.CostActgClause, item.CostActgClauseDesc, item.CostActgClauseOthers, item.CommercialItemStatus, item.AllowableCostClauses, item.CostActgClauseXemptDesc, item.PropOnContractApply, item.PlaceOfPerformApply, item.PlaceofPerformClses, item.PlaceofPerformOthers, item.ChangeinLocation, item.CustomerApproval, item.Requalification, item.CitizenshipRestrictionApply, item.CitizenshipClauses, item.CitizenshipRestrOthers, item.SecurityReqsApply, item.SecurityReqsClses, item.SecurityDetailsText, item.SectkRepsCertsApply, item.SectkRepsCertsOthers, item.SectkRepsCertsClses, item.ConfigMgmtClass1, item.ConfigMgmtClass2, item.ConfigMgmtChangesText, item.QualityReqApply, item.QualityReqOthers, item.OtherShipPkgReq, item.RequiredTagsApply, item.RequiredTagsDesc, item.Mil129Apply, item.Mil130Apply, item.DomesticPrefRestApply, item.DomesticPrefRestOther, item.DomesticPrefRestClause, item.Outsourcerestrict, item.Outsourceclauses, item.ExportCusUniqReq, item.ExportReqClauses, item.ReportingDisclosureApply, item.RptgDisclosClses, item.ReportingDisclosureOther, item.p3rdPartyDisclosureRestrictions, item.WarrantyClausesApply, item.WarrantyClauses, item.WarrantyClausesOthers, item.SubsNotConsApply, item.SubsnotconsClauses, item.SubsNotConsOthers, item.SupplierApprovalApply, item.SupplierChgApply, item.AcctgSystemAdminstration252234, item.ContractorBusSystems252234, item.ContractorPropertyMgmtSystemAdmin252234, item.ContractorPurchasingSystemAdmin252234, item.EarnedValueMgmtSystems252234, item.MMASApply, item.MMASClauses, item.MMASOthers, item.CounterfeitPartsClausesApply, item.CounterfeitClauses, item.NationalStockNumber, item.TransPN, item.TransDesc, i, 1).FirstOrDefault();
-                        i++;
+                if (position == 5)
+                    AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "BAA Transition Scope Upload", FilesUploaded.BAATransitionScopeUpload);
 
-                    }
+                if (position == 4)
+                    AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
 
-                    var ch = db.pr_getCFDBChannelTwoCheck(pptqId).FirstOrDefault();
-                    if (ch != null)
-                        channel = ch.Value;
-                    try
-                    {
-                        //sometime generated error
-                        AddModifyPptqDoc(model.File, pptqId, "CFDB uploaded document", FilesUploaded.File);
-                    }
-                    catch { }
-                }
-                if (model.FileScope != null)
-                {
-                    AddModifyPptqDoc(model.FileScope, pptqId, "LC&E Scope Uploaded document", FilesUploaded.FileScope);
-                }
-                if (model.FileCID != null)
-                {
-                    AddModifyPptqDoc(model.FileCID, pptqId, "CID Uploaded document", FilesUploaded.FileCID);
-                }
-                if (model.FileEntanglement != null)
-                {
-                    AddModifyPptqDoc(model.FileEntanglement, pptqId, "Entanglement Uploaded document", FilesUploaded.FileEntanglement);
-                }
-                if (model.BAATransitionScopeUpload != null)
-                {
-                    AddModifyPptqDoc(model.BAATransitionScopeUpload, pptqId, "BAA Transition Scope Upload", FilesUploaded.BAATransitionScopeUpload);
-                }
-                if (model.SupplierSelfAssessmentUpload != null)
-                {
-                    AddModifyPptqDoc(model.SupplierSelfAssessmentUpload, pptqId, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
-                }
-                using (var dbEntityes = new EntitiesDBContext())
-                {
-                    var files = dbEntityes.pr_getPPTQDocByPPTQ(pptqId).ToList();
-                    var requesredPptq = dbEntityes.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-                    requesredPptq.score = files.Sum(o => o.sortOrder);
-                    dbEntityes.Entry(requesredPptq).State = System.Data.Entity.EntityState.Modified;
-                    dbEntityes.SaveChanges();
-                }
-                ViewBag.Count = i;
-                ViewBag.Pptq = pptqId;
-                ViewBag.PartnerSpreadsheetDataLoadId = partnerSpreadsheetDataLoadId;
-                ViewBag.TeamAssigned = db.pr_getPersonTeamAssignedByTouchpoint(result.touchpoint).ToList();
-                ViewBag.UnassignedByEnterprise = db.pr_getPersonTouchpointTeamUnassignedByEnterprise(CurrentInstance.EnterpriseID).ToList();
-
-                ViewBag.ChannelValue = channel;
-
-                ViewBag.PrName = model.ProgramName;
-                var allclbychannels = db.pr_getCFDBPartnertypeClauseAll().ToList().Where(o => o.channel == channel).Select(o => o.clause).ToList();
-                ViewBag.AllClause = db.pr_getCFDBClauseAllForDisplay(model.partnertype).Where(b => allclbychannels.Contains(b.id)).ToList();
-                var selectedClauses = db.pr_getCFDBPartnertypeClauseByPartnertype(model.partnertype).Where(o => o.channel == channel).ToList();
-                var selectedClausesIds = selectedClauses.Select(o => o.clause).ToList();
-
-                ViewBag.SelectedClauses = db.pr_getCFDBClauseAll().Where(o => selectedClausesIds.Contains(o.id)).ToList();
-                Session["LceModel"] = model;
-
-                ViewBag.Items = db.pr_getClausePersonPartnertypeSortOrderByPartnertype(model.partnertype).ToList();
-                var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-                ViewBag.ActiveType = partnertype.Where(o => o.id == model.partnertype).First().description;
-                return View(model);
+                UpdateScore(pptq, position);
             }
 
-            return View(model);
+            return Content("");
         }
-
-
-        */
 
         private void AddModifyPptqDoc(HttpPostedFileBase fileStream, int pptqId, string fileDescription, FilesUploaded sortOrder)
         {
@@ -795,7 +624,7 @@ namespace Generic.Controllers
                     db.pr_addPPTQDoc(pptqId, fileStream.FileName, fileDescription, memoryStream.ToArray(), (int)PartnerDocType.EXCEL, null, DateTime.Now, SessionSingleton.LoggedInUserId, (int)sortOrder, true).FirstOrDefault();
                 }
                 else
-                    db.pr_modifyPPTQDoc(cfdbFile.id, cfdbFile.pptq, cfdbFile.title, cfdbFile.description, memoryStream.ToArray(), cfdbFile.doctype, null, DateTime.Now, SessionSingleton.LoggedInUserId, cfdbFile.sortOrder, cfdbFile.active);
+                    db.pr_modifyPPTQDoc(cfdbFile.id, cfdbFile.pptq, fileStream.FileName, cfdbFile.description, memoryStream.ToArray(), cfdbFile.doctype, null, DateTime.Now, SessionSingleton.LoggedInUserId, cfdbFile.sortOrder, cfdbFile.active);
             }
         }
 

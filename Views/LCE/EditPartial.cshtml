@@ -853,13 +853,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                @Html.LabelFor(o => o.Score, new { @class = "control-label col-sm-3" })
-                                <div class="col-sm-3">
-                                    @Html.TextBoxFor(model => model.Score, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Score)
-                                </div>
-                                @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-3" })
-                                <div class="col-sm-3">
+                                @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-6" })
+                                <div class="col-sm-6">
                                     @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Priority)
                                 </div>
@@ -893,7 +888,8 @@
                                 </div>
 
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 6 })
+            .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileScopeName))
                                 {
                                 <span>Already uploaded: @Model.FileScopeName</span>
@@ -912,7 +908,10 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CFDB_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @(Html.Telerik().Upload().Name("File").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a
+            .Save("UploadCfdb", "lce", new { pptq = ViewBag.PptqId })
+            .AutoUpload(true)
+        ))
                                     @if (!string.IsNullOrEmpty(Model.FileName))
                                 {
                                 <span>Already uploaded: @Model.FileName</span>
@@ -931,7 +930,8 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/CID_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 3 })
+            .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileCIDName))
                                 {
                                 <span>Already uploaded: @Model.FileCIDName</span>
@@ -950,7 +950,8 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 2 })
+            .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileEntanglementName))
                                 {
                                 <span>Already uploaded: @Model.FileEntanglementName</span>
@@ -969,7 +970,8 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 4 })
+            .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.SupplierSelfAssessmentUploadName))
                                 {
                                 <span>Already uploaded: @Model.SupplierSelfAssessmentUploadName</span>
@@ -988,7 +990,8 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")))
+                                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 5 })
+            .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.BAATransitionScopeUploadName))
                                 {
                                 <span>Already uploaded: @Model.BAATransitionScopeUploadName</span>
