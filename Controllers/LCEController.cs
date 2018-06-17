@@ -560,6 +560,7 @@ namespace Generic.Controllers
                 int channel = 2;
 
                 ViewBag.Check = "disabled";
+                db.pr_removeCFDBByPPTQ(pptq);
                 var personinExcel = ExcelMapper.GetRows<ExcelLCE>(file.InputStream, sheetname, map).ToList();
                 foreach (var item in personinExcel)
                 {
