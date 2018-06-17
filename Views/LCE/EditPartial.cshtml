@@ -854,21 +854,15 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                @Html.LabelFor(o => o.Priority, new { @class = "control-label col-sm-6" })
-                                <div class="col-sm-6">
-                                    @Html.TextBoxFor(model => model.Priority, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Priority)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
                                 @Html.LabelFor(o => o.ProjectUrl, new { @class = "control-label col-sm-3" })
                                 <div class="col-sm-9">
                                     @Html.TextBoxFor(model => model.ProjectUrl, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.ProjectUrl)
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-lg-6">
+                            
                         </div>
                     </div>
 

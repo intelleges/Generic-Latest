@@ -76,7 +76,6 @@ namespace Generic.Controllers
                 ProjectUrl = pptq.partner1.title,
                 Owner = pptq.person.id,
                 Duedate = pptq.dueDate,
-                Priority = pptq.priority,
                 partnertype = pptq.partnerTypeTouchpointQuestionnaire1.partnerType,
                 FileName = file != null ? file.title : null,
                 FileCIDName = fileCID != null ? fileCID.title : null,
@@ -110,7 +109,6 @@ namespace Generic.Controllers
                     partner.title = model.ProjectUrl;
                     pptq.invitedBy = model.Owner;
                     pptq.dueDate = model.Duedate;
-                    pptq.priority = model.Priority;
                     pptq.partnerTypeTouchpointQuestionnaire1.partnerType = model.partnertype;
                     db.Entry(partner).CurrentValues.SetValues(partner);
                     db.Entry(pptq.partnerTypeTouchpointQuestionnaire1).CurrentValues.SetValues(pptq.partnerTypeTouchpointQuestionnaire1);
@@ -369,7 +367,7 @@ namespace Generic.Controllers
                 {
                     int val = Convert.ToInt32("000000", 2);
                     //Not clear why again there generated error
-                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, val, model.Priority);
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScoreAndPriority(pptqId, val, null);
                 }
                 catch (Exception e)
                 {
@@ -574,10 +572,17 @@ namespace Generic.Controllers
                 try
                 {
                     //sometime generated error
-                    AddModifyPptqDoc(files.First(), pptq, "CFDB uploaded document", FilesUploaded.File);
+                    AddModifyPptqDoc(file, pptq, "CFDB uploaded document", FilesUploaded.File);
                     UpdateScore(pptq, 1);
+                    using (EntitiesDBContext db1 = new EntitiesDBContext())
+                    {
+                        db1.pr_setPriorityForCFDBorCIDDataLoad(pptq);
+                    }
                 }
-                catch { }
+                catch (Exception exp)
+                {
+                    Console.Write(exp);
+                }
             }
 
             // Return an empty string to signify success
@@ -605,6 +610,11 @@ namespace Generic.Controllers
                     var personinExcel = ExcelMapper.GetRows<ExcelCid>(file.InputStream, sheetname, map).ToList();
                     foreach (var item in personinExcel.Where(o => o.FINALUSAGECode != null))
                         db.pr_addCID(pptq, SessionSingleton.LoggedInUserId, item.FINALUSAGECode);
+
+                    using (EntitiesDBContext db1 = new EntitiesDBContext())
+                    {
+                        db1.pr_setPriorityForCFDBorCIDDataLoad(pptq);
+                    }
                 }
 
                 if (position == 2)
