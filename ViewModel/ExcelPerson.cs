@@ -39,6 +39,12 @@ namespace Generic.ViewModel
 
 
     }
+
+    public class ExcelCid
+    {
+        public string FINALUSAGECode { get; set; }
+    }
+
     public class ExcelLCE
     {
         public string SalesOffice { get; set; }

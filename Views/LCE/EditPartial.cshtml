@@ -25,7 +25,8 @@
         // Check the extension of each file and abort the upload if it is not .jpg
         $.each(files, function () {
             if (this.
-                extension != ".xlsx") {
+                extension != ".xlsx" && this.
+                    extension != ".xlsm") {
                 alert("Only .xlsx files can be uploaded")
                 e.preventDefault();
                 return false;

@@ -324,6 +324,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInProfileDataLoad" Width="1.5" PointX="3.375" PointY="27.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInSearch" Width="1.5" PointX="27.375" PointY="10.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInConnectionDataLoad" Width="1.5" PointX="16.375" PointY="27.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.cid" Width="1.5" PointX="5.375" PointY="27.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

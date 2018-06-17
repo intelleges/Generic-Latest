@@ -187,6 +187,15 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="cid">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pptq" Type="int" Nullable="false" />
+          <Property Name="loadedby" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="companyProfileDataLoad">
           <Key>
             <PropertyRef Name="id" />
@@ -4726,6 +4735,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_addCID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="loadedby" Type="int" Mode="In" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_addCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="externalID" Type="varchar" Mode="In" />
           <Parameter Name="companyName" Type="varchar" Mode="In" />
@@ -6608,6 +6622,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getCFDBTINAForDataSend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getCIDAllByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getCIDByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getClauseFromCFDBAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getClausePersonPartnertypeSortOrderByPartnertype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnertype" Type="int" Mode="In" />
@@ -8295,6 +8315,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyCID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="loadedby" Type="int" Mode="In" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyCompanyProfileDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="externalID" Type="varchar" Mode="In" />
@@ -9555,8 +9581,19 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeCFDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeCFDBByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeCFDBClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeCFDBPartnertypeClause" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnertype" Type="int" Mode="In" />
+          <Parameter Name="clause" Type="int" Mode="In" />
+          <Parameter Name="channel" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removeCIDByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removeConfirmationSpreadsheetDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -9963,6 +10000,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_resetPartnumberStatusAndZcodeByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_setPriorityForCFDBorCIDDataLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_test2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_unArchiveAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -10330,6 +10370,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="campaignStatus" EntityType="Self.campaignStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cfdbClause" EntityType="Self.cfdbClause" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cfdbPartnertypeClause" EntityType="Self.cfdbPartnertypeClause" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cid" EntityType="Self.cid" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="companyProfileDataLoad" EntityType="Self.companyProfileDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="confirmationSpreadsheetDataLoad" EntityType="Self.confirmationSpreadsheetDataLoad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConfirmPartnerActionType" EntityType="Self.ConfirmPartnerActionType" Schema="dbo" store:Type="Tables" />
@@ -18187,6 +18228,38 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore" ReturnType="Collection(hs3MVCMTQa2Model.pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="score" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="cid" EntityType="hs3MVCMTQa2Model.cid" />
+          <FunctionImport Name="pr_addCID">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="loadedby" Mode="In" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCIDAllByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCIDAllByPPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getCIDByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCIDByPPTQ_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyCID">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="loadedby" Mode="In" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeCFDBByPPTQ">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeCFDBPartnertypeClause">
+            <Parameter Name="partnertype" Mode="In" Type="Int32" />
+            <Parameter Name="clause" Mode="In" Type="Int32" />
+            <Parameter Name="channel" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeCIDByPPTQ">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_setPriorityForCFDBorCIDDataLoad">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31112,6 +31185,27 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="priority" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
         </ComplexType>
+        <EntityType Name="cid">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pptq" Type="Int32" Nullable="false" />
+          <Property Name="loadedby" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="pr_getCIDAllByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="loadedby" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getCIDByPPTQ_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptq" Nullable="false" />
+          <Property Type="Int32" Name="loadedby" Nullable="false" />
+          <Property Type="String" Name="code" Nullable="false" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43345,6 +43439,42 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="cid">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.cid">
+              <MappingFragment StoreEntitySet="cid">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="loadedby" ColumnName="loadedby" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addCID" FunctionName="hs3MVCMTQa2Model.Store.pr_addCID" />
+          <FunctionImportMapping FunctionImportName="pr_getCIDAllByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getCIDAllByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCIDAllByPPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="loadedby" ColumnName="loadedby" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getCIDByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getCIDByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getCIDByPPTQ_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptq" ColumnName="pptq" />
+                <ScalarProperty Name="loadedby" ColumnName="loadedby" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyCID" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCID" />
+          <FunctionImportMapping FunctionImportName="pr_removeCFDBByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDBByPPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_removeCFDBPartnertypeClause" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDBPartnertypeClause" />
+          <FunctionImportMapping FunctionImportName="pr_removeCIDByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCIDByPPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_setPriorityForCFDBorCIDDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_setPriorityForCFDBorCIDDataLoad" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

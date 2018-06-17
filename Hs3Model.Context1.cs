@@ -227,6 +227,7 @@ namespace Generic
         public virtual DbSet<linkedInProfileDataLoad> linkedInProfileDataLoad { get; set; }
         public virtual DbSet<linkedInSearch> linkedInSearch { get; set; }
         public virtual DbSet<linkedInConnectionDataLoad> linkedInConnectionDataLoad { get; set; }
+        public virtual DbSet<cid> cid { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -23445,6 +23446,106 @@ namespace Generic
                 new ObjectParameter("score", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore_Result>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore", pptqParameter, scoreParameter);
+        }
+    
+        public virtual int pr_addCID(Nullable<int> pptq, Nullable<int> loadedby, string code)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var loadedbyParameter = loadedby.HasValue ?
+                new ObjectParameter("loadedby", loadedby) :
+                new ObjectParameter("loadedby", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addCID", pptqParameter, loadedbyParameter, codeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCIDAllByPPTQ_Result> pr_getCIDAllByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCIDAllByPPTQ_Result>("pr_getCIDAllByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCIDByPPTQ_Result> pr_getCIDByPPTQ(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCIDByPPTQ_Result>("pr_getCIDByPPTQ", idParameter);
+        }
+    
+        public virtual int pr_modifyCID(Nullable<int> id, Nullable<int> pptq, Nullable<int> loadedby, string code)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var loadedbyParameter = loadedby.HasValue ?
+                new ObjectParameter("loadedby", loadedby) :
+                new ObjectParameter("loadedby", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCID", idParameter, pptqParameter, loadedbyParameter, codeParameter);
+        }
+    
+        public virtual int pr_removeCFDBByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCFDBByPPTQ", pptqParameter);
+        }
+    
+        public virtual int pr_removeCFDBPartnertypeClause(Nullable<int> partnertype, Nullable<int> clause, Nullable<int> channel)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var clauseParameter = clause.HasValue ?
+                new ObjectParameter("clause", clause) :
+                new ObjectParameter("clause", typeof(int));
+    
+            var channelParameter = channel.HasValue ?
+                new ObjectParameter("channel", channel) :
+                new ObjectParameter("channel", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCFDBPartnertypeClause", partnertypeParameter, clauseParameter, channelParameter);
+        }
+    
+        public virtual int pr_removeCIDByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCIDByPPTQ", pptqParameter);
+        }
+    
+        public virtual int pr_setPriorityForCFDBorCIDDataLoad(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_setPriorityForCFDBorCIDDataLoad", pptqParameter);
         }
     }
 }

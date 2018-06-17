@@ -358,7 +358,7 @@ namespace Generic.Controllers
                 string loadGroup = db.pr_getAccesscode().FirstOrDefault();
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(model.partnertype).FirstOrDefault().id;
-             
+
                 var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
 
                 string acc = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault().accesscode;
@@ -595,7 +595,16 @@ namespace Generic.Controllers
                     AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "LC&E Scope Uploaded document", FilesUploaded.FileScope);
 
                 if (position == 3)
+                {
                     AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "CID Uploaded document", FilesUploaded.FileCID);
+                    db.pr_removeCIDByPPTQ(pptq);
+                    string sheetname = "cidFinal";
+                    var map = new Dictionary<string, string>();
+                    map.Add("FINALUSAGECode", "FINALUSAGECode");
+                    var personinExcel = ExcelMapper.GetRows<ExcelCid>(file.InputStream, sheetname, map).ToList();
+                    foreach (var item in personinExcel.Where(o => o.FINALUSAGECode != null))
+                        db.pr_addCID(pptq, SessionSingleton.LoggedInUserId, item.FINALUSAGECode);
+                }
 
                 if (position == 2)
                     AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "Entanglement Uploaded document", FilesUploaded.FileEntanglement);
