@@ -574,6 +574,11 @@ namespace Generic.Controllers
                     //sometime generated error
                     AddModifyPptqDoc(file, pptq, "CFDB uploaded document", FilesUploaded.File);
                     UpdateScore(pptq, 1);
+
+                    string str = db.pr_CFDB_FileUploadCheck(pptq).First();
+                    if (str.ToLower() != "good")
+                        return Content(str);
+
                     using (EntitiesDBContext db1 = new EntitiesDBContext())
                     {
                         db1.pr_setPriorityForCFDBorCIDDataLoad(pptq);
@@ -610,6 +615,10 @@ namespace Generic.Controllers
                     var personinExcel = ExcelMapper.GetRows<ExcelCid>(file.InputStream, sheetname, map).ToList();
                     foreach (var item in personinExcel.Where(o => o.FINALUSAGECode != null))
                         db.pr_addCID(pptq, SessionSingleton.LoggedInUserId, item.FINALUSAGECode);
+
+                    string str = db.pr_CID_FileUploadCheck(pptq).First();
+                    if (str.ToLower() != "good")
+                        return Content(str);
 
                     using (EntitiesDBContext db1 = new EntitiesDBContext())
                     {

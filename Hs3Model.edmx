@@ -6296,6 +6296,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="protocol" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_CFDB_FileUploadCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_checkDuplicateIteratePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
@@ -6312,6 +6315,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="zcode" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_checkPartnumberStatusCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_CID_FileUploadCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_clearIterateAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -18236,10 +18242,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="code" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getCIDAllByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCIDAllByPPTQ_Result)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getCIDByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getCIDByPPTQ_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyCID">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -18248,7 +18254,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="code" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_removeCFDBByPPTQ">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeCFDBPartnertypeClause">
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
@@ -18256,9 +18262,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="channel" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeCIDByPPTQ">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_setPriorityForCFDBorCIDDataLoad">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_CFDB_FileUploadCheck" ReturnType="Collection(String)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_CID_FileUploadCheck" ReturnType="Collection(String)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -43475,6 +43487,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_removeCFDBPartnertypeClause" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCFDBPartnertypeClause" />
           <FunctionImportMapping FunctionImportName="pr_removeCIDByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeCIDByPPTQ" />
           <FunctionImportMapping FunctionImportName="pr_setPriorityForCFDBorCIDDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_setPriorityForCFDBorCIDDataLoad" />
+          <FunctionImportMapping FunctionImportName="pr_CFDB_FileUploadCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_CFDB_FileUploadCheck" />
+          <FunctionImportMapping FunctionImportName="pr_CID_FileUploadCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_CID_FileUploadCheck" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

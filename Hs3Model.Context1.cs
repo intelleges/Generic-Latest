@@ -23547,5 +23547,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_setPriorityForCFDBorCIDDataLoad", pptqParameter);
         }
+    
+        public virtual ObjectResult<string> pr_CFDB_FileUploadCheck(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_CFDB_FileUploadCheck", pptqParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_CID_FileUploadCheck(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_CID_FileUploadCheck", pptqParameter);
+        }
     }
 }
