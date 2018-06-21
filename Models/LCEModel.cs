@@ -49,7 +49,7 @@ namespace Generic.Models
         // [Required]
         public HttpPostedFileBase FileCID { get; set; }
         public string FileCIDName { get; set; }
-        [DisplayName("Entanglement Upload")]
+        [DisplayName("OEM Contract Review Summary Upload")]
         // [Required]
         public HttpPostedFileBase FileEntanglement { get; set; }
         public string FileEntanglementName { get; set; }
@@ -61,6 +61,14 @@ namespace Generic.Models
         // [Required]
         public HttpPostedFileBase BAATransitionScopeUpload { get; set; }
         public string BAATransitionScopeUploadName { get; set; }
+
+
+
+        [DisplayName("R&O Contract Review Summary Upload")]
+        public HttpPostedFileBase ROContractReviewSummaryUpload { get; set; }
+        public string ROContractReviewSummaryUploadName { get; set; }
+
+
         [Required]
         [DisplayName("Due date")]
         public DateTime? Duedate { get; set; }

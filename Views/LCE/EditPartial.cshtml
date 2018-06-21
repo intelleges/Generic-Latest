@@ -875,7 +875,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.FileScope, new { @class = "control-label col-sm-2" })
                                 <div class="col-sm-1">
@@ -896,7 +896,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.File, new { @class = "control-label col-sm-2" })
                                 <div class="col-sm-1">
@@ -918,7 +918,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.FileCID, new { @class = "control-label col-sm-2" })
                                 <div class="col-sm-1">
@@ -938,7 +938,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.FileEntanglement, new { @class = "control-label col-sm-2" })
                                 <div class="col-sm-1">
@@ -958,7 +958,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.SupplierSelfAssessmentUpload, new { @class = "control-label col-sm-2" })
                                 <div class="col-sm-1">
@@ -978,7 +978,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.BAATransitionScopeUpload, new { @class = "control-label col-sm-2" })
                                 <div class="col-sm-1">
@@ -997,6 +997,33 @@
                             </div>
                         </div>
                     </div>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @Html.LabelFor(o => o.ROContractReviewSummaryUpload, new { @class = "control-label col-sm-2" })
+                                <div class="col-sm-1">
+                                    <a href="#" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
+                                </div>
+                                <div class="col-sm-8 textContainer">
+                                    @(Html.Telerik().Upload().Name("ROContractReviewSummaryUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 7 })
+            .AutoUpload(true)))
+                                    @if (!string.IsNullOrEmpty(Model.ROContractReviewSummaryUploadName))
+                                    {
+                                        <span>Already uploaded: @Model.ROContractReviewSummaryUploadName</span>
+                                    }
+                                    @Html.ValidationMessageFor(model => model.ROContractReviewSummaryUpload)
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-12">

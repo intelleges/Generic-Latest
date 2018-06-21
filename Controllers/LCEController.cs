@@ -22,8 +22,10 @@ namespace Generic.Controllers
         FileCID = 4,
         FileEntanglement = 8,
         SupplierSelfAssessmentUpload = 16,
-        BAATransitionScopeUpload = 32
+        BAATransitionScopeUpload = 32,
+        ROContractReviewSummaryUpload = 64
     }
+
     public class LCEController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
@@ -62,6 +64,7 @@ namespace Generic.Controllers
             var fileScope = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.FileScope).FirstOrDefault();
             var supplierSelfAssessmentUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.SupplierSelfAssessmentUpload).FirstOrDefault();
             var BAATransitionScopeUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.BAATransitionScopeUpload).FirstOrDefault();
+            var ROContractReviewSummaryUpload = pptqDocs.Where(o => o.sortOrder == (int)FilesUploaded.ROContractReviewSummaryUpload).FirstOrDefault();
 
             ViewBag.Dashboard = db.pr_getRequestApprovalDashboard1(pptq.id).ToList();
 
@@ -82,7 +85,8 @@ namespace Generic.Controllers
                 FileEntanglementName = fileEntanglement != null ? fileEntanglement.title : null,
                 FileScopeName = fileScope != null ? fileScope.title : null,
                 SupplierSelfAssessmentUploadName = supplierSelfAssessmentUpload != null ? supplierSelfAssessmentUpload.title : null,
-                BAATransitionScopeUploadName = BAATransitionScopeUpload != null ? BAATransitionScopeUpload.title : null
+                BAATransitionScopeUploadName = BAATransitionScopeUpload != null ? BAATransitionScopeUpload.title : null,
+                ROContractReviewSummaryUploadName = ROContractReviewSummaryUpload != null ? ROContractReviewSummaryUpload.title : null
             };
             var files = db.pr_getPPTQDocByPPTQ(pptq.id).ToList();
             //foreach(var file in )
@@ -635,7 +639,11 @@ namespace Generic.Controllers
                 if (position == 4)
                     AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "Supplier Self-Assessment Upload", FilesUploaded.SupplierSelfAssessmentUpload);
 
-                UpdateScore(pptq, position);
+                if (position == 7)
+                    AddModifyPptqDoc(file as HttpPostedFileBase, pptq, "R&O Contract Review Summary Upload", FilesUploaded.ROContractReviewSummaryUpload);
+
+                if (position != 7)
+                    UpdateScore(pptq, position);
             }
 
             return Content("");
