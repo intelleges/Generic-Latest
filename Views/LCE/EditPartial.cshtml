@@ -15,6 +15,7 @@
     List<Generic.pr_getCFDBClauseAll_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBClauseAll_Result>;
     List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> unassignedByEnterprise = ViewBag.UnassignedByEnterprise as List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>;
     List<Generic.pr_getRequestApprovalDashboard1_Result> dashboardItems = ViewBag.Dashboard as List<Generic.pr_getRequestApprovalDashboard1_Result>;
+    var partnertypeListAll = ViewBag.partnertypeListAll as List<Generic.partnerType>;
 }
 
 <script type="text/javascript">
@@ -129,7 +130,21 @@
     });
 
     function onchangePartnerType(el) {
-        if ($(el).val() == 253) {
+         var arrayOfArrays = JSON.parse('@Html.Raw(Json.Encode(partnertypeListAll.Select(o=>new {o.id, o.sortOrder })))');
+         $('#secondDd').hide();
+         $('#secondDd').val('');
+
+         var v = $(el).val();
+
+         var selectedItem = null;
+         $.each(arrayOfArrays, function (index, val) {
+             if (v == val.id && val.sortOrder == 1) {
+                 $('#secondDd').show();
+                 $('#secondDd').val($("#secondDd option:first").val());
+             }
+         });
+
+        /*if ($(el).val() == 253) {
             $.fancybox({
                 'content': $('#buy-buy').html(),
                 closeBtn: false,
@@ -145,7 +160,7 @@
         }
         else {
             $('#BuyToBuyType').val('');
-        }
+        }*/
     }
 
     function setBuyToBuy()
@@ -523,6 +538,7 @@
     .fancybox-inner input[type=radio] {
         width: 20px;
     }
+
     .textContainer {
         line-height: 30px;
     }
@@ -550,7 +566,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in dashboardItems) {
+                        @foreach (var item in dashboardItems)
+                        {
                             <tr>
                                 <td style="max-width:200px;"><p>@item.question</p></td>
                                 <td>@item.response</td>
@@ -617,7 +634,7 @@
                         <select multiple class="form-control" id="list1">
                             @foreach (var item in list.Where(o => !unassignedByEnterprise.Select(b => b.id).ToList().Contains(o.id)))
                             {
-                            <option value="@item.id">@item.firstName @item.lastName</option>
+                                <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -639,7 +656,7 @@
                         <select multiple class="form-control" id="list2">
                             @foreach (var item in unassignedByEnterprise)
                             {
-                            <option value="@item.id">@item.firstName @item.lastName</option>
+                                <option value="@item.id">@item.firstName @item.lastName</option>
                             }
                         </select>
                     </div>
@@ -676,7 +693,7 @@
                         <select multiple class="form-control" id="list3">
                             @foreach (var item in allClause)
                             {
-                            <option value="@item.id">@item.clause</option>
+                                <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -698,7 +715,7 @@
                         <select multiple class="form-control" id="list4">
                             @foreach (var item in selectedClauses)
                             {
-                            <option value="@item.id">@item.clause</option>
+                                <option value="@item.id">@item.clause</option>
                             }
                         </select>
                     </div>
@@ -769,10 +786,10 @@
     @*<div class="addPartnerDiv" style="margin-top:-30px;">
             <h2>Create LC &amp; E Checklist</h2>
         </div>*@
-<div style="margin-top:-10px;text-align: right;margin-right: 40px;
+    <div style="margin-top:-10px;text-align: right;margin-right: 40px;
     margin-bottom: 20px;">
-    <button type="button" class="btn btn-default btn-sm" onclick="showDashboard();">Dashboard</button>
-</div>
+        <button type="button" class="btn btn-default btn-sm" onclick="showDashboard();">Dashboard</button>
+    </div>
     @using (Html.BeginForm("Create", "LCE", null, FormMethod.Post, new { enctype = "multipart/form-data", id = "lce_form" }))
             {
         @Html.ValidationSummary(true)
@@ -816,7 +833,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
                                 <div class="col-sm-9">
-                                    @Html.DropDownListFor(m=>m.Owner, (SelectList)ViewBag.OwnerList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
+                                    @Html.DropDownListFor(m => m.Owner, (SelectList)ViewBag.OwnerList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " " })
                                     @Html.ValidationMessageFor(model => model.Owner)
                                 </div>
                             </div>
@@ -824,9 +841,12 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
-                                <div class="col-sm-9">
+                                <div class="col-sm-5">
                                     @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
                                     @Html.ValidationMessageFor(model => model.partnertype)
+                                </div>
+                                <div class="col-sm-4" style="@(ViewBag.IsShowSecondDD==true?"":"display:none;")" id="secondDd">
+                                    @Html.DropDownListFor(o => o.partnertype1, Model.partnertype1Items, String.Empty, new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -862,7 +882,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            
+
                         </div>
                     </div>
 
@@ -886,9 +906,9 @@
                                     @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 6 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileScopeName))
-                                {
-                                <span>Already uploaded: @Model.FileScopeName</span>
-                                }
+                                    {
+                                        <span>Already uploaded: @Model.FileScopeName</span>
+                                    }
                                     @Html.ValidationMessageFor(model => model.FileScope)
                                 </div>
 
@@ -908,9 +928,9 @@
             .AutoUpload(true)
         ))
                                     @if (!string.IsNullOrEmpty(Model.FileName))
-                                {
-                                <span>Already uploaded: @Model.FileName</span>
-                                }
+                                    {
+                                        <span>Already uploaded: @Model.FileName</span>
+                                    }
                                     @Html.ValidationMessageFor(model => model.File)
                                 </div>
 
@@ -928,9 +948,9 @@
                                     @(Html.Telerik().Upload().Name("FileCID").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 3 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileCIDName))
-                                {
-                                <span>Already uploaded: @Model.FileCIDName</span>
-                                }
+                                    {
+                                        <span>Already uploaded: @Model.FileCIDName</span>
+                                    }
                                     @Html.ValidationMessageFor(model => model.FileCID)
                                 </div>
 
@@ -948,9 +968,9 @@
                                     @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 2 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileEntanglementName))
-                                {
-                                <span>Already uploaded: @Model.FileEntanglementName</span>
-                                }
+                                    {
+                                        <span>Already uploaded: @Model.FileEntanglementName</span>
+                                    }
                                     @Html.ValidationMessageFor(model => model.FileEntanglement)
                                 </div>
 
@@ -968,9 +988,9 @@
                                     @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 4 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.SupplierSelfAssessmentUploadName))
-                                {
-                                <span>Already uploaded: @Model.SupplierSelfAssessmentUploadName</span>
-                                }
+                                    {
+                                        <span>Already uploaded: @Model.SupplierSelfAssessmentUploadName</span>
+                                    }
                                     @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
                                 </div>
 
@@ -988,9 +1008,9 @@
                                     @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 5 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.BAATransitionScopeUploadName))
-                                {
-                                <span>Already uploaded: @Model.BAATransitionScopeUploadName</span>
-                                }
+                                    {
+                                        <span>Already uploaded: @Model.BAATransitionScopeUploadName</span>
+                                    }
                                     @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
                                 </div>
 
@@ -1039,7 +1059,7 @@
         </fieldset>
     }
     <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />   
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 
     @*

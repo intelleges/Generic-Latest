@@ -40,7 +40,7 @@ namespace Generic.Controllers
             GenerateViewBag();
             ModelState.Clear();
             ViewBag.Count = null;
-            return View();
+            return View(new LCEModel());
         }
 
         public ActionResult DownloadDashboard(int pptq)
@@ -72,8 +72,8 @@ namespace Generic.Controllers
             {
                 ProgramName = pptq.partner1.name,
                 Designation = pptq.partner1.address1,
-                Comments = pptq.partner1.dunsNumber,
-                BuyToBuyType = pptq.partner1.address2,
+                Comments = pptq.partner1.address2,
+                partnertype1 = pptq.partner1.dunsNumber,
                 From = pptq.partner1.firstName,
                 To = pptq.partner1.lastName,
                 ProjectUrl = pptq.partner1.title,
@@ -88,6 +88,12 @@ namespace Generic.Controllers
                 BAATransitionScopeUploadName = BAATransitionScopeUpload != null ? BAATransitionScopeUpload.title : null,
                 ROContractReviewSummaryUploadName = ROContractReviewSummaryUpload != null ? ROContractReviewSummaryUpload.title : null
             };
+
+            if (pptq.partnerTypeTouchpointQuestionnaire1.partnerType1 != null
+                && pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.sortOrder == 1) {
+                ViewBag.IsShowSecondDD = true;
+            }
+
             var files = db.pr_getPPTQDocByPPTQ(pptq.id).ToList();
             //foreach(var file in )
             GenerateViewBag(model.partnertype, pptq.person.id);
@@ -106,8 +112,8 @@ namespace Generic.Controllers
                     var person = pptq.person;
                     partner.name = model.ProgramName;
                     partner.address1 = model.Designation;
-                    partner.dunsNumber = model.Comments;
-                    partner.address2 = model.BuyToBuyType;
+                    partner.dunsNumber = model.partnertype1;
+                    partner.address2 = model.Comments;
                     partner.firstName = model.From;
                     partner.lastName = model.To;
                     partner.title = model.ProjectUrl;
@@ -332,7 +338,7 @@ namespace Generic.Controllers
         {
             var partnertype = db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
             ViewBag.partnertypeList = new SelectList(partnertype, "id", "description", partnertypeId);
-
+            ViewBag.partnertypeListAll = partnertype;
             ViewBag.OwnerList = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "Id", "FullName", ownerId);
         }
 
@@ -361,7 +367,7 @@ namespace Generic.Controllers
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(model.partnertype).FirstOrDefault().id;
 
-                var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.Comments ?? "", model.ProgramName, model.Designation ?? "", model.BuyToBuyType ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
+                var partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(result.partner_internal_id, result.partner_sap_id, model.partnertype1 ?? "", model.ProgramName, model.Designation ?? "", model.Comments ?? "", result.partner_city, null, "", null, model.From ?? "", model.To ?? "", model.ProjectUrl ?? "", result.partner_poc_phone_number, result.partner_poc_email_address, "", "", "", DateTime.Now, enterpriseID, model.partnertype, result.touchpoint, model.Owner, result.partnerSpreadsheetDataLoadStatus, loadGroup, result.dueDate, result.group).FirstOrDefault();
 
                 string acc = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault().accesscode;
                 int pptqId = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(acc).FirstOrDefault().id;

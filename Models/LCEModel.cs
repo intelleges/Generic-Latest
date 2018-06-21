@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Generic.Models
 {
@@ -22,6 +23,18 @@ namespace Generic.Models
         [DisplayName("Activity Type")]
         [Required]
         public int partnertype { get; set; }
+
+        public string partnertype1 { get; set; }
+
+        public SelectList partnertype1Items
+        {
+            get
+            {
+                List<string> strs = new List<string>() { "Build to Print", "Build to Spec", "Supplier Reposition" };
+                SelectList list = new SelectList(strs);
+                return list;
+            }
+        }
 
         [DisplayName("From")]
         [Required]

@@ -13,6 +13,7 @@
     List<Generic.pr_getCFDBClauseAllForDisplay_Result> allClause = ViewBag.AllClause as List<Generic.pr_getCFDBClauseAllForDisplay_Result>;
     List<Generic.pr_getCFDBClauseAll_Result> selectedClauses = ViewBag.SelectedClauses as List<Generic.pr_getCFDBClauseAll_Result>;
     List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result> unassignedByEnterprise = ViewBag.UnassignedByEnterprise as List<Generic.pr_getPersonTouchpointTeamUnassignedByEnterprise_Result>;
+    var partnertypeListAll = ViewBag.partnertypeListAll as List<Generic.partnerType>;
 }
 
 <script type="text/javascript">
@@ -142,7 +143,20 @@
     });
 
     function onchangePartnerType(el) {
-        if ($(el).val() == 253) {
+         var arrayOfArrays = JSON.parse('@Html.Raw(Json.Encode(partnertypeListAll.Select(o=>new {o.id, o.sortOrder })))');
+         $('#secondDd').hide();
+         $('#secondDd').val('');
+
+         var v = $(el).val();
+
+         var selectedItem = null;
+         $.each(arrayOfArrays, function (index, val) {
+             if (v == val.id && val.sortOrder == 1) {
+                 $('#secondDd').show();
+                 $('#secondDd').val($("#secondDd option:first").val());
+             }
+         });
+        /*if ($(el).val() == 253) {
             $.fancybox({
                 'content': $('#buy-buy').html(),
                 closeBtn: false,
@@ -158,7 +172,7 @@
         }
         else {
             $('#BuyToBuyType').val('');
-        }
+        }*/
     }
 
     function setBuyToBuy()
@@ -855,9 +869,12 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
                                 @Html.ValidationMessageFor(model => model.partnertype)
+                            </div>
+                            <div class="col-sm-4"  id="secondDd" style="display:none;">
+                                @Html.DropDownListFor(o => o.partnertype1, Model.partnertype1Items, String.Empty, new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
