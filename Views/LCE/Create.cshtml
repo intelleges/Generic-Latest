@@ -948,7 +948,7 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/LCE_Scope_Template.xlsx" class="download-temp" alt="Download Template" data-toggle="tooltip" title="Download Template"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 6 })
+                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 6 })
             .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.FileScope)
                 </div>
@@ -998,7 +998,7 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position =2 })
+                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position =2 })
             .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.FileEntanglement)
                 </div>
@@ -1014,7 +1014,7 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 4 })
+                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 4 })
             .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.SupplierSelfAssessmentUpload)
                 </div>
@@ -1030,7 +1030,7 @@
                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 5 })
+                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 5 })
             .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.BAATransitionScopeUpload)
                 </div>
@@ -1046,7 +1046,7 @@
                     <a href="#" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                 </div>
                 <div class="col-sm-8">
-                    @(Html.Telerik().Upload().Name("ROContractReviewSummaryUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 7 })
+                    @(Html.Telerik().Upload().Name("ROContractReviewSummaryUpload").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.Pptq, position = 7 })
             .AutoUpload(true)))
                     @Html.ValidationMessageFor(model => model.ROContractReviewSummaryUpload)
                 </div>

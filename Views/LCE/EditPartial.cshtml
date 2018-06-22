@@ -61,6 +61,8 @@
         $("#lce_form").submit(function (e) {
             e.preventDefault();
             if ($("#lce_form").validate().valid()) {
+                updateComments();
+
                 $.post('@Url.Action("EditPartial","LCE")' + '/' + '@ViewBag.PptqId', $("#lce_form").serialize()).done(function (result) {
                     if (result) {
                         alertify.alert('Updated!', function () {
@@ -128,6 +130,12 @@
 
         });
     });
+
+    function updateComments() {
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+    }
 
     function onchangePartnerType(el) {
          var arrayOfArrays = JSON.parse('@Html.Raw(Json.Encode(partnertypeListAll.Select(o=>new {o.id, o.sortOrder })))');
@@ -903,7 +911,7 @@
                                 </div>
 
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 6 })
+                                    @(Html.Telerik().Upload().Name("FileScope").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 6 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileScopeName))
                                     {
@@ -965,7 +973,7 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 2 })
+                                    @(Html.Telerik().Upload().Name("FileEntanglement").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 2 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.FileEntanglementName))
                                     {
@@ -985,7 +993,7 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 4 })
+                                    @(Html.Telerik().Upload().Name("SupplierSelfAssessmentUpload").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 4 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.SupplierSelfAssessmentUploadName))
                                     {
@@ -1005,7 +1013,7 @@
                                     <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/Entanglement_Template.xlsx" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 5 })
+                                    @(Html.Telerik().Upload().Name("BAATransitionScopeUpload").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 5 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.BAATransitionScopeUploadName))
                                     {
@@ -1018,11 +1026,6 @@
                         </div>
                     </div>
 
-
-
-
-
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
@@ -1031,7 +1034,7 @@
                                     <a href="#" class="download-temp" alt="Download Template" title="Download Template" data-toggle="tooltip"></a>
                                 </div>
                                 <div class="col-sm-8 textContainer">
-                                    @(Html.Telerik().Upload().Name("ROContractReviewSummaryUpload").Multiple(false).ClientEvents(events => events.OnSelect("onUpload")).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 7 })
+                                    @(Html.Telerik().Upload().Name("ROContractReviewSummaryUpload").Multiple(false).Async(a => a.Save("UploadFile", "lce", new { pptq = ViewBag.PptqId, position = 7 })
             .AutoUpload(true)))
                                     @if (!string.IsNullOrEmpty(Model.ROContractReviewSummaryUploadName))
                                     {
