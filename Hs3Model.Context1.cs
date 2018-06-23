@@ -23565,5 +23565,10 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_CID_FileUploadCheck", pptqParameter);
         }
+    
+        public virtual ObjectResult<xx_getAllPDFHyperlinks_Result> xx_getAllPDFHyperlinks()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getAllPDFHyperlinks_Result>("xx_getAllPDFHyperlinks");
+        }
     }
 }

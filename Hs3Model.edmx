@@ -928,7 +928,7 @@
           <Property Name="internalID" Type="varchar" MaxLength="255" />
           <Property Name="name" Type="varchar" MaxLength="255" />
           <Property Name="address1" Type="varchar" MaxLength="255" />
-          <Property Name="address2" Type="varchar" MaxLength="255" />
+          <Property Name="address2" Type="varchar(max)" />
           <Property Name="city" Type="varchar" MaxLength="255" />
           <Property Name="state" Type="int" />
           <Property Name="province" Type="varchar" MaxLength="50" />
@@ -1244,7 +1244,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="partner_internal_id" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="partner_sap_id" Type="varchar" MaxLength="300" />
-          <Property Name="partner_duns_number" Type="varchar" MaxLength="12" />
+          <Property Name="partner_duns_number" Type="varchar" MaxLength="100" />
           <Property Name="partner_name" Type="varchar(max)" />
           <Property Name="partner_address_one" Type="varchar(max)" />
           <Property Name="partner_address_two" Type="varchar(max)" />
@@ -10331,6 +10331,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="ProcName" Type="nvarchar" Mode="In" />
           <Parameter Name="IdentityInsert" Type="bit" Mode="In" />
         </Function>
+        <Function Name="xx_getAllPDFHyperlinks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="xx_getLastDBModified" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="xx_getQuestionByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
@@ -18268,11 +18269,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_CFDB_FileUploadCheck" ReturnType="Collection(String)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_CID_FileUploadCheck" ReturnType="Collection(String)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="xx_getAllPDFHyperlinks" ReturnType="Collection(hs3MVCMTQa2Model.xx_getAllPDFHyperlinks_Result)" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -18690,7 +18692,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="internalID" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="name" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="address1" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="address2" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="address2" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="city" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="state" Type="Int32" />
           <Property Name="province" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
@@ -26566,7 +26568,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="partner_internal_id" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="partner_sap_id" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="partner_duns_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="partner_duns_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="partner_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="partner_address_one" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="partner_address_two" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -31217,6 +31219,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="pptq" Nullable="false" />
           <Property Type="Int32" Name="loadedby" Nullable="false" />
           <Property Type="String" Name="code" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="xx_getAllPDFHyperlinks_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="description" Nullable="true" />
+          <Property Type="String" Name="hyperlinkname" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -43489,6 +43498,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_setPriorityForCFDBorCIDDataLoad" FunctionName="hs3MVCMTQa2Model.Store.pr_setPriorityForCFDBorCIDDataLoad" />
           <FunctionImportMapping FunctionImportName="pr_CFDB_FileUploadCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_CFDB_FileUploadCheck" />
           <FunctionImportMapping FunctionImportName="pr_CID_FileUploadCheck" FunctionName="hs3MVCMTQa2Model.Store.pr_CID_FileUploadCheck" />
+          <FunctionImportMapping FunctionImportName="xx_getAllPDFHyperlinks" FunctionName="hs3MVCMTQa2Model.Store.xx_getAllPDFHyperlinks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xx_getAllPDFHyperlinks_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="hyperlinkname" ColumnName="hyperlinkname" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

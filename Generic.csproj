@@ -656,6 +656,7 @@
     <Compile Include="Controllers\CampaignRuleController.cs" />
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\DomainController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EnterpriseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FRPJController.cs" />
@@ -3000,6 +3001,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="v_PartnerFind.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="xx_getAllPDFHyperlinks_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="xx_getLastDBModified_Result.cs">
@@ -5913,6 +5917,7 @@
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
     <Folder Include="Views\AuthCallback\" />
+    <Folder Include="Views\Download\" />
     <Folder Include="Views\Gmail\" />
     <Folder Include="Views\Processor\" />
   </ItemGroup>
