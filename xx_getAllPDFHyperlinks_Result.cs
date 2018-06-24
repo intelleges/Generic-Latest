@@ -16,7 +16,8 @@ namespace Generic
         public int id { get; set; }
         public string name { get; set; }
         public string accesscode { get; set; }
-        public string description { get; set; }
-        public string hyperlinkname { get; set; }
+        public string internalID { get; set; }
+        public string touchpoint { get; set; }
+        public string Column1 { get; set; }
     }
 }

@@ -13,10 +13,9 @@ namespace Generic.Controllers
 
         public ActionResult Index(string accesscode)
         {
-            var t = db.xx_getAllPDFHyperlinks().Where(o => o.accesscode == accesscode).FirstOrDefault();
+            /*var t = db.xx_getAllPDFHyperlinks().Where(o => o.accesscode == accesscode).FirstOrDefault();
             if (t == null)
-                return Content("");
-
+                return Content("");*/
             Session["accessCode"] = accesscode;
             var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
             if (_pptq != null)

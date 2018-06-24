@@ -31224,9 +31224,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="name" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="description" Nullable="true" />
-          <Property Type="String" Name="hyperlinkname" Nullable="true" />
-        </ComplexType>
+          <Property Type="String" Name="internalID" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="touchpoint" Nullable="true" />
+          <Property Type="String" Name="Column1" Nullable="false" MaxLength="103" />
+          </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43504,9 +43505,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="accesscode" ColumnName="accesscode" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="hyperlinkname" ColumnName="hyperlinkname" />
-              </ComplexTypeMapping>
+                <ScalarProperty Name="internalID" ColumnName="internalID" />
+                <ScalarProperty Name="touchpoint" ColumnName="touchpoint" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           </EntityContainerMapping>
