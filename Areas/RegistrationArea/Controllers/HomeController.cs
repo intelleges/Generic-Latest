@@ -223,7 +223,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         [HttpPost]
         public virtual ActionResult CheckEmailAccessCode(int pptq, string email)
         {
-            var partner = db.pr_getPartnerByPPTQAndEmail(pptq, email).FirstOrDefault();
+            var partner = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, email).FirstOrDefault();
             return Json((Session["CheckEmailAccessCode"] = partner != null));
         }
 
@@ -1098,7 +1098,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (responseId != -1)
             {
-                if (db.pr_getApprovalEmailStatus(pptqObj.id, questionId, 74).First() > 0)
+                if (db.pr_getApprovalEmailStatus(pptqObj.id, Convert.ToInt32(qnextId), 74).First() > 0)
                     return;
 
                 var p = db.pr_getPersonByEmail(1137, emailTo).FirstOrDefault();
