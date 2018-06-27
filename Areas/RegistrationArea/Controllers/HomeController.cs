@@ -1119,7 +1119,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                     objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
 
-                    objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the Yes button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
+                    objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please select “No” below and reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the “Yes” button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
                          "<br/><br/>Thanks.<br/><br/>" +
                          person.firstName + " " + person.lastName + "<br>";
                 }
