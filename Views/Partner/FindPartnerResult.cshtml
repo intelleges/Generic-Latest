@@ -617,8 +617,14 @@
 	}
 	function checkToPrintPDF(pptqId, status) {
 		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status }, function (data) {
+            if (data.msg != null) {
 
-			if (data.iscanprintPdf == true) {
+                alertify.alert(data.msg, function () {
+    			window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+    		    });
+
+            }
+			else if (data.iscanprintPdf == true) {
 				window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
 			}
 			else if (data.message.next == 6) {

@@ -228,6 +228,7 @@ namespace Generic
         public virtual DbSet<linkedInSearch> linkedInSearch { get; set; }
         public virtual DbSet<linkedInConnectionDataLoad> linkedInConnectionDataLoad { get; set; }
         public virtual DbSet<cid> cid { get; set; }
+        public virtual DbSet<far> far { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -23569,6 +23570,15 @@ namespace Generic
         public virtual ObjectResult<xx_getAllPDFHyperlinks_Result> xx_getAllPDFHyperlinks()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getAllPDFHyperlinks_Result>("xx_getAllPDFHyperlinks");
+        }
+    
+        public virtual ObjectResult<string> pr_getFarMessage(Nullable<int> partner)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getFarMessage", partnerParameter);
         }
     }
 }

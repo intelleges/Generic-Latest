@@ -4634,6 +4634,7 @@ namespace Generic.Controllers
             var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
 
+            string msg = null;
             var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(pptqId, status).ToList();
             bool iscanprintPdf = false;
             if (pptqs.Count > 0)
@@ -4642,7 +4643,13 @@ namespace Generic.Controllers
                 accessCode = pptqs[0].accesscode;
             }
 
-            return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf }, JsonRequestBehavior.AllowGet);
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
+            var fm = db.pr_getFarMessage(pptq.partner).FirstOrDefault();
+            if (fm != null) {
+                msg = fm;
+            }
+            
+            return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg= msg }, JsonRequestBehavior.AllowGet);
         }
 
         private DataTable GetResponsesTable(int pptqId, int levelType)

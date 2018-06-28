@@ -743,6 +743,9 @@
     <Compile Include="failureType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="far.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Filters\BasicHttpAuthorizeAttribute.cs" />
     <Compile Include="focus.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
