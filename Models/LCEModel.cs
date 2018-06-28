@@ -20,6 +20,9 @@ namespace Generic.Models
         [DisplayName("Owner")]
         public int Owner { get; set; }
 
+        [DisplayName("Buy to Buy SubType")]
+        public string BtbSubType { get; set; }
+
         [DisplayName("Activity Type")]
         [Required]
         public int partnertype { get; set; }

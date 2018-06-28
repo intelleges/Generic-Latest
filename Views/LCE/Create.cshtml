@@ -856,7 +856,6 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-lg-6">
                         <div class="form-group">
                             @Html.LabelFor(o => o.Owner, new { @class = "control-label col-sm-3" })
@@ -869,12 +868,9 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             @Html.LabelFor(o => o.partnertype, new { @class = "control-label col-sm-3" })
-                            <div class="col-sm-5">
+                            <div class="col-sm-9">
                                 @Html.DropDownListFor(o => o.partnertype, (SelectList)ViewBag.partnertypeList, String.Empty, new { @class = "form-control", @data_val = "true", @data_val_required = " ", onchange = "onchangePartnerType(this);" })
                                 @Html.ValidationMessageFor(model => model.partnertype)
-                            </div>
-                            <div class="col-sm-4"  id="secondDd" style="display:none;">
-                                @Html.DropDownListFor(o => o.partnertype1, Model.partnertype1Items, String.Empty, new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -889,12 +885,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" id="secondDd" style="display:none;">
                         <div class="form-group">
-                            @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
+                            @Html.LabelFor(o => o.BtbSubType, new { @class = "control-label col-sm-3" })
                             <div class="col-sm-9">
-                                @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.To)
+                                @Html.DropDownListFor(o => o.partnertype1, Model.partnertype1Items, String.Empty, new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -910,7 +905,13 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                       
+                        <div class="form-group">
+                            @Html.LabelFor(o => o.To, new { @class = "control-label col-sm-3" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(model => model.To, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.To)
+                            </div>
+                        </div>
                     </div>
                 </div>
 

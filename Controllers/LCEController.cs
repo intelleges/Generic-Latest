@@ -340,6 +340,8 @@ namespace Generic.Controllers
             ViewBag.partnertypeList = new SelectList(partnertype, "id", "description", partnertypeId);
             ViewBag.partnertypeListAll = partnertype;
             ViewBag.OwnerList = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "Id", "FullName", ownerId);
+
+            ViewBag.BtbSubType = new SelectList(new List<person>(), "Id", "FullName");
         }
 
         public ActionResult GetCountByPptqId(int pptqId)
