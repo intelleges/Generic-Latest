@@ -20,7 +20,7 @@ namespace Generic.Models
         [DisplayName("Owner")]
         public int Owner { get; set; }
 
-        [DisplayName("Buy to Buy SubType")]
+        [DisplayName("Buy to Buy Sub-Type")]
         public string BtbSubType { get; set; }
 
         [DisplayName("Activity Type")]
