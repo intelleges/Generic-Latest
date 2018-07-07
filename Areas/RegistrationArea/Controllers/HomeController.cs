@@ -1101,7 +1101,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 if (db.pr_getApprovalEmailStatus(pptqObj.id, Convert.ToInt32(qnextId), 74).First() > 0)
                     return;
 
-                var p = db.pr_getPersonByEmail(1137, emailTo).FirstOrDefault();
+               /* var p = db.pr_getPersonByEmail(1137, emailTo).FirstOrDefault();
                 if (p == null)
                 {
                     emailTo = "g0v6y5c6p3u5b1e0@startcritical.slack.com";
@@ -1109,7 +1109,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     objamm.text = "";
                 }
                 else
-                {
+                {*/
                     var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
 
                     var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
@@ -1122,7 +1122,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please select “No” below and reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the “Yes” button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
                          "<br/><br/>Thanks.<br/><br/>" +
                          person.firstName + " " + person.lastName + "<br>";
-                }
+                //}
             }
 
             if (!string.IsNullOrEmpty(comment))
