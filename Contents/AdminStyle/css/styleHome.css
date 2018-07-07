@@ -443,7 +443,7 @@ section.the-problem {
 
 
 .small-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: auto;
 }
 
@@ -1059,7 +1059,7 @@ body .page-inner .icons-block li::before {
 
 /*---------------QuestionnaireResponse css---------------*/
 .top-margin {
-    margin-top: 140px;
+    /*margin-top: 140px;*/
 }
 
 .logo-new {
