@@ -528,7 +528,14 @@ namespace Generic.DataLayer
                 }
             }
 
-
+            if (tableRow.CssClass != "disabledRow")
+            {
+                var calling = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(question.id, objpptq.id).FirstOrDefault();
+                if (calling != null && calling.score == 0)
+                {
+                    tableRow.CssClass = "disabledRow";
+                }
+            }
             var objresponseByQuestion = db.pr_getResponseByQuestion(question.id).ToList();
             //Add required validation control
             if (question.required > 0 && this.showContentOnly == false)

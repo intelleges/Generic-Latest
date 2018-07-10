@@ -8114,6 +8114,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_isSystemMaster" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptqQuestionResponse" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -10258,6 +10261,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_unArchiveZcodeCheckActionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptqQuestionResponse" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unSubscribePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -18291,7 +18297,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="xx_getAllPDFHyperlinks" ReturnType="Collection(hs3MVCMTQa2Model.xx_getAllPDFHyperlinks_Result)" />
           <EntitySet Name="far" EntityType="hs3MVCMTQa2Model.far" />
           <FunctionImport Name="pr_getFarMessage" ReturnType="Collection(String)">
-            <Parameter Name="partner" Mode="In" Type="Int32" />
+          <Parameter Name="partner" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+            <Parameter Name="pptqQuestionResponse" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+            <Parameter Name="pptqQuestionResponse" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -43551,6 +43563,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="pr_getFarMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getFarMessage" />
+          <FunctionImportMapping FunctionImportName="pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+          <FunctionImportMapping FunctionImportName="pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

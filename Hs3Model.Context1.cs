@@ -23580,5 +23580,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getFarMessage", partnerParameter);
         }
+    
+        public virtual int pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> pptqQuestionResponse)
+        {
+            var pptqQuestionResponseParameter = pptqQuestionResponse.HasValue ?
+                new ObjectParameter("pptqQuestionResponse", pptqQuestionResponse) :
+                new ObjectParameter("pptqQuestionResponse", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", pptqQuestionResponseParameter);
+        }
+    
+        public virtual int pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(Nullable<int> pptqQuestionResponse)
+        {
+            var pptqQuestionResponseParameter = pptqQuestionResponse.HasValue ?
+                new ObjectParameter("pptqQuestionResponse", pptqQuestionResponse) :
+                new ObjectParameter("pptqQuestionResponse", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", pptqQuestionResponseParameter);
+        }
     }
 }

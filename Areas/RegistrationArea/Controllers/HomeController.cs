@@ -1727,7 +1727,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                         if (checkpsz.Count == 0)
                         {
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, null, responseComment, null, null, null, null, null, pptq);
+                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, null, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                            db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
                         else
                         {
@@ -1737,6 +1738,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
 
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, null, responseComment, null, null, null, null, null, pptq);
+                            db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, text: responseComment);
                         ZcodeModify(questionnaireId, questionId, null);
@@ -1765,7 +1767,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, pptq);
+                                var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId= db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                                db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                             }
                             else
                             {
@@ -1774,6 +1777,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     responseComment = checkpsz.FirstOrDefault().comment;
                                 }
                                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, null, pptq);
+                                db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
                             }
 
                             ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
@@ -1891,7 +1895,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)
                         {
-                            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
+
+                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
+                            // db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, null, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                            db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
                         else
                         {
@@ -1900,6 +1907,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 responseComment = checkpsz.comment;
                             }
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, dueDate, null, null, pptq);
+                            db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)checkpsz.id);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
                         ZcodeModify(questionnaireId, questionId, responseId);

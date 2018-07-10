@@ -215,6 +215,10 @@
         z-index: 10;
         position: absolute;
     }*/
+        .disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option, .disabledRow + tr > td input, .disabledRow + tr > td label, .disabledRow + tr > td table, .disabledRow + tr + tr > td textarea{
+            pointer-events: none;
+            cursor: default;
+        }
 </style>
 <script type="text/javascript">
 
@@ -224,7 +228,7 @@
 	}
 	(function ($) {
         $(document).ready(function () {
-            $(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
+            //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
             CKEDITOR.config.font_defaultLabel = 'Avenir-Roman-webfont';
             CKEDITOR.config.fontSize_defaultLabel = '17px';
             CKEDITOR.config.extraCss += "body{font-family:Avenir-Roman-webfont;font-size:17px;}";
