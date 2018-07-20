@@ -195,7 +195,7 @@ namespace Generic.Controllers
 
         [AllowAnonymous]
         public ActionResult QuestionnaireDetailQuestion(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
-        {  
+        {
             db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
             return RedirectToAction("home", "admin");
         }
@@ -1374,7 +1374,9 @@ namespace Generic.Controllers
                                 {
                                     excelQuestionnaire.skipLogicJump = null;
                                 }
-                                questions.Add(excelQuestionnaire.QID, db.pr_getQuestion(objQuestion.id).FirstOrDefault());
+                                var currentQuestion = db.pr_getQuestion(objQuestion.id).FirstOrDefault();
+                                currentQuestion.questionResponses1 = db.questionResponse.Where(o => o.question == currentQuestion.id).ToList();
+                                questions.Add(excelQuestionnaire.QID, currentQuestion);
 
                                 #endregion
 
@@ -1702,18 +1704,24 @@ namespace Generic.Controllers
             var blockCResult = "";
             var blockFResult = "";
             int outputTry = 0;
+
             if (splittedRaw.Length > 1)
             {
                 var blockC = splittedRaw[1].Replace("[", "").Replace("]", "").Replace(" ", "");
                 var splittedBlockC = blockC.Split(",");
                 foreach (var splittedBlockCItem in splittedBlockC)
                 {
-
+                    //    var splittedBlockCItem = workingBlock;
+                    //    if (splittedBlockCItem == "1042")
+                    //        splittedBlockCItem = "1043";
                     if (int.TryParse(splittedBlockCItem, out outputTry))
                     {
                         if (questionsIds.ContainsKey(outputTry))
                         {
-                            blockCResult += questionsIds[outputTry].id + ",";
+                            if (outputTry == 1042)
+                                blockCResult += (questionsIds[outputTry].id + 1) + ",";
+                            else
+                                blockCResult += questionsIds[outputTry].id + ",";
                         }
                         else throw new Exception("Wrong EmailAlertList value=" + outputTry + ". There is no a such QID");
                     }
@@ -1723,24 +1731,49 @@ namespace Generic.Controllers
                 splittedRaw[1] = "[" + blockCResult + "]";
                 if (splittedRaw.Length > 4)
                 {
-                    var blockF = splittedRaw[4].Replace("[", "").Replace("]", "").Replace(" ", "");
-                    var splittedBlockF = blockF.Split(",");
+                    var blockF = splittedRaw[4].Replace("[", "").Replace("]", "").Replace(" ", "").Replace("when:", "");
+                    var splittedBlockF = blockF.Split("|");
                     foreach (var splittedBlockFItem in splittedBlockF)
                     {
-                        if (int.TryParse(splittedBlockFItem, out outputTry))
-                        {
-                            if (questionsIds.ContainsKey(outputTry))
+                        var questionResponseSplit = splittedBlockFItem.Split("=");
+                        if (questionResponseSplit.Length > 0)
+                            if (int.TryParse(questionResponseSplit[0], out outputTry))
                             {
-                                blockFResult += questionsIds[outputTry].id + ",";
+                                if (questionsIds.ContainsKey(outputTry))
+                                {
+                                    if (questionResponseSplit.Length > 1)
+                                    {
+                                        switch (questionResponseSplit[1])
+                                        {
+                                            case "0":
+                                                blockFResult += "[" + questionsIds[outputTry].id + "=75]|";
+                                                break;
+                                            case "1":
+                                                blockFResult += "[" + questionsIds[outputTry].id + "=74]|";
+                                                break;
+                                            default:
+                                                var response = questionsIds[outputTry].questionResponses1.ToList().FirstOrDefault(o => o.response1.zcode.ToLower() == questionResponseSplit[1].ToLower());
+                                                if (response != null)
+                                                {
+                                                    blockFResult += "[" + questionsIds[outputTry].id + "=" + response.response1.id + "]|";
+                                                }
+                                                else throw new Exception("Wrong EmailAlertList value=" + splittedBlockFItem + ". There is no a such response code = " + questionResponseSplit[1]);
+                                                break;
+                                        }
+                                    }
+                                    else
+                                        blockFResult += questionsIds[outputTry].id + ",";
+                                }
+                                else throw new Exception("Wrong EmailAlertList value=" + outputTry + ". There is no a such QID");
                             }
-                            else throw new Exception("Wrong EmailAlertList value=" + outputTry + ". There is no a such QID");
-                        }
-                        else throw new Exception("Wrong EmailAlertList value=" + splittedBlockFItem + ". There is no a such QID");
+                            else throw new Exception("Wrong EmailAlertList value=" + splittedBlockFItem + ". There is no a such QID");
+                        //else throw new Exception("Wrong EmailAlertList value=" + splittedBlockFItem + ". For ");
                     }
                     blockFResult = blockFResult.Remove(blockFResult.Length - 1);
-                    splittedRaw[4] = "[" + blockFResult + "]";
+                    splittedRaw[4] = "where:" + blockFResult;
                 }
-                return splittedRaw.Aggregate("", (result, item) => result + "," + item);
+                //if(splittedRaw.Length>)
+                return splittedRaw.Aggregate("", (result, item) => result + "," + item).Remove(0,1);
             }
             return rawEmailAlertList;
 
