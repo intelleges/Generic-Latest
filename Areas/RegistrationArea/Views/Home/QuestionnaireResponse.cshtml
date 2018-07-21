@@ -71,7 +71,7 @@
 <section class="page-inner">
     <div class="container">
         @Html.Partial("_TopSection")
-        @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
+        @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse"}))
         {
             <div class="progress-sub">
                 <div class="progress">
@@ -125,6 +125,7 @@
                     <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
                     <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
                     <input type="hidden" value="false" id="btnSaveForLater" name="btnSaveForLater" />
+                    <input type="hidden" value="@ViewBag.Qids" id="Qids" name="Qids"/>
                 </div>
                 <!--hidden-elements-->
 
@@ -225,7 +226,9 @@
 	var hiddenDiv = $(document.createElement('div')), content = null;
 	function submitForm() {
 		jQuery("#QuestionnaireResponse").submit();
-	}
+    }
+    var canSubmit = false;
+
 	(function ($) {
         $(document).ready(function () {
             //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
@@ -264,16 +267,39 @@
 				alertify.alert(message);
 			}
 
-			$("#QuestionnaireResponse").submit(function (e) {
-				//debugger;
-				//var $btn = $("input[type=submit][clicked=true]");
-				//if ($btn.prop("id") == "saveforLater") {
-				//    $("#btnSaveForLater").val("false");
-				//    $(this).validate().cancelSubmit = true;
-				//} else {
-				//    $("#btnSaveForLater").val("false");
-				//}
-			});
+            $("#QuestionnaireResponse").submit(function (e) {
+                @if (ViewBag.Pptq != null) {
+                        <text>
+
+                if (!canSubmit && $("input[name*='question_@ViewBag.Qids']:checked").val() == "74") {
+                    $.post('@Url.Action("ValidateEmailAlerts", "Home")', { pptq: "@ViewBag.Pptq", qids: "@ViewBag.Qids" })
+                        .done(function (data) {
+                            if (data.success == true) {
+                                alertify.alert('Congratulations your submission is approved!!!', function () {
+                                    canSubmit = true;
+                                    $("#QuestionnaireResponse").submit();
+                                });
+                            }
+                            else {
+                                alertify.alert(data.message, function () {
+                                    canSubmit = false;
+                                    //$("#QuestionnaireResponse").submit();
+                                });
+                            }
+                        });
+                    return false;
+                }
+                       </text>
+                    }
+                    //debugger;
+                    //var $btn = $("input[type=submit][clicked=true]");
+                    //if ($btn.prop("id") == "saveforLater") {
+                    //    $("#btnSaveForLater").val("false");
+                    //    $(this).validate().cancelSubmit = true;
+                    //} else {
+                    //    $("#btnSaveForLater").val("false");
+                    //}
+                });
 
 			$("input[type=submit]").click(function () {
 

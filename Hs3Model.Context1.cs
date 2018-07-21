@@ -23598,5 +23598,27 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse", pptqQuestionResponseParameter);
         }
+    
+        public virtual ObjectResult<pr_validateEmailAlertListQuestionResponseByPPTQ_Result> pr_validateEmailAlertListQuestionResponseByPPTQ(Nullable<int> pptq, string emailAlertListResponse)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var emailAlertListResponseParameter = emailAlertListResponse != null ?
+                new ObjectParameter("emailAlertListResponse", emailAlertListResponse) :
+                new ObjectParameter("emailAlertListResponse", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_validateEmailAlertListQuestionResponseByPPTQ_Result>("pr_validateEmailAlertListQuestionResponseByPPTQ", pptqParameter, emailAlertListResponseParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getQuestionTitle(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getQuestionTitle", questionParameter);
+        }
     }
 }

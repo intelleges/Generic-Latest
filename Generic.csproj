@@ -2720,6 +2720,9 @@
     <Compile Include="pr_test2_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_validateEmailAlertListQuestionResponseByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="ptqGroup.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

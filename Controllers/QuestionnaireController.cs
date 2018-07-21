@@ -1773,7 +1773,7 @@ namespace Generic.Controllers
                     splittedRaw[4] = "where:" + blockFResult;
                 }
                 //if(splittedRaw.Length>)
-                return splittedRaw.Aggregate("", (result, item) => result + "," + item).Remove(0,1);
+                return splittedRaw.Aggregate("", (result, item) => result + ";" + item).Remove(0,1)+";";
             }
             return rawEmailAlertList;
 

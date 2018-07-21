@@ -1016,28 +1016,39 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var answer = db.pr_getResponse(answerId).FirstOrDefault();
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
             var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.FirstOrDefault(o => o.question == questionId);
-            if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null )
+            if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null)
             {
                 if (answer != null)
                 {
-                    var choices = question.emailAlertList.Split(new char[] { ',' });
-                    foreach (var choiceStr in choices)
+                    if ((question.emailAlertList ?? "").ToLower().Contains("where:"))
                     {
-                        var keyPair = choiceStr.Split(new char[] { ':' });
-                        if (keyPair.Length > 1 && answer.zcode != null && keyPair[0].ToLower() == answer.zcode.ToLower())
+                        var choices = question.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries);
+                        var q = choices.Last();
+                        var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptqId, q).ToList();
+
+                    }
+                    else
+                    {
+                        var choices = question.emailAlertList.Split(new char[] { ',' });
+                        foreach (var choiceStr in choices)
                         {
-                            string qnextId = "";
-                            try
+                            var keyPair = choiceStr.Split(new char[] { ':' });
+                            if (keyPair.Length > 1 && answer.zcode != null && keyPair[0].ToLower() == answer.zcode.ToLower())
                             {
-                                qnextId = choices[2].Replace("[", "").Replace("]", "");
+                                string qnextId = "";
+                                try
+                                {
+                                    qnextId = choices[2].Replace("[", "").Replace("]", "");
+                                }
+                                catch (Exception) { }
+
+                                if (question.emailAlert != "A")
+                                    answerId = -1;
+
+                                if (question.emailAlert != "A") //Added only for testing
+                                    SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text,
+                                   keyPair[1].Replace(";", ""), ptq.questionnaire, question.id, answerId, qnextId);
                             }
-                            catch (Exception) { }
-
-                            if (question.emailAlert != "A")
-                                answerId = -1;
-
-                            SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text,
-                                keyPair[1].Replace(";", ""), ptq.questionnaire, question.id, answerId, qnextId);
                         }
                     }
                 }
@@ -1101,27 +1112,27 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 if (db.pr_getApprovalEmailStatus(pptqObj.id, Convert.ToInt32(qnextId), 74).First() > 0)
                     return;
 
-               /* var p = db.pr_getPersonByEmail(1137, emailTo).FirstOrDefault();
-                if (p == null)
-                {
-                    emailTo = "g0v6y5c6p3u5b1e0@startcritical.slack.com";
-                    objamm.subject = "bad data from approval access code " + accessCode;
-                    objamm.text = "";
-                }
-                else
-                {*/
-                    var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
+                /* var p = db.pr_getPersonByEmail(1137, emailTo).FirstOrDefault();
+                 if (p == null)
+                 {
+                     emailTo = "g0v6y5c6p3u5b1e0@startcritical.slack.com";
+                     objamm.subject = "bad data from approval access code " + accessCode;
+                     objamm.text = "";
+                 }
+                 else
+                 {*/
+                var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
 
-                    var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
+                var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", new { id = responseId, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
 
-                    var survey = db.pr_getSurveySetByQuestion(questionId).First().description;
-                    var pt = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1;
+                var survey = db.pr_getSurveySetByQuestion(questionId).First().description;
+                var pt = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1;
 
-                    objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
+                objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
 
-                    objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please select “No” below and reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the “Yes” button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
-                         "<br/><br/>Thanks.<br/><br/>" +
-                         person.firstName + " " + person.lastName + "<br>";
+                objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please select “No” below and reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the “Yes” button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
+                     "<br/><br/>Thanks.<br/><br/>" +
+                     person.firstName + " " + person.lastName + "<br>";
                 //}
             }
 
@@ -1384,6 +1395,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 // Table table = objSurveyForm.tGetSurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
                 // panel.Controls.Add(table);
 
+                var qsts = db.pr_getQuestionByPage(page).Where(o => o.emailAlert == "A" && (o.emailAlertList ?? "").Contains("where:")).ToList();
+
+                if (qsts.Count > 0)
+                {
+                    ViewBag.Qids = string.Join(",", qsts.Select(x => x.id.ToString()).ToArray());
+                    ViewBag.Pptq = ppptq_cms.id;
+                }
+
                 StringWriter objhtml = new StringWriter();
                 using (var htmlWriter = new HtmlTextWriter(objhtml))
                 {
@@ -1407,6 +1426,30 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
             }
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult ValidateEmailAlerts(int pptq, int qids)
+        {
+            var q = db.pr_getQuestion(qids).First();
+            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq, q.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1]).ToList();
+
+            var qid = Convert.ToInt32(q.emailAlertList.Split(new char[] { '[', ']' })[1]);
+            var a = 74;
+            if (list.Count > 0) { a = 75; }
+            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(qid, a, "Automated", null, null, DateTime.Now, 0, 0, pptq);
+
+            if (list.Count == 0)
+                return Json(new { success = true });
+            else
+            {
+                string message = "Sorry, your submission is pending approval due to responses received for the following clauses:<br/>";
+                foreach (var item in list)
+                {
+                    message += db.pr_getQuestionTitle(item.Question).First() + "<br/>";
+                }
+                return Json(new { success = false, message });
+            }
         }
 
         public void getZcodeByProviderProtocolCampaignQuestionnaire()
@@ -1738,7 +1781,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             }
 
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, null, responseComment, null, null, null, null, null, pptq);
-                           // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
+                            // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, text: responseComment);
                         ZcodeModify(questionnaireId, questionId, null);
@@ -1767,8 +1810,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId= db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
-                               // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
+                                var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                                // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                             }
                             else
                             {
@@ -1777,7 +1820,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     responseComment = checkpsz.FirstOrDefault().comment;
                                 }
                                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, null, pptq);
-                               // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
+                                // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
                             }
 
                             ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
@@ -1897,7 +1940,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
 
                             var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
-                           
+
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
                         else
@@ -1907,7 +1950,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 responseComment = checkpsz.comment;
                             }
                             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.id, questionId, responseId, responseComment, null, null, dueDate, null, null, pptq);
-                           // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)checkpsz.id);
+                            // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)checkpsz.id);
                         }
                         ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
                         ZcodeModify(questionnaireId, questionId, responseId);

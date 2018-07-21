@@ -7770,6 +7770,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getQuestionRowIDByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getRailStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -10267,6 +10270,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_unSubscribePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_validateEmailAlertListQuestionResponseByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="emailAlertListResponse" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="pr_validatePasswordByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="emailAddress" Type="varchar" Mode="In" />
@@ -18300,10 +18307,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partner" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-            <Parameter Name="pptqQuestionResponse" Mode="In" Type="Int32" />
+          <Parameter Name="pptqQuestionResponse" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-            <Parameter Name="pptqQuestionResponse" Mode="In" Type="Int32" />
+          <Parameter Name="pptqQuestionResponse" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_validateEmailAlertListQuestionResponseByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_validateEmailAlertListQuestionResponseByPPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="emailAlertListResponse" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionTitle" ReturnType="Collection(String)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31268,6 +31282,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
         </EntityType>
+        <ComplexType Name="pr_validateEmailAlertListQuestionResponseByPPTQ_Result">
+          <Property Type="Int32" Name="Question" Nullable="true" />
+          <Property Type="Int32" Name="Response" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43565,6 +43583,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_getFarMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getFarMessage" />
           <FunctionImportMapping FunctionImportName="pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <FunctionImportMapping FunctionImportName="pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_unlockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+          <FunctionImportMapping FunctionImportName="pr_validateEmailAlertListQuestionResponseByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_validateEmailAlertListQuestionResponseByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_validateEmailAlertListQuestionResponseByPPTQ_Result">
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionTitle" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionTitle" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
