@@ -1008,7 +1008,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         private void ResolveAndSendEmailAlert(int questionId, int pptqId, int answerId = -1, string text = "")
         {
-
             var question = db.pr_getQuestion(questionId).FirstOrDefault();
             //db.Entry<question>(question).Reload();
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByQuestion(question.id).FirstOrDefault();
@@ -1045,7 +1044,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 if (question.emailAlert != "A")
                                     answerId = -1;
 
-                                if (question.emailAlert != "A") //Added only for testing
+                                if (question.emailAlert == "A") //Added only for testing
                                     SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text,
                                    keyPair[1].Replace(";", ""), ptq.questionnaire, question.id, answerId, qnextId);
                             }
@@ -1148,6 +1147,77 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             else objamm.text += ".";
 
+            Email mail = new Email(objamm);
+            mail.type = "emailAlert";
+            mail.emailTo = emailTo;
+            mail.url = Request.Url.ToString();
+            mail.accesscode = accessCode;
+            mail.category = SendGridCategory.SendEmailAlert;
+
+            if (pptqObj != null && pptqObj.partnerTypeTouchpointQuestionnaire1 != null)
+            {
+                var tp = pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint1;
+                if (tp != null)
+                {
+                    mail.protocolTouchpoint = tp.description;
+                }
+            }
+
+            if (person != null)
+            {
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(mail, new EmailFormatSettings()
+                {
+                    sender = null,
+                    enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    partner = pptqObj.partner1,
+                    ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                    touchpoint = null
+                }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.firstName + " " + person.lastName));
+            }
+            else
+            {
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(mail, new EmailFormatSettings()
+                {
+                    sender = null,
+                    enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    partner = pptqObj.partner1,
+                    ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                    touchpoint = null
+                });
+            }
+        }
+
+        private void SendEmailAlertWhere(partner partnerName, string accessCode, string emailTo, int ptqId, int questionId, string qnextId, string text)
+        {
+            autoMailMessage objamm = new autoMailMessage();
+            objamm.subject = "Intelleges: Email Alert";
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
+            var person = db.pr_getPerson(pptqObj.invitedBy).FirstOrDefault();
+
+            var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion2", "Questionnaire", new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
+
+            var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion2", "Questionnaire", new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
+
+            var url3 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion2", "Questionnaire", new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = -1, email = emailTo })).ToString();          
+
+            objamm.subject = "Supplier Responsibility Assessment for " + partnerName.name + " " + accessCode;
+
+            string t = "";
+            t = "Company Name: " + partnerName.name +"<br/>";
+            t += "Company Internal ID: " + partnerName.internalID + "<br/>";
+            t += "POC First Name: " + partnerName.firstName + "<br/>";
+            t += "POC Last Name: " + partnerName.lastName + "<br/>";
+            t += "POC Phone #: " + partnerName.phone + "<br/>";
+            t += "POC Email: " + partnerName.email + "<br/><br/>";
+            t += "Access Code Link: <a href='https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
+            t += "PDF Link: <a href='https://www.intelleges.com/mvcmt/Generic/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
+            t += text + "<br/><br/>APPROVAL:  " + "<br/><a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a><br/><a href='" + url3 + "'>Unlock</a>" +
+                 "<br/><br/>Thanks.<br/><br/>"+ person.firstName + " " + person.lastName + "<br>";
+
+            objamm.text = t;
             Email mail = new Email(objamm);
             mail.type = "emailAlert";
             mail.emailTo = emailTo;
@@ -1444,10 +1514,20 @@ namespace Generic.Areas.RegistrationArea.Controllers
             else
             {
                 string message = "Sorry, your submission is pending approval due to responses received for the following clauses:<br/>";
+                string qsss = "";
                 foreach (var item in list)
                 {
-                    message += db.pr_getQuestionTitle(item.Question).First() + "<br/>";
+                    qsss += db.pr_getQuestionTitle(item.Question).First() + "<br/>";
                 }
+
+                message += qsss;
+
+                var pptqItem = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
+                var qresponse = q;
+
+                var choices = q.emailAlertList.Split(new char[] { ';' });
+                var email = choices[0].Split(':')[1];
+                SendEmailAlertWhere(pptqItem.partner1, pptqItem.accesscode, email,pptq,q.id, choices[1].Replace("[","").Replace("]", ""), qsss);
                 return Json(new { success = false, message });
             }
         }
