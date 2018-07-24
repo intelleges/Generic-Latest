@@ -1189,6 +1189,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
 
+        static string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+
+            s = s.Replace(".", "");
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
+        }
+
         private void SendEmailAlertWhere(partner partnerName, string accessCode, string emailTo, int ptqId, int questionId, string qnextId, string text)
         {
             autoMailMessage objamm = new autoMailMessage();
@@ -1215,7 +1228,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             t += "Access Code Link: <a href='https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
             t += "PDF Link: <a href='https://www.intelleges.com/mvcmt/Generic/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
             t += text + "<br/><br/>APPROVAL:  " + "<br/><a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a><br/><a href='" + url3 + "'>Unlock</a>" +
-                 "<br/><br/>Thanks.<br/><br/>"+ person.firstName + " " + person.lastName + "<br>";
+                 "<br/><br/>Thanks.<br/><br/>"+ UppercaseFirst(person.firstName) + " " + UppercaseFirst(person.lastName) + "<br>";
 
             objamm.text = t;
             Email mail = new Email(objamm);
@@ -1244,7 +1257,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     partner = pptqObj.partner1,
                     ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                     touchpoint = null
-                }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.firstName + " " + person.lastName));
+                }, sendFrom: new System.Net.Mail.MailAddress(person.email, UppercaseFirst(person.firstName) + " " + UppercaseFirst(person.lastName)));
             }
             else
             {
