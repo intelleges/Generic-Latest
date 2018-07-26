@@ -1515,7 +1515,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult ValidateEmailAlerts(int pptq, int qids)
         {
             var q = db.pr_getQuestion(qids).First();
-            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq, q.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1]).ToList();
+            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq, q.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";","").Trim()+";").ToList();
 
             var qid = Convert.ToInt32(q.emailAlertList.Split(new char[] { '[', ']' })[1]);
             var a = 74;
