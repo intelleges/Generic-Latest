@@ -509,11 +509,11 @@ namespace Generic.DataLayer
             int tagNumber = 0;
             if (question.tag != null && int.TryParse(question.tag, out tagNumber))
             {
-                
+
                 var canBlock = true;
                 if (tagNumber != 0)
                 {
-                    if(objpptq.score.HasValue)
+                    if (objpptq.score.HasValue)
                     {
                         var intFlag = (int)objpptq.score;
                         canBlock = (tagNumber & intFlag) != tagNumber;
@@ -1843,6 +1843,7 @@ namespace Generic.DataLayer
             RadioButton radioButton = new RadioButton();
             RadioButtonList radioButtonList = new RadioButtonList();
             DropDownList dropDownList = new DropDownList();
+            ListBox listBox = new ListBox();
             FileUpload fileUpload = new FileUpload();
             CheckBox checkBox = new CheckBox();
             HtmlTextArea textBox1 = new HtmlTextArea();
@@ -1862,7 +1863,7 @@ namespace Generic.DataLayer
             {
                 if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
                 {
-                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault(); ;
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ((int)HttpContext.Current.Session["partnumber"], (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault();
                     try
                     {
                         pptqResponse = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(question.id, PartNumberSiteZcodepptq.id).ToList()
@@ -1889,7 +1890,7 @@ namespace Generic.DataLayer
             }
 
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
-            if (question.responseType > 15)
+            if (question.responseType > 15 && question.responseType < 19)
             {
                 switch (question.responseType)
                 {
@@ -2162,6 +2163,64 @@ namespace Generic.DataLayer
                         }
 
                         tableCell.Controls.Add(dropDownList);
+                        tableCell.ColumnSpan = 2;
+                        tableRow.Controls.Add(tableCell);
+                        break;
+                    case "list2list":
+                        tableRow = new TableRow();
+                        table.Controls.Add(tableRow);
+
+                        //add empty cell
+                        tableCell = new TableCell();
+                        tableCell.Text = "&nbsp;";
+                        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                        tableCell.Style.Add("border-spacing", "0");
+                        tableCell.Style.Add("padding-right", "5px");
+                        tableRow.Controls.Add(tableCell);
+
+                        tableCell = new TableCell();
+                        listBox = new ListBox();
+                        listBox.SelectionMode = ListSelectionMode.Multiple;
+                        listBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString()+ "_list2list";
+                        listBox.CssClass = "list2listComponent";
+                        if (question.required == 1)
+                        {
+                            listBox.Attributes.Add("data-val", "true");
+                            listBox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                        }
+                        //listBox.Attributes.Add("multiple", "multiple");
+                        //dropDownList.Width = 300;
+                        tableCell = new TableCell();
+                        tableCell.HorizontalAlign = HorizontalAlign.Left;
+                        //string selectval = _translator.Translate("Please select one", _currentLanguage);
+                        //dropDownList.Items.Add(new ListItem(selectval, ""));
+                        //dropDownList.Attributes.Add("onChange", "showdropdowndiv(this);");
+                        //Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+                        for (int i = 0; i < responseCollection.Count; i++)
+                        {
+
+                            //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
+                            //_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()
+                            var splittedDescription = responseCollection[i].description.Split("|".ToCharArray());
+                            var item = new ListItem(splittedDescription[0], splittedDescription[0]);
+                            item.Attributes.Add("title", splittedDescription[1]);
+                            //if (checkCOde.IsMatch(item.Text))
+                            //{
+                            //    item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;
+                            //    item.Text = item.Text.Replace(checkCOde.Match(item.Text).Value, "");
+                            //}
+                            if (pptqResponse != null && pptqResponse.comment.Contains(splittedDescription[0]))
+                            {
+                                //listBox.ClearSelection();
+                                item.Selected = true;
+
+                            }
+                            listBox.Items.Add(item);
+                            
+                            //tableCell.Controls.Add(dropDownList);
+                        }
+
+                        tableCell.Controls.Add(listBox);
                         tableCell.ColumnSpan = 2;
                         tableRow.Controls.Add(tableCell);
                         break;
@@ -2485,8 +2544,8 @@ namespace Generic.DataLayer
             }
             responseCollection = db.pr_getResponseByQuestion(questionId).ToList();
             pr_getQuestionBlockedResponseByPPTQ_Result blockedResponse = null;
-           
-           
+
+
             if (question.tag != null && question.tag.ToLower() == "0")
             {
                 blockedResponse = db.pr_getQuestionBlockedResponseByPPTQ(objpptq.id).FirstOrDefault(o => o.question == question.id);

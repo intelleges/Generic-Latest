@@ -235,7 +235,14 @@
             CKEDITOR.config.font_defaultLabel = 'Avenir-Roman-webfont';
             CKEDITOR.config.fontSize_defaultLabel = '17px';
             CKEDITOR.config.extraCss += "body{font-family:Avenir-Roman-webfont;font-size:17px;}";
-
+            $(".list2listComponent").bootstrapDualListbox({
+                nonSelectedListLabel: 'Options',
+                selectedListLabel: 'Selected',
+                //preserveSelectionOnMove: 'moved',
+                //moveOnSelect: false,
+                //bootstrap3Compatible: true,
+                //showFilterInputs:false
+            });
             $(".editor").each(function () {
                 var textAreaId = $(this).parent().parent().parent().parent().parent().parent().next().children().last().children("textarea").prop("id");
                 if (!textAreaId)

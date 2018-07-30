@@ -1034,17 +1034,17 @@ namespace Generic.Controllers
                                     addSurvey(ref previousSurvey, surveySetId, ref surveyId, excelQuestionnaire, surveySet);
                                 }
 
-                                if (excelQuestionnaire.Response.ToLower().Contains("list:"))
+                                if (excelQuestionnaire.Response.ToLower().StartsWith("list:"))
                                 {
                                     responses = excelQuestionnaire.Response.Substring(5, excelQuestionnaire.Response.Length - 5).Trim();
                                     responseType = "List";
                                 }
-                                else if (excelQuestionnaire.Response.ToLower().Contains("dropdown:"))
+                                else if (excelQuestionnaire.Response.ToLower().StartsWith("dropdown:"))
                                 {
                                     responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
                                     responseType = "DropDown";
                                 }
-                                else if (excelQuestionnaire.Response.ToLower().Contains("checkbox:"))
+                                else if (excelQuestionnaire.Response.ToLower().StartsWith("checkbox:"))
                                 {
                                     responses = excelQuestionnaire.Response.Substring(9, excelQuestionnaire.Response.Length - 9).Trim();
                                     responseType = "CheckBox";
@@ -1053,7 +1053,11 @@ namespace Generic.Controllers
                                 {
                                     responseType = excelQuestionnaire.Response.ToLower();
                                 }
-
+                                else if (excelQuestionnaire.Response.ToLower().StartsWith("list2list:"))
+                                {
+                                    responseType = "list2list";
+                                    responses = excelQuestionnaire.Response.Substring(10, excelQuestionnaire.Response.Length - 10).Trim();
+                                }
                                 //get response type
                                 switch (excelQuestionnaire.Response.ToLower())
                                 {
@@ -1105,6 +1109,12 @@ namespace Generic.Controllers
                                         {
                                             responseTypeId = 18;
                                         }
+                                        else if (responseType.ToLower() == "list2list")
+                                        {
+                                            var responseTypeItm = db.pr_getResponseTypeAll(EnterpriseID).Where(o => o.description == "list2list").FirstOrDefault();
+                                            if (responseTypeItm != null)
+                                                responseTypeId = responseTypeItm.id;
+                                        }
                                         else if (responseType.ToLower().Substring(0, 4) == "list")
                                         {
                                             responseTypeId = 11;
@@ -1117,8 +1127,6 @@ namespace Generic.Controllers
                                         {
                                             responseTypeId = 12;
                                         }
-
-
 
                                         break;
                                 }
@@ -1355,6 +1363,27 @@ namespace Generic.Controllers
                                         {
 
                                         }
+                                    }
+                                }
+                                else if (responseType.ToLower() == "list2list")
+                                {
+                                    var splittedResponses = responses.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                                    foreach (var responseValue in splittedResponses)
+                                    {
+                                        if (responseValue.Split("|".ToCharArray()).Length < 2)
+                                            throw new Exception("Value of list2list reponse type : "+ responseValue+" doesn't contain '|' seaprator symbol");
+
+                                        response objResponse = new response();
+                                        objResponse.active = true;
+                                        objResponse.description = responseValue;
+                                        objResponse.enterprise = EnterpriseID;
+                                        objResponse.sortOrder = 1;
+                                        db.response.Add(objResponse);
+                                        db.SaveChanges();
+                                        int responsesId = objResponse.id;
+                                        responseSet.Add(responsesId);
+                                        //addQuestionResponse
+                                        db.pr_addQuestionResponse(questionId, responsesId);
                                     }
                                 }
 
@@ -1773,7 +1802,7 @@ namespace Generic.Controllers
                     splittedRaw[4] = "where:" + blockFResult;
                 }
                 //if(splittedRaw.Length>)
-                return splittedRaw.Aggregate("", (result, item) => result + ";" + item).Remove(0,1)+";";
+                return splittedRaw.Aggregate("", (result, item) => result + ";" + item).Remove(0, 1) + ";";
             }
             return rawEmailAlertList;
 

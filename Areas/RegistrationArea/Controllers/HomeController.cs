@@ -2027,7 +2027,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseComment = stralert;
                         }
                         //else responseComment = null;
-
+                        var list2list = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_list2list"];
+                        if(!string.IsNullOrEmpty(list2list))
+                        {
+                            responseId = db.pr_getResponseByQuestion(questionId).FirstOrDefault().id;
+                            responseComment = answer;
+                        }
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)
                         {
