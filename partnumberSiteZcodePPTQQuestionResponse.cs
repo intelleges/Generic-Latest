@@ -27,7 +27,7 @@ namespace Generic
         public Nullable<System.DateTime> timestamp { get; set; }
     
         public virtual partNumberSiteZcodePPTQ partnumberSiteZcodePPTQ1 { get; set; }
-        public virtual response response1 { get; set; }
         public virtual question question1 { get; set; }
+        public virtual response response1 { get; set; }
     }
 }

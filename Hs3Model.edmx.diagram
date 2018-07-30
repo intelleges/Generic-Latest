@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="98">
+      <Diagram DiagramId="9967287749084393b59eb2759d3608ea" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.accessLevel" PointX="0.5" PointY="1.125" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.agency" PointX="3" PointY="35.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailMessage" PointX="30.75" PointY="62" Width="1.5" IsExpanded="false" />
@@ -70,7 +70,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.queryFieldQuestion" PointX="14.75" PointY="10.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionLanguage" PointX="5.25" PointY="65.25" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaire" PointX="26.25" PointY="54" Width="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionResponse" PointX="7.5" PointY="71" Width="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionResponse" PointX="7.5" PointY="71" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionTranslation" PointX="8.25" PointY="66.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.rating" PointX="8.75" PointY="15.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.ratingType" PointX="16.75" PointY="0.75" Width="1.5" IsExpanded="false" />
@@ -178,11 +178,6 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_partnumberStatus" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partNumberSiteZcodePPTQ_site1" />
         <AssociationConnector Association="hs3MVCMTQa2Model.enterpriseMenu" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.response" PointX="2.6005113490859566" PointY="21.585835615911446" Width="1.5" IsExpanded="false" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionResponse_response" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_responseTranslation_response" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.responseLanguage" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.responseZcode" PointX="11.062760626460779" PointY="3.5224937514972376" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.automailMessagePPTQ" PointX="7.25" PointY="30.625" Width="1.5" IsExpanded="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_automailMessagePPTQ_autoMailMessage" />
@@ -233,7 +228,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseSpreadsheetDataLoad" Width="1.5" PointX="10.995945984030119" PointY="21.91816369719718" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.confirmationSpreadsheetDataLoad" Width="1.5" PointX="11.143329899359182" PointY="5.8776222941827134" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_QuestionnaireCMS" Width="1.5" PointX="10.024359476763923" PointY="6.7434592725445794" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" Width="1.5" PointX="2.506392679413032" PointY="20.723104948514656" IsExpanded="true" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLinkedinAuthInfo" Width="1.5" PointX="2.5" PointY="23.375" IsExpanded="true" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLinkedinAuthInfo_person" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_autoMailMessage" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_pptqAutoMailMessageLog_partnerPartnertypeTouchpointQuestionnaire" />
@@ -243,7 +238,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.industry" Width="1.5" PointX="10.602153589298089" PointY="20.353580886662744" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseContactUs" Width="1.5" PointX="6.125" PointY="9" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.enterpriseLandingPagePTQ" Width="1.5" PointX="10.187545196240556" PointY="7.0477210316097931" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.landingPage" Width="1.5" PointX="5.6228825159477456" PointY="26.075822097284636" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.landingPage" Width="1.5" PointX="7.875" PointY="25" IsExpanded="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_country" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_enterprise" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_enterpriseContactUs_group" />
@@ -261,7 +256,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqDoc" Width="1.5" PointX="21.375" PointY="2.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Width="1.5" PointX="12.75" PointY="56" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.question" Width="1.5" PointX="6" PointY="98.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_question_responseType" />
@@ -305,7 +299,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerReminderType" Width="1.5" PointX="25.375" PointY="7.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Width="4.125" PointX="18" PointY="38.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.key" Width="1.5" PointX="3" PointY="59.625" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_key_enterprise" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.autoMailAttachmentType" Width="1.5" PointX="25.375" PointY="10.75" />
@@ -326,6 +319,13 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.linkedInConnectionDataLoad" Width="1.5" PointX="16.375" PointY="27.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.cid" Width="1.5" PointX="5.375" PointY="27.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.far" Width="1.5" PointX="18.375" PointY="27.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.response" Width="1.5" PointX="5.25" PointY="66.75" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionResponse_response" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_responseTranslation_response" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.responseLanguage" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

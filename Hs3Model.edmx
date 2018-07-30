@@ -2062,7 +2062,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" Nullable="false" />
           <Property Name="zcode" Type="varchar" MaxLength="2" />
           <Property Name="sortOrder" Type="int" />
           <Property Name="active" Type="bit" />
@@ -5804,7 +5804,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="type" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
           <Parameter Name="zcode" Type="varchar" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
@@ -12123,13 +12123,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_addResponse" ReturnType="Collection(Decimal)">
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="zcode" Mode="In" Type="String" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_addResponseLanguage">
             <Parameter Name="response" Mode="In" Type="Int32" />
             <Parameter Name="language" Mode="In" Type="Int32" />
@@ -12718,15 +12711,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getResponse" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getResponseAll" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
+          <FunctionImport Name="pr_getResponseAll">
           </FunctionImport>
-          <FunctionImport Name="pr_getResponseByLanguage" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
+          <FunctionImport Name="pr_getResponseByLanguage">
           <Parameter Name="language" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getResponseByQuestion" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
           <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="pr_getResponseByTranslation" EntitySet="response" ReturnType="Collection(hs3MVCMTQa2Model.response)">
+          <FunctionImport Name="pr_getResponseByTranslation">
           <Parameter Name="translation" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getResponseType" EntitySet="responseType" ReturnType="Collection(hs3MVCMTQa2Model.responseType)">
@@ -14101,23 +14094,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="site" Mode="In" Type="Int32" />
             <Parameter Name="partnerPartnertypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.response" />
-          <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.FK_questionResponse_response">
-            <End EntitySet="response" Role="response" />
-            <End EntitySet="questionResponse" Role="questionResponse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response">
-            <End EntitySet="response" Role="response" />
-            <End EntitySet="touchpointQuestionResponseValue_deprecated" Role="touchpointQuestionResponseValue_deprecated" />
-          </AssociationSet>
-          <AssociationSet Name="FK_responseTranslation_response" Association="hs3MVCMTQa2Model.FK_responseTranslation_response">
-            <End EntitySet="response" Role="response" />
-            <End EntitySet="responseTranslation" Role="responseTranslation" />
-          </AssociationSet>
-          <AssociationSet Name="responseLanguage" Association="hs3MVCMTQa2Model.responseLanguage">
-            <End EntitySet="language" Role="language" />
-            <End EntitySet="response" Role="response" />
-          </AssociationSet>
           <EntitySet Name="responseZcode" EntityType="hs3MVCMTQa2Model.responseZcode" />
           <FunctionImport Name="pr_getPartnumberCompletedCountByPPTQ" ReturnType="Collection(Int32)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
@@ -15979,10 +15955,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <End Role="partNumberSiteZcodePPTQ" EntitySet="partNumberSiteZcodePPTQSet" />
             <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponses" />
           </AssociationSet>
-          <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response">
-            <End Role="response" EntitySet="response" />
-            <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponses" />
-          </AssociationSet>
           <FunctionImport Name="pr_addPartnumberSiteZcodePPTQQuestionResponse" ReturnType="Collection(Decimal)">
             <Parameter Name="question" Mode="In" Type="Int32" />
             <Parameter Name="response" Mode="In" Type="Int32" />
@@ -16994,10 +16966,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           <AssociationSet Name="FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaireQuestionResponse_partnerPartnertypeTouchpointQuestionnaire">
             <End Role="partnerPartnertypeTouchpointQuestionnaire" EntitySet="partnerPartnertypeTouchpointQuestionnaire" />
-            <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-            <End Role="response" EntitySet="response" />
             <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
           </AssociationSet>
           <FunctionImport Name="pr_modifypartnerPartnertypeTouchpointQuestionnaireQuestionResponseValue">
@@ -18317,7 +18285,39 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="emailAlertListResponse" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionTitle" ReturnType="Collection(String)">
-            <Parameter Name="question" Mode="In" Type="Int32" />
+          <Parameter Name="question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="response" EntityType="hs3MVCMTQa2Model.response" />
+          <AssociationSet Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" EntitySet="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_partnumberSiteZcodePPTQQuestionResponse_response" Association="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="partnumberSiteZcodePPTQQuestionResponse" EntitySet="partnumberSiteZcodePPTQQuestionResponses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionResponse_response" Association="hs3MVCMTQa2Model.FK_questionResponse_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="questionResponse" EntitySet="questionResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_protocolTouchpointQuestionResponseValue_response" Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
+          </AssociationSet>
+          <AssociationSet Name="FK_responseTranslation_response" Association="hs3MVCMTQa2Model.FK_responseTranslation_response">
+            <End Role="response" EntitySet="response" />
+            <End Role="responseTranslation" EntitySet="responseTranslation" />
+          </AssociationSet>
+          <AssociationSet Name="responseLanguage" Association="hs3MVCMTQa2Model.responseLanguage">
+            <End Role="language" EntitySet="language" />
+            <End Role="response" EntitySet="response" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addResponse" ReturnType="Collection(Decimal)">
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="zcode" Mode="In" Type="String" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -19340,9 +19340,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </Key>
           <Property Name="question" Nullable="false" Type="Int32" />
           <Property Name="response" Nullable="false" Type="Int32" />
-          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="questionResponse" ToRole="response" />
           <NavigationProperty Name="question1" Relationship="hs3MVCMTQa2Model.FK_questionResponse_question" FromRole="questionResponse" ToRole="question" />
           <NavigationProperty Name="question2" Relationship="hs3MVCMTQa2Model.FK_questionResponse_question1" FromRole="questionResponse" ToRole="question" />
+          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="questionResponse" ToRole="response" />
           </EntityType>
         <EntityType Name="questionTranslation">
           <Key>
@@ -22839,63 +22839,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="status" Nullable="false" />
           <Property Type="Int32" Name="partnerPartnertypeTouchpointQuestionnaire" Nullable="false" />
         </ComplexType>
-        <EntityType Name="response">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="description" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="zcode" MaxLength="2" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="sortOrder" Type="Int32" />
-          <Property Name="active" Type="Boolean" />
-          <Property Name="enterprise" Type="Int32" />
-          <NavigationProperty Name="questionResponse" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="response" ToRole="questionResponse" />
-          <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue_deprecated" />
-          <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
-          <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
-          <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponses" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="response" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
-          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
-        </EntityType>
-        <Association Name="FK_questionResponse_response">
-          <End Type="hs3MVCMTQa2Model.response" Multiplicity="1" Role="response" />
-          <End Type="hs3MVCMTQa2Model.questionResponse" Multiplicity="*" Role="questionResponse" />
-          <ReferentialConstraint>
-            <Principal Role="response">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionResponse">
-              <PropertyRef Name="response" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
-          <End Type="hs3MVCMTQa2Model.response" Multiplicity="1" Role="response" />
-          <End Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue_deprecated" Multiplicity="*" Role="touchpointQuestionResponseValue_deprecated" />
-          <ReferentialConstraint>
-            <Principal Role="response">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpointQuestionResponseValue_deprecated">
-              <PropertyRef Name="response" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_responseTranslation_response">
-          <End Type="hs3MVCMTQa2Model.response" Multiplicity="1" Role="response" />
-          <End Type="hs3MVCMTQa2Model.responseTranslation" Multiplicity="*" Role="responseTranslation" />
-          <ReferentialConstraint>
-            <Principal Role="response">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="responseTranslation">
-              <PropertyRef Name="response" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="responseLanguage">
-          <End Type="hs3MVCMTQa2Model.language" Multiplicity="*" Role="language" />
-          <End Type="hs3MVCMTQa2Model.response" Multiplicity="*" Role="response" />
-        </Association>
         <EntityType Name="responseZcode">
           <Key>
             <PropertyRef Name="id" />
@@ -26024,8 +25967,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="partNumberSiteZcodePPTQ" Type="Int32" Nullable="false" />
           <Property Name="timestamp" Type="DateTime" Precision="7" />
           <NavigationProperty Name="partnumberSiteZcodePPTQ1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="partNumberSiteZcodePPTQ" />
-          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="response" />
           <NavigationProperty Name="question1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_question" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="question" />
+          <NavigationProperty Name="response1" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="partnumberSiteZcodePPTQQuestionResponse" ToRole="response" />
         </EntityType>
         <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_partNumberSiteZcodePPTQ">
           <End Type="hs3MVCMTQa2Model.partNumberSiteZcodePPTQ" Role="partNumberSiteZcodePPTQ" Multiplicity="1" />
@@ -26036,18 +25979,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Principal>
             <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
               <PropertyRef Name="partNumberSiteZcodePPTQ" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
-          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
-          <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="response">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
-              <PropertyRef Name="response" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -27952,18 +27883,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Principal>
             <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
               <PropertyRef Name="partnerPartnerTypeTouchpointQuestionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
-          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
-          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="response">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
-              <PropertyRef Name="response" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -31286,6 +31205,87 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="Question" Nullable="true" />
           <Property Type="Int32" Name="Response" Nullable="true" />
         </ComplexType>
+        <EntityType Name="response">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="zcode" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="enterprise" Type="Int32" />
+          <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnerTouchpointQuestionnaireQuestionResponse_response" FromRole="response" ToRole="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" />
+          <NavigationProperty Name="partnumberSiteZcodePPTQQuestionResponse" Relationship="hs3MVCMTQa2Model.FK_partnumberSiteZcodePPTQQuestionResponse_response" FromRole="response" ToRole="partnumberSiteZcodePPTQQuestionResponse" />
+          <NavigationProperty Name="questionResponse" Relationship="hs3MVCMTQa2Model.FK_questionResponse_response" FromRole="response" ToRole="questionResponse" />
+          <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" FromRole="response" ToRole="touchpointQuestionResponseValue_deprecated" />
+          <NavigationProperty Name="responseTranslation" Relationship="hs3MVCMTQa2Model.FK_responseTranslation_response" FromRole="response" ToRole="responseTranslation" />
+          <NavigationProperty Name="language" Relationship="hs3MVCMTQa2Model.responseLanguage" FromRole="response" ToRole="language" />
+        </EntityType>
+        <Association Name="FK_partnerTouchpointQuestionnaireQuestionResponse_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerPartnertypeTouchpointQuestionnaireQuestionResponse">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_partnumberSiteZcodePPTQQuestionResponse_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.partnumberSiteZcodePPTQQuestionResponse" Role="partnumberSiteZcodePPTQQuestionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnumberSiteZcodePPTQQuestionResponse">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionResponse_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionResponse" Role="questionResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionResponse">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_protocolTouchpointQuestionResponseValue_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.touchpointQuestionResponseValue_deprecated" Role="touchpointQuestionResponseValue_deprecated" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="touchpointQuestionResponseValue_deprecated">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_responseTranslation_response">
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.responseTranslation" Role="responseTranslation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="response">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="responseTranslation">
+              <PropertyRef Name="response" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="responseLanguage">
+          <End Type="hs3MVCMTQa2Model.language" Role="language" Multiplicity="*" />
+          <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -33686,7 +33686,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_addQuestionRule" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionRule" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionTranslation" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionTranslation" />
           <FunctionImportMapping FunctionImportName="pr_addRatingType" FunctionName="hs3MVCMTQa2Model.Store.pr_addRatingType" />
-          <FunctionImportMapping FunctionImportName="pr_addResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_addResponse" />
           <FunctionImportMapping FunctionImportName="pr_addResponseLanguage" FunctionName="hs3MVCMTQa2Model.Store.pr_addResponseLanguage" />
           <FunctionImportMapping FunctionImportName="pr_addResponseTranslation" FunctionName="hs3MVCMTQa2Model.Store.pr_addResponseTranslation" />
           <FunctionImportMapping FunctionImportName="pr_addResponseType" FunctionName="hs3MVCMTQa2Model.Store.pr_addResponseType" />
@@ -34644,26 +34643,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_getQuestionnaireInitZcode" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionnaireInitZcode" />
           <FunctionImportMapping FunctionImportName="pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ">
           </FunctionImportMapping>
-          <EntitySetMapping Name="response">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.response">
-              <MappingFragment StoreEntitySet="response">
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="zcode" ColumnName="zcode" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="responseLanguage" TypeName="hs3MVCMTQa2Model.responseLanguage" StoreEntitySet="responseLanguage">
-            <EndProperty Name="response">
-              <ScalarProperty Name="id" ColumnName="response" />
-            </EndProperty>
-            <EndProperty Name="language">
-              <ScalarProperty Name="id" ColumnName="language" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="responseZcode">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.responseZcode">
               <MappingFragment StoreEntitySet="responseZcode">
@@ -43592,6 +43571,27 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getQuestionTitle" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionTitle" />
+          <EntitySetMapping Name="response">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.response">
+              <MappingFragment StoreEntitySet="response">
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="responseLanguage" TypeName="hs3MVCMTQa2Model.responseLanguage" StoreEntitySet="responseLanguage">
+            <EndProperty Name="response">
+              <ScalarProperty Name="id" ColumnName="response" />
+            </EndProperty>
+            <EndProperty Name="language">
+              <ScalarProperty Name="id" ColumnName="language" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_addResponse" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

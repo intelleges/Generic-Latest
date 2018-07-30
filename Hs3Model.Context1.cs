@@ -125,7 +125,6 @@ namespace Generic
         public virtual DbSet<site> site { get; set; }
         public virtual DbSet<partNumberSiteZcodePPTQ> partNumberSiteZcodePPTQSet { get; set; }
         public virtual DbSet<partnumberStatus> partnumberStatus { get; set; }
-        public virtual DbSet<response> response { get; set; }
         public virtual DbSet<responseZcode> responseZcode { get; set; }
         public virtual DbSet<automailMessagePPTQ> automailMessagePPTQ { get; set; }
         public virtual DbSet<product> product { get; set; }
@@ -229,6 +228,7 @@ namespace Generic
         public virtual DbSet<linkedInConnectionDataLoad> linkedInConnectionDataLoad { get; set; }
         public virtual DbSet<cid> cid { get; set; }
         public virtual DbSet<far> far { get; set; }
+        public virtual DbSet<response> response { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -1713,31 +1713,6 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addRatingType", descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> pr_addResponse(string description, string zcode, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
-        {
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var zcodeParameter = zcode != null ?
-                new ObjectParameter("zcode", zcode) :
-                new ObjectParameter("zcode", typeof(string));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponse", descriptionParameter, zcodeParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
         public virtual int pr_addResponseLanguage(Nullable<int> response, Nullable<int> language)
@@ -4411,32 +4386,18 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponse", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<response> pr_getResponseAll()
+        public virtual int pr_getResponseAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getResponseAll");
         }
     
-        public virtual ObjectResult<response> pr_getResponseAll(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseAll", mergeOption);
-        }
-    
-        public virtual ObjectResult<response> pr_getResponseByLanguage(Nullable<int> language)
+        public virtual int pr_getResponseByLanguage(Nullable<int> language)
         {
             var languageParameter = language.HasValue ?
                 new ObjectParameter("language", language) :
                 new ObjectParameter("language", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByLanguage", languageParameter);
-        }
-    
-        public virtual ObjectResult<response> pr_getResponseByLanguage(Nullable<int> language, MergeOption mergeOption)
-        {
-            var languageParameter = language.HasValue ?
-                new ObjectParameter("language", language) :
-                new ObjectParameter("language", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByLanguage", mergeOption, languageParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getResponseByLanguage", languageParameter);
         }
     
         public virtual ObjectResult<response> pr_getResponseByQuestion(Nullable<int> question)
@@ -4457,22 +4418,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByQuestion", mergeOption, questionParameter);
         }
     
-        public virtual ObjectResult<response> pr_getResponseByTranslation(Nullable<int> translation)
+        public virtual int pr_getResponseByTranslation(Nullable<int> translation)
         {
             var translationParameter = translation.HasValue ?
                 new ObjectParameter("translation", translation) :
                 new ObjectParameter("translation", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByTranslation", translationParameter);
-        }
-    
-        public virtual ObjectResult<response> pr_getResponseByTranslation(Nullable<int> translation, MergeOption mergeOption)
-        {
-            var translationParameter = translation.HasValue ?
-                new ObjectParameter("translation", translation) :
-                new ObjectParameter("translation", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<response>("pr_getResponseByTranslation", mergeOption, translationParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getResponseByTranslation", translationParameter);
         }
     
         public virtual ObjectResult<responseType> pr_getResponseType(Nullable<int> id)
@@ -23619,6 +23571,31 @@ namespace Generic
                 new ObjectParameter("question", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getQuestionTitle", questionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addResponse(string description, string zcode, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponse", descriptionParameter, zcodeParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     }
 }
