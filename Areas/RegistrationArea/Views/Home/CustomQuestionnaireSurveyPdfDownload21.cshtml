@@ -1,0 +1,2049 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+    <TITLE></TITLE>
+    <STYLE TYPE="text/css">
+	<!--
+		@@page { size: 8.5in 11in; margin-left: 0.75in; margin-right: 0.75in; margin-top: 0.25in; margin-bottom: 0.25in }
+		P { margin-bottom: 0.08in; direction: ltr; widows: 2; orphans: 2 }
+		A:link { color: #0563c1; so-language: zxx }
+	-->
+    </STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#0563c1" DIR="LTR">
+    <DIV TYPE=HEADER>
+        <P STYLE="margin-bottom: 0in">		
+            @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+            {
+                <IMG SRC="@ViewBag.logoSrc" NAME="Picture 1" ALIGN=BOTTOM WIDTH=129 HEIGHT=49 BORDER=0>
+            }</P>
+        <P STYLE="margin-bottom: 0.21in">
+            <BR>
+        </P>
+    </DIV>
+    <P STYLE="margin-bottom: 0.17in">
+        <A NAME="Check23"></A><A NAME="Check24"></A>
+        <FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    <B>
+                        FAR Part 12 <input type="checkbox" @ViewBag.Checkbox44182 />
+                    </B>
+                </I>
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    <B>
+                        
+                        FAR Part 15 <input type="checkbox" @ViewBag.Checkbox44182_2 />
+                    </B>
+                </I>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    <B>
+                        All
+                        current and prospective Honeywell suppliers (Suppliers) are required
+                        to complete the following survey which will be used by Honeywell to
+                        determine if the Supplier can be deemed “Responsible” as defined
+                        at FAR Part 9.104.
+                    </B>
+                </I>
+            </FONT>
+        </FONT><FONT COLOR="#0000ff">
+            <FONT FACE="Calibri, serif">
+                <FONT SIZE=2 STYLE="font-size: 11pt">
+                    <I>
+                        <U>
+                            <B>
+                                Completion
+                                of the survey is required regardless of whether Supplier currently
+                                provides parts and/or services incorporated in Honeywell’s U.S.
+                                Government end-user contracts.
+                            </B>
+                        </U>
+                    </I>
+                </FONT>
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    <B>
+                        To assist Honeywell in making this determination, Suppliers are
+                        required to certify their compliance with the following requirements,
+                        including clauses from the Federal Acquisition Regulation and Defense
+                        Supplement, which can be found at
+                    </B>
+                </I>
+            </FONT>
+        </FONT><A HREF="https://www.acquisition.gov/"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>https://www.acquisition.gov/</B></I></FONT></FONT></FONT></A><FONT FACE="Calibri, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>.</B></I></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    <B>
+                        Suppliers
+                        responding “Yes” to each clause are certifying that,
+                    </B>
+                </I>
+            </FONT>
+        </FONT><FONT COLOR="#0000ff">
+            <FONT FACE="Calibri, serif">
+                <FONT SIZE=2 STYLE="font-size: 11pt">
+                    <I>
+                        <U>
+                            <B>
+                                if
+                                the requirement is applicable to a subsequently awarded purchase
+                                order or contract,
+                            </B>
+                        </U>
+                    </I>
+                </FONT>
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    <B>
+                        they are either currently compliant with the requirement, or, will be
+                        compliant at time of purchase order or contract award.  In addition
+                        to the requirements called out below, Suppliers are also responsible
+                        for compliance with the applicable clauses contained in Honeywell’s
+                        PO Supplemental Provisions for US Gov’t Contracts (SPFFP) or US
+                        Gov’t Commercial Items (SPGCI), if referenced in an awarded
+                        purchase order or contract.
+                    </B>
+                </I>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <OL>
+        <LI>
+            <P>
+                <FONT FACE="Calibri, serif">
+                    Supplier has implemented the
+                    systems, procedures and processes required to ensure the highest
+                    level of business ethics consistent with, or similar to, the
+                    Honeywell Inc and Honeywell Supplier Code of Business Conduct
+                    located at
+                </FONT><A HREF="http://honeywell.com/About/Pages/code-of-business-conduct.aspx"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">http://honeywell.com/About/Pages/code-of-business-conduct.aspx</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <I>
+                        <B>
+                            or will adhere to their own
+                            Code of Business Conduct, which supports the spirit of Honeywell’s
+                            requirements for integrity and compliance
+                        </B>
+                    </I>
+                </FONT><FONT FACE="Calibri, serif">.</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check1"></A><FONT FACE="Calibri, serif">
+                                 <input type="checkbox" @ViewBag.Checkbox44168_Yes /> Yes 
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check2"></A><FONT FACE="Calibri, serif">
+                                 <input type="checkbox" @ViewBag.Checkbox44168_No /> No
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <A NAME="Text11"></A><FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+               @ViewBag.Q44168
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=2>
+        <LI>
+            <P>
+                <FONT FACE="Calibri, serif">
+                    Supplier has adequate financial
+                    resources, technical equipment, facilities and the organizational
+                    experience, skills and controls available, or has the ability to
+                    obtain them as required to perform contracts as awarded.
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44169_Yes /> Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44169_No /> No
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                @ViewBag.Q44169
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=3>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_000.htm?zoom_highlight=52%2E203-13"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.203-13</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Contractor Code of Business
+                        Ethics and Conduct
+                    </B>
+                </FONT><FONT FACE="Calibri, serif"> (Oct 2015)</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44170_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44170_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44170_NA />  N/A – As Supplier does not have a
+            PO/Contract from Honeywell with a value in excess of $5.5 million and
+            a performance period of more than 120 days.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+               @ViewBag.Q44170
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=4>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_000.htm?zoom_highlight=52%2E203-19"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.203-19</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Prohibition on Requiring
+                        Certain Internal Confidentiality Agreements or Statements
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Jan 2017)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44171_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44171_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+             @ViewBag.Q44171
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=5>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_000.htm?zoom_highlight=52%2E204-21"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.204-21</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Basic Safeguarding of Covered
+                        Contractor Information Systems
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Jun
+                    2016)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44172_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44172_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Check3"></A><FONT FACE="Calibri, serif">
+            
+                                 <input type="checkbox" @ViewBag.Checkbox44172_NA />   N/A – As supplier only provides commercially available
+            off-the-shelf items (COTS) as defined at FAR 2.101
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+               @ViewBag.Q44172
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=6>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_215.htm?zoom_highlight=52%2E219-8"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.219-8</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Utilization of Small Business
+                        Concerns
+                    </B>
+                </FONT><FONT FACE="Calibri, serif"> (Nov 2016)</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44173_Yes /> Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44173_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44173_NA />  N/A – The PO/contract, together with
+            all of its subcontracts, will be performed entirely outside the
+            United States and its outlying areas.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+               @ViewBag.Q44173
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=7>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-21"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-21</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Prohibition of Segregated
+                        Facilities
+                    </B>
+                </FONT><FONT FACE="Calibri, serif"> (Apr 2015)</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44174_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44174_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44173_NA />  N/A – Work will be performed outside
+            the U.S. by employees not recruited within the U.S., Puerto Rico,
+            Northern Mariana Islands, American Samoa, Guam, U.S. Virgin Islands
+            and Wake Island.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+               @ViewBag.Q44174
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=8>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-26"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-26</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif"><B>Equal Opportunity</B></FONT><FONT FACE="Calibri, serif">
+                    (Sep 2016)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44175_Yes /> Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44175_No /> No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44175_NA />   N/A – Work will be performed outside
+            the U.S. by employees not recruited within the U.S., Puerto Rico,
+            Northern Mariana Islands, American Samoa, Guam, U.S. Virgin Islands
+            and Wake Island.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+              @ViewBag.Q44175
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=9>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-35"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-35</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif"><B>Equal Opportunity for Veterans</B></FONT><FONT FACE="Calibri, serif">
+                    (Oct 2015)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif"><input type="checkbox" @ViewBag.Checkbox44176_Yes />	 Yes  </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif"><input type="checkbox" @ViewBag.Checkbox44176_No />	 No  </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44176_NA />  N/A – The PO/contract will be
+            performed outside the U.S. by employees who were not recruited within
+            the U.S.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">	If No, explanation is required </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                @ViewBag.Q44176
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=10>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-36"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-36</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Equal Opportunity for Workers
+                        with Disabilities
+                    </B>
+                </FONT><FONT FACE="Calibri, serif"> (Jul 2014)</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44178_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44178_No /> No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; text-indent: -0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44178_NA /> N/A – Work will be performed outside
+            the U.S. by employees not recruited within the U.S., Puerto Rico,
+            Northern Mariana Islands, American Samoa, Guam, U.S. Virgin Islands
+            and Wake Island.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                @ViewBag.Q44178
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=11>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-37"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-37</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif"><B>Employment Reports on Veterans</B></FONT><FONT FACE="Calibri, serif">
+                    (Feb 2016)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44177_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44177_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44177_NA /> N/A – The PO/contract will be performed outside the U.S. by
+            employees who were not recruited within the U.S.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+               @ViewBag.Q44177
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=12>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-40"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-40</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Notification of Employee
+                        Rights Under the National Labor Relations Act
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Dec 2010)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44179_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            <input type="checkbox" @ViewBag.Checkbox44179_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44179_NA /> N/A – The PO/contract will be performed exclusively outside the
+            U.S.
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><U>     </U><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                @ViewBag.Q44179
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=13>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-50"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-50</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Combating Trafficking in
+                        Persons (22 U.S.C. Chapter 78 and E.O. 13627)
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Mar 2015)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44180_Yes />  Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            <input type="checkbox" @ViewBag.Checkbox44180_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                @ViewBag.Q44180
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=14>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_000.htm?zoom_highlight=52%2E203-11"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.203-11</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Certification and Disclosure
+                        Regarding Payments to Influence Certain Federal Transactions
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Sep 2007).  This provision applies to solicitations where the
+                    contract value is expected to exceed $150,000.
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check25"></A><FONT FACE="Calibri, serif">
+            
+                                  <input type="checkbox" @ViewBag.Checkbox44198_Yes /> Yes
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check26"></A><FONT FACE="Calibri, serif">
+            
+                                  <input type="checkbox" @ViewBag.Checkbox44198_No />  No
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check27"></A><FONT FACE="Calibri, serif">
+            
+                                  <input type="checkbox" @ViewBag.Checkbox44198_NA /> N/A – Supplier does not have a PO/Contract from Honeywell with a
+            value in excess of $150,000
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <A NAME="Text191"></A><FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                @ViewBag.Q44198
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=15>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_000.htm?zoom_highlight=52%2E209-5"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.209-5</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Certification Regarding
+                        Responsibility Matters
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Oct
+                    2015).  This provision applies to solicitations where the contract
+                    value is expected to exceed the simplified acquisition threshold.
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0.06in">
+        <FONT FACE="Calibri, serif">
+            Supplier
+            and/or any of its Principals—
+        </FONT>
+    </P>
+    <OL TYPE=A>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <A NAME="Check4"></A><A NAME="Check5"></A>
+                <FONT FACE="Calibri, serif">Are  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44192</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68068</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    Are not 
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44192</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68069</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    presently debarred, suspended, proposed for debarment, or declared
+                    ineligible for the award of contracts by any Federal agency; and
+                </FONT>
+            </P>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <A NAME="Check6"></A><A NAME="Check7"></A>
+                <FONT FACE="Calibri, serif">Have  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44193</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68070</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    Have not 
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44193</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68071</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    ,
+                    within a three-year period preceding this offer, been convicted of
+                    or had a civil judgment rendered against them for: commission of
+                    fraud or a criminal offense in connection with obtaining, attempting
+                    to obtain, or performing a public (Federal, State or local) contract
+                    or subcontract; violation of Federal or State antitrust statutes
+                    relating to the submission of offers; or commission of embezzlement,
+                    theft, forgery, bribery, falsification or destruction of records,
+                    making false statements, tax evasion, violating Federal criminal tax
+                    laws, or receiving stolen property (if Supplier checks “Have”,
+                    the Supplier shall also see 52.209-7, if included in this
+                    solicitation); and
+                </FONT>
+            </P>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <A NAME="Check8"></A><A NAME="Check9"></A>
+                <FONT FACE="Calibri, serif">Are  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44194</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68072</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    Are not 
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44194</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68073</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    presently indicted for, or otherwise criminally or civilly charged
+                    by a governmental entity with, commission of any of the offenses
+                    enumerated in paragraph (a)(1)(i)(B) of this provision; and
+                </FONT>
+            </P>
+        <LI>
+            <P STYLE="margin-bottom: 0.17in">
+                <A NAME="Check10"></A><A NAME="Check11"></A>
+                <FONT FACE="Calibri, serif">Have  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44195</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68074</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    Have not 
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44195</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    <FONT SIZE=1 STYLE="font-size: 8pt">
+                        /
+                    </FONT>
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68075</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+                    within a three-year period preceding this offer, been notified of
+                    any delinquent Federal taxes in an amount that exceeds $3,500 for
+                    which the liability remains unsatisfied.
+                </FONT>
+            </P>
+    </OL>
+    <OL START=16>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_000.htm?zoom_highlight=52%2E211-15"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.211-15</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Defense Priority and
+                        Allocation Requirements
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Apr
+                    2008)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44196</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44196</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44196
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=17>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-54"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.222-54</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Employment Eligibility
+                        Verification
+                    </B>
+                </FONT><FONT FACE="Calibri, serif"> (Oct 2015)</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44199</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68082</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44199</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68083</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check12"></A><FONT FACE="Calibri, serif">
+            
+            N/A – As supplier is outside of U.S.
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44199</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68084</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check13"></A><FONT FACE="Calibri, serif">
+            
+            N/A – As supplier only provides Commercial items as defined at FAR
+            2.101
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44199</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68085</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44199
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=18>
+        <LI>
+            <P>
+                <A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252204.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.204-7000</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif"><B>Disclosure of Information</B></FONT><FONT FACE="Calibri, serif">
+                    (Oct 2016)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44200</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44200</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44200
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <OL START=19>
+        <LI>
+            <P STYLE="page-break-before: always">
+                <A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252204.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.204-7012</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Safeguarding Covered Defense
+                        Information and Cyber Incident Reporting
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Oct 2016) (Excludes COTS Parts)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44189</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68065</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44189</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68066</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             N/A –
+            As supplier only provides COTS parts
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44189</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68067</SPAN></FONT></FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            If No, explanation is required
+            
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44189
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL TYPE=A>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    If
+                    Yes, do you have a plan of action and milestones (POA&amp;M)?
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.5in">
+        <A NAME="Check14"></A><A NAME="Check15"></A>
+        <FONT FACE="Calibri, serif">	 Yes  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44190</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44190</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <OL TYPE=A START=2>
+        <LI>
+            <P STYLE="margin-bottom: 0.17in">
+                <A NAME="Text21"></A><FONT FACE="Calibri, serif">
+                    If
+                    Yes, which Basic Security Requirements have not been implemented and
+                    what is the projected implementation date for each?   
+                </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+                </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44191</SPAN></FONT></FONT>
+            </P>
+    </OL>
+    <OL START=20>
+        <LI>
+            <P>
+                <A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252225.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.225-7009</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Restriction on Acquisition of
+                        Certain Articles Containing Specialty Metals
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Oct 2014)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44197</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68076</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44197</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68077</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             N/A –
+            As supplier only provides electronic components
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44197</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68078</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44197
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=21>
+        <LI>
+            <P>
+                <A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252246.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.246-7007</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Contractor Counterfeit
+                        Electronic Part Detection and Avoidance System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    (Aug 2016)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44183</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68056</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44183</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68057</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             N/A –
+            As supplier does not provide electronic components or assemblies
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44183</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68058</SPAN></FONT></FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            If No, explanation is required
+            
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44183
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL TYPE=A>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    If
+                    Yes, do you have risk based processes enabling the tracking of an
+                    electronic component from the original manufacturer to product
+                    acceptance?
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44184</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44184</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <A NAME="Text181"></A><FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44184
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=22>
+        <LI>
+            <P>
+                <A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252246.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.246-7008</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif"><B>Sources of Electronic Parts</B></FONT><FONT FACE="Calibri, serif">
+                    (Dec 2017)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44185</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68059</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44185</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68060</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             N/A –
+            As supplier does not provide electronic components or assemblies
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44185</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68061</SPAN></FONT></FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            If No, explanation is required
+            
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44185
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in">
+        <FONT FACE="Calibri, serif">
+            If Yes,
+            please complete the following:
+        </FONT>
+    </P>
+    <OL TYPE=A>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    Do
+                    you obtain electronic parts from only Original Equipment
+                    Manufacturers, Authorized Aftermarket Manufacturers or their
+                    authorized suppliers?
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44186</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44186</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P>
+        <A NAME="Text151"></A><FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44186
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL TYPE=A START=2>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    If
+                    you purchase electronic parts from a non-authorized source, do you
+                    perform inspection, testing and authentication in accordance with
+                    established industry standards and processes?
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.5in; margin-bottom: 0.04in">
+        <A NAME="Check16"></A><A NAME="Check17"></A><A NAME="Check18"></A>
+        <FONT FACE="Calibri, serif">	 Yes  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44187</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68062</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44187</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68063</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            N/A
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44187</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68064</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in">
+        <A NAME="Text161"></A><FONT FACE="Calibri, serif">
+            If
+            No, explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44187
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL TYPE=A START=3>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    Do
+                    you flow down the requirements in DFARS 252.246-7008 to your
+                    suppliers?
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.5in; margin-bottom: 0.04in">
+        <A NAME="Check19"></A><A NAME="Check20"></A>
+        <FONT FACE="Calibri, serif">	 Yes  </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44188</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44188</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in; margin-bottom: 0.17in">
+        <A NAME="Text171"></A>
+        <FONT FACE="Calibri, serif">	If No, explanation is required </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44188
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=23>
+        <LI>
+            <P>
+                <A HREF="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_215.htm?zoom_highlight=52%2E215-20"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">52.215-20</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif">
+                    <B>
+                        Requirements for Certified
+                        Cost or Pricing Data and Data Other Than Certified Cost or Pricing
+                        Data
+                    </B>
+                </FONT><FONT FACE="Calibri, serif"> (Oct 2010)</FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44201</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68086</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44201</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68087</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             N/A –
+            As supplier only provides Commercial items as defined at FAR 2.101
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44201</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R68088</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.17in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44201
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <OL START=24>
+        <LI>
+            <P>
+                <A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252242.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.242-7005</FONT></FONT></A><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT FACE="Calibri, serif"><B>Contractor Business Systems</B></FONT><FONT FACE="Calibri, serif">
+                    (Feb 2012)
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44202</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44202</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in">
+        <FONT FACE="Calibri, serif">
+            If Yes,
+            please indicate whether each of the following Business Systems has
+            been determined by DCMA to be acceptable and the date of the last
+            DCAA or DCMA audit:
+        </FONT>
+    </P>
+    <OL TYPE=A>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    <B>
+                        Accounting
+                        System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">, </FONT><A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252242.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.242-7006</FONT></FONT></A>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check21"></A><FONT FACE="Calibri, serif">
+            
+            Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44204</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44204</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            Not Audited
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44203</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.03in">
+        <A NAME="Text201"></A><FONT FACE="Calibri, serif">
+            Date
+            of last audit:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44204
+                    YN_DUEDATE_Y
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P>
+        <A NAME="Text31"></A><FONT FACE="Calibri, serif">
+            Reason system
+            deemed unacceptable:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44205</SPAN></FONT></FONT>
+    </P>
+    <OL TYPE=A START=2>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    <B>
+                        Cost
+                        Estimating System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif"><A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252215.htm">252.215-700</A>2</FONT></FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-left: 0.5in; margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+            
+            Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44207</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44207</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            Not Audited
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44206</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.03in">
+        <FONT FACE="Calibri, serif">
+            Date
+            of last audit:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44207
+                    YN_DUEDATE_Y
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-left: 0.5in">
+        <FONT FACE="Calibri, serif">
+            Reason
+            system deemed unacceptable:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44208</SPAN></FONT></FONT>
+    </P>
+    <OL TYPE=A START=3>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    <B>
+                        Purchasing
+                        System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">, </FONT><A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252244.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.244-7001</FONT></FONT></A>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <A NAME="Check22"></A><FONT FACE="Calibri, serif">
+            
+            Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44210</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44210</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            Not Audited
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44209</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.03in">
+        <FONT FACE="Calibri, serif">
+            Date
+            of last audit:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44210
+                    YN_DUEDATE_Y
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            Reason system deemed
+            unacceptable:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44211</SPAN></FONT></FONT>
+    </P>
+    <OL TYPE=A START=4>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    <B>
+                        Earned
+                        Value Management System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252234.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.234-7002</FONT></FONT></A>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44213</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44213</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            Not Audited
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44212</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.03in">
+        <FONT FACE="Calibri, serif">
+            Date
+            of last audit:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44213
+                    YN_DUEDATE_Y
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            Reason system deemed
+            unacceptable:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44214</SPAN></FONT></FONT>
+    </P>
+    <OL TYPE=A START=5>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    <B>
+                        Contractor
+                        Property Management System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252245.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.245-7003</FONT></FONT></A>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44216</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44216</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            Not Audited
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44215</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.03in">
+        <FONT FACE="Calibri, serif">
+            Date
+            of last audit:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44216
+                    YN_DUEDATE_Y
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            Reason system deemed
+            unacceptable:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44217</SPAN></FONT></FONT>
+    </P>
+    <OL TYPE=A START=6>
+        <LI>
+            <P STYLE="margin-bottom: 0.04in">
+                <FONT FACE="Calibri, serif">
+                    <B>
+                        Material
+                        Management and Accounting System
+                    </B>
+                </FONT><FONT FACE="Calibri, serif">
+                    ,
+                </FONT><A HREF="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252242.htm"><FONT COLOR="#0000ff"><FONT FACE="Calibri, serif">252.242-7004</FONT></FONT></A>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44219</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            No
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #00ffff">
+                    Q44219
+                </SPAN>
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            
+            Not Audited
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44218</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.03in">
+        <FONT FACE="Calibri, serif">
+            Date
+            of last audit:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44219
+                    YN_DUEDATE_Y
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            Reason system deemed
+            unacceptable:	
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #ff00ff">T44220</SPAN></FONT></FONT>
+    </P>
+    <OL START=25>
+        <LI>
+            <P>
+                <FONT FACE="Calibri, serif">
+                    Supplier agrees to comply with
+                    all clauses contained in Honeywell’s PO Supplemental Provisions
+                    for US Gov’t Contracts (SPFFP) or US Gov’t Commercial Items
+                    (SPGCI), if referenced in an awarded purchase order or contract.
+                </FONT>
+            </P>
+    </OL>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             Yes
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44181</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R74</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0.04in">
+        <FONT FACE="Calibri, serif">
+             No
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ffff">Q44181</SPAN></FONT></FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                /
+            </FONT>
+        </FONT><FONT FACE="Calibri, serif"><FONT SIZE=1 STYLE="font-size: 8pt"><SPAN STYLE="background: #00ff00">R75</SPAN></FONT></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <FONT FACE="Calibri, serif">
+            If No,
+            explanation is required 
+        </FONT><FONT FACE="Calibri, serif"><U>     </U></FONT><FONT FACE="Calibri, serif">
+        </FONT><FONT FACE="Calibri, serif">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                <SPAN STYLE="background: #ff0000">
+                    Q44181
+                    YN_COMMENT_N
+                </SPAN>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <P STYLE="margin-bottom: 0in; page-break-before: always">
+        <FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <B>
+                    CERTIFICATION
+                    (SIGNATURE) IS REQUIRED BY AN AUTHORIZED OFFICIAL VERIFYING THE
+                    INFORMATION CONTAINED ON THIS FORM IS TRUE.
+                </B>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <P>
+        <FONT FACE="Calibri, serif">
+            <FONT SIZE=2 STYLE="font-size: 11pt">
+                <I>
+                    Supplier’s
+                    signature below applies all provisions above.
+                </I>
+            </FONT>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Text51"></A><A NAME="Text61"></A>
+        <FONT FACE="Calibri, serif">Signature:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT><FONT FACE="Calibri, serif">	Date:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Email
+                from eSignature page
+            </SPAN>
+        </FONT><FONT SIZE=1>				</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Date
+                Completed
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Text81"></A><A NAME="Text71"></A>
+        <FONT FACE="Calibri, serif">Name:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT><FONT FACE="Calibri, serif">	Phone:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                First/Last
+                Name from eSignature page
+            </SPAN>
+        </FONT><FONT SIZE=1>				</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Phone
+                field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in"><A NAME="Text41"></A><FONT FACE="Calibri, serif">Title:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT></P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Title
+                field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Text91"></A><FONT FACE="Calibri, serif">
+            Company
+            Name:
+        </FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Name
+                field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in"><A NAME="Text101"></A><FONT FACE="Calibri, serif">Email:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT></P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Email
+                field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in"><A NAME="Text111"></A><FONT FACE="Calibri, serif">Address:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT></P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Address
+                1 field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Text121"></A><FONT FACE="Calibri, serif">
+            City,
+            State, Zip Code:
+        </FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                City,
+                State, Zip Code fields from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in"><A NAME="Text211"></A><FONT FACE="Calibri, serif">Country:	</FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT></P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Country
+                field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Text131"></A><FONT FACE="Calibri, serif">
+            DUNS
+            #:
+        </FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                DUNS
+                Number field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in">
+        <A NAME="Text141"></A><FONT FACE="Calibri, serif">
+            Supplier
+            Code:
+        </FONT><FONT FACE="Calibri, serif"><U>	     	</U></FONT>
+    </P>
+    <P STYLE="margin-bottom: 0in; line-height: 150%">
+        <FONT FACE="Calibri, serif">		</FONT><FONT SIZE=1>
+            <SPAN STYLE="background: #ffff00">
+                Internal
+                ID field from SRA Create Partner page
+            </SPAN>
+        </FONT>
+    </P>
+    <DIV TYPE=FOOTER>
+        <P STYLE="margin-top: 0.21in; margin-bottom: 0in">
+            <FONT SIZE=1 STYLE="font-size: 8pt">
+                AF-0901
+                Rev 6 (Aug-2018)		Page | <SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE>11</SDFIELD>
+            </FONT>
+        </P>
+    </DIV>
+</BODY>
+</HTML>

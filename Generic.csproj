@@ -3358,6 +3358,7 @@
     </Content>
     <Content Include="Contents\images\LiButton.png" />
     <Content Include="Contents\images\Russia-Flag-icon.png" />
+    <Content Include="Contents\images\Supplier_Responsibility_Assessment_AF-0901.png" />
     <Content Include="Contents\images\xlsx-1567.png" />
     <Content Include="Contents\IntellegesLogin_files\contact-us.js" />
     <Content Include="Contents\IntellegesLogin_files\merck_india.jpg" />
@@ -4310,6 +4311,7 @@
     <Content Include="Content\login\fonts\AvenirLTStd-Black.otf" />
     <Content Include="Content\login\fonts\AvenirLTStd-Heavy.otf" />
     <Content Include="Content\login\fonts\AvenirLTStd-Medium.otf" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload21.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
