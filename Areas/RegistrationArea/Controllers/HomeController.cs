@@ -1214,12 +1214,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion2", "Questionnaire", new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
 
-            var url3 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion2", "Questionnaire", new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = -1, email = emailTo })).ToString();          
+            var url3 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion2", "Questionnaire", new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = -1, email = emailTo })).ToString();
 
             objamm.subject = "Supplier Responsibility Assessment for " + partnerName.name + " " + accessCode;
 
             string t = "";
-            t = "Company Name: " + partnerName.name +"<br/>";
+            t = "Company Name: " + partnerName.name + "<br/>";
             t += "Company Internal ID: " + partnerName.internalID + "<br/>";
             t += "POC First Name: " + partnerName.firstName + "<br/>";
             t += "POC Last Name: " + partnerName.lastName + "<br/>";
@@ -1228,7 +1228,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             t += "Access Code Link: <a href='https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
             t += "PDF Link: <a href='https://www.intelleges.com/mvcmt/Generic/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
             t += text + "<br/><br/>APPROVAL:  " + "<br/><a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a><br/><a href='" + url3 + "'>Unlock</a>" +
-                 "<br/><br/>Thanks.<br/><br/>"+ UppercaseFirst(person.firstName) + " " + UppercaseFirst(person.lastName) + "<br>";
+                 "<br/><br/>Thanks.<br/><br/>" + UppercaseFirst(person.firstName) + " " + UppercaseFirst(person.lastName) + "<br>";
 
             objamm.text = t;
             Email mail = new Email(objamm);
@@ -1515,7 +1515,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult ValidateEmailAlerts(int pptq, int qids)
         {
             var q = db.pr_getQuestion(qids).First();
-            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq, q.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";","").Trim()+";").ToList();
+            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq, q.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";", "").Trim() + ";").ToList();
 
             var qid = Convert.ToInt32(q.emailAlertList.Split(new char[] { '[', ']' })[1]);
             var a = 74;
@@ -1540,7 +1540,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 var choices = q.emailAlertList.Split(new char[] { ';' });
                 var email = choices[0].Split(':')[1];
-                SendEmailAlertWhere(pptqItem.partner1, pptqItem.accesscode, email,pptq,q.id, choices[1].Replace("[","").Replace("]", ""), qsss);
+                SendEmailAlertWhere(pptqItem.partner1, pptqItem.accesscode, email, pptq, q.id, choices[1].Replace("[", "").Replace("]", ""), qsss);
                 return Json(new { success = false, message });
             }
         }
@@ -2028,7 +2028,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         //else responseComment = null;
                         var list2list = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_list2list"];
-                        if(!string.IsNullOrEmpty(list2list))
+                        if (!string.IsNullOrEmpty(list2list))
                         {
                             responseId = db.pr_getResponseByQuestion(questionId).FirstOrDefault().id;
                             responseComment = answer;
@@ -9354,7 +9354,7 @@ Intelleges Team";
                     case 44168:
                         ViewBag.Checkbox44168_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox44168_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if(item.response == _responseNO) ViewBag.Q44168 = item.comment;
+                        if (item.response == _responseNO) ViewBag.Q44168 = item.comment;
                         break;
                     case 44169:
                         ViewBag.Checkbox44169_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -9430,6 +9430,181 @@ Intelleges Team";
                         ViewBag.Checkbox44198_No = item.response == 68080 ? _chacked : string.Empty;
                         ViewBag.Checkbox44198_NA = item.response == 68081 ? _chacked : string.Empty;
                         if (item.response == 68080) ViewBag.Q44198 = item.comment;
+                        break;
+                    case 44192:
+                        if (item.response == 68068)
+                            ViewBag.Q44192 = "Are";
+                        else if (item.response == 68069)
+                            ViewBag.Q44192 = "Are not";
+                        break;
+                    case 44193:
+                        if (item.response == 68070)
+                            ViewBag.Q44193 = "Have";
+                        else if (item.response == 68071)
+                            ViewBag.Q44193 = "Have not";
+                        break;
+                    case 44194:
+                        if (item.response == 68072)
+                            ViewBag.Q44194 = "Are";
+                        else if (item.response == 68073)
+                            ViewBag.Q44194 = "Are not";
+                        break;
+                    case 44195:
+                        if (item.response == 68074)
+                            ViewBag.Q44193 = "Have";
+                        else if (item.response == 68075)
+                            ViewBag.Q44193 = "Have not";
+                        break;
+                    case 44196:
+                        ViewBag.Checkbox44196_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44196_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44196 = item.comment;
+                        break;
+                    case 44199:
+                        ViewBag.Checkbox44199_Yes = item.response == 68082 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44199_No = item.response == 68083 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44199_NA = item.response == 68084 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44199_NA2 = item.response == 68085 ? _chacked : string.Empty;
+                        if (item.response == 68083) ViewBag.Q44199 = item.comment;
+                        break;
+                    case 44200:
+                        ViewBag.Checkbox44200_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44200_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44200 = item.comment;
+                        break;
+                    case 44189:
+                        ViewBag.Checkbox44189_Yes = item.response == 68065 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44189_No = item.response == 68066 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44189_NA = item.response == 68067 ? _chacked : string.Empty;
+                        if (item.response == 68066) ViewBag.Q44189 = item.comment;
+                        break;
+                    case 44190:
+                        ViewBag.Checkbox44190_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44190_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44190 = item.comment;
+                        break;
+                    case 44191:
+                        ViewBag.Q44190 = item.comment;
+                        break;
+                    case 44197:
+                        ViewBag.Checkbox44197_Yes = item.response == 68076 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44197_No = item.response == 68077 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44197_NA = item.response == 68078 ? _chacked : string.Empty;
+                        if (item.response == 68077) ViewBag.Q44197 = item.comment;
+                        break;
+                    case 44183:
+                        ViewBag.Checkbox44183_Yes = item.response == 68056 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44183_No = item.response == 68057 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44183_NA = item.response == 68058 ? _chacked : string.Empty;
+                        if (item.response == 68057) ViewBag.Q44183 = item.comment;
+                        break;
+                    case 44184:
+                        ViewBag.Checkbox44184_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44184_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44184 = item.comment;
+                        break;
+                    case 44185:
+                        ViewBag.Checkbox44185_Yes = item.response == 68059 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44185_No = item.response == 68060 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44185_NA = item.response == 68061 ? _chacked : string.Empty;
+                        if (item.response == 68060) ViewBag.Q44185 = item.comment;
+                        break;
+                    case 44186:
+                        ViewBag.Checkbox44186_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44186_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44186 = item.comment;
+                        break;
+                    case 44187:
+                        ViewBag.Checkbox44187_Yes = item.response == 68062 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44187_No = item.response == 68063 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44187_NA = item.response == 68064 ? _chacked : string.Empty;
+                        if (item.response == 68063) ViewBag.Q44187 = item.comment;
+                        break;
+                    case 44188:
+                        ViewBag.Checkbox44188_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44188_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44188 = item.comment;
+                        break;
+                    case 44201:
+                        ViewBag.Checkbox44201_Yes = item.response == 68086 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44201_No = item.response == 68087 ? _chacked : string.Empty;
+                        ViewBag.Checkbox44201_NA = item.response == 68088 ? _chacked : string.Empty;
+                        if (item.response == 68087) ViewBag.Q44201 = item.comment;
+                        break;
+                    case 44202:
+                        ViewBag.Checkbox44202_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44202_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 44204:
+                        ViewBag.Checkbox44204_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44204_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44204 = item.comment;
+                        break;
+                    case 44203:
+                        ViewBag.Checkbox44203_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 44207:
+                        ViewBag.Checkbox44207_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44207_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44207 = item.comment;
+                        break;
+                    case 44206:
+                        ViewBag.Checkbox44206_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 44205:
+                        ViewBag.Q44205 = item.comment;
+                        break;
+                    case 44208:
+                        ViewBag.Q44208 = item.comment;
+                        break;
+                    case 44211:
+                        ViewBag.Q44211 = item.comment;
+                        break;
+                    case 44210:
+                        ViewBag.Checkbox44210_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44210_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44210 = item.comment;
+                        break;
+                    case 44209:
+                        ViewBag.Checkbox44209_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 44213:
+                        ViewBag.Checkbox44213_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44213_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44213 = item.comment;
+                        break;
+                    case 44212:
+                        ViewBag.Checkbox44212_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 44214:
+                        ViewBag.Q44214 = item.comment;
+                        break;
+                    case 44216:
+                        ViewBag.Checkbox44216_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44216_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44216 = item.comment;
+                        break;
+                    case 44215:
+                        ViewBag.Checkbox44215_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 44217:
+                        ViewBag.Q44217 = item.comment;
+                        break;
+                    case 44219:
+                        ViewBag.Checkbox44219_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44219_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44219 = item.comment;
+                        break;
+                    case 44218:
+                        ViewBag.Checkbox44218_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        break;
+                    case 44220:
+                        ViewBag.Q44220 = item.comment;
+                        break;
+                    case 44181:
+                        ViewBag.Checkbox44181_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox44181_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO) ViewBag.Q44181 = item.comment;
                         break;
                 }
             }
