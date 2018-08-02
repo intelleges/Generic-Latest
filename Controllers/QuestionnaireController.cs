@@ -200,6 +200,13 @@ namespace Generic.Controllers
             return RedirectToAction("home", "admin");
         }
 
+        [AllowAnonymous]
+        public ActionResult QuestionnaireDetailQuestion2(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
+        {
+            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+            return RedirectToAction("home", "admin");
+        }
+
         [Authorize]
         public ActionResult QuestionnaireDetailView(int id, int? ptqId, int? questionId, int? partnerId, int? responseId)
         {
