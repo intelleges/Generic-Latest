@@ -1210,13 +1210,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
             var person = db.pr_getPerson(pptqObj.invitedBy).FirstOrDefault();
 
-            var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", 
+            var url1 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire",
                 new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 74, email = emailTo })).ToString();
 
-            var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", 
+            var url2 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire",
                 new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = 75, email = emailTo })).ToString();
 
-            var url3 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire", 
+            var url3 = new Uri(new Uri(this.Request.Url.GetLeftPart(UriPartial.Authority)), Url.Action("QuestionnaireDetailQuestion", "Questionnaire",
                 new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqObj.id, questionId = qnextId, partnerId = partnerName.id, responseId = -1, email = emailTo })).ToString();
 
             objamm.subject = "Supplier Responsibility Assessment for " + partnerName.name + " " + accessCode;
@@ -9270,6 +9270,8 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            if (db.pr_getCountry(_partner.country).Count() > 0)
+                ViewBag.Country = db.pr_getCountry(_partner.country).First().name;
 
             var m = db.pr_getPerson(pptq.invitedBy).FirstOrDefault();
             if (m != null)
