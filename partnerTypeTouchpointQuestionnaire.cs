@@ -33,9 +33,9 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnerPartnertypeTouchpointQuestionnaire> partnerPartnertypeTouchpointQuestionnaire { get; set; }
         public virtual partnerType partnerType1 { get; set; }
-        public virtual questionnaire questionnaire1 { get; set; }
         public virtual touchpoint touchpoint1 { get; set; }
-        public virtual questionnaire questionnaire2 { get; set; }
         public virtual touchpoint touchpoint2 { get; set; }
+        public virtual questionnaire questionnaire1 { get; set; }
+        public virtual questionnaire questionnaire2 { get; set; }
     }
 }

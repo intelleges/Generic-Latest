@@ -17,8 +17,8 @@ namespace Generic
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public questionnaireLevelType()
         {
-            this.questionnaire = new HashSet<questionnaire>();
             this.enterprise = new HashSet<enterprise>();
+            this.questionnaire = new HashSet<questionnaire>();
         }
     
         public int id { get; set; }
@@ -27,8 +27,8 @@ namespace Generic
         public Nullable<int> active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<questionnaire> questionnaire { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<enterprise> enterprise { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<questionnaire> questionnaire { get; set; }
     }
 }

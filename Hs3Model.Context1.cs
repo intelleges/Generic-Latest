@@ -90,7 +90,6 @@ namespace Generic
         public virtual DbSet<query> query { get; set; }
         public virtual DbSet<queryFieldQuestion> queryFieldQuestion { get; set; }
         public virtual DbSet<questionLanguage> questionLanguage { get; set; }
-        public virtual DbSet<questionnaire> questionnaire { get; set; }
         public virtual DbSet<questionResponse> questionResponse { get; set; }
         public virtual DbSet<questionTranslation> questionTranslation { get; set; }
         public virtual DbSet<rating> rating { get; set; }
@@ -229,6 +228,7 @@ namespace Generic
         public virtual DbSet<cid> cid { get; set; }
         public virtual DbSet<far> far { get; set; }
         public virtual DbSet<response> response { get; set; }
+        public virtual DbSet<questionnaire> questionnaire { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -1566,59 +1566,6 @@ namespace Generic
                 new ObjectParameter("language", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addQuestionLanguage", questionParameter, languageParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaire(string title, string description, string footer, Nullable<int> locked, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> multiLanguage, Nullable<int> enterprise, Nullable<int> person, Nullable<int> partnerType, Nullable<int> letter, Nullable<int> levelType)
-        {
-            var titleParameter = title != null ?
-                new ObjectParameter("title", title) :
-                new ObjectParameter("title", typeof(string));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var footerParameter = footer != null ?
-                new ObjectParameter("footer", footer) :
-                new ObjectParameter("footer", typeof(string));
-    
-            var lockedParameter = locked.HasValue ?
-                new ObjectParameter("locked", locked) :
-                new ObjectParameter("locked", typeof(int));
-    
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
-    
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(int));
-    
-            var multiLanguageParameter = multiLanguage.HasValue ?
-                new ObjectParameter("multiLanguage", multiLanguage) :
-                new ObjectParameter("multiLanguage", typeof(int));
-    
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
-    
-            var partnerTypeParameter = partnerType.HasValue ?
-                new ObjectParameter("partnerType", partnerType) :
-                new ObjectParameter("partnerType", typeof(int));
-    
-            var letterParameter = letter.HasValue ?
-                new ObjectParameter("letter", letter) :
-                new ObjectParameter("letter", typeof(int));
-    
-            var levelTypeParameter = levelType.HasValue ?
-                new ObjectParameter("levelType", levelType) :
-                new ObjectParameter("levelType", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaire", titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter, enterpriseParameter, personParameter, partnerTypeParameter, letterParameter, levelTypeParameter);
         }
     
         public virtual int pr_addQuestionnaireLevel(Nullable<int> enterprise, Nullable<int> questionnaireLevel)
@@ -23596,6 +23543,59 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addResponse", descriptionParameter, zcodeParameter, sortOrderParameter, activeParameter, enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaire(string title, string description, string footer, Nullable<int> locked, Nullable<int> sortOrder, Nullable<int> active, Nullable<int> multiLanguage, Nullable<int> enterprise, Nullable<int> person, Nullable<int> partnerType, Nullable<int> letter, Nullable<int> levelType)
+        {
+            var titleParameter = title != null ?
+                new ObjectParameter("title", title) :
+                new ObjectParameter("title", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var footerParameter = footer != null ?
+                new ObjectParameter("footer", footer) :
+                new ObjectParameter("footer", typeof(string));
+    
+            var lockedParameter = locked.HasValue ?
+                new ObjectParameter("locked", locked) :
+                new ObjectParameter("locked", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            var multiLanguageParameter = multiLanguage.HasValue ?
+                new ObjectParameter("multiLanguage", multiLanguage) :
+                new ObjectParameter("multiLanguage", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var partnerTypeParameter = partnerType.HasValue ?
+                new ObjectParameter("partnerType", partnerType) :
+                new ObjectParameter("partnerType", typeof(int));
+    
+            var letterParameter = letter.HasValue ?
+                new ObjectParameter("letter", letter) :
+                new ObjectParameter("letter", typeof(int));
+    
+            var levelTypeParameter = levelType.HasValue ?
+                new ObjectParameter("levelType", levelType) :
+                new ObjectParameter("levelType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaire", titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter, enterpriseParameter, personParameter, partnerTypeParameter, letterParameter, levelTypeParameter);
         }
     }
 }

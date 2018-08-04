@@ -1823,8 +1823,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="title" Type="varchar" MaxLength="100" />
-          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="title" Type="varchar(max)" />
+          <Property Name="description" Type="varchar(max)" />
           <Property Name="footer" Type="varchar" MaxLength="100" />
           <Property Name="locked" Type="int" />
           <Property Name="sortOrder" Type="int" />
@@ -1920,14 +1920,6 @@
           <Property Name="emailAlert" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="emailAlertList" Type="varchar(max)" Nullable="false" />
           <Property Name="questionnaire" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="questionnairePage">
-          <Key>
-            <PropertyRef Name="questionnaire" />
-            <PropertyRef Name="page" />
-          </Key>
-          <Property Name="questionnaire" Type="int" Nullable="false" />
-          <Property Name="page" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="questionnaireQuestionnaireCMS">
           <Key>
@@ -2497,14 +2489,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.touchpointPartnerRerouter' does no
           <Property Name="body" Type="varchar" MaxLength="5000" />
           <Property Name="isSendToPartner" Type="bit" />
           <Property Name="isSendToUser" Type="bit" />
-        </EntityType>
-        <EntityType Name="touchpointQuestionnaire_deprecated">
-          <Key>
-            <PropertyRef Name="touchpoint" />
-            <PropertyRef Name="questionnaire" />
-          </Key>
-          <Property Name="touchpoint" Type="int" Nullable="false" />
-          <Property Name="questionnaire" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="touchpointQuestionResponseValue_deprecated">
           <Key>
@@ -3987,30 +3971,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_questionnairePage_page">
-          <End Role="page" Type="Self.page" Multiplicity="1" />
-          <End Role="questionnairePage" Type="Self.questionnairePage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="page">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnairePage">
-              <PropertyRef Name="page" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_questionnairePage_questionnaire">
-          <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
-          <End Role="questionnairePage" Type="Self.questionnairePage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnairePage">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_questionnaireQuestionnaireCMS_questionnaire">
           <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
           <End Role="questionnaireQuestionnaireCMS" Type="Self.questionnaireQuestionnaireCMS" Multiplicity="*" />
@@ -4403,30 +4363,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="touchpointPartnerTypeScoreAutoMail">
-              <PropertyRef Name="touchpoint" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_touchpointQuestionnaire_questionnaire">
-          <End Role="questionnaire" Type="Self.questionnaire" Multiplicity="1" />
-          <End Role="touchpointQuestionnaire_deprecated" Type="Self.touchpointQuestionnaire_deprecated" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpointQuestionnaire_deprecated">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_touchpointQuestionnaire_touchpoint">
-          <End Role="touchpoint" Type="Self.touchpoint" Multiplicity="1" />
-          <End Role="touchpointQuestionnaire_deprecated" Type="Self.touchpointQuestionnaire_deprecated" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="touchpoint">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="touchpointQuestionnaire_deprecated">
               <PropertyRef Name="touchpoint" />
             </Dependent>
           </ReferentialConstraint>
@@ -5647,8 +5583,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="language" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_addQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="title" Type="varchar" Mode="In" />
-          <Parameter Name="description" Type="varchar" Mode="In" />
+          <Parameter Name="title" Type="varchar(max)" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
           <Parameter Name="footer" Type="varchar" Mode="In" />
           <Parameter Name="locked" Type="int" Mode="In" />
           <Parameter Name="sortOrder" Type="int" Mode="In" />
@@ -10529,7 +10465,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="questionnaireLevel" EntityType="Self.questionnaireLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLevelType" EntityType="Self.questionnaireLevelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireLoad" EntityType="Self.questionnaireLoad" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="questionnairePage" EntityType="Self.questionnairePage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireQuestionnaireCMS" EntityType="Self.questionnaireQuestionnaireCMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireRule" EntityType="Self.questionnaireRule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="questionnaireRuleActionDateType" EntityType="Self.questionnaireRuleActionDateType" Schema="dbo" store:Type="Tables" />
@@ -10575,7 +10510,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="touchpoint" EntityType="Self.touchpoint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointGroup" EntityType="Self.touchpointGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointPartnerTypeScoreAutoMail" EntityType="Self.touchpointPartnerTypeScoreAutoMail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="touchpointQuestionnaire_deprecated" EntityType="Self.touchpointQuestionnaire_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointQuestionResponseValue_deprecated" EntityType="Self.touchpointQuestionResponseValue_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointQuestionWeight_deprecated" EntityType="Self.touchpointQuestionWeight_deprecated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="touchpointTarget" EntityType="Self.touchpointTarget" Schema="dbo" store:Type="Tables" />
@@ -11202,14 +11136,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <End Role="questionnaireLevelType" EntitySet="questionnaireLevelType" />
             <End Role="questionnaireLevel" EntitySet="questionnaireLevel" />
           </AssociationSet>
-          <AssociationSet Name="FK_questionnairePage_page" Association="Self.FK_questionnairePage_page">
-            <End Role="page" EntitySet="page" />
-            <End Role="questionnairePage" EntitySet="questionnairePage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_questionnairePage_questionnaire" Association="Self.FK_questionnairePage_questionnaire">
-            <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="questionnairePage" EntitySet="questionnairePage" />
-          </AssociationSet>
           <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaire" Association="Self.FK_questionnaireQuestionnaireCMS_questionnaire">
             <End Role="questionnaire" EntitySet="questionnaire" />
             <End Role="questionnaireQuestionnaireCMS" EntitySet="questionnaireQuestionnaireCMS" />
@@ -11342,14 +11268,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="touchpointPartnerTypeScoreAutoMail" EntitySet="touchpointPartnerTypeScoreAutoMail" />
           </AssociationSet>
-          <AssociationSet Name="FK_touchpointQuestionnaire_questionnaire" Association="Self.FK_touchpointQuestionnaire_questionnaire">
-            <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="touchpointQuestionnaire_deprecated" EntitySet="touchpointQuestionnaire_deprecated" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointQuestionnaire_touchpoint" Association="Self.FK_touchpointQuestionnaire_touchpoint">
-            <End Role="touchpoint" EntitySet="touchpoint" />
-            <End Role="touchpointQuestionnaire_deprecated" EntitySet="touchpointQuestionnaire_deprecated" />
-          </AssociationSet>
           <AssociationSet Name="FK_touchpointQuestionResponseValue_touchpoint" Association="Self.FK_touchpointQuestionResponseValue_touchpoint">
             <End Role="touchpoint" EntitySet="touchpoint" />
             <End Role="touchpointQuestionResponseValue_deprecated" EntitySet="touchpointQuestionResponseValue_deprecated" />
@@ -11432,7 +11350,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="query" EntityType="hs3MVCMTQa2Model.query" />
           <EntitySet Name="queryFieldQuestion" EntityType="hs3MVCMTQa2Model.queryFieldQuestion" />
           <EntitySet Name="questionLanguage" EntityType="hs3MVCMTQa2Model.questionLanguage" />
-          <EntitySet Name="questionnaire" EntityType="hs3MVCMTQa2Model.questionnaire" />
           <EntitySet Name="questionResponse" EntityType="hs3MVCMTQa2Model.questionResponse" />
           <EntitySet Name="questionTranslation" EntityType="hs3MVCMTQa2Model.questionTranslation" />
           <EntitySet Name="rating" EntityType="hs3MVCMTQa2Model.rating" />
@@ -11610,16 +11527,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <End EntitySet="partnerType" Role="partnerType" />
             <End EntitySet="partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
-          <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire">
-            <End EntitySet="questionnaire" Role="questionnaire" />
-            <End EntitySet="partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" />
-          </AssociationSet>
           <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_touchpoint">
             <End EntitySet="touchpoint" Role="touchpoint" />
-            <End EntitySet="partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" />
-          </AssociationSet>
-          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-            <End EntitySet="questionnaire" Role="questionnaire" />
             <End EntitySet="partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" />
           </AssociationSet>
           <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_touchpoint" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint">
@@ -11706,17 +11615,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <End EntitySet="group" Role="group" />
             <End EntitySet="person" Role="person" />
           </AssociationSet>
-          <AssociationSet Name="questionnairePage" Association="hs3MVCMTQa2Model.questionnairePage">
-            <End EntitySet="page" Role="page" />
-            <End EntitySet="questionnaire" Role="questionnaire" />
-          </AssociationSet>
           <AssociationSet Name="surveySetSurvey" Association="hs3MVCMTQa2Model.surveySetSurvey">
             <End EntitySet="survey" Role="survey" />
             <End EntitySet="surveyset" Role="surveyset" />
-          </AssociationSet>
-          <AssociationSet Name="touchpointQuestionnaire_deprecated" Association="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated">
-            <End EntitySet="questionnaire" Role="questionnaire" />
-            <End EntitySet="touchpoint" Role="touchpoint" />
           </AssociationSet>
           <FunctionImport Name="pr_addAgency" ReturnType="Collection(Decimal)">
             <Parameter Name="description" Mode="In" Type="String" />
@@ -12080,20 +11981,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_addQuestionLanguage">
             <Parameter Name="question" Mode="In" Type="Int32" />
             <Parameter Name="language" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_addQuestionnaire" ReturnType="Collection(Decimal)">
-            <Parameter Name="title" Mode="In" Type="String" />
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="footer" Mode="In" Type="String" />
-            <Parameter Name="locked" Mode="In" Type="Int32" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Int32" />
-            <Parameter Name="multiLanguage" Mode="In" Type="Int32" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="person" Mode="In" Type="Int32" />
-            <Parameter Name="partnerType" Mode="In" Type="Int32" />
-            <Parameter Name="letter" Mode="In" Type="Int32" />
-            <Parameter Name="levelType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_addQuestionnaireLevel">
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
@@ -13856,10 +13743,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <End EntitySet="partner" Role="partner" />
             <End EntitySet="partnumber" Role="partnumber" />
           </AssociationSet>
-          <AssociationSet Name="FK_questionnaire_questionnaireLevelType" Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType">
-            <End EntitySet="questionnaireLevelType" Role="questionnaireLevelType" />
-            <End EntitySet="questionnaire" Role="questionnaire" />
-          </AssociationSet>
           <AssociationSet Name="questionnaireLevel1" Association="hs3MVCMTQa2Model.questionnaireLevel1">
             <End EntitySet="enterprise" Role="enterprise" />
             <End EntitySet="questionnaireLevelType" Role="questionnaireLevelType" />
@@ -14333,14 +14216,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="questionnaireRule" EntityType="hs3MVCMTQa2Model.questionnaireRule" />
           <EntitySet Name="questionnaireRuleActionDateType" EntityType="hs3MVCMTQa2Model.questionnaireRuleActionDateType" />
           <EntitySet Name="questionnaireRuleTargetType" EntityType="hs3MVCMTQa2Model.questionnaireRuleTargetType" />
-          <AssociationSet Name="FK_questionnaireRule_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire">
-            <End EntitySet="questionnaire" Role="questionnaire" />
-            <End EntitySet="questionnaireRule" Role="questionnaireRule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_questionnaireRule_questionnaire1" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1">
-            <End EntitySet="questionnaire" Role="questionnaire" />
-            <End EntitySet="questionnaireRule" Role="questionnaireRule" />
-          </AssociationSet>
           <AssociationSet Name="FK_questionnaireRule_questionnaireRuleActionDateType" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType">
             <End EntitySet="questionnaireRuleActionDateType" Role="questionnaireRuleActionDateType" />
             <End EntitySet="questionnaireRule" Role="questionnaireRule" />
@@ -16406,10 +16281,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </FunctionImport>
           <EntitySet Name="questionnaireCMS" EntityType="hs3MVCMTQa2Model.questionnaireCMS" />
           <EntitySet Name="questionnaireQuestionnaireCMS" EntityType="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" />
-          <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire">
-            <End Role="questionnaire" EntitySet="questionnaire" />
-            <End Role="questionnaireQuestionnaireCM" EntitySet="questionnaireQuestionnaireCMS" />
-          </AssociationSet>
           <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaireCMS" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS">
             <End Role="questionnaireCM" EntitySet="questionnaireCMS" />
             <End Role="questionnaireQuestionnaireCM" EntitySet="questionnaireQuestionnaireCMS" />
@@ -18319,6 +18190,45 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
             <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="questionnaire" EntityType="hs3MVCMTQa2Model.questionnaire" />
+          <AssociationSet Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="partnerTypeTouchpointQuestionnaire" EntitySet="partnerTypeTouchpointQuestionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaire_questionnaireLevelType" Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType">
+            <End Role="questionnaireLevelType" EntitySet="questionnaireLevelType" />
+            <End Role="questionnaire" EntitySet="questionnaire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireQuestionnaireCMS_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireQuestionnaireCMS" EntitySet="questionnaireQuestionnaireCMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaire" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_questionnaireRule_questionnaire1" Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1">
+            <End Role="questionnaire" EntitySet="questionnaire" />
+            <End Role="questionnaireRule" EntitySet="questionnaireRule" />
+          </AssociationSet>
+          <FunctionImport Name="pr_addQuestionnaire" ReturnType="Collection(Decimal)">
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="footer" Mode="In" Type="String" />
+            <Parameter Name="locked" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Int32" />
+            <Parameter Name="multiLanguage" Mode="In" Type="Int32" />
+            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+            <Parameter Name="person" Mode="In" Type="Int32" />
+            <Parameter Name="partnerType" Mode="In" Type="Int32" />
+            <Parameter Name="letter" Mode="In" Type="Int32" />
+            <Parameter Name="levelType" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -18725,7 +18635,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Boolean" />
           <NavigationProperty Name="surveyset" Relationship="hs3MVCMTQa2Model.pageSurveyset" FromRole="page" ToRole="surveyset" />
-          <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.questionnairePage" FromRole="page" ToRole="questionnaire" />
         </EntityType>
         <EntityType Name="partner">
           <Key>
@@ -19120,10 +19029,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <NavigationProperty Name="autoMailMessage" Relationship="hs3MVCMTQa2Model.FK_autoMailMessage_partnerTypeTouchpointQuestionnaire" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="autoMailMessage" />
           <NavigationProperty Name="partnerPartnertypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="partnerPartnertypeTouchpointQuestionnaire" />
           <NavigationProperty Name="partnerType1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="partnerType" />
-          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="questionnaire" />
           <NavigationProperty Name="touchpoint1" Relationship="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_touchpoint" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="touchpoint" />
-          <NavigationProperty Name="questionnaire2" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="questionnaire" />
           <NavigationProperty Name="touchpoint2" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="touchpoint" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="questionnaire" />
+          <NavigationProperty Name="questionnaire2" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="partnerTypeTouchpointQuestionnaire" ToRole="questionnaire" />
         </EntityType>
         <EntityType Name="person">
           <Key>
@@ -19306,32 +19215,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="question" Nullable="false" Type="Int32" />
           <Property Name="language" Nullable="false" Type="Int32" />
           <NavigationProperty Name="language1" Relationship="hs3MVCMTQa2Model.FK_questionLanguage_language" FromRole="questionLanguage" ToRole="language" />
-        </EntityType>
-        <EntityType Name="questionnaire">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="person" Nullable="false" Type="Int32" />
-          <Property Name="partnerType" Nullable="false" Type="Int32" />
-          <Property Name="letter" Type="Int32" />
-          <Property Name="title" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="description" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="footer" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="locked" Type="Int32" />
-          <Property Name="sortOrder" Type="Int32" />
-          <Property Name="active" Type="Int32" />
-          <Property Name="multiLanguage" Type="Int32" />
-          <Property Name="enterprise" Type="Int32" />
-          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
-          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
-          <NavigationProperty Name="page" Relationship="hs3MVCMTQa2Model.questionnairePage" FromRole="questionnaire" ToRole="page" />
-          <NavigationProperty Name="touchpoint" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="questionnaire" ToRole="touchpoint" />
-          <Property Name="levelType" Type="Int32" />
-          <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaire" ToRole="questionnaireLevelType" />
-          <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaire" ToRole="questionnaireRule" />
-          <NavigationProperty Name="questionnaireRule1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaire" ToRole="questionnaireRule" />
-          <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaire" ToRole="questionnaireQuestionnaireCM" />
         </EntityType>
         <EntityType Name="questionResponse">
           <Key>
@@ -19577,7 +19460,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <NavigationProperty Name="touchpointPartnerTypeScoreAutoMail" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeScoreAutoMail_touchpoint" FromRole="touchpoint" ToRole="touchpointPartnerTypeScoreAutoMail" />
           <NavigationProperty Name="touchpointQuestionResponseValue_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionResponseValue_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionResponseValue_deprecated" />
           <NavigationProperty Name="touchpointQuestionWeight_deprecated" Relationship="hs3MVCMTQa2Model.FK_touchpointQuestionWeight_touchpoint" FromRole="touchpoint" ToRole="touchpointQuestionWeight_deprecated" />
-          <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" FromRole="touchpoint" ToRole="questionnaire" />
           <Property Type="String" Name="purpose" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="target" />
           <NavigationProperty Name="touchpointTarget" Relationship="hs3MVCMTQa2Model.FK_touchpoint_touchpointTarget" FromRole="touchpoint" ToRole="touchpointTarget" />
@@ -20143,18 +20025,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="1" Role="questionnaire" />
-          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Multiplicity="*" Role="partnerTypeTouchpointQuestionnaire" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerTypeTouchpointQuestionnaire">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_partnerTypeTouchpointQuestionnaire_touchpoint">
           <End Type="hs3MVCMTQa2Model.touchpoint" Multiplicity="1" Role="touchpoint" />
           <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Multiplicity="*" Role="partnerTypeTouchpointQuestionnaire" />
@@ -20164,18 +20034,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Principal>
             <Dependent Role="partnerTypeTouchpointQuestionnaire">
               <PropertyRef Name="touchpoint" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="1" Role="questionnaire" />
-          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Multiplicity="*" Role="partnerTypeTouchpointQuestionnaire" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="partnerTypeTouchpointQuestionnaire">
-              <PropertyRef Name="questionnaire" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -20399,17 +20257,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <End Type="hs3MVCMTQa2Model.group" Multiplicity="*" Role="group" />
           <End Type="hs3MVCMTQa2Model.person" Multiplicity="*" Role="person" />
         </Association>
-        <Association Name="questionnairePage">
-          <End Type="hs3MVCMTQa2Model.page" Multiplicity="*" Role="page" />
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="*" Role="questionnaire" />
-        </Association>
         <Association Name="surveySetSurvey">
           <End Type="hs3MVCMTQa2Model.survey" Multiplicity="*" Role="survey" />
           <End Type="hs3MVCMTQa2Model.surveyset" Multiplicity="*" Role="surveyset" />
-        </Association>
-        <Association Name="touchpointQuestionnaire_deprecated">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="*" Role="questionnaire" />
-          <End Type="hs3MVCMTQa2Model.touchpoint" Multiplicity="*" Role="touchpoint" />
         </Association>
         <ComplexType Name="pr_findUserRole_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -22487,8 +22337,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="description" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="sortOrder" Type="Int32" />
           <Property Name="active" Type="Int32" />
-          <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaireLevelType" ToRole="questionnaire" />
           <NavigationProperty Name="enterprise" Relationship="hs3MVCMTQa2Model.questionnaireLevel1" FromRole="questionnaireLevelType" ToRole="enterprise" />
+          <NavigationProperty Name="questionnaire" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaireLevelType" ToRole="questionnaire" />
         </EntityType>
         <EntityType Name="site">
           <Key>
@@ -22525,18 +22375,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </Principal>
             <Dependent Role="partnumber">
               <PropertyRef Name="partner" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_questionnaire_questionnaireLevelType">
-          <End Type="hs3MVCMTQa2Model.questionnaireLevelType" Multiplicity="0..1" Role="questionnaireLevelType" />
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="*" Role="questionnaire" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaireLevelType">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnaire">
-              <PropertyRef Name="levelType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -23284,10 +23122,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="actionDateSet" Precision="0" Type="DateTime" />
           <Property Name="questionnaire" Nullable="false" Type="Int32" />
           <Property Name="active" Nullable="false" Type="Boolean" />
-          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaireRule" ToRole="questionnaire" />
-          <NavigationProperty Name="questionnaire2" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaireRule" ToRole="questionnaire" />
           <NavigationProperty Name="questionnaireRuleActionDateType" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType" FromRole="questionnaireRule" ToRole="questionnaireRuleActionDateType" />
           <NavigationProperty Name="questionnaireRuleTargetType" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" FromRole="questionnaireRule" ToRole="questionnaireRuleTargetType" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaireRule" ToRole="questionnaire" />
+          <NavigationProperty Name="questionnaire2" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaireRule" ToRole="questionnaire" />
         </EntityType>
         <EntityType Name="questionnaireRuleActionDateType">
           <Key>
@@ -23309,30 +23147,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="active" Nullable="false" Type="Boolean" />
           <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" FromRole="questionnaireRuleTargetType" ToRole="questionnaireRule" />
         </EntityType>
-        <Association Name="FK_questionnaireRule_questionnaire">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="1" Role="questionnaire" />
-          <End Type="hs3MVCMTQa2Model.questionnaireRule" Multiplicity="*" Role="questionnaireRule" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnaireRule">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_questionnaireRule_questionnaire1">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Multiplicity="0..1" Role="questionnaire" />
-          <End Type="hs3MVCMTQa2Model.questionnaireRule" Multiplicity="*" Role="questionnaireRule" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnaireRule">
-              <PropertyRef Name="questionnaireToSend" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_questionnaireRule_questionnaireRuleActionDateType">
           <End Type="hs3MVCMTQa2Model.questionnaireRuleActionDateType" Multiplicity="1" Role="questionnaireRuleActionDateType" />
           <End Type="hs3MVCMTQa2Model.questionnaireRule" Multiplicity="*" Role="questionnaireRule" />
@@ -26673,21 +26487,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="doc" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="uploadedFileType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaireQuestionnaireCM" ToRole="questionnaire" />
           <NavigationProperty Name="questionnaireCMS1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" FromRole="questionnaireQuestionnaireCM" ToRole="questionnaireCM" />
+          <NavigationProperty Name="questionnaire1" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaireQuestionnaireCMS" ToRole="questionnaire" />
         </EntityType>
-        <Association Name="FK_questionnaireQuestionnaireCMS_questionnaire">
-          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
-          <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="questionnaire">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="questionnaireQuestionnaireCM">
-              <PropertyRef Name="questionnaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_questionnaireQuestionnaireCMS_questionnaireCMS">
           <End Type="hs3MVCMTQa2Model.questionnaireCMS" Role="questionnaireCM" Multiplicity="1" />
           <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCM" Multiplicity="*" />
@@ -31286,6 +31088,102 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <End Type="hs3MVCMTQa2Model.language" Role="language" Multiplicity="*" />
           <End Type="hs3MVCMTQa2Model.response" Role="response" Multiplicity="*" />
         </Association>
+        <EntityType Name="questionnaire">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="footer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="locked" Type="Int32" />
+          <Property Name="sortOrder" Type="Int32" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="multiLanguage" Type="Int32" />
+          <Property Name="enterprise" Type="Int32" />
+          <Property Name="person" Type="Int32" Nullable="false" />
+          <Property Name="partnerType" Type="Int32" Nullable="false" />
+          <Property Name="letter" Type="Int32" />
+          <Property Name="levelType" Type="Int32" />
+          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire" Relationship="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
+          <NavigationProperty Name="partnerTypeTouchpointQuestionnaire1" Relationship="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" FromRole="questionnaire" ToRole="partnerTypeTouchpointQuestionnaire" />
+          <NavigationProperty Name="questionnaireLevelType" Relationship="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" FromRole="questionnaire" ToRole="questionnaireLevelType" />
+          <NavigationProperty Name="questionnaireQuestionnaireCMS" Relationship="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" FromRole="questionnaire" ToRole="questionnaireQuestionnaireCMS" />
+          <NavigationProperty Name="questionnaireRule" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" FromRole="questionnaire" ToRole="questionnaireRule" />
+          <NavigationProperty Name="questionnaireRule1" Relationship="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" FromRole="questionnaire" ToRole="questionnaireRule" />
+        </EntityType>
+        <Association Name="FK_partnerTypeTouchpointQuestionnaire_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_touchpointPartnerTypeQuestionnaire_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" Role="partnerTypeTouchpointQuestionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="partnerTypeTouchpointQuestionnaire">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaire_questionnaireLevelType">
+          <End Type="hs3MVCMTQa2Model.questionnaireLevelType" Role="questionnaireLevelType" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaireLevelType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaire">
+              <PropertyRef Name="levelType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireQuestionnaireCMS_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Role="questionnaireQuestionnaireCMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireQuestionnaireCMS">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaire">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireRule" Role="questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="questionnaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_questionnaireRule_questionnaire1">
+          <End Type="hs3MVCMTQa2Model.questionnaire" Role="questionnaire" Multiplicity="0..1" />
+          <End Type="hs3MVCMTQa2Model.questionnaireRule" Role="questionnaireRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questionnaire">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="questionnaireRule">
+              <PropertyRef Name="questionnaireToSend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -32955,62 +32853,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="questionnaire">
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaire">
-              <MappingFragment StoreEntitySet="questionnaire">
-                <ScalarProperty Name="levelType" ColumnName="levelType" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="person" ColumnName="person" />
-                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
-                <ScalarProperty Name="letter" ColumnName="letter" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="footer" ColumnName="footer" />
-                <ScalarProperty Name="locked" ColumnName="locked" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-                <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaire">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaire">
-                  <ScalarProperty Name="levelType" ParameterName="levelType" />
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" />
-                  <ScalarProperty Name="multiLanguage" ParameterName="multiLanguage" />
-                  <ScalarProperty Name="active" ParameterName="active" />
-                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" />
-                  <ScalarProperty Name="locked" ParameterName="locked" />
-                  <ScalarProperty Name="footer" ParameterName="footer" />
-                  <ScalarProperty Name="description" ParameterName="description" />
-                  <ScalarProperty Name="title" ParameterName="title" />
-                  <ScalarProperty Name="letter" ParameterName="letter" />
-                  <ScalarProperty Name="partnerType" ParameterName="partnerType" />
-                  <ScalarProperty Name="person" ParameterName="person" />
-                  <ResultBinding Name="id" ColumnName="id" />
-                </InsertFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyQuestionnaire">
-                  <ScalarProperty Name="levelType" ParameterName="levelType" Version="Current" />
-                  <ScalarProperty Name="enterprise" ParameterName="enterprise" Version="Current" />
-                  <ScalarProperty Name="multiLanguage" ParameterName="multiLanguage" Version="Current" />
-                  <ScalarProperty Name="active" ParameterName="active" Version="Current" />
-                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
-                  <ScalarProperty Name="locked" ParameterName="locked" Version="Current" />
-                  <ScalarProperty Name="footer" ParameterName="footer" Version="Current" />
-                  <ScalarProperty Name="description" ParameterName="description" Version="Current" />
-                  <ScalarProperty Name="title" ParameterName="title" Version="Current" />
-                  <ScalarProperty Name="letter" ParameterName="letter" Version="Current" />
-                  <ScalarProperty Name="partnerType" ParameterName="partnerType" Version="Current" />
-                  <ScalarProperty Name="person" ParameterName="person" Version="Current" />
-                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-                </UpdateFunction>
-                <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeQuestionnaire">
-                  <ScalarProperty Name="id" ParameterName="id" />
-                </DeleteFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="questionResponse">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionResponse">
               <MappingFragment StoreEntitySet="questionResponse">
@@ -33620,28 +33462,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               <ScalarProperty Name="id" ColumnName="person" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="questionnairePage" TypeName="hs3MVCMTQa2Model.questionnairePage" StoreEntitySet="questionnairePage">
-            <EndProperty Name="page">
-              <ScalarProperty Name="id" ColumnName="page" />
-            </EndProperty>
-            <EndProperty Name="questionnaire">
-              <ScalarProperty Name="id" ColumnName="questionnaire" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="surveySetSurvey" TypeName="hs3MVCMTQa2Model.surveySetSurvey" StoreEntitySet="surveySetSurvey">
             <EndProperty Name="survey">
               <ScalarProperty Name="id" ColumnName="survey" />
             </EndProperty>
             <EndProperty Name="surveyset">
               <ScalarProperty Name="id" ColumnName="surveySet" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="touchpointQuestionnaire_deprecated" TypeName="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" StoreEntitySet="touchpointQuestionnaire_deprecated">
-            <EndProperty Name="questionnaire">
-              <ScalarProperty Name="id" ColumnName="questionnaire" />
-            </EndProperty>
-            <EndProperty Name="touchpoint">
-              <ScalarProperty Name="id" ColumnName="touchpoint" />
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pr_addAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_addAgency" />
@@ -33679,7 +33505,6 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_addPersonStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_addPersonStatus" />
           <FunctionImportMapping FunctionImportName="pr_addProtocol" FunctionName="hs3MVCMTQa2Model.Store.pr_addProtocol" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionLanguage" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionLanguage" />
-          <FunctionImportMapping FunctionImportName="pr_addQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaire" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionnaireLevel" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaireLevel" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionnairePage" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnairePage" />
           <FunctionImportMapping FunctionImportName="pr_addQuestionResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionResponse" />
@@ -43592,6 +43417,26 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pr_addResponse" FunctionName="hs3MVCMTQa2Model.Store.pr_addResponse" />
+          <EntitySetMapping Name="questionnaire">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.questionnaire">
+              <MappingFragment StoreEntitySet="questionnaire">
+                <ScalarProperty Name="levelType" ColumnName="levelType" />
+                <ScalarProperty Name="letter" ColumnName="letter" />
+                <ScalarProperty Name="partnerType" ColumnName="partnerType" />
+                <ScalarProperty Name="person" ColumnName="person" />
+                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
+                <ScalarProperty Name="multiLanguage" ColumnName="multiLanguage" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="footer" ColumnName="footer" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addQuestionnaire" FunctionName="hs3MVCMTQa2Model.Store.pr_addQuestionnaire" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

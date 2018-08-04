@@ -69,7 +69,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.query" PointX="14.75" PointY="7.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.queryFieldQuestion" PointX="14.75" PointY="10.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionLanguage" PointX="5.25" PointY="65.25" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaire" PointX="26.25" PointY="54" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionResponse" PointX="7.5" PointY="71" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionTranslation" PointX="8.25" PointY="66.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.rating" PointX="8.75" PointY="15.75" Width="1.5" IsExpanded="false" />
@@ -135,9 +134,7 @@
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_partnerTypeTouchpointQuestionnaire" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_partnerPartnertypeTouchpointQuestionnaire_person" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_partnerType" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_touchpoint" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_touchpoint" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_person_personStatus" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.FK_personRelationship_person" />
@@ -159,9 +156,7 @@
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.partnerGroup" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.partnerRelationshipOwner" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.personGroup" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.questionnairePage" />
         <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.surveySetSurvey" />
-        <AssociationConnector ManuallyRouted="false" Association="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" />
         <AssociationConnector Association="hs3MVCMTQa2Model.personRole1" />
         <AssociationConnector Association="hs3MVCMTQa2Model.personRole" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumber" PointX="0.4888265414577101" PointY="26.328223583441332" Width="1.5" IsExpanded="false" />
@@ -169,7 +164,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.site" PointX="11.775329556211517" PointY="7.0972659918932548" Width="1.5" IsExpanded="false" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_site_enterprise" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnumber_partner" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" />
         <AssociationConnector Association="hs3MVCMTQa2Model.questionnaireLevel1" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partNumberSiteZcodePPTQ" PointX="8.4841614554096765" PointY="10.33545421545182" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberStatus" PointX="5.20556900892666" PointY="25.939533752361097" Width="1.5" IsExpanded="false" />
@@ -194,8 +188,6 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireRule" PointX="4.875" PointY="19.125" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireRuleActionDateType" PointX="2.2858787152384776" PointY="9.5518853559866" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireRuleTargetType" PointX="4.5599218814447156" PointY="16.734965913339966" Width="1.5" IsExpanded="false" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleActionDateType" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaireRuleTargetType" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.calendar" PointX="8.9657377400275955" PointY="3.0341506316485587" Width="1.5" IsExpanded="false" />
@@ -280,7 +272,6 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireCMS" Width="2" PointX="29.25" PointY="51.5" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaireQuestionnaireCMS" Width="2.5" PointX="31.5" PointY="55.25" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaireCMS" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData" Width="1.5" PointX="22.375" PointY="17.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.siteIP" Width="1.5" PointX="23.375" PointY="0.75" />
@@ -326,6 +317,13 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_protocolTouchpointQuestionResponseValue_response" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_responseTranslation_response" />
         <AssociationConnector Association="hs3MVCMTQa2Model.responseLanguage" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionnaire" Width="1.5" PointX="13.875" PointY="30.75" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_partnerTypeTouchpointQuestionnaire_questionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_touchpointPartnerTypeQuestionnaire_questionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaire_questionnaireLevelType" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireQuestionnaireCMS_questionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,9 +27,9 @@ namespace Generic
         public int questionnaire { get; set; }
         public bool active { get; set; }
     
-        public virtual questionnaire questionnaire1 { get; set; }
-        public virtual questionnaire questionnaire2 { get; set; }
         public virtual questionnaireRuleActionDateType questionnaireRuleActionDateType { get; set; }
         public virtual questionnaireRuleTargetType questionnaireRuleTargetType { get; set; }
+        public virtual questionnaire questionnaire1 { get; set; }
+        public virtual questionnaire questionnaire2 { get; set; }
     }
 }

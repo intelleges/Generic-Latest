@@ -18,7 +18,6 @@ namespace Generic
         public page()
         {
             this.surveyset = new HashSet<surveyset>();
-            this.questionnaire = new HashSet<questionnaire>();
         }
     
         public int id { get; set; }
@@ -28,7 +27,5 @@ namespace Generic
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<surveyset> surveyset { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<questionnaire> questionnaire { get; set; }
     }
 }
