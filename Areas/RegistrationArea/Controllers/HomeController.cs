@@ -1529,6 +1529,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
         [HttpPost]
+        public ActionResult SetStatusAfterSorryAlert(int pptq)
+        {
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
+            if (pptqObj != null)
+            {
+                pptqObj.status = 10;
+                db.SaveChanges();
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+        [HttpPost]
         public ActionResult ValidateEmailAlerts(int pptq, int qids)
         {
             var q = db.pr_getQuestion(qids).First();

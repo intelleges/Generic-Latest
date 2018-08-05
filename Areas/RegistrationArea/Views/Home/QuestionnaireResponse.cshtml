@@ -197,8 +197,8 @@
         filter: grayscale(100%);
         opacity: 0.5;
     }
-    /*<div title="Tooltip text for first div" > </div > <div title="Tooltip text for second div" > </div >*/
-    /*tr[title].disabledRow:before {
+        /*<div title="Tooltip text for first div" > </div > <div title="Tooltip text for second div" > </div >*/
+        /*tr[title].disabledRow:before {
         content: attr(title);
         display: none;
     }
@@ -216,7 +216,7 @@
         z-index: 10;
         position: absolute;
     }*/
-        .disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option, .disabledRow + tr > td input, .disabledRow + tr > td label, .disabledRow + tr > td table, .disabledRow + tr + tr > td textarea{
+        .disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option, .disabledRow + tr > td input, .disabledRow + tr > td label, .disabledRow + tr > td table, .disabledRow + tr + tr > td textarea {
             pointer-events: none;
             cursor: default;
         }
@@ -284,15 +284,19 @@
                         .done(function (data) {
                             if (data.success == true) {
                                 alertify.alert('Congratulations your submission is approved!!!', function () {
-                                    canSubmit = true;
+                                   
                                     $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
+                                        canSubmit = true;
                                         $("#QuestionnaireResponse").submit();
                                     });
                                 });
                             }
                             else {
                                 alertify.alert(data.message, function () {
-                                    canSubmit = false;
+                                    
+$.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
+    canSubmit = false;
+                                    });
                                     //$("#QuestionnaireResponse").submit();
                                 });
                             }
