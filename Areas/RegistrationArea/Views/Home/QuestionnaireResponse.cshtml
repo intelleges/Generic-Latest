@@ -71,7 +71,7 @@
 <section class="page-inner">
     <div class="container">
         @Html.Partial("_TopSection")
-        @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse"}))
+        @using (Html.BeginForm("QuestionnaireResponse", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "QuestionnaireResponse" }))
         {
             <div class="progress-sub">
                 <div class="progress">
@@ -125,7 +125,7 @@
                     <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
                     <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
                     <input type="hidden" value="false" id="btnSaveForLater" name="btnSaveForLater" />
-                    <input type="hidden" value="@ViewBag.Qids" id="Qids" name="Qids"/>
+                    <input type="hidden" value="@ViewBag.Qids" id="Qids" name="Qids" />
                 </div>
                 <!--hidden-elements-->
 
@@ -285,7 +285,9 @@
                             if (data.success == true) {
                                 alertify.alert('Congratulations your submission is approved!!!', function () {
                                     canSubmit = true;
-                                    $("#QuestionnaireResponse").submit();
+                                    $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
+                                        $("#QuestionnaireResponse").submit();
+                                    });
                                 });
                             }
                             else {
