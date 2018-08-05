@@ -1626,14 +1626,8 @@ namespace Generic.Controllers
 
                         var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
                         amm.text.Replace("[partner Access Code]", accesscode);
-
-                        //  var objpartnerByAccessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaireDueDateByAccessCode(accesscode, loadGroup).FirstOrDefault();
-
-                        // if (objpartnerByAccessCode != null)
-                        // {
-
-                        // amm.text = amm.text.Replace("[Due Date]", DateTime.Parse(DueDate.ToString()).ToString("MMM, dd, yyyy"));
-                        // }
+                        if (DueDate.HasValue)
+                            amm.text = amm.text.Replace("[Due Date]", DueDate.Value.ToString("MMM, dd, yyyy"));
 
                         var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
                         Email email = new Email(amm);
@@ -2602,7 +2596,7 @@ namespace Generic.Controllers
                 else
                 {
                     var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(result.id).FirstOrDefault();
-                    model.pptq = pptq.id;                    
+                    model.pptq = pptq.id;
                 }
                 return Json(model);
             }
@@ -4645,11 +4639,12 @@ namespace Generic.Controllers
 
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
             var fm = db.pr_getFarMessage(pptq.partner).FirstOrDefault();
-            if (fm != null) {
+            if (fm != null)
+            {
                 msg = fm;
             }
-            
-            return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg= msg }, JsonRequestBehavior.AllowGet);
+
+            return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg = msg }, JsonRequestBehavior.AllowGet);
         }
 
         private DataTable GetResponsesTable(int pptqId, int levelType)
