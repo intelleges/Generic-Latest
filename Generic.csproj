@@ -5921,6 +5921,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\LCE\EditPartial.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireDetailQuestion.cshtml" />
+    <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionYes.cshtml" />
+    <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionNo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

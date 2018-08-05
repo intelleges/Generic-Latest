@@ -197,6 +197,22 @@ namespace Generic.Controllers
         public ActionResult QuestionnaireDetailQuestion(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
         {
             db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+            EntitiesDBContext db1 = new EntitiesDBContext();
+            var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
+            p.status = 8;
+            db1.SaveChanges();
+
+            var contactUs = 1;
+            ViewBag.returnUrl = "";
+            var enterprises = db.pr_getEnterprise(contactUs);
+            ViewBag.Project = "Generic";
+            ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
+            ViewBag.EnterpriseId = contactUs;
+
+            if (responseId == 75)
+                return View("QuestionnaireDetailQuestionNo", enterprises.FirstOrDefault());
+            else if (responseId == 74)
+                return View("QuestionnaireDetailQuestionYes", enterprises.FirstOrDefault());
             return RedirectToAction("home", "admin");
         }
 
@@ -204,6 +220,23 @@ namespace Generic.Controllers
         public ActionResult QuestionnaireDetailQuestion2(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
         {
             db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+            EntitiesDBContext db1 = new EntitiesDBContext();
+            var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
+            p.status = 8;
+            db1.SaveChanges();
+
+            var contactUs = 1;
+            ViewBag.returnUrl = "";
+            var enterprises = db.pr_getEnterprise(contactUs);
+            ViewBag.Project = "Generic";
+            ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
+            ViewBag.EnterpriseId = contactUs;
+
+            if (responseId == 75)
+                return View("QuestionnaireDetailQuestionNo", enterprises.FirstOrDefault());
+            else if (responseId == 74)
+                return View("QuestionnaireDetailQuestionYes", enterprises.FirstOrDefault());
+
             return RedirectToAction("home", "admin");
         }
 
@@ -1378,7 +1411,7 @@ namespace Generic.Controllers
                                     foreach (var responseValue in splittedResponses)
                                     {
                                         if (responseValue.Split("|".ToCharArray()).Length < 2)
-                                            throw new Exception("Value of list2list reponse type : "+ responseValue+" doesn't contain '|' seaprator symbol");
+                                            throw new Exception("Value of list2list reponse type : " + responseValue + " doesn't contain '|' seaprator symbol");
 
                                         response objResponse = new response();
                                         objResponse.active = true;
