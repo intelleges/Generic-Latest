@@ -1044,8 +1044,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 if (question.emailAlert != "A")
                                     answerId = -1;
 
-                                if (question.emailAlert == "A") //Added only for testing
-                                    SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text,
+                                SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text,
                                    keyPair[1].Replace(";", ""), ptq.questionnaire, question.id, answerId, qnextId);
                             }
                         }
