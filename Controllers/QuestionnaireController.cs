@@ -199,7 +199,8 @@ namespace Generic.Controllers
             db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
             EntitiesDBContext db1 = new EntitiesDBContext();
             var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
-            p.status = 8;
+            if(responseId == 75) p.status = 12;
+            else p.status = 8;
             db1.SaveChanges();
 
             var contactUs = 1;
@@ -222,7 +223,8 @@ namespace Generic.Controllers
             db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
             EntitiesDBContext db1 = new EntitiesDBContext();
             var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
-            p.status = 8;
+            if (responseId == 75) p.status = 12;
+            else p.status = 8;
             db1.SaveChanges();
 
             var contactUs = 1;
