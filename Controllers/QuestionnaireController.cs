@@ -210,6 +210,36 @@ namespace Generic.Controllers
             ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
             ViewBag.EnterpriseId = contactUs;
 
+            var pptqObj = p;
+            if (responseId == 74) {
+                var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                if (amm != null)
+                { 
+                    Email email1 = new Email(amm);
+                    var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
+                    email1.accesscode = pptqObj.accesscode;
+
+                    email1.protocolTouchpoint = objtouchpoint.description;
+                    EmailFormat emailFormat = new EmailFormat();
+                    email1.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email1.body = emailFormat.sGetEmailBody(email1.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email1.emailTo = pptqObj.partner1.email;
+                    email1.url = Request.Url.ToString();
+                    email1.category = SendGridCategory.QuestionnaireResponse;
+                    email1.automailMessage = amm.id.ToString();
+
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email1, new EmailFormatSettings()
+                    {
+                        sender = null,
+                        enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                        partner = pptqObj.partner1,
+                        ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                        touchpoint = objtouchpoint
+                    });
+                }
+            }
+
             if (responseId == 75)
                 return View("QuestionnaireDetailQuestionNo", enterprises.FirstOrDefault());
             else if (responseId == 74)
@@ -233,6 +263,37 @@ namespace Generic.Controllers
             ViewBag.Project = "Generic";
             ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
             ViewBag.EnterpriseId = contactUs;
+
+            var pptqObj = p;
+            if (responseId == 74)
+            {
+                var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                if (amm != null)
+                {
+                    Email email1 = new Email(amm);
+                    var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
+                    email1.accesscode = pptqObj.accesscode;
+
+                    email1.protocolTouchpoint = objtouchpoint.description;
+                    EmailFormat emailFormat = new EmailFormat();
+                    email1.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email1.body = emailFormat.sGetEmailBody(email1.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email1.emailTo = pptqObj.partner1.email;
+                    email1.url = Request.Url.ToString();
+                    email1.category = SendGridCategory.QuestionnaireResponse;
+                    email1.automailMessage = amm.id.ToString();
+
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email1, new EmailFormatSettings()
+                    {
+                        sender = null,
+                        enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                        partner = pptqObj.partner1,
+                        ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                        touchpoint = objtouchpoint
+                    });
+                }
+            }
 
             if (responseId == 75)
                 return View("QuestionnaireDetailQuestionNo", enterprises.FirstOrDefault());

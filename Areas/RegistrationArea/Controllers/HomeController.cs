@@ -9307,6 +9307,7 @@ Intelleges Team";
             {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
+            ViewBag.Accesscode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
