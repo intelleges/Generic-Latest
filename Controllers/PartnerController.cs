@@ -1831,17 +1831,25 @@ namespace Generic.Controllers
 
         }
 
-
-        public ActionResult ResetPdf(string accessCode)
+        public ActionResult ResetPdf(string accessCode, string internalID, string dunsNumber, string partnerName)
         {
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            if (pptq != null)
+            if (!string.IsNullOrEmpty(accessCode))
             {
-                db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq.id)
-                    ;
+                var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                if (pptq1 != null)
+                {
+                    db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq1.id)
+                        ;
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var id = db.pr_getReferenceByShadow(internalID == "" ? null : internalID, dunsNumber == "" ? null : dunsNumber, partnerName == "" ? null : partnerName).First().id;
+                db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(id);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PrintPDF(string accesscode)
@@ -4627,21 +4635,33 @@ namespace Generic.Controllers
         {
             var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
-
             string msg = null;
-            var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(pptqId, status).ToList();
             bool iscanprintPdf = false;
-            if (pptqs.Count > 0)
-            {
-                iscanprintPdf = true;
-                accessCode = pptqs[0].accesscode;
-            }
 
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
-            var fm = db.pr_getFarMessage(pptq.partner).FirstOrDefault();
-            if (fm != null)
+            if (status == 14)
             {
-                msg = fm;
+                var p = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
+                var id = db.pr_getReferenceByShadow(p.partner1.internalID == "" ? null : p.partner1.internalID, p.partner1.dunsNumber == "" ? null : p.partner1.dunsNumber, p.partner1.FullName == "" ? null : p.partner1.FullName).First().id;
+                var p1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(id).First();
+                accessCode = p1.accesscode;
+                msg = message.nextStep;
+            }
+            else {
+             
+                var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(pptqId, status).ToList();  
+                if (pptqs.Count > 0)
+                {
+                    iscanprintPdf = true;
+                    accessCode = pptqs[0].accesscode;
+                }
+
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
+                var fm = db.pr_getFarMessage(pptq.partner).FirstOrDefault();
+                if (fm != null)
+                {
+                    msg = fm;
+                }
+
             }
 
             return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg = msg }, JsonRequestBehavior.AllowGet);

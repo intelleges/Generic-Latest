@@ -23597,5 +23597,31 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaire", titleParameter, descriptionParameter, footerParameter, lockedParameter, sortOrderParameter, activeParameter, multiLanguageParameter, enterpriseParameter, personParameter, partnerTypeParameter, letterParameter, levelTypeParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getReferenceByShadowPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getReferenceByShadowPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getReferenceByShadow_Result> pr_getReferenceByShadow(string internalID, string dunsNumber, string name)
+        {
+            var internalIDParameter = internalID != null ?
+                new ObjectParameter("internalID", internalID) :
+                new ObjectParameter("internalID", typeof(string));
+    
+            var dunsNumberParameter = dunsNumber != null ?
+                new ObjectParameter("dunsNumber", dunsNumber) :
+                new ObjectParameter("dunsNumber", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReferenceByShadow_Result>("pr_getReferenceByShadow", internalIDParameter, dunsNumberParameter, nameParameter);
+        }
     }
 }

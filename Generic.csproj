@@ -2390,6 +2390,9 @@
     <Compile Include="pr_getRatingType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getReferenceByShadow_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getRegionAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
