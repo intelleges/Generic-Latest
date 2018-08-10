@@ -1831,7 +1831,7 @@ namespace Generic.Controllers
 
         }
 
-        public ActionResult ResetPdf(string accessCode, string internalID, string dunsNumber, string partnerName)
+        public ActionResult ResetPdf(string accessCode, string internalID, int? touchpoint)
         {
             if (!string.IsNullOrEmpty(accessCode))
             {
@@ -1846,7 +1846,7 @@ namespace Generic.Controllers
             }
             else
             {
-                var id = db.pr_getReferenceByShadow(internalID == "" ? null : internalID, dunsNumber == "" ? null : dunsNumber, partnerName == "" ? null : partnerName).First().id;
+                var id = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First().id;
                 db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(id);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -4631,7 +4631,7 @@ namespace Generic.Controllers
             return Json(message, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId, int status)
+        public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId, int status, int touchpoint)
         {
             var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
@@ -4641,7 +4641,8 @@ namespace Generic.Controllers
             if (status == 14)
             {
                 var p = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
-                var id = db.pr_getReferenceByShadow(p.partner1.internalID == "" ? null : p.partner1.internalID, p.partner1.dunsNumber == "" ? null : p.partner1.dunsNumber, p.partner1.FullName == "" ? null : p.partner1.FullName).First().id;
+                string internalID = p.partner1.internalID;
+                var id = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First().id;
                 var p1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(id).First();
                 accessCode = p1.accesscode;
                 msg = message.nextStep;

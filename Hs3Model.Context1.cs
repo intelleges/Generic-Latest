@@ -23623,5 +23623,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReferenceByShadow_Result>("pr_getReferenceByShadow", internalIDParameter, dunsNumberParameter, nameParameter);
         }
+    
+        public virtual ObjectResult<pr_getReferenceByShadowInternalIDandTouchpoint_Result> pr_getReferenceByShadowInternalIDandTouchpoint(string internalID_A, Nullable<int> touchpoint)
+        {
+            var internalID_AParameter = internalID_A != null ?
+                new ObjectParameter("InternalID_A", internalID_A) :
+                new ObjectParameter("InternalID_A", typeof(string));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReferenceByShadowInternalIDandTouchpoint_Result>("pr_getReferenceByShadowInternalIDandTouchpoint", internalID_AParameter, touchpointParameter);
+        }
     }
 }
