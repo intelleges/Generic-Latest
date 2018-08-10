@@ -4315,6 +4315,7 @@
     <Content Include="Content\login\fonts\AvenirLTStd-Heavy.otf" />
     <Content Include="Content\login\fonts\AvenirLTStd-Medium.otf" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload21.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload22.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
