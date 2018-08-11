@@ -13712,11 +13712,10 @@ Intelleges Team";
                         ViewBag.Q23573_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         break;
                     case 44645:
-                        ViewBag.Q23574_Yes = item.response == 61239 ? _chacked : string.Empty;
-                        ViewBag.Q23574_No = item.response == 61240 ? _chacked : string.Empty;
-                        break;
-                    case 31846:
-                        ViewBag.Q23574_Comment = item.comment;
+                        ViewBag.Q23574_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Q23574_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseNO)
+                            ViewBag.Q23574_Comment = item.comment;
                         break;
                     case 31847:
                         ViewBag.Q23576_Yes = item.response == 61241 ? _chacked : string.Empty;
@@ -13805,6 +13804,14 @@ Intelleges Team";
                             default: break;
                         }
                         break;
+                    case 44656:
+                        ViewBag.Q24821_Checked = item.response == 68575 ? _chacked : string.Empty;
+                        ViewBag.Q24822_Checked = item.response == 68576 ? _chacked : string.Empty;
+                        break;
+                    case 44653:
+                        ViewBag.Q24821_2_Checked = item.response == 68568 ? _chacked : string.Empty;
+                        ViewBag.Q24822_2_Checked = item.response == 68569 ? _chacked : string.Empty;
+                        break;
                     case 44650:
                         switch (item.response)
                         {
@@ -13824,76 +13831,50 @@ Intelleges Team";
                         }
                         break;
                     case 44651:
-                        switch (item.response)
-                        {
-                            case 68552:
-                                ViewBag.Q44651_68552_Checked = _chacked;
-                                break;
-                            case 68553:
-                                ViewBag.Q44651_68553_Checked = _chacked;
-                                break;
-                            case 68554:
-                                ViewBag.Q44651_68554_Checked = _chacked;
-                                break;
-                            case 68555:
-                                ViewBag.Q44651_68555_Checked = _chacked;
-                                break;
-                            case 68556:
-                                ViewBag.Q44651_68556_Checked = _chacked;
-                                break;
-                            case 68557:
-                                ViewBag.Q44651_68557_Checked = _chacked;
-                                break;
-                            case 68558:
-                                ViewBag.Q44651_68558_Checked = _chacked;
-                                break;
-                            case 68559:
-                                ViewBag.Q44651_68559_Checked = _chacked;
-                                break;
-                            case 68560:
-                                ViewBag.Q44651_68560_Checked = _chacked;
-                                break;
-                            case 68561:
-                                ViewBag.Q44651_68561_Checked = _chacked;
-                                break;
-                            case 68562:
-                                ViewBag.Q44651_68562_Checked = _chacked;
-                                break;
-                            case 68563:
-                                ViewBag.Q44651_68563_Checked = _chacked;
-                                break;
-                            case 68564:
-                                ViewBag.Q44651_68564_Checked = _chacked;
-                                break;
-                            case 68565:
-                                ViewBag.Q44651_68565_Checked = _chacked;
-                                break;
-                            case 68566:
-                                ViewBag.Q44651_68566_Checked = _chacked;
-                                break;
-                            case 68567:
-                                ViewBag.Q44651_68567_Checked = _chacked;
-                                break;
-                        }
+                        if (((item.comment ?? "").ToLower()).Contains("unique capability"))
+                            ViewBag.Q44651_68552_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Exclusive Capability".ToLower()))
+                            ViewBag.Q44651_68553_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Specially Trained Personnel".ToLower()))
+                            ViewBag.Q44651_68554_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Specialized Expertise".ToLower()))
+                            ViewBag.Q44651_68555_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Unique Test Equipment".ToLower()))
+                            ViewBag.Q44651_68556_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Warranties".ToLower()))
+                            ViewBag.Q44651_68557_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Inferior Quality".ToLower()))
+                            ViewBag.Q44651_68558_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Follow-on Acquisition/Contract".ToLower()))
+                            ViewBag.Q44651_68559_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Duplication of Cost".ToLower()))
+                            ViewBag.Q44651_68560_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Limited/Exclusive Rights".ToLower()))
+                            ViewBag.Q44651_68561_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Highly Technical Services".ToLower()))
+                            ViewBag.Q44651_68562_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Specified Makes/Models".ToLower()))
+                            ViewBag.Q44651_68563_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Utility Services".ToLower()))
+                            ViewBag.Q44651_68564_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Brand Name".ToLower()))
+                            ViewBag.Q44651_68565_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Customer Directed".ToLower()))
+                            ViewBag.Q44651_68566_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Only Approved Supplier".ToLower()))
+                            ViewBag.Q44651_68567_Checked = _chacked;
                         break;
                     case 44654:
-                        switch (item.response) {
-                            case 68570:
-                                ViewBag.Q44654_68570_Checked = _chacked;
-                                break;
-                            case 68571:
-                                ViewBag.Q44654_68571_Checked = _chacked;
-                                break;
-                            case 68572:
-                                ViewBag.Q44654_68572_Checked = _chacked;
-                                break;
-                            case 68573:
-                                ViewBag.Q44654_68573_Checked = _chacked;
-                                break;
-                            case 68574:
-                                ViewBag.Q44654_68574_Checked = _chacked;
-                                break;
-                        }
+                        if (((item.comment ?? "").ToLower()).Contains("Maintain Vital Facilities".ToLower()))
+                            ViewBag.Q44654_68570_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Training/Abilities/Skills".ToLower()))
+                            ViewBag.Q44654_68571_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Break in Production".ToLower()))
+                            ViewBag.Q44654_68572_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Engineering".ToLower()))
+                            ViewBag.Q44654_68573_Checked = _chacked;
+                        if (((item.comment ?? "").ToLower()).Contains("Expert Services".ToLower()))
+                            ViewBag.Q44654_68574_Checked = _chacked;
                         break;
                     case 44652:
                         ViewBag.T44652 = item.comment;
@@ -14529,7 +14510,7 @@ Intelleges Team";
                         ViewBag.Q31891_No = item.response == 61312 ? _chacked : string.Empty;
                         break;
                     case 44680:
-                        ViewBag.Q23709_Yes = item.response == 61420 ? _chacked : string.Empty;
+                        ViewBag.Q23709_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         break;
                     #endregion
                     default: break;
