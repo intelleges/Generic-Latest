@@ -213,24 +213,19 @@
             </tr>
             <tr valign="TOP">
                 <td colspan="7" width="729" height="48" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0in">
-                    <p class="western" style="margin-top: 0.03in; margin-bottom: 0.06in">
+                    <p class="western" style="margin-top: 0.03in; margin-bottom: 0.03in">
                         <font size="1"><b>PURCHASE REQUISITION ASSIGNED TO ALL LINE ITEMS:  </b></font>
                         <br />
                         <font color="#000000"><font face="Calibri, sans-serif"><font size="1"><span style="background: #00ffff">(Reference APOL-29)</span></font></font></font>
-                    </p>
-
-                    <p class="western" style="margin-bottom: 0.03in">
+                        <br />
                         <font size="1">
                             <i>
                                 Purchase requisition is required for each line item
                             </i>
                         </font>
+                        <br/>
+                        <label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23573_Yes>YES</label>
                     </p>
-
-
-                    <label style="margin-top: 0.03in;text-transform: uppercase;font-size:10px" class="western"><input type="checkbox" @ViewBag.Q23573_Yes>YES</label>
-
-
                 </td>
             </tr>
 
@@ -345,7 +340,6 @@
                                             If
                                             Other selected, please specify:
                                         </i>
-                                        <br />
                                         <span class="western" style="margin-bottom: 0.03in;margin-left: 15px;">@Html.Raw(ViewBag.Q24816_Comment)</span>
                                     </font>
                                 </span>
@@ -381,7 +375,6 @@
                                             If
                                             Other selected, please specify:
                                         </i>
-                                        <br />
                                         <span class="western" style="margin-bottom: 0.03in;margin-left: 15px;">
                                             @Html.Raw(ViewBag.Q24817_Comment)
                                         </span>
@@ -495,18 +488,11 @@
                                 </font>
                             </span><font size="1">
                                 was selected above,
-                                provide  LTC/APC/FPA/POPA # @ViewBag.Q24823_Comment
+                                provide  LTC/APC/FPA/POPA #
                             </font>
-
+                            <br/>
                             <font size="1">
-                            </font><font color="#000000">
-                                <font face="Calibri, sans-serif">
-                                    <font size="1" style="font-size: 6pt">
-                                        <span style="background: #ffff00">
-
-                                        </span>
-                                    </font>
-                                </font>
+                                @ViewBag.Q24823_Comment
                             </font>
                         </p>
                     }
@@ -525,19 +511,15 @@
 
 
                     <br>
-                    @if (!string.IsNullOrEmpty(ViewBag.Q24820_Checked))
-                    {
-                        <span class="western" style="margin-top: 0.04in; margin-bottom: 0.06in; margin-left:15px">
+                    <span class="western" style="margin-top: 0.04in; margin-bottom: 0.06in; margin-left:15px">
 
-                            <input type="checkbox" @ViewBag.Q24821_Checked @ViewBag.Q24821_2_Checked><font size="1">Competition Attempted </font>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox" @ViewBag.Q24822_Checked @ViewBag.Q24822_2_Checked><font size="1">
-                                Competition
-                                Not Attempted
-                            </font>
-                        </span>
-
-                    }
+                        <input type="checkbox" @ViewBag.Q24821_Checked @ViewBag.Q24821_2_Checked><font size="1">Competition Attempted </font>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" @ViewBag.Q24822_Checked @ViewBag.Q24822_2_Checked><font size="1">
+                            Competition
+                            Not Attempted
+                        </font>
+                    </span>
 
                     <p class="western" style="margin-top: 0.04in; margin-bottom: 0.03in;margin-left:15px;">
                         <font size="1"> Please select the following reason for Single/Sole Source award:</font>
@@ -674,7 +656,7 @@ or other non-profit institution or a federally funded research and development c
                         <font size="1">
                             Provide a fully supported explanation on how the proposed supplier’s qualifications supports the single/sole source reason(s) chosen above. Explain the unique
                             capabilities of the supplier. Justification needs to explain the reason why no other supplier can support this award. What does the proposed supplier provide that
-                            no other supplier can provide? <U>@ViewBag.T44652</U> <U style="color:red;">OR</U> <U>@ViewBag.T44655</U>
+                            no other supplier can provide? <U>@ViewBag.T44652</U> <U>@ViewBag.T44655</U>
                         </font>
                     </p>
 
@@ -1243,7 +1225,7 @@ or other non-profit institution or a federally funded research and development c
                             </font>
                         </span>
                         <div style="font-size:x-small">
-                            @ViewBag.Q24854_Value
+                            @Html.Raw(ViewBag.Q24854_Value)
                         </div>
                         <font size="1" style="font-size: 7pt">
                         </font><span style="text-transform: uppercase"><font size="1" style="font-size: 6pt"><span style="background: #ff00ff"></span></font></span>

@@ -13761,6 +13761,7 @@ Intelleges Team";
                     case 44648:
                         ViewBag.Q24817_DropDownValues = new SelectList(db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, ""), id = o.id }), "id", "description", item.response);
                         ViewBag.Q24817_DropDownValues_Response = item.response;
+                        ViewBag.Q24817_Comment = item.comment;
                         break;
                     case 31855:
                         ViewBag.Q24817_Comment = item.comment;
@@ -13993,7 +13994,7 @@ Intelleges Team";
                     #region Section 4
                     case 44672:
                         ViewBag.Q24847_Yes = item.response == 68577 ? _chacked : string.Empty;
-                        //ViewBag.Q24847_No = item.response != 68577 ? _chacked : string.Empty;
+                        ViewBag.Q24847_No = item.response != 68577 ? _chacked : string.Empty;
                         switch (item.response)
                         {
                             case 68578:

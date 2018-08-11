@@ -30,8 +30,8 @@ namespace Generic.Controllers
                 var cms = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(ptq.questionnaire).ToList();
                 var questionnairCMSAll = db.pr_getQuestionnaireCMSAll().ToList();
                 var questionnair = db.pr_getQuestionnaireByAccesscode(accesscode).FirstOrDefault();
-                //if (pdf == null || pptq.progress == null)
-               // {
+                if (pdf == null || pptq.progress == null)
+                {
                     //if pdf was deleted from db but questinnarie was completed then we created customized pdf again
                     if ((pptq.status == 8 && cms.Where(x => x.questionnaireCMS == questionnairCMSAll.Where(q => q.description == CMS.CONFIRMATION_PAGE_PREVIOUS_TEXT).FirstOrDefault().id).FirstOrDefault().link != null)
                         || (questionnair != null && questionnair.footer != null && questionnair.footer != "1"))
@@ -41,11 +41,11 @@ namespace Generic.Controllers
                     else
                         //otherwise redirect to standart pdf
                         return Redirect("~/Registration/Home/PDFConfirmation");
-               /* }
+                }
                 else
                 {
                     return Redirect("~/Registration/Home/PDFCustomizedConfirmation");
-                }*/
+                }
             }
             return Content("");
         }
