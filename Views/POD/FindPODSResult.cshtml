@@ -97,7 +97,7 @@
 						<li style='display:inherit'><a href="@item.Expr1" target="_blank">Complete</a></li>
 						<li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openNarrativePopup(@item.pptq,'@item.AccessCode')" target="_blank">Narrative</a></li>
 
-                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID)">Print PDF</a></li>
+                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Print PDF</a></li>
 
                         <li><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
                         @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
@@ -603,10 +603,16 @@
 			}
 		});
 	}
-	function checkToPrintPDF(pptqId,status) {
-		$.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status }, function (data) {
+    function checkToPrintPDF(pptqId, status, touchpoint) {
+        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint  }, function (data) {
 
-			if (data.message.next == 6) {
+			 if (data.msg != null) {
+                alertify.alert(data.msg, function () {
+    			window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+    		    });
+
+            }
+			else if (data.message.next == 6) {
 				alertify.alert(data[0].nextStep);
 			}
 			else if (data.message.next == 5) {
@@ -651,7 +657,7 @@
 			else {
 				alertify.alert(data.message.nextStep);
 				if (data.message.next > 6) {
-					checkToPrintPDF(data.message.next);
+                    checkToPrintPDF(data.message.next, touchpoint);
 				}
 			}
 		}).fail(function (jqXHR, textStatus, errorThrown) {
