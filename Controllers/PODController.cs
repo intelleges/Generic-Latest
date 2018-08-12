@@ -79,7 +79,7 @@ namespace Generic.Controllers
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
-            arguments += "touchpointID=4226;";
+            arguments += "touchpointID=4258;";
             //arguments += "partnertypeID=250;";
 
             if (model.partnerStatus != null)
