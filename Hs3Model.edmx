@@ -7176,6 +7176,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="enterprise" Type="int" Mode="In" />
           <Parameter Name="email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerStatus" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerStatusAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPartnerStatusAllByEnterprise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
@@ -18252,6 +18255,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getReferenceByShadowInternalIDandTouchpoint" ReturnType="Collection(hs3MVCMTQa2Model.pr_getReferenceByShadowInternalIDandTouchpoint_Result)">
             <Parameter Name="InternalID_A" Mode="In" Type="String" />
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatus_Result)">
+            <Parameter Name="partnerStatus" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31244,6 +31250,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="priority" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
         </ComplexType>
+        <ComplexType Name="pr_getPartnerStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="sortOrder" Nullable="true" />
+          <Property Type="Int32" Name="active" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43539,6 +43551,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="score" ColumnName="score" />
                 <ScalarProperty Name="priority" ColumnName="priority" />
                 <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPartnerStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

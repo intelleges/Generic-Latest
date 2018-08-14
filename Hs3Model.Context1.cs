@@ -23636,5 +23636,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReferenceByShadowInternalIDandTouchpoint_Result>("pr_getReferenceByShadowInternalIDandTouchpoint", internalID_AParameter, touchpointParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerStatus_Result> pr_getPartnerStatus(Nullable<int> partnerStatus)
+        {
+            var partnerStatusParameter = partnerStatus.HasValue ?
+                new ObjectParameter("partnerStatus", partnerStatus) :
+                new ObjectParameter("partnerStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatus_Result>("pr_getPartnerStatus", partnerStatusParameter);
+        }
     }
 }

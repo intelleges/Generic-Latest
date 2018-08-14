@@ -119,7 +119,7 @@
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
                 @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
                 {
-                <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                    <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
                 }
                 <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
                 <li>@Html.ActionLink("Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
@@ -614,10 +614,47 @@
 				alertify.alert("Something went wrong, please try again later");
 			}
 		});
-	}
+    }
+
+    var itemsForPrint = [];
+    function printNextPdf(item) {
+        if (item.status == 6 || item.status == 7 || item.status == 13) {
+            alertify.confirm('The current status for ' + item.touchpoint + ' is ' + item.statusDesc + ' for ' + item.partnerName+'. Would youlike to send a reminder?', function (e) {
+					if (e) {
+						// click yes
+                        remind(item.accesscode);
+						$('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
+                        document.getElementById('yourLinkID').click();
+                        var index = itemsForPrint.indexOf(item);
+                        if (index >= 0 && index < itemsForPrint.length - 1)
+                            printNextPdf(itemsForPrint[index + 1]);
+
+					} else {
+						// click no
+                        $('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
+                        document.getElementById('yourLinkID').click();
+                        var index = itemsForPrint.indexOf(item);
+                        if (index >= 0 && index < itemsForPrint.length - 1)
+                            printNextPdf(itemsForPrint[index + 1]);
+					}
+				});
+        }
+        else {
+             $('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
+             document.getElementById('yourLinkID').click();
+             var index = itemsForPrint.indexOf(item);
+             if (index >= 0 && index < itemsForPrint.length - 1)
+                 printNextPdf(itemsForPrint[index + 1]);
+        }
+    }
+
     function checkToPrintPDF(pptqId, status, touchpoint) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint }, function (data) {
-            if (data.msg != null) {
+            if (data.items.length > 1) {
+                itemsForPrint = data.items;
+                printNextPdf(data.items[0]);
+            }
+            else if (data.msg != null) {
                 alertify.alert(data.msg, function () {
     			window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
     		    });
@@ -748,6 +785,9 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <a href="" id="yourLinkID" target="_blank"></a>
 </div>
 @if (Session["ACNewEmail"] != null)
 {

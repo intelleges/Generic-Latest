@@ -1928,6 +1928,9 @@
     <Compile Include="pr_getPartnerStatusCountByTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerTypeAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

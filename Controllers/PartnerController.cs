@@ -2392,7 +2392,7 @@ namespace Generic.Controllers
                 {
                     return "Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.";
                 }
-                if (new int[] { 6, 7 }.Contains(pptq.status))
+                if (new int[] { 6, 7, 13 }.Contains(pptq.status))
                 {
                     var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                     SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id, accessCode, Request.Url.ToString(), new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName));
@@ -4637,7 +4637,7 @@ namespace Generic.Controllers
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
             string msg = null;
             bool iscanprintPdf = false;
-
+            List<dynamic> items = new List<dynamic>();
             if (status == 14)
             {
                 var p = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
@@ -4647,9 +4647,36 @@ namespace Generic.Controllers
                 accessCode = p1.accesscode;
                 msg = message.nextStep;
             }
-            else {
-             
-                var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(pptqId, status).ToList();  
+            else
+            {
+                var d = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+                var items1 = db.pr_getPPTQByPartner(d.partner).ToList();
+                if (items1.Count > 1)
+                {
+                    string partnerName = d.partner1.name;
+                    foreach (var item in items1)
+                    {
+                        string touchpoint1 = "";
+                        string statusDesc = "";
+                        if (item.status == 6 || item.status == 7 || item.status == 13)
+                        {
+                            statusDesc = db.pr_getPartnerStatus(item.status).First().description;
+                            touchpoint1 = db.pr_getTouchpointByPTQ(item.partnerTypeTouchpointQuestionnaire).First().description;
+                        }
+
+                        items.Add(new
+                        {
+                            item.accesscode,
+                            item.status,
+                            statusDesc = statusDesc,
+                            partnerName,
+                            touchpoint = touchpoint1,
+                            pptq = item.id
+                        });
+                    }
+                }
+
+                var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(pptqId, status).ToList();
                 if (pptqs.Count > 0)
                 {
                     iscanprintPdf = true;
@@ -4662,10 +4689,9 @@ namespace Generic.Controllers
                 {
                     msg = fm;
                 }
-
             }
 
-            return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg = msg }, JsonRequestBehavior.AllowGet);
+            return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg = msg, items = items }, JsonRequestBehavior.AllowGet);
         }
 
         private DataTable GetResponsesTable(int pptqId, int levelType)
