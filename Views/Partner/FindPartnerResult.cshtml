@@ -623,16 +623,12 @@
 					if (e) {
 						// click yes
                         remind(item.accesscode);
-						$('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
-                        document.getElementById('yourLinkID').click();
                         var index = itemsForPrint.indexOf(item);
                         if (index >= 0 && index < itemsForPrint.length - 1)
                             printNextPdf(itemsForPrint[index + 1]);
 
 					} else {
 						// click no
-                        $('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
-                        document.getElementById('yourLinkID').click();
                         var index = itemsForPrint.indexOf(item);
                         if (index >= 0 && index < itemsForPrint.length - 1)
                             printNextPdf(itemsForPrint[index + 1]);
