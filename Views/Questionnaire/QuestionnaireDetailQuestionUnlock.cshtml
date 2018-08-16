@@ -1,0 +1,138 @@
+﻿@using System.Web.Optimization
+
+@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/style.css?v=3" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/components/radio-checkbox.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/responsive.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    @Styles.Render("~/bundles/alertifyCss")
+    <script src="@Url.Content("~/Scripts/alertify.js")"></script>
+    <!-- Document Title
+    ============================================= -->
+    <title>Login</title>
+
+</head>
+
+<body class="stretched">
+
+    <!-- Modal Window
+    ============================================= -->
+    <div class="modal fade" id="guideTour" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Intelleges Guided Tour</h4>
+                </div>
+                <div class="modal-body">
+
+                    <p class="lead">Want to know more? Let us guide you. </p>
+                    <a href="~/Views/Admin/Index.cshtml">~/Views/Admin/Index.cshtml</a>
+                    <p class="lead">Your guided tour starts here Observe-Orient-Decide-Act.</p>
+                    <button type="button" class="btn btn-primary take-the-tour">take the tour</button>
+                    <img src="~/Content/login/images/intelleges/guide-slide.png" alt="guide slide">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="get_password_dialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Get Your Password</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <p>
+                            If you have forgotten your password or haven't created one, enter your email address and click Submit.
+                        </p>
+                        <div class="form-group">
+                            <label class="control-label" for="inputEmailGetPassword">Your Email Address</label>
+                            <input id="inputEmailGetPassword" class="form-control" type="email" placeholder="Please Enter Your Email" required data-error="Incorect email adress" />
+                            <div class="help-block with-errors"></div>
+                            <button type="button" class="btn btn-primary" name="GetPassword">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+        <!-- Content
+        ============================================= -->
+        <section id="content">
+            <div class="content-wrap nopadding">
+                <div class="section nopadding nomargin" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: #444;"></div>
+                <div class="section nobg full-screen nopadding nomargin">
+                    <div id="login-wrapper" class="container vertical-middle divcenter clearfix">
+                        <div class="panel panel-default divcenter noradius noborder login">
+                            <div class="panel-body">
+                                <form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+                                    <div class="login-logo">
+                                        <a href="http://www.intelleges.com/"> <img src="~/Content/login/images/intelleges/intelleges-logo.png" alt="logo"></a>
+                                    </div>
+                                    <h1  style="text-align:center">You have Unlocked Access Code @ViewBag.AccessCode and sent an Incomplete Email Reminder to @ViewBag.PartnerName</h1>
+                                </form>
+                                <div class="need-help-wrapper">
+                                    <h3>Need help?</h3>
+                                    <p>	Please call: 917 818 0225 <br /> or email us at <a href="mailto:help@intelleges.com"> help@intelleges.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row center dark"><small>Copyrights &copy; All Rights Reserved by Intelleges.</small></div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- #content end -->
+    </div><!-- #wrapper end -->
+    <!-- Go To Top
+
+
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- External JavaScripts
+    ============================================= -->
+    <script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
+    <script>
+    var enterpriseId = @ViewBag.EnterpriseId ;
+    </script>
+    <!-- Footer Scripts
+    ============================================= -->
+    <script type="text/javascript" src="~/Content/login/js/functions.js"></script>
+    @Scripts.Render("~/Scripts/validator.js")
+    <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js?v=1")"></script>
+</body>
+</html>
+
