@@ -313,9 +313,17 @@
 				e.preventDefault();
 				$("#emailDialog").modal("toggle");
 
-				$("input:checkbox[name$=chkSelect]:checked").each(function () {
-					accessCodes.push($(this).parent().children("input:hidden[name$=AccessCode]").val());
-				});
+                var accessCodes1 = @Html.Raw(Json.Encode(ViewBag.AccsessCodes));
+
+                if ($('#chkSelectAll').is(':checked')) {
+                    accessCodes = accessCodes1;
+                }
+                else {
+                    accessCodes = [];
+                    $("input:checkbox[name$=chkSelect]:checked").each(function () {
+                        accessCodes.push($(this).parent().children("input:hidden[name$=AccessCode]").val());
+                    });
+                }
 
 				if (accessCodes.length > 0) {
 					$.fancybox({
@@ -343,8 +351,6 @@
 
 					sendEmailByAccessCode(0, progressbar, progressLabel);
 				}
-
-				
 			});
 
 			$("#btnGo").click(function (e) {
@@ -406,9 +412,13 @@
 
 				$('.fancybox-inner #progress-note').html(result.message)
 
-				if (accessCodes.length > nextIndex + 1) {
-					sendEmailByAccessCode(nextIndex + 1, progressbar, progressLabel);
-				}
+                if (accessCodes.length > nextIndex + 1) {
+                    sendEmailByAccessCode(nextIndex + 1, progressbar, progressLabel);
+                }
+                else {
+                    $.fancybox.close();
+                    alertify.alert("You have sent out " + accessCodes.length + " " + $("#DropDownSubjects option:selected").text() + " Messages");
+                }
 			});
 		}
 

@@ -2278,6 +2278,7 @@ namespace Generic.Controllers
             }
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
             ViewBag.searchType = "Remind";
+            ViewBag.AccsessCodes = objPartnerViewModelList.Select(o => o.AccessCode).ToList();
             return View(objPartnerViewModelList);
             //return View();
         }
