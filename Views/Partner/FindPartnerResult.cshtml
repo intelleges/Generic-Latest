@@ -636,8 +636,11 @@
 				});
         }
         else {
-             $('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
-             document.getElementById('yourLinkID').click();
+            setTimeout(function () {
+                 $('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
+                 document.getElementById('yourLinkID').click();
+            }, 1000);
+
              var index = itemsForPrint.indexOf(item);
              if (index >= 0 && index < itemsForPrint.length - 1)
                  printNextPdf(itemsForPrint[index + 1]);
