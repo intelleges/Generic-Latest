@@ -4659,11 +4659,11 @@ namespace Generic.Controllers
                     {
                         string touchpoint1 = "";
                         string statusDesc = "";
-                        if (item.status == 6 || item.status == 7 || item.status == 13)
-                        {
+                        if (item.status == 6 || item.status == 7 || item.status == 13){
                             statusDesc = db.pr_getPartnerStatus(item.status).First().description;
-                            touchpoint1 = db.pr_getTouchpointByPTQ(item.partnerTypeTouchpointQuestionnaire).First().description;
                         }
+
+                        touchpoint1 = db.pr_getTouchpointByPTQ(item.partnerTypeTouchpointQuestionnaire).First().description;
 
                         items.Add(new
                         {
