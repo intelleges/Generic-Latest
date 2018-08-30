@@ -631,8 +631,18 @@
             }, 1000);
 
              var index = itemsForPrint.indexOf(item);
-             if (index >= 0 && index < itemsForPrint.length - 1)
-                 printNextPdf(itemsForPrint[index + 1]);
+             if (index >= 0 && index < itemsForPrint.length - 1) {
+
+                 alertify.confirm('You have printed PDF for ' + item.touchpoint + ', would you like to print PDF for ' + itemsForPrint[index + 1].touchpoint + '?', function (e) {
+                     if (e) {
+                         // click yes
+                         printNextPdf(itemsForPrint[index + 1]);
+
+                     } else {
+                         // click no
+                     }
+                 });
+             }
         }
     }
 
