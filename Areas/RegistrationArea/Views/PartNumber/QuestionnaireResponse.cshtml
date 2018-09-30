@@ -101,6 +101,17 @@
             minDate: Date.parse("1900-01-01"),
             maxDate: Date.parse("2100-01-01")
         });
+
+        $(".list2listComponent").bootstrapDualListbox({
+            nonSelectedListLabel: 'Options',
+            selectedListLabel: 'Selected',
+            selectorMinimalHeight: 370,
+            //preserveSelectionOnMove: 'moved',
+            //moveOnSelect: false,
+            //bootstrap3Compatible: true,
+            showFilterInputs: false
+        });
+
         //$('[data-toggle="popover"]').tooltip();
         $('.dropdownchange').change(function () {
             var objpartNumberID = $('#partNumberSelectList').val();
