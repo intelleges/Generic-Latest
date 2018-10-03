@@ -1445,8 +1445,8 @@
           <Property Name="sap_site" Type="varchar" MaxLength="100" />
           <Property Name="sap_plant_code" Type="varchar" MaxLength="100" />
           <Property Name="site_name" Type="varchar" MaxLength="100" />
-          <Property Name="part_number_sap" Type="varchar" MaxLength="100" />
-          <Property Name="part_number_internal" Type="varchar" MaxLength="100" />
+          <Property Name="part_number_sap" Type="varchar" MaxLength="200" />
+          <Property Name="part_number_internal" Type="varchar" MaxLength="200" />
           <Property Name="sub_commodity_owner" Type="varchar" MaxLength="100" />
           <Property Name="center_of_excellence" Type="varchar" MaxLength="100" />
           <Property Name="ro_first_name" Type="varchar" MaxLength="100" />
@@ -6338,6 +6338,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getAccesscode2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="in" Type="int" Mode="In" />
           <Parameter Name="out" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="pr_getAccessCodeByInternalIDSitePartnumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partner_internal_id" Type="varchar" Mode="In" />
+          <Parameter Name="sap_site" Type="varchar" Mode="In" />
+          <Parameter Name="part_number_sap" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -18257,7 +18262,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerStatus_Result)">
-            <Parameter Name="partnerStatus" Mode="In" Type="Int32" />
+          <Parameter Name="partnerStatus" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getAccessCodeByInternalIDSitePartnumber" ReturnType="Collection(String)">
+            <Parameter Name="partner_internal_id" Mode="In" Type="String" />
+            <Parameter Name="sap_site" Mode="In" Type="String" />
+            <Parameter Name="part_number_sap" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -24192,8 +24202,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="sap_site" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="sap_plant_code" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="site_name" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="part_number_sap" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="part_number_internal" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="part_number_sap" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="part_number_internal" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="sub_commodity_owner" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="center_of_excellence" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ro_first_name" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -43564,6 +43574,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getAccessCodeByInternalIDSitePartnumber" FunctionName="hs3MVCMTQa2Model.Store.pr_getAccessCodeByInternalIDSitePartnumber" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

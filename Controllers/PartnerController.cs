@@ -1003,12 +1003,12 @@ namespace Generic.Controllers
             string message = string.Empty;
             if (Session["uploadedpartnerList"] != null)
             {
-                List<int> uploadedpartnerList = (List<int>)Session["uploadedpartnerList"];
+                List<Tuple<int, string>> uploadedpartnerList = (List<Tuple<int,string>>)Session["uploadedpartnerList"];
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
                 // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
                 // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
-                foreach (int partnerId in uploadedpartnerList.Distinct())
+                foreach (int partnerId in uploadedpartnerList.Select(o=>o.Item1).Distinct())
                 {
 
 
@@ -1113,6 +1113,7 @@ namespace Generic.Controllers
         {
             using (var scope = db.Database.BeginTransaction())
             {
+                var partNumbersAccessCode = "";
                 int recordNumber = 1;
                 try
                 {
@@ -1200,7 +1201,7 @@ namespace Generic.Controllers
                     int countpartNumbers = partnerinExcel.Count();
 
 
-
+                    
                     foreach (var partnumbers in partnerinExcel.ToList())
                     {
                         if (partnumbers.internalID != null)
@@ -1236,19 +1237,25 @@ namespace Generic.Controllers
                                 //{
                                 var PartnerID = db.pr_addPartnumberSpreadsheetDataLoad(partnumbers.internalID, partnumbers.dunsNumber, partnumbers.name, partnumbers.address1, partnumbers.address2, partnumbers.city, stateIdSpreadSheet, partnumbers.zipcode, countryIdSpreadsheet, partnumbers.firstName, partnumbers.lastName, partnumbers.title, partnumbers.phone, partnumbers.email, partnumbers.INTERNAL_SITE_ID, partnumbers.SAP_SITE, partnumbers.SAP_PLANT_CODE, partnumbers.SITE_NAME, partnumbers.PART_NUMBER_SAP, partnumbers.PART_NUMBER_INTERNAL, partnumbers.SUB_COMMODITY_OWNER, partnumbers.CENTER_OF_EXCELLENCE, partnumbers.RO_FIRST_NAME, partnumbers.RO_LAST_NAME, partnumbers.RO_EMAIL, DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, null, loadGroup, partnumbers.DUE_DATE, group, partnumbers.PARTNUMBER_DETAIL).ToList().FirstOrDefault();
                                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerID.ToString()), partnumbers.dunsNumber));
+                                if (string.IsNullOrEmpty(partNumbersAccessCode))
+                                {
+                                    partNumbersAccessCode = db.pr_getAccessCodeByInternalIDSitePartnumber(partnumbers.internalID, partnumbers.SAP_SITE, partnumbers.PART_NUMBER_SAP).FirstOrDefault();
+                                }
                                 // }
                             }
                             recordNumber++;
                         }
                     }
 
-
+                    
                     Session["uploadedpartnerList"] = uploadedpartners;
                     Session["partnertype"] = partnertype;
                     Session["touchpoint"] = touchpoint;
                     Session["loadgroup"] = loadGroup;
 
                     ViewBag.Message = "1";
+                    ViewBag.MessageDetails = string.Format("Congratulations! You loaded {0} items for Access Code [{1}] with ", recordNumber, partNumbersAccessCode);
+                    ViewBag.MessageAccessCode = partNumbersAccessCode;
                     scope.Commit();
                 }
                 catch (Exception ex)

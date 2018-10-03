@@ -18,6 +18,7 @@ using System.Data.Entity;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Generic.Helpers.Exceptions;
+using System.Collections;
 
 namespace Generic.Controllers
 {
@@ -818,10 +819,16 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+            
+            //db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID)
+            ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
             return View();
         }
 
+        private ArrayList GetLevelTypes()
+        {
+            return new ArrayList(Enum.GetValues(typeof(QuestionnaireLevelType)).Cast<QuestionnaireLevelType>().Select(o => new { id = (int)o, description = Enum.GetName(typeof(QuestionnaireLevelType), o) }).ToArray());
+        }
         public ActionResult GetPartnerTypesByTouchpoint(int touchpoint)
         {
             return Json(db.pr_getPartnerTypeForAssignment(Generic.Helpers.CurrentInstance.EnterpriseID, touchpoint).ToList(), JsonRequestBehavior.AllowGet);
@@ -1706,7 +1713,8 @@ namespace Generic.Controllers
                         ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
                         ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
                         ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
-                        ViewBag.level = new SelectList(db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
+
+                        ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
                         return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) + " On row:" + rowNumber });
                     }
 

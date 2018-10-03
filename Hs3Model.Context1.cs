@@ -23645,5 +23645,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerStatus_Result>("pr_getPartnerStatus", partnerStatusParameter);
         }
+    
+        public virtual ObjectResult<string> pr_getAccessCodeByInternalIDSitePartnumber(string partner_internal_id, string sap_site, string part_number_sap)
+        {
+            var partner_internal_idParameter = partner_internal_id != null ?
+                new ObjectParameter("partner_internal_id", partner_internal_id) :
+                new ObjectParameter("partner_internal_id", typeof(string));
+    
+            var sap_siteParameter = sap_site != null ?
+                new ObjectParameter("sap_site", sap_site) :
+                new ObjectParameter("sap_site", typeof(string));
+    
+            var part_number_sapParameter = part_number_sap != null ?
+                new ObjectParameter("part_number_sap", part_number_sap) :
+                new ObjectParameter("part_number_sap", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getAccessCodeByInternalIDSitePartnumber", partner_internal_idParameter, sap_siteParameter, part_number_sapParameter);
+        }
     }
 }

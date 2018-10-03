@@ -75,7 +75,7 @@
                 $('#btnInvite').show();
                 $('#btnInvitelater').show();
 
-                alertify.alert('Partner uploaded successfully');
+                alertify.alert('@ViewBag.MessageDetails' + " <a href='/Registration?accesscode=@ViewBag.MessageAccessCode'>hyperlink</a>");
             }
 
             if ("@ViewBag.Message" == "2") {
