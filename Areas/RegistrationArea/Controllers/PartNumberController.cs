@@ -28,8 +28,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         public PartNumberController()
         {
-			_translator = new GoogleTranslatorHelper(new DatabaseTranslationService());
-            
+            _translator = new GoogleTranslatorHelper(new DatabaseTranslationService());
+
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -43,7 +43,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
         //
         // GET: /RegistrationArea/PartNumber/
-        
+
         public virtual ActionResult QuestionnaireResponse(int partNumberSelectList = 0, int siteSelectList = 0, int partnumberStatusSelectList = 1, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             ViewBagModel objViewBag = new ViewBagModel();
@@ -84,7 +84,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 try
                 {
                     cmsId = questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id;
-                    
+
                     var cms_PageTitle = cms.FirstOrDefault(x => x.questionnaireCMS == questionnairCMSAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_PAGE_TITLE).id);
                     if (cms_PageTitle != null)
                         objViewBag.CMS_PAGE_TITLE = _translator.Translate(ptq.questionnaire, TranslationType.CMS, HomeController.CurrentLanguage, cmsId);
@@ -184,23 +184,28 @@ namespace Generic.Areas.RegistrationArea.Controllers
             Session["site"] = siteSelectList;
             Session["partnumberstatus"] = partnumberStatusSelectList;
             int questionnaireId = (int)Session["questionnaire"];
+            Session["l2l"] = null;
             questionnaire objQuestionnaire = db.pr_getQuestionnaire(questionnaireId).FirstOrDefault();
-            ViewBag.showSplitter = (objQuestionnaire.letter == 1 
+            ViewBag.showSplitter = (objQuestionnaire.letter == 1
                 || objQuestionnaire.letter == 99);
-
+            ViewBag.Level = objQuestionnaire.levelType;
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
             //temp comment out
             //JB: this ends process of setting dropdown bindings based on data in session
-
+            if (objQuestionnaire.levelType == LevelType.PARTNUMBER_LEVEL_L2L)
+            {
+                ViewBag.pageNumber = pageNumber;
+                ViewBag.siteSelectList = siteSelectList;
+                Session["l2l"] = true;
+            }
 
             //JB: creating the questionnaire part
             touchpoint objtouchpoint = new touchpoint();
             partner objpartner = new partner();
             protocol objprotocol = new protocol();
 
-            surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire,_translator,HomeController.CurrentLanguage);
+            surveyForm objSurveyForm = new surveyForm(objprotocol, objtouchpoint, objpartner, objQuestionnaire, _translator, HomeController.CurrentLanguage);
             objSurveyForm.questionIndex = questionIndex;
             objSurveyForm.questionClass = "brownbg  brownbgarrow";
             objSurveyForm.answerClass = "brownbg";
@@ -250,103 +255,143 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
 
             var meesage = "";
-                if (Session["hs3Registration"] == null)
+            if (Session["hs3Registration"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            //JB: to set dropdown bindings begins
+            Session["partnumber"] = partNumberSelectList;
+
+            Session["partnumberstatus"] = partnumberStatusSelectList;
+
+            Session["site"] = siteSelectList;
+
+            int questionnaireId = 0;
+            int partnerId = 0;
+            int touchpointId = 0;
+            int protocolId = 0;
+
+            questionnaireId = (int)Session["questionnaire"];
+            partnerId = (int)Session["partner"];
+            touchpointId = (int)Session["touchpoint"];
+            protocolId = (int)Session["protocol"];
+
+            int questionId = 0;
+            int surveyId = 0;
+            string key = "";
+            string[] array = new string[5];
+            char[] splitter = { '_' };
+            string answer = "";
+            question objQuestion = new question();
+            Boolean saveForLaterButton = false;
+            string skip = "";
+            string goEsignature = "";
+
+            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+            dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
+            //JB: to set dropdown bindings ends
+            //explain this -- start here
+
+            jumpToQuestion = 0;
+
+
+            foreach (var keyName in formCollection.Keys)
+            {
+                answer = formCollection[keyName.ToString()];
+                if (!keyName.ToString().Contains("uploadText") && keyName.ToString().Contains("question_"))
                 {
-                    return RedirectToAction("Index", "Home");
+                    ++questionIndex;
                 }
-                //JB: to set dropdown bindings begins
-                Session["partnumber"] = partNumberSelectList;
 
-                Session["partnumberstatus"] = partnumberStatusSelectList;
-
-                Session["site"] = siteSelectList;
-
-                int questionnaireId = 0;
-                int partnerId = 0;
-                int touchpointId = 0;
-                int protocolId = 0;
-
-                questionnaireId = (int)Session["questionnaire"];
-                partnerId = (int)Session["partner"];
-                touchpointId = (int)Session["touchpoint"];
-                protocolId = (int)Session["protocol"];
-
-                int questionId = 0;
-                int surveyId = 0;
-                string key = "";
-                string[] array = new string[5];
-                char[] splitter = { '_' };
-                string answer = "";
-                question objQuestion = new question();
-                Boolean saveForLaterButton = false;
-                string skip = "";
-                string goEsignature = "";
-
-                int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-
-                dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
-                //JB: to set dropdown bindings ends
-                //explain this -- start here
-
-                jumpToQuestion = 0;
-
-
-                foreach (var keyName in formCollection.Keys)
+                if (keyName.ToString().Contains("questionHiddenField_"))
                 {
-                    answer = formCollection[keyName.ToString()];
-                    if (!keyName.ToString().Contains("uploadText") && keyName.ToString().Contains("question_"))
-                    {
-                        ++questionIndex;
-                    }
 
-                    if (keyName.ToString().Contains("questionHiddenField_"))
-                    {
+                    array = keyName.ToString().Split(splitter);
 
+                    questionId = int.Parse(array[1]);
+                    surveyId = int.Parse(array[2]);
+
+
+
+                }
+
+
+
+
+
+                if (keyName.ToString().Contains("btnSaveForLater"))
+                {
+                    saveForLaterButton = true;
+                }
+
+                if (keyName.ToString().Contains("question_"))
+                {
+
+                    if (keyName.ToString().Contains("_text"))
+                    {
                         array = keyName.ToString().Split(splitter);
-
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
 
+                        int? responseId = null;
+                        string responseComment = string.Empty;
+
+                        responseId = null;
+
+                        responseComment = answer;
+                        //explain this -- ends here
 
 
-                    }
+                        //JB: here he is actually setting responses to questions for the CURRENT PARTNUMBER
+                        // var context = new EntitiesDBContext();
 
+                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
 
-
-
-
-                    if (keyName.ToString().Contains("btnSaveForLater"))
-                    {
-                        saveForLaterButton = true;
-                    }
-
-                    if (keyName.ToString().Contains("question_"))
-                    {
-
-                        if (keyName.ToString().Contains("_text"))
+                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
+                        if (checkpsz.Count == 0)
                         {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
-
+                            db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
+                        }
+                        else
+                        {
+                            var checkpszObj = checkpsz.FirstOrDefault();
+                            if (checkpszObj != null)
+                            {
+                                var checkpszId = checkpszObj.id;
+                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            }
+                        }
+                        meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
+                        //JB: here ends setting responses to questions for the CURRENT PARTNUMBER
+                    }
+                    else if (keyName.ToString().Contains("_checkBox"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                        answer = array[3];
+                        if (formCollection[keyName.ToString()].ToLower() == "on")
+                        {
                             int? responseId = null;
                             string responseComment = string.Empty;
+                            try
+                            {
+                                responseId = int.Parse(answer);
+                            }
+                            catch
+                            {
+                                responseComment = answer;
+                            }
 
-                            responseId = null;
-
-                            responseComment = answer;
-                            //explain this -- ends here
-
-
-                            //JB: here he is actually setting responses to questions for the CURRENT PARTNUMBER
-                            // var context = new EntitiesDBContext();
+                            //var context = new EntitiesDBContext();
 
                             var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
 
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null,null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
                             }
                             else
                             {
@@ -354,159 +399,121 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 if (checkpszObj != null)
                                 {
                                     var checkpszId = checkpszObj.id;
-                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null,null, null, null, null, PartNumberSiteZcodepptq.id);
+                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
                                 }
                             }
-                            meesage= ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
-                            //JB: here ends setting responses to questions for the CURRENT PARTNUMBER
+
+
+
+                            meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
+
+
                         }
-                        else if (keyName.ToString().Contains("_checkBox"))
+                    }
+                    else if (keyName.ToString().Contains("_Commenttext"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+
+                    }
+                    else if (keyName.ToString().Contains("_onlyTextComment"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+
+                    }
+                    else if (keyName.ToString().Contains("_duedateAlert"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                    }
+                    else if (keyName.ToString().Contains("_duedate"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                    }
+                    else
+                    if (keyName.ToString().Contains("_checkboxList"))
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                    }
+                    else
+                    {
+                        array = keyName.ToString().Split(splitter);
+                        questionId = int.Parse(array[1]);
+                        surveyId = int.Parse(array[2]);
+                        int? responseId = null;
+                        string responseComment = string.Empty;
+                        try { responseId = int.Parse(answer); }
+                        catch { }
+                        if (answer == "74")
                         {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
-                            answer = array[3];
-                            if (formCollection[keyName.ToString()].ToLower() == "on")
+
+                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
+                            if (strvl != null)
                             {
-                                int? responseId = null;
-                                string responseComment = string.Empty;
-                                try
-                                {
-                                    responseId = int.Parse(answer);
-                                }
-                                catch
-                                {
-                                    responseComment = answer;
-                                }
-
-                                 //var context = new EntitiesDBContext();
-
-                                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
-
-                                var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
-                                if (checkpsz.Count == 0)
-                                {
-                                    db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null,null, null, null, PartNumberSiteZcodepptq.id);
-                                }
-                                else
-                                {
-                                    var checkpszObj = checkpsz.FirstOrDefault();
-                                    if (checkpszObj != null)
-                                    {
-                                        var checkpszId = checkpszObj.id;
-                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null,null, null, null, PartNumberSiteZcodepptq.id);
-                                    }
-                                }
-
-
-
-                                meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
-
-
+                                responseComment = strvl;
                             }
-                        }
-                        else if (keyName.ToString().Contains("_Commenttext"))
-                        {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
 
                         }
-                        else if (keyName.ToString().Contains("_onlyTextComment"))
+                        else if (answer == "75")
                         {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
 
-                        }
-                        else if (keyName.ToString().Contains("_duedateAlert"))
-                        {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
-                        }
-                        else if (keyName.ToString().Contains("_duedate"))
-                        {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
-                        } else
-                        if (keyName.ToString().Contains("_checkboxList"))
-                        {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
+
+                            string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_onlyTextComment"];
+                            if (strvl != null)
+                            {
+                                responseComment = strvl;
+                            }
                         }
                         else
                         {
-                            array = keyName.ToString().Split(splitter);
-                            questionId = int.Parse(array[1]);
-                            surveyId = int.Parse(array[2]);
-                            int? responseId = null;
-                            string responseComment = string.Empty;
-                            try { responseId = int.Parse(answer); }
-                            catch { }
-                            if (answer == "74")
+                            responseComment = null;
+                        }
+                        var checkBoxes = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_checkboxList"];
+                        if (checkBoxes != null)
+                        {
+                            var chechkedList = checkBoxes.Split(",".ToArray()).Select(o => int.Parse(o));
+                            var question = db.pr_getQuestion(questionId).FirstOrDefault();
+                            if (question != null)
                             {
-
-                                string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
-                                if (strvl != null)
-                                {
-                                    responseComment = strvl;
-                                }
+                                var lenght = 0;
+                                var resMap = question.subCheckBoxChoice.Split(":".ToArray());
+                                if (resMap.Length > 1)
+                                    lenght = resMap[1].Split(";".ToArray()).Length;
+                                else lenght = resMap[0].Split(";".ToArray()).Length;
+                                for (int i = 0; i < lenght; i++)
+                                    if (chechkedList.Contains(i))
+                                        responseComment += "1";
+                                    else responseComment += "0";
 
                             }
-                            else if (answer == "75")
-                            {
+                        }
+                        DateTime? dueDate = null;
+                        var strDueDate = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedate"];
+                        if (!string.IsNullOrEmpty(strDueDate))
+                        {
+                            dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) : (DateTime?)null;
+                            responseComment = strDueDate;
 
+                        }
 
-                                string strvl = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_onlyTextComment"];
-                                if (strvl != null)
-                                {
-                                    responseComment = strvl;
-                                }
-                            }
-                            else
-                            {
-                                responseComment = null;
-                            }
-                            var checkBoxes = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_checkboxList"];
-                            if (checkBoxes != null)
-                            {
-                                var chechkedList = checkBoxes.Split(",".ToArray()).Select(o => int.Parse(o));
-                                var question = db.pr_getQuestion(questionId).FirstOrDefault();
-                                if (question != null)
-                                {
-                                    var lenght = 0;
-                                    var resMap = question.subCheckBoxChoice.Split(":".ToArray());
-                                    if (resMap.Length > 1)
-                                        lenght = resMap[1].Split(";".ToArray()).Length;
-                                    else lenght = resMap[0].Split(";".ToArray()).Length;
-                                    for (int i = 0; i < lenght; i++)
-                                        if (chechkedList.Contains(i))
-                                            responseComment += "1";
-                                        else responseComment += "0";
-
-                                }
-                            }                            
-                            DateTime? dueDate=null;
-                            var strDueDate = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedate"];
-                            if (!string.IsNullOrEmpty(strDueDate))
-                            {
-                                dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) : (DateTime?)null;
-								responseComment = strDueDate;
-                                
-                            }
-
-							string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
-							if (!string.IsNullOrEmpty(stralert))
-							{
-								responseComment = stralert;
-							}
-							//else responseComment = null;
-                             //var context = new EntitiesDBContext();
-                            var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
-
+                        string stralert = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedateAlert"];
+                        if (!string.IsNullOrEmpty(stralert))
+                        {
+                            responseComment = stralert;
+                        }
+                        //else responseComment = null;
+                        //var context = new EntitiesDBContext();
+                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
+                        if (PartNumberSiteZcodepptq != null)
+                        {
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
                             if (checkpsz.Count == 0)
                             {
@@ -532,66 +539,67 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                             meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
-
-
                         }
-                        //JB - just going through question			s and setting question response values and modifying zcode values and updating splitter
 
-                        //JB skip logic handling begins
-                        objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
 
-                        if (objQuestion.skipLogicJump != null)
+                    }
+                    //JB - just going through question			s and setting question response values and modifying zcode values and updating splitter
+
+                    //JB skip logic handling begins
+                    objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
+
+                    if (objQuestion.skipLogicJump != null)
+                    {
+                        if (objQuestion.skipLogicAnswer != null)
                         {
-                            if (objQuestion.skipLogicAnswer != null)
-                            {
-                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList,siteSelectList);
-                            }
+                            jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList, siteSelectList);
                         }
                     }
                 }
+            }
 
-                if (jumpToQuestion != 0)
+            if (jumpToQuestion != 0)
+            {
+                // Skip ZCode update            
+                //var context = new EntitiesDBContext();
+                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
+
+                meesage = ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, PartNumberSiteZcodepptq);
+
+            }
+
+
+            if (meesage == "")
+            {
+                // save uploaded files
+                saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
+
+
+
+
+                if (goEsignature == "true")
                 {
-                    // Skip ZCode update            
-                    //var context = new EntitiesDBContext();
-                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault(); ;
 
-                    meesage= ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, PartNumberSiteZcodepptq);
+                    return Redirect("../Home/eSignature");
 
                 }
 
-
-                if (meesage == "")
+                if (saveForLaterButton == true)
                 {
-                    // save uploaded files
-                    saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
 
-
-
-
-                    if (goEsignature == "true")
-                    {
-
-                        return Redirect("../Home/eSignature");
-
-                    }
-
-                    if (saveForLaterButton == true)
-                    {
-
-                    }
-
-                    else
-                    {
-                        //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
-                        return goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
-                    }
                 }
-                ViewBag.message = meesage;
+
+                else
+                {
+                    //if it is last question and all are completed for partnumberSelectList Status, then go to next site...reset siteSelectList --maybe the problem here
+                    return goToNextPage(surveyId, jumpToQuestion, questionIndex, objQuestion, skip, errorQuestion, errorMessage, partNumberSelectList, siteSelectList, partnumberStatusSelectList, page, pageNumber);
+                }
+            }
+            ViewBag.message = meesage;
             return View();
         }
 
-        private string ZcodeModify(int questionnaireId, int questionId, int? responseId,  partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
+        private string ZcodeModify(int questionnaireId, int questionId, int? responseId, partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
         {
             var result = "";
             var responseTypesQuestionnaire = (List<responseType>)Session["responseTypesQuestionnaire"];
@@ -674,7 +682,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return result;
         }
 
-        private string ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion,  partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
+        private string ZcodeModifyForSkip(int questionnaireId, int questionId, int jumpToQuestion, partNumberSiteZcodePPTQ PartNumberSiteZcodepptq)
         {
             var result = "";
             string zcode = PartNumberSiteZcodepptq.zcode;
@@ -872,7 +880,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (finalAnswer)
                     {
                         int flag = 0;
-                        nextpartnumber();                        
+                        nextpartnumber();
                         List<CustomizedLSMW> customizedLSMW = (List<CustomizedLSMW>)Session["CustomizedLSMW"];
                         customizedLSMW.Add(objCustomizedLSMW);
                         Session["CustomizedLSMW"] = customizedLSMW;
@@ -898,7 +906,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                     else
                     {
-                       
+
                         //Reset all session of partnumber
                         Session["partnumber"] = null;
                         Session["site"] = null;
@@ -974,7 +982,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
 
                         var pptqq = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
-                        
+
                         if (pptqq != null)
                         {
                             byte[] uploadedFile = new byte[Request.Files[i].InputStream.Length];
@@ -1065,7 +1073,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 Session["NextPartnumber"] = nextSite.partnumber;
             }
             else
-            {                
+            {
                 Session["NextPartnumber"] = null;
             }
         }
@@ -1228,11 +1236,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             if (o == null)
                                 list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode, });
                             else
-                                list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode, LIFNR = o.LIFNR, MATNR = o.MATNR, WERKS=o.WERKS , ZPOST =o.ZPOST, ZCFLAG=o.ZCFLAG, COMPLETED_DATE= o.COMPLETED_DATE.ToString("MM-dd-yyyy") });
+                                list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode, LIFNR = o.LIFNR, MATNR = o.MATNR, WERKS = o.WERKS, ZPOST = o.ZPOST, ZCFLAG = o.ZCFLAG, COMPLETED_DATE = o.COMPLETED_DATE.ToString("MM-dd-yyyy") });
                         }
                         catch
                         {
-                            list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode,  });
+                            list.Add(new ZcodeGridItem() { PartNumber = dr.partnumber, Site = dr.site, Zcode = dr.zcode, });
                         }
                     }
                 }
@@ -1385,7 +1393,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 partnerPartnertypeTouchpointQuestionnaire objpptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
                 var statuses = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(objpptq.id).ToList().Select(x => x.status).Distinct().ToList();
                 if (statuses.Any(o => o == Status.COMPLETED || o == Status.INCOMPLETE))
-                {                   
+                {
                     dbConext.pr_modifyPPTQStatus(objpptq.partner, objpptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
                 }
             }

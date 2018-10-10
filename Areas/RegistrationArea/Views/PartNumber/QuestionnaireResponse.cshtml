@@ -6,8 +6,8 @@
 @using System.Web.Optimization;
 @using Telerik.Web.Mvc.UI;
 @{
-	Layout = Generic.Helpers.LayoutHelper.GetQuestionnaireResponseMaster();
-   // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    Layout = Generic.Helpers.LayoutHelper.GetQuestionnaireResponseMaster();
+    // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
     //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
     ViewBag.Title = "Questionnaire Response";
     var formData = new ViewBagModel();
@@ -58,20 +58,20 @@
         e.preventDefault();
 
     });
-   
+
     $(document).ready(function () {
 
         var message = '@ViewBag.message';
         if (message !== "") {
             alertify.alert(message);//"");
         }
-        
+
         $("#btnSaveForLater").click(function (e) {
 
             window.location.replace("Saveforlater");
-           
+
         });
-        
+
 
         $("#imgBtnPrevious").click(function (e) {
 
@@ -85,13 +85,13 @@
             window.location.replace("NextPartNumberUI");
 
         });
-        
+
     });
 
 </script>
 
 <script>
-    
+
     jQuery(document).ready(function () {
         $(".duedate").datepicker({
             showOn: "button",
@@ -112,18 +112,67 @@
             showFilterInputs: false
         });
 
-        //$('[data-toggle="popover"]').tooltip();
-        $('.dropdownchange').change(function () {
-            var objpartNumberID = $('#partNumberSelectList').val();
-            var objsiteID = $('#siteSelectList').val();
-            var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
-            //var formData = { partNumberID: objpartNumberID, siteID: objsiteID, partnumberStatusID: objpartnumberStatusID };
+        var level = Number('@ViewBag.Level');
+        if (level == 6) {
+            $("#partNumberSelectList").bootstrapDualListbox({
+                nonSelectedListLabel: 'Options',
+                selectedListLabel: 'Selected',
+                selectorMinimalHeight: 370,
+                //preserveSelectionOnMove: 'moved',
+                //moveOnSelect: false,
+                //bootstrap3Compatible: true,
+                showFilterInputs: false
+            });
 
-            //if (objpartnumberStatusID == "") {
-            //    var partNumberSelectList = "<option value=''></option>";
-            //    $('#partNumberSelectList').html(partNumberSelectList);
-            //    return;
-            //}
+               $('#partNumberSelectList').change(function () {
+
+                var objsiteID = $('#siteSelectList').val();
+                var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
+                var objpartNumberID = $('#partNumberSelectList').val();
+                // var formData = { partNumberSelectList: objpartNumberID, siteSelectList: objsiteID, partnumberStatusSelectList: objpartnumberStatusID };
+
+                if (objpartnumberStatusID == "") {
+                    var partNumberSelectList1 = "<option value=''></option>";
+                    $('#partNumberSelectList').html(partNumberSelectList1);
+                    return;
+                }
+
+                var fData = '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '">';
+
+                var f = document.createElement("form");
+
+                f.setAttribute('method', "post");
+                f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")");
+                f.setAttribute('name', "initiateForm");
+                f.acceptCharset = "UTF-8";
+
+                var newDiv = document.createElement("div");
+                newDiv.innerHTML = fData;
+                f.appendChild(newDiv);
+                document.body.appendChild(f); // added this
+                f.submit();
+            });
+
+               var pN = Number('@ViewBag.pageNumber');
+               if (pN!=1) {
+                $('#bootstrap-duallistbox-nonselected-list_partNumberSelectList').parents(".bootstrap-duallistbox-container:first").find("*").prop("disabled", true);
+            }
+
+        }
+        else {
+
+            //$('[data-toggle="popover"]').tooltip();
+            $('.dropdownchange').change(function () {
+                var objpartNumberID = $('#partNumberSelectList').val();
+                var objsiteID = $('#siteSelectList').val();
+                var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
+                //var formData = { partNumberID: objpartNumberID, siteID: objsiteID, partnumberStatusID: objpartnumberStatusID };
+
+                //if (objpartnumberStatusID == "") {
+                //    var partNumberSelectList = "<option value=''></option>";
+                //    $('#partNumberSelectList').html(partNumberSelectList);
+                //    return;
+                //}
 
            @* $.ajax({
                 url: "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")",
@@ -147,67 +196,67 @@
                 }
             });*@
 
-            var fData = '<input type="hidden" name="siteID" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusID" value="' + objpartnumberStatusID + '">';
+                var fData = '<input type="hidden" name="siteID" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusID" value="' + objpartnumberStatusID + '">';
 
-            var f = document.createElement("form");
+                var f = document.createElement("form");
 
-            f.setAttribute('method', "post");
-            f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")");
-            f.setAttribute('name', "initiateForm2");
-            f.acceptCharset = "UTF-8";
+                f.setAttribute('method', "post");
+                f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")");
+                f.setAttribute('name', "initiateForm2");
+                f.acceptCharset = "UTF-8";
 
-            var newDiv = document.createElement("div");
-            newDiv.innerHTML = fData;
-            //var name = document.createElement("input");
-            //name.setAttribute('type', "text");
-            //name.setAttribute('name', "projectname");<a href="~/Areas/RegistrationArea/Views/PartNumber/QuestionnaireResponse.cshtml">~/Areas/RegistrationArea/Views/PartNumber/QuestionnaireResponse.cshtml</a>
-            //name.setAttribute('value', "saket");
+                var newDiv = document.createElement("div");
+                newDiv.innerHTML = fData;
+                //var name = document.createElement("input");
+                //name.setAttribute('type', "text");
+                //name.setAttribute('name', "projectname");<a href="~/Areas/RegistrationArea/Views/PartNumber/QuestionnaireResponse.cshtml">~/Areas/RegistrationArea/Views/PartNumber/QuestionnaireResponse.cshtml</a>
+                //name.setAttribute('value', "saket");
 
-            f.appendChild(newDiv);
-            document.body.appendChild(f); // added this
-            f.submit();
-
-
-        });
+                f.appendChild(newDiv);
+                document.body.appendChild(f); // added this
+                f.submit();
 
 
+            });
 
 
-        $('#partNumberSelectList').change(function () {
 
-            var objsiteID = $('#siteSelectList').val();
-            var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
-            var objpartNumberID = $('#partNumberSelectList').val();
-           // var formData = { partNumberSelectList: objpartNumberID, siteSelectList: objsiteID, partnumberStatusSelectList: objpartnumberStatusID };
 
-            if (objpartnumberStatusID == "") {
-                var partNumberSelectList1 = "<option value=''></option>";
-                $('#partNumberSelectList').html(partNumberSelectList1);
-                return;
-            }
+            $('#partNumberSelectList').change(function () {
+
+                var objsiteID = $('#siteSelectList').val();
+                var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
+                var objpartNumberID = $('#partNumberSelectList').val();
+                // var formData = { partNumberSelectList: objpartNumberID, siteSelectList: objsiteID, partnumberStatusSelectList: objpartnumberStatusID };
+
+                if (objpartnumberStatusID == "") {
+                    var partNumberSelectList1 = "<option value=''></option>";
+                    $('#partNumberSelectList').html(partNumberSelectList1);
+                    return;
+                }
          @*   var form = $('<form method="post" action="@Url.Content("~/Registration/PartNumber/GetQuestionnaire")">' +
              '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '"></form>');
             $(form).submit();*@
 
-            var fData =  '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '">';
+                var fData = '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '">';
 
-            var f = document.createElement("form");
+                var f = document.createElement("form");
 
-            f.setAttribute('method', "post");
-            f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")");
-            f.setAttribute('name', "initiateForm");
-            f.acceptCharset = "UTF-8";
+                f.setAttribute('method', "post");
+                f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")");
+                f.setAttribute('name', "initiateForm");
+                f.acceptCharset = "UTF-8";
 
-            var newDiv = document.createElement("div");
-            newDiv.innerHTML = fData;
-            //var name = document.createElement("input");
-            //name.setAttribute('type', "text");
-            //name.setAttribute('name', "projectname");
-            //name.setAttribute('value', "saket");
+                var newDiv = document.createElement("div");
+                newDiv.innerHTML = fData;
+                //var name = document.createElement("input");
+                //name.setAttribute('type', "text");
+                //name.setAttribute('name', "projectname");
+                //name.setAttribute('value', "saket");
 
-            f.appendChild(newDiv);
-            document.body.appendChild(f); // added this
-            f.submit();
+                f.appendChild(newDiv);
+                document.body.appendChild(f); // added this
+                f.submit();
 
 
 
@@ -233,7 +282,7 @@
                 }
             });*@
 
-            @*$.ajax({
+                @*$.ajax({
                 url: "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")",
                 type: "post",
                 data: formData,
@@ -256,9 +305,9 @@
             });*@
 
 
-         });
+            });
 
-      
+        }
 
     });
 </script>
@@ -285,7 +334,7 @@
             if (input.name == last) continue; // if this object name is the same as the last checked radio, go to next iteration
 
 
-                // checks to see if any  one of  similarly named radiobuttons is checked 
+            // checks to see if any  one of  similarly named radiobuttons is checked
             else if (input.type == "radio") {
                 last = input.name;
                 // alert(last);
@@ -339,13 +388,13 @@
                     //                    alert("You did not answer question " + input.id.substring(0,input.id.length-1));
                     //                    input.focus();
                     //                    return false;
-                    //            }                                   
+                    //            }
                 }
             }
 
         }
     }
-  
+
 </script>
 
 <style>
@@ -355,10 +404,10 @@
 </style>
 
 
- @section zCodes{
-     @if (ViewBag.zcodeList is List<Generic.pr_getTransactionRecordAll_Result>)
-     {
-         List<Generic.pr_getTransactionRecordAll_Result> list = ViewBag.zcodeList as List<Generic.pr_getTransactionRecordAll_Result>;
+@section zCodes{
+    @if (ViewBag.zcodeList is List<Generic.pr_getTransactionRecordAll_Result>)
+    {
+        List<Generic.pr_getTransactionRecordAll_Result> list = ViewBag.zcodeList as List<Generic.pr_getTransactionRecordAll_Result>;
 
         @Html.Telerik().Grid(list).Name("getTransactionRecordAllGrid").Columns(columns =>
    {
@@ -382,10 +431,10 @@
        columns.Bound(o => o.tradePrice).Title("Take Price");
        columns.Bound(o => o.tradeTime).Title("Take Time");
    }).Filterable(o => o.Enabled(true)).Resizable(o => o.Columns(true));
-     }
-     else if (ViewBag.zcodeList is List<Generic.ZcodeGridItem>)
-     {
-         List<Generic.ZcodeGridItem> list = ViewBag.zcodeList as List<Generic.ZcodeGridItem>;
+    }
+    else if (ViewBag.zcodeList is List<Generic.ZcodeGridItem>)
+    {
+        List<Generic.ZcodeGridItem> list = ViewBag.zcodeList as List<Generic.ZcodeGridItem>;
         @Html.Telerik().Grid(list).Name("getTransactionRecordAllGrid").Columns(columns =>
    {
        columns.Bound(o => o.PartNumber).Title("Part Number");
@@ -398,41 +447,50 @@
        columns.Bound(o => o.ZCFLAG).Title("ZCFLAG");
        columns.Bound(o => o.COMPLETED_DATE).Title("COMPLETED DATE");
    }).Filterable(o => o.Enabled(true)).Resizable(o => o.Columns(true));
-     }
+    }
 
 
-        }
-        @*<div class="top-margin">
+}
+@*<div class="top-margin">
 
-            </div>*@
+    </div>*@
 
 
-        <section class="page-inner">
-            <div class="container">
-                @Html.Partial("_TopSection")
-                @using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <div class="questionaire-table">
+<section class="page-inner">
+    <div class="container">
+        @Html.Partial("_TopSection")
+        @using (Html.BeginForm("QuestionnaireResponse", "PartNumber", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="questionaire-table">
 
-                        <div class="shadow-outer">
-                            <div class="shadow-box">
+                <div class="shadow-outer">
+                    <div class="shadow-box">
 
-                                <div class="box-shadow-dropdown shd-box-btn pre-next-btn">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            @Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
-                                            <br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
-                                        </div>
+                        <div class="box-shadow-dropdown shd-box-btn pre-next-btn">
+                            <div class="row">
 
-                                        <div class="col-md-3">
-                                            <span style="font-size: 12px;">
+                                @if (ViewBag.Level == 6)
+                                {
+                                    @Html.Hidden("siteSelectList")
+                                    @Html.Hidden("partnumberStatusSelectList")
+                                    @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+                                }
+                                else
+                                {
+                                    <div class="col-md-2">
+                                        @Html.DropDownList("partnumberStatusSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+                                        <br />    <span class="field-validation-valid" data-valmsg-for="partnumberStatusSelectList" data-valmsg-replace="true"></span>
+                                    </div>
 
-                                                @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
+                                    <div class="col-md-3">
+                                        <span style="font-size: 12px;">
 
-                                            </span>
-                                            @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
-                                            <br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
-                                        </div>
+                                            @Html.Raw(ViewBag.QUESTIONNAIRE_PAGE_PN)
+
+                                        </span>
+                                        @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+                                        <br />     <span class="field-validation-valid" data-valmsg-for="partNumberSelectList" data-valmsg-replace="true"></span>
+                                    </div>
 
                                         <div class="col-md-4">
                                             <span style="font-size: 12px;">
@@ -446,39 +504,40 @@
                                             <button class="btn btn-default" id="imgBtnPrevious" type="button"><i class="fa fa-angle-double-left"></i></button>
                                             <button class="btn btn-default" id="imgBtnNext" type="button"><i class="fa fa-angle-double-right"></i></button>
                                         </div>
-                                    </div>
-                                </div>
-
-                                @Html.Raw(ViewBag.questions + "</table>")
-
-
-
+                                }
                             </div>
-
-                        </div>
-                        <div class="hiddenValues">
-                            <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
-                            <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
-                            <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
-
-                            <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
-                            <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
-
                         </div>
 
+                        @Html.Raw(ViewBag.questions + "</table>")
 
-                        <div class="pre-next-btn">
-                            <button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
-                            <button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
-                        </div>
+
 
                     </div>
-                }
+
+                </div>
+                <div class="hiddenValues">
+                    <input type="hidden" name="hiddenPreviousSkipLogicQuestion" id="hiddenPreviousSkipLogicQuestion" value="0" />
+                    <input type="hidden" name="hiddenSkipLogicJump" id="hiddenSkipLogicJump" value="0" />
+                    <input type="hidden" name="hiddenPage" id="hiddenPage" value="0" />
+
+                    <input type="hidden" name="Page" value="@Request.QueryString["Page"]" />
+                    <input type="hidden" name="PageNumber" value="@Request.QueryString["PageNumber"]" />
+
+                </div>
+
+
+                <div class="pre-next-btn">
+                    <button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
+                    <button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                </div>
+
             </div>
+        }
+    </div>
 
 
 
-        </section>
+</section>
 
 
 

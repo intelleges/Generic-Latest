@@ -61,7 +61,8 @@ namespace Generic.Areas.RegistrationArea.Services
                     if (partNumberSelectList.HasValue)
                     {
                         var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
-                        rID = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionidLogic, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                        if(PartNumberSiteZcodepptq != null)
+                            rID = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionidLogic, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
                     }
                     else
                     {

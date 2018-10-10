@@ -90,6 +90,7 @@ namespace Generic.Helpers.Questionnaire
         public const int PURCHASE_ORDER_LEVEL = 3;
         public const int BOM_COST_BREAKDOWN = 4;
         public const int SUBSCRIPTION = 5;
+        public const int PARTNUMBER_LEVEL_L2L = 6;
     }
 
     public static class CMS

@@ -76,19 +76,19 @@ namespace Generic.Helpers.Utility
                 sVariable = match.ToString();
                 switch (sVariable.ToLower())
                 {
-					case "[purchase order version number]":
-						sValue = person.phone;
-						break;
-					case "[firstname]":
-						sValue = person.firstname;
-						break;
-					case "[partner name]":
-					case "[partnername]":
-						sValue = partner.name;
-						break;
-					case "[purchase order number]":
-						sValue = partner.address2;
-						break;
+                    case "[purchase order version number]":
+                        sValue = person.phone;
+                        break;
+                    case "[firstname]":
+                        sValue = person.firstname;
+                        break;
+                    case "[partner name]":
+                    case "[partnername]":
+                        sValue = partner.name;
+                        break;
+                    case "[purchase order number]":
+                        sValue = partner.address2;
+                        break;
                     case "[personfirstname]":
                         sValue = currentPerson.firstName;
                         break;
@@ -122,47 +122,47 @@ namespace Generic.Helpers.Utility
                     case "[iteratepartnername]":
                         sValue = partner.name;
                         break;
-					case "[jobsnippet]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).jobSnippet;
-						break;
-					case "[searchterm]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
-						break;
+                    case "[jobsnippet]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).jobSnippet;
+                        break;
+                    case "[searchterm]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
+                        break;
                     case "[companyprofile]":
                         sValue = this.sGetResultCompanyProfileDataLoad(partner.id).id.ToString();
                         break;
                     case "[searchtermsmall]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
-						break;
-					case "[searchtermlarge]":
-						if(this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':').Count()>1)
-							sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[1];
-						break;
-					
-
-					case "[industrysector]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
-						break;
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
+                        break;
+                    case "[searchtermlarge]":
+                        if (this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':').Count() > 1)
+                            sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[1];
+                        break;
 
 
-					case "[owneremail]":
-						sValue = this.getRequiredPerson(partner.id).email;
-						break;
-					case "[ownerfirstname]":
-						sValue = this.getRequiredPerson(partner.id).firstName;
-						break;
-					case "[ownerlastname]":
-						sValue = this.getRequiredPerson(partner.id).lastName;
-						break;
-					case "[ownerfullName]":
-						sValue = this.getRequiredPerson(partner.id).FullName;
-						break;
-					case "[ownertitle]":
-						sValue = this.getRequiredPerson(partner.id).title;
-						break;
-					case "[ownerphonenumber]":
-						sValue = this.getRequiredPerson(partner.id).phone;
-						break;
+                    case "[industrysector]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
+                        break;
+
+
+                    case "[owneremail]":
+                        sValue = this.getRequiredPerson(partner.id).email;
+                        break;
+                    case "[ownerfirstname]":
+                        sValue = this.getRequiredPerson(partner.id).firstName;
+                        break;
+                    case "[ownerlastname]":
+                        sValue = this.getRequiredPerson(partner.id).lastName;
+                        break;
+                    case "[ownerfullName]":
+                        sValue = this.getRequiredPerson(partner.id).FullName;
+                        break;
+                    case "[ownertitle]":
+                        sValue = this.getRequiredPerson(partner.id).title;
+                        break;
+                    case "[ownerphonenumber]":
+                        sValue = this.getRequiredPerson(partner.id).phone;
+                        break;
                     default:
                         if (sVariable.Contains("[forward to"))
                         {
@@ -184,7 +184,8 @@ namespace Generic.Helpers.Utility
                             }
                             else sValue = "";
 
-                        } else 
+                        }
+                        else
                             sValue = sVariable;
                         break;
                 }
@@ -266,12 +267,12 @@ namespace Generic.Helpers.Utility
 
                 switch (sVariable.ToLower())
                 {
-					case "[purchase order version number]":
-						sValue = (partner.internalID??"").Replace(partner.address1 + " ", "");
-						break;
-					case "[purchase order number]":
-						sValue = partner.address1;
-						break;
+                    case "[purchase order version number]":
+                        sValue = (partner.internalID ?? "").Replace(partner.address1 + " ", "");
+                        break;
+                    case "[purchase order number]":
+                        sValue = partner.address1;
+                        break;
                     case "[receiver full name]":
                         sValue = this.sGetpersonFullName(receiver);
                         break;
@@ -320,7 +321,7 @@ namespace Generic.Helpers.Utility
                     case "[partner encrypted Id]":
                         sValue = this.sGetEncryptedpartnerId(partner);
                         break;
-					case "[partnername]":
+                    case "[partnername]":
                     case "[partner name]":
                         sValue = this.sGetpartnerName(partner);
                         break;
@@ -381,8 +382,8 @@ namespace Generic.Helpers.Utility
                         break;
                     case "[3yearsfromcompleteddate]":
                         var pptqFromCompeleted = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partner.id, ptq).FirstOrDefault();
-                       // if (!pptqFromCompeleted.completedDate.HasValue || pptqFromCompeleted.completedDate < DateTime.Parse("01.01.1920"))
-                            //sValue = "NOT COMPLETED";
+                        // if (!pptqFromCompeleted.completedDate.HasValue || pptqFromCompeleted.completedDate < DateTime.Parse("01.01.1920"))
+                        //sValue = "NOT COMPLETED";
                         //else 
                         sValue = pptqFromCompeleted.completedDate.HasValue && pptqFromCompeleted.completedDate > DateTime.Parse("01.01.1920") ? pptqFromCompeleted.completedDate.Value.AddYears(3).ToShortDateString() : DateTime.Now.AddYears(3).ToShortDateString();
                         break;
@@ -468,7 +469,11 @@ namespace Generic.Helpers.Utility
                         sValue = partner.name;
                         break;
                     case "[partnumber]":
-                        if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
+                        if (HttpContext.Current.Session["l2l"] != null)
+                        {
+                            sValue = "the current selected set";
+                        }
+                        else if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
                         {
                             int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
                             if (partid != 0)
@@ -478,32 +483,40 @@ namespace Generic.Helpers.Utility
                                 if (details != null)
                                     sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", partnumber.description, HttpUtility.HtmlEncode(details.description));
                                 else sValue = partnumber.description;
-                              
+
                             }
                         }
                         break;
+                    case "[nextpartnumber]":
                     case "[next partnumber]":
-                        if (HttpContext.Current.Session["NextPartnumber"] != null)
+                        if (HttpContext.Current.Session["l2l"] != null)
                         {
-                            int partid = Convert.ToInt32(HttpContext.Current.Session["NextPartnumber"].ToString());
-                            if (partid != 0)
-                            {
-                                sValue = db.pr_getPartnumber(partid).FirstOrDefault().description;
-                            }
+                            sValue = "the next selected set";
                         }
                         else
                         {
-                            int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
-                            if (partid != 0)
+                            if (HttpContext.Current.Session["NextPartnumber"] != null)
                             {
-                                var partnumber = db.pr_getPartnumber(partid).FirstOrDefault();
-                                var details = db.pr_getPartnumberDetail(partid).FirstOrDefault();
-                                if (details != null)
-                                    sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", partnumber.description, HttpUtility.HtmlEncode(details.description));
-                                else sValue = partnumber.description;
-                              
+                                int partid = Convert.ToInt32(HttpContext.Current.Session["NextPartnumber"].ToString());
+                                if (partid != 0)
+                                {
+                                    sValue = db.pr_getPartnumber(partid).FirstOrDefault().description;
+                                }
                             }
-                            return "You have completed the questions for " + sValue + ", please select YES to COMPLETE this questionnaire by providing an eSignature, or NO to leave the QUESTIONNAIRE INCOMPLETE and return to change your answers for " + sValue + ".";
+                            else
+                            {
+                                int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
+                                if (partid != 0)
+                                {
+                                    var partnumber = db.pr_getPartnumber(partid).FirstOrDefault();
+                                    var details = db.pr_getPartnumberDetail(partid).FirstOrDefault();
+                                    if (details != null)
+                                        sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", partnumber.description, HttpUtility.HtmlEncode(details.description));
+                                    else sValue = partnumber.description;
+
+                                }
+                                return "You have completed the questions for " + sValue + ", please select YES to COMPLETE this questionnaire by providing an eSignature, or NO to leave the QUESTIONNAIRE INCOMPLETE and return to change your answers for " + sValue + ".";
+                            }
                         }
                         break;
                     case "[first name]":
@@ -528,7 +541,7 @@ namespace Generic.Helpers.Utility
                         sValue = partner.phone;
                         break;
                     case "[partner country]":
-                        sValue =db.pr_getCountry(partner.country).FirstOrDefault().name;
+                        sValue = db.pr_getCountry(partner.country).FirstOrDefault().name;
                         break;
                     case "[partner address one]":
                         sValue = partner.address1;
@@ -537,7 +550,7 @@ namespace Generic.Helpers.Utility
                         sValue = partner.city;
                         break;
                     case "[partner_state]":
-                        sValue =db.pr_getStateByID(partner.state).FirstOrDefault().name;
+                        sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;
                         break;
                     case "[partner zip code]":
                         sValue = partner.zipcode;
@@ -545,49 +558,49 @@ namespace Generic.Helpers.Utility
                     case "[company url]":
                         sValue = partner.dunsNumber;
                         break;
-					case "[jobsnippet]":						
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).jobSnippet;
-						break;
-					case "[searchterm]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
-						break;
+                    case "[jobsnippet]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).jobSnippet;
+                        break;
+                    case "[searchterm]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm;
+                        break;
                     case "[companyprofile]":
                         sValue = this.sGetResultCompanyProfileDataLoad(partner.id).id.ToString();
                         break;
                     case "[searchtermsmall]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
-						break;
-					case "[searchtermlarge]":
-						if (this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':').Count() > 1)
-							sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[1];
-						break;
-					
-					case "[industrysector]":
-						sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
-						break;
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[0];
+                        break;
+                    case "[searchtermlarge]":
+                        if (this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':').Count() > 1)
+                            sValue = this.sGetResultCompanyProfileDataLoad(partner.id).searchterm.Split(':')[1];
+                        break;
+
+                    case "[industrysector]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).industrySector;
+                        break;
 
 
-					case "[owneremail]":
-						sValue = this.getRequiredPerson(partner.id).email;
-						break;
-					case "[ownerfirstname]":
-						sValue = this.getRequiredPerson(partner.id).firstName;
-						break;
-					case "[ownerlastname]":
-						sValue = this.getRequiredPerson(partner.id).lastName;
-						break;
-					case "[ownerfullname]":
-						sValue = this.getRequiredPerson(partner.id).FullName;
-						break;
-					case "[ownertitle]":
-						sValue = this.getRequiredPerson(partner.id).title;
-						break;
-					case "[ownerphonenumber]":
-						sValue = this.getRequiredPerson(partner.id).phone;
-						break;
-					case "[personfullname]":
-						sValue = partner.firstName + " " + partner.lastName;
-						break;
+                    case "[owneremail]":
+                        sValue = this.getRequiredPerson(partner.id).email;
+                        break;
+                    case "[ownerfirstname]":
+                        sValue = this.getRequiredPerson(partner.id).firstName;
+                        break;
+                    case "[ownerlastname]":
+                        sValue = this.getRequiredPerson(partner.id).lastName;
+                        break;
+                    case "[ownerfullname]":
+                        sValue = this.getRequiredPerson(partner.id).FullName;
+                        break;
+                    case "[ownertitle]":
+                        sValue = this.getRequiredPerson(partner.id).title;
+                        break;
+                    case "[ownerphonenumber]":
+                        sValue = this.getRequiredPerson(partner.id).phone;
+                        break;
+                    case "[personfullname]":
+                        sValue = partner.firstName + " " + partner.lastName;
+                        break;
 
                     //case "[partner_state]":
                     //    sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;
@@ -622,7 +635,7 @@ namespace Generic.Helpers.Utility
                         else if (lowered.Contains("[forward to"))
                         {
                             var splitted = sVariable.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                            sValue = "<a href='" + this.sGetProjectUrl(enterprise) + "/wrongContact?AccessCode="+this.sGetpartnerAccessCode(partner,touchpoint,ptq)+"'>{0}</a>";
+                            sValue = "<a href='" + this.sGetProjectUrl(enterprise) + "/wrongContact?AccessCode=" + this.sGetpartnerAccessCode(partner, touchpoint, ptq) + "'>{0}</a>";
                             //sValue = "<a href='" + this.sGetProjectUrl(enterprise) + "/Registration/Home/Unsubscribe/" + partner.id + "'>{0}</a>";
                             sValue = splitted.Length > 1 ? string.Format(sValue, splitted[1].Replace("]", "")) : "click here";
                         }
@@ -636,23 +649,24 @@ namespace Generic.Helpers.Utility
             return sEmailBody;
         }
 
-		private dynamic sGetResultCompanyProfileDataLoad(int partnerId)
-		{
-			using(var db  = new EntitiesDBContext()){
-				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
-				return db.pr_getCompanyProfileDataLoadByPPTQ(pptq.id).FirstOrDefault()??new companyProfileDataLoad();
-			}
-			 
-		}
+        private dynamic sGetResultCompanyProfileDataLoad(int partnerId)
+        {
+            using (var db = new EntitiesDBContext())
+            {
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+                return db.pr_getCompanyProfileDataLoadByPPTQ(pptq.id).FirstOrDefault() ?? new companyProfileDataLoad();
+            }
 
-		private person getRequiredPerson(int partnerId)
-		{
-			using(var db = new EntitiesDBContext())
-			{
-				var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
-				return db.pr_getPPTQOwner(pptq.id).FirstOrDefault();
-			}
-		}
+        }
+
+        private person getRequiredPerson(int partnerId)
+        {
+            using (var db = new EntitiesDBContext())
+            {
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partnerId).FirstOrDefault();
+                return db.pr_getPPTQOwner(pptq.id).FirstOrDefault();
+            }
+        }
 
         public string sGetRegistrationLink(string accessCode, string projectUrl, bool advanced, string linkText = null)
         {

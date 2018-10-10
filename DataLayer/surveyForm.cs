@@ -193,13 +193,13 @@ namespace Generic.DataLayer
                     if (pageId == page.id || (pageId == 0 && i == 0))
                     {
                         //get surveysets by page
-                        showsurveysetCollectionByPage(page, jumpToquestion, table);
+                        showsurveysetCollectionByPage(questionnaire, page, jumpToquestion, table);
                     }
                 }
             }
         }
 
-        private void showsurveysetCollectionByPage(page page, int jumpToquestion, Table table)
+        private void showsurveysetCollectionByPage(questionnaire questionnaire, page page, int jumpToquestion, Table table)
         {
             List<surveyset> surveysetCollection = db.pr_getSurveysetByPage(page.id).ToList();
             surveyset surveyset = null;
@@ -211,12 +211,12 @@ namespace Generic.DataLayer
                     surveyset = surveysetCollection[i];
 
                     //get surveys by surveSet
-                    showsurveyCollectionBysurveyset(surveyset, jumpToquestion, table);
+                    showsurveyCollectionBysurveyset(questionnaire, surveyset, jumpToquestion, table);
                 }
             }
         }
 
-        private void showsurveyCollectionBysurveyset(surveyset surveyset, int jumpToquestion, Table table)
+        private void showsurveyCollectionBysurveyset(questionnaire questionnaire, surveyset surveyset, int jumpToquestion, Table table)
         {
             List<survey> surveyCollection = db.pr_getSurveyBySurveyset(surveyset.id).ToList();
             survey survey = null;
@@ -226,13 +226,13 @@ namespace Generic.DataLayer
                 for (int i = 0; i < surveyCollection.Count; i++)
                 {
                     survey = surveyCollection[i];
-                    showquestionCollectionBysurvey(surveyset, survey, ref jumpToquestion, table);
+                    showquestionCollectionBysurvey(questionnaire, surveyset, survey, ref jumpToquestion, table);
                 }
             }
         }
 
         //    private void showquestionCollectionBysurvey(survey survey, int jumpToquestion, Table table)
-        private void showquestionCollectionBysurvey(surveyset surveyset, survey survey, ref int jumpToquestion, Table table)
+        private void showquestionCollectionBysurvey(questionnaire questionnaire, surveyset surveyset, survey survey, ref int jumpToquestion, Table table)
         {
 
             List<question> questionCollection = db.pr_getQuestionBySurveySkipLogic(survey.id, jumpToquestion).ToList();
@@ -247,7 +247,7 @@ namespace Generic.DataLayer
                     question = questionCollection[i];
                     this.questionIndex += 1;
                     jumpToquestion++;
-                    showquestion(surveyset, survey, question, this.questionIndex, table);
+                    showquestion(questionnaire, surveyset, survey, question, this.questionIndex, table);
                 }
             }
         }
@@ -313,7 +313,7 @@ namespace Generic.DataLayer
         string currentsurvey = "";
         string previoussurvey = "";
         //    private void showquestion(survey survey, question question, int index, Table table)
-        private void showquestion(surveyset surveyset, survey survey, question question, int index, Table table)
+        private void showquestion(questionnaire questionnaire, surveyset surveyset, survey survey, question question, int index, Table table)
         {
             TableRow tableRow = new TableRow();
             TableCell tableCell = new TableCell();
@@ -327,15 +327,13 @@ namespace Generic.DataLayer
             int divflag = 0;
             //question.question = convertLanguageApi(question.question);
 
-
             //abs21022012
             string strQuestion = _translator.Translate(question.id, TranslationType.Question, _currentLanguage);
             var partnerID = (int)HttpContext.Current.Session["partner"];
             var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
             var _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             strQuestion = format.sGetEmailBody(strQuestion, null, _currentPartner, _enterprise, objpptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, objpptq.partnerTypeTouchpointQuestionnaire);
-            question.Question = strQuestion;
-
+            question.Question = strQuestion;   
 
             if (this.showContentOnly)
             {
@@ -2181,7 +2179,7 @@ namespace Generic.DataLayer
                         tableCell = new TableCell();
                         listBox = new ListBox();
                         listBox.SelectionMode = ListSelectionMode.Multiple;
-                        listBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString()+ "_list2list";
+                        listBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_list2list";
                         listBox.CssClass = "list2listComponent";
                         if (question.required == 1)
                         {
@@ -2209,14 +2207,14 @@ namespace Generic.DataLayer
                             //    item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;
                             //    item.Text = item.Text.Replace(checkCOde.Match(item.Text).Value, "");
                             //}
-                            if (pptqResponse != null && pptqResponse.comment.Contains(splittedDescription[0]))
+                            if (pptqResponse != null && (pptqResponse.comment ?? "").Contains(splittedDescription[0]))
                             {
                                 //listBox.ClearSelection();
                                 item.Selected = true;
 
                             }
                             listBox.Items.Add(item);
-                            
+
                             //tableCell.Controls.Add(dropDownList);
                         }
 

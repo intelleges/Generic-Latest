@@ -976,7 +976,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptqid = pptq != null ? pptq.id : 0;
             if (objQuestionnaire != null)
             {
-                if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
+                if (objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL || objQuestionnaire.levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL_L2L)
                 {
                     var statuses =
                         db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptqid)
