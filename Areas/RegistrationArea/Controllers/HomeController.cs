@@ -3868,12 +3868,10 @@ Intelleges Team";
             memStream.Position = 0;
             memStream.Read(buf, 0, buf.Length);
 
-
-
             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, buf, quest.docFolderAddress, quest.score, quest.loadGroup);
-
             // Send the binary data to the browser.
-            return new BinaryContentResult(buf, "application/pdf");
+            return new BinaryContentResult(buf, "application/pdf", 
+                quest.partnerTypeTouchpointQuestionnaire1.touchpoint1.title + "_" + quest.accesscode + ".pdf");
         }
 
         // for pdf download.
@@ -3909,11 +3907,13 @@ Intelleges Team";
         {
             private string ContentType;
             private byte[] ContentBytes;
+            private string FileName;
 
-            public BinaryContentResult(byte[] contentBytes, string contentType)
+            public BinaryContentResult(byte[] contentBytes, string contentType, string filename = null)
             {
                 this.ContentBytes = contentBytes;
                 this.ContentType = contentType;
+                this.FileName = filename;
             }
 
             public override void ExecuteResult(ControllerContext context)
@@ -3922,6 +3922,9 @@ Intelleges Team";
                 response.Clear();
                 response.Cache.SetCacheability(HttpCacheability.NoCache);
                 response.ContentType = this.ContentType;
+                if (!string.IsNullOrEmpty(FileName)) {
+                    response.AddHeader("Content-Disposition", "inline; filename=" + FileName);
+                }
 
                 var stream = new MemoryStream(this.ContentBytes);
                 stream.WriteTo(response.OutputStream);
@@ -15102,7 +15105,10 @@ Intelleges Team";
                 //}
                 //  System.IO.File.Delete(fileName);
                 // Send the binary data to the browser.
-                return new BinaryContentResult(bytes, "application/pdf");
+
+                var q = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                return new BinaryContentResult(bytes, "application/pdf",
+                    q.partnerTypeTouchpointQuestionnaire1.touchpoint1.title + "_" + accessCode + ".pdf");
             }
             return new BinaryContentResult(null, "application/pdf");
         }
@@ -15136,7 +15142,7 @@ Intelleges Team";
             return new BinaryContentResult(null, "application/pdf");
         }
 
-        public ActionResult PDFCustomizedConfirmation()
+        public ActionResult PDFCustomizedConfirmation(string filename = null)
         {
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             if (!String.IsNullOrEmpty(accessCode))
@@ -15148,7 +15154,12 @@ Intelleges Team";
                     var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
                     var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
                     var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
-                    return new BinaryContentResult(pdf, "application/pdf");
+
+                    if (string.IsNullOrEmpty(filename)) {
+                        return RedirectToAction("PDFCustomizedConfirmation", new { filename = _pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.title + "_" + accessCode + ".pdf" });
+                    }
+
+                    return new BinaryContentResult(pdf, "application/pdf", _pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.title + "_" + accessCode + ".pdf");
                 }
             }
             return RedirectToAction("~/Registration/Home");
