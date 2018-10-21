@@ -271,6 +271,12 @@ namespace Generic.Controllers
                         var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();                        
                         ViewBag.MessageDetail = "To complete this "+ Target.title + " now please <a href='"+Url.Content("~/Registration?Accesscode=" + pptq.accesscode) +"'>click here</a>.  If you wish to complete it later, a link to this "+ Target.title + " has also been sent to your email. Thank you.";
                     }
+
+                    try {
+                        var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
+                        ViewBag.AccessCode = pptq.accesscode;
+                    }
+                    catch { }
                 }
                 ModelState.Clear();
                 return View();

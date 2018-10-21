@@ -81,7 +81,7 @@
 					ok: "Invite Now", cancel: "Cancel"
 				}
 			});
-			alertify.confirm("", function (e) {
+            alertify.confirm("Click here to access <a target='_blank' class='link-conf' href='/Registration?Accesscode=@ViewBag.AccessCode'>@ViewBag.AccessCode</a>, or", function (e) {
 				if (e) {
 					// Click no
 					$.ajax({
@@ -122,6 +122,11 @@
                     // click yes
                 }
             });
+
+            $('.link-conf').on('click', function () {
+                $('.alertify-button-ok').click();
+            });
+
         }
     	if ("@ViewBag.Message" == "duplicates") {
 
