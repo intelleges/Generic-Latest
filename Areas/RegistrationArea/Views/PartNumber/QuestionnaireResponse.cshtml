@@ -123,36 +123,7 @@
                 //bootstrap3Compatible: true,
                 showFilterInputs: false
             });
-
-               $('#partNumberSelectList').change(function () {
-
-                var objsiteID = $('#siteSelectList').val();
-                var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
-                var objpartNumberID = $('#partNumberSelectList').val();
-                // var formData = { partNumberSelectList: objpartNumberID, siteSelectList: objsiteID, partnumberStatusSelectList: objpartnumberStatusID };
-
-                if (objpartnumberStatusID == "") {
-                    var partNumberSelectList1 = "<option value=''></option>";
-                    $('#partNumberSelectList').html(partNumberSelectList1);
-                    return;
-                }
-
-                var fData = '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '">';
-
-                var f = document.createElement("form");
-
-                f.setAttribute('method', "post");
-                f.setAttribute('action', "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")");
-                f.setAttribute('name', "initiateForm");
-                f.acceptCharset = "UTF-8";
-
-                var newDiv = document.createElement("div");
-                newDiv.innerHTML = fData;
-                f.appendChild(newDiv);
-                document.body.appendChild(f); // added this
-                f.submit();
-            });
-
+            
                var pN = Number('@ViewBag.pageNumber');
                if (pN!=1) {
                 $('#bootstrap-duallistbox-nonselected-list_partNumberSelectList').parents(".bootstrap-duallistbox-container:first").find("*").prop("disabled", true);
@@ -473,7 +444,7 @@
                                 {
                                     @Html.Hidden("siteSelectList")
                                     @Html.Hidden("partnumberStatusSelectList")
-                                    @Html.DropDownList("partNumberSelectList", null, null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required" })
+                                    @Html.ListBox("partNumberSelectList", null, new { @class = "dropdownchange form-control", @data_val = "true", @data_val_required = "Required", multiple = "multiple" })
                                 }
                                 else
                                 {
