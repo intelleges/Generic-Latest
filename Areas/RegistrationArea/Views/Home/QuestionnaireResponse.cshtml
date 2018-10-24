@@ -58,7 +58,7 @@
     }
 
     #ui-datepicker-div {
-        z-index:1000!important;
+        z-index: 1000 !important;
     }
 </style>
 
@@ -136,7 +136,7 @@
                 <!--pre-next-btn-->
 
             </div>
-			<!--questionaire-table-->
+            <!--questionaire-table-->
         }
         <!-- #region Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -276,6 +276,16 @@
 			}
 
             $("#QuestionnaireResponse").submit(function (e) {
+
+                var success = true;
+                $.each($('.field-validation-valid'), function (index, obj) {
+                    var id = $(obj).attr('data-valmsg-for');
+                    if ($('#' + id).is("textarea") && $('#cke_' + id).length>0)
+                        if (CKEDITOR.instances[id].getData().length === 0) success = false;
+                });
+
+                if (success === false) return false;
+
                 @if (ViewBag.Pptq != null) {
                         <text>
 
@@ -284,7 +294,7 @@
                         .done(function (data) {
                             if (data.success == true) {
                                 alertify.alert('Congratulations your submission is approved!!!', function () {
-                                   
+
                                     $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
                                         canSubmit = true;
                                         $("#QuestionnaireResponse").submit();
@@ -293,7 +303,7 @@
                             }
                             else {
                                 alertify.alert(data.message, function () {
-                                    
+
 $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
     canSubmit = false;
                                     });
