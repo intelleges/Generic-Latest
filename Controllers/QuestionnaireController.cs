@@ -204,7 +204,8 @@ namespace Generic.Controllers
             ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
             ViewBag.EnterpriseId = contactUs;
 
-            if (responseId == -1) {
+            if (responseId == -1)
+            {
                 EntitiesDBContext db1 = new EntitiesDBContext();
                 var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
                 p.status = 7;
@@ -819,7 +820,7 @@ namespace Generic.Controllers
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
-            
+
             //db.pr_getQuestionnaireLevelTypeByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID)
             ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
             return View();
@@ -1455,33 +1456,24 @@ namespace Generic.Controllers
                                     objQuestion.emailAlert = excelQuestionnaire.emailalert.Substring(0, 1);
                                 }
                                 catch { }
-                                try
-                                {
-                                    objQuestion.emailAlertList = excelQuestionnaire.emailalertlist;
-                                    objQuestion.sortOrder = 1;
-                                    objQuestion.active = true;
-                                    objQuestion.enterprise = EnterpriseID;
-                                    db.questions.Add(objQuestion);
-                                    db.SaveChanges();
-                                    questionSet.Add(objQuestion.id);
-                                    excelQuestionnaire.CommentBoxMessageText = excelQuestionnaire.CommentBoxMessageText ?? "";
-                                    excelQuestionnaire.UploadMessageText = excelQuestionnaire.UploadMessageText ?? "";
-                                    excelQuestionnaire.CommentType = excelQuestionnaire.CommentType ?? "";
-                                    db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic ?? "", excelQuestionnaire.skipLogicAnswer ?? "", excelQuestionnaire.SubCheckBoxChoice ?? "", excelQuestionnaire.CalendarMessageText, excelQuestionnaire.skipLogicJump ?? "", excelQuestionnaire.CommentBoxMessageText ?? "", excelQuestionnaire.UploadMessageText ?? "", excelQuestionnaire.CommentType ?? "", "", excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert ?? "", excelQuestionnaire.emailalertlist ?? "", questionnaireId).FirstOrDefault();
-                                }
-                                catch (Exception ex)
-                                {
 
+                                objQuestion.emailAlertList = excelQuestionnaire.emailalertlist;
+                                objQuestion.sortOrder = 1;
+                                objQuestion.active = true;
+                                objQuestion.enterprise = EnterpriseID;
+                                db.questions.Add(objQuestion);
+                                db.SaveChanges();
+                                questionSet.Add(objQuestion.id);
+                                excelQuestionnaire.CommentBoxMessageText = excelQuestionnaire.CommentBoxMessageText ?? "";
+                                excelQuestionnaire.UploadMessageText = excelQuestionnaire.UploadMessageText ?? "";
+                                excelQuestionnaire.CommentType = excelQuestionnaire.CommentType ?? "";
+                                db.pr_addQuestionnaireLoad(excelQuestionnaire.QID, excelQuestionnaire.Page, excelQuestionnaire.Surveyset, excelQuestionnaire.Survey, excelQuestionnaire.Question, excelQuestionnaire.Response, excelQuestionnaire.Comment, excelQuestionnaire.Title, excelQuestionnaire.Required, excelQuestionnaire.Length, excelQuestionnaire.titleLength, excelQuestionnaire.yValue, excelQuestionnaire.nValue, excelQuestionnaire.otherValue, excelQuestionnaire.qWeight, excelQuestionnaire.skipLogic ?? "", excelQuestionnaire.skipLogicAnswer ?? "", excelQuestionnaire.SubCheckBoxChoice ?? "", excelQuestionnaire.CalendarMessageText, excelQuestionnaire.skipLogicJump ?? "", excelQuestionnaire.CommentBoxMessageText ?? "", excelQuestionnaire.UploadMessageText ?? "", excelQuestionnaire.CommentType ?? "", "", excelQuestionnaire.spinoffid, excelQuestionnaire.emailalert ?? "", excelQuestionnaire.emailalertlist ?? "", questionnaireId).FirstOrDefault();
 
-                                }
                                 int questionId = objQuestion.id;
                                 if (responseType.ToLower() == "list" || responseType.ToLower() == "dropdown"
                                         || responseType.ToLower() == "checkbox")
                                 {
-
-
                                     //add responses
-
                                     string[] sArray = new string[200];
                                     char[] splitter = { ';' };
                                     int id = 0;
@@ -1541,7 +1533,15 @@ namespace Generic.Controllers
                                     }
                                 }
 
-                                db.pr_addSurveyQuestion(surveyId, questionId);
+                                try
+                                {
+
+                                    db.pr_addSurveyQuestion(surveyId, questionId);
+                                }
+                                catch (Exception e)
+                                {
+                                    e.Message.ToString();
+                                }
 
                                 if (excelQuestionnaire.skipLogicAnswer == "NULL")
                                 {
