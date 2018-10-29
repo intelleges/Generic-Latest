@@ -475,11 +475,11 @@ namespace Generic.Helpers.Utility
                         }
                         else if (HttpContext.Current.Session["partnumber"] != null && HttpContext.Current.Session["partnumber"] != "0" && HttpContext.Current.Session["partnumber"] != "")
                         {
-                            int partid = Convert.ToInt32(HttpContext.Current.Session["partnumber"].ToString());
-                            if (partid != 0)
+                            var items = HttpContext.Current.Session["partnumber"] as int[];
+                            if (items.Length> 0 && items[0]!=0)
                             {
-                                var partnumber = db.pr_getPartnumber(partid).FirstOrDefault();
-                                var details = db.pr_getPartnumberDetail(partid).FirstOrDefault();
+                                var partnumber = db.pr_getPartnumber(items[0]).FirstOrDefault();
+                                var details = db.pr_getPartnumberDetail(items[0]).FirstOrDefault();
                                 if (details != null)
                                     sValue = string.Format("<a href='#' data-toggle='popover' title='{1}' data-placement='top'>{0}</a>", partnumber.description, HttpUtility.HtmlEncode(details.description));
                                 else sValue = partnumber.description;
