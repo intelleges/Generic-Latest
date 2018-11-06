@@ -832,7 +832,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 else
                 {
 
-                    int previouspartnumber = Convert.ToInt32(Session["partnumber"]);
+                    int[] ids = Session["partnumber"] as int[];
+                    int previouspartnumber = ids[0];
                     int count1 = 0;
                     string key1 = "";
                     string[] array1 = new string[5];
@@ -927,7 +928,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        return Redirect("QuestionnaireResponse?partNumberSelectList=" + partNumberSelectList +
+                        string str = "";
+                        foreach (int i in partNumberSelectList)
+                            str += "partNumberSelectList=" + i + "&";
+
+                        return Redirect("QuestionnaireResponse?" + str +
 "&siteSelectList=" + siteSelectList + "&partnumberStatusSelectList=" + partnumberStatusSelectList + "&pageNumber=" + pageNumber.ToString() +
                               "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
                               + "&questionIndex=" + questionIndex.ToString() + skip);
@@ -1067,11 +1072,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
         public void nextpartnumber(int isForNext = 0)
         {
-            int[] previouspartnumber = Session["partnumber"] as int[];
+            int[] previouspartnumbers = Session["partnumber"] as int[];
+            int previouspartnumber = 0;
+            if (previouspartnumbers != null)
+                previouspartnumber = previouspartnumbers[0];
+
+            if (Session["partnumber"] is int)
+                previouspartnumber = Convert.ToInt32( Session["partnumber"]);
+
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
             int site = Convert.ToInt32(Session["site"]);
 
-            var nextSite = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(p => p.partnumber != previouspartnumber[0]).FirstOrDefault();
+            var nextSite = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(p => p.partnumber != previouspartnumber).FirstOrDefault();
             if (nextSite != null)
             {
                 Session["site"] = nextSite.site;
