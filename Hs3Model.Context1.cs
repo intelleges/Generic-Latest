@@ -229,6 +229,7 @@ namespace Generic
         public virtual DbSet<far> far { get; set; }
         public virtual DbSet<response> response { get; set; }
         public virtual DbSet<questionnaire> questionnaire { get; set; }
+        public virtual DbSet<questionDocument> questionDocument { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -23661,6 +23662,92 @@ namespace Generic
                 new ObjectParameter("part_number_sap", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getAccessCodeByInternalIDSitePartnumber", partner_internal_idParameter, sap_siteParameter, part_number_sapParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionDocument(Nullable<int> question, string description, byte[] document, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var documentParameter = document != null ?
+                new ObjectParameter("document", document) :
+                new ObjectParameter("document", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionDocument", questionParameter, descriptionParameter, documentParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveQuestionDocument(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionDocument", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionDocument_Result> pr_getQuestionDocument(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionDocument_Result>("pr_getQuestionDocument", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionDocumentAll_Result> pr_getQuestionDocumentAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionDocumentAll_Result>("pr_getQuestionDocumentAll");
+        }
+    
+        public virtual int pr_modifyQuestionDocument(Nullable<int> id, Nullable<int> question, string description, byte[] document, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var documentParameter = document != null ?
+                new ObjectParameter("document", document) :
+                new ObjectParameter("document", typeof(byte[]));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionDocument", idParameter, questionParameter, descriptionParameter, documentParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeQuestionDocument(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionDocument", idParameter);
         }
     }
 }
