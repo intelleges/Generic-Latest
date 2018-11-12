@@ -104,9 +104,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span> 
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
                     </button>
-                           
+
                     <h4 class="modal-title" id="gpsLabel">Edit question </h4>
                 </div>
                 <div class="modal-body">
@@ -116,7 +117,7 @@
                             <textarea class="form-control" id="openHtmlText" rows="10"></textarea>
                         </div>
                         <button class="btn btn-primary" type="button">Convert to HTML</button>
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label>Text</label>
                             <div style="background:whitesmoke;height:300px;" id="text"></div>
                         </div>
@@ -124,6 +125,36 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" id="btnSaveQuestionText">Save</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="uploadTag" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+
+                    <h4 class="modal-title" id="gpsLabel">Upload Document</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadTagForm" class="form">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input class="form-control" type="text"/>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label>Document</label>
+                            <input class="form-control" type="file" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Save</button>
                     <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -141,7 +172,7 @@
         {
 
             columns.Bound(o => o.name).Title("Name").Width(800).Visible(false);
-            columns.Bound(o => o.Question).Title("Question").Width(800).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
+            columns.Bound(o => o.title).Title("Question").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.title</a>
             <div class="display_menu" style="display: none;">
                 <ul>
                     <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
@@ -149,6 +180,7 @@
                     <li><a href="javascript:editResponse(@item.id)">Edit Response</a></li>
                     @*<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>*@
                     <li><a href="javascript:openViewDetailPopup(@item.id)">View HTML</a></li>
+                    <li><a href="javascript:docUploadPopup(@item.id)">Doc Upload</a></li>
                 </ul>
             </div>
             </text>);
@@ -408,8 +440,12 @@
                     $.get("@Url.Content("~/Questionnaire/QuestionDetailView/")" + id, function (data) {
                         $("#genericPopup").html(data.text);
                     });
-                    $("#genericPopup").dialog({ height: 600, title: "View Detail" });
+                    $("#genericPopup").dialog({ height: 600, title: "QuestionDocTag" });
                     $("#genericPopup").dialog('open');
+                }
+
+                function docUploadPopup(id) {
+                    $('#uploadTag').modal("toggle");
                 }
 
                 $(function () {
