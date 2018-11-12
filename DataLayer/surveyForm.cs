@@ -1897,11 +1897,13 @@ namespace Generic.DataLayer
                         textBox.TextMode = TextBoxMode.Email;
                         textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
+                        textBox.Attributes["data-val-email"] = "Email required";
+                       
                         if (question.required > 0)
                         {
                             textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
                             textBox.Attributes["data-val-required"] = "Required";
-                            textBox.Attributes["data-val-email"] = "Email required";
+                            
                         }
                         if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                         {
@@ -1920,6 +1922,8 @@ namespace Generic.DataLayer
                         tableCell = new TableCell();
                         tableCell.ColumnSpan = 2;
                         tableCell.Controls.Add(textBox);
+                        tableCell.Controls.Add(new System.Web.UI.WebControls.Literal() { Text="<br>"});
+                        addControlValidator(textBox.ID, "requiredFieldValidator", tableCell);
                         tableRow.Controls.Add(tableCell);
                         break;
                     case 17:

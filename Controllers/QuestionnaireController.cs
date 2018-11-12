@@ -1254,7 +1254,8 @@ namespace Generic.Controllers
                                         break;
                                     case "text_email":
                                         responseTypeId = 16;
-                                        break;
+
+                                        break;                                    
                                     default:
                                         if (responseType.ToLower().Contains("text_number_"))
                                         {

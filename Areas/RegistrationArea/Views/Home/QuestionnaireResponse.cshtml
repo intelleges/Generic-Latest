@@ -247,8 +247,8 @@
             });
             $(".editor").each(function () {
                 var textAreaId = $(this).parent().parent().parent().parent().parent().parent().next().children().last().children("textarea").prop("id");
-                if (!textAreaId)
-                    alert("can't find text area.");
+                if (textAreaId)
+                    //alert("can't find text area.");
                 //if (CKEDITOR.instances[textAreaId]) {
                 //    CKEDITOR.instances[textAreaId].destroy();
                 //}
@@ -265,8 +265,8 @@
             });
             $(".editor").click(function () {
                 var textAreaId = $(this).parent().parent().parent().parent().parent().parent().next().children().last().children("textarea").prop("id");
-                if (!textAreaId)
-                    alert("can't find text area.");
+                if (textAreaId) { }
+                    //alert("can't find text area.");
                // CKEDITOR.instances[textAreaId].
             });
 			var percentage = $('#barpercent').val() + '%';
