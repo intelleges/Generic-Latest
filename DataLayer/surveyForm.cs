@@ -354,7 +354,7 @@ namespace Generic.DataLayer
             if (tags.Count > 0) {
                 foreach (var item in tags) {
                     string url = urlQuestion + "/" + item.id;
-                    label.Text = label.Text.Replace(item.description, "<a target='_blank' href='"+ url + "'>"+ label.Text + "</a>");
+                    label.Text = label.Text.Replace(item.description, "<a style='color:blue;cursor:pointer;' target='_blank' href='"+ url + "'>"+ item.description + "</a>");
                 }
             }
 

@@ -1740,7 +1740,10 @@ namespace Generic.Controllers
                     }
                     data = memoryStream.ToArray();
                 }
-                db.pr_addQuestionDocument(model.QuestionId, model.TagName, data, 0, true);
+                var d = Convert.ToInt32(db.pr_addQuestionDocument(model.QuestionId, model.TagName, data, 0, true).First());
+                var f = db.questionDocument.Where(o => o.id == d).First();
+                f.document = data;
+                db.SaveChanges();
             }
 
             return Redirect(Request.UrlReferrer.AbsoluteUri);
