@@ -156,7 +156,7 @@ namespace Generic.DataLayer
         }
 
 
-        public Table tGetsurveyForm(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion)
+        public Table tGetsurveyForm(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion, string urlQuestion)
         {
             Table table = new Table();
             table.Width = Unit.Percentage(100);
@@ -165,7 +165,7 @@ namespace Generic.DataLayer
             {
                 pageNumber = 1;
             }
-            showPageCollectionByquestionnaire(questionnaire, pageNumber, pageId, jumpToquestion, table);
+            showPageCollectionByquestionnaire(questionnaire, pageNumber, pageId, jumpToquestion, table, urlQuestion);
 
             return table;
         }
@@ -177,7 +177,7 @@ namespace Generic.DataLayer
             return table;
         }
 
-        private void showPageCollectionByquestionnaire(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion, Table table)
+        private void showPageCollectionByquestionnaire(questionnaire questionnaire, int pageNumber, int pageId, int jumpToquestion, Table table, string urlQuestion)
         {
             List<page> pageCollection = db.pr_getPageByQuestionnaire(questionnaire.id).ToList();
             page page = null;
@@ -193,13 +193,13 @@ namespace Generic.DataLayer
                     if (pageId == page.id || (pageId == 0 && i == 0))
                     {
                         //get surveysets by page
-                        showsurveysetCollectionByPage(questionnaire, page, jumpToquestion, table);
+                        showsurveysetCollectionByPage(questionnaire, page, jumpToquestion, table, urlQuestion);
                     }
                 }
             }
         }
 
-        private void showsurveysetCollectionByPage(questionnaire questionnaire, page page, int jumpToquestion, Table table)
+        private void showsurveysetCollectionByPage(questionnaire questionnaire, page page, int jumpToquestion, Table table, string urlQuestion)
         {
             List<surveyset> surveysetCollection = db.pr_getSurveysetByPage(page.id).ToList();
             surveyset surveyset = null;
@@ -211,12 +211,12 @@ namespace Generic.DataLayer
                     surveyset = surveysetCollection[i];
 
                     //get surveys by surveSet
-                    showsurveyCollectionBysurveyset(questionnaire, surveyset, jumpToquestion, table);
+                    showsurveyCollectionBysurveyset(questionnaire, surveyset, jumpToquestion, table, urlQuestion);
                 }
             }
         }
 
-        private void showsurveyCollectionBysurveyset(questionnaire questionnaire, surveyset surveyset, int jumpToquestion, Table table)
+        private void showsurveyCollectionBysurveyset(questionnaire questionnaire, surveyset surveyset, int jumpToquestion, Table table, string urlQuestion)
         {
             List<survey> surveyCollection = db.pr_getSurveyBySurveyset(surveyset.id).ToList();
             survey survey = null;
@@ -226,13 +226,13 @@ namespace Generic.DataLayer
                 for (int i = 0; i < surveyCollection.Count; i++)
                 {
                     survey = surveyCollection[i];
-                    showquestionCollectionBysurvey(questionnaire, surveyset, survey, ref jumpToquestion, table);
+                    showquestionCollectionBysurvey(questionnaire, surveyset, survey, ref jumpToquestion, table, urlQuestion);
                 }
             }
         }
 
         //    private void showquestionCollectionBysurvey(survey survey, int jumpToquestion, Table table)
-        private void showquestionCollectionBysurvey(questionnaire questionnaire, surveyset surveyset, survey survey, ref int jumpToquestion, Table table)
+        private void showquestionCollectionBysurvey(questionnaire questionnaire, surveyset surveyset, survey survey, ref int jumpToquestion, Table table, string urlQuestion)
         {
 
             List<question> questionCollection = db.pr_getQuestionBySurveySkipLogic(survey.id, jumpToquestion).ToList();
@@ -247,7 +247,7 @@ namespace Generic.DataLayer
                     question = questionCollection[i];
                     this.questionIndex += 1;
                     jumpToquestion++;
-                    showquestion(questionnaire, surveyset, survey, question, this.questionIndex, table);
+                    showquestion(questionnaire, surveyset, survey, question, this.questionIndex, table, urlQuestion);
                 }
             }
         }
@@ -313,7 +313,7 @@ namespace Generic.DataLayer
         string currentsurvey = "";
         string previoussurvey = "";
         //    private void showquestion(survey survey, question question, int index, Table table)
-        private void showquestion(questionnaire questionnaire, surveyset surveyset, survey survey, question question, int index, Table table)
+        private void showquestion(questionnaire questionnaire, surveyset surveyset, survey survey, question question, int index, Table table, string urlQuestion)
         {
             TableRow tableRow = new TableRow();
             TableCell tableCell = new TableCell();
@@ -347,6 +347,14 @@ namespace Generic.DataLayer
                 if (question.id == this.errorquestion)
                 {
                     label.Text += this.errorMessage;
+                }
+            }
+
+            var tags = db.pr_getQuestionDocumentAll().Where(o => o.question == question.id).Select(o => new { o.id, o.description }).ToList();
+            if (tags.Count > 0) {
+                foreach (var item in tags) {
+                    string url = urlQuestion + "/" + item.id;
+                    label.Text = label.Text.Replace(item.description, "<a target='_blank' href='"+ url + "'>"+ label.Text + "</a>");
                 }
             }
 

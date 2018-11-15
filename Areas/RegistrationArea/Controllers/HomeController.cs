@@ -1476,7 +1476,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 objSurveyForm.errorquestion = errorQuestion;
                 objSurveyForm.errorMessage = errorMessage;
-                Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
+                string urlQuestion = Url.Action("QuestionDocument", "Home");
+                Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion, urlQuestion);
                 // Table table = objSurveyForm.tGetSurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
                 // panel.Controls.Add(table);
 
@@ -1528,6 +1529,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return Json(false);
             }
         }
+
+        [AllowAnonymous]
+        public ActionResult QuestionDocument(int id) {
+            var d = db.pr_getQuestionDocument(id).First();
+            return File(d.document, "application/pdf", d.description + ".pdf");
+        }
+
         [HttpPost]
         public ActionResult SetStatusAfterSorryAlert(int pptq)
         {

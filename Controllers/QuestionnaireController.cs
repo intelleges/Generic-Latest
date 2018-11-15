@@ -1255,7 +1255,7 @@ namespace Generic.Controllers
                                     case "text_email":
                                         responseTypeId = 16;
 
-                                        break;                                    
+                                        break;
                                     default:
                                         if (responseType.ToLower().Contains("text_number_"))
                                         {
@@ -1723,6 +1723,27 @@ namespace Generic.Controllers
                 //var fileFolderName = ViewData["FileFolderName"];
             }
             return View(); // this will never executed
+        }
+
+        [HttpPost]
+        public ActionResult FileTagUpload(FileTagUploadViewModel model)
+        {
+            if (model.TagFile != null) {
+                byte[] data;
+                using (Stream inputStream = model.TagFile.InputStream)
+                {
+                    MemoryStream memoryStream = inputStream as MemoryStream;
+                    if (memoryStream == null)
+                    {
+                        memoryStream = new MemoryStream();
+                        inputStream.CopyTo(memoryStream);
+                    }
+                    data = memoryStream.ToArray();
+                }
+                db.pr_addQuestionDocument(model.QuestionId, model.TagName, data, 0, true);
+            }
+
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
 
         private void CreateNarrativeHintsForQuestion(int questionId, string fullHintsText, Dictionary<int, question> questions)

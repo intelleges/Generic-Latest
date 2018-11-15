@@ -23,8 +23,9 @@
         width: 99% !important;
         left: 0;
     }
-    .model-body{
-        padding:25px;
+
+    .model-body {
+        padding: 25px;
     }
 </style>
 
@@ -141,20 +142,23 @@
                     <h4 class="modal-title" id="gpsLabel">Upload Document</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="uploadTagForm" class="form">
+                    @using (Html.BeginForm("FileTagUpload", "Questionnaire", FormMethod.Post, new { enctype = "multipart/form-data", id = "uploadTagForm", @class = "form" }))
+                    {
+                        @Html.ValidationSummary();
+                        <input type="hidden" id="QuestionId" name="QuestionId">
                         <div class="form-group">
                             <label>Title</label>
-                            <input class="form-control" type="text"/>
+                            <input class="form-control" type="text" name="TagName" id="TagName" required />
                         </div>
-                       
+
                         <div class="form-group">
                             <label>Document</label>
-                            <input class="form-control" type="file" />
+                            <input class="form-control" type="file" name="TagFile" id="TagFile" required />
                         </div>
-                    </form>
+                    }
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Save</button>
+                    <button class="btn btn-primary" type="button" onclick="$('#uploadTagForm').submit();">Save</button>
                     <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -162,95 +166,95 @@
     </div>
 </div>
 
-            @( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
+@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
+{
+    commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
+})
+
+    .Columns(columns =>
     {
-        commands.Template("<a class='t-button ' href='/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a>        <input style='display:none;' type='file' id='file' name='file' /><a class='t-button ' id='btn-upload' href='#'>Upload</a>");
+
+        columns.Bound(o => o.name).Title("Name").Width(800).Visible(false);
+        columns.Bound(o => o.title).Title("Question").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.title</a>
+        <div class="display_menu" style="display: none;">
+            <ul>
+                <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+                @*<li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>*@
+                <li><a href="javascript:editResponse(@item.id)">Edit Response</a></li>
+                @*<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>*@
+                <li><a href="javascript:openViewDetailPopup(@item.id)">View HTML</a></li>
+                <li><a href="javascript:docUploadPopup(@item.id)">Doc Upload</a></li>
+            </ul>
+        </div>
+        </text>);
+        columns.Bound(o => o.title).Title("Title").Width(100).Visible(false);
+        columns.Bound(o => o.tag).Title("Tag").Width(100).Visible(false);
+        columns.Bound(o => o.responseType).Title("Response Type").Width(100).Visible(false);
+        columns.Bound(o => o.required).Title("Required").Width(100).Visible(false);
+        columns.Bound(o => o.weight).Title("Weight").Width(100).Visible(false);
+        columns.Bound(o => o.skipLogicAnswer).Title("Skipped Logic Answer").Width(100).Visible(false);
+        columns.Bound(o => o.skipLogicJump).Title("Skip Logic Jump").Width(100).Visible(false);
+        columns.Bound(o => o.accessLevel).Title("Access Level").Width(100).Visible(false);
+        columns.Bound(o => o.commentRequired).Title("Comment Required").Width(100).Visible(false);
+        columns.Bound(o => o.commentBoxTxt).Title("Comment").Width(200);
+        columns.Bound(o => o.commentUploadTxt).Title("Upload Comment").Width(20).Visible(false);
+        columns.Bound(o => o.commentType).Title("Comment Type").Width(100);
+        columns.Bound(o => o.spinOffQuestionnaire).Title("Spin Off Questionnaire").Width(100).Visible(false);
+        columns.Bound(o => o.spinOffQID).Title("Spin Off QID").Width(100).Visible(false);
+        columns.Bound(o => o.emailAlert).Title("Email Alert").Width(100);
+        columns.Bound(o => o.emailAlertList).Title("Email Aler tList").Width(100);
+        columns.Bound(o => o.updated).Title("Updated").Width(100).HeaderHtmlAttributes(new { style = "height:30px" });
+
+
     })
-
-        .Columns(columns =>
-        {
-
-            columns.Bound(o => o.name).Title("Name").Width(800).Visible(false);
-            columns.Bound(o => o.title).Title("Question").Width(100).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.title</a>
-            <div class="display_menu" style="display: none;">
-                <ul>
-                    <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
-                    @*<li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>*@
-                    <li><a href="javascript:editResponse(@item.id)">Edit Response</a></li>
-                    @*<li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>*@
-                    <li><a href="javascript:openViewDetailPopup(@item.id)">View HTML</a></li>
-                    <li><a href="javascript:docUploadPopup(@item.id)">Doc Upload</a></li>
-                </ul>
-            </div>
-            </text>);
-			columns.Bound(o => o.title).Title("Title").Width(100).Visible(false);
-			columns.Bound(o => o.tag).Title("Tag").Width(100).Visible(false);
-			columns.Bound(o => o.responseType).Title("Response Type").Width(100).Visible(false);
-			columns.Bound(o => o.required).Title("Required").Width(100).Visible(false);
-			columns.Bound(o => o.weight).Title("Weight").Width(100).Visible(false);
-            columns.Bound(o => o.skipLogicAnswer).Title("Skipped Logic Answer").Width(100).Visible(false);
-			columns.Bound(o => o.skipLogicJump).Title("Skip Logic Jump").Width(100).Visible(false);
-			columns.Bound(o => o.accessLevel).Title("Access Level").Width(100).Visible(false);
-			columns.Bound(o => o.commentRequired).Title("Comment Required").Width(100).Visible(false);
-            columns.Bound(o => o.commentBoxTxt).Title("Comment").Width(200);
-			columns.Bound(o => o.commentUploadTxt).Title("Upload Comment").Width(20).Visible(false);
-            columns.Bound(o => o.commentType).Title("Comment Type").Width(100);
-			columns.Bound(o => o.spinOffQuestionnaire).Title("Spin Off Questionnaire").Width(100).Visible(false);
-			columns.Bound(o => o.spinOffQID).Title("Spin Off QID").Width(100).Visible(false);
-            columns.Bound(o => o.emailAlert).Title("Email Alert").Width(100);
-            columns.Bound(o => o.emailAlertList).Title("Email Aler tList").Width(100);
-			columns.Bound(o => o.updated).Title("Updated").Width(100).HeaderHtmlAttributes(new { style = "height:30px" });
-
-
-        })
-        .DataKeys(keys => keys.Add(o => o.id))
-        .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
-        .Sortable(sorting => sorting.Enabled(true))
-		//	.h
-        .Scrollable(scrolling => scrolling
-           .Enabled(true)
-           .Height(380))
-           .HtmlAttributes(new { @class = "ra" })
+    .DataKeys(keys => keys.Add(o => o.id))
+    .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+    .Sortable(sorting => sorting.Enabled(true))
+    //	.h
+    .Scrollable(scrolling => scrolling
+       .Enabled(true)
+       .Height(380))
+       .HtmlAttributes(new { @class = "ra" })
 
 
 
-            )
-            <div id="EmailDialog" title="Questionnaire Routing Form">
-                <p>Email dialog</p>
-            </div>
-            <div id="genericPopup" title=""></div>
-            <style>
-                .t-grid-content tr > td:hover .menu_block + .display_menu {
-                    display: block !important;
-                }
+)
+<div id="EmailDialog" title="Questionnaire Routing Form">
+    <p>Email dialog</p>
+</div>
+<div id="genericPopup" title=""></div>
+<style>
+    .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
 
-                .display_menu {
-                    left: 65px;
-                    overflow: visible;
-                    position: absolute;
-                    top: -5px;
-                    background: #fff;
-                    border: 1px solid #ddd;
-                    z-index: 100;
-                }
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
 
-                .t-grid-content tr > td {
-                    overflow: visible !important;
-                    position: relative;
-                }
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
 
-                .display_menu > ul {
-                    padding: 0 16px;
-                }
+    .display_menu > ul {
+        padding: 0 16px;
+    }
 
-                .display_menu li {
-                    list-style: none outside none;
-                    width: 143px;
-                }
-            </style>
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+</style>
 
-            <script type="text/javascript">
+<script type="text/javascript">
                 var currentQuestionId;
                 function editResponse(question) {
                     currentQuestionId=question;
@@ -296,7 +300,7 @@
                     $("#btnSaveQuestionText").click(function(e){
                         e.preventDefault();
                         alertify.confirm("Please confirm the changes",function(result){
-                            if(result){                               
+                            if(result){
                                 $.post('@Url.Action("SaveQuestion","Questionnaire")',{question:questionId,text:$("#editQuestion textarea").val()}).done(function(resultInner){
                                     $("#editQuestion").modal("toggle");
                                     window.location.reload();
@@ -369,7 +373,7 @@
 
                 //});
                 var questionId=0;
-                
+
 
                 function openRemovePopup(id, name) {
                     alertify.set({
@@ -445,6 +449,7 @@
                 }
 
                 function docUploadPopup(id) {
+                    $('#uploadTag #QuestionId').val(id);
                     $('#uploadTag').modal("toggle");
                 }
 
@@ -456,11 +461,11 @@
                    );
                 });
 
-            </script>
-            @section scripts{
-                @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-                <script src="/Scripts/bootstrap.js"></script>
-                <script src="/Scripts/validator.js"></script>
-                <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
-            }
+</script>
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/validator.js"></script>
+    <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
+}
 

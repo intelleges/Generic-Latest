@@ -230,7 +230,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             //    }
             //}
-            Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion);
+            string urlQuestion = Url.Action("QuestionDocument", "Home");
+            Table table = objSurveyForm.tGetsurveyForm(objQuestionnaire, pageNumber, page, jumpToQuestion, urlQuestion);
 
             StringWriter objhtml = new StringWriter();
             using (var htmlWriter = new HtmlTextWriter(objhtml))
