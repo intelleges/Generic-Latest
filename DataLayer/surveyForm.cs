@@ -18,6 +18,7 @@ using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
 using System.Text.RegularExpressions;
 using Generic.Helpers;
+using HtmlAgilityPack;
 
 namespace Generic.DataLayer
 {
@@ -333,7 +334,7 @@ namespace Generic.DataLayer
             var _currentPartner = db.pr_getPartner(partnerID).FirstOrDefault();
             var _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             strQuestion = format.sGetEmailBody(strQuestion, null, _currentPartner, _enterprise, objpptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, objpptq.partnerTypeTouchpointQuestionnaire);
-            question.Question = strQuestion;   
+            question.Question = strQuestion;
 
             if (this.showContentOnly)
             {
@@ -351,10 +352,34 @@ namespace Generic.DataLayer
             }
 
             var tags = db.pr_getQuestionDocumentAll().Where(o => o.question == question.id).Select(o => new { o.id, o.description }).ToList();
-            if (tags.Count > 0) {
-                foreach (var item in tags) {
+            if (tags.Count > 0)
+            {
+                foreach (var item in tags)
+                {
                     string url = urlQuestion + "/" + item.id;
-                    label.Text = label.Text.Replace(item.description, "<a style='color:blue;cursor:pointer;' target='_blank' href='"+ url + "'>"+ item.description + "</a>");
+                    var doc = new HtmlDocument();
+                    doc.LoadHtml(label.Text);
+                    var textNodes = doc.DocumentNode.Descendants().ToList();
+                    if (textNodes != null)
+                    {
+                        foreach (HtmlNode x in textNodes.Where(
+                            x => x.InnerText.Contains(item.description)))
+                        {
+                            var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
+                            var newNode = HtmlNode.CreateNode(newNodeStr);
+                            x.ParentNode.ReplaceChild(newNode, x);
+                        }
+
+                        string result = null;
+                        using (StringWriter writer = new StringWriter())
+                        {
+                            doc.Save(writer);
+                            result = writer.ToString();
+                        }
+                        label.Text = result;
+                    }
+                   
+                    //label.Text = label.Text.Replace(item.description, "<a style='color:blue;cursor:pointer;' target='_blank' href='"+ url + "'>"+ item.description + "</a>");
                 }
             }
 
@@ -1906,12 +1931,12 @@ namespace Generic.DataLayer
                         textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
                         textBox.Attributes["data-val-email"] = "Email required";
-                       
+
                         if (question.required > 0)
                         {
                             textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
                             textBox.Attributes["data-val-required"] = "Required";
-                            
+
                         }
                         if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                         {
@@ -1930,7 +1955,7 @@ namespace Generic.DataLayer
                         tableCell = new TableCell();
                         tableCell.ColumnSpan = 2;
                         tableCell.Controls.Add(textBox);
-                        tableCell.Controls.Add(new System.Web.UI.WebControls.Literal() { Text="<br>"});
+                        tableCell.Controls.Add(new System.Web.UI.WebControls.Literal() { Text = "<br>" });
                         addControlValidator(textBox.ID, "requiredFieldValidator", tableCell);
                         tableRow.Controls.Add(tableCell);
                         break;
@@ -2527,7 +2552,7 @@ namespace Generic.DataLayer
 
                 if ((int)HttpContext.Current.Session["leveltype"] == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
                 {
-                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(((int[])HttpContext.Current.Session["partnumber"])[0], 
+                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(((int[])HttpContext.Current.Session["partnumber"])[0],
                         (int)HttpContext.Current.Session["site"], objpptq.id).FirstOrDefault();
                     try
                     {
