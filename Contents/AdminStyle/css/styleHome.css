@@ -1264,8 +1264,8 @@ body .shadow-box li::before {
 .questionaire-table table tr > td {
     text-align: left;
     border: 1.5px solid #fff;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 2px;
+    padding-right: 0px;
 }
 
     .questionaire-table table tr > td.brownbg:first-child, .questionaire-table table tr > td.bluebg:first-child {
@@ -1289,7 +1289,7 @@ body .shadow-box li::before {
 
 .questionaire-table table tr td table {
     vertical-align: middle;
-    display: inline-block;
+    display: inline-table;
     width: 100%;
 }
 .questionaire-table a[data-toggle='popover'] {

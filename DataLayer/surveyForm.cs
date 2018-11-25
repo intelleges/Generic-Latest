@@ -357,29 +357,10 @@ namespace Generic.DataLayer
                 foreach (var item in tags)
                 {
                     string url = urlQuestion + "/" + item.id;
-                    var doc = new HtmlDocument();
-                    doc.LoadHtml(label.Text);
-                    var textNodes = doc.DocumentNode.Descendants().ToList();
-                    if (textNodes != null)
-                    {
-                        foreach (HtmlNode x in textNodes.Where(
-                            x => x.InnerText.Contains(item.description)))
-                        {
-                            var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
-                            var newNode = HtmlNode.CreateNode(newNodeStr);
-                            x.ParentNode.ReplaceChild(newNode, x);
-                        }
-
-                        string result = null;
-                        using (StringWriter writer = new StringWriter())
-                        {
-                            doc.Save(writer);
-                            result = writer.ToString();
-                        }
-                        label.Text = result;
-                    }
-                   
-                    //label.Text = label.Text.Replace(item.description, "<a style='color:blue;cursor:pointer;' target='_blank' href='"+ url + "'>"+ item.description + "</a>");
+                    var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
+                    Regex rgx = new Regex(@"<document.*?>" + item.description+"</document>");
+                    string result = rgx.Replace(label.Text, newNodeStr);
+                    label.Text = result;   
                 }
             }
 
