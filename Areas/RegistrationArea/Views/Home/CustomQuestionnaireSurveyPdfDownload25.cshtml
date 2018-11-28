@@ -193,18 +193,18 @@
                 <b><i><u>or will adhere to their own Code of Business Conduct, which supports the spirit of Honeywell's requirements for integrity and compliance.</u></i></b>
             </p>
             <ul class="ml75 hr">
-                <li><b><input type="checkbox" @ViewBag.Checkbox46240_Yes /> YES </b></li>
-                <li><b><input type="checkbox" @ViewBag.Checkbox46240_No /> NO </b></li>
-                <li><b>If NO, comment required:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox46240_Comment ?? String.Empty)</b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46240_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46240_No /> No </b></li>
+                <li><b>If NO, comment required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox46240_Comment ?? String.Empty)</li>
             </ul>
         </div>
         <div>
             <h2><b>2.&nbsp;<i><u>Overall Supplier Capabilities</u></i></b></h2>
             <p class="ml25">Supplier has adequate financial resources, technical equipment, facilities and the organizational experience, skills and controls available or has the ability to obtain them, as required, to perform contracts as awarded.</p>
             <ul class="ml75 hr">
-                <li><b><input type="checkbox" @ViewBag.Checkbox46241_Yes /> YES </b></li>
-                <li><b><input type="checkbox" @ViewBag.Checkbox46241_No /> NO </b></li>
-                <li><b>If NO, comment required:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox46241_Comment ?? String.Empty)</b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46241_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46241_No /> No </b></li>
+                <li><b>If NO, comment required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox46241_Comment ?? String.Empty)</li>
             </ul>
         </div>
         <div>
@@ -291,9 +291,9 @@
                 <tr>
                     <td></td>
                     <td>
-                        <b><input type="checkbox" @ViewBag.Checkbox46258_Yes /> YES </b>
-                        <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox46258_No /> NO </b>
-                        <b style="margin-left:20px">If NO, comment required:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Input1 ?? String.Empty)</b>
+                        <b><input type="checkbox" @ViewBag.Checkbox46258_Yes /> Yes </b>
+                        <b style="margin-left:20px"><input type="checkbox" @ViewBag.Checkbox46258_No /> No </b>
+                        <b style="margin-left:20px">If NO, comment required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Input1 ?? String.Empty)
                     </td>
                 </tr>
             </table>
@@ -485,10 +485,10 @@
             </p>
             <p class="ml25">To comply with FAR 52.204-10(d)(2), please provide the place of performance address if different than this Certification.  Supplier certifies the physical place of performance is:</p>
             <ul class="ml75">
-                <li>Supplier Name: @ViewBag.Input46346</li>
-                <li>Street Address: @ViewBag.Input46347</li>
-                <li>City: @ViewBag.Input46348 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; State/Province: @ViewBag.Input46349 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Country: @ViewBag.Input46350 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Postal Code: @ViewBag.Input46351</li>
-                <li>Congressional District:  @ViewBag.Input46351</li>
+                <li>Supplier Name: @Html.Raw(ViewBag.Input46346??"")</li>
+                <li>Street Address: @Html.Raw(ViewBag.Input46347 ?? "")</li>
+                <li>City: @Html.Raw(ViewBag.Input46348 ?? "") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; State/Province: @Html.Raw(ViewBag.Input46349 ?? "") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Country: @Html.Raw(ViewBag.Input46350 ?? "") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Postal Code: @Html.Raw(ViewBag.Input46351??"")</li>
+                <li>Congressional District:  @Html.Raw(ViewBag.Input46351 ?? "")</li>
             </ul>
         </div>
 
@@ -1131,7 +1131,7 @@
                 Which basic security requirements have not been implemented and what is the projected implementation date for each?
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46287</li>
+                <li>@Html.Raw(ViewBag.Input46287??"")</li>
             </ul>
         </div>
         <div>
@@ -1196,13 +1196,13 @@
             <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox46291_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46291_No /> No </b></li>
-                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46292</li>
+                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46291</li>
             </ul>
             <p class="ml25">
                 Please provide explanation why your Accounting System was determined by DCMA to be unacceptable.
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46291</li>
+                <li>@Html.Raw(ViewBag.Input46292??"")</li>
             </ul>
         </div>
         <div>
@@ -1228,13 +1228,13 @@
             <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox46294_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46294_No /> No </b></li>
-                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46295</li>
+                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46294</li>
             </ul>
             <p class="ml25">
                 Please provide explanation why your Cost Estimating System was determined by DCMA to be unacceptable.
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46294</li>
+                <li>@Html.Raw(ViewBag.Input46295??"")</li>
             </ul>
         </div>
         <div>
@@ -1260,13 +1260,13 @@
             <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox46297_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46297_No /> No </b></li>
-                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46298</li>
+                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46297</li>
             </ul>
             <p class="ml25">
                 Please provide explanation why your Purchasing System was determined by DCMA to be unacceptable.
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46297</li>
+                <li>@Html.Raw(ViewBag.Input46298??"")</li>
             </ul>
         </div>
         <div>
@@ -1292,13 +1292,13 @@
             <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox46300_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46300_No /> No </b></li>
-                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46301</li>
+                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46300</li>
             </ul>
             <p class="ml25">
                 Please provide explanation why your Earned Value Management System was determined by DCMA to be unacceptable.
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46300</li>
+                <li>@Html.Raw(ViewBag.Input46301??"")</li>
             </ul>
         </div>
         <div>
@@ -1324,13 +1324,13 @@
             <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox46303_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46303_No /> No </b></li>
-                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46304</li>
+                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46303</li>
             </ul>
             <p class="ml25">
                 Please provide explanation why your Property Management System was determined by DCMA to be unacceptable.
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46303</li>
+                <li>@Html.Raw(ViewBag.Input46304??"")</li>
             </ul>
         </div>
         <div>
@@ -1356,13 +1356,13 @@
             <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox46306_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46306_No /> No </b></li>
-                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46307</li>
+                <li><b>If Yes, date of last audit:</b> @ViewBag.Input46306</li>
             </ul>
             <p class="ml25">
                 Please provide explanation why your Material Management and Accounting System was determined by DCMA to be unacceptable.
             </p>
             <ul class="ml75 hr">
-                <li>@ViewBag.Input46306</li>
+                <li>@Html.Raw(ViewBag.Input46307??"")</li>
             </ul>
         </div>
         <div>
@@ -1464,7 +1464,7 @@
                 <li><b><input type="checkbox" @ViewBag.Checkbox46312_70912 /> Yes</b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46312_70913 /> No</b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46312_70914 /> N/A</b> - Supplier does not provide electronic components or assemblies </li>
-                <li class="mt20"><b>If No, explanation required: </b>@ViewBag.Checkbox46310_Comment</li>
+                <li class="mt20"><b>If No, explanation required: </b>@ViewBag.Checkbox46312_Comment</li>
             </ul>
         </div>
         <div>
@@ -1545,7 +1545,6 @@
                 <li><b><input type="checkbox" @ViewBag.Checkbox46316_70918 /> Yes</b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46316_70919 /> No</b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox46316_70920 /> N/A</b> - Work will be performed outside the US by employees not recruited within the US, District of Columbia, Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island</li>
-                <li class="mt20"><b>If No, explanation required: </b>@ViewBag.Checkbox46316_Comment</li>
             </ul>
         </div>
         <div>

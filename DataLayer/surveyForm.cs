@@ -360,7 +360,8 @@ namespace Generic.DataLayer
                     var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
                     Regex rgx = new Regex(@"<document.*?>" + item.description+"</document>");
                     string result = rgx.Replace(label.Text, newNodeStr);
-                    label.Text = result;   
+                    label.Text = result;
+   
                 }
             }
 
@@ -731,6 +732,7 @@ namespace Generic.DataLayer
                             uploadedFileType = x.uploadedFileType
 
                         }).FirstOrDefault();
+               
                 }
                 catch { }
             }
