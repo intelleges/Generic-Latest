@@ -311,6 +311,7 @@
 
                                     $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
                                         canSubmit = true;
+                                        $('.disabledRow input[type="radio"]:first').prop('checked', true);
                                         $("#QuestionnaireResponse").submit();
                                     });
                                 });
