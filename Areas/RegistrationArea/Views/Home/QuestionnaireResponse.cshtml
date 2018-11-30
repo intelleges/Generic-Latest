@@ -235,11 +235,45 @@
         }
 </style>
 <script type="text/javascript">
-
 	var hiddenDiv = $(document.createElement('div')), content = null;
 	function submitForm() {
 		jQuery("#QuestionnaireResponse").submit();
     }
+
+    function showRemoveAlertify(qid, element, oldvalue, isselect) {
+            alertify.set({
+                labels: {
+                    ok: "No",
+                    cancel: "Yes"
+                },
+                buttonFocus: "cancel"
+            });
+          
+            alertify.confirm("You have previously provided a response to this question. Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?", function (e) {
+                if (e) {
+                    if (isselect===0)
+                        $('[name="' + $(element).attr('name') + '"][value="' + oldvalue + '"]').prop('checked', true);
+                    else
+                        $(element).val(oldvalue);
+                } else {
+                     $.get('@Url.Action("removeItemsByqid", "Home")' + '?pptqQR=' + qid, function (data) {
+                        alertify.set({
+                            labels: {
+                                ok: "Ok",
+                                cancel: "No"
+                            },
+                            buttonFocus: "cancel"
+                        });
+
+                        alertify.alert(data.message, function () {
+
+                                });
+                    });
+                }
+            });
+    }
+
+
     var canSubmit = false;
 
 	(function ($) {
@@ -376,7 +410,19 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
 				content = content.replace(/\n/g, '<br>');
 				hiddenDiv.html(content + '<br class="lbr">');
 				$(this).css('height', hiddenDiv.height());
-			});
+            });
+
+            $('input[type=radio][skiplogicjump="true"]').change(function () {
+                if ($(this).attr('responsecurrent') !== $(this).val()) {
+                    showRemoveAlertify($(this).attr('questionId'), this, $(this).attr('responsecurrent'),0);
+                }
+            });
+
+            $('select[skiplogicjump="true"]').change(function () {
+                if ($(this).attr('responsecurrent') !== $(this).val()) {
+                    showRemoveAlertify($(this).attr('questionId'), this, $(this).attr('responsecurrent'),1);
+                }
+            });
 
 			@if (Session["ReferenceEmails"] != null&&((List<string>)Session["ReferenceEmails"]).Count>0)
 			{

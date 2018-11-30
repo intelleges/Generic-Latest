@@ -1783,6 +1783,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return result;
         }
 
+        public ActionResult RemoveItemsByQid(int pptqQR)
+        {
+            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            int pptq = pptqObj.id;
+           
+            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR(pptq, pptqQR).Select(o=>o.question).ToList();
+            var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
+            var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).Select(o => o.title).ToList();
+            return Json(new { message = string.Join(", ", tts) }, JsonRequestBehavior.AllowGet);
+        }
+
         [AcceptVerbs(HttpVerbs.Post), ValidateInput(false)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {

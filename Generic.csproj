@@ -2732,6 +2732,9 @@
     <Compile Include="pr_questionResponseWarningCheck_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_replacePTQforPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

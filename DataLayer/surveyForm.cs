@@ -2161,7 +2161,6 @@ namespace Generic.DataLayer
                         Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
                         for (int i = 0; i < responseCollection.Count; i++)
                         {
-
                             //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                             var item = new ListItem(_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString());
 
@@ -2170,6 +2169,13 @@ namespace Generic.DataLayer
                                 item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;
                                 item.Text = item.Text.Replace(checkCOde.Match(item.Text).Value, "");
                             }
+                            if (!string.IsNullOrEmpty(question.skipLogicJump) && pptqResponse != null && pptqResponse.response != null)
+                            {
+                                item.Attributes["skipLogicJump"] = "true";
+                                item.Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
+                                item.Attributes["questionId"] = question.id.ToString();
+                            }
+
                             dropDownList.Items.Add(item);
                             if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                             {
@@ -2267,8 +2273,6 @@ namespace Generic.DataLayer
                         radioButtonList.Attributes.Add("onClick", "showdivRadioList(this);removevalidation(this.id);showDivByCode(this) ");
                         radioButtonList.Attributes.Add("onChange", "showdropdowndiv(this,radioListShowIfNeeded)");
 
-
-
                         radioButtonList.RepeatDirection = RepeatDirection.Vertical;
                         tableCell = new TableCell();
                         tableCell.HorizontalAlign = HorizontalAlign.Left;
@@ -2298,13 +2302,18 @@ namespace Generic.DataLayer
                                 radioButtonList.Items[i].Attributes["data-val-required"] = _translator.Translate("Required", _currentLanguage);
                                 radioButtonList.Items[i].Attributes["required"] = "";
 
-                            }
-
+                            } 
                             if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                             {
                                 radioButtonList.ClearSelection();
                                 radioButtonList.Items[i].Selected = true;
                                 radioButtonList.Items[i].Attributes["checked"] = "";
+                            }
+                            if (!string.IsNullOrEmpty(question.skipLogicJump) && pptqResponse != null && pptqResponse.response != null)
+                            {
+                                radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
+                                radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
+                                radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
                             }
                         }
                         //tableCell.Controls.Add(radioButtonList);
@@ -2575,6 +2584,7 @@ namespace Generic.DataLayer
                     radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
+                   
 
                     radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
                     tableCell = new TableCell();
@@ -2601,9 +2611,17 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Selected = true;
                             radioButtonList.Items[i].Attributes.Add("checked", "true");
                         }
-
+                        if (!string.IsNullOrEmpty(question.skipLogicJump) && pptqResponse != null && pptqResponse.response != null)
+                        {
+                            radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
+                            radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
+                            radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
+                        }
                         tableCell.Controls.Add(radioButtonList);
                     }
+
+                  
+
                     if (divShowHideFlag == 3)
                     {
                         divShowHideFlag = 2;

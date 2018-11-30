@@ -23749,5 +23749,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionDocument", idParameter);
         }
+    
+        public virtual ObjectResult<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result> pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR(Nullable<int> pptq, Nullable<int> pptqQR)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var pptqQRParameter = pptqQR.HasValue ?
+                new ObjectParameter("pptqQR", pptqQR) :
+                new ObjectParameter("pptqQR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR", pptqParameter, pptqQRParameter);
+        }
     }
 }
