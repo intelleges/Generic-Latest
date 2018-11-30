@@ -1561,7 +1561,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var qid = Convert.ToInt32(q.emailAlertList.Split(new char[] { '[', ']' })[1]);
             var a = 74;
             if (list.Count > 0) { a = 75; }
-            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(qid, a, "Automated", null, null, DateTime.Now, 0, 0, pptq);
+            db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(qid, a, "Automated", null, null, DateTime.Now, 0, 0, pptq);
 
             if (list.Count == 0)
                 return Json(new { success = true });
@@ -3142,7 +3142,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 else
                 {
-                    db.pr_modifyEsignature(objeSignatureNew.id, objeSignatureNew.firstName, objeSignatureNew.lastName, objeSignatureNew.title, objeSignatureNew.email, "Yes", objeSignatureNew.officer, objeSignatureNew.phone, DateTime.Now, pptq != null ? pptq.id : -1);
+                    db.pr_modifyEsignature(objeSignature.id, objeSignatureNew.firstName, objeSignatureNew.lastName, objeSignatureNew.title, objeSignatureNew.email, "Yes", objeSignatureNew.officer, objeSignatureNew.phone, DateTime.Now, pptq != null ? pptq.id : -1);
                 }
                 // Validate the zCode.
                 ValidatezCode _objInvalidzcode = new ValidatezCode();
@@ -11374,7 +11374,8 @@ Intelleges Team";
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
-            eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
+            var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+            eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
 
