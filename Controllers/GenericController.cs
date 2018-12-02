@@ -170,21 +170,6 @@ namespace Generic.Controllers
                     var foundQuestion = foundSurvey.questions.FirstOrDefault(o => o.id == row.id);
                     if (foundQuestion == null)
                     {
-                        string questionStr = row.question ?? "";
-                        var tags = docs.Where(o => o.question == row.id).ToList();
-                        if (tags.Count > 0)
-                        {
-                            foreach (var item in tags)
-                            {
-                                string urlQuestion = "https://www.intelleges.com/mvcmt/Generic/Registration/Home/QuestionDocument";
-                                string url = urlQuestion + "/" + item.id;
-                                var newNodeStr = "<a class='document-link' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
-                                Regex rgx = new Regex(@"<document.*?>" + item.description + "</document>");
-                                string resultStr = rgx.Replace(questionStr, newNodeStr);
-                                questionStr = resultStr;
-                            }
-                        }
-
                         foundQuestion = new QuestionnaireByAccessCodeModel_question()
                         {
                             accessLevel = row.accessLevel,
@@ -198,7 +183,7 @@ namespace Generic.Controllers
                             emailAlert = row.emailAlert,
                             emailAlertList = row.emailAlertList,
                             //enterprise = row.en
-                            question = questionStr,
+                            question = row.question,
                             required = row.required,
                             skipLogicAnswer = row.skipLogicAnswer,
                             skipLogicJump = row.skipLogicJump,
@@ -218,6 +203,22 @@ namespace Generic.Controllers
                         id = row.responseID
                         //sortOrder = r
                     });
+
+                    string questionStr = foundQuestion.question ?? "";
+                    var tags = docs.Where(o => o.question == foundQuestion.id).ToList();
+                    if (tags.Count > 0)
+                    {
+                        foreach (var item in tags)
+                        {
+                            string urlQuestion = "https://www.intelleges.com/mvcmt/Generic/Registration/Home/QuestionDocument";
+                            string url = urlQuestion + "/" + item.id;
+                            var newNodeStr = "<a class='document-link' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
+                            Regex rgx = new Regex(@"<document.*?>" + item.description + "</document>");
+                            string resultStr = rgx.Replace(questionStr, newNodeStr);
+                            questionStr = resultStr;
+                            foundQuestion.question = questionStr;
+                        }
+                    }
                 }
                 return Ok(result);
             }
