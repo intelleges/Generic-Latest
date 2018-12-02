@@ -18,6 +18,7 @@ using Generic.ViewModel;
 using System.Text;
 using Newtonsoft.Json;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace Generic.Controllers
 {
@@ -132,6 +133,11 @@ namespace Generic.Controllers
                         multiLanguage = firstRow.multiLanguage
                     }
                 };
+
+                var ids = questionnaireByAccessCode.Select(o => o.id).ToList();
+                var docs = db.pr_getQuestionDocumentAll().Where(o => ids.Contains(o.question)).Select(o => new {
+                    o.id, o.description, o.question }).ToList();
+
                 foreach (var row in questionnaireByAccessCode)
                 {
                     var foundPage = result.questionnaire.pages.FirstOrDefault(o => o.description == row.page);
@@ -164,6 +170,21 @@ namespace Generic.Controllers
                     var foundQuestion = foundSurvey.questions.FirstOrDefault(o => o.id == row.id);
                     if (foundQuestion == null)
                     {
+                        string questionStr = row.question ?? "";
+                        var tags = docs.Where(o => o.question == row.id).ToList();
+                        if (tags.Count > 0)
+                        {
+                            foreach (var item in tags)
+                            {
+                                string urlQuestion = "https://www.intelleges.com/mvcmt/Generic/Registration/Home/QuestionDocument";
+                                string url = urlQuestion + "/" + item.id;
+                                var newNodeStr = "<a class='document-link' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
+                                Regex rgx = new Regex(@"<document.*?>" + item.description + "</document>");
+                                string resultStr = rgx.Replace(questionStr, newNodeStr);
+                                questionStr = resultStr;
+                            }
+                        }
+
                         foundQuestion = new QuestionnaireByAccessCodeModel_question()
                         {
                             accessLevel = row.accessLevel,
@@ -177,7 +198,7 @@ namespace Generic.Controllers
                             emailAlert = row.emailAlert,
                             emailAlertList = row.emailAlertList,
                             //enterprise = row.en
-                            question = row.question,
+                            question = questionStr,
                             required = row.required,
                             skipLogicAnswer = row.skipLogicAnswer,
                             skipLogicJump = row.skipLogicJump,
