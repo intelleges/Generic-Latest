@@ -4650,10 +4650,17 @@ namespace Generic.Controllers
             {
                 var p = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).First();
                 string internalID = p.partner1.internalID;
-                var id = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First().id;
-                var p1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(id).First();
+                var id = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First();
+                var p1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(id.id).First();
                 accessCode = p1.accesscode;
                 msg = message.nextStep;
+
+                var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(id.id, id.status).ToList();
+                if (pptqs.Count > 0)
+                {
+                    //iscanprintPdf = true;
+                    accessCode = pptqs[0].accesscode;
+                }
             }
             else
             {
