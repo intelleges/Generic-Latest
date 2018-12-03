@@ -2174,6 +2174,7 @@ namespace Generic.DataLayer
                                 item.Attributes["skipLogicJump"] = "true";
                                 item.Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
                                 item.Attributes["questionId"] = question.id.ToString();
+                                item.Attributes["jumpTo"] = question.skipLogicJump;
                             }
 
                             dropDownList.Items.Add(item);
@@ -2314,6 +2315,7 @@ namespace Generic.DataLayer
                                 radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
                                 radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
                                 radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
+                                radioButtonList.Items[i].Attributes["jumpTo"] = question.skipLogicJump;
                             }
                         }
                         //tableCell.Controls.Add(radioButtonList);
@@ -2616,6 +2618,7 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
                             radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
                             radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
+                            radioButtonList.Items[i].Attributes["jumpTo"] = question.skipLogicJump;
                         }
                         tableCell.Controls.Add(radioButtonList);
                     }

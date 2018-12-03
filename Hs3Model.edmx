@@ -9737,9 +9737,15 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="questionSTART" Type="int" Mode="In" />
+          <Parameter Name="questionFINISH" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
-          <Parameter Name="pptqQR" Type="int" Mode="In" />
+          <Parameter Name="pptqQRSTART" Type="int" Mode="In" />
+          <Parameter Name="pptqQRFINISH" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePartnerRemitAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -18338,7 +18344,13 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </FunctionImport>
           <FunctionImport Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR" ReturnType="Collection(hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
-            <Parameter Name="pptqQR" Mode="In" Type="Int32" />
+            <Parameter Name="pptqQRSTART" Mode="In" Type="Int32" />
+            <Parameter Name="pptqQRFINISH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="questionSTART" Mode="In" Type="Int32" />
+            <Parameter Name="questionFINISH" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31377,6 +31389,19 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
           <Property Type="DateTime" Name="timestamp" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="Binary" Name="uploadedFile" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="actionDate" Nullable="true" />
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43729,6 +43754,23 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR">
             <ResultMapping>
               <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+                <ScalarProperty Name="actionDate" ColumnName="actionDate" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="question" ColumnName="question" />
                 <ScalarProperty Name="response" ColumnName="response" />

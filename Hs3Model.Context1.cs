@@ -23750,17 +23750,38 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionDocument", idParameter);
         }
     
-        public virtual ObjectResult<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result> pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR(Nullable<int> pptq, Nullable<int> pptqQR)
+        public virtual ObjectResult<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result> pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR(Nullable<int> pptq, Nullable<int> pptqQRSTART, Nullable<int> pptqQRFINISH)
         {
             var pptqParameter = pptq.HasValue ?
                 new ObjectParameter("pptq", pptq) :
                 new ObjectParameter("pptq", typeof(int));
     
-            var pptqQRParameter = pptqQR.HasValue ?
-                new ObjectParameter("pptqQR", pptqQR) :
-                new ObjectParameter("pptqQR", typeof(int));
+            var pptqQRSTARTParameter = pptqQRSTART.HasValue ?
+                new ObjectParameter("pptqQRSTART", pptqQRSTART) :
+                new ObjectParameter("pptqQRSTART", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR", pptqParameter, pptqQRParameter);
+            var pptqQRFINISHParameter = pptqQRFINISH.HasValue ?
+                new ObjectParameter("pptqQRFINISH", pptqQRFINISH) :
+                new ObjectParameter("pptqQRFINISH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR", pptqParameter, pptqQRSTARTParameter, pptqQRFINISHParameter);
+        }
+    
+        public virtual ObjectResult<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result> pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(Nullable<int> pptq, Nullable<int> questionSTART, Nullable<int> questionFINISH)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var questionSTARTParameter = questionSTART.HasValue ?
+                new ObjectParameter("questionSTART", questionSTART) :
+                new ObjectParameter("questionSTART", typeof(int));
+    
+            var questionFINISHParameter = questionFINISH.HasValue ?
+                new ObjectParameter("questionFINISH", questionFINISH) :
+                new ObjectParameter("questionFINISH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion", pptqParameter, questionSTARTParameter, questionFINISHParameter);
         }
     }
 }

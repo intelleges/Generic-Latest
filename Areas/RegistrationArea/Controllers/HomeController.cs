@@ -1300,7 +1300,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL;
 
                 var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-
+                ViewBag.AccessCode = accessCode;
                 var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
                 int cmsId = 0;//pr_getPartnerQuestionResponseByAccessCode4
                 if (ppptq_cms != null)
@@ -1783,13 +1783,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return result;
         }
 
-        public ActionResult RemoveItemsByQid(int pptqQR)
+        public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
-           
-            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR(pptq, pptqQR).Select(o=>o.question).ToList();
+
+            var arr= jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+            int j = 0;
+            if (arr.Length > 0)
+            {
+                var str = arr[arr.Length-1].Replace(";", "");
+                try {
+                    j = Convert.ToInt32(str);
+                } catch { }
+            }
+
+            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o=>o.question).ToList();
             var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
             var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).Select(o => o.title).ToList();
             return Json(new { message = string.Join(", ", tts) }, JsonRequestBehavior.AllowGet);
@@ -1839,7 +1849,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
-
+            ViewBag.AccessCode = accessCode;
 
 
             jumpToQuestion = 0;
