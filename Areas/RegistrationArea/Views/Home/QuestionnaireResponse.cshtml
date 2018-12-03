@@ -242,7 +242,6 @@
 
     function showRemoveAlertify(qid, jumpTo, element, oldvalue, isselect, text) {
         if (text === undefined) text = '';
-
             alertify.set({
                 labels: {
                     ok: "No",
@@ -252,7 +251,7 @@
             });
 
         alertify.confirm("You have previously provided a response to this question. " +
-            "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?" + text, function (e) {
+            "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>" + text, function (e) {
                 if (e) {
                     if (isselect===0)
                         $('[name="' + $(element).attr('name') + '"][value="' + oldvalue + '"]').prop('checked', true);
