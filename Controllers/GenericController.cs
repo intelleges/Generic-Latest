@@ -135,8 +135,12 @@ namespace Generic.Controllers
                 };
 
                 var ids = questionnaireByAccessCode.Select(o => o.id).ToList();
-                var docs = db.pr_getQuestionDocumentAll().Where(o => ids.Contains(o.question)).Select(o => new {
-                    o.id, o.description, o.question }).ToList();
+                var docs = db.pr_getQuestionDocumentAll().Where(o => ids.Contains(o.question)).Select(o => new
+                {
+                    o.id,
+                    o.description,
+                    o.question
+                }).ToList();
 
                 foreach (var row in questionnaireByAccessCode)
                 {
@@ -204,6 +208,7 @@ namespace Generic.Controllers
                         //sortOrder = r
                     });
 
+                    //db.pr_getResponseByAccessCode
                     string questionStr = foundQuestion.question ?? "";
                     var tags = docs.Where(o => o.question == foundQuestion.id).ToList();
                     if (tags.Count > 0)
@@ -227,6 +232,41 @@ namespace Generic.Controllers
                 return NotFound();
             }
 
+        }
+      
+        [Route("GetCompanyByAccessCode")]
+        [HttpGet]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult GetCompanyByAccessCode(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).First();
+            var objPartner = db.pr_getPartnerByPPTQ(pptq.id).FirstOrDefault();
+            string c = "";
+            string s = "";
+            try
+            {
+                var country = db.pr_getCountry(objPartner == null ? 0 : objPartner.country).FirstOrDefault();
+                c = country != null ? country.name : "";
+
+            }
+            catch { }
+            try
+            {
+                var state = db.pr_getState(objPartner != null ? objPartner.state : 0).FirstOrDefault();
+                s = state != null ? state.stateCode : "";
+            }
+            catch { }
+            return Ok(new
+            {
+                objPartner.name,
+                objPartner.address1,
+                objPartner.address2,
+                objPartner.city,
+                objPartner.zipcode,
+                state = s,
+                country = c
+            });
         }
 
         [Route("GetQuestionnaireCMSByAccessCode")]

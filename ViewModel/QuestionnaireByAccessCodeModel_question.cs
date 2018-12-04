@@ -36,7 +36,7 @@ namespace Generic.ViewModel
         //public bool active { get; set; }
         //public int? enterprise { get; set; }
         public List<QuestionnaireByAccessCodeModel_response> responses { get; set; }
-        
+        public string answer { get; set; }
 
     }
 }
