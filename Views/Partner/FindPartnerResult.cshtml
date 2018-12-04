@@ -659,7 +659,12 @@
 
     function checkToPrintPDF(pptqId, status, touchpoint) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint }, function (data) {
-            if (data.items.length > 1) {
+            if (status === 14) {
+                alertify.alert(data.message, function () {
+                      checkToPrintPDF(data.pptqId, data.status, data.touchpoint);
+    		    });
+            }
+            else if (data.items.length > 1) {
                 itemsForPrint = data.items;
                 printNextPdf(data.items[0]);
             }

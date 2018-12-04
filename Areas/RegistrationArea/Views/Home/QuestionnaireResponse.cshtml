@@ -261,7 +261,27 @@
 
                     $.post('@Url.Action("removeItemsByqid", "Home")', { pptqQR: qid, jumpTo: jumpTo })
                         .done(function (data) {
-                            showRemoveAlertify(qid, jumpTo, element, oldvalue, isselect, data.message);
+                          
+        alertify.confirm("You have previously provided a response to this question. " +
+            "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>" + data.message, function (e) {
+                if (e) {
+                    if (isselect===0)
+                        $('[name="' + $(element).attr('name') + '"][value="' + oldvalue + '"]').prop('checked', true);
+                    else
+                        $(element).val(oldvalue);
+                } else {
+
+            
+
+                }
+            });
+
+
+
+
+
+
+
                         });
 
 

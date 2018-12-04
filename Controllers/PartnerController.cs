@@ -4654,13 +4654,9 @@ namespace Generic.Controllers
                 var p1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(id.id).First();
                 accessCode = p1.accesscode;
                 msg = message.nextStep;
-
-                var pptqs = db.pr_getPreviousPPTQByPPTQAndStatus(id.id, id.status).ToList();
-                if (pptqs.Count > 0)
-                {
-                    //iscanprintPdf = true;
-                    accessCode = pptqs[0].accesscode;
-                }
+                var t = db.pr_getTouchpointByPTQ(p1.partnerTypeTouchpointQuestionnaire).First().id;
+                return Json(new { message = msg, pptqId = id.id, id.status, touchpoint= t },
+                    JsonRequestBehavior.AllowGet);
             }
             else
             {
