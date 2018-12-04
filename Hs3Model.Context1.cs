@@ -23783,5 +23783,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion", pptqParameter, questionSTARTParameter, questionFINISHParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result> pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result>("pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode", accesscodeParameter);
+        }
     }
 }

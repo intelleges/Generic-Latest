@@ -1883,6 +1883,9 @@
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

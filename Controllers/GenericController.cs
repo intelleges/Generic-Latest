@@ -113,6 +113,15 @@ namespace Generic.Controllers
             else return BadRequest(ModelState);
         }
 
+        [Route("GetResponsesByAccessCode")]
+        [HttpGet]
+        [SwaggerResponse(200, "OK", Type = typeof(QuestionnaireByAccessCodeModel))]
+        [SwaggerResponse(404, "Not found")]
+        public IHttpActionResult GetResponsesByAccessCode(string accessCode)
+        {
+            return Ok(db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(accessCode).ToList());
+        }
+
         [Route("QuestionnaireByAccessCode")]
         [HttpGet]
         [SwaggerResponse(200, "OK", Type = typeof(QuestionnaireByAccessCodeModel))]
@@ -233,7 +242,7 @@ namespace Generic.Controllers
             }
 
         }
-      
+
         [Route("GetCompanyByAccessCode")]
         [HttpGet]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
