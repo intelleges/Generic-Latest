@@ -432,16 +432,28 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
             {
                 <text>
             $('input[type=radio][skiplogicjump="true"]').change(function () {
-                if ($(this).attr('responsecurrent') !== $(this).val()) {
+                //if ($(this).attr('responsecurrent') !== $(this).val()) {
                     showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 0);
-                }
+                //}
             });
 
             $('select[skiplogicjump="true"]').change(function () {
-                if ($(this).attr('responsecurrent') !== $(this).val()) {
+                //if ($(this).attr('responsecurrent') !== $(this).val()) {
                     showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 1);
-                }
+                //}
             });
+
+            /*$('input[type=radio][skiplogicjump="true"]').click(function () {
+                //if ($(this).attr('responsecurrent') !== $(this).val()) {
+                showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 0);
+                //}
+            });
+
+            $('select[skiplogicjump="true"]').click(function () {
+                //if ($(this).attr('responsecurrent') !== $(this).val()) {
+                showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 1);
+                //}
+            });*/
     </text>
             }
 
