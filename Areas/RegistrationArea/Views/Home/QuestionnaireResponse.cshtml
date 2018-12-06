@@ -291,7 +291,11 @@
 
 
     var canSubmit = false;
-
+    var textPopup = '';
+    var elementP = null;
+    var oldvalP = null;
+    var showalert = false;
+    var isSelectP = 0;
 	(function ($) {
         $(document).ready(function () {
             //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
@@ -339,16 +343,47 @@
 				alertify.alert(message);
 			}
 
+          
             $("#QuestionnaireResponse").submit(function (e) {
 
                 var success = true;
                 $.each($('.field-validation-valid'), function (index, obj) {
                     var id = $(obj).attr('data-valmsg-for');
-                    if ($('#' + id).is("textarea") && $('#cke_' + id).length>0)
+                    if ($('#' + id).is("textarea") && $('#cke_' + id).length > 0)
                         if (CKEDITOR.instances[id].getData().length === 0) success = false;
                 });
 
                 if (success === false) return false;
+
+                   @if(ViewBag.AccessCode == "327838XU")
+            {
+                <text>
+                if (showalert === true) {
+                        alertify.set({
+                                labels: { ok: "No", cancel: "Yes" },
+                                buttonFocus: "cancel"
+                    });
+
+                    alertify.confirm("You have previously provided a response to this question. " +
+                        "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>" + textPopup, function (e) {
+                            if (e) {
+                                if (isSelectP === 0)
+                                    $('[name="' + $(elementP).attr('name') + '"][value="' + oldvalP + '"]').prop('checked', true);
+                                else
+                                    $(elementP).val(oldvalP);
+                                showalert = false;
+                                $("#QuestionnaireResponse").submit();
+                            } else {
+                                showalert = false;
+                                $("#QuestionnaireResponse").submit();
+                            }
+                        });
+
+                    return false;
+                }
+                </text>
+            }
+
 
                 @if (ViewBag.Pptq != null) {
                         <text>
@@ -431,7 +466,34 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
             @if(ViewBag.AccessCode == "327838XU")
             {
                 <text>
-            $('input[type=radio][skiplogicjump="true"]').change(function () {
+            showalert = false;
+            var count = $('input[type=radio][skiplogicjump="true"]').length
+                + $('select[skiplogicjump="true"]').length;
+            if (count > 0) {
+                showalert = true;
+                var jumpTo;
+                var qid;
+                if ($('input[type=radio][skiplogicjump="true"]').length > 0) {
+                    qid = $('input[type=radio][skiplogicjump="true"]:first').attr('questionId');
+                    jumpto = $('input[type=radio][skiplogicjump="true"]:first').attr('jumpto');
+                    oldvalP = $('input[type=radio][skiplogicjump="true"]:first').attr('responsecurrent');
+                    elementP = $('input[type=radio][skiplogicjump="true"]:first');
+                    isSelectP = 0;
+                }
+                else {
+                    qid = $('select[skiplogicjump="true"]:first').attr('questionId');
+                    jumpto = $('select[skiplogicjump="true"]:first').attr('jumpto');
+                    oldvalP = $('select[skiplogicjump="true"]:first').attr('responsecurrent');
+                    elementP = $('select[skiplogicjump="true"]:first');
+                    isSelectP = 1;
+                }
+
+                $.post('@Url.Action("removeItemsByqid", "Home")', { pptqQR: qid, jumpTo: jumpto })
+                    .done(function (data) {
+                        textPopup = data.message;
+                    });
+            }
+            /*$('input[type=radio][skiplogicjump="true"]').change(function () {
                 //if ($(this).attr('responsecurrent') !== $(this).val()) {
                     showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 0);
                 //}
@@ -441,19 +503,8 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                 //if ($(this).attr('responsecurrent') !== $(this).val()) {
                     showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 1);
                 //}
-            });
-
-            /*$('input[type=radio][skiplogicjump="true"]').click(function () {
-                //if ($(this).attr('responsecurrent') !== $(this).val()) {
-                showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 0);
-                //}
-            });
-
-            $('select[skiplogicjump="true"]').click(function () {
-                //if ($(this).attr('responsecurrent') !== $(this).val()) {
-                showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 1);
-                //}
             });*/
+
     </text>
             }
 
