@@ -243,6 +243,25 @@ namespace Generic.Controllers
 
         }
 
+        [Route("GetContactByAccessCode")]
+        [HttpGet]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult GetContactByAccessCode(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).First();
+            var objPartner = db.pr_getPartnerByPPTQ(pptq.id).FirstOrDefault();
+            return Ok(new
+            {
+                objPartner.firstName,
+                objPartner.lastName,
+                objPartner.title,
+                objPartner.email,
+                objPartner.phone,
+                objPartner.fax
+            });
+        }
+
         [Route("GetCompanyByAccessCode")]
         [HttpGet]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
