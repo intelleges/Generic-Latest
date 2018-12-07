@@ -491,6 +491,8 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                 $.post('@Url.Action("removeItemsByqid", "Home")', { pptqQR: qid, jumpTo: jumpto })
                     .done(function (data) {
                         textPopup = data.message;
+                        if (textPopup.trim().length === 0)
+                            showalert = false;
                     });
             }
             /*$('input[type=radio][skiplogicjump="true"]').change(function () {
