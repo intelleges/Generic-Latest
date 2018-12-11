@@ -358,7 +358,12 @@
                    @if(ViewBag.AccessCode == "327838XU")
             {
                 <text>
-                if (showalert === true) {
+                var newvalP;
+                if (isSelectP === 0)
+                    newvalP = $('[name="' + $(elementP).attr('name') + '"]:checked').val();
+                else newvalP = $(elementP).val();
+
+                if (showalert === true && oldvalP !== newvalP) {
                         alertify.set({
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
