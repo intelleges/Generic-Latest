@@ -243,6 +243,37 @@ namespace Generic.Controllers
 
         }
 
+        [Route("CheckSkipJumpForQuestion")]
+        [HttpGet]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult CheckSkipJumpForQuestion(string accessCode, string skipLogicJump, int questionId)
+        {
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            int pptq = pptqObj.id;
+
+            var arr = skipLogicJump.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+            int j = 0;
+            if (arr.Length > 0)
+            {
+                var str = arr[arr.Length - 1].Replace(";", "");
+                try
+                {
+                    j = Convert.ToInt32(str);
+                }
+                catch { }
+            }
+
+            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(
+                pptq, questionId, j).Select(o => o.question).ToList();
+            var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
+            var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).Select(o => o.title).ToList();
+            return Ok(new
+            {
+                message = string.Join(", ", tts)
+            });
+        }
+
         [Route("GetContactByAccessCode")]
         [HttpGet]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
