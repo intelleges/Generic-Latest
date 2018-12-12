@@ -895,6 +895,7 @@
     <Compile Include="Models\bulkContent.cs" />
     <Compile Include="Models\campaign.cs" />
     <Compile Include="Models\campaignRule.cs" />
+    <Compile Include="Models\CheckSkipJumpForQuestionModel.cs" />
     <Compile Include="Models\ComboBox.cs" />
     <Compile Include="Models\ComboBoxModel.cs" />
     <Compile Include="Models\ContactDataAlertModel.cs" />

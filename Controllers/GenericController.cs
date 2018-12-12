@@ -244,15 +244,15 @@ namespace Generic.Controllers
         }
 
         [Route("CheckSkipJumpForQuestion")]
-        [HttpGet]
+        [HttpPost]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
         [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
-        public IHttpActionResult CheckSkipJumpForQuestion(string accessCode, string skipLogicJump, int questionId)
+        public IHttpActionResult CheckSkipJumpForQuestion(CheckSkipJumpForQuestionModel model)
         {
-            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(model.accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
 
-            var arr = skipLogicJump.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+            var arr = model.skipLogicJump.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
             int j = 0;
             if (arr.Length > 0)
             {
@@ -265,8 +265,8 @@ namespace Generic.Controllers
             }
 
             var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(
-                pptq, questionId, j).Select(o => o.question).ToList();
-            var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
+                pptq, model.questionId, j).Select(o => o.question).ToList();
+            var qid = db.pr_getQuestionnaireByAccesscode(model.accessCode).First().id;
             var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).Select(o => o.title).ToList();
             return Ok(new
             {
