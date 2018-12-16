@@ -296,6 +296,9 @@
     var oldvalP = null;
     var showalert = false;
     var isSelectP = 0;
+    var pptq = null;
+    var qstart = -1;
+    var qend = -1;
 	(function ($) {
         $(document).ready(function () {
             //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
@@ -380,7 +383,10 @@
                                 $("#QuestionnaireResponse").submit();
                             } else {
                                 showalert = false;
-                                $("#QuestionnaireResponse").submit();
+                                $.post('@Url.Action("removeItemsByqid2", "Home")', { pptq: pptq, qstart: qstart, qend: qend })
+                    .done(function (data) {
+                        $("#QuestionnaireResponse").submit();
+                    });
                             }
                         });
 
@@ -496,8 +502,14 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                 $.post('@Url.Action("removeItemsByqid", "Home")', { pptqQR: qid, jumpTo: jumpto })
                     .done(function (data) {
                         textPopup = data.message;
-                        if (textPopup.trim().length === 0)
+                        if (textPopup.trim().length === 0) {
                             showalert = false;
+                        }
+                        else {
+                            pptq = data.pptq;
+                            qstart = data.qstart;
+                            qend = data.qend;
+                        }
                     });
             }
             /*$('input[type=radio][skiplogicjump="true"]').change(function () {

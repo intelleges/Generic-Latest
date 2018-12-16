@@ -9745,6 +9745,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="questionSTART" Type="int" Mode="In" />
           <Parameter Name="questionFINISH" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="questionSTART" Type="int" Mode="In" />
+          <Parameter Name="questionFINISH" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQGreaterThanPPTQQR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="pptqQRSTART" Type="int" Mode="In" />
@@ -18356,7 +18361,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="questionFINISH" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="questionSTART" Mode="In" Type="Int32" />
+            <Parameter Name="questionFINISH" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -43821,6 +43831,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

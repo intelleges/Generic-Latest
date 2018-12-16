@@ -1782,13 +1782,22 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             return result;
         }
+        
+        public ActionResult RemoveItemsByQid2(int pptq, int qstart, int qend)
+        {
+            db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2(pptq, qstart, qend);
+            return Json(new
+            {
+               success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
 
-        public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
+            public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
-
+            
             var arr= jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
             int j = 0;
             if (arr.Length > 0)
@@ -1801,8 +1810,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o=>o.question).ToList();
             var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
-            var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).Select(o => o.title).ToList();
-            return Json(new { message = string.Join(", ", tts) }, JsonRequestBehavior.AllowGet);
+            var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).ToList();
+            int qstart = -1;
+            int qend = -1;
+            if (tts.Count > 0) {
+                qstart = tts.First().id;
+                qend = tts.Last().id;
+            }
+
+            return Json(new { message = string.Join("<br/>", tts.Select(o => o.title).ToList()),
+                qstart = qstart,
+                qend = qend,
+                pptq= pptq
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [AcceptVerbs(HttpVerbs.Post), ValidateInput(false)]
