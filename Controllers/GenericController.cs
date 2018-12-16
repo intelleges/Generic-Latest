@@ -240,7 +240,23 @@ namespace Generic.Controllers
             {
                 return NotFound();
             }
+        }
 
+        [Route("Login")]
+        [HttpPost]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                person user = db.pr_doLogin(model.email, model.password).FirstOrDefault();
+                if (user == null) {
+                    return InternalServerError(new Exception("Username or/and password wrong!"));
+                }
+                return Ok(user);
+            }
+            else return BadRequest(ModelState);
         }
 
         [Route("CheckSkipJumpForQuestion")]
