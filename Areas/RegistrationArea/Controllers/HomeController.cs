@@ -1819,8 +1819,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             return Json(new { message = string.Join("<br/>", tts.Select(o => o.title).ToList()),
-                qstart = qstart,
-                qend = qend,
+                qstart = pptqQR,
+                qend = j,
                 pptq= pptq
             }, JsonRequestBehavior.AllowGet);
         }

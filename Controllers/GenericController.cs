@@ -246,6 +246,7 @@ namespace Generic.Controllers
         [HttpPost]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
         [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        [AllowAnonymous]
         public IHttpActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -254,7 +255,18 @@ namespace Generic.Controllers
                 if (user == null) {
                     return InternalServerError(new Exception("Username or/and password wrong!"));
                 }
-                return Ok(user);
+                return Ok(new {
+                    user.address1,
+                    user.address2,
+                    user.city,
+                    user.firstName,
+                    user.lastName,
+                    user.email,
+                    user.fax,
+                    user.FullName,
+                    user.nickName,
+                    user.phone
+                });
             }
             else return BadRequest(ModelState);
         }
