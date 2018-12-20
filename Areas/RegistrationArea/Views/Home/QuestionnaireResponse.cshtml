@@ -299,7 +299,7 @@
     var pptq = null;
     var qstart = -1;
     var qend = -1;
-    var val = -1;
+    var val = [];
 
 	(function ($) {
         $(document).ready(function () {
@@ -368,7 +368,7 @@
                     newvalP = $('[name="' + $(elementP).attr('name') + '"]:checked').val();
                 else newvalP = $(elementP).val();
 
-                if (showalert === true && val === Number(newvalP)) {
+                if (showalert === true && val.indexOf(Number(newvalP))!==-1) {
                         alertify.set({
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
@@ -481,7 +481,7 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                 <text>
             showalert = false;
             var count = $('input[type=radio][skiplogicjump="true"]').length
-                + $('select[skiplogicjump="true"]').length;
+                + $('option[skiplogicjump="true"]').length;
             if (count > 0) {
                 showalert = true;
                 var jumpTo;
@@ -494,10 +494,10 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                     isSelectP = 0;
                 }
                 else {
-                    qid = $('select[skiplogicjump="true"]:first').attr('questionId');
-                    jumpto = $('select[skiplogicjump="true"]:first').attr('jumpto');
-                    oldvalP = $('select[skiplogicjump="true"]:first').attr('responsecurrent');
-                    elementP = $('select[skiplogicjump="true"]:first');
+                    qid = $('option[skiplogicjump="true"]:first').attr('questionId');
+                    jumpto = $('option[skiplogicjump="true"]:first').attr('jumpto');
+                    oldvalP = $('option[skiplogicjump="true"]:first').attr('responsecurrent');
+                    elementP = $('option[skiplogicjump="true"]:first').parent();
                     isSelectP = 1;
                 }
 

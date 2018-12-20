@@ -1799,7 +1799,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int pptq = pptqObj.id;
             
             var arr= jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
-            var arr1 = jumpTo.Split(new string[] { "&" }, StringSplitOptions.RemoveEmptyEntries);
+            var arr1 = jumpTo.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
            
             int j = 0;
             if (arr.Length > 0)
@@ -1810,16 +1810,21 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 } catch { }
             }
 
-            int val = -1;
+            List<int> val = new List<int>();
             if (arr1.Length > 0) {
-                var str = arr1[0].Replace(pptqQR.ToString() + "=", "");
-                try{
-                    val = Convert.ToInt32(str);
+                foreach (string s in arr1)
+                {
+                    int v1 = -1;           
+                    try
+                    {
+                        var str = s.Split('&')[0].Replace(pptqQR.ToString() + "=", "");
+                        v1 = Convert.ToInt32(str);
+                        if (v1 == 0) v1 = 75;
+                        if (v1 == 1) v1 = 74;
+                    }
+                    catch { }
+                    if (v1 != -1) val.Add(v1);
                 }
-                catch { }
-
-                if (val == 0) val = 75;
-                if (val == 1) val = 74;
             }
 
             var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o=>o.question).ToList();
