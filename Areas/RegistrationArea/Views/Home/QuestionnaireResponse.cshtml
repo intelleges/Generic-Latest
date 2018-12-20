@@ -299,6 +299,8 @@
     var pptq = null;
     var qstart = -1;
     var qend = -1;
+    var val = -1;
+
 	(function ($) {
         $(document).ready(function () {
             //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
@@ -366,7 +368,7 @@
                     newvalP = $('[name="' + $(elementP).attr('name') + '"]:checked').val();
                 else newvalP = $(elementP).val();
 
-                if (showalert === true && oldvalP !== newvalP) {
+                if (showalert === true && val === Number(newvalP)) {
                         alertify.set({
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
@@ -509,6 +511,7 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                             pptq = data.pptq;
                             qstart = data.qstart;
                             qend = data.qend;
+                            val = data.val;
                         }
                     });
             }

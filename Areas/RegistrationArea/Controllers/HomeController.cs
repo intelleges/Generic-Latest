@@ -1799,6 +1799,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             int pptq = pptqObj.id;
             
             var arr= jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+            var arr1 = jumpTo.Split(new string[] { "&" }, StringSplitOptions.RemoveEmptyEntries);
+           
             int j = 0;
             if (arr.Length > 0)
             {
@@ -1806,6 +1808,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 try {
                     j = Convert.ToInt32(str);
                 } catch { }
+            }
+
+            int val = -1;
+            if (arr1.Length > 0) {
+                var str = arr1[0].Replace(pptqQR.ToString() + "=", "");
+                try{
+                    val = Convert.ToInt32(str);
+                }
+                catch { }
+
+                if (val == 0) val = 75;
+                if (val == 1) val = 74;
             }
 
             var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o=>o.question).ToList();
@@ -1821,7 +1835,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return Json(new { message = string.Join("<br/>", tts.Select(o => o.title).ToList()),
                 qstart = pptqQR,
                 qend = j,
-                pptq= pptq
+                pptq= pptq,
+                val = val
             }, JsonRequestBehavior.AllowGet);
         }
 
