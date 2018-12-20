@@ -321,6 +321,92 @@ namespace Generic.Controllers
             });
         }
 
+        [Route("UpdateContactInfo")]
+        [HttpPost]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult UpdateContactInfo(UpdateContactInfoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(model.accessCode).First();
+                var objPartner = db.pr_getPartnerByPPTQ(pptq.id).First();
+                partner objpartner = db.pr_getPartner(objPartner.id).First();
+                objpartner.firstName = model.firstName;
+                objpartner.lastName = model.lastName;
+                objpartner.email = model.email;
+                objpartner.title = model.title;
+                objpartner.phone = model.phone;
+                objpartner.fax = model.fax;
+                db.Entry(objpartner).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return Ok(new
+                {
+                    objPartner.firstName,
+                    objPartner.lastName,
+                    objPartner.title,
+                    objPartner.email,
+                    objPartner.phone,
+                    objPartner.fax,
+                    objPartner.zipcode
+                });
+            }
+            else return BadRequest(ModelState);
+        }
+
+        [Route("UpdateCompanyInfo")]
+        [HttpPost]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult UpdateCompanyInfo(UpdateCompanyInfoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(model.accessCode).First();
+                var objPartner = db.pr_getPartnerByPPTQ(pptq.id).First();
+                partner objpartner = db.pr_getPartner(objPartner.id).FirstOrDefault();
+                //objpartner.dunsNumber = partner.dunsNumber;
+                objpartner.name = model.name;
+                objpartner.address1 = model.address1;
+                objpartner.address2 = model.address2;
+                objpartner.city = model.city;
+                objpartner.zipcode = model.zipcode;
+                //objpartner.province = partner.province;
+                //objpartner.internalID = model.address1 + " " + model.province;
+                //objpartner.title = partner.title;
+                db.Entry(objpartner).State = EntityState.Modified;
+                db.SaveChanges();
+
+                string c = "";
+                string s = "";
+                try
+                {
+                    var country = db.pr_getCountry(objPartner == null ? 0 : objPartner.country).FirstOrDefault();
+                    c = country != null ? country.name : "";
+
+                }
+                catch { }
+                try
+                {
+                    var state = db.pr_getState(objPartner != null ? objPartner.state : 0).FirstOrDefault();
+                    s = state != null ? state.stateCode : "";
+                }
+                catch { }
+                return Ok(new
+                {
+                    objPartner.name,
+                    objPartner.address1,
+                    objPartner.address2,
+                    objPartner.city,
+                    objPartner.zipcode,
+                    state = s,
+                    country = c
+                });
+            }
+            else return BadRequest(ModelState);
+        }
+
         [Route("GetCompanyByAccessCode")]
         [HttpGet]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
