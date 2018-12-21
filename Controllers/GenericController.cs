@@ -332,12 +332,12 @@ namespace Generic.Controllers
                 var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(model.accessCode).First();
                 var objPartner = db.pr_getPartnerByPPTQ(pptq.id).First();
                 partner objpartner = db.pr_getPartner(objPartner.id).First();
-                objpartner.firstName = model.firstName;
-                objpartner.lastName = model.lastName;
-                objpartner.email = model.email;
-                objpartner.title = model.title;
-                objpartner.phone = model.phone;
-                objpartner.fax = model.fax;
+                objpartner.firstName = model.firstName ?? "";
+                objpartner.lastName = model.lastName ?? "";
+                objpartner.email = model.email ?? "";
+                objpartner.title = model.title ?? "";
+                objpartner.phone = model.phone ?? "";
+                objpartner.fax = model.fax ?? "";
                 db.Entry(objpartner).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -367,11 +367,11 @@ namespace Generic.Controllers
                 var objPartner = db.pr_getPartnerByPPTQ(pptq.id).First();
                 partner objpartner = db.pr_getPartner(objPartner.id).FirstOrDefault();
                 //objpartner.dunsNumber = partner.dunsNumber;
-                objpartner.name = model.name;
-                objpartner.address1 = model.address1;
-                objpartner.address2 = model.address2;
-                objpartner.city = model.city;
-                objpartner.zipcode = model.zipcode;
+                objpartner.name = model.name??"";
+                objpartner.address1 = model.address1 ?? "";
+                objpartner.address2 = model.address2 ?? "";
+                objpartner.city = model.city ?? "";
+                objpartner.zipcode = model.zipcode ?? "";
                 //objpartner.province = partner.province;
                 //objpartner.internalID = model.address1 + " " + model.province;
                 //objpartner.title = partner.title;
