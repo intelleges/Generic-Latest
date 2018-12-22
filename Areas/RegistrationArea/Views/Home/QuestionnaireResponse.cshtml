@@ -368,7 +368,7 @@
                     newvalP = $('[name="' + $(elementP).attr('name') + '"]:checked').val();
                 else newvalP = $(elementP).val();
 
-                if (showalert === true /*&& val.indexOf(Number(newvalP))!==-1*/) {
+                if (showalert === true && val.indexOf(Number(newvalP))!==-1) {
                         alertify.set({
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
