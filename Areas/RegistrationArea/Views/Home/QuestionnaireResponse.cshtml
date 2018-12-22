@@ -375,7 +375,8 @@
                     });
 
                     alertify.confirm("You have previously provided a response to this question. " +
-                        "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>" + textPopup, function (e) {
+                        "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>Current QID:" + qstart +
+                        "   Next QID:" + qend + "<br/><br/>" + textPopup, function (e) {
                             if (e) {
                                 if (isSelectP === 0)
                                     $('[name="' + $(elementP).attr('name') + '"][value="' + oldvalP + '"]').prop('checked', true);
