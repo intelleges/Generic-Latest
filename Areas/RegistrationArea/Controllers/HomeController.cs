@@ -1275,6 +1275,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
 
+        [HttpGet, OutputCache(NoStore = true, Duration = 1)]
         public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             try
