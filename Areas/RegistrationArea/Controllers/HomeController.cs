@@ -1275,11 +1275,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
         }
 
-        [HttpGet, OutputCache(NoStore = true, Duration = 1)]
+        [OutputCache(NoStore = true, Duration = 0)]
         public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             try
             {
+                Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+                Response.Cache.SetValidUntilExpires(false);
+                Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.Cache.SetNoStore();
+
                 ViewBagModel objViewBag = new ViewBagModel();
                 if (Session["hs3Registration"] == null)
                 {
@@ -1847,6 +1853,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post), ValidateInput(false)]
+        [OutputCache(NoStore = true, Duration = 0)]
         public virtual ActionResult QuestionnaireResponse(FormCollection formCollection, int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
         {
             #region Method Body
