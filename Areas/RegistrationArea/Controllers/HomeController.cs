@@ -1276,7 +1276,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0)]
-        public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, int errorQuestion = 0, int pageNumber = 1, string errorMessage = null)
+        public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, 
+            int errorQuestion = 0, int pageNumber = 1, string errorMessage = null, int v = 0)
         {
             try
             {
@@ -1291,6 +1292,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     return RedirectToAction("Default");
                 }
+
+                var dict = Session["history"] as Dictionary<string, string>;
+                if (dict != null)
+                {
+                    if (dict.ContainsKey((Request.Url.Query??"").Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]))
+                    {
+                        var str = dict[(Request.Url.Query ?? "").Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]];
+                        ViewBag.BackLink =  str+ "&v=" + DateTime.Now.Ticks.ToString();
+                        if (!str.Contains("?")) ViewBag.BackLink = str + "?v=" + DateTime.Now.Ticks.ToString();
+                    }
+                }
+
                 #region CMS
                 objViewBag.CMS_PAGE_TITLE = CMS.QUESTIONNAIRE_PAGE_TITLE;
                 objViewBag.CMS_PAGE_SUBTITLE = CMS.QUESTIONNAIRE_PAGE_SUBTITLE;
@@ -1789,39 +1802,42 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             return result;
         }
-        
+
         public ActionResult RemoveItemsByQid2(int pptq, int qstart, int qend)
         {
             db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2(pptq, qstart, qend);
             return Json(new
             {
-               success = true
+                success = true
             }, JsonRequestBehavior.AllowGet);
         }
 
-            public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
+        public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
-            
-            var arr= jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+
+            var arr = jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
             var arr1 = jumpTo.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-           
+
             int j = 0;
             if (arr.Length > 0)
             {
-                var str = arr[arr.Length-1].Replace(";", "");
-                try {
+                var str = arr[arr.Length - 1].Replace(";", "");
+                try
+                {
                     j = Convert.ToInt32(str);
-                } catch { }
+                }
+                catch { }
             }
 
             List<int> val = new List<int>();
-            if (arr1.Length > 0) {
+            if (arr1.Length > 0)
+            {
                 foreach (string s in arr1)
                 {
-                    int v1 = -1;           
+                    int v1 = -1;
                     try
                     {
                         var str = s.Split('&')[0].Replace(pptqQR.ToString() + "=", "");
@@ -1834,20 +1850,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
             }
 
-            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o=>o.question).ToList();
+            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o => o.question).ToList();
             var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
             var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).ToList();
             int qstart = -1;
             int qend = -1;
-            if (tts.Count > 0) {
+            if (tts.Count > 0)
+            {
                 qstart = tts.First().id;
                 qend = tts.Last().id;
             }
 
-            return Json(new { message = string.Join("<br/>", tts.Select(o => o.title).ToList()),
+            return Json(new
+            {
+                message = string.Join("<br/>", tts.Select(o => o.title).ToList()),
                 qstart = pptqQR,
                 qend = j,
-                pptq= pptq,
+                pptq = pptq,
                 val = val
             }, JsonRequestBehavior.AllowGet);
         }
@@ -2394,9 +2413,20 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        return Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
+                        var dict = Session["history"] as Dictionary<string, string>;
+                        if (dict == null)
+                            dict = new Dictionary<string, string>();
+
+                        string url = "?pageNumber=" + pageNumber.ToString() +
                                 "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
-                                + "&questionIndex=" + questionIndex.ToString() + skip);
+                                + "&questionIndex=" + questionIndex.ToString() + skip;
+
+                        if (dict.ContainsKey(url))
+                            dict[url] = Request.UrlReferrer.ToString().Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                        else
+                            dict.Add(url, Request.UrlReferrer.ToString().Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]);
+                        Session["history"] = dict;
+                        return Redirect("QuestionnaireResponse" + url);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
@@ -2432,9 +2462,20 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
-                        return Redirect("QuestionnaireResponse?pageNumber=" + pageNumber.ToString() +
+                        var dict = Session["history"] as Dictionary<string, string>;
+                        if (dict == null)
+                            dict = new Dictionary<string, string>();
+
+                        string url = "?pageNumber=" + pageNumber.ToString() +
                            "&page=" + page.id.ToString() + "&jumpToQuestion=" + jumpToQuestion.ToString()
-                           + "&questionIndex=" + questionIndex.ToString() + skip);
+                           + "&questionIndex=" + questionIndex.ToString() + skip;
+
+                        if (dict.ContainsKey(url))
+                            dict[url] = Request.UrlReferrer.ToString().Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0];
+                        else
+                            dict.Add(url, Request.UrlReferrer.ToString().Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]);
+                        Session["history"] = dict;
+                        return Redirect("QuestionnaireResponse" + url);
                     }
                     else if (Request.QueryString["errorQuestion"] == null)
                     {
@@ -11941,7 +11982,7 @@ Intelleges Team";
                     case 46291:
                         ViewBag.Checkbox46291_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox46291_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if(item.response == _responseYES)ViewBag.Input46291 = item.comment;
+                        if (item.response == _responseYES) ViewBag.Input46291 = item.comment;
                         break;
                     case 46292:
                         ViewBag.Input46292 = item.comment;

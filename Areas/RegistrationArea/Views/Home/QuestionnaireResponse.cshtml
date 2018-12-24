@@ -144,7 +144,7 @@
 
                 <div class="pre-next-btn">
                     <button class="btn btn-default pull-right" type="submit" name="btnSubmit" id="btnSubmit">@formData.CMS_PAGE_NEXT_TEXT</button>
-                    <button class="btn btn-default pull-right" type="submit" name="btnBack" id="btnBack" onclick="javascript: history.go(-1); return false;">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                    <button class="btn btn-default pull-right" type="button" name="btnBack" id="btnBack" onclick="@(ViewBag.BackLink==null?"history.go(-1);return false;":"window.location='"+@ViewBag.BackLink+"';")">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
                 </div>
                 <!--pre-next-btn-->
 
