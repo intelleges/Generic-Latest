@@ -378,12 +378,12 @@
                         "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>Current QID:" + qstart +
                         "   Next QID:" + qend + "<br/><br/>" + textPopup, function (e) {
                             if (e) {
-                                if (isSelectP === 0)
+                                /*if (isSelectP === 0)
                                     $('[name="' + $(elementP).attr('name') + '"][value="' + oldvalP + '"]').prop('checked', true);
                                 else
-                                    $(elementP).val(oldvalP);
+                                    $(elementP).val(oldvalP);*/
                                 showalert = false;
-                                $("#QuestionnaireResponse").submit();
+                                //$("#QuestionnaireResponse").submit();
                             } else {
                                 showalert = false;
                                 $.post('@Url.Action("removeItemsByqid2", "Home")', { pptq: pptq, qstart: qstart, qend: qend })
@@ -490,14 +490,12 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                 if ($('input[type=radio][skiplogicjump="true"]').length > 0) {
                     qid = $('input[type=radio][skiplogicjump="true"]:first').attr('questionId');
                     jumpto = $('input[type=radio][skiplogicjump="true"]:first').attr('jumpto');
-                    oldvalP = $('input[type=radio][skiplogicjump="true"]:first').attr('responsecurrent');
                     elementP = $('input[type=radio][skiplogicjump="true"]:first');
                     isSelectP = 0;
                 }
                 else {
                     qid = $('option[skiplogicjump="true"]:first').attr('questionId');
                     jumpto = $('option[skiplogicjump="true"]:first').attr('jumpto');
-                    oldvalP = $('option[skiplogicjump="true"]:first').attr('responsecurrent');
                     elementP = $('option[skiplogicjump="true"]:first').parent();
                     isSelectP = 1;
                 }

@@ -2169,10 +2169,9 @@ namespace Generic.DataLayer
                                 item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;
                                 item.Text = item.Text.Replace(checkCOde.Match(item.Text).Value, "");
                             }
-                            if (!string.IsNullOrEmpty(question.skipLogicJump) && pptqResponse != null && pptqResponse.response != null)
+                            if (!string.IsNullOrEmpty(question.skipLogicJump))
                             {
                                 item.Attributes["skipLogicJump"] = "true";
-                                item.Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
                                 item.Attributes["questionId"] = question.id.ToString();
                                 item.Attributes["jumpTo"] = question.skipLogicJump;
                             }
@@ -2310,10 +2309,9 @@ namespace Generic.DataLayer
                                 radioButtonList.Items[i].Selected = true;
                                 radioButtonList.Items[i].Attributes["checked"] = "";
                             }
-                            if (!string.IsNullOrEmpty(question.skipLogicJump) && pptqResponse != null && pptqResponse.response != null)
+                            if (!string.IsNullOrEmpty(question.skipLogicJump))
                             {
                                 radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
-                                radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
                                 radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
                                 radioButtonList.Items[i].Attributes["jumpTo"] = question.skipLogicJump;
                             }
@@ -2613,10 +2611,9 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Selected = true;
                             radioButtonList.Items[i].Attributes.Add("checked", "true");
                         }
-                        if (!string.IsNullOrEmpty(question.skipLogicJump) && pptqResponse != null && pptqResponse.response != null)
+                        if (!string.IsNullOrEmpty(question.skipLogicJump))
                         {
                             radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
-                            radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
                             radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
                             radioButtonList.Items[i].Attributes["jumpTo"] = question.skipLogicJump;
                         }
