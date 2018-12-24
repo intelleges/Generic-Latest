@@ -1276,7 +1276,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0)]
-        public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0, 
+        public virtual ActionResult QuestionnaireResponse(int questionIndex = 0, int jumpToQuestion = 0, int page = 0,
             int errorQuestion = 0, int pageNumber = 1, string errorMessage = null, int v = 0)
         {
             try
@@ -1296,10 +1296,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var dict = Session["history"] as Dictionary<string, string>;
                 if (dict != null)
                 {
-                    if (dict.ContainsKey((Request.Url.Query??"").Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]))
+                    if ((Request.Url.Query ?? "").Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries).Length > 0 && dict.ContainsKey((Request.Url.Query ?? "").Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]))
                     {
                         var str = dict[(Request.Url.Query ?? "").Split(new string[] { "&v=", "?v=" }, StringSplitOptions.RemoveEmptyEntries)[0]];
-                        ViewBag.BackLink =  str+ "&v=" + DateTime.Now.Ticks.ToString();
+                        ViewBag.BackLink = str + "&v=" + DateTime.Now.Ticks.ToString();
                         if (!str.Contains("?")) ViewBag.BackLink = str + "?v=" + DateTime.Now.Ticks.ToString();
                     }
                 }
