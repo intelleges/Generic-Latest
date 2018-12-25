@@ -2174,6 +2174,9 @@ namespace Generic.DataLayer
                                 item.Attributes["skipLogicJump"] = "true";
                                 item.Attributes["questionId"] = question.id.ToString();
                                 item.Attributes["jumpTo"] = question.skipLogicJump;
+                                if (pptqResponse != null && pptqResponse.response != null)
+                                    item.Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
+                                else item.Attributes["responseCurrent"] = "";
                             }
 
                             dropDownList.Items.Add(item);
@@ -2314,6 +2317,9 @@ namespace Generic.DataLayer
                                 radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
                                 radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
                                 radioButtonList.Items[i].Attributes["jumpTo"] = question.skipLogicJump;
+                                if (pptqResponse != null && pptqResponse.response != null)
+                                    radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
+                                else radioButtonList.Items[i].Attributes["responseCurrent"] = "";
                             }
                         }
                         //tableCell.Controls.Add(radioButtonList);
@@ -2616,6 +2622,9 @@ namespace Generic.DataLayer
                             radioButtonList.Items[i].Attributes["skipLogicJump"] = "true";
                             radioButtonList.Items[i].Attributes["questionId"] = question.id.ToString();
                             radioButtonList.Items[i].Attributes["jumpTo"] = question.skipLogicJump;
+                            if (pptqResponse != null && pptqResponse.response != null)
+                                radioButtonList.Items[i].Attributes["responseCurrent"] = pptqResponse.response.Value.ToString();
+                            else radioButtonList.Items[i].Attributes["responseCurrent"] = "";
                         }
                         tableCell.Controls.Add(radioButtonList);
                     }
