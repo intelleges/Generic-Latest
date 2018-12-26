@@ -376,7 +376,7 @@
 
                     alertify.confirm("You have previously provided a response to this question. " +
                         "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>Current QID:" + qstart +
-                        "   Next QID:" + qend + "<br/><br/>" + textPopup, function (e) {
+                        "   Next QID:" + qend + "<br/><br/><p>" + textPopup+"</p>", function (e) {
                             if (e) {
                                 showalert = false;
                                 if (oldvalP !== null && oldvalP !== undefined && oldvalP !== '') {

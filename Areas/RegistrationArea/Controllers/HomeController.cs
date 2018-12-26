@@ -1863,7 +1863,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             return Json(new
             {
-                message = string.Join("<br/>", tts.Select(o => o.title).ToList()),
+                message = string.Join(", ", tts.Select(o => o.title).ToList()),
                 qstart = pptqQR,
                 qend = j,
                 pptq = pptq,
