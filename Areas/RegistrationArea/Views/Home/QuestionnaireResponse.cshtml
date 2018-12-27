@@ -291,15 +291,15 @@
 
 
     var canSubmit = false;
-    var textPopup = '';
     var elementP = null;
     var oldvalP = null;
     var showalert = false;
     var isSelectP = 0;
     var pptq = null;
     var qstart = -1;
-    var qend = -1;
+    var qend = [];
     var val = [];
+    var messages = [];
 
 	(function ($) {
         $(document).ready(function () {
@@ -368,7 +368,7 @@
                     newvalP = $('[name="' + $(elementP).attr('name') + '"]:checked').val();
                 else newvalP = $(elementP).val();
 
-                if (showalert === true && val.indexOf(Number(newvalP))!==-1) {
+                if (showalert === true && val.indexOf(Number(newvalP)) !== -1 && messages[val.indexOf(Number(newvalP))].length>0) {
                         alertify.set({
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
@@ -376,10 +376,10 @@
 
                     alertify.confirm("You have previously provided a response to this question. " +
                         "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>Current QID:" + qstart +
-                        "   Next QID:" + qend + "<br/><br/><p>" + textPopup+"</p>", function (e) {
-                            if (e) {
-                                showalert = false;
+                        "   Next QID:" + qend[val.indexOf(Number(newvalP))] + "<br/><br/><p>" + messages[val.indexOf(Number(newvalP))] + "</p>", function (e) {
+                            if (e) {         
                                 if (oldvalP !== null && oldvalP !== undefined && oldvalP !== '') {
+                                    showalert = false;
                                     if (isSelectP === 0)
                                         $('[name="' + $(elementP).attr('name') + '"][value="' + oldvalP + '"]').prop('checked', true);
                                     else
@@ -388,7 +388,7 @@
                                 }
                             } else {
                                 showalert = false;
-                                $.post('@Url.Action("removeItemsByqid2", "Home")', { pptq: pptq, qstart: qstart, qend: qend })
+                                $.post('@Url.Action("removeItemsByqid2", "Home")', { pptq: pptq, qstart: qstart, qend: qend[val.indexOf(Number(newvalP))] })
                     .done(function (data) {
                         $("#QuestionnaireResponse").submit();
                     });
@@ -506,16 +506,11 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
 
                 $.post('@Url.Action("removeItemsByqid", "Home")', { pptqQR: qid, jumpTo: jumpto })
                     .done(function (data) {
-                        textPopup = data.message;
-                        if (textPopup.trim().length === 0) {
-                            showalert = false;
-                        }
-                        else {
-                            pptq = data.pptq;
-                            qstart = data.qstart;
-                            qend = data.qend;
-                            val = data.val;
-                        }
+                        messages = data.messages;
+                        pptq = data.pptq;
+                        qstart = data.qstart;
+                        qend = data.qend;
+                        val = data.val;
                     });
             }
             /*$('input[type=radio][skiplogicjump="true"]').change(function () {

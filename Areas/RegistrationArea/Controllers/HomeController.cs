@@ -1818,54 +1818,46 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
 
-            var arr = jumpTo.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+            var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
+            var tts = db.pr_getQuestionByQuestionnaire(qid).ToList();
+
             var arr1 = jumpTo.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-
-            int j = 0;
-            if (arr.Length > 0)
-            {
-                var str = arr[arr.Length - 1].Replace(";", "");
-                try
-                {
-                    j = Convert.ToInt32(str);
-                }
-                catch { }
-            }
-
             List<int> val = new List<int>();
+            List<int> nextQst = new List<int>();
+            List<string> messages = new List<string>();
             if (arr1.Length > 0)
             {
                 foreach (string s in arr1)
                 {
                     int v1 = -1;
+                    int nq = -1;
+                    string msg = "";
                     try
                     {
                         var str = s.Split('&')[0].Replace(pptqQR.ToString() + "=", "");
                         v1 = Convert.ToInt32(str);
                         if (v1 == 0) v1 = 75;
                         if (v1 == 1) v1 = 74;
+                        nq = Convert.ToInt32(s.Split(':')[1]);
+                        var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(
+                            pptq, pptqQR, nq).Select(o => o.question).ToList();
+                        msg = string.Join(", ", tts.Where(o => v.Contains(o.id)).Select(o => o.title).ToList());
                     }
                     catch { }
-                    if (v1 != -1) val.Add(v1);
+                    if (v1 != -1&&nq!=-1)
+                    {
+                        val.Add(v1);
+                        nextQst.Add(nq);
+                        messages.Add(msg);
+                    }
                 }
             }
-
-            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(pptq, pptqQR, j).Select(o => o.question).ToList();
-            var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
-            var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).ToList();
-            int qstart = -1;
-            int qend = -1;
-            if (tts.Count > 0)
-            {
-                qstart = tts.First().id;
-                qend = tts.Last().id;
-            }
-
+       
             return Json(new
             {
-                message = string.Join(", ", tts.Select(o => o.title).ToList()),
+                messages = messages,
                 qstart = pptqQR,
-                qend = j,
+                qend = nextQst,
                 pptq = pptq,
                 val = val
             }, JsonRequestBehavior.AllowGet);
