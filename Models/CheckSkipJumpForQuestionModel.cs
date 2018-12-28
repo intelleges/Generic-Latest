@@ -11,6 +11,14 @@ namespace Generic.Models
         public string accessCode { get; set; }
         public string skipLogicJump { get; set; }
         public int questionId { get; set; }
+        public int responseId { get; set; }
+    }
+
+    public class RemoveSkipJumpForQuestionModel
+    {
+        public string accessCode { get; set; }     
+        public int questionId { get; set; }
+        public int nextQuestionId { get; set; }
     }
 
     public class LoginViewModel

@@ -271,6 +271,23 @@ namespace Generic.Controllers
             else return BadRequest(ModelState);
         }
 
+
+        [Route("RemoveSkipJumpForQuestion")]
+        [HttpPost]
+        [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
+        [SwaggerResponse(400, "Bad Request", Type = typeof(ModelStateDictionary))]
+        public IHttpActionResult RemoveSkipJumpForQuestion(RemoveSkipJumpForQuestionModel model)
+        {
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(model.accessCode).FirstOrDefault();
+            int pptq = pptqObj.id;
+            db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2(pptq, 
+                model.questionId, model.nextQuestionId);
+            return Ok(new
+            {
+                success = true
+            });
+        }
+
         [Route("CheckSkipJumpForQuestion")]
         [HttpPost]
         [SwaggerResponse(200, "OK", Type = typeof(List<string>))]
@@ -280,25 +297,52 @@ namespace Generic.Controllers
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(model.accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
 
-            var arr = model.skipLogicJump.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
-            int j = 0;
+            var qid = db.pr_getQuestionnaireByAccesscode(model.accessCode).First().id;
+            var tts = db.pr_getQuestionByQuestionnaire(qid).ToList();
+
+            var arr = model.skipLogicJump.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            List<int> val = new List<int>();
+            List<int> nextQst = new List<int>();
+            List<string> messages = new List<string>();
             if (arr.Length > 0)
             {
-                var str = arr[arr.Length - 1].Replace(";", "");
-                try
+                foreach (string s in arr)
                 {
-                    j = Convert.ToInt32(str);
+                    int v1 = -1;
+                    int nq = -1;
+                    string msg = "";
+                    try
+                    {
+                        var str = s.Split('&')[0].Replace(model.questionId.ToString() + "=", "");
+                        v1 = Convert.ToInt32(str);
+                        if (v1 == 0) v1 = 75;
+                        if (v1 == 1) v1 = 74;
+                        nq = Convert.ToInt32(s.Split(':')[1]);
+                        var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(
+                            pptq, model.questionId, nq).Select(o => o.question).ToList();
+                        msg = string.Join(", ", tts.Where(o => v.Contains(o.id)).Select(o => o.title).ToList());
+                    }
+                    catch { }
+                    if (v1 != -1 && nq != -1)
+                    {
+                        val.Add(v1);
+                        nextQst.Add(nq);
+                        messages.Add(msg);
+                    }
                 }
-                catch { }
             }
 
-            var v = db.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion(
-                pptq, model.questionId, j).Select(o => o.question).ToList();
-            var qid = db.pr_getQuestionnaireByAccesscode(model.accessCode).First().id;
-            var tts = db.pr_getQuestionByQuestionnaire(qid).Where(o => v.Contains(o.id)).Select(o => o.title).ToList();
+            if (val.IndexOf(model.responseId) != -1) {
+                return Ok(new
+                {
+                    message = messages[val.IndexOf(model.responseId)],
+                    nextQuestion = nextQst[val.IndexOf(model.responseId)]
+                });
+            }
             return Ok(new
             {
-                message = string.Join(", ", tts)
+                message = "",
+                nextQuestion = -1
             });
         }
 
