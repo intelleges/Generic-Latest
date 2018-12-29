@@ -1822,9 +1822,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var tts = db.pr_getQuestionByQuestionnaire(qid).ToList();
 
             var arr1 = jumpTo.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            string qstartTitle = tts.Where(o => o.id == pptqQR).First().title;
             List<int> val = new List<int>();
             List<int> nextQst = new List<int>();
             List<string> messages = new List<string>();
+            List<string> qendTitle = new List<string>();
             if (arr1.Length > 0)
             {
                 foreach (string s in arr1)
@@ -1849,6 +1851,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         val.Add(v1);
                         nextQst.Add(nq);
                         messages.Add(msg);
+                        qendTitle.Add(tts.Where(o => o.id == nq).First().title);
                     }
                 }
             }
@@ -1859,7 +1862,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 qstart = pptqQR,
                 qend = nextQst,
                 pptq = pptq,
-                val = val
+                val = val,
+                qstartTitle,
+                qendTitle
             }, JsonRequestBehavior.AllowGet);
         }
 

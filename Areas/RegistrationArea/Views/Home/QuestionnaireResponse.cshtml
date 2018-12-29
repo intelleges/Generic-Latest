@@ -240,56 +240,6 @@
 		jQuery("#QuestionnaireResponse").submit();
     }
 
-    function showRemoveAlertify(qid, jumpTo, element, oldvalue, isselect, text) {
-        if (text === undefined) text = '';
-            alertify.set({
-                labels: {
-                    ok: "No",
-                    cancel: "Yes"
-                },
-                buttonFocus: "cancel"
-            });
-
-        alertify.confirm("You have previously provided a response to this question. " +
-            "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>" + text, function (e) {
-                if (e) {
-                    if (isselect===0)
-                        $('[name="' + $(element).attr('name') + '"][value="' + oldvalue + '"]').prop('checked', true);
-                    else
-                        $(element).val(oldvalue);
-                } else {
-
-                    $.post('@Url.Action("removeItemsByqid", "Home")', { pptqQR: qid, jumpTo: jumpTo })
-                        .done(function (data) {
-                          
-        alertify.confirm("You have previously provided a response to this question. " +
-            "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>" + data.message, function (e) {
-                if (e) {
-                    if (isselect===0)
-                        $('[name="' + $(element).attr('name') + '"][value="' + oldvalue + '"]').prop('checked', true);
-                    else
-                        $(element).val(oldvalue);
-                } else {
-
-            
-
-                }
-            });
-
-
-
-
-
-
-
-                        });
-
-
-                }
-            });
-    }
-
-
     var canSubmit = false;
     var elementP = null;
     var oldvalP = null;
@@ -297,7 +247,9 @@
     var isSelectP = 0;
     var pptq = null;
     var qstart = -1;
+    var qstartTitle = '';
     var qend = [];
+    var qendTitle = [];
     var val = [];
     var messages = [];
 
@@ -360,9 +312,7 @@
 
                 if (success === false) return false;
 
-                   @if(ViewBag.AccessCode == "327838XU")
-            {
-                <text>
+        
                 var newvalP;
                 if (isSelectP === 0)
                     newvalP = $('[name="' + $(elementP).attr('name') + '"]:checked').val();
@@ -374,9 +324,10 @@
                                 buttonFocus: "cancel"
                     });
 
-                    alertify.confirm("You have previously provided a response to this question. " +
-                        "Changing your current response may delete some responses you have already provided due to skip logic requirements - are you sure you want to make this change?<br/><br/>Current QID:" + qstart +
-                        "   Next QID:" + qend[val.indexOf(Number(newvalP))] + "<br/><br/><p>" + messages[val.indexOf(Number(newvalP))] + "</p>", function (e) {
+                    alertify.confirm("You've already responded to this question. This questionnaire contains skip logic, therefore changing your response now will " +
+                        "delete responses previosly provided to the question(s) listed below... do you want to proceed with this change?<br/><br/>Current QID:" + qstartTitle +
+                        "    Next QID:" + qendTitle[val.indexOf(Number(newvalP))] + "<br/><br/><p>" + messages[val.indexOf(Number(newvalP))] + "</p>" +
+                        "If \"Yes\" selected, previous response(s) will be deleted,if \"No\" selected, system will advance youto next question without deleting previous response(s).", function (e) {
                             if (e) {         
                                 if (oldvalP !== null && oldvalP !== undefined && oldvalP !== '') {
                                     showalert = false;
@@ -397,8 +348,7 @@
 
                     return false;
                 }
-                </text>
-            }
+               
 
 
                 @if (ViewBag.Pptq != null) {
@@ -511,20 +461,11 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                         qstart = data.qstart;
                         qend = data.qend;
                         val = data.val;
+                        qstartTitle = data.qstartTitle;
+                        qendTitle = data.qendTitle;
                     });
             }
-            /*$('input[type=radio][skiplogicjump="true"]').change(function () {
-                //if ($(this).attr('responsecurrent') !== $(this).val()) {
-                    showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 0);
-                //}
-            });
-
-            $('select[skiplogicjump="true"]').change(function () {
-                //if ($(this).attr('responsecurrent') !== $(this).val()) {
-                    showRemoveAlertify($(this).attr('questionId'), $(this).attr('jumpto'), this, $(this).attr('responsecurrent'), 1);
-                //}
-            });*/
-
+           
     </text>
             }
 
