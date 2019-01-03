@@ -429,9 +429,7 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
 				$(this).css('height', hiddenDiv.height());
             });
 
-            @if(ViewBag.AccessCode == "327838XU")
-            {
-                <text>
+      
             showalert = false;
             var count = $('input[type=radio][skiplogicjump="true"]').length
                 + $('option[skiplogicjump="true"]').length;
@@ -465,10 +463,6 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
                         qendTitle = data.qendTitle;
                     });
             }
-           
-    </text>
-            }
-
 
 			@if (Session["ReferenceEmails"] != null&&((List<string>)Session["ReferenceEmails"]).Count>0)
 			{

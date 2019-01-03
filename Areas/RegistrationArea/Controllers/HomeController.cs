@@ -1587,7 +1587,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return Json(new { success = true });
             else
             {
-                string message = "Sorry, your submission is pending approval due to responses received for the following clauses:<br/>";
+                string message = "Your online [touchpoint.title] questionnaire has been submitted, however is currently \"pending approval\" due to the response received for the following clause(s) listed:<br/>";
                 string qsss = "";
                 foreach (var item in list)
                 {
@@ -1598,6 +1598,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 var pptqItem = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
                 var qresponse = q;
+                string t = "";
+
+                try{
+                    t = pptqItem.partnerTypeTouchpointQuestionnaire1.touchpoint1.title;
+                }
+                catch { }
+
+                message = message.Replace("[touchpoint.title]", t);
 
                 var choices = q.emailAlertList.Split(new char[] { ';' });
                 var email = choices[0].Split(':')[1];
