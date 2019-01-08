@@ -323,11 +323,14 @@
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
                     });
+                    /*
+                    "Current QID:" + qstartTitle +
+                        "    Next QID:" + qendTitle[val.indexOf(Number(newvalP))] +
+*/
 
-                    alertify.confirm("You've already responded to this question. This questionnaire contains skip logic, therefore changing your response now will " +
-                        "delete responses previosly provided to the question(s) listed below... do you want to proceed with this change?<br/><br/>Current QID:" + qstartTitle +
-                        "    Next QID:" + qendTitle[val.indexOf(Number(newvalP))] + "<br/><br/><p>" + messages[val.indexOf(Number(newvalP))] + "</p>" +
-                        "If \"Yes\" selected, previous response(s) will be deleted,if \"No\" selected, system will advance youto next question without deleting previous response(s).", function (e) {
+                    alertify.confirm("You've already responded to this question. This questionnaire contains skip logic, changing your response now will overwrite or delete the existing response to the question(s) listed below... do you want to proceed with this change?" +
+                         "<br/><br/>" + messages[val.indexOf(Number(newvalP))] + "<br/><br/>" +
+                        "If \"Yes\"  is selected, existing response(s) will be deleted; if \"No\" is selected, the system will advance you to the next question without deleting the existing response(s).", function (e) {
                             if (e) {         
                                 if (oldvalP !== null && oldvalP !== undefined && oldvalP !== '') {
                                     showalert = false;
