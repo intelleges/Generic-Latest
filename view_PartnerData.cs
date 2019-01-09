@@ -43,5 +43,6 @@ namespace Generic
         public string Expr1 { get; set; }
         public int campaign { get; set; }
         public Nullable<bool> active { get; set; }
+        public Nullable<int> progress { get; set; }
     }
 }

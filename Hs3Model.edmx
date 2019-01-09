@@ -2814,6 +2814,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PartnerData' does not have a 
           <Property Name="Expr1" Type="varchar" MaxLength="115" Nullable="false" />
           <Property Name="campaign" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" />
+          <Property Name="progress" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_PersonData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -10774,7 +10775,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
     [view_PartnerData].[status] AS [status], 
     [view_PartnerData].[Expr1] AS [Expr1], 
     [view_PartnerData].[campaign] AS [campaign], 
-    [view_PartnerData].[active] AS [active]
+    [view_PartnerData].[active] AS [active], 
+    [view_PartnerData].[progress] AS [progress]
     FROM [dbo].[view_PartnerData] AS [view_PartnerData]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="view_PersonData" EntityType="Self.view_PersonData" store:Type="Views" store:Schema="dbo">
@@ -26890,6 +26892,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Name="Expr1" Type="String" Nullable="false" MaxLength="115" FixedLength="false" Unicode="false" />
           <Property Name="campaign" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" />
+          <Property Name="progress" Type="Int32" />
         </EntityType>
         <ComplexType Name="pr_getPartnerTypeForAssignment_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -38683,6 +38686,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySetMapping Name="view_PartnerData">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.view_PartnerData">
               <MappingFragment StoreEntitySet="view_PartnerData">
+                <ScalarProperty Name="progress" ColumnName="progress" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="campaign" ColumnName="campaign" />
                 <ScalarProperty Name="Expr1" ColumnName="Expr1" />
