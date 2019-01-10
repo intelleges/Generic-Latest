@@ -2292,6 +2292,12 @@
     <Compile Include="pr_getQuestionBySurvey_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionCommentAllByQuestion_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getQuestionCommentCountByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionDocumentAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

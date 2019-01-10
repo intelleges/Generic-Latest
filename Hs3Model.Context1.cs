@@ -23929,5 +23929,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePPTQqrPublicComment", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getQuestionCommentAllByQuestion_Result> pr_getQuestionCommentAllByQuestion(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionCommentAllByQuestion_Result>("pr_getQuestionCommentAllByQuestion", questionParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionCommentCountByPPTQ_Result> pr_getQuestionCommentCountByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionCommentCountByPPTQ_Result>("pr_getQuestionCommentCountByPPTQ", pptqParameter);
+        }
     }
 }

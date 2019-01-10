@@ -7671,6 +7671,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getQuestionByTranslation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="translation" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getQuestionCommentAllByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getQuestionCommentCountByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getQuestionCountByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="questionnaire" Type="int" Mode="In" />
         </Function>
@@ -18431,10 +18437,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_archivePPTQqrPublicComment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQqrPublicComment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQqrPublicComment_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getPPTQqrPublicCommentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQqrPublicCommentAll_Result)" />
           <FunctionImport Name="pr_modifyPPTQqrPublicComment">
@@ -18449,10 +18455,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removePPTQqrPublicComment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchivePPTQqrPublicComment">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionCommentAllByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionCommentAllByQuestion_Result)">
+            <Parameter Name="question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getQuestionCommentCountByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionCommentCountByPPTQ_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31554,6 +31566,19 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="pr_getQuestionCommentAllByQuestion_Result">
+          <Property Type="String" Name="firstname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="lastname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="questionTitle" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pr_getQuestionCommentCountByPPTQ_Result">
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="total_comments" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -44006,6 +44031,27 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_modifyPPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQqrPublicComment" />
           <FunctionImportMapping FunctionImportName="pr_removePPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_removePPTQqrPublicComment" />
           <FunctionImportMapping FunctionImportName="pr_unArchivePPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQqrPublicComment" />
+          <FunctionImportMapping FunctionImportName="pr_getQuestionCommentAllByQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionCommentAllByQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionCommentAllByQuestion_Result">
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="questionTitle" ColumnName="questionTitle" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getQuestionCommentCountByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getQuestionCommentCountByPPTQ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getQuestionCommentCountByPPTQ_Result">
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="total_comments" ColumnName="total comments" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
