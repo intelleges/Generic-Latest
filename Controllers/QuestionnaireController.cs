@@ -909,7 +909,11 @@ namespace Generic.Controllers
                         case (int)CommentType.YN_COMMENT_N:
                             qObj.CommentType = "YN_COMMENT_N";
                             break;
+                        case (int)CommentType.YN_COMMENT_N_PUBLIC:
+                            qObj.CommentType = "YN_COMMENT_N_PUBLIC";
+                            break;
                         case (int)CommentType.YN_COMMENT_Y: qObj.CommentType = "YN_COMMENT_Y"; break;
+                        case (int)CommentType.YN_COMMENT_Y_PUBLIC: qObj.CommentType = "YN_COMMENT_Y_PUBLIC"; break;
                         case (int)CommentType.YN_NO_COMMENT: qObj.CommentType = "YN_NO_COMMENT"; break;
                         case (int)CommentType.YN_UPLOAD_N: qObj.CommentType = "YN_UPLOAD_N"; break;
                         case (int)CommentType.YN_UPLOAD_Y: qObj.CommentType = "YN_UPLOAD_Y"; break;
@@ -1376,6 +1380,14 @@ namespace Generic.Controllers
                                 else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
                                 {
                                     objQuestion.commentType = CommentType.YN_COMMENT_N;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y_PUBLIC")
+                                {
+                                    objQuestion.commentType = CommentType.YN_COMMENT_Y_PUBLIC;
+                                }
+                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_N_PUBLIC")
+                                {
+                                    objQuestion.commentType = CommentType.YN_COMMENT_N_PUBLIC;
                                 }
                                 else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
                                 {

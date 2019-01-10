@@ -923,8 +923,12 @@ namespace Generic.DataLayer
                     txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";
                     divn.Controls.Add(txtbox1);
-                    if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
-                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
+                    if (question.commentType != CommentType.YN_WARNING_N 
+                        && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
+                        question.commentType != CommentType.YN_WARNING_Y 
+                        && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y 
+                        && question.commentType != CommentType.YN_COMMENT_Y_PUBLIC
+                        && question.commentType != CommentType.YN_COMMENT_N_PUBLIC)
                         tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == 0)
@@ -1026,7 +1030,8 @@ namespace Generic.DataLayer
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                     divn.Controls.Add(txtbox1);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
-                       question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
+                       question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y
+                       && question.commentType != CommentType.YN_COMMENT_N_PUBLIC && question.commentType != CommentType.YN_COMMENT_Y_PUBLIC)
                         tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == -1)
@@ -1127,7 +1132,8 @@ namespace Generic.DataLayer
                     divn.InnerHtml = incldComment + " ";  //"Include comments here: ";
                     divn.Controls.Add(txtbox1);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
-                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
+                        question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y
+                        && question.commentType != CommentType.YN_COMMENT_Y_PUBLIC && question.commentType != CommentType.YN_COMMENT_N_PUBLIC)
                         tableCell.Controls.AddAt(1, divn);
                 }
                 else if (divflag == 1 && divShowHideFlag == 2)
@@ -1222,7 +1228,8 @@ namespace Generic.DataLayer
                     divn.Controls.Add(txtbox1);
                     //divn.Controls.Add(fileupload);
                     if (question.commentType != CommentType.YN_WARNING_N && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
-                    question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y)
+                    question.commentType != CommentType.YN_WARNING_Y && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y
+                    && question.commentType != CommentType.YN_COMMENT_Y_PUBLIC && question.commentType != CommentType.YN_COMMENT_N_PUBLIC)
                         tableCell.Controls.AddAt(1, divn);
 
                     //tableCell.Text = "<div Id='yDiv_" + question.id + "' style='display:none' runat='server' >Test Text <br/><br/>Test Text One</div><div Id='nDiv_" + question.id + "' style='display:none'>Test Two <br/><br/>Test Text One</div>";
@@ -1283,6 +1290,51 @@ namespace Generic.DataLayer
 
                 }
                 else if (question.commentType == CommentType.YN_COMMENT_N)
+                {
+                    HtmlGenericControl divn = new HtmlGenericControl();
+                    divn.ID = "nDiv_" + question.id.ToString();
+                    //divn.Visible = false;
+                    Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+                    var responsesList = db.pr_getResponseByQuestion(question.id).ToList();
+
+                    var txtbox1 = new HtmlTextArea();
+                    foreach (Match match in checkCOde.Matches(incldComment))
+                    {
+                        if (responsesList.Any(o => o.zcode.ToLower() == match.Value.ToLower().Replace("(", "").Replace(")", "")))
+                        {
+                            divn.Attributes["data-code"] = match.Value;
+                            incldComment = incldComment.Replace(match.Value, "");
+                        }
+                    }
+                    if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
+                    {
+                        var result = responsesList.FirstOrDefault(o => o.description.Contains("No"));
+                        if (result != null)
+                        {
+                            divn.Attributes["data-code"] = result.zcode;
+                        }
+                    }
+                    if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode)
+                    {
+                        txtbox1.InnerText = pptqResponse.comment;
+
+                    }
+                    else
+                        divn.Style.Add("display", "none");
+                    // txtbox.Width = 600;
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                    txtbox1.Attributes.Add("required", "");
+                    txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    txtbox1.Attributes.Add("data-val", "true");
+                    divn.InnerHtml = incldComment + " ";//"Include comments here: ";
+
+                    divn.Controls.Add(txtbox1);
+
+                    tableCell.Controls.AddAt(0, divn);
+                    addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
+
+                }
+                else if (question.commentType == CommentType.YN_COMMENT_N_PUBLIC)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "nDiv_" + question.id.ToString();
@@ -1444,6 +1496,30 @@ namespace Generic.DataLayer
 
                 }
                 else if (question.commentType == CommentType.YN_COMMENT_Y)
+                {
+                    HtmlGenericControl divn = new HtmlGenericControl();
+                    divn.ID = "yDiv_" + question.id.ToString();
+                    //divn.Visible = false;
+                    var txtbox1 = new HtmlTextArea();
+                    if (pptqResponse != null && pptqResponse.response == 74)
+                    {
+                        txtbox1.InnerText = pptqResponse.comment;
+
+                    }
+                    else
+                        divn.Style.Add("display", "none");
+                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
+
+                    divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
+                    txtbox1.Attributes.Add("required", "");
+                    txtbox1.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
+                    txtbox1.Attributes.Add("data-val", "true");
+                    divn.Controls.Add(txtbox1);
+
+                    tableCell.Controls.AddAt(0, divn);
+                    addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
+                }
+                else if (question.commentType == CommentType.YN_COMMENT_Y_PUBLIC)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();

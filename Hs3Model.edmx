@@ -1666,6 +1666,20 @@
           <Property Name="sortOrder" Type="int" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="pptqQRPublicComment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pptqQR" Type="int" Nullable="false" />
+          <Property Name="partner" Type="int" Nullable="false" />
+          <Property Name="comment" Type="varchar(max)" Nullable="false" />
+          <Property Name="vote" Type="int" Nullable="false" />
+          <Property Name="visible" Type="bit" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="sortOrder" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="pptqTeam">
           <Key>
             <PropertyRef Name="pptq" />
@@ -5505,6 +5519,16 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="pdf" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="pr_addPPTQqrPublicComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptqQR" Type="int" Mode="In" />
+          <Parameter Name="partner" Type="int" Mode="In" />
+          <Parameter Name="comment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="vote" Type="int" Mode="In" />
+          <Parameter Name="visible" Type="bit" Mode="In" />
+          <Parameter Name="timestamp" Type="datetime" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_addPPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -6104,6 +6128,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_archivePPTQqrPublicComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_archivePPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -7563,6 +7590,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getPPTQpdf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getPPTQqrPublicComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_getPPTQqrPublicCommentAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_getPPTQQuestionResponseByQuestionnaire" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partnerpartnertypetouchpointquestionnaire" Type="int" Mode="In" />
         </Function>
@@ -9130,6 +9161,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="sortOrder" Type="int" Mode="In" />
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPPTQqrPublicComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="pptqQR" Type="int" Mode="In" />
+          <Parameter Name="partner" Type="int" Mode="In" />
+          <Parameter Name="comment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="vote" Type="int" Mode="In" />
+          <Parameter Name="visible" Type="bit" Mode="In" />
+          <Parameter Name="timestamp" Type="datetime" Mode="In" />
+          <Parameter Name="sortOrder" Type="int" Mode="In" />
+          <Parameter Name="active" Type="bit" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPPTQStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="partner" Type="int" Mode="In" />
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
@@ -9823,6 +9865,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="PPTQ" Type="int" Mode="In" />
           <Parameter Name="group" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removePPTQqrPublicComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removePPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -10170,6 +10215,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePPTQDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_unArchivePPTQqrPublicComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_unArchivePPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -10522,6 +10570,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <EntitySet Name="pptqDoc" EntityType="Self.pptqDoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqGroup" EntityType="Self.pptqGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqGroupType" EntityType="Self.pptqGroupType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pptqQRPublicComment" EntityType="Self.pptqQRPublicComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pptqTeam" EntityType="Self.pptqTeam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="protocol" EntityType="Self.protocol" Schema="dbo" store:Type="Tables" />
@@ -18369,6 +18418,41 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="questionSTART" Mode="In" Type="Int32" />
             <Parameter Name="questionFINISH" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="pptqQRPublicComment" EntityType="hs3MVCMTQa2Model.pptqQRPublicComment" />
+          <FunctionImport Name="pr_addPPTQqrPublicComment" ReturnType="Collection(Decimal)">
+            <Parameter Name="pptqQR" Mode="In" Type="Int32" />
+            <Parameter Name="partner" Mode="In" Type="Int32" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="vote" Mode="In" Type="Int32" />
+            <Parameter Name="visible" Mode="In" Type="Boolean" />
+            <Parameter Name="timestamp" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archivePPTQqrPublicComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQqrPublicComment" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQqrPublicComment_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPPTQqrPublicCommentAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getPPTQqrPublicCommentAll_Result)" />
+          <FunctionImport Name="pr_modifyPPTQqrPublicComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="pptqQR" Mode="In" Type="Int32" />
+            <Parameter Name="partner" Mode="In" Type="Int32" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="vote" Mode="In" Type="Int32" />
+            <Parameter Name="visible" Mode="In" Type="Boolean" />
+            <Parameter Name="timestamp" Mode="In" Type="DateTime" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePPTQqrPublicComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchivePPTQqrPublicComment">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31434,6 +31518,42 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
           <Property Type="DateTime" Name="timestamp" Nullable="true" />
         </ComplexType>
+        <EntityType Name="pptqQRPublicComment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pptqQR" Type="Int32" Nullable="false" />
+          <Property Name="partner" Type="Int32" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vote" Type="Int32" Nullable="false" />
+          <Property Name="visible" Type="Boolean" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sortOrder" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="pr_getPPTQqrPublicComment_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptqQR" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" />
+          <Property Type="Int32" Name="vote" Nullable="false" />
+          <Property Type="Boolean" Name="visible" Nullable="false" />
+          <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getPPTQqrPublicCommentAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="pptqQR" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" />
+          <Property Type="Int32" Name="vote" Nullable="false" />
+          <Property Type="Boolean" Name="visible" Nullable="false" />
+          <Property Type="DateTime" Name="timestamp" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43836,6 +43956,56 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2" />
+          <EntitySetMapping Name="pptqQRPublicComment">
+            <EntityTypeMapping TypeName="hs3MVCMTQa2Model.pptqQRPublicComment">
+              <MappingFragment StoreEntitySet="pptqQRPublicComment">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="vote" ColumnName="vote" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="pptqQR" ColumnName="pptqQR" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pr_addPPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_addPPTQqrPublicComment" />
+          <FunctionImportMapping FunctionImportName="pr_archivePPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_archivePPTQqrPublicComment" />
+          <FunctionImportMapping FunctionImportName="pr_getPPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQqrPublicComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQqrPublicComment_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptqQR" ColumnName="pptqQR" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="vote" ColumnName="vote" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPPTQqrPublicCommentAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getPPTQqrPublicCommentAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getPPTQqrPublicCommentAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pptqQR" ColumnName="pptqQR" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="vote" ColumnName="vote" />
+                <ScalarProperty Name="visible" ColumnName="visible" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyPPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQqrPublicComment" />
+          <FunctionImportMapping FunctionImportName="pr_removePPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_removePPTQqrPublicComment" />
+          <FunctionImportMapping FunctionImportName="pr_unArchivePPTQqrPublicComment" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchivePPTQqrPublicComment" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

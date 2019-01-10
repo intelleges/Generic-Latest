@@ -230,6 +230,7 @@ namespace Generic
         public virtual DbSet<response> response { get; set; }
         public virtual DbSet<questionnaire> questionnaire { get; set; }
         public virtual DbSet<questionDocument> questionDocument { get; set; }
+        public virtual DbSet<pptqQRPublicComment> pptqQRPublicComment { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -23808,6 +23809,125 @@ namespace Generic
                 new ObjectParameter("questionFINISH", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion2", pptqParameter, questionSTARTParameter, questionFINISHParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPPTQqrPublicComment(Nullable<int> pptqQR, Nullable<int> partner, string comment, Nullable<int> vote, Nullable<bool> visible, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var pptqQRParameter = pptqQR.HasValue ?
+                new ObjectParameter("pptqQR", pptqQR) :
+                new ObjectParameter("pptqQR", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var voteParameter = vote.HasValue ?
+                new ObjectParameter("vote", vote) :
+                new ObjectParameter("vote", typeof(int));
+    
+            var visibleParameter = visible.HasValue ?
+                new ObjectParameter("visible", visible) :
+                new ObjectParameter("visible", typeof(bool));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPPTQqrPublicComment", pptqQRParameter, partnerParameter, commentParameter, voteParameter, visibleParameter, timestampParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePPTQqrPublicComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePPTQqrPublicComment", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQqrPublicComment_Result> pr_getPPTQqrPublicComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQqrPublicComment_Result>("pr_getPPTQqrPublicComment", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPPTQqrPublicCommentAll_Result> pr_getPPTQqrPublicCommentAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQqrPublicCommentAll_Result>("pr_getPPTQqrPublicCommentAll");
+        }
+    
+        public virtual int pr_modifyPPTQqrPublicComment(Nullable<int> id, Nullable<int> pptqQR, Nullable<int> partner, string comment, Nullable<int> vote, Nullable<bool> visible, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pptqQRParameter = pptqQR.HasValue ?
+                new ObjectParameter("pptqQR", pptqQR) :
+                new ObjectParameter("pptqQR", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var voteParameter = vote.HasValue ?
+                new ObjectParameter("vote", vote) :
+                new ObjectParameter("vote", typeof(int));
+    
+            var visibleParameter = visible.HasValue ?
+                new ObjectParameter("visible", visible) :
+                new ObjectParameter("visible", typeof(bool));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQqrPublicComment", idParameter, pptqQRParameter, partnerParameter, commentParameter, voteParameter, visibleParameter, timestampParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePPTQqrPublicComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePPTQqrPublicComment", idParameter);
+        }
+    
+        public virtual int pr_unArchivePPTQqrPublicComment(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePPTQqrPublicComment", idParameter);
         }
     }
 }

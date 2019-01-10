@@ -1065,6 +1065,9 @@
     <Compile Include="pptqGroupType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pptqQRPublicComment.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pptqTeam.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2209,6 +2212,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPPTQOwner_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPPTQqrPublicCommentAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPPTQqrPublicComment_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPPTQQuestionResponseByQuestionnaire_Result.cs">

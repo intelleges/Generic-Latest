@@ -4661,7 +4661,7 @@ namespace Generic.Controllers
             else
             {
                 var d = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-                var items1 = db.pr_getPPTQByPartner(d.partner).ToList();
+                var items1 = db.pr_getPPTQByPartner(d.partner).Where(o=>o.id == pptqId).ToList();
                 if (items1.Count > 1)
                 {
                     string partnerName = d.partner1.name;
@@ -4699,6 +4699,9 @@ namespace Generic.Controllers
                 if (fm != null)
                 {
                     msg = fm;
+                }
+                else {
+                    iscanprintPdf = true;
                 }
             }
 

@@ -325,6 +325,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_questionnaireRule_questionnaire1" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.questionDocument" Width="1.5" PointX="28.375" PointY="15.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.pptqQRPublicComment" Width="1.5" PointX="28.375" PointY="18.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
