@@ -351,6 +351,13 @@ namespace Generic.DataLayer
                 }
             }
 
+            if (HttpContext.Current.Session["accessCode"].ToString() == "328186YV") {
+                var v = db.pr_getQuestionCommentCountByPPTQ(objpptq.id).Where(o => o.question == question.id).FirstOrDefault();
+                if (v != null){
+                    label.Text += " has " + v.total_comments.Value + " comments...";
+                }
+            }
+
             var tags = db.pr_getQuestionDocumentAll().Where(o => o.question == question.id).Select(o => new { o.id, o.description }).ToList();
             if (tags.Count > 0)
             {
