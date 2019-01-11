@@ -10073,6 +10073,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_resetPartnerPartnertypeTouchpointQuestionnairePDF" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PartnerPartnertypeTouchpointQuestionnaire" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_resetPartnumberSiteZcodePPTQQuestionResponseByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
@@ -18461,9 +18464,12 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionCommentAllByQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionCommentAllByQuestion_Result)">
-            <Parameter Name="question" Mode="In" Type="Int32" />
+          <Parameter Name="question" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getQuestionCommentCountByPPTQ" ReturnType="Collection(hs3MVCMTQa2Model.pr_getQuestionCommentCountByPPTQ_Result)">
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" ReturnType="Collection(Int32)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
@@ -44052,6 +44058,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

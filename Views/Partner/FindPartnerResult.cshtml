@@ -117,6 +117,7 @@
                             <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Print PDF</a></li>
 
                             <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
+                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
                             @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
                                         {
                                 <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
@@ -610,7 +611,18 @@
 		});
 		$("#genericPopup").dialog({ height: 600, title: "Complete" });
 		$("#genericPopup").dialog('open');
-	}
+    }
+
+    function resetStatus(accessCode, internalID, touchpoint) {
+        $.get('@Url.Content("~/Partner/ResetStatus")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
+			if (data.res == 1) {
+                alertify.alert("The status for Access Code " + accessCode + " has been reset. Click on the Test link to test.<br/><br/><a onclick='resetStatus(\"" + accessCode + "\", \"" + internalID + "\", \"" + touchpoint +"\"); return false;'>Test link</a>");
+			} else {
+                alertify.alert("The status for Access Code " + accessCode+" has NOT changed");
+			}
+		});
+    }
+
     function resetPdf(accessCode, internalID, touchpoint) {
         $.get('@Url.Content("~/Partner/ResetPdf")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
 			if (data) {

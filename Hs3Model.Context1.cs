@@ -23947,5 +23947,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionCommentCountByPPTQ_Result>("pr_getQuestionCommentCountByPPTQ", pptqParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete", pptqParameter);
+        }
     }
 }

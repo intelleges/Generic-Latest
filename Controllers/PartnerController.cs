@@ -1838,6 +1838,13 @@ namespace Generic.Controllers
 
         }
 
+        public ActionResult ResetStatus(string accessCode, string internalID, int? touchpoint)
+        {
+            var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var v = db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(pptq1.id).First();
+            return Json(new { res = v}, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ResetPdf(string accessCode, string internalID, int? touchpoint)
         {
             if (!string.IsNullOrEmpty(accessCode))
