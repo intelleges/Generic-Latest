@@ -461,6 +461,10 @@
 </script>
 <!--#region collapse-->
 <style type="text/css">
+    #sub-menu {
+        display:none;
+    }
+
     .threecol, twocol {
         width: 100%;
         display: inline-block;
@@ -549,17 +553,33 @@
     <fieldset>
         <legend>partner</legend>
         <div id="addPartner" class="addPartnerDiv">
-            <div class="twocol">
-                @Html.HiddenFor(model => model.id)
-                <!-- #region Name-->
+            <div class="threecol">
                 <div class="editor-label">
-                    @Html.Label("Name")
+                    @Html.Label("Protocol")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(model => model.name)*@
-                    @Html.TextBoxFor(model => model.name, new { @class = "txtClass" })
-                    @Html.ValidationMessageFor(model => model.name)
+                    @Html.DropDownList("protocol", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", onchange = "onchangeProtocol();" })
+                    <span class="field-validation-valid" data-valmsg-for="protocol" data-valmsg-replace="true"></span>
                 </div>
+                <div class="editor-label">
+                    @Html.Label("Touchpoint")
+                </div>
+                <div class="editor-field">
+                    <select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>
+                    <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
+                </div>
+                <div class="editor-label">
+                    @Html.Label("Partner Type")
+                </div>
+                <div class="editor-field">
+                    <select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" "></select>
+                    <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
+                    @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
+                </div>
+            </div>
+            <div class="twocol">
+                @Html.HiddenFor(model => model.id)
+
                 <!-- #endregion-->
                 <!-- #region Internal ID-->
                 <div class="editor-label">
@@ -572,7 +592,15 @@
                     @Html.ValidationMessageFor(model => model.internalID)
                 </div>
                 <!-- #endregion-->
-
+                <!-- #region Name-->
+                <div class="editor-label">
+                    @Html.Label("Name")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(model => model.name)*@
+                    @Html.TextBoxFor(model => model.name, new { @class = "txtClass" })
+                    @Html.ValidationMessageFor(model => model.name)
+                </div>
             </div>
 
 
@@ -726,34 +754,15 @@
                 </div>
 
                 @*<div class="editor-label">
-                        @Html.LabelFor(model => model.loadHistory)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.loadHistory)
-                        @Html.ValidationMessageFor(model => model.loadHistory)
-                    </div>*@
+            @Html.LabelFor(model => model.loadHistory)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.loadHistory)
+            @Html.ValidationMessageFor(model => model.loadHistory)
+        </div>*@
 
-                <div class="editor-label">
-                    @Html.Label("Protocol")
-                </div>
-                <div class="editor-field">
-                    @Html.DropDownList("protocol", null, String.Empty, new { @class = "ddlClass", @data_val = "true", @data_val_required = " ", onchange="onchangeProtocol();" })
-                    <span class="field-validation-valid" data-valmsg-for="protocol" data-valmsg-replace="true"></span>
-                </div>
-                <div class="editor-label">
-                    @Html.Label("Touchpoint")
-                </div>
-                <div class="editor-field">
-                    <select id="touchpoint" name="touchpoint" class="ddlClass" data-val="true" data-val-required=" "></select>
-                    <span class="field-validation-valid" data-valmsg-for="touchpoint" data-valmsg-replace="true"></span>
-                </div>
 
-                <div class="editor-label">
-                    @Html.Label("Due Date")
-                </div>
-                <div class="editor-field">
-                    @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100%;" })
-                </div>
+
 
 
 
@@ -767,14 +776,7 @@
 
                 </div>
 
-                <div class="editor-label">
-                    @Html.Label("Partner Type")
-                </div>
-                <div class="editor-field">
-                    <select id="partnertype" name="partnertype" class="ddlClass" data-val="true" data-val-required=" "></select>
-                    <span class="field-validation-valid" data-valmsg-for="partnertype" data-valmsg-replace="true"></span>
-                    @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Partner Type</a>*@
-                </div>
+
                 <div class="editor-label">
                     @*@Html.LabelFor(model => model.owner)*@
                     @Html.Label("Owner")
@@ -785,25 +787,31 @@
                     @Html.ValidationMessageFor(model => model.owner)
                     @*<a href="@Url.Content(" ~ /PartnerType/Create")">Add Owner</a>*@
                 </div>
+                <div class="editor-label">
+                    @Html.Label("Due Date")
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100%;" })
+                </div>
 
                 @*<div class="editor-label">
 
-                    </div>
-                    <div class="editor-field">
-                        <a id="lnkGrp" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Group</a>
-                    </div>
-                    <div class="editor-label">
+        </div>
+        <div class="editor-field">
+            <a id="lnkGrp" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Group</a>
+        </div>
+        <div class="editor-label">
 
-                    </div>
-                    <div class="editor-field">
-                        <a id="lnkPartnerType" href="javascript:doSomething();" style="margin-left:39%;font-size: 1em;">Add PartnerType</a>
-                    </div>
-                    <div class="editor-label">
+        </div>
+        <div class="editor-field">
+            <a id="lnkPartnerType" href="javascript:doSomething();" style="margin-left:39%;font-size: 1em;">Add PartnerType</a>
+        </div>
+        <div class="editor-label">
 
-                    </div>
-                    <div class="editor-field">
-                        <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
-                    </div>*@
+        </div>
+        <div class="editor-field">
+            <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
+        </div>*@
 
 
 
