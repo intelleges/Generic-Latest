@@ -73,8 +73,25 @@
         padding-left: 2px;
         padding-right: 0px;
     }
-</style>
 
+    .questionaire-table #getQuestionCommentAllByQuestionGrid table tr > td:nth-child(n+2) {
+        width: unset !important;
+    }
+</style>
+<style type="text/css">
+    .t-grid td, t-grid-pager t-grid-bottom {
+        font-size: 10px !important;
+    }
+
+    .t-grid-header .t-header .t-link {
+        font-size: 10px !important;
+        height: 25px !important;
+    }
+
+    .t-splitter .t-scrollable {
+        overflow-x: hidden;
+    }
+</style>
 
 <div class="top-margin">
 
@@ -200,6 +217,20 @@
 
 
 </section>
+
+<div class="modal fade" id="modalComments" tabindex="-1" role="dialog" aria-labelledby="modalCommentsLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalCommentsLabel">Comments</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <style>
     .disabledRow {
@@ -481,7 +512,15 @@ $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq
 			}
 
 		});
-	})(jQuery);
+    })(jQuery);
+
+    function showComments(id) {
+        $('#modalComments').modal('hide');
+        $.get('@Url.Action("GetComments", "Home")' + '?id=' + id, function (data) {
+            $('#modalComments .modal-body').html(data);
+            $('#modalComments').modal('show');
+        });
+    }
 </script>
 
 

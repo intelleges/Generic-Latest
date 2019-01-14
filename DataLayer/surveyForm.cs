@@ -354,7 +354,7 @@ namespace Generic.DataLayer
             if (HttpContext.Current.Session["accessCode"].ToString() == "328186YV") {
                 var v = db.pr_getQuestionCommentCountByPPTQ(objpptq.id).Where(o => o.question == question.id).FirstOrDefault();
                 if (v != null){
-                    label.Text += " has " + v.total_comments.Value + " comments...";
+                    label.Text += " <a href='#' onclick='showComments("+ question.id + "); return false;'>has " + v.total_comments.Value + " comments...</a>";
                 }
             }
 

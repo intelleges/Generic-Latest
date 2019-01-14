@@ -4362,6 +4362,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\PODQuestionnaireSurveyPdfDownload22-different font.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload23.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload25.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\GetComments.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

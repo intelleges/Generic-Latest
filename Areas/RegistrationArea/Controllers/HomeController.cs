@@ -1820,6 +1820,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetComments(int id)
+        {
+            return View(db.pr_getQuestionCommentAllByQuestion(id).ToList());
+        }
+
         public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
