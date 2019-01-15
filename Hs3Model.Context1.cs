@@ -23956,5 +23956,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete", pptqParameter);
         }
+    
+        public virtual ObjectResult<string> pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(string internalid, Nullable<int> ptq)
+        {
+            var internalidParameter = internalid != null ?
+                new ObjectParameter("internalid", internalid) :
+                new ObjectParameter("internalid", typeof(string));
+    
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ", internalidParameter, ptqParameter);
+        }
     }
 }

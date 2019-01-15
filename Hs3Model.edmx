@@ -7157,6 +7157,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="internalid" Type="varchar" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByInvitedByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
@@ -18470,7 +18474,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" ReturnType="Collection(Int32)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" ReturnType="Collection(String)">
+            <Parameter Name="internalid" Mode="In" Type="String" />
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -44059,6 +44067,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" />
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

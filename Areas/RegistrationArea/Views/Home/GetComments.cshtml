@@ -15,9 +15,9 @@
    {
        columns.Bound(o => o.firstname).Title("Name").ClientTemplate("#=firstname# #=lastname#").Width(200);
        columns.Bound(o => o.title).Title("Title").Width(200);
-       columns.Bound(o => o.comment).Title("Comment").Width(400);
+       columns.Bound(o => o.comment).Title("Comment").Width(400).HtmlAttributes(new { style = "text-align:left" }); ;
        columns.Bound(o => o.questionTitle).Title("Question Title").Width(100);
-       columns.Bound(o => o.timestamp).Title("Date").Width(50).Format("{0: dd/MM/yyyy}"); 
+       columns.Bound(o => o.timestamp).Title("Date").Width(50).Format("{0: dd/MM/yyyy}");
    }).Filterable(o => o.Enabled(true))
     </div>
 </div>

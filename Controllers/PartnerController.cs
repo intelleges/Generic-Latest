@@ -385,10 +385,21 @@ namespace Generic.Controllers
         public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
         {
             List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+            int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
+                .ToList().Where(x => x.touchpoint == touchpoint).First().id;
+            var v = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(partner.internalID, objptqId).FirstOrDefault();
 
             string loadGroup = db.pr_getAccesscode().FirstOrDefault();
             partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
             GenerateCreateDropDownLists();
+
+            if (!string.IsNullOrEmpty(v))
+            {
+                ViewBag.Message = "error";
+                ViewBag.MessageDetail = v;
+                return View(partner);
+            }
+
             try
             {
                 int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, "", partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
