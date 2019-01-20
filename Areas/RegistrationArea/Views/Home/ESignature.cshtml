@@ -3,10 +3,10 @@
 @using Generic.Areas.RegistrationArea.Models
 @using System.Web.Optimization;
 @{
-    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();   
+    //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
     //ViewBag.Title = "CompanyInfomation";
-     //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
-	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
     {
@@ -20,10 +20,10 @@
 
 <script>
     $(document).ready(function () {
-        
+
         progressBar(100, $('#progressBar'));
 
-       
+
 
         // Obtain the zCode error message and if it is not empty then show it.
         var message = '@ViewBag.message';
@@ -35,226 +35,226 @@
 </script>
 
 @*@section Bottom{
-   
-@Html.Partial("_BottomSection");
-}
 
-@section Top{
-    @Html.Partial("_TopSection");
-}
+    @Html.Partial("_BottomSection");
+    }
 
-<table class="tablesign2"  border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table  border="0" align="center" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>
-                        <div id="progressBar" class="tiny-green" >
-                            <div></div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <br />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table class="infobox" width="665" border="0" align="center" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>
+    @section Top{
+        @Html.Partial("_TopSection");
+    }
+
+    <table class="tablesign2"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table  border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div id="progressBar" class="tiny-green" >
+                                <div></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table class="infobox" width="665" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
 
 
 
-                        @using (Html.BeginForm())
-                        {
+                            @using (Html.BeginForm())
+                            {
 
-                            <table class="innertable" border="0" cellspacing="0" cellpadding="0">
-                                <div class="cls" id="ctl00_contentQuestionnaireBody_pnlOthers">
+                                <table class="innertable" border="0" cellspacing="0" cellpadding="0">
+                                    <div class="cls" id="ctl00_contentQuestionnaireBody_pnlOthers">
+                                        <tr>
+                                            <td class="infotitlebg" colspan="2">
+                                                <span class="infotitlenormal">
+                                                    @formData.ESIGNATURE_PAGE_TEXT
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    </div>
+
+
+
+                                    <div id="ctl00_contentQuestionnaireBody_pnlAddEsignature" class="contentQuestionnaireBody">
+
+                                        <tr>
+                                            <td width="100%">
+                                                <table border="0" cellpadding="0" cellspacing="0">
+                                                    <tr class="contentQuestionnairfirst">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr class="contentQuestionnairsecond">
+                                                        <td  align="right" class="esigncont">
+                                                            @formData.FIRST_NAME*:
+                                                        </td>
+                                                        <td class="tCenterColumn">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td class="tRightColumn">
+
+                                                            @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @size = "100", @style = "fondt-size:16px;" } })
+                                                            <span id="errorFrstName" style="display: none;">Required</span>
+                                                            @Html.ValidationMessageFor(model => model.firstName)
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="contentQuestionnairthrd">
+                                                        <td ></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right" class="esigncont">
+                                                            @formData.LAST_NAME*:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @size = "100", @style = "fondt-size:16px;" } })
+                                                            <span id="errorlastName" style="display: none;">Required</span>
+                                                            @Html.ValidationMessageFor(model => model.lastName)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="5"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr id="ctl00_contentQuestionnaireBody_title" style="display: none">
+                                                        <td align="right" class="esigncont">
+                                                            @formData.TITLE_TEXT*:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle" class="txtBox" size="200" />
+                                                            <span id="ctl00_contentQuestionnaireBody_requiredTitle" class="errormsg" style="display: none;">Required</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="contentQuestionnairfour">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr class="contentQuestionnairfive">
+                                                        <td align="right" class="esigncont">
+                                                            @formData.EMAIL_TEXT*:
+                                                        </td>
+                                                        <td class="tCenterColumn">
+                                                            &nbsp;
+                                                        </td>
+                                                        <td class="tRightColumn">
+                                                            @Html.EditorFor(model => model.email, new { @size = "100", @style = "fondt-size:16px;" })
+                                                            <span id="errorEmail errormsg" style="display:none; ">Required</span>
+                                                            @Html.ValidationMessageFor(model => model.email)
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="contentQuestionnairsix">
+                                                        <td height="5"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr id="ctl00_contentQuestionnaireBody_phone" style="display: none">
+                                                        <td align="right" class="esigncont">
+                                                            @formData.PHONE_TEXT*:
+                                                        </td>
+                                                        <td>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td>
+                                                            <input name="ctl00$contentQuestionnaireBody$txtPhone" type="text" id="ctl00_contentQuestionnaireBody_txtPhone" class="txtBox" />
+                                                            <span id="ctl00_contentQuestionnaireBody_requiredPhone" class="errormsg" style="display: none;">Required</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="contentQuestionnairsix">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr class="contentQuestionnairsix">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr class="contentQuestionnairseven">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                    </div>
                                     <tr>
-                                        <td class="infotitlebg" colspan="2">
-                                            <span class="infotitlenormal">
-                                                @formData.ESIGNATURE_PAGE_TEXT
-                                            </span>
-                                        </td>
-
-                                    </tr>
-                                </div>
-
-
-
-                                <div id="ctl00_contentQuestionnaireBody_pnlAddEsignature" class="contentQuestionnaireBody">
-
-                                    <tr>
-                                        <td width="100%">
-                                            <table border="0" cellpadding="0" cellspacing="0">
-                                                <tr class="contentQuestionnairfirst">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr class="contentQuestionnairsecond">
-                                                    <td  align="right" class="esigncont">
-                                                        @formData.FIRST_NAME*:
-                                                    </td>
-                                                    <td class="tCenterColumn">
-                                                        &nbsp;
-                                                    </td>
-                                                    <td class="tRightColumn">
-
-                                                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @size = "100", @style = "fondt-size:16px;" } })
-                                                        <span id="errorFrstName" style="display: none;">Required</span>
-                                                        @Html.ValidationMessageFor(model => model.firstName)
-                                                    </td>
-                                                </tr>
-                                                <tr class="contentQuestionnairthrd">
-                                                    <td ></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
+                                        <td class="contentwraptd" align="right" valign="bottom">
+                                            <table  border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
-                                                    <td align="right" class="esigncont">
-                                                        @formData.LAST_NAME*:
+                                                    <td class="Previoustd" align="right" valign="bottom">
+                                                        <input type="submit" name="btnPrevious" id="btnPrevious" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="history.go(-1); return false;" style="border-width: 0px;" />
                                                     </td>
-                                                    <td>
-                                                        &nbsp;
+
+                                                    <td class="nextbtntd" align="right" valign="bottom">
+                                                        <input type="submit" name="btnNext" id="btnNext" onclick="return validateEsignature();" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;"/>
                                                     </td>
-                                                    <td>
-                                                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @size = "100", @style = "fondt-size:16px;" } })
-                                                        <span id="errorlastName" style="display: none;">Required</span>
-                                                        @Html.ValidationMessageFor(model => model.lastName)
-                                                    </td>
+                                                    <td class="space"></td>
                                                 </tr>
+
                                                 <tr>
-                                                    <td height="5"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr id="ctl00_contentQuestionnaireBody_title" style="display: none">
-                                                    <td align="right" class="esigncont">
-                                                        @formData.TITLE_TEXT*:
-                                                    </td>
                                                     <td>
                                                         &nbsp;
                                                     </td>
                                                     <td>
-                                                        <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle" class="txtBox" size="200" />
-                                                        <span id="ctl00_contentQuestionnaireBody_requiredTitle" class="errormsg" style="display: none;">Required</span>
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="contentQuestionnairfour">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr class="contentQuestionnairfive">
-                                                    <td align="right" class="esigncont">
-                                                        @formData.EMAIL_TEXT*:
-                                                    </td>
-                                                    <td class="tCenterColumn">
                                                         &nbsp;
                                                     </td>
-                                                    <td class="tRightColumn">
-                                                        @Html.EditorFor(model => model.email, new { @size = "100", @style = "fondt-size:16px;" })
-                                                        <span id="errorEmail errormsg" style="display:none; ">Required</span>
-                                                        @Html.ValidationMessageFor(model => model.email)
-                                                    </td>
-                                                </tr>
-                                                <tr class="contentQuestionnairsix">
-                                                    <td height="5"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr id="ctl00_contentQuestionnaireBody_phone" style="display: none">
-                                                    <td align="right" class="esigncont">
-                                                        @formData.PHONE_TEXT*:
-                                                    </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <td>
-                                                        <input name="ctl00$contentQuestionnaireBody$txtPhone" type="text" id="ctl00_contentQuestionnaireBody_txtPhone" class="txtBox" />
-                                                        <span id="ctl00_contentQuestionnaireBody_requiredPhone" class="errormsg" style="display: none;">Required</span>
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="contentQuestionnairsix">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-
-                                                <tr class="contentQuestionnairsix">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr class="contentQuestionnairseven">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
                                                 </tr>
                                             </table>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
 
-                                </div>
-                                <tr>
-                                    <td class="contentwraptd" align="right" valign="bottom">
-                                        <table  border="0" cellspacing="0" cellpadding="0">
-                                            <tr>
-                                                <td class="Previoustd" align="right" valign="bottom">
-                                                    <input type="submit" name="btnPrevious" id="btnPrevious" value="@formData.CMS_PAGE_PREVIOUS_TEXT" onclick="history.go(-1); return false;" style="border-width: 0px;" />
-                                                </td>
+                            }
 
-                                                <td class="nextbtntd" align="right" valign="bottom">
-                                                    <input type="submit" name="btnNext" id="btnNext" onclick="return validateEsignature();" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;"/>
-                                                </td>
-                                                <td class="space"></td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                                <td>
-                                                    &nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                            </table>
-
-                        }
-
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="formdatarequir" >@formData.REQUIRED_FIELDS</span>
-        </td>
-    </tr>
-</table>*@
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="formdatarequir" >@formData.REQUIRED_FIELDS</span>
+            </td>
+        </tr>
+    </table>*@
 
 
 <div class="top-margin">
@@ -263,72 +263,72 @@
 
 <section class="page-inner">
     <div class="small-container">
-       @Html.Partial("_TopSection")
+        @Html.Partial("_TopSection")
 
         <div class="sub-box">
             <div class="shadow-box padding-none full-width">
                 <div class="black-box-hd text-center" style="padding:15px 70px;">@formData.ESIGNATURE_PAGE_TEXT</div>
                 <div class="row main-content" id="ctl00_contentQuestionnaireBody_pnlAddEsignature">
-                    @using (Html.BeginForm())
-                        {
-                    <div class="form-horizontal black-box-form">
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.FIRST_NAME:<i class="fa fa-asterisk"></i> </label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.firstName, new { @class="form-control" })
-                                    <span id="errorFrstName" style="display: none;">Required</span>
-                                    @Html.ValidationMessageFor(model => model.firstName)
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formSign" }))
+                    {
+                        <div class="form-horizontal black-box-form">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.FIRST_NAME:<i class="fa fa-asterisk"></i> </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.firstName, new { @class = "form-control" })
+                                        <span id="errorFrstName" style="display: none;">Required</span>
+                                        @Html.ValidationMessageFor(model => model.firstName)
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.LAST_NAME:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
-                                    <span id="errorlastName" style="display: none;">Required</span>
-                                    @Html.ValidationMessageFor(model => model.lastName)
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.LAST_NAME:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
+                                        <span id="errorlastName" style="display: none;">Required</span>
+                                        @Html.ValidationMessageFor(model => model.lastName)
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.EMAIL_TEXT:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
-                                    <span id="errorEmail errormsg" style="display:none; ">Required</span>
-                                    @Html.ValidationMessageFor(model => model.email)
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.EMAIL_TEXT:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                                        <span id="errorEmail errormsg" style="display:none; ">Required</span>
+                                        @Html.ValidationMessageFor(model => model.email)
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-9" id="ctl00_contentQuestionnaireBody_title" style="display: none">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.TITLE_TEXT:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle" class="txtBox form-control" size="200" />
-                                    <span id="ctl00_contentQuestionnaireBody_requiredTitle" class="errormsg" style="display: none;">Required</span>
+                            <div class="col-md-9" id="ctl00_contentQuestionnaireBody_title" style="display: none">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.TITLE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        <input name="ctl00$contentQuestionnaireBody$txtTitle" type="text" id="ctl00_contentQuestionnaireBody_txtTitle" class="txtBox form-control" size="200" />
+                                        <span id="ctl00_contentQuestionnaireBody_requiredTitle" class="errormsg" style="display: none;">Required</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-9" id="ctl00_contentQuestionnaireBody_phone" style="display: none">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.PHONE_TEXT:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    <input name="ctl00$contentQuestionnaireBody$txtPhone" type="text" id="ctl00_contentQuestionnaireBody_txtPhone" class="txtBox form-control" />
-                                    <span id="ctl00_contentQuestionnaireBody_requiredPhone" class="errormsg" style="display: none;">Required</span>
+                            <div class="col-md-9" id="ctl00_contentQuestionnaireBody_phone" style="display: none">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.PHONE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        <input name="ctl00$contentQuestionnaireBody$txtPhone" type="text" id="ctl00_contentQuestionnaireBody_txtPhone" class="txtBox form-control" />
+                                        <span id="ctl00_contentQuestionnaireBody_requiredPhone" class="errormsg" style="display: none;">Required</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="next-btns">
-                            <button type="submit" name="btnNext" id="btnNext" onclick="return validateEsignature();" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
-                            <button type="submit" name="btnPrevious" id="btnPrevious" onclick="history.go(-1); return false;" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                            <div class="next-btns">
+                                <button type="submit" name="btnNext" id="btnNext" onclick="return validateEsignature();" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                                <button type="button" name="btnPrevious" id="btnPrevious" onclick="history.go(-1); return false;" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                            </div>
                         </div>
-                    </div>
-                        }
+                    }
 
 
                 </div>
@@ -339,3 +339,41 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    var canSubmit = false;
+    $(document).ready(function () {
+
+        $("#formSign").submit(function (e) {
+
+     @if (ViewBag.Pptq != null) {
+                        <text>
+            if (!canSubmit) {
+                $.post('@Url.Action("ValidateEmailAlerts", "Home")', { pptq: "@ViewBag.Pptq", qids: "@ViewBag.Qids" })
+                    .done(function (data) {
+                        if (data.success == true) {
+                            alertify.alert('Congratulations your submission is approved!!!', function () {
+                                $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', {
+                                    pptq: "@ViewBag.Pptq"
+                                }).done(function (result) {
+                                    canSubmit = true;
+                                    $("#formSign").submit();
+                                });
+                            });
+                        }
+                        else {
+                            alertify.alert(data.message, function () {
+                                $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', {
+                                    pptq: "@ViewBag.Pptq"
+                                }).done(function (result) {
+                                    canSubmit = false;
+                                });
+                            });
+                        }
+                    });
+                return false;
+            }
+                       </text>
+                    }
+        });
+    });
+</script>

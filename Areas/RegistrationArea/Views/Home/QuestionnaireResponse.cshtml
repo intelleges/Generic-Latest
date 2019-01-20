@@ -389,30 +389,16 @@
                         <text>
 
                 if (!canSubmit && $("input[name*='question_@ViewBag.Qids']:checked").val() == "74") {
-                    $.post('@Url.Action("ValidateEmailAlerts", "Home")', { pptq: "@ViewBag.Pptq", qids: "@ViewBag.Qids" })
-                        .done(function (data) {
-                            if (data.success == true) {
-                                alertify.alert('Congratulations your submission is approved!!!', function () {
-
-                                    $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
-                                        canSubmit = true;
-                                        $('.disabledRow input[type="radio"]:first').prop('checked', true);
-                                        $("#QuestionnaireResponse").submit();
-                                    });
-                                });
-                            }
-                            else {
-                                alertify.alert(data.message, function () {
-
-$.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', { pptq: "@ViewBag.Pptq" }).done(function (result) {
-    canSubmit = false;
-                                    });
-                                    //$("#QuestionnaireResponse").submit();
-                                });
-                            }
-                        });
-                    return false;
+                    canSubmit = true;
+                    $('.disabledRow input[type="radio"]:first').prop('checked', true);
+                    $("#QuestionnaireResponse").submit();
                 }
+                else {
+                    canSubmit = true;
+                    $('.disabledRow input[type="radio"]:last').prop('checked', true);
+                    $("#QuestionnaireResponse").submit();
+                }
+
                        </text>
                     }
                     //debugger;

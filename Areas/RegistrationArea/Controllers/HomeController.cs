@@ -1587,7 +1587,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return Json(new { success = true });
             else
             {
-                string message = "Your online [touchpoint.title] questionnaire has been submitted, however is currently \"pending approval\" due to the response received for the following clause(s) listed:<br/>";
+                string message = "Your online [touchpoint.title] questionnaire has been submitted, however, it is currently \"pending approval\" due to the response received for the following clause(s) listed:<br/>";
                 string qsss = "";
                 foreach (var item in list)
                 {
@@ -3179,7 +3179,26 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : 0).FirstOrDefault();
 
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = pptq;
+            var questionnaire1 = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            if (questionnaire1 != null)
+            {
+                var qsts = db.pr_getQuestionByQuestionnaire(questionnaire1.id)
+                    .Where(o => o.emailAlert == "A" && (o.emailAlertList ?? "").Contains("where:")).ToList();
+                if (qsts.Count > 0)
+                {
+                    var ids = qsts.Select(x => x.id).ToList();
+                    if (ids.Count > 0) {
+                        
+                        var items = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(ids.First(), pptq.id).ToList();
+                        if (items.Count() > 0 && items.First().response == 74)
+                        {
+                            ViewBag.Qids = string.Join(",", qsts.Select(x => x.id.ToString()).ToArray());
+                            ViewBag.Pptq = ppptq_cms.id;
+                        }
+                    }
+                }
+            }
 
             ViewBagModel objViewBag = new ViewBagModel();
 
