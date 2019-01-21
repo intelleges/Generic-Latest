@@ -268,7 +268,7 @@
 <script type="text/javascript">
 	var hiddenDiv = $(document.createElement('div')), content = null;
 	function submitForm() {
-		jQuery("#QuestionnaireResponse").submit();
+		$("#QuestionnaireResponse").submit();
     }
 
     var canSubmit = false;
@@ -284,8 +284,8 @@
     var val = [];
     var messages = [];
 
-	(function ($) {
         $(document).ready(function () {
+
             //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
             CKEDITOR.config.font_defaultLabel = 'Avenir-Roman-webfont';
             CKEDITOR.config.fontSize_defaultLabel = '17px';
@@ -331,9 +331,22 @@
 				alertify.alert(message);
 			}
 
-          
-            $("#QuestionnaireResponse").submit(function (e) {
+                            
+                @if (ViewBag.Pptq != null) {
+                        <text>
 
+                $("input[name*='question_@ViewBag.Qids']").on('click', function () {
+                    if ($("input[name*='question_@ViewBag.Qids']:checked").val() == "74") {
+                    $('.disabledRow input[type="radio"]:first').prop('checked', true);
+                }
+                else {
+                    $('.disabledRow input[type="radio"]:last').prop('checked', true);
+                }
+                });
+                       </text>
+                    }
+
+            $("#QuestionnaireResponse").submit(function (e) {
                 var success = true;
                 $.each($('.field-validation-valid'), function (index, obj) {
                     var id = $(obj).attr('data-valmsg-for');
@@ -385,22 +398,6 @@
                
 
 
-                @if (ViewBag.Pptq != null) {
-                        <text>
-
-                if (!canSubmit && $("input[name*='question_@ViewBag.Qids']:checked").val() == "74") {
-                    canSubmit = true;
-                    $('.disabledRow input[type="radio"]:first').prop('checked', true);
-                    $("#QuestionnaireResponse").submit();
-                }
-                else {
-                    canSubmit = true;
-                    $('.disabledRow input[type="radio"]:last').prop('checked', true);
-                    $("#QuestionnaireResponse").submit();
-                }
-
-                       </text>
-                    }
                     //debugger;
                     //var $btn = $("input[type=submit][clicked=true]");
                     //if ($btn.prop("id") == "saveforLater") {
@@ -498,7 +495,7 @@
 			}
 
 		});
-    })(jQuery);
+ 
 
     function showComments(id) {
         $('#modalComments').modal('hide');
