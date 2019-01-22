@@ -365,7 +365,8 @@
                                 $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', {
                                     pptq: "@ViewBag.Pptq"
                                 }).done(function (result) {
-                                    canSubmit = false;
+                                    canSubmit = true;
+                                    $("#formSign").submit();
                                 });
                             });
                         }
