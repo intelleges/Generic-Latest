@@ -353,7 +353,8 @@
                         if (data.success == true) {
                             alertify.alert('Congratulations your submission is approved!!!', function () {
                                 $.post('@Url.Action("SetStatusAfterCongratAlert", "Home")', {
-                                    pptq: "@ViewBag.Pptq"
+                                    pptq: "@ViewBag.Pptq",
+                                    status:8
                                 }).done(function (result) {
                                     canSubmit = true;
                                     $("#formSign").submit();
@@ -363,7 +364,8 @@
                         else {
                             alertify.alert(data.message, function () {
                                 $.post('@Url.Action("SetStatusAfterSorryAlert", "Home")', {
-                                    pptq: "@ViewBag.Pptq"
+                                    pptq: "@ViewBag.Pptq",
+                                    status: 10
                                 }).done(function (result) {
                                     canSubmit = true;
                                     $("#formSign").submit();

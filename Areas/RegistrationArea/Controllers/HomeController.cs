@@ -1535,12 +1535,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetStatusAfterCongratAlert(int pptq)
+        public ActionResult SetStatusAfterCongratAlert(int pptq, int status)
         {
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
             if (pptqObj != null)
             {
-                pptqObj.status = 8;
+                pptqObj.status = status;
                 db.SaveChanges();
                 return Json(true);
             }
