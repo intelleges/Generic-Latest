@@ -1558,12 +1558,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetStatusAfterSorryAlert(int pptq)
+        public ActionResult SetStatusAfterSorryAlert(int pptq, int status)
         {
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
             if (pptqObj != null)
             {
-                pptqObj.status = 10;
+                pptqObj.status = status;
                 db.SaveChanges();
                 return Json(true);
             }
