@@ -117,7 +117,7 @@
                             <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Print PDF</a></li>
 
                             <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
-                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
+                            <li style='display:@(!Generic.SessionClass.SessionSingleton.IsSystemMaster?"none":"inherit")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
                             @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
                                         {
                                 <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
