@@ -1474,6 +1474,7 @@ namespace Generic.Controllers
                                 objQuestion.sortOrder = 1;
                                 objQuestion.active = true;
                                 objQuestion.enterprise = EnterpriseID;
+                                objQuestion.accessLevel = excelQuestionnaire.accessLevel;
                                 db.questions.Add(objQuestion);
                                 db.SaveChanges();
                                 questionSet.Add(objQuestion.id);

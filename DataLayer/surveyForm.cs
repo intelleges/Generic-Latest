@@ -2312,14 +2312,14 @@ namespace Generic.DataLayer
                             //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                             //_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()
                             var splittedDescription = responseCollection[i].description.Split("|".ToCharArray());
-                            var item = new ListItem(splittedDescription[0], splittedDescription[0]);
+                            var item = new ListItem(splittedDescription[0], splittedDescription.Length==3? splittedDescription[2]: splittedDescription[0]);
                             item.Attributes.Add("title", splittedDescription[1]);
                             //if (checkCOde.IsMatch(item.Text))
                             //{
                             //    item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;
                             //    item.Text = item.Text.Replace(checkCOde.Match(item.Text).Value, "");
                             //}
-                            if (pptqResponse != null && (pptqResponse.comment ?? "").Contains(splittedDescription[0]))
+                            if (pptqResponse != null && (pptqResponse.comment ?? "").Contains(splittedDescription.Length == 3 ? splittedDescription[2] : splittedDescription[0]))
                             {
                                 //listBox.ClearSelection();
                                 item.Selected = true;

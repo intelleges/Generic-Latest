@@ -38,6 +38,7 @@ namespace Generic.ViewModel
         public string Survey { get; set; }
         public string Response { get; set; }
 		public string NarrativeHint { get; set; }
+        public int accessLevel { get; set; }
 
     }
 
