@@ -638,10 +638,11 @@ namespace Generic.DataLayer
 
 
 
-            var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (byte)HttpContext.Current.Session["accessLevel"] : 0;
-            if (question.accessLevel.HasValue && question.accessLevel.Value != 0 && sessionAcessLevel != 0)
+            var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (IEnumerable<byte>)HttpContext.Current.Session["accessLevel"] : null;
+            if (question.accessLevel.HasValue && question.accessLevel.Value != 0 && sessionAcessLevel != null)
             {
-                if ((sessionAcessLevel & question.accessLevel.Value) != question.accessLevel.Value)
+                
+                if (!sessionAcessLevel.Any(o => (question.accessLevel.Value & o) == o))
                 {
                     tableRow.Visible = false;
                     //adding hidden field with question id so it can be tracked on questionnaireResponse action
@@ -652,6 +653,10 @@ namespace Generic.DataLayer
                     var row = new TableRow();
                     row.Controls.Add(cell);
                     table.Controls.Add(row);
+                    if (table.Controls.Contains(tableRowsurvey))
+                    {
+                        table.Controls.Remove(tableRowsurvey);
+                    }
                     //db.pr_zco
                     //tableRow.Attributes.Add("visibility", "hidden");
                 }
