@@ -45,7 +45,7 @@
     });
         }
 
-       
+
 
         *@
     jQuery(document).ready(function () {
@@ -55,7 +55,7 @@
 
         //BindGroup(touchpointid);
 
-        
+
 
         //$('#Touchpoint').change(function () {
 
@@ -185,7 +185,7 @@
                 });
                 } else {
                     // click yes
-                   
+
                 }
             });
         }
@@ -462,7 +462,7 @@
 <!--#region collapse-->
 <style type="text/css">
     #sub-menu {
-        display:none;
+        display: none;
     }
 
     .threecol, twocol {
@@ -588,7 +588,7 @@
                 </div>
                 <div class="editor-field">
                     @*@Html.EditorFor(model => model.internalID)*@
-                    @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass" })
+                    @Html.TextBoxFor(model => model.internalID, new { @class = "txtClass", onchange = "changeInrenalId();" })
                     @Html.ValidationMessageFor(model => model.internalID)
                 </div>
                 <!-- #endregion-->
@@ -754,12 +754,12 @@
                 </div>
 
                 @*<div class="editor-label">
-            @Html.LabelFor(model => model.loadHistory)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.loadHistory)
-            @Html.ValidationMessageFor(model => model.loadHistory)
-        </div>*@
+                        @Html.LabelFor(model => model.loadHistory)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.loadHistory)
+                        @Html.ValidationMessageFor(model => model.loadHistory)
+                    </div>*@
 
 
 
@@ -796,22 +796,22 @@
 
                 @*<div class="editor-label">
 
-        </div>
-        <div class="editor-field">
-            <a id="lnkGrp" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Group</a>
-        </div>
-        <div class="editor-label">
+                    </div>
+                    <div class="editor-field">
+                        <a id="lnkGrp" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Group</a>
+                    </div>
+                    <div class="editor-label">
 
-        </div>
-        <div class="editor-field">
-            <a id="lnkPartnerType" href="javascript:doSomething();" style="margin-left:39%;font-size: 1em;">Add PartnerType</a>
-        </div>
-        <div class="editor-label">
+                    </div>
+                    <div class="editor-field">
+                        <a id="lnkPartnerType" href="javascript:doSomething();" style="margin-left:39%;font-size: 1em;">Add PartnerType</a>
+                    </div>
+                    <div class="editor-label">
 
-        </div>
-        <div class="editor-field">
-            <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
-        </div>*@
+                    </div>
+                    <div class="editor-field">
+                        <a id="lnkOwner" href="javascript:doSomething();" style="margin-left:56%;font-size: 1em;">Add Owner</a>
+                    </div>*@
 
 
 
@@ -820,7 +820,7 @@
             </div>
             <p style="float: right; width: 20%;">
                 @*<input type="submit" value="Save" />*@
-                <input type="button" value="Save" class="btn" onclick="submitForm();"/>
+                <input type="button" value="Save" class="btn" onclick="submitForm();" />
                 <input type="button" value="Clear" class="btn" id="btnClear" />
                 @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
             </p>
@@ -842,9 +842,23 @@
         <input type="button" name="button" id="btnConfirm" value="Confirm Now" />
         <input type="button" name="button" id="btnConfirmlater" value="Confirm Later" />
     </div>
-   
+
 }
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function changeInrenalId() {
+            $.post("@Url.Action("ValidateInternalID", "Partner")", {
+                partnertype: $('#partnertype').val(),
+                touchpoint: $('#touchpoint').val(),
+                internalID: $("#internalID").val()
+            })
+                .done(function (data) {
+                    if (data.message !== null && data.message.length > 0) {
+                        alertify.alert(data.message);
+                    }
+                });
+        }
+    </script>
 }
