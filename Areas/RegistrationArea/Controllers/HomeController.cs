@@ -2172,6 +2172,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             responseId = db.pr_getResponseByQuestion(questionId).FirstOrDefault().id;
                             responseComment = answer;
+                            byte bitwiseResponse = 0;
+                            var splitted = answer.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries).Select(o=>byte.Parse(o));
+                            foreach (var response in splitted)
+                                bitwiseResponse |= response;
+                            Session["accessLevel"] = bitwiseResponse;
                         }
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)

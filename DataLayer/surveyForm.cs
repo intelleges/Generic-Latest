@@ -351,10 +351,12 @@ namespace Generic.DataLayer
                 }
             }
 
-            if (HttpContext.Current.Session["accessCode"].ToString() == "328186YV") {
+            if (HttpContext.Current.Session["accessCode"].ToString() == "328186YV")
+            {
                 var v = db.pr_getQuestionCommentCountByPPTQ(objpptq.id).Where(o => o.question == question.id).FirstOrDefault();
-                if (v != null){
-                    label.Text += " <a href='#' onclick='showComments("+ question.id + "); return false;'>has " + v.total_comments.Value + " comments...</a>";
+                if (v != null)
+                {
+                    label.Text += " <a href='#' onclick='showComments(" + question.id + "); return false;'>has " + v.total_comments.Value + " comments...</a>";
                 }
             }
 
@@ -365,10 +367,10 @@ namespace Generic.DataLayer
                 {
                     string url = urlQuestion + "/" + item.id;
                     var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
-                    Regex rgx = new Regex(@"<document.*?>" + item.description+"</document>");
+                    Regex rgx = new Regex(@"<document.*?>" + item.description + "</document>");
                     string result = rgx.Replace(label.Text, newNodeStr);
                     label.Text = result;
-   
+
                 }
             }
 
@@ -547,6 +549,7 @@ namespace Generic.DataLayer
                         tableRow.ToolTip = pr_getQuestionnaireTagCommentresult.comment;
                 }
             }
+            
 
             if (tableRow.CssClass != "disabledRow")
             {
@@ -635,7 +638,24 @@ namespace Generic.DataLayer
 
 
 
-
+            var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (byte)HttpContext.Current.Session["accessLevel"] : 0;
+            if (question.accessLevel.HasValue && question.accessLevel.Value != 0 && sessionAcessLevel != 0)
+            {
+                if ((sessionAcessLevel & question.accessLevel.Value) != question.accessLevel.Value)
+                {
+                    tableRow.Visible = false;
+                    //adding hidden field with question id so it can be tracked on questionnaireResponse action
+                    HiddenField field = new HiddenField();
+                    field.ID = controlId;
+                    var cell = new TableCell();
+                    cell.Controls.Add(field);
+                    var row = new TableRow();
+                    row.Controls.Add(cell);
+                    table.Controls.Add(row);
+                    //db.pr_zco
+                    //tableRow.Attributes.Add("visibility", "hidden");
+                }
+            }
 
 
             //add question answer control
@@ -646,7 +666,7 @@ namespace Generic.DataLayer
                 //add previous row
                 table.Controls.Add(tableRow);
 
-                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table);
+                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table, out controlId);
             }
             else if (responseTypeDescription.Contains("text") || question.responseType > 15)
             {
@@ -655,7 +675,7 @@ namespace Generic.DataLayer
                 //add previous row
                 table.Controls.Add(tableRow);
 
-                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table);
+                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table, out controlId);
 
                 //    //add lookupAndValidation controls
                 generateValidationAndLookup(survey.id, question.id, controlId, tableCell);
@@ -680,7 +700,7 @@ namespace Generic.DataLayer
                 //add previous row
                 table.Controls.Add(tableRow);
 
-                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table);
+                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table, out controlId);
 
                 //add lookupAndValidation controls
                 generateValidationAndLookup(survey.id, question.id, controlId, tableCell);
@@ -692,7 +712,7 @@ namespace Generic.DataLayer
                 //add previous row
                 table.Controls.Add(tableRow);
 
-                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table);
+                tableRow = getAnswerRow(survey.id, question.id, responseTypeDescription, answerCssClass, table, out controlId);
             }
             else
             {
@@ -739,7 +759,7 @@ namespace Generic.DataLayer
                             uploadedFileType = x.uploadedFileType
 
                         }).FirstOrDefault();
-               
+
                 }
                 catch { }
             }
@@ -791,7 +811,7 @@ namespace Generic.DataLayer
                 var txtbox1 = new HtmlTextArea();
 
                 //txtbox1.Width = 600;
-                txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                controlId= txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                 divn.InnerHtml = incldComment + " ";
                 if (pptqResponse != null && !string.IsNullOrEmpty(pptqResponse.comment) && pptqResponse.response1.description.Contains("????"))
                 {
@@ -930,10 +950,10 @@ namespace Generic.DataLayer
                     txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";
                     divn.Controls.Add(txtbox1);
-                    if (question.commentType != CommentType.YN_WARNING_N 
+                    if (question.commentType != CommentType.YN_WARNING_N
                         && question.commentType != CommentType.YN_COMMENT_N && question.commentType != CommentType.YN_UPLOAD_N &&
-                        question.commentType != CommentType.YN_WARNING_Y 
-                        && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y 
+                        question.commentType != CommentType.YN_WARNING_Y
+                        && question.commentType != CommentType.YN_COMMENT_Y && question.commentType != CommentType.YN_UPLOAD_Y
                         && question.commentType != CommentType.YN_COMMENT_Y_PUBLIC
                         && question.commentType != CommentType.YN_COMMENT_N_PUBLIC)
                         tableCell.Controls.AddAt(1, divn);
@@ -1229,7 +1249,7 @@ namespace Generic.DataLayer
                     var txtbox1 = new HtmlTextArea();
                     //fileupload = new FileUpload();
                     //txtbox.Width = 600;
-                    txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                    controlId = txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
 
                     divn.InnerHtml = incldComment + " ";//"Include comments here: ";
                     divn.Controls.Add(txtbox1);
@@ -1629,7 +1649,7 @@ namespace Generic.DataLayer
                 Generic.Helpers.UIControl.MyRadioButtonList rList = new UIControl.MyRadioButtonList();
                 bool useRadioList = false;
                 list.UseValidation = true;
-                list.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
+                controlId =list.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
                 rList.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
                 HtmlGenericControl divn = new HtmlGenericControl("div");
                 divn.Attributes["class"] = "fullWidth";
@@ -1743,7 +1763,7 @@ namespace Generic.DataLayer
 
                 txtbox = new TextBox();
                 txtbox.Width = 100;
-                txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
+                controlId =txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
                 txtbox.Attributes.Add("required", "");
                 txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                 txtbox.Attributes.Add("data-val-dpDate", _translator.Translate("Enter valid date value", _currentLanguage));
@@ -1803,7 +1823,7 @@ namespace Generic.DataLayer
 
                 txtbox = new TextBox();
                 txtbox.Width = 100;
-                txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
+                controlId = txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
                 txtbox.Attributes.Add("required", "");
                 txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                 txtbox.Attributes.Add("data-val-dpDate", _translator.Translate("Enter valid date value", _currentLanguage));
@@ -1923,12 +1943,16 @@ namespace Generic.DataLayer
 
             tableRow.Controls.Add(tableCell);
             table.Controls.Add(tableRow);
+            if (!tableRow.Visible)
+            {
+                var testROw = new TableRow();
+            }
         }
 
-        public TableRow getAnswerRow(int surveyId, int questionId, string responseType, string cssClass, Table table)
+        public TableRow getAnswerRow(int surveyId, int questionId, string responseType, string cssClass, Table table, out string controlId)
         {
 
-
+            controlId = "";
             partnerPartnertypeTouchpointQuestionnaire objpptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(HttpContext.Current.Session["accessCode"].ToString()).FirstOrDefault();
 
             question question = new question();
@@ -1994,7 +2018,7 @@ namespace Generic.DataLayer
                     case 16:
                         textBox = new TextBox();
                         textBox.TextMode = TextBoxMode.Email;
-                        textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
                         textBox.Attributes["data-val-email"] = "Email required";
 
@@ -2029,7 +2053,7 @@ namespace Generic.DataLayer
                         textBox = new TextBox();
                         textBox.TextMode = TextBoxMode.Number;
                         textBox.Attributes["min"] = "0";
-                        textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
                         if (question.required > 0)
                         {
@@ -2062,7 +2086,7 @@ namespace Generic.DataLayer
                     case 18:
                         textBox = new TextBox();
                         //textBox.TextMode = TextBoxMode.Number;
-                        textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
                         if (question.required > 0)
                         {
@@ -2101,7 +2125,7 @@ namespace Generic.DataLayer
                 {
                     case "textComment":
                         textBox1 = new HtmlTextArea();
-                        textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         // textBox.Width = 600;
                         if (question.required > 0)
                         {
@@ -2130,7 +2154,7 @@ namespace Generic.DataLayer
                     case "textInteger":
                         textBox = new TextBox();
                         textBox.TextMode = TextBoxMode.Number;
-                        textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
                         if (question.required > 0)
                         {
@@ -2160,7 +2184,7 @@ namespace Generic.DataLayer
                     case "textNumber":
                         textBox = new TextBox();
                         textBox.TextMode = TextBoxMode.Number;
-                        textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
                         if (question.required > 0)
                         {
@@ -2190,7 +2214,7 @@ namespace Generic.DataLayer
                     case "textarea":
                         textBox1 = new HtmlTextArea();
 
-                        textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         //textBox1.Width = 600;
                         //textBox1.TextMode = TextBoxMode.MultiLine;
                         textBox1.Rows = 3;
@@ -2228,7 +2252,7 @@ namespace Generic.DataLayer
 
                         tableCell = new TableCell();
                         dropDownList = new DropDownList();
-                        dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                        controlId = dropDownList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                         if (question.required == 1)
                         {
                             dropDownList.Attributes.Add("data-val", "true");
@@ -2291,7 +2315,7 @@ namespace Generic.DataLayer
                         tableCell = new TableCell();
                         listBox = new ListBox();
                         listBox.SelectionMode = ListSelectionMode.Multiple;
-                        listBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_list2list";
+                        controlId = listBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_list2list";
                         listBox.CssClass = "list2listComponent";
                         if (question.required == 1)
                         {
@@ -2312,7 +2336,7 @@ namespace Generic.DataLayer
                             //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                             //_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()
                             var splittedDescription = responseCollection[i].description.Split("|".ToCharArray());
-                            var item = new ListItem(splittedDescription[0], splittedDescription.Length==3? splittedDescription[2]: splittedDescription[0]);
+                            var item = new ListItem(splittedDescription[0], splittedDescription.Length == 3 ? splittedDescription[2] : splittedDescription[0]);
                             item.Attributes.Add("title", splittedDescription[1]);
                             //if (checkCOde.IsMatch(item.Text))
                             //{
@@ -2352,7 +2376,7 @@ namespace Generic.DataLayer
                         // tableRadio.Font.Size = 10;
                         // tableRadio.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                         radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();//new Generic.Helpers.UIControl.MyRadioButtonList();
-                        radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
+                        controlId = radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                         (radioButtonList as Generic.Helpers.UIControl.MyRadioButtonList).UseValidation = true;
                         radioButtonList.Font.Size = 10;
                         //radioButtonList.Attributes.Add("onchange", "javascript:showdiv();");
@@ -2388,7 +2412,7 @@ namespace Generic.DataLayer
                                 radioButtonList.Items[i].Attributes["data-val-required"] = _translator.Translate("Required", _currentLanguage);
                                 radioButtonList.Items[i].Attributes["required"] = "";
 
-                            } 
+                            }
                             if (pptqResponse != null && responseCollection[i].id == pptqResponse.response)
                             {
                                 radioButtonList.ClearSelection();
@@ -2442,7 +2466,7 @@ namespace Generic.DataLayer
                         }
 
                         fileUpload = new FileUpload();
-                        fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_upload";
+                        controlId = fileUpload.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_upload";
 
                         fileUpload.Width = 650;
                         fileUpload.Attributes.Add("size", "40");
@@ -2528,7 +2552,7 @@ namespace Generic.DataLayer
                         for (int i = 0; i < responseCollection.Count; i++)
                         {
                             checkBox = new CheckBox();
-                            checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.ToString() + "_checkBox";
+                            controlId = checkBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_" + responseCollection[i].id.ToString() + "_checkBox";
                             checkBox.Text = _translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage);// convertLanguageApi(responseCollection[i].description);
 
                             if (showContentOnly == false)
@@ -2557,7 +2581,7 @@ namespace Generic.DataLayer
                         break;
                     case "text/upload":
                         textBox = new TextBox();
-                        textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 600;
 
                         if (response.description != null && response.description.Length > 0)
@@ -2673,7 +2697,7 @@ namespace Generic.DataLayer
                     radioButtonList = new Generic.Helpers.UIControl.MyRadioButtonList();
                     radioButtonList.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString();
                     radioButtonList.Attributes.Add("onClick", "showdivnew(this);removevalidation(this.id) ");
-                   
+
 
                     radioButtonList.RepeatDirection = RepeatDirection.Horizontal;
                     tableCell = new TableCell();
@@ -2712,7 +2736,7 @@ namespace Generic.DataLayer
                         tableCell.Controls.Add(radioButtonList);
                     }
 
-                  
+
 
                     if (divShowHideFlag == 3)
                     {
