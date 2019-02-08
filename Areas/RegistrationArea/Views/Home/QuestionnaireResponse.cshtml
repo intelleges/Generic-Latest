@@ -304,9 +304,13 @@
 
             function initDualListBox() {
                 var instance = dualListBox.data('plugin_bootstrapDualListbox');
-                var nonSelectedList = instance.elements.select1;
+                var nonSelectedList = instance.elements.select2;
                 var isDualListBoxValidated = !(instance.selectedElements > 0);
-
+                if ($("#bootstrapDualListbox_error_message").length == 0) {
+                    nonSelectedList.before('<span id=\"bootstrapDualListbox_error_message\" style=\"color:red;\" class=\"' + (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') + '\" data-valmsg-for=\"' + nonSelectedList.attr('id') + '\" data-valmsg-replace=\"true\">AT LEAST ONE SELECTION REQUIRED</span>');
+                } else {
+                    $("#bootstrapDualListbox_error_message").attr('class', (isDualListBoxValidated ? '' : 'hidden'));
+                }
                 nonSelectedList.prop('required', isDualListBoxValidated);
                 instance.elements.originalSelect.prop('required', false);
             }
