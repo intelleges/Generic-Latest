@@ -1521,6 +1521,29 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     ViewBag.message = TempData["message"];
                 }
                 getZcodeByProviderProtocolCampaignQuestionnaire();
+                var displayedQuestionsCount = Session["accessLevel_displayed_questions"] == null ? 0 : (int)Session["accessLevel_displayed_questions"];
+                var hiddenQuestionsCount = Session["accessLevel_hidden_questions"] == null ? 0 : (int)Session["accessLevel_hidden_questions"];
+                if (displayedQuestionsCount == 0 && hiddenQuestionsCount > 0)
+                {
+                    //var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+                    var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                    //var currentPage = db.pr_getPageByQuestionnaire(pptqObj.partnerTypeTouchpointQuestionnaire1.questionnaire).OrderBy(o => o.id).Select(o => o.id).FirstOrDefault(); //-1;
+
+                    //if (page!=0)
+                    //{
+
+                    //}
+                    //else
+                    //{
+                    //    int.TryParse(formCollection["Page"], out currentPage);
+
+                    //}
+                    var surveySet = db.pr_getSurveysetByPage(page).Select(o => o.id).FirstOrDefault();
+                    var surveyId = db.pr_getSurveyBySurveyset(surveySet).Select(o => o.id).FirstOrDefault();
+                    Session["accessLevel_displayed_questions"] = null;
+                    Session["accessLevel_hidden_questions"] = null;
+                    return goToNextPage(surveyId, jumpToQuestion, questionIndex, new question(), "", errorQuestion, errorMessage, page, pageNumber);
+                }
             }
             catch (Google.GoogleApiException ex)
             {
@@ -1600,7 +1623,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var qresponse = q;
                 string t = "";
 
-                try{
+                try
+                {
                     t = pptqItem.partnerTypeTouchpointQuestionnaire1.touchpoint1.title;
                 }
                 catch { }
@@ -1859,7 +1883,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         msg = string.Join(", ", tts.Where(o => v.Contains(o.id)).Select(o => o.title).ToList());
                     }
                     catch { }
-                    if (v1 != -1&&nq!=-1)
+                    if (v1 != -1 && nq != -1)
                     {
                         val.Add(v1);
                         nextQst.Add(nq);
@@ -1868,7 +1892,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                 }
             }
-       
+
             return Json(new
             {
                 messages = messages,
@@ -2173,7 +2197,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseId = db.pr_getResponseByQuestion(questionId).FirstOrDefault().id;
                             responseComment = answer;
                             //byte bitwiseResponse = 0;
-                            var splitted = answer.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries).Select(o=>byte.Parse(o));
+                            var splitted = answer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(o => byte.Parse(o));
                             //foreach (var response in splitted)
                             //    bitwiseResponse |= response;
                             Session["accessLevel"] = splitted;
@@ -2247,11 +2271,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //{
             //    var value = formCollection[keyName.ToString()];
             //}
+            var hiddenQuestionsCount = Session["accessLevel_hidden_questions"] == null ? 0 : (int)Session["accessLevel_hidden_questions"];
             if (jumpToQuestion != 0)
             {
                 ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion);
             }
-            if (questionId == jumpToQuestion)
+            if (questionId == jumpToQuestion && hiddenQuestionsCount == 0)
             {
                 goEsignature = "true";
             }
@@ -3193,8 +3218,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 if (qsts.Count > 0)
                 {
                     var ids = qsts.Select(x => x.id).ToList();
-                    if (ids.Count > 0) {
-                        
+                    if (ids.Count > 0)
+                    {
+
                         var items = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(ids.First(), pptq.id).ToList();
                         if (items.Count() > 0 && items.First().response == 74)
                         {

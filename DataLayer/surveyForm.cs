@@ -639,26 +639,38 @@ namespace Generic.DataLayer
 
 
             var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (IEnumerable<byte>)HttpContext.Current.Session["accessLevel"] : null;
-            if (question.accessLevel.HasValue && question.accessLevel.Value != 0 && sessionAcessLevel != null)
+            if (sessionAcessLevel != null)
             {
-                
-                if (!sessionAcessLevel.Any(o => (question.accessLevel.Value & o) == o))
+                var hiddenQuestionsCount = HttpContext.Current.Session["accessLevel_hidden_questions"]==null?0:(int)HttpContext.Current.Session["accessLevel_hidden_questions"];
+                var displayedQuestionsCount = HttpContext.Current.Session["accessLevel_displayed_questions"] == null ? 0 : (int)HttpContext.Current.Session["accessLevel_displayed_questions"];
+                if (question.accessLevel.HasValue && question.accessLevel.Value != 0)
                 {
-                    tableRow.Visible = false;
-                    //adding hidden field with question id so it can be tracked on questionnaireResponse action
-                    HiddenField field = new HiddenField();
-                    field.ID = controlId;
-                    var cell = new TableCell();
-                    cell.Controls.Add(field);
-                    var row = new TableRow();
-                    row.Controls.Add(cell);
-                    table.Controls.Add(row);
-                    if (table.Controls.Contains(tableRowsurvey))
+                    
+                    if (!sessionAcessLevel.Any(o => (question.accessLevel.Value & o) == o))
                     {
-                        table.Controls.Remove(tableRowsurvey);
+                        hiddenQuestionsCount++;
+                        tableRow.Visible = false;
+                        //adding hidden field with question id so it can be tracked on questionnaireResponse action
+                        //HiddenField field = new HiddenField();
+                        //field.ID = controlId;
+                        //var cell = new TableCell();
+                        //cell.Controls.Add(field);
+                        //var row = new TableRow();
+                        //row.Controls.Add(cell);
+                        //table.Controls.Add(row);
+                        if (table.Controls.Contains(tableRowsurvey))
+                        {
+                            table.Controls.Remove(tableRowsurvey);
+                        }
+                        //db.pr_zco
+                        //tableRow.Attributes.Add("visibility", "hidden");
+                    } else
+                    {
+                        displayedQuestionsCount++;
                     }
-                    //db.pr_zco
-                    //tableRow.Attributes.Add("visibility", "hidden");
+                    HttpContext.Current.Session["accessLevel_hidden_questions"] = hiddenQuestionsCount;
+                    HttpContext.Current.Session["accessLevel_displayed_questions"] = displayedQuestionsCount;
+
                 }
             }
 
