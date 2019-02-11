@@ -120,7 +120,7 @@
                 buttonFocus: "cancel"
             });
             // button labels will be "Accept" and "Deny"
-            alertify.confirm("you have changed email address this requires redirect, would you like to redirect this questionnaire to someone else?", function (e) {
+            alertify.confirm("Changing the current email address will require a REDIRECT. Would you like to redirect this questionnaire to someone else?", function (e) {
                 if (e) {
                     $('#email').val('@Session["currentEmail"].ToString()');
 

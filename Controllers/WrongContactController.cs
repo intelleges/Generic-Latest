@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Generic.Helpers;
 using Generic.Helpers.Questionnaire;
 using Generic.Helpers.Utility;
 using Generic.Models;
@@ -14,10 +15,22 @@ namespace Generic.Controllers
     public class WrongContactController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
+        IGoogleTranslatorHelper _translator;
+        const string FIRST_NAME = "First Name";
+        const string LAST_NAME = "Last Name";
+        const string TITLE_TEXT = "Job Title";
+        const string EMAIL_TEXT = "Email";
+        const string PHONE_TEXT = "Phone";
+        const string FAX_TEXT = "Fax";
 
-        //
+
+        public WrongContactController()
+        {
+            _translator = new GoogleTranslatorHelper(new DatabaseTranslationService());
+        }
+
         // GET: /WrongContact/
-
+        [AllowAnonymous]
         public ActionResult Index(string accessCode = null)
         {
             ViewBag.accesscode = accessCode;
@@ -98,9 +111,36 @@ namespace Generic.Controllers
 
 
             }
+
+
+            ViewBag.FIRST_NAME = _translator.Translate(FIRST_NAME, CurrentLanguage);
+            ViewBag.LAST_NAME = _translator.Translate(LAST_NAME, CurrentLanguage);
+            ViewBag.TITLE_TEXT = _translator.Translate(TITLE_TEXT, CurrentLanguage);
+            ViewBag.EMAIL_TEXT = _translator.Translate(EMAIL_TEXT, CurrentLanguage);
+            ViewBag.PHONE_TEXT = _translator.Translate(PHONE_TEXT, CurrentLanguage);
+            ViewBag.FAX_TEXT = _translator.Translate(FAX_TEXT, CurrentLanguage);
+
+
             if (Session["currentEmail"] != null)
                 objPartner.email = Session["currentEmail"].ToString();
             return View(objPartner);
+        }
+
+        public static string CurrentLanguage
+        {
+            get
+            {
+
+                if (System.Web.HttpContext.Current.Session["CurrentLanguage"] == null)
+                {
+                    System.Web.HttpContext.Current.Session["CurrentLanguage"] = "en";
+                }
+                return System.Web.HttpContext.Current.Session["CurrentLanguage"].ToString();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["CurrentLanguage"] = value;
+            }
         }
 
         [HttpPost]
@@ -278,7 +318,5 @@ namespace Generic.Controllers
 
             return View();
         }
-
-
     }
 }
