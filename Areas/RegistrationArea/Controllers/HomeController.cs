@@ -1563,8 +1563,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault();
             if (pptqObj != null)
             {
-                pptqObj.status = status;
-                db.SaveChanges();
+                if (pptqObj.status != 10)
+                {
+                    pptqObj.status = status;
+                    db.SaveChanges();
+                }
                 return Json(true);
             }
             else
