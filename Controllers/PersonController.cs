@@ -885,6 +885,14 @@ Thanks in advance.<br>
             }
         }
 
+        public ActionResult RetorePersonFunc(int id) {
+
+            var person = db.pr_getPerson(id).First();
+            db.pr_unArchivePerson(id);
+            return Json(new { message =person.firstName + " "+person.lastName 
+                + " with internalID="+person.internalId+" has been successfully restored and is now active."}, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult RestorePerson()
         {
             string arguments = Session["personsearch"].ToString() + "active=0;";
@@ -892,7 +900,7 @@ Thanks in advance.<br>
             List<view_PersonData> objPersonDataList = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
             List<PersonViewModel> objPersonViewModelList = ConvertToPersonViewModel(objPersonDataList);
             ViewBag.searchType = "Restore";
-            return View("RemovePerson", objPersonViewModelList);
+            return View(objPersonViewModelList);
 
         }
 

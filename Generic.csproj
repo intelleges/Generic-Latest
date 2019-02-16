@@ -5975,6 +5975,7 @@
     <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionYes.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionNo.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionUnlock.cshtml" />
+    <Content Include="Views\Person\RestorePerson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
