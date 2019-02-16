@@ -549,7 +549,7 @@ namespace Generic.DataLayer
                         tableRow.ToolTip = pr_getQuestionnaireTagCommentresult.comment;
                 }
             }
-            
+
 
             if (tableRow.CssClass != "disabledRow")
             {
@@ -638,14 +638,14 @@ namespace Generic.DataLayer
 
 
 
-            var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (IEnumerable<byte>)HttpContext.Current.Session["accessLevel"] : null;
-            if (sessionAcessLevel != null)
+            var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (IEnumerable<int>)HttpContext.Current.Session["accessLevel"] : null;
+            if (sessionAcessLevel != null && sessionAcessLevel.Count() > 0)
             {
-                var hiddenQuestionsCount = HttpContext.Current.Session["accessLevel_hidden_questions"]==null?0:(int)HttpContext.Current.Session["accessLevel_hidden_questions"];
+                var hiddenQuestionsCount = HttpContext.Current.Session["accessLevel_hidden_questions"] == null ? 0 : (int)HttpContext.Current.Session["accessLevel_hidden_questions"];
                 var displayedQuestionsCount = HttpContext.Current.Session["accessLevel_displayed_questions"] == null ? 0 : (int)HttpContext.Current.Session["accessLevel_displayed_questions"];
                 if (question.accessLevel.HasValue && question.accessLevel.Value != 0)
                 {
-                    
+
                     if (!sessionAcessLevel.Any(o => (question.accessLevel.Value & o) == o))
                     {
                         hiddenQuestionsCount++;
@@ -664,7 +664,8 @@ namespace Generic.DataLayer
                         }
                         //db.pr_zco
                         //tableRow.Attributes.Add("visibility", "hidden");
-                    } else
+                    }
+                    else
                     {
                         displayedQuestionsCount++;
                     }
@@ -828,7 +829,7 @@ namespace Generic.DataLayer
                 var txtbox1 = new HtmlTextArea();
 
                 //txtbox1.Width = 600;
-                controlId= txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
+                controlId = txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_onlyTextComment";
                 divn.InnerHtml = incldComment + " ";
                 if (pptqResponse != null && !string.IsNullOrEmpty(pptqResponse.comment) && pptqResponse.response1.description.Contains("????"))
                 {
@@ -1666,7 +1667,7 @@ namespace Generic.DataLayer
                 Generic.Helpers.UIControl.MyRadioButtonList rList = new UIControl.MyRadioButtonList();
                 bool useRadioList = false;
                 list.UseValidation = true;
-                controlId =list.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
+                controlId = list.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
                 rList.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_checkboxList";
                 HtmlGenericControl divn = new HtmlGenericControl("div");
                 divn.Attributes["class"] = "fullWidth";
@@ -1780,7 +1781,7 @@ namespace Generic.DataLayer
 
                 txtbox = new TextBox();
                 txtbox.Width = 100;
-                controlId =txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
+                controlId = txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_duedate";
                 txtbox.Attributes.Add("required", "");
                 txtbox.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
                 txtbox.Attributes.Add("data-val-dpDate", _translator.Translate("Enter valid date value", _currentLanguage));

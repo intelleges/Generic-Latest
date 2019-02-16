@@ -2200,7 +2200,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseId = db.pr_getResponseByQuestion(questionId).FirstOrDefault().id;
                             responseComment = answer;
                             //byte bitwiseResponse = 0;
-                            var splitted = answer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(o => byte.Parse(o));
+                            var splitted = answer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(o => {
+                                int result = -1;
+                                if (!int.TryParse(o, out result)) return -1; ;
+                                return result;
+                                }).Where(o=>o!=-1);
                             //foreach (var response in splitted)
                             //    bitwiseResponse |= response;
                             Session["accessLevel"] = splitted;
