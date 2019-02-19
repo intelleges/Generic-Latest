@@ -637,7 +637,6 @@ namespace Generic.DataLayer
             }
 
 
-
             var sessionAcessLevel = HttpContext.Current.Session["accessLevel"] != null ? (IEnumerable<int>)HttpContext.Current.Session["accessLevel"] : null;
             if (sessionAcessLevel != null && sessionAcessLevel.Count() > 0)
             {
@@ -679,6 +678,7 @@ namespace Generic.DataLayer
                     HttpContext.Current.Session["accessLevel_displayed_questions"] = null;
                 }
             }
+
 
 
             //add question answer control
@@ -743,7 +743,18 @@ namespace Generic.DataLayer
                 divflag = 1;
                 tableRow.Controls.Add(tableCell);
             }
-
+            //repeat this in case if response row seprate from question header row
+            if (sessionAcessLevel != null && sessionAcessLevel.Count() > 0)
+            {                
+                if (question.accessLevel.HasValue && question.accessLevel.Value != 0)
+                {
+                    if (!sessionAcessLevel.Any(o => (question.accessLevel.Value & o) == o))
+                    {
+                        
+                        tableRow.Visible = false;
+                    } 
+                }
+            }
             table.Controls.Add(tableRow);
 
             //add an empty space between questions
