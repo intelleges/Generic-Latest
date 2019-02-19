@@ -1543,6 +1543,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["accessLevel_displayed_questions"] = null;
                     Session["accessLevel_hidden_questions"] = null;
                     return goToNextPage(surveyId, jumpToQuestion, questionIndex, new question(), "", errorQuestion, errorMessage, page, pageNumber);
+                } else
+                {
+                    Session["accessLevel_displayed_questions"] = null;
+                    Session["accessLevel_hidden_questions"] = null;
                 }
             }
             catch (Google.GoogleApiException ex)

@@ -658,10 +658,10 @@ namespace Generic.DataLayer
                         //var row = new TableRow();
                         //row.Controls.Add(cell);
                         //table.Controls.Add(row);
-                        if (table.Controls.Contains(tableRowsurvey))
-                        {
-                            table.Controls.Remove(tableRowsurvey);
-                        }
+                        //if (table.Controls.Contains(tableRowsurvey))
+                        //{
+                        //    table.Controls.Remove(tableRowsurvey);
+                        //}
                         //db.pr_zco
                         //tableRow.Attributes.Add("visibility", "hidden");
                     }
@@ -672,6 +672,11 @@ namespace Generic.DataLayer
                     HttpContext.Current.Session["accessLevel_hidden_questions"] = hiddenQuestionsCount;
                     HttpContext.Current.Session["accessLevel_displayed_questions"] = displayedQuestionsCount;
 
+                }
+                else
+                {
+                    HttpContext.Current.Session["accessLevel_hidden_questions"] = null;
+                    HttpContext.Current.Session["accessLevel_displayed_questions"] = null;
                 }
             }
 
