@@ -382,7 +382,7 @@ namespace Generic.Controllers
         // POST: /Partner/Create
 
         [HttpPost]
-        public ActionResult ValidateInternalID(int? partnertype, int? touchpoint,string internalID)
+        public ActionResult ValidateInternalID(int? partnertype, int? touchpoint, string internalID)
         {
             int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
                .ToList().Where(x => x.touchpoint == touchpoint).First().id;
@@ -1012,12 +1012,12 @@ namespace Generic.Controllers
             string message = string.Empty;
             if (Session["uploadedpartnerList"] != null)
             {
-                List<Tuple<int, string>> uploadedpartnerList = (List<Tuple<int,string>>)Session["uploadedpartnerList"];
+                List<Tuple<int, string>> uploadedpartnerList = (List<Tuple<int, string>>)Session["uploadedpartnerList"];
 
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault().id;
                 // db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartnertypeTouchpointQuestionnaire
                 // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
-                foreach (int partnerId in uploadedpartnerList.Select(o=>o.Item1).Distinct())
+                foreach (int partnerId in uploadedpartnerList.Select(o => o.Item1).Distinct())
                 {
 
 
@@ -1210,7 +1210,7 @@ namespace Generic.Controllers
                     int countpartNumbers = partnerinExcel.Count();
 
 
-                    
+
                     foreach (var partnumbers in partnerinExcel.ToList())
                     {
                         if (partnumbers.internalID != null)
@@ -1256,7 +1256,7 @@ namespace Generic.Controllers
                         }
                     }
 
-                    
+
                     Session["uploadedpartnerList"] = uploadedpartners;
                     Session["partnertype"] = partnertype;
                     Session["touchpoint"] = touchpoint;
@@ -1851,7 +1851,7 @@ namespace Generic.Controllers
         {
             var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             var v = db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(pptq1.id).First();
-            return Json(new { res = v}, JsonRequestBehavior.AllowGet);
+            return Json(new { res = v }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ResetPdf(string accessCode, string internalID, int? touchpoint)
@@ -4671,13 +4671,13 @@ namespace Generic.Controllers
                 accessCode = p1.accesscode;
                 msg = message.nextStep;
                 var t = db.pr_getTouchpointByPTQ(p1.partnerTypeTouchpointQuestionnaire).First().id;
-                return Json(new { message = msg, pptqId = id.id, id.status, touchpoint= t },
+                return Json(new { message = msg, pptqId = id.id, id.status, touchpoint = t },
                     JsonRequestBehavior.AllowGet);
             }
             else
             {
                 var d = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
-                var items1 = db.pr_getPPTQByPartner(d.partner).Where(o=>o.id == pptqId).ToList();
+                var items1 = db.pr_getPPTQByPartner(d.partner).Where(o => o.id == pptqId).ToList();
                 if (items1.Count > 1)
                 {
                     string partnerName = d.partner1.name;
@@ -4685,7 +4685,8 @@ namespace Generic.Controllers
                     {
                         string touchpoint1 = "";
                         string statusDesc = "";
-                        if (item.status == 6 || item.status == 7 || item.status == 13){
+                        if (item.status == 6 || item.status == 7 || item.status == 13)
+                        {
                             statusDesc = db.pr_getPartnerStatus(item.status).First().description;
                         }
 
@@ -4716,7 +4717,7 @@ namespace Generic.Controllers
                 {
                     msg = fm;
                 }
-                else {
+                else if (message == null){
                     iscanprintPdf = true;
                 }
             }
