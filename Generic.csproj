@@ -3098,6 +3098,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo.png" />
     <Content Include="Contents\images\if_MB__note_81100.png" />
     <Content Include="Contents\images\i_386abcb4f9499a4e_html_55b65ccf.gif" />
     <Content Include="Contents\AdminStyle\css\bootstrap.css" />
@@ -3137,7 +3138,7 @@
     <Content Include="Contents\AdminStyle\images\Home-imgs\linkdin-foot.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\linkdin-icon.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\login-icon.png" />
-    <Content Include="Contents\AdminStyle\images\Home-imgs\logo.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\logo_old.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\logo1.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\logo2.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\logo3.png" />
