@@ -3098,6 +3098,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\footer-logo.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\logo.png" />
     <Content Include="Contents\images\if_MB__note_81100.png" />
     <Content Include="Contents\images\i_386abcb4f9499a4e_html_55b65ccf.gif" />
@@ -3131,7 +3132,7 @@
     <Content Include="Contents\AdminStyle\images\Home-imgs\enterprise.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\fb-foot.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\fb-icon.png" />
-    <Content Include="Contents\AdminStyle\images\Home-imgs\footer-logo.png" />
+    <Content Include="Contents\AdminStyle\images\Home-imgs\footer-logo-old.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\hd-logo.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\home-icon.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\integrated-crm.png" />
