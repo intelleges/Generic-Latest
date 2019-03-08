@@ -91,6 +91,31 @@
     .t-splitter .t-scrollable {
         overflow-x: hidden;
     }
+
+
+    body .page-inner ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    body .page-inner ol li {
+        counter-increment: step-counter !important;
+        margin-bottom: 5px !important;
+    }
+
+        body .page-inner ol li::before {
+            content: counter(step-counter) !important;
+            margin-right: 20px !important;
+            font-size: 80% !important;
+            background-color: rgb(180, 180, 180) !important;
+            color: white !important;
+            font-weight: bold !important;
+            padding: 3px 8px !important;
+            border-radius: 11px !important;
+            position:  inherit;
+            margin-left: 0px;
+        }
 </style>
 
 <div class="top-margin">
