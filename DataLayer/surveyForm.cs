@@ -2372,6 +2372,9 @@ namespace Generic.DataLayer
                             var splittedDescription = responseCollection[i].description.Split("|".ToCharArray());
                             var item = new ListItem(splittedDescription[0], splittedDescription.Length == 3 ? splittedDescription[2] : splittedDescription[0]);
                             item.Attributes.Add("title", splittedDescription[1]);
+                            if (splittedDescription.Length == 3) {
+                                item.Attributes.Add("skipLogicL2L", "true");
+                            }
                             //if (checkCOde.IsMatch(item.Text))
                             //{
                             //    item.Attributes["data-code"] = checkCOde.Match(item.Text).Value;

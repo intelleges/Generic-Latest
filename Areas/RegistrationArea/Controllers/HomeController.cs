@@ -12211,6 +12211,253 @@ Intelleges Team";
         }
 
 
+
+        public static int FillCustomPdfHtml26(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+        {
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.partnerHeader = _partnerHeader;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var partnerId = pptq != null ? pptq.partner : -1;
+            var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+            eSignature _signature = sigs.FirstOrDefault();
+            var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            //_signature
+            ViewBag.signature = _signature;
+            ViewBag.personTitle = _partner != null ? _partner.title : "";
+            if (pptq != null)
+                ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+            var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+            if (question.footer == "4")
+            {
+                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+            }
+            else
+                if (enterprise != null && enterprise.Any())
+            {
+                var enterpriseLogo = enterprise.FirstOrDefault();
+                byte[] logoBytes = new byte[0];
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+                if (Directory.Exists(Server.MapPath(dirname)))
+                {
+                    var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                    var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                    if (!System.IO.File.Exists(physicalPath))
+                    {
+                        var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                }
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+            var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+            //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+            var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+
+
+            var _responseYES = 74;
+            var _responseNO = 75;
+            var _chacked = "checked";
+            var _responseSplitter = "--";
+
+            string executives = "";
+            foreach (var item in _PPTQQuestionResponse)
+            {
+                var comments = new string[10];
+                switch (item.question)
+                {
+                    case 46748:
+                        ViewBag.Checkbox46748_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox46748_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 46749:
+                        ViewBag.Checkbox46749_71892 = item.response == 71892 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46749_71895 = item.response == 71895 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46749_71894 = item.response == 71894 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46749_71893 = item.response == 71893 ? _chacked : string.Empty;
+                        break;
+                    case 46750:
+                        ViewBag.Checkbox46750_71896 = item.response == 71896 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46750_71897 = item.response == 71897 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46750_71899 = item.response == 71899 ? _chacked : string.Empty;
+                        break;
+                    case 46751:
+                        ViewBag.Checkbox46750_71900 = item.response == 71900 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46750_71901 = item.response == 71901 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46750_71902 = item.response == 71902 ? _chacked : string.Empty;
+                        break;
+                    case 46752:
+                        ViewBag.Checkbox46752_71903 = item.response == 71903 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46752_71904 = item.response == 71904 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46752_71905 = item.response == 71905 ? _chacked : string.Empty;
+                        break;
+                    case 46753:
+                        ViewBag.Checkbox46753_71906 = item.response == 71906 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46753_71907 = item.response == 71907 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46753_71908 = item.response == 71908 ? _chacked : string.Empty;
+                        break;
+                    case 46754:
+                        ViewBag.Checkbox46754_71910 = item.response == 71910 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46754_71911 = item.response == 71911 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46754_71912 = item.response == 71912 ? _chacked : string.Empty;
+                        break;
+                    case 46755:
+                        ViewBag.Checkbox46755_71912 = item.response == 71912 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46755_71913 = item.response == 71913 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46755_71914 = item.response == 71914 ? _chacked : string.Empty;
+                        break;
+                    case 46756:
+                        ViewBag.Checkbox46756_71915 = item.response == 71915 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46756_71916 = item.response == 71916 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46756_71917 = item.response == 71917 ? _chacked : string.Empty;
+                        break;
+                    case 46757:
+                        ViewBag.Checkbox46757_71918 = item.response == 71918 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46757_71919 = item.response == 71919 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46757_71920 = item.response == 71920 ? _chacked : string.Empty;
+                        break;
+                    case 46758:
+                        ViewBag.Checkbox46758_71921 = item.response == 71921 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46758_71922 = item.response == 71922 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46758_71923 = item.response == 71923 ? _chacked : string.Empty;
+                        break;
+                    case 46759:
+                        ViewBag.Checkbox46759_71924 = item.response == 71924 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46759_71925 = item.response == 71925 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46759_71926 = item.response == 71926 ? _chacked : string.Empty;
+                        break;
+                    case 46760:
+                        ViewBag.Checkbox46760_71927 = item.response == 71927 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46760_71928 = item.response == 71928 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46760_71929 = item.response == 71929 ? _chacked : string.Empty;
+                        break;
+                    case 46761:
+                        ViewBag.Checkbox46761_71930 = item.response == 71930 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46761_71931 = item.response == 71931 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46761_71932 = item.response == 71932 ? _chacked : string.Empty;
+                        break;
+                    case 46762:
+                        ViewBag.Checkbox46762_71933 = item.response == 71933 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46762_71934 = item.response == 71934 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46762_71935 = item.response == 71935 ? _chacked : string.Empty;
+                        break;
+                    case 46763:
+                        ViewBag.Checkbox46763_71936 = item.response == 71936 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46763_71937 = item.response == 71937 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46763_71938 = item.response == 71938 ? _chacked : string.Empty;
+                        break;
+                    case 46764:
+                        ViewBag.Checkbox46764_71939 = item.response == 71939 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46764_71940 = item.response == 71940 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46764_71941 = item.response == 71941 ? _chacked : string.Empty;
+                        break;
+                    case 46765:
+                        ViewBag.Checkbox46765_71942 = item.response == 71942 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46765_71943 = item.response == 71943 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46765_71944 = item.response == 71944 ? _chacked : string.Empty;
+                        break;
+                    case 46766:
+                        ViewBag.Checkbox46766_71945 = item.response == 71945 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46766_71946 = item.response == 71946 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46766_71947 = item.response == 71947 ? _chacked : string.Empty;
+                        break;
+                    case 46767:
+                        ViewBag.Checkbox46767_71948 = item.response == 71948 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46767_71949 = item.response == 71949 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46767_71950 = item.response == 71950 ? _chacked : string.Empty;
+                        break;
+                    case 46768:
+                        ViewBag.Checkbox46768_71951 = item.response == 71951 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46768_71952 = item.response == 71952 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46768_71953 = item.response == 71953 ? _chacked : string.Empty;
+                        break;
+                    case 46769:
+                        ViewBag.Checkbox46769_71954 = item.response == 71954 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46769_71955 = item.response == 71955 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46769_71956 = item.response == 71956 ? _chacked : string.Empty;
+                        break;
+                    case 46770:
+                        ViewBag.Checkbox46770_71957 = item.response == 71957 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46770_71958 = item.response == 71958 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46770_71959 = item.response == 71959 ? _chacked : string.Empty;
+                        break;
+                    case 46771:
+                        ViewBag.Checkbox46771_71960 = item.response == 71960 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46771_71961 = item.response == 71961 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46771_71962 = item.response == 71962 ? _chacked : string.Empty;
+                        break;
+                    case 46772:
+                        ViewBag.Checkbox46772_71963 = item.response == 71963 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46772_71964 = item.response == 71964 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46772_71965 = item.response == 71965 ? _chacked : string.Empty;
+                        break;
+                    case 46773:
+                        ViewBag.Checkbox46773_71966 = item.response == 71966 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46773_71967 = item.response == 71967 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46773_71968 = item.response == 71968 ? _chacked : string.Empty;
+                        break;
+                    case 46774:
+                        ViewBag.Checkbox46774_71969 = item.response == 71969 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46774_71970 = item.response == 71970 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46774_71971 = item.response == 71971 ? _chacked : string.Empty;
+                        break;
+                    case 46775:
+                        ViewBag.Checkbox46775_71972 = item.response == 71972 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46775_71973 = item.response == 71973 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46775_71974 = item.response == 71974 ? _chacked : string.Empty;
+                        break;
+                    case 46776:
+                        ViewBag.Checkbox46776_71975 = item.response == 71975 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46776_71976 = item.response == 71976 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46776_71977 = item.response == 71977 ? _chacked : string.Empty;
+                        break;
+                    case 46777:
+                        ViewBag.Checkbox46777_71978 = item.response == 71978 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46777_71979 = item.response == 71979 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46777_71980 = item.response == 71980 ? _chacked : string.Empty;
+                        break;
+                    case 46778:
+                        ViewBag.Checkbox46778_71981 = item.response == 71981 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46778_71982 = item.response == 71982 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46778_71983 = item.response == 71983 ? _chacked : string.Empty;
+                        break;
+                    case 46779:
+                        ViewBag.Checkbox46779_Yes = item.response == 71984 ? _chacked : string.Empty;
+                        ViewBag.Checkbox46779_No = item.response == 71985 ? _chacked : string.Empty;
+                        break;
+                }
+
+                ViewBag.Executives = executives;
+            }
+            return pptqID;
+        }
+
+
+
         public ActionResult CustomizedPDFConfirmation()
         {
             string ViewName = string.Empty;
@@ -12303,6 +12550,12 @@ Intelleges Team";
             {
                 pptqID = FillCustomPdfHtml25(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload25";
+                return ViewCustomizedPdf(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "26"))
+            {
+                pptqID = FillCustomPdfHtml26(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload26";
                 return ViewCustomizedPdf(pptqID, ViewName);
             }
             else if (question != null && (question.footer == "16"))

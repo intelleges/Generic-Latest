@@ -1,0 +1,1376 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style>
+        body {
+            font-family: "Calibri, serif";
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        h3 {
+            font-size: 17px;
+        }
+
+        h4 {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .ml25 {
+            margin-left: 25px;
+        }
+
+        .ml50 {
+            margin-left: 50px;
+        }
+
+        .ml75 {
+            margin-left: 75px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        ul.hr li {
+            display: inline;
+            margin-right: 5px;
+            padding: 3px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .mt20 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <FONT FACE="Calibri, serif">
+        <table width="100%">
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+                    {
+                        <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:300px; border:none" />
+                    }
+                </td>
+            </tr>
+        </table>
+        <div>
+            <ul class="ml25">
+                <li><i><input type="checkbox" @ViewBag.Checkbox46269_70860 /> Approved</i></li>
+                <li><i><input type="checkbox" @ViewBag.Checkbox46269_70859 /> Pending Approval</i></li>
+                <li><i><input type="checkbox" @ViewBag.Checkbox46748_Yes /> 3rd Party Certification </i></li>
+            </ul>
+        </div>
+        <table width="100%" style="margin-top:20px;">
+            <tr>
+                <td style="color: #081835" class="text-center">
+                    <h1>SUPPLIER COUNTERFEIT PARTS PREVENTIONASSESSMENT<br />FOR CALENDAR YEAR 2019</h1>
+                </td>
+            </tr>
+        </table>
+        @foreach (var item in ViewBag.partnerHeader)
+        {
+            <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        ONESOURCE SUPPLIER ID# (DUNS#):  @ViewBag.partner.dunsNumber
+                    </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        HONEYWELL SAP/LOCAL SUPPLIER #:  @ViewBag.partner.federalID
+                    </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                        SUPPLIER NAME: @ViewBag.partner.name
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                    SUPPLIER ADDRESS (Manufacturing address - no PO Box): @ViewBag.partner.address1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                    @ViewBag.partner.address2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    CITY/TOWN: @ViewBag.partner.city
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    STATE/PROVINCE/REGION: @ViewBag.state
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    ZIP CODE:
+                                    @if (ViewBag.partner.zipcode != null)
+                                    {
+                                        @MvcHtmlString.Create(ViewBag.partner.zipcode.ToString().Length > 5 ? ViewBag.partner.zipcode.ToString().Substring(0, 5) + "-" + ViewBag.partner.zipcode.ToString().Substring(5, ViewBag.partner.zipcode.ToString().Length - 5) : ViewBag.partner.zipcode);
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    COUNTRY: @ViewBag.country
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0" style="height:150px; border-collapse:collapse" border="1">
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                    CONTACT NAME: @ViewBag.partner.firstName @ViewBag.partner.lastName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                    CONTACT TELEPHONE#: @ViewBag.partner.phone
+                                </td>
+                                <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                    CONTACT FAX#: @ViewBag.partner.fax
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                    CONTACT EMAIL ADDRESS: @ViewBag.partner.email
+                                    <br />
+                                    <br />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        }
+
+        <br />
+        <div>
+            <h2><b>1.&nbsp;<i><u>Supplier 3rdParty Certification</u></i></b></h2>
+            <p class="ml50">
+                Does your company have a <b>current certification for SAE AS5553, AS6174, AS6081 or AS6496</b> of theindustry standard appropriate for your business?Please be advised that the AS9100 and AS9120 donot satisfy this requirement. Please do not upload either certification even if youhave it.
+            </p>
+            <ul class="ml75 hr">
+                <li><input type="checkbox" @ViewBag.Checkbox46748_Yes /> Yes </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46748_No /> No </li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>2.&nbsp;<i><u>Supplier Type</u></i></b></h2>
+            <p class="ml25">As a direct supplier of parts to Honeywell Aerospace,please select from the list below all of the supplier descriptions that apply to you.</p>
+            <ul class="ml75 hr">
+                <li><input type="checkbox" @ViewBag.Checkbox46749_71892 /> OEM </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46749_71895 /> OCM </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46749_71894 /> FD </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46749_71893 /> NFD </li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>3.&nbsp;<i><u>Policy</u></i></b></h2>
+            <p class="ml25">Does the supplier have a Fraudulent/Counterfeit Parts Mitigation Policythat is authorized by top management to prevent the purchase, acceptance, and distribution of counterfeit parts?</p>
+            <ul class="ml75">
+                <li><input type="checkbox" @ViewBag.Checkbox46750_71896 /> No Fraudulent/Counterfeit Parts Mitigation Policy</li>
+                <li><input type="checkbox" @ViewBag.Checkbox46750_71897 /> In the process of developing a Fraudulent/Counterfeit PartsMitigation Policy. </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46750_71899 /> Implemented a Counterfeit Mitigation Policy that is authorized by top management to prevent the purchase, acceptance, and distribution of counterfeit parts. Policy addresses disposition and reporting of suspect, fraudulent, and/or confirmed counterfeit parts, and prevents counterfeit electronic parts from entering the supply chain. Moreover, policy promotes the procurement of parts by customers through the authorized chain of custody;and, policy is accessible to the customer upon written request. Top management ensures the policy is communicated, understood, implemented and maintained at all levels of the organization. Policy is accessible to the customer upon written request. </li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>4.&nbsp;<i><u>Control Plan Documentation </u></i></b></h2>
+            <p class="ml25">
+                Does the supplier have and maintain a Counterfeit EEE and/orCounterfeit Materiel (non-electronic) Control Plan?
+            </p>
+            <ul class="ml75">
+                <li><input type="checkbox" @ViewBag.Checkbox46751_71900 /> No counterfeit parts control plan. </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46751_71901 /> In the process of developing a counterfeit parts control plan. </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46751_71902 /> Implemented a counterfeit parts control plan that is under configuration management control and is updated to account for evolving counterfeit techniques. Plan documents its processes used for risk mitigation, disposition, and reporting of suspect counterfeit parts and confirmed counterfeit parts. Plan assures that only authentic and conforming part is procured from legally authorized sources. Plan is usedfor risk mitigation, disposition, and reporting in the eventanycounterfeit materielis encountered in its supply chains. Evaluates and minimizes the risk associated with potential counterfeit product infiltrating into inventory. </li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>5.&nbsp;<i><u>Control Plan Audit</u></i></b></h2>
+            <p class="ml25">
+                Does the supplier have a <b>process of periodic internal audits</b> to validate compliance to their Counterfeit EEEand/or Counterfeit Materiel Control Plan?
+            </p>
+            <ul class="ml75">
+                <li><input type="checkbox" @ViewBag.Checkbox46752_71903 /> Internal audit program does not include assessing compliance tothe organization's counterfeit control plan. </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46752_71904 /> In the process of revising internal audit program to include periodically assessing compliance to the organization's counterfeit control plan.Supplier performs informal corrective actions from audit,butdoes not have a documented root cause corrective action process. </li>
+                <li><<input type="checkbox" @ViewBag.Checkbox46752_71905 /> Internal audit program includes periodically assessing compliance to the organization's counterfeit control plan, QMS, and/or to the applicable Standard to assure processes are effectively implemented and maintained; program includes responsibilities and requirements for planning and conducting audits, establishing and maintaining records and reporting results; program defines criteria, scope, frequency andmethods. Auditors are prohibitedfrom auditing their ownwork; corrections and corrective actions are implemented in a timely mannerto eliminate detected nonconformities and their causes. Follow-up is appropriate to verify the actions taken. Verification results are reportedas appropriate. Note:AS9100 Rev D requires this audit to occur annually.</li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    6.&nbsp;<i>
+                        <u>
+                            Control Plan Training
+                            </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Has the supplier implemented a counterfeit <b>awareness training</b> program for all applicable employees?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46753_71906 /> </b>No training program exists.</li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46753_71907 /> </b>In the process of developing their training program. Limited functional participation in counterfeit part prevention training.</li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46753_71908 /></b>Trainingprogram is implemented to ensure that relevant personnel, including those involved with program management, projects, procurement, quality assurance, inspection, receiving, manufacturing and engineering activities are trained as appropriate to their function, in the awareness, avoidance, detection, mitigation anddisposition of suspect or confirmed counterfeit parts. Trainingprogram is updated to account for the latest industry standards, regulations, counterfeit information andtrends.</li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    7.&nbsp;<i>
+                        <u>
+                            Purchasing Contract Execution
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier have a <b>documented process</b> that details the review, agreement, and execution <b>
+                    of
+                    contractual requirements
+                </b>?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46754_71909 /></b>No review of detailed customer requirements. Product is delivered solely on price and
+                    schedule.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46754_71910 /></b>No documented process, however customer contractual requirements are examined and
+                    executed as received.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46754_71911 /></b>Implemented a documented process that specifies the review, agreement, and execution of
+                    contractual requirements.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    8.&nbsp;<i>
+                        <u>
+                            Purchasing Notification
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the process include a <b>communication process</b> back to the customer within <b style="color:red;">
+                    <i>
+                        5
+                        business days
+                    </i>
+                </b> for identification if <b>suspect or counterfeit parts were delivered</b>?
+            </p>
+            <ul class="ml75">
+                <li><input type="checkbox" @ViewBag.Checkbox46755_71912 />No formal process for customer notification. </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46755_71913 /> A process exists for customer notification, when commitments cannot be satisfied, however
+                    notification is not made within five days and/or process does not assure notification in
+                    writing.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46755_71914 /> If the customer commitments cannot be satisfied, notifies the customer in writing within five
+                    (5) days. Appropriate contract modifications sought and obtained.
+                    <ul class="ml75">
+                        <li>
+                            (1) Supplier response to Customer quotation and identifies source of supply,
+                            including whether the source is authorized (franchised) or not, and addresses part
+                            warranty.
+                        </li>
+                        <li>
+                            (2) Source of supply non-disclosure agreements have been negotiated with
+                            Customer, when applicable.
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    9.&nbsp;<i>
+                        <u>
+                            Non-NFD Authentic Parts Verification
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Has the supplier as an OEM, FD and/or OCM implemented a <b>
+                    process verifying the purchase of
+                    authentic parts
+                </b> including risk identification/mitigation plans?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46756_71915 />  </b>No process to verify part availability of authentic parts from authorized sources.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46756_71916 /> </b>In the process of developing a plan to manage part availability of authentic parts from
+                    authorized sources.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46756_71917 /> </b>Processes implemented to support the purchase of authentic parts throughout the product's
+                    life cycle. Documentations are available to confirm part availability of authentic parts,
+                    including testing results and traceability documentation to authorized sources. Implemented
+                    obsolescence management procedure to manage and mitigate parts obsolescence. Risk
+                    management policies direct immediate identification of items and supply sources susceptible
+                    to counterfeiting for enhanced product assurance. <b>Note</b>: Authorized' is different than being
+                    'Approved' – to be Approved, the organization must have an appropriate Quality
+                    Management System, and for Manufacturers/Producers they must be capable of producing
+                    the part (e.g., special processes) in accordance with the drawing/specification. Your
+                    organization 'approves' a supplier. The Mfg./Design Authority 'Authorizes' a supplier or
+                    distributor.
+                </li>
+            </ul>
+
+        </div>
+
+        <div>
+            <h2>
+                <b>
+                    10.&nbsp;<i>
+                        <u>
+                            OEM Parts From Other Than Authorized Sources
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier as an OEM have a <b>documented risk assessment and risk mitigation plan</b>
+                implemented for parts procured from other than Authorized Sources?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46757_71918 /></b>No documented risk assessment or risk mitigation plan when purchasing parts from other
+                    than Authorized Sources.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46757_71919 /> </b>In the process of developing a documented risk assessment or risk mitigation plan when
+                    purchasing parts from other than Authorized Sources.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46757_71920 /></b>Documented risk assessment and risk mitigation plan implemented for procurement of parts
+                    from other than Authorized Sources, which includes both supplier risk and application risk,
+                    specific to the intended application of the part. Plan addresses the potential for receiving
+                    suspect or confirmed counterfeit parts from the source and the consequences such as
+                    human safety and mission success. Documentations include detailing electronic part
+                    inspection, testing, and authentication, with an accept/reject criteria. For example, CAWS
+                    requests are performed when Honeywell is the design authority for the assemblies which the
+                    parts from other than Authorized Source(s) are intended to be used. Ensures product
+                    sources maintain documentation of traceability or inspection, testing, and authentication
+                    records in accordance with FAR subpart 4.7.(space) Makes documentation of inspection,
+                    testing, and authentication available to the government upon request if parts are obtained
+                    from an other than authorized source or a subcontractor (other than the original
+                    manufacturer) that refuses to accept flow down of DFARS 252.246-7008, or for electronic
+                    parts that cannot be confirmed as new or commingled from their approved sources. <b>Note</b>:
+                    When doing business with Honeywell, follow SPOC-419 and SPOC-519. Notification should
+                    be submitted through Counterfeit Avoidance Workflow System (CAWS) request. If you are
+                    the design authority, testing must be determined by your organization in accordance with
+                    Page 4 of 13 Supplier Counterfeit Parts Prevention Self-Assessment INTELLEGES (2019)
+                    industry standard (e.g. AS6171). If Honeywell is the design authority,
+                    Honeywell will provide instructions on testing through the CAWS request.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    11.&nbsp;<i>
+                        <u>
+                            NFD Authentic Parts Verification
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Has the supplier as a Non-Franchised Distributor (NFD) implemented a <b>
+                    process verifying the purchase
+                    of authentic parts
+                </b> including risk identification/mitigation plans?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46758_71921 /> </b>No process to verify part availability of authentic parts from authorized sources.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46758_71922 /> </b>In the process of developing a plan to manage part availability of authentic parts from
+                    authorized sources.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46758_71923 /> </b> Processes implemented to support the purchase of authentic parts throughout the product's
+                    life cycle. Documentations are available to confirm part availability of authentic parts,
+                    including testing results and traceability documentation to authorized sources. Implemented
+                    obsolescence management procedure to manage and mitigate parts obsolescence. Risk
+                    management policies direct immediate identification of items and supply sources susceptible
+                    to counterfeiting for enhanced product assurance. <b>Note</b>: Authorized' is different than being
+                    'Approved' – to be Approved, the organization must have an appropriate Quality
+                    Management System, and for Manufacturers/Producers they must be capable of producing
+                    the part (e.g., special processes) in accordance with the drawing/specification. Your
+                    organization 'approves' a supplier. The Mfg./Design Authority 'Authorizes' a supplier or
+                    distributor.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    12.&nbsp;<i>
+                        <u>
+                            Non-Franchised Distributor (NFD) Parts From Other Than Authorized Sources
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier as a Non-Franchised Distributor have a <b>
+                    documented risk assessment and risk
+                    mitigation plan
+                </b> implemented for parts procured from other than Authorized Sources?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46759_71924 />  </b>No documented risk assessment or risk mitigation plan when purchasing parts from other
+                    than Authorized Sources.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46759_71925 />  </b>In the process of developing a documented risk assessment or risk mitigation plan when
+                    purchasing parts from other than Authorized Sources.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46759_71926 /> </b> Documented risk assessment and risk mitigation plan implemented for procurement of parts
+                    from other than Authorized Sources, which includes both supplier risk and application risk,
+                    specific to the intended application of the part. Plan addresses the potential for receiving
+                    suspect or confirmed counterfeit parts from the source and the consequences such as
+                    human safety and mission success. Documentations include detailing electronic part
+                    inspection, testing, and authentication, with an accept/reject criterion. For example, CAWS
+                    requests are performed when Honeywell is the design authority for the assemblies which the
+                    parts from other than Authorized Source(s) are intended to be used. Ensures product
+                    sources maintain documentation of traceability or inspection, testing, and authentication
+                    records in accordance with FAR subpart 4.7.Makes documentation of inspection, testing,
+                    and authentication available to the government upon request if parts are obtained from an
+                    other than authorized source or a subcontractor (other than the original manufacturer) that
+                    refuses to accept flow down of DFARS 252.246-7008, or for electronic parts that cannot be
+                    confirmed as new or commingled from their approved sources. <b>Note</b>: When doing business
+                    with Honeywell, follow SPOC-419 and SPOC-519. Notification should be submitted through
+                    Counterfeit Avoidance Workflow System (CAWS) request. If you are the design authority,
+                    testing must be determined by your organization in accordance with industry standard (e.g.
+                    AS6171). If Honeywell is the design authority, Honeywell will provide instructions on testing
+                    through the CAWS request.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    13.&nbsp;<i>
+                        <u>
+                            Parts Screening Process
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier have a <b>screening process</b> for parts purchased outside Authorized Sources?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46760_71927 /> </b>Does not screen GIDEP reports and other credible sources for counterfeiting information to
+                    avoid the purchase or use of counterfeit parts.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46760_71928 />  </b>In the process of developing a plan to screen GIDEP reports and other credible sources for
+                    counterfeiting information to avoid the purchase or use of counterfeit parts.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46760_71929 /> </b> Processes implemented to assess and screen other than Authorized
+                    Sources, which includes use of industry and government sources of
+                    counterfeiting information from a recognized source (e.g., GIDEP, ERAI, ESCO Anti-
+                    Counterfeiting Forum), to avoid the purchase or use of suspect or confirmed counterfeit
+                    parts. <b>Note</b>: Sources of information includes GIDEP reports from GIDEP members, ERAI,
+                    and UK Anti-Counterfeiting Forum. Documented process includes utilizing these reports and
+                    information submitted by customers, and the ability to address Honeywell Quality Alerts.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    14.&nbsp;<i>
+                        <u>
+                            Overall Procurement Process Assurance
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier's <b>procurement process</b> include requirements to procure parts directly from an
+                authorized source, or from a supplier who obtains such parts exclusively from an authorized source when
+                parts are available from these sources?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46761_71930 /> </b>No process to assure purchase from approved or authorized sources.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46761_71931 />  </b>The Supplier's process is to procure parts from their approved suppliers however objective
+                    evidence of authorization by the OCM of their supplier is not obtained for each transaction.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46761_71932 /> </b> The documented process requires that parts are procured directly from an authorized
+                    source, or from a supplier who obtains such parts exclusively from an authorized source
+                    when parts are available from these sources and customer delivery requirements can be
+                    met. Assure that when quoting parts from an authorized source that is not the OCM, the
+                    source discloses, at the time of each individual quotation, objective evidence that they are
+                    authorized for the item being quoted and identifies if the full manufacturer's warranty is or is
+                    not provided for the quoted parts. SPOC 419 – Supplier Counterfeit Parts Prevention
+                    Requirements: Suppliers are governed by the requirements specified in SPOC 419 and the
+                    flow down of corresponding regulatory requirements. In particular, Suppliers are required to
+                    acquire parts from Original Manufacturers approved by the design authority for the specific
+                    parts being acquired and their corresponding Authorized Sources.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    15.&nbsp;<i>
+                        <u>
+                            Outside Source Notifications
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier <b>notify Honeywell</b> when providing quotes for parts the supplier is not authorized by the
+                manufacturer to resell, or when providing parts that contain material obtained outside the authorized
+                source?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46762_71933 />  </b>No process for providing written revised quotes or change notices.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46762_71934 />  </b>Quotations are based on internal process without consideration to outside best practice or
+                    Honeywell input. Quotes are not formal (email is not considered a formal quote). A revised
+                    quote is not provided for changes to sources of supply, but formal notification is made. In the
+                    process of developing a plan for disclosure when not authorized for the parts being quoted.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46762_71935 />  </b> -Provides quote based on industry best practices or Honeywell input. At the time of each
+                    individual quotation, discloses in writing the following:
+                    <ul class="ml75">
+                        <li>
+                            . The company name and location of the source of supply. <b>Note</b>: If required, the
+                            Organization negotiates a non-disclosure agreement with Honeywell.
+                        </li>
+                        <li>
+                            . Whether the Organization is authorized or not for the item(s) being quoted.
+                        </li>
+                        <li>
+                            . Whether the full manufacturer's warranty will or will not be provided.
+                        </li>
+                        <li>
+                            . If parts are obtained from <span style="color:red;">other than authorized</span> source or a subcontractor (other than
+                            the original manufacturer) that refuses to accept flow down of DFARS 252.246-7008,
+                            or for electronic parts that cannot be confirmed as new or commingled from their
+                            approved sources.
+                        </li>
+                        <li>
+                            . The Organization requires its suppliers to provide a revised written quotation and risk
+                            assessment when the source of supply changes. Issues a revised written quote if the
+                            source of supply changes.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    16.&nbsp;<i>
+                        <u>
+                            Product Requirements in Purchase Orders for Original Equipment Manufacturer (OEM), Non-Franchised
+                            Distributor (NFD) and/or Franchised Distributor (FD)
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                As an Original Equipment Manufacturer (OEM), Non-Franchised Distributor (NFD),
+                and/or an Franchised Distributor (FD), when purchasing materiel/product from
+                contractors and their sub-contractors, does the supplier's <b>
+                    purchase orders define the product
+                    requirements
+                </b> including SPOC 419 and 519 when applicable?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46763_71936 />  </b>No process that defines contract/purchase order requirements to minimize the risk of
+                    obtaining suspect or confirmed counterfeit parts. No process for documentation of changes
+                    or exceptions to requirements.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46763_71937 /> </b>In the process of developing a plan that defines contract/purchase order requirements to
+                    minimize the risk of obtaining suspect or confirmed counterfeit parts, includes flowing down
+                    these requirements to contractors and their sub-contractors. Defines the product as quoted,
+                    documents source of supply changes, but does not require customer approval prior to
+                    shipment.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46763_71938 /> </b> Purchase orders define the product requirements as quoted. Documented processes
+                    implemented that define contract/purchase order requirements to minimize the risk of
+                    obtaining suspect or confirmed counterfeit parts, includes flowing down these requirements
+                    to contractors and their sub-contractors. Flow-through requirements specified by customers
+                    (e.g., Honeywell) are included in the purchase order. Specifically, SPOC 419 elements and
+                    SPOC 519 when applicable. Changes relative to the source of supply and/or traceability are
+                    approved by the customer. Any exceptions are approved by the customer prior to shipment.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    17.&nbsp;<i>
+                        <u>
+                            Product Requirements in Purchase Orders for Original Component Manufacturer(OCM)
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                As an Original Component Manufacturer (OCM), when purchasing materiel/product from contractors and
+                their sub-contractors, does the supplier's <b>purchase orders define the product requirements</b> including
+                SPOC 419 and 519 when applicable?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46764_71939 /> </b>No process that defines contract/purchase order requirements to minimize the risk of
+                    obtaining suspect or confirmed counterfeit parts. No process for documentation of changes
+                    or exceptions to requirements.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46764_71940 />  </b>In the process of developing a plan that defines contract/purchase order requirements to
+                    minimize the risk of obtaining suspect or confirmed counterfeit parts, includes flowing down
+                    these requirements to contractors and their sub-contractors. Defines the product as quoted,
+                    documents source of supply changes, but does not require customer approval prior to
+                    shipment.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46764_71941 /> </b>Purchase orders define the product requirements as quoted. Documented processes
+                    implemented that define contract/purchase order requirements to minimize the risk of
+                    obtaining suspect or confirmed counterfeit parts, includes flowing down these requirements
+                    to contractors and their sub-contractors. Flow-through requirements specified by customers
+                    (e.g., Honeywell) are included in the purchase order. Specifically, SPOC 419 elements and
+                    SPOC 519 when applicable. Changes relative to the source of supply and/or traceability are
+                    approved by the customer. Any exceptions are approved by the customer prior to shipment.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    18.&nbsp;<i>
+                        <u>
+                            Product Traceability
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Has the supplier implemented a process during the procurement and receiving inspection processes that
+                <b>maintains traceability</b> of parts to the authorized source?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46765_71942 />  </b>No process to ensure proper control and traceability back to the source. No process to
+                    maintain the manufacturer's documentation. Internal quality system standards do not include
+                    records retention requirements.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46765_71943 />  </b>In the process of developing a plan to ensure proper control and traceability back to the
+                    source. Traceability provided only to the immediate source of supply to the Supplier, which
+                    may or may not be an authorized source. In the process of implementing a plan to maintain
+                    the manufacturer's documentation for products for a minimum of three years or longer if
+                    specified by the customer, in accordance with the Organization's internal quality system
+                    standards.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46765_71944 />  </b>Documented processes implemented to maintain traceability back to the
+                    source during the procurement and receiving process for parts and
+                    assemblies, including the capability to identify parts and/or assemblies when suspect or
+                    confirmed counterfeit parts are discovered prior to or after customer acceptance. Records
+                    provide Supply Chain Traceability to the manufacturer or the authorized distributor. If
+                    purchased from another authorized distributor, organization have the ability to obtain
+                    traceability to the manufacturer. Traceability records provided with each shipment and
+                    retained in accordance with SPOC 1.11.5 and in accordance with the Organization's internal
+                    quality system standards. If traceability is unavailable or incomplete, customer approval
+                    obtained prior to shipment. Records include the certificate of conformance if provided with
+                    the parts. Records are suitable in format, accuracy, and detail to permit analysis by the
+                    organization's internal quality personnel and government agencies. <b>Note</b>: Honeywell CAWS
+                    requires uploading traceability records and known testing performed on parts that may have
+                    been used to pre-screen and validate parts. Any other applicable paperwork could be
+                    uploaded in CAWS. Note: Honeywell specifies retention in SPOC 1.11.5.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    19.&nbsp;<i>
+                        <u>
+                            Product Labeling Not Altered
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier's process ensure OCM /Design Authority <b>
+                    labeling/part marking traceability is not
+                    altered/modified
+                </b> without documented authorization by the OCM/Design Authority?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46766_71945 />  </b>Process allows for alteration of OCM's labeling without OCM's authorization and does not
+                    document traceability as to that alteration.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46766_71946 />  </b>Process allows for alteration of OCM's labeling without OCM's authorization but retains
+                    traceability/documentation as to that alteration.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46766_71947 />  </b>Process ensures OCM's labeling or part marking relevant to supply chain traceability is not
+                    altered, obliterated, or redacted without documented authorization to do so by the
+                    OCM/design authority.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    20.&nbsp;<i>
+                        <u>
+                            Investigations
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier have a process implemented for <b>investigations</b> to address detection, verification, and
+                control of counterfeit parts?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46767_71948 />  </b>No process for the investigation to address detection, verification, resolution, and control of
+                    in-process and in-service suspect or confirmed counterfeit parts.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46767_71949 /> </b>In the process of developing a plan for the investigation to address detection, verification,
+                    resolution, and control of in-process and in-service suspect or confirmed counterfeit parts.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46767_71950 /> </b> Documented processes implemented for the investigation to address detection, verification,
+                    resolution, and control of in-process and in-service suspect or confirmed counterfeit parts.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    21.&nbsp;<i>
+                        <u>
+                            Suspect Parts Quarantined
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier's process include steps to ensure suspect parts are quarantined, inspected, (extra
+                space E) dispositioned (restocked), and prevented from being reintroduced into the supply chain?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46768_71951 />  </b>Non-conforming parts are not clearly identified, segregated and controlled.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46768_71952 />  </b>No documented process for Identification, segregation, and control of non-conforming
+                    product to prevent its unintended use or delivery.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46768_71953 />  </b>Identifies non-conformances and maintains records to show that product was investigated,
+                    dispositioned, and reverified for conformity accordingly. Suspect counterfeit parts are never
+                    reintroduced into the supply chain, restocked, or returned to the manufacturer in a stock
+                    rotation unless they have been tested and inspected and passed applicable requirements.
+                    Nonconforming parts are dispositioned through one or more of the following:
+                    <ul class="ml75">
+                        <li>
+                            o Action to eliminate the detected nonconformity, but not reworking, repairing, or
+                            altering the product;
+                        </li>
+                        <li>
+                            o Authorizing its use, release, or acceptance under concession by the Customer or an
+                            applicable, relevant design authority;
+                        </li>
+                        <li>
+                            o Action to preclude its original intended use or application (e.g.,
+                            scrap and/or destruction);
+                        </li>
+                        <li>
+                            o Action appropriate to the effects, or potential effects, of the nonconformity when
+                            nonconforming product is detected after delivery or use has started.
+                        </li>
+                        <li>
+                            o Rejection for return to the Supplier or manufacturer; (suspect, fraudulent or
+                            confirmed counterfeit parts shall not be returned except for independent verification
+                            testing and in accordance with AS6081 4.2.6.6 Control of Suspect, Fraudulent, or
+                            Confirmed Counterfeit Parts and 4.2.6.7 Returned Product.) Records of the
+                            disposition maintained. Suspect parts are returned to the Manufacturer for analysis
+                            and disposition to confirm their status as counterfeit or not counterfeit. Confirmed
+                            counterfeit parts are not returned to the customer and are retained for investigative
+                            or training purposes or be turned over to law enforcement for criminal investigation
+                            <br>Note</b>: A counterfeit electronic part detection and avoidance system shall include riskbased
+                            policies and procedures that address, at a minimum, the following areas: The
+                            inspection and testing of electronic parts, including criteria for acceptance and
+                            rejection. Tests and inspections shall be performed in accordance with accepted
+                            Government- and industry-recognized technique (e.g. AS6171).
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    22.&nbsp;<i>
+                        <u>
+                            Scrap Parts Are Controlled
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier have a process established that parts determined to be <b>
+                    scrap are conspicuously and
+                    permanently marked or positively controlled until rendered unusable
+                </b>?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46769_71954 /> </b>Supplier does not have a scrap control process established.</li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46769_71955 /> </b>Supplier is in the process of establishing a scrap control process.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46769_71956 /> </b>Control product dispositioned for scrap by conspicuously and permanently marking or
+                    positively controlling until rendered unusable. If parts are scrapped by the organization,
+                    organization keeps records of the scrapped parts for a minimum of five (5) years from the
+                    date of destruction or as required by contract. Organization has control over the outsourcing
+                    of scrap parts, and obtains and maintains certificate of destruction for five (5) years from the
+                    date of destruction. Policy controls nonconforming products scrap materials, and the
+                    disposition of excess materials and products to keep these materials and products from reentering
+                    the supply chain through unauthorized sources.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    23.&nbsp;<i>
+                        <u>
+                            Counterfeit Parts Incidences Reported
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier have a documented <b>process to report incidences</b> of suspect or confirmed counterfeit
+                parts purchased by their organization, contractors and their sub-contractors?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46770_71957 /> No process to report incidences of suspect or confirmed counterfeit parts purchased by the
+                    Organization or the Organization's supplier.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46770_71958 /> In the process of developing a plan to report incidences of suspect or confirmed counterfeit
+                    parts purchased by the Organization or the Organization's supplier. No documented process
+                    for actions related to previously shipped nonconforming product.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46770_71959 />Documented processes implemented to report incidences of suspect or confirmed counterfeit
+                    parts purchased by the Organization or the Organization's supplier in accordance with the
+                    Organization's policy and/or organization's legal/contract requirements, includes disclosures
+                    to the customers for delivered items. Notifies Honeywell within 5 days in accordance with
+                    SPOC 100 and complies with SPOC 419 specific reporting requirements. Risk assessment
+                    mitigations are reported through CAWS. Reports occurrences to
+                    <ul class="ml75">
+                        <li>o Internal Organizations </li>
+                        <li>o Affected Customers </li>
+                        <li>o Authority having Jurisdiction </li>
+                        <li>o Government Reporting Organizations, e.g. GIDEP </li>
+                        <li>
+                            o Applicable Government investigative authorities and law
+                            enforcement agencies as appropriate and required by law
+                        </li>
+                        <li>o Process includes the manufacturer's response in external reports, when provided. </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    24.&nbsp;<i>
+                        <u>
+                            Returns Policy
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier maintain a <b>return policy</b> that includes identification, segregation, and record
+                requirements?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46771_71960 /> Does not maintain a return policy. Does not consider products returned from Independent
+                    Distributors or Brokers as suspect parts.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46771_71961 /> In the process of developing a plan to maintain a return policy.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46771_71962 /> Maintains a Return Policy. Returned parts are segregated and identified as returned parts upon
+                    resale. Products returned from Independent Distributors or Brokers are treated as suspect
+                    parts. Inventory control system provides traceability of customer returned parts in accordance
+                    with the organization's record retention policy.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    25.&nbsp;<i>
+                        <u>
+                            Inspection of Returned Parts
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Has the supplier implemented a <b>documented process for inspection and verification</b> of returned
+                parts?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46772_71963 />  </b>Does not validate and inspect returned parts.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46772_71964 /> </b>In the process of developing a plan to verify and inspect that the returned parts were directly
+                    sold by the Organization, and were shipped by the intended supplier.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46772_71965 /> </b>Inspects returned parts for evidence of alteration, mishandling, improper packaging or
+                    repackaging, and further investigate parts with any evidence of the above to determine if the
+                    parts are suspect and disposition as such. If choosing not to verify a customer return per the
+                    prescribed requirements, there a system in place to assure that the returned product is not
+                    allowed to be re-stocked or returned to the supply chain. Issues a Return Material Authorization
+                    (RMA) to accept the return of products. Verifies that the returned parts were directly sold by the
+                    Organization. If the returned parts were not sold by the organization and the organization
+                    accepts the return, parts are segregated and not offered for sale as authorized parts. Validates
+                    the returned parts against the organization's traceability records, including date/lot codes when
+                    available. When the date code does not match the shipment, organization further investigates
+                    parts to determine if the parts are suspect and disposition as such. Received parts are verified
+                    to have been shipped by the intended supplier.
+                </li>
+
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    26.&nbsp;<i>
+                        <u>
+                            Full Warranty on Parts Resold from Returns
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier provide <b>full manufacturer warranties</b> on parts resold from returns?
+            </p>
+            <ul class="ml75">
+                <li><input type="checkbox" @ViewBag.Checkbox46773_71966 /> Does not offer warranty for reselling returned parts.</li>
+                <li><input type="checkbox" @ViewBag.Checkbox46773_71967 /> In the process of developing a plan to include the full warranty when reselling returned parts. </li>
+                <li><input type="checkbox" @ViewBag.Checkbox46773_71968 /> Product resold from returns carry the full manufacturer's warranty. </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    27.&nbsp;<i>
+                        <u>
+                            Approved Supplier/Distributor List Assessment
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Has the supplier established a <b>documented process to assess sources</b> of supply including the
+                following?
+            </p>
+            <ul class="ml75">
+                <li>a) Risk identification/mitigation</li>
+                <li>b) Repeat failures of detection and avoidance</li>
+                <li>c) Use of industry/government source information</li>
+                <li>d) Internal supplier quality data</li>
+                <li>
+                    e) Appropriate flow-down of counterfeit prevention requirements (SPOC 419)
+                    <ul class="ml75">
+                        <li>
+                            <input type="checkbox" @ViewBag.Checkbox46774_71969 /> No process for selection of potential sources with respect to fraudulent/counterfeit risk. No
+                            process to check background/performance of suppliers with respect to prior issues with
+                            fraudulent/counterfeit parts.
+                        </li>
+                        <li>
+                            <input type="checkbox" @ViewBag.Checkbox46774_71970 /> In the process check background/performance of suppliers with respect to prior issues with
+                            fraudulent/counterfeit parts includes reactive measures (Supplier's own experience) but no
+                            proactive measures (such as industry reporting forums).
+                        </li>
+                        <li>
+                            <input type="checkbox" @ViewBag.Checkbox46774_71971 />A documented process to assess potential sources of supply to determine the risk of receiving
+                            fraudulent/counterfeit parts. May include surveys, audits, review of product alerts and review of
+                            supplier quality data. The documented process ensures that suppliers are not used if they have
+                            repeatedly failed to detect and avoid fraudulent/counterfeit parts or failed to exercise due
+                            diligence in the detection and avoidance of such parts. Assessment activity should include use
+                            of industry and government sources of counterfeiting information prior to procurement of parts,
+                            e.g., GIDEP. Note this is mandatory for orders supporting DoD contracts, ERAI, ESCO Anti-
+                            Counterfeiting Forum. Assessment activity should include use of internal supplier quality data.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    28.&nbsp;<i>
+                        <u>
+                            Approved Supplier Registry
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the supplier <b>maintain a register of suppliers/distributors</b> that includes the following?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46775_71972 />  </b>Does not maintain a list of approved suppliers. No Supplier assessment/approval process.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46775_71974 /> </b>The Supplier has a process for ongoing supplier assessment including a register of those
+                    approved, however it does not meet all of the criteria in the basic requirements. Please provide
+                    explanation in the Supplier Comments area.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46775_71975 /> </b>Maintains a register of suppliers/distributors that includes
+                    <ul class="ml75">
+                        <li>
+                            . authorization status
+                        </li>
+                        <li>
+                            . approval status
+                        </li>
+                        <li>
+                            . scope of approval
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    List includes all subcontractors that assemble, test, or modify the parts. Ensures suppliers
+                    maintain effective processes for mitigating the risks of supplying suspect or confirmed
+                    counterfeit parts. The Supplier's process provides for ongoing assessment of their suppliers
+                    including maintaining a register of approved Suppliers including
+                    <ul class="ml75">
+                        <li>
+                            . Scope and criteria for the approval
+                        </li>
+                        <li>
+                            . Historical experience with procuring product
+                        </li>
+                        <li>
+                            . Unresolved documented problems noted by external sources
+                        </li>
+                        <li>
+                            . Acceptable terms for product warranty, returns, and liability
+                        </li>
+                        <li>
+                            . Financial means to support contractual guarantees
+                        </li>
+                        <li>
+                            . Product liability insurance
+                        </li>
+                        <li>
+                            . Third party professional insurance
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Approved supplier register has weighted criteria or a supplier ranking process<br />
+                    Records of Supplier approval includes source selection criteria and are available to
+                    Honeywell upon request<br />
+                    Documented process includes assessment, corrective action and removal of Suppliers<br /><br />
+                </li>
+            </ul>
+            <b>Note</b>: When doing business with Honeywell, follow SPOC-419 SI.
+        </div>
+        <div>
+            <h2>
+                <b>
+                    29.&nbsp;<i>
+                        <u>
+                            Distribution Agreements
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the distributor have a <b>current distribution agreement</b> with the manufacturer?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46776_71975 /> Purchases parts for resale from both authorized and unauthorized sources. Does not maintain
+                    a Distribution Agreement.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46776_71976 /> Organization does not have readily available their Distribution Agreement(s). In the process of
+                    developing a plan to purchase parts for resale only from authorized sources.
+                </li>
+                <li>
+                    <input type="checkbox" @ViewBag.Checkbox46776_71977 /> Distribution Agreement is maintained between the manufacturer and Authorized Distributor. For
+                    parts sold outside of a Distribution Agreement, organization acknowledges to the customer that
+                    they are not authorized for those parts. For parts where the Organization is authorized,
+                    Organization only purchase parts for resale from the manufacturer or from a distributor which is
+                    authorized by the same manufacturer. Verifies the authorization of a distributor either on the
+                    manufacturer's website or directly with the manufacturer.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    30.&nbsp;<i>
+                        <u>
+                            Manufacturer's Sealed Packaging
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the distributor provide parts in the <b>manufacturer's sealed packaging</b> when possible? If the
+                manufacturer packaging cannot be maintained, does the distributor maintain traceability information on
+                the repackaged material?
+            </p>
+            <ul class="ml75">
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46777_71978 />  </b>Does not send parts in the manufacturer's sealed packaging whenever possible. Does not
+                    maintain traceability information on repackaged material.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46777_71979 /> </b>In the process of developing a plan to send parts in the manufacturer's sealed packaging when
+                    possible.
+                </li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46777_71980 /> </b>Sends parts in the manufacturer's sealed packaging when possible. If the manufacturer's
+                    packaging cannot be sent, organization maintains traceability information on the repackaged
+                    material.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    31.&nbsp;<i>
+                        <u>
+                            Certificates of Conformance
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Does the distributor provide the <b>certificates of conformance for all parts delivered </b>(including the
+                manufacturing organization's CofC)? Are they <b>legible and verifiable</b>?
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46778_71981 />  </b>No process to provide the certificate of conformance for each order.</li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46778_71982 />  </b>In process of developing a plan to provide the certificate of conformance for each order.</li>
+                <li>
+                    <b><input type="checkbox" @ViewBag.Checkbox46778_71983 />  </b>Provides the organization's certificates of conformance for all parts delivered that includes:
+                    <ul class="ml75">
+                        <li>
+                            . Name and address of both the Organization and the Customer
+                        </li>
+                        <li>
+                            . Manufacturer's name
+                        </li>
+                        <li>
+                            . Manufacturer's part number
+                        </li>
+                        <li>
+                            . Quantity
+                        </li>
+                        <li>
+                            . Date code (if provided by the Manufacturer and required by the Customer)
+                        </li>
+                        <li>
+                            . Lot code (if provided by the Manufacturer and required by the Customer)
+                        </li>
+                        <li>
+                            . Customer purchase order number
+                        </li>
+                        <li>
+                            . Ship date to Customer
+                        </li>
+                        <li>
+                            . Authorized Distributor Statement of Conformance
+                        </li>
+                        <li>
+                            . Signature of Responsible Party (Electronic Signature is acceptable)
+                        </li>
+                        <li>
+                            . Country of Origin
+                        </li>
+                        <li>
+                            . Customer part number (if known and required)
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="ml25">
+                Certifications are legible and clearly indicate the organization's name and/or logo.<br />
+                Certification statements are printed on packing slips or provided as a supplementary document.<br />
+                Organization's certification or manufacturing organization's CofC are included when delivering
+                commercial, industrial and automotive parts, or military parts per the applicable military specification,
+                and/or purchasing requirements.<br />
+                Capable of supplying the Manufacturer's certification of conformance or pack list within a reasonable
+                amount of time.<br />
+            </p>
+        </div>
+        <div>
+            <h2>
+                <b>
+                    32.&nbsp;<i>
+                        <u>
+                            Additional Supplier Comments
+                        </u>
+                    </i>
+                </b>
+            </h2>
+            <p class="ml25">
+                Do you have any comments you wish to submit?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46779_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46779_No /> No </b></li>
+            </ul>
+        </div>
+
+
+        <p style="text-align:center; font-size:21px"><i><u><b>Overall Certification</b></u></i></p>
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        <b>
+                            <i>
+                                Notice of
+                                Penalty
+                            </i>
+                        </b>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        The information submitted for the Honeywell Aerospace Counterfeit Parts
+                        Prevention Supplier Self-Assessment for 2019 is subject to the notice of penalty
+                        concerning the making of false or fraudulent statements under U.S.C. TITLE 18,
+                        SECTION 1001. There may also be penalties under The False Claims Act (31
+                        U.S.C. §§ 3729) for items delivered to Honeywell following false representation of
+                        processes disclosed within this assessment.
+                        By providing your electronic signature below and clicking "Continue," you certify
+                        that you are authorized to respond on behalf of [partner name] for this Honeywell
+                        Aerospace Counterfeit Parts Prevention Supplier Self-Assessment for 2019 for
+                        Access Code [Access Code] and that you have read this notice of penalty and
+                        accept responsibility for the responses submitted.
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox46376_Yes /> PREVIOUS </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox46376_No /> CONTINUE </b></li>
+            </ul>
+        </p>
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr style="height:40px">
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    NAME: @(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName))
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SIGNATURE:  @(ViewBag.signature == null ? "" : ViewBag.signature.email)
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    DATE: @ViewBag.completeDate
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                    TITLE: @ViewBag.personTitle
+                </td>
+            </tr>
+        </table>
+    </FONT>
+</body>
+</html>
+
+
+
+
+
+
+
