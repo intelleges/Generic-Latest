@@ -12275,14 +12275,14 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
 
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
-
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
-
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
             var _responseSplitter = "--";
+
+            ViewBag.Checkbox46269_70860 = pptq.status == 8 ? _chacked : string.Empty;
+            ViewBag.Checkbox46269_70859 = pptq.status != 8 ? _chacked : string.Empty;
 
             string executives = "";
             foreach (var item in _PPTQQuestionResponse)
