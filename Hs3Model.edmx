@@ -8908,6 +8908,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="score" Type="int" Mode="In" />
           <Parameter Name="priority" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pptq" Type="int" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPartnerremitaddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="partner" Type="int" Mode="In" />
@@ -9698,6 +9702,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_removeEsignature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_removeEsignatureByPPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_removeEventNotification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -9792,6 +9799,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+          <Parameter Name="currentQuestion" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
@@ -18479,6 +18490,17 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" ReturnType="Collection(String)">
             <Parameter Name="internalid" Mode="In" Type="String" />
             <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus" ReturnType="Collection(hs3MVCMTQa2Model.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus_Result)">
+            <Parameter Name="pptq" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeEsignatureByPPTQ">
+            <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result)">
+            <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="currentQuestion" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -31593,6 +31615,37 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="question" Nullable="false" />
           <Property Type="Int32" Name="total_comments" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="partner" Nullable="false" />
+          <Property Type="Int32" Name="partnerTypeTouchpointQuestionnaire" Nullable="false" />
+          <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="invitedBy" Nullable="false" />
+          <Property Type="DateTime" Name="invitedDate" Nullable="false" />
+          <Property Type="DateTime" Name="dueDate" Nullable="true" />
+          <Property Type="DateTime" Name="completedDate" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Int32" Name="progress" Nullable="true" />
+          <Property Type="String" Name="zcode" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="pdf" Nullable="true" />
+          <Property Type="String" Name="docFolderAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="score" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="priority" Nullable="true" />
+          <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="question" Nullable="false" />
+          <Property Type="Int32" Name="response" Nullable="true" />
+          <Property Type="String" Name="comment" Nullable="true" />
+          <Property Type="Binary" Name="uploadedFile" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uploadedFileType" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="actionDate" Nullable="true" />
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="score" Nullable="true" />
+          <Property Type="Int32" Name="partnerPartnerTypeTouchpointQuestionnaire" Nullable="true" />
+          <Property Type="DateTime" Name="timestamp" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -44068,6 +44121,46 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" FunctionName="hs3MVCMTQa2Model.Store.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete" />
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="partner" ColumnName="partner" />
+                <ScalarProperty Name="partnerTypeTouchpointQuestionnaire" ColumnName="partnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="accesscode" ColumnName="accesscode" />
+                <ScalarProperty Name="invitedBy" ColumnName="invitedBy" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="completedDate" ColumnName="completedDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="zcode" ColumnName="zcode" />
+                <ScalarProperty Name="pdf" ColumnName="pdf" />
+                <ScalarProperty Name="docFolderAddress" ColumnName="docFolderAddress" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="priority" ColumnName="priority" />
+                <ScalarProperty Name="loadGroup" ColumnName="loadGroup" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_removeEsignatureByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_removeEsignatureByPPTQ" />
+          <FunctionImportMapping FunctionImportName="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion" FunctionName="hs3MVCMTQa2Model.Store.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="uploadedFile" ColumnName="uploadedFile" />
+                <ScalarProperty Name="uploadedFileType" ColumnName="uploadedFileType" />
+                <ScalarProperty Name="actionDate" ColumnName="actionDate" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="partnerPartnerTypeTouchpointQuestionnaire" ColumnName="partnerPartnerTypeTouchpointQuestionnaire" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

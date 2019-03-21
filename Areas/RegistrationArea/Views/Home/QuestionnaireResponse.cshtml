@@ -298,6 +298,8 @@
     var elementP = null;
     var oldvalP = null;
     var showalert = false;
+    var showalert1 = false;
+    var currentAnswer = '';
     var isSelectP = 0;
     var pptq = null;
     var qstart = -1;
@@ -412,11 +414,7 @@
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
                     });
-                    /*
-                    "Current QID:" + qstartTitle +
-                        "    Next QID:" + qendTitle[val.indexOf(Number(newvalP))] +
-*/
-
+                   
                     alertify.confirm("You've already responded to this question. This questionnaire contains skip logic, changing your response now will overwrite or delete the existing response to the question(s) listed below... do you want to proceed with this change?" +
                          "<br/><br/>" + messages[val.indexOf(Number(newvalP))] + "<br/><br/>" +
                         "If \"Yes\"  is selected, existing response(s) will be deleted; if \"No\" is selected, the system will advance you to the next question without deleting the existing response(s).", function (e) {
@@ -439,6 +437,33 @@
                         });
 
                     return false;
+                }
+
+
+                if (showalert1 === true) {
+                    var arr = $(".list2listComponent:first").val();
+                    if (arr === null) { arr = ''; }
+                    else { arr = arr.join(); }
+
+                    if (currentAnswer !== arr) {
+                        alertify.confirm("Changing your supplier type from the previously selected values will reset your self-assessment questionnaire.", function (e) {
+                            if (e) {
+                                var qid1 = $('option[skipLogicL2L="true"]:first').attr('questionId');
+                                           showalert1 = false;
+                                $.post('@Url.Action("modifyPartnerPartnertypeTouchpointQuestionnaireStatus", "Home")', { qid: qid1, accessCode:'@ViewBag.AccessCode' })
+                    .done(function (data) {
+                        $("#QuestionnaireResponse").submit();
+                    });
+                            } else {
+                                showalert1 = false;
+                                $(".list2listComponent:first").val(JSON.parse('[' + currentAnswer + ']'));
+                                $(".list2listComponent").bootstrapDualListbox('refresh', true);
+                                $("#QuestionnaireResponse").submit();
+                            }
+                        });
+
+                        return false;
+                    }
                 }
 
 
@@ -524,6 +549,12 @@
                         qstartTitle = data.qstartTitle;
                         qendTitle = data.qendTitle;
                     });
+            }
+
+            var count1 = $('option[skipLogicL2L="true"]').length;
+            if (count1 > 0) {
+                showalert1 = true;
+                currentAnswer = $('option[skipLogicL2L="true"]:first').attr('answer');
             }
 
 			@if (Session["ReferenceEmails"] != null&&((List<string>)Session["ReferenceEmails"]).Count>0)

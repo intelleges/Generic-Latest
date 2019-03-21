@@ -23969,5 +23969,40 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ", internalidParameter, ptqParameter);
         }
+    
+        public virtual ObjectResult<pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus_Result> pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(Nullable<int> pptq, Nullable<int> status)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus_Result>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus", pptqParameter, statusParameter);
+        }
+    
+        public virtual int pr_removeEsignatureByPPTQ(Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        {
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeEsignatureByPPTQ", partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result> pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion(Nullable<int> partnerPartnerTypeTouchpointQuestionnaire, Nullable<int> currentQuestion)
+        {
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var currentQuestionParameter = currentQuestion.HasValue ?
+                new ObjectParameter("currentQuestion", currentQuestion) :
+                new ObjectParameter("currentQuestion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion", partnerPartnerTypeTouchpointQuestionnaireParameter, currentQuestionParameter);
+        }
     }
 }

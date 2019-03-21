@@ -2373,7 +2373,12 @@ namespace Generic.DataLayer
                             var item = new ListItem(splittedDescription[0], splittedDescription.Length == 3 ? splittedDescription[2] : splittedDescription[0]);
                             item.Attributes.Add("title", splittedDescription[1]);
                             if (splittedDescription.Length == 3) {
-                                item.Attributes.Add("skipLogicL2L", "true");
+                                if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                                {
+                                    item.Attributes.Add("skipLogicL2L", "true");
+                                    item.Attributes.Add("questionId", question.id.ToString());
+                                    item.Attributes.Add("answer", pptqResponse.comment);
+                                }
                             }
                             //if (checkCOde.IsMatch(item.Text))
                             //{

@@ -1851,6 +1851,25 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult modifyPartnerPartnertypeTouchpointQuestionnaireStatus(int qid, string accessCode)
+        {
+            try
+            {
+                var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                int pptq = pptqObj.id;
+                db.pr_removeEsignatureByPPTQ(pptq);
+                db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq, 7);
+                EntitiesDBContext db1 = new EntitiesDBContext();
+                db1.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion(pptq, qid);
+            }
+            catch { }
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetComments(int id)
         {
             return View(db.pr_getQuestionCommentAllByQuestion(id).ToList());

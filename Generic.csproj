@@ -2742,6 +2742,9 @@
     <Compile Include="pr_modifyPartnerPartnertypeTouchpointQuestionnaireScore_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_modifyQuestionnaireLetterForSplitter_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2749,6 +2752,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_questionResponseWarningCheck_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndQuestion_Result.cs">
