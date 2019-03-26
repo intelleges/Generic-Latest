@@ -175,6 +175,8 @@ namespace Generic.Helpers.Questionnaire
         public const string REDIRECT_PAGE_PREVIOUS_TEXT = "REDIRECT_PAGE_PREVIOUS_TEXT";
         public const string REDIRECT_PAGE_NEXT_TEXT = "REDIRECT_PAGE_NEXT_TEXT";
 
+        public const string REDIRECT_IMG_HEADER_LINK = "INTELLEGES_LINK_1";
+        public const string REDIRECT_IMG_FOOTER_LINK = "INTELLEGES_LINK_2";
 
         public const string REDIRECT_CONFIRMATION_PAGE_TITLE = "REDIRECT_CONFIRMATION_PAGE_TITLE";
         public const string REDIRECT_CONFIRMATION_PAGE_SUBTITLE = "REDIRECT_CONFIRMATION_PAGE_SUBTITLE";
@@ -194,6 +196,8 @@ namespace Generic.Helpers.Questionnaire
         public const string SAVE_FOR_LATER_TEXT_NOTICE = "SAVE_FOR_LATER_TEXT_NOTICE";
         public const string QUESTIONNAIRE_DOC_OTHER_2 = "QUESTIONNAIRE_DOC_OTHER_2";
         public const string SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT = "SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT";
+
+
     }
 
     public static class ZCode

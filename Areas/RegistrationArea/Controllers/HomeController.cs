@@ -3954,6 +3954,26 @@ Intelleges Team";
                     //else
                     //    objViewBagModel.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
                 }
+                ////IMG_HEADER_LINK
+                cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.REDIRECT_IMG_HEADER_LINK);
+                cmdId = cmd != null ? cmd.id : 0;
+                var img = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
+                var imgLink = img != null ? img.link : "";
+                if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true",StringComparison.OrdinalIgnoreCase))
+                {
+                    objViewBagModel.CMS_IMG_HEADER_LINK
+                        = imgLink;                   
+                }
+                ////IMG_FOOTER_LINK
+                cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.REDIRECT_IMG_FOOTER_LINK);
+                cmdId = cmd != null ? cmd.id : 0;
+                img = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
+                imgLink = img != null ? img.link : "";
+                if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true", StringComparison.OrdinalIgnoreCase))
+                {
+                    objViewBagModel.CMS_IMG_FOOTER_LINK
+                        = imgLink;
+                }
             }
             catch
             {

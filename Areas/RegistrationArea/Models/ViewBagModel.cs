@@ -57,6 +57,8 @@ namespace Generic.Areas.RegistrationArea.Models
         public string WARNING { get; set; }
         public string CMS_PAGE_PREVIOUS_LINK { get; set; }
         public string CMS_PAGE_NEXT_LINK { get; set; }
+        public string CMS_IMG_HEADER_LINK { get; set; }
+        public string CMS_IMG_FOOTER_LINK { get; set; }
         public string QUESTIONNAIRE_CONTACT_US_EMAIL_LINK { get; set; }
         public string QUESTIONNAIRE_VIDEO_LINK { get; set; }
         public bool isCompletedSurvey { get; set; }

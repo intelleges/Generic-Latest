@@ -67,7 +67,16 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="logo-new">
-                            <a href="https://www.intelleges.com/"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
+                            @{if (!string.IsNullOrEmpty(ViewBag.FormData.CMS_IMG_HEADER_LINK))
+                                {
+                                    <a href="//@ViewBag.FormData.CMS_IMG_HEADER_LINK"
+                                       target="_blank"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt=""/>
+                                }
+                            }
                         </div>
                     </div>
                     <div class="col-sm-9">
@@ -186,7 +195,17 @@
                     <div class="col-md-5">
 
                         <div class="footer-logo">
-                            Powered by Intelleges&nbsp;&nbsp;&nbsp;&nbsp; @*<img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/footer-logo.png")" alt="" style="width: 50px;"/>*@
+                            @{if (!string.IsNullOrEmpty(ViewBag.FormData.CMS_IMG_FOOTER_LINK))
+                                {
+                                    <a href="//@ViewBag.FormData.CMS_IMG_FOOTER_LINK"
+                                       target="_blank">Powered by Intelleges&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                }
+                                else
+                                {
+                                    <span>Powered by Intelleges&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                }
+                            }
+                             @*<img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/footer-logo.png")" alt="" style="width: 50px;"/>*@
                         </div>
                         </div>
                     <div class="col-md-2">
