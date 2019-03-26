@@ -274,7 +274,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                     //try
                     //{
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "Index");
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "Index", questionareCMS:cms);
 
                     objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
@@ -289,10 +289,26 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         objViewBag.CMS_SUBMIT_TEXT = model.CMS_SUBMIT_TEXT;
                     if (!string.IsNullOrEmpty(model.RETRIEVE_ACCESS_CODE_TEXT))
                         objViewBag.RETRIEVE_ACCESS_CODE_TEXT = model.RETRIEVE_ACCESS_CODE_TEXT;
-                    //}
-                    //catch (Exception exc)
-                    //{
-                    //}
+                    ////IMG_HEADER_LINK
+                    var cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.REDIRECT_IMG_HEADER_LINK);
+                    var cmdId = cms != null ? cmd.id : 0;
+                    var img = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
+                    var imgLink = img != null ? img.link : "";
+                    if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true", StringComparison.OrdinalIgnoreCase))
+                    {
+                        objViewBag.CMS_IMG_HEADER_LINK
+                            = imgLink;
+                    }
+                    ////IMG_FOOTER_LINK
+                    cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.REDIRECT_IMG_FOOTER_LINK);
+                    cmdId = cms != null ? cmd.id : 0;
+                    img = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
+                    imgLink = img != null ? img.link : "";
+                    if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true", StringComparison.OrdinalIgnoreCase))
+                    {
+                        objViewBag.CMS_IMG_FOOTER_LINK
+                            = imgLink;
+                    }
                 }
                 else
                 {
@@ -588,6 +604,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var cmsPagePanelTwo = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                 if (cmsPagePanelTwo != null)
                     objViewBagModel.CMS_PAGE_PANEL_TWO = cmsPagePanelTwo.ApplyTags(tags);
+                
                 if (pageName != "Index")
                 {
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == pagePreviousText);
@@ -922,7 +939,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                         try
                         {
-                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "ContactInformation");
+                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "ContactInformation", questionareCMS:cms);
                             objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                             objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                             objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -3956,17 +3973,17 @@ Intelleges Team";
                 }
                 ////IMG_HEADER_LINK
                 cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.REDIRECT_IMG_HEADER_LINK);
-                cmdId = cmd != null ? cmd.id : 0;
+                cmdId = cms != null ? cmd.id : 0;
                 var img = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
                 var imgLink = img != null ? img.link : "";
-                if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true",StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true", StringComparison.OrdinalIgnoreCase))
                 {
                     objViewBagModel.CMS_IMG_HEADER_LINK
-                        = imgLink;                   
+                        = imgLink;
                 }
                 ////IMG_FOOTER_LINK
                 cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.REDIRECT_IMG_FOOTER_LINK);
-                cmdId = cmd != null ? cmd.id : 0;
+                cmdId = cms != null ? cmd.id : 0;
                 img = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
                 imgLink = img != null ? img.link : "";
                 if (!string.IsNullOrEmpty(imgLink) && img.text.Equals("true", StringComparison.OrdinalIgnoreCase))
