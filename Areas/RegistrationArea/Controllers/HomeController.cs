@@ -12271,6 +12271,7 @@ Intelleges Team";
         public static int FillCustomPdfHtml26(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
         {
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            ViewBag.accessCode = accessCode;
             var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
@@ -12504,6 +12505,10 @@ Intelleges Team";
                     case 46779:
                         ViewBag.Checkbox46779_Yes = item.response ==_responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox46779_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 46781:
+                        ViewBag.Checkbox46781_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox46781_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
                 }
 
