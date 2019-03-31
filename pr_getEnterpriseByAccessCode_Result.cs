@@ -17,10 +17,23 @@ namespace Generic
         public string description { get; set; }
         public Nullable<int> sortOrder { get; set; }
         public Nullable<bool> active { get; set; }
-        public string logo { get; set; }
+        public byte[] logo { get; set; }
         public string applicationPath { get; set; }
         public string companyName { get; set; }
         public string instanceName { get; set; }
         public Nullable<System.DateTime> archivedDate { get; set; }
+        public Nullable<int> userMax { get; set; }
+        public Nullable<int> partnerMax { get; set; }
+        public Nullable<int> partnumberMax { get; set; }
+        public Nullable<int> product { get; set; }
+        public Nullable<int> subscriptionType { get; set; }
+        public Nullable<System.DateTime> freeTrialStartDate { get; set; }
+        public Nullable<System.DateTime> freeTrialEndDate { get; set; }
+        public Nullable<System.DateTime> licenseStartDate { get; set; }
+        public Nullable<System.DateTime> licenseEndDate { get; set; }
+        public Nullable<decimal> monthlyFee { get; set; }
+        public Nullable<int> subscriptionStatus { get; set; }
+        public string chargifyID { get; set; }
+        public Nullable<int> multiTenantProjectType { get; set; }
     }
 }

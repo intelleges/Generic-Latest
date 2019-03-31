@@ -24004,5 +24004,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result>("pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion", partnerPartnerTypeTouchpointQuestionnaireParameter, currentQuestionParameter);
         }
+    
+        public virtual ObjectResult<string> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage", accesscodeParameter);
+        }
     }
 }

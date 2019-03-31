@@ -326,6 +326,37 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             catch (Exception exc)
             {
+                var m = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage (accessCode).FirstOrDefault();
+                if (!string.IsNullOrEmpty(m)) {
+
+                    var contactUs = 1;
+                    ViewBag.returnUrl = "";
+                    var enterprises = db.pr_getEnterprise(contactUs);
+                    ViewBag.Project = "Generic";
+                    ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
+                    ViewBag.EnterpriseId = contactUs;
+
+                    var en = db.pr_getEnterpriseByAccessCode(accessCode).FirstOrDefault();
+                    if (en != null) {
+                        var ensystem = db.pr_getEnterpriseSystemInfoByEnterprise(en.id).FirstOrDefault();
+                        if (ensystem != null && !string.IsNullOrEmpty(ensystem.coordinatorEmail)) {
+                            if(m.Contains("[system administrator]"))
+                            m = m.Replace("[system administrator]", "<a href='mailto:"+          ensystem.coordinatorEmail + "'>system administrator</a>");
+                            else
+                                m = m.Replace("system administrator", "<a href='mailto:" + ensystem.coordinatorEmail + "'>system administrator</a>");
+                        }
+
+                        contactUs = en.id;
+                        ViewBag.returnUrl = "";
+                        enterprises = db.pr_getEnterprise(en.id);
+                        ViewBag.Project = "Generic";
+                        ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
+                        ViewBag.EnterpriseId = contactUs;
+                    }
+
+                    ViewBag.Message = m;
+                    return View("AccessCodeMissing", enterprises.FirstOrDefault());
+                }
             }
             return View();
         }

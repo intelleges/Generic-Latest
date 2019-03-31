@@ -7157,6 +7157,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="accesscode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accesscode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="internalid" Type="varchar" Mode="In" />
           <Parameter Name="ptq" Type="int" Mode="In" />
@@ -18496,11 +18499,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="status" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removeEsignatureByPPTQ">
-            <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+          <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion" ReturnType="Collection(hs3MVCMTQa2Model.pr_removePartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQAndCurrentQuestion_Result)">
             <Parameter Name="partnerPartnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
             <Parameter Name="currentQuestion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage" ReturnType="Collection(String)">
+            <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -22500,11 +22506,24 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="String" Name="description" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="sortOrder" Nullable="true" />
           <Property Type="Boolean" Name="active" Nullable="true" />
-          <Property Type="String" Name="logo" Nullable="true" MaxLength="500" />
+          <Property Type="Binary" Name="logo" Nullable="true" MaxLength="Max" />
           <Property Type="String" Name="applicationPath" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="companyName" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="instanceName" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="archivedDate" Nullable="true" />
+          <Property Type="Int32" Name="userMax" Nullable="true" />
+          <Property Type="Int32" Name="partnerMax" Nullable="true" />
+          <Property Type="Int32" Name="partnumberMax" Nullable="true" />
+          <Property Type="Int32" Name="product" Nullable="true" />
+          <Property Type="Int32" Name="subscriptionType" Nullable="true" />
+          <Property Type="DateTime" Name="freeTrialStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="freeTrialEndDate" Nullable="true" />
+          <Property Type="DateTime" Name="licenseStartDate" Nullable="true" />
+          <Property Type="DateTime" Name="licenseEndDate" Nullable="true" />
+          <Property Type="Decimal" Name="monthlyFee" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="subscriptionStatus" Nullable="true" />
+          <Property Type="String" Name="chargifyID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="multiTenantProjectType" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pr_getRoleByPerson_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -34717,6 +34736,19 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
                 <ScalarProperty Name="companyName" ColumnName="companyName" />
                 <ScalarProperty Name="instanceName" ColumnName="instanceName" />
                 <ScalarProperty Name="archivedDate" ColumnName="archivedDate" />
+                <ScalarProperty Name="userMax" ColumnName="userMax" />
+                <ScalarProperty Name="partnerMax" ColumnName="partnerMax" />
+                <ScalarProperty Name="partnumberMax" ColumnName="partnumberMax" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="subscriptionType" ColumnName="subscriptionType" />
+                <ScalarProperty Name="freeTrialStartDate" ColumnName="freeTrialStartDate" />
+                <ScalarProperty Name="freeTrialEndDate" ColumnName="freeTrialEndDate" />
+                <ScalarProperty Name="licenseStartDate" ColumnName="licenseStartDate" />
+                <ScalarProperty Name="licenseEndDate" ColumnName="licenseEndDate" />
+                <ScalarProperty Name="monthlyFee" ColumnName="monthlyFee" />
+                <ScalarProperty Name="subscriptionStatus" ColumnName="subscriptionStatus" />
+                <ScalarProperty Name="chargifyID" ColumnName="chargifyID" />
+                <ScalarProperty Name="multiTenantProjectType" ColumnName="multiTenantProjectType" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -44161,6 +44193,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
