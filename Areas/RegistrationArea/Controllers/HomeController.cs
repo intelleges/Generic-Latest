@@ -340,10 +340,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (en != null) {
                         var ensystem = db.pr_getEnterpriseSystemInfoByEnterprise(en.id).FirstOrDefault();
                         if (ensystem != null && !string.IsNullOrEmpty(ensystem.coordinatorEmail)) {
-                            if(m.Contains("[system administrator]"))
-                            m = m.Replace("[system administrator]", "<a href='mailto:"+          ensystem.coordinatorEmail + "'>system administrator</a>");
-                            else
-                                m = m.Replace("system administrator", "<a href='mailto:" + ensystem.coordinatorEmail + "'>system administrator</a>");
+                            if(m.Contains("[\"system administrator\" = coordinatorEmail]:coordinatoremail"))
+                            m = m.Replace("[\"system administrator\" = coordinatorEmail]:coordinatoremail", "<a href='mailto:"+          ensystem.coordinatorEmail + "'>system administrator (" + ensystem.coordinatorEmail + ")</a>");
+                            /*else
+                                m = m.Replace("system administrator", "<a href='mailto:" + ensystem.coordinatorEmail + "'>system administrator ("+ ensystem.coordinatorEmail + ")</a>");*/
                         }
 
                         contactUs = en.id;
