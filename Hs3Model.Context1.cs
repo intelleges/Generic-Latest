@@ -24013,5 +24013,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage", accesscodeParameter);
         }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(string accesscode, MergeOption mergeOption)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF", mergeOption, accesscodeParameter);
+        }
     }
 }

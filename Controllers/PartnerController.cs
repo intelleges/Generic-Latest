@@ -1880,7 +1880,7 @@ namespace Generic.Controllers
             if (!string.IsNullOrEmpty(accesscode))
             {
                 Session["accessCode"] = accesscode;
-                var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
+                var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(Session["accessCode"].ToString()).FirstOrDefault();
                 if (_pptq != null)
                 {
                     var _partnerId = _pptq.partner;

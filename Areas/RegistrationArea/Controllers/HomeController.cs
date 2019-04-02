@@ -129,7 +129,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 //objViewBag.QUESTIONNAIRE_DOC_OTHER = CMS.QUESTIONNAIRE_DOC_OTHER;
                 //objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = CMS.QUESTIONNAIRE_DOC_OTHER_2;
                 var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-                var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
 
                 var cmsId = 0;
 
@@ -244,7 +244,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 objViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
 
 
-                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 ViewBag.EmailVerification = false;
                 Session["CheckEmailAccessCode"] = true;
                 var cmsId = 0;
@@ -377,7 +377,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_SUBMIT_TEXT = "Login";
 
             int cmsId = 0;
-            var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             if (ppptq != null)
             {
                 _translator.PPTQ = ppptq;
@@ -846,7 +846,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
                 //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
                 var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-                var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 int cms_id = 0;
                 if (ppptq != null)
                 {
@@ -1020,7 +1020,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var objQuestionnaire = db.pr_getQuestionnaire(id).FirstOrDefault();
 
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var pptqid = pptq != null ? pptq.id : 0;
             if (objQuestionnaire != null)
             {
@@ -1149,7 +1149,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             autoMailMessage objamm = new autoMailMessage();
             objamm.subject = "Intelleges: Email Alert";
             objamm.text = partnerName.name + "(" + partnerName.email + ") answered '" + answer + "' to '" + question + "' for access code " + accessCode;
-            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
             var person = db.pr_getPerson(pptqObj.invitedBy).FirstOrDefault();
 
@@ -1253,7 +1253,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             autoMailMessage objamm = new autoMailMessage();
             objamm.subject = "Intelleges: Email Alert";
-            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var pptq = db.pr_getPartnertypeTouchpointQuestionnaire(ptqId).FirstOrDefault();
             var person = db.pr_getPerson(pptqObj.invitedBy).FirstOrDefault();
 
@@ -17232,7 +17232,7 @@ Intelleges Team";
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             if (!String.IsNullOrEmpty(accessCode))
             {
-                var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 if (_pptq != null)
                 {
                     var _partnerId = _pptq.partner;
