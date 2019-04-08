@@ -24031,5 +24031,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF", mergeOption, accesscodeParameter);
         }
+    
+        public virtual int pr_getV_PartnerFindByList(string accessCodeList)
+        {
+            var accessCodeListParameter = accessCodeList != null ?
+                new ObjectParameter("accessCodeList", accessCodeList) :
+                new ObjectParameter("accessCodeList", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getV_PartnerFindByList", accessCodeListParameter);
+        }
     }
 }

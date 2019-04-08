@@ -98,16 +98,21 @@
 								<input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
 							</div>
 							<div class="form-group">
-								<div class="row" style="height:34px;">
-									<div class="col-xs-9">
-										<button type="submit" class="btn btn-primary" name="submit">Send</button>
-									</div>
-									<div class="col-xs-3">
-										<div class="checkbox">
-											<label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
-										</div>
-									</div>
-								</div>
+                                <div class="row" style="height:34px;">
+                                    <div class="col-xs-6">
+                                        <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="checkbox">
+                                            <label style="font-size: 14px;"><input type="checkbox" id="reset" name="reset"/>Reset</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="checkbox">
+                                            <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
+                                        </div>
+                                    </div>
+                                </div>
 							</div>
 
 
@@ -150,18 +155,21 @@
 	@( Html.Telerik().Grid(Model).Name("PartnerGrid")
 
 
- .ToolBar(commands =>
-			{
-				commands.Template("<input style='width: 50px;' type='button' value='Go' id='btnGo' />");
-			})
+.ToolBar(commands =>
+{
+    commands.Template(
+        "<input style='width: 50px;' type='button' value='Go' id='btnGo' />" +
+        "<input style='width:200px;' type='button' value='Upload'/>" +
+        "<a href='#' style='width:200px;'>Download Template</a>");
+})
 
-		.Columns(columns =>
-		{
+    .Columns(columns =>
+    {
 
-			columns.Bound(o => o.IsSelected)
+    columns.Bound(o => o.IsSelected)
 
-				   .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
-				   .Template(@<text>
+               .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
+               .Template(@<text>
 
 
 					<input type='checkbox' id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
@@ -242,9 +250,6 @@
 
 	)
 </form>
-<div id="innerEmailDialog" title="Questionnaire Routing Form">
-	<p>Email dialog</p>
-</div>
 <div id="genericPopup" title=""></div>
 <style>
 	.t-grid-content tr > td:hover .menu_block + .display_menu {

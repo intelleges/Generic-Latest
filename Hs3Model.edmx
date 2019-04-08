@@ -8133,6 +8133,9 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         <Function Name="pr_getUserMaxTotalActiveUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="enterprise" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getV_PartnerFindByList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accessCodeList" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="pr_getViewPartnerDataByPartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -18512,7 +18515,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF" EntitySet="partnerPartnertypeTouchpointQuestionnaire" ReturnType="Collection(hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire)">
-            <Parameter Name="accesscode" Mode="In" Type="String" />
+          <Parameter Name="accesscode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getV_PartnerFindByList">
+            <Parameter Name="accessCodeList" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -44220,6 +44226,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage" />
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getV_PartnerFindByList" FunctionName="hs3MVCMTQa2Model.Store.pr_getV_PartnerFindByList" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
