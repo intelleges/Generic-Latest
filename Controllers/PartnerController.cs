@@ -1744,7 +1744,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string txtScoreFromFind, string txtScoreToFind, string txtAddedFromFind, string txtAddedToFind, string txtFullTextSearch, string accesscode, string searchType)
+        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string accesscode, string searchType)
         {
             db.xx_removePDFFrom5346();
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
@@ -1784,17 +1784,6 @@ namespace Generic.Controllers
                 arguments += "ContactEmail=" + txtContactEmailFind + ";";
             if (txtHROEmailFind != "")
                 arguments += "HROEmail=" + txtHROEmailFind + ";";
-            if (txtScoreFromFind != "")
-                arguments += "ScoreFrom=" + txtScoreFromFind + ";";
-            if (txtScoreToFind != "")
-                arguments += "ScoreTo=" + txtScoreToFind + ";";
-            if (txtAddedFromFind != "")
-                arguments += "AddedFrom=" + txtAddedFromFind + ";";
-            if (txtAddedToFind != "")
-                arguments += "AddedTo=" + txtAddedToFind + ";";
-            if (txtFullTextSearch != "")
-                arguments += "FullTextSearch=" + txtFullTextSearch + ";";
-
 
             Session["partnersearch"] = arguments;
             if (searchType == "Remove")
