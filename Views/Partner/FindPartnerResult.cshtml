@@ -640,7 +640,7 @@
     function resetPdf(accessCode, internalID, touchpoint) {
         $.get('@Url.Content("~/Partner/ResetPdf")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
 			if (data) {
-				alertify.alert("Pdf document was reset");
+				alertify.alert("PDF document was reset");
 			} else {
 				alertify.alert("Something went wrong, please try again later");
 			}
