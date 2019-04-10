@@ -244,7 +244,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 objViewBag.RETRIEVE_ACCESS_CODE_TEXT = CMS.RETRIEVE_ACCESS_CODE_TEXT;
 
 
-                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
                 ViewBag.EmailVerification = false;
                 Session["CheckEmailAccessCode"] = true;
                 var cmsId = 0;
