@@ -1838,7 +1838,7 @@ namespace Generic.Controllers
 
         public ActionResult ResetStatus(string accessCode, string internalID, int? touchpoint)
         {
-            var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var v = db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(pptq1.id).First();
             return Json(new { res = v }, JsonRequestBehavior.AllowGet);
         }
@@ -1847,7 +1847,7 @@ namespace Generic.Controllers
         {
             if (!string.IsNullOrEmpty(accessCode))
             {
-                var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 if (pptq1 != null)
                 {
                     db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq1.id)
