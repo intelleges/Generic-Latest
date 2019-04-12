@@ -928,7 +928,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 //objViewBag.QUESTIONNAIRE_VIDEO = CMS.QUESTIONNAIRE_VIDEO.Substring(0, 15);
                 //objViewBag.CONTACT_US_EMAIL = CMS.CONTACT_US_EMAIL.Substring(0, 15);
                 var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-                var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
 
                 var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
 
@@ -1903,7 +1903,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             try
             {
-                var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 int pptq = pptqObj.id;
                 db.pr_removeEsignatureByPPTQ(pptq);
                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq, 7);
@@ -1926,7 +1926,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             int pptq = pptqObj.id;
 
             var qid = db.pr_getQuestionnaireByAccesscode(accessCode).First().id;
@@ -2785,7 +2785,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return RedirectToAction("Default");
             }
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             _translator.PPTQ = ppptq_cms;
             ViewBagModel objViewBag = new ViewBagModel();
             objViewBag.CMS_PAGE_TITLE = CMS.COMPANY_EDIT_PAGE_TITLE;
@@ -2983,7 +2983,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             _translator.PPTQ = ppptq_cms;
 
             ViewBagModel objViewBag = new ViewBagModel();
@@ -3101,7 +3101,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             ViewBagModel objViewBag = new ViewBagModel();
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             objViewBag.CMS_PAGE_TITLE = CMS.CONTACT_EDIT_PAGE_TITLE;
             objViewBag.CMS_PAGE_SUBTITLE = CMS.CONTACT_EDIT_PAGE_SUBTITLE;
             objViewBag.CMS_PAGE_PANEL_ONE = CMS.CONTACT_EDIT_PAGE_PANEL_ONE;
@@ -3219,7 +3219,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 objViewBag.CMS_PAGE_PREVIOUS_TEXT = CMS.CONTACT_EDIT_PAGE_PREVIOUS_TEXT;
                 objViewBag.CMS_PAGE_NEXT_TEXT = CMS.CONTACT_EDIT_PAGE_NEXT_TEXT;
                 var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
                 if (ppptq_cms != null)
                 {
@@ -3415,7 +3415,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             objViewBag.CMS_PAGE_SUBTITLE = CMS.ESIGNATURE_PAGE_SUBTITLE;
             objViewBag.CMS_PAGE_PANEL_ONE = CMS.ESIGNATURE_PAGE_PANEL_ONE;
             objViewBag.CMS_PAGE_PANEL_TWO = CMS.ESIGNATURE_PAGE_PANEL_TWO;
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             int cmsId = 0;
             if (ppptq_cms != null)
             {
@@ -3589,7 +3589,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult SendInventation()
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             if (ppptq_cms != null)
             {
                 var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(ppptq_cms.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
@@ -3653,7 +3653,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             ViewBagModel objViewBag = new ViewBagModel();
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
 
             if (ppptq_cms != null)
             {
@@ -3944,7 +3944,7 @@ Intelleges Team";
             try
             {
                 var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-                var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptqCms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 _translator.PPTQ = ppptqCms;
                 int cmdId = 0;
                 var cmd = new pr_getQuestionnaireCMSAll_Result();
@@ -4056,7 +4056,7 @@ Intelleges Team";
                 //}
                 // above added by Suresh for test result down as pdf  on 22nd July 2014.
                 string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
 
                 if (ppptq_cms != null)
                 {
@@ -4231,7 +4231,7 @@ Intelleges Team";
             ViewBag.reslt2 = find;
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
             var pptq =
-                db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode)
+                db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode)
                     .FirstOrDefault();
             if (pptq != null)
             {
@@ -4287,7 +4287,7 @@ Intelleges Team";
             var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.reslt2 = find;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var partnerType = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var partnerType = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var _partnerId = partnerType != null ? partnerType.partner : -1;
             var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
@@ -4344,7 +4344,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var _partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq.id).FirstOrDefault();
             var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
@@ -5101,7 +5101,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -6101,7 +6101,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -6924,7 +6924,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -7748,7 +7748,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -8113,7 +8113,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -8478,7 +8478,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -8845,7 +8845,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -9211,7 +9211,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -9576,7 +9576,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -9935,7 +9935,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
@@ -10770,7 +10770,7 @@ Intelleges Team";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var partnerId = pptq != null ? pptq.partner : -1;
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
