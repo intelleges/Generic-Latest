@@ -3284,7 +3284,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 return RedirectToAction("Default");
             }
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             eSignature objeSignature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : 0).FirstOrDefault();
 
             var ppptq_cms = pptq;
@@ -3378,7 +3378,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             string currentEmail = Session["currentEmail"].ToString();
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
 
-            partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            partnerPartnertypeTouchpointQuestionnaire pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             if (ModelState.IsValid)
             {
 
