@@ -3425,7 +3425,7 @@ namespace Generic
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode", accesscodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF", accesscodeParameter);
         }
     
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(string accesscode, MergeOption mergeOption)
