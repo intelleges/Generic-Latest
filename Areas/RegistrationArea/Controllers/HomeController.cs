@@ -274,7 +274,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                     //try
                     //{
-                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "Index", questionareCMS:cms);
+                    var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq_cms, "Index", questionareCMS: cms);
 
                     objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                     objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
@@ -326,8 +326,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             catch (Exception exc)
             {
-                var m = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage (accessCode).FirstOrDefault();
-                if (!string.IsNullOrEmpty(m)) {
+                var m = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeMessage(accessCode).FirstOrDefault();
+                if (!string.IsNullOrEmpty(m))
+                {
 
                     var contactUs = 1;
                     ViewBag.returnUrl = "";
@@ -337,11 +338,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     ViewBag.EnterpriseId = contactUs;
 
                     var en = db.pr_getEnterpriseByAccessCode(accessCode).FirstOrDefault();
-                    if (en != null) {
+                    if (en != null)
+                    {
                         var ensystem = db.pr_getEnterpriseSystemInfoByEnterprise(en.id).FirstOrDefault();
-                        if (ensystem != null && !string.IsNullOrEmpty(ensystem.coordinatorEmail)) {
-                            if(m.Contains("[\"system administrator\" = coordinatorEmail]:coordinatoremail"))
-                            m = m.Replace("[\"system administrator\" = coordinatorEmail]:coordinatoremail", "<a href='mailto:"+          ensystem.coordinatorEmail + "'>system administrator (" + ensystem.coordinatorEmail + ")</a>");
+                        if (ensystem != null && !string.IsNullOrEmpty(ensystem.coordinatorEmail))
+                        {
+                            if (m.Contains("[\"system administrator\" = coordinatorEmail]:coordinatoremail"))
+                                m = m.Replace("[\"system administrator\" = coordinatorEmail]:coordinatoremail", "<a href='mailto:" + ensystem.coordinatorEmail + "'>system administrator (" + ensystem.coordinatorEmail + ")</a>");
                             /*else
                                 m = m.Replace("system administrator", "<a href='mailto:" + ensystem.coordinatorEmail + "'>system administrator ("+ ensystem.coordinatorEmail + ")</a>");*/
                         }
@@ -635,7 +638,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var cmsPagePanelTwo = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
                 if (cmsPagePanelTwo != null)
                     objViewBagModel.CMS_PAGE_PANEL_TWO = cmsPagePanelTwo.ApplyTags(tags);
-                
+
                 if (pageName != "Index")
                 {
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == pagePreviousText);
@@ -970,7 +973,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var questionnairCmsAll = db.pr_getQuestionnaireCMSAll().ToList();
                         try
                         {
-                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "ContactInformation", questionareCMS:cms);
+                            var model = GetPageTitles(cmsId, questionnairCmsAll, ptq, ppptq, "ContactInformation", questionareCMS: cms);
                             objViewBag.CMS_PAGE_TITLE = model.CMS_PAGE_TITLE;
                             objViewBag.CMS_PAGE_SUBTITLE = model.CMS_PAGE_SUBTITLE;
                             objViewBag.CMS_PAGE_PANEL_ONE = model.CMS_PAGE_PANEL_ONE;
@@ -1591,7 +1594,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     Session["accessLevel_displayed_questions"] = null;
                     Session["accessLevel_hidden_questions"] = null;
                     return goToNextPage(surveyId, jumpToQuestion, questionIndex, new question(), "", errorQuestion, errorMessage, page, pageNumber);
-                } else
+                }
+                else
                 {
                     Session["accessLevel_displayed_questions"] = null;
                     Session["accessLevel_hidden_questions"] = null;
@@ -2020,6 +2024,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             // int errorQuestion = 0;
             //  string errorMessage = "";
             string goEsignature = "";
+
             var cms = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(questionnaireId).FirstOrDefault();
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
@@ -2271,11 +2276,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             responseId = db.pr_getResponseByQuestion(questionId).FirstOrDefault().id;
                             responseComment = answer;
                             //byte bitwiseResponse = 0;
-                            var splitted = answer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(o => {
+                            var splitted = answer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(o =>
+                            {
                                 int result = -1;
                                 if (!int.TryParse(o, out result)) return -1; ;
                                 return result;
-                                }).Where(o=>o!=-1);
+                            }).Where(o => o != -1);
                             //foreach (var response in splitted)
                             //    bitwiseResponse |= response;
                             Session["accessLevel"] = splitted;
@@ -2379,8 +2385,18 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (saveForLaterButton == true)
             {
+                var cmsObj = db.pr_getQuestionnaireQuestionnaireCMSAllByQuestionnaire(questionnaireId).ToList();
+                var exitLink = cmsObj.FirstOrDefault(c => c.questionnaireCMS == 84)?.link;
+                var exitLinkIsOk = false;
+                if (exitLink != null)
+                    exitLinkIsOk = Uri.IsWellFormedUriString(exitLink, UriKind.RelativeOrAbsolute);
                 // TempData["message"] = "Your answers have been saved";
                 var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                pptqObj.status = 7;
+                
+                db.Entry(pptqObj).State = EntityState.Modified;
+                db.SaveChanges();
+                
                 if (amm != null)
                 {
                     Email email = new Email(amm);
@@ -2393,7 +2409,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     email.body = emailFormat.sGetEmailBody(email.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
                     email.emailTo = pptqObj.partner1.email;
                     email.url = Request.Url.ToString();
-                    email.category = SendGridCategory.QuestionnaireResponse;
+                    email.category = SendGridCategory.CompleteConfirmation;
                     email.automailMessage = amm.id.ToString();
 
                     SendEmail objSendEmail = new SendEmail();
@@ -2406,7 +2422,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         touchpoint = objtouchpoint
                     });
                 }
-                return RedirectToAction("SaveForLaterConfirm");
+                return Redirect(exitLinkIsOk ? exitLink : "www.intelleges.com");
                 //#region 20130222 new code
                 //SaveLater(questionnaire, question);
                 //#endregion
@@ -12534,7 +12550,7 @@ Intelleges Team";
                         ViewBag.Checkbox46778_71983 = item.response == 71983 ? _chacked : string.Empty;
                         break;
                     case 46779:
-                        ViewBag.Checkbox46779_Yes = item.response ==_responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox46779_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox46779_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
                     case 46781:
