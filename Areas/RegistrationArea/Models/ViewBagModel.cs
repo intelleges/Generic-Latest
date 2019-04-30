@@ -16,6 +16,7 @@ namespace Generic.Areas.RegistrationArea.Models
         public string QUESTIONNAIRE_PDF { get; set; }
         public string QUESTIONNAIRE_FAQ { get; set; }
         public string QUESTIONNAIRE_DOC_OTHER { get; set; }
+        public string QUESTIONNAIRE_DOC_OTHER_LINK { get; set; }
         public string QUESTIONNAIRE_VIDEO { get; set; }
         public string QUESTIONNAIRE_DOC_OTHER_2 { get; set; }
         public string REQUIRED_FIELDS { get; set; }

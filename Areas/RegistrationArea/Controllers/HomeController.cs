@@ -3985,8 +3985,12 @@ Intelleges Team";
                 cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER);
                 cmdId = cmd != null ? cmd.id : 0;
                 var questionnaireDocOther = _translator.Translate(ptqId, TranslationType.CMS, CurrentLanguage, cmdId);
+                var link = cms.FirstOrDefault(x => x.questionnaireCMS == cmdId);
+                var trainingLink = link != null ? link.link : "";
                 if (!string.IsNullOrEmpty(questionnaireDocOther))
                     objViewBagModel.QUESTIONNAIRE_DOC_OTHER = questionnaireDocOther;
+                if(!string.IsNullOrEmpty(trainingLink))
+                    objViewBagModel.QUESTIONNAIRE_DOC_OTHER_LINK = trainingLink;
                 ////Questionnaire_doc_other2
                 cmd = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.QUESTIONNAIRE_DOC_OTHER_2);
                 cmdId = cmd != null ? cmd.id : 0;

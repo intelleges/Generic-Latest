@@ -96,9 +96,9 @@
                                 {
                                     <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@formData.QUESTIONNAIRE_FAQ</a> </li>
                                 }
-                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER))
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER)&& !string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_LINK))
                                 {
-                                    <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_DOC_OTHER" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
+                                    <li><a href="@formData.QUESTIONNAIRE_DOC_OTHER_LINK" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
                                 }
                                 @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO_LINK))
                                 {
