@@ -1843,6 +1843,97 @@ namespace Generic.Controllers
             return Json(new { res = v }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ(int? pptq)
+        {
+            var QuestionnaireStatus = db.pr_getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ(pptq).First();
+            var statusText = ((PartnerStatus)QuestionnaireStatus).ToString();
+            return Json(new { response = new { StatusId = QuestionnaireStatus, StatusText = statusText } }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UploadManaul()
+        {
+            if(Request.Files.Count > 0)
+            {
+                var pdfFile = Request.Files[0];
+                if(null != pdfFile && pdfFile.ContentLength > 0)
+                {
+                    string accessCode = string.Empty;
+                    string comment = string.Empty;
+                    int? pptq = null;
+
+                    if (null != Request.Form["comment"])
+                    {
+                        comment = Convert.ToString(Request.Form["comment"]);
+                    }
+
+                    if (null != Request.Form["accessCode"])
+                    {
+                        accessCode = Convert.ToString(Request.Form["accessCode"]);
+                    }
+
+                    if (null != Request.Form["pptq"])
+                    {
+                        int pptqvalue;
+                        if(int.TryParse(Convert.ToString(Request.Form["pptq"]), out pptqvalue))
+                        {
+                            pptq = pptqvalue;
+                        }
+                    }
+
+                    byte[] pdfFileData = null;
+                    using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
+                    {
+                        pdfFileData = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                    }
+
+                    var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                    int? personId = SessionSingleton.LoggedInUserId;
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(pptq, pdfFileData, person.id, comment);
+                    SendManualUploadEmail(accessCode, person, pptq);
+                    return Json(new { data = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { data = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void SendManualUploadEmail(string accessCode, person person, int? pptq)
+        {
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            if (null != pptqObj)
+            {
+                var response = db.pr_getAutoMailmessageByMailtypeandPTQ((int)AutoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                if(null != response)
+                {
+                    Email email = new Email(response);
+                    var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
+                    email.accesscode = pptqObj.accesscode;
+
+                    email.protocolTouchpoint = objtouchpoint.description;
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.subject = emailFormat.sGetEmailBody(response.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email.body = emailFormat.sGetEmailBody(email.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,                                                                                                objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+
+                    var partner = db.pr_getPartnerByPPTQ(pptq).FirstOrDefault();
+                    email.emailTo = partner.email + ";" + person.email;
+                    email.url = Request.Url.ToString();
+                    email.category = SendGridCategory.CompleteConfirmation;
+                    email.automailMessage = response.id.ToString();
+                    email.type = "emailAlert";
+
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email, new EmailFormatSettings()
+                    {
+                        sender = person,
+                        enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                        partner = pptqObj.partner1,
+                        ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                        touchpoint = objtouchpoint
+                    },new System.Net.Mail.MailAddress(person.email, person.FullName));
+                }
+            }
+        }
+
         public ActionResult ResetPdf(string accessCode, string internalID, int? touchpoint)
         {
             if (!string.IsNullOrEmpty(accessCode))

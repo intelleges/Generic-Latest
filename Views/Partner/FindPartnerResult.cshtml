@@ -55,11 +55,11 @@
                     <div class="modal-body">
                         @*<button class="buttons glyphicon glyphicon-plus float-right" title="Add new document"></button>*@
                         @*<form>
-                                <div class="form-group">
-                                    <label for="uploadedFile">Upload  file</label>
-                                    <input type="file" class="form-control" id="uploadedFile" />
-                                </div>
-                            </form>*@
+                            <div class="form-group">
+                                <label for="uploadedFile">Upload  file</label>
+                                <input type="file" class="form-control" id="uploadedFile" />
+                            </div>
+                        </form>*@
 
                     </div>
                 </div>
@@ -81,6 +81,42 @@
                 </div>
             </div>
         </div>
+
+        @*Manual Upload dialog*@
+        <div class="modal fade" id="manual_upload_dialog" role="dialog" aria-labelledby="manual_uploadLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Add a document</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="model-upload-manual">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="manualuploadfile">Choose a file</label>
+                                <div class="clear-fix"></div>
+                                <input type="file" class="form-control" id="manualuploadfile" name="manualuploadfile" accept="application/pdf" data-val-required="*" data-val="true" />
+                                <label>Upload PDF only(less than 2MB)</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="txt-manual-upload-comment" class="control-label col-sm-4">Add a comment</label>
+                                <div class="clear-fix"></div>
+                                <textarea class="form-control" rows="8" id="txt-manual-upload-comment" style="height: auto;"></textarea>
+                                <input type="hidden" id="manual-upload-accesscode" />
+                                <input type="hidden" id="manual-upload-pptq" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnUploadManual">Ok</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*End of Manual Upload dialog*@
     </div>
 </div>
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
@@ -496,9 +532,63 @@
 
 		window.location.replace(window.location.href);
     }
-    function ManualUpload() {
 
+    function ManualUpload(accessCode, pptq) {
+        $.get('@Url.Content("~/Partner/getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ")' + '?pptq=' + pptq, function (data) {
+            if (data.response.StatusId === 6 || data.response.StatusId === 7){
+                ProcessManualUpload(accessCode, pptq);
+			} else {
+                alertify.alert("You’re not permitted to add files manually for " + accessCode + " with " + data.response.StatusText + " status. Please contact your system administrator.");
+			}
+		});
     }
+
+    function ProcessManualUpload(accessCode, pptq) {
+        alertify.confirm("Are you sure? After you upload valid document this will set " + accessCode + " to status RESPONDED COMPLETE.", function (e) {
+            if (e) {
+                // click yes
+                ShowManualUploadDailog(accessCode, pptq);
+
+            } else {
+                // click no
+            }
+        });
+    }
+
+    function ShowManualUploadDailog(accessCode, pptq) {
+        $('div#manual_upload_dialog #manual-upload-accesscode').val(accessCode);
+        $('div#manual_upload_dialog #manual-upload-pptq').val(pptq);
+        $('div#manual_upload_dialog #txt-manual-upload-comment').val('');
+        $('div#manual_upload_dialog #manualuploadfile').val(null);
+        $('#manual_upload_dialog').modal('show');
+    }
+
+    $(document.body).on('click', 'div#manual_upload_dialog #btnUploadManual', function (e) {
+        if ($('div#manual_upload_dialog #manualuploadfile').val()) {
+            var formData = new FormData();
+            var pdfFile = $('div#manual_upload_dialog #manualuploadfile')[0].files[0];
+            formData.append('pdfFile', pdfFile);
+            formData.append('comment', $('div#manual_upload_dialog #txt-manual-upload-comment').val());
+            formData.append('accessCode', $('div#manual_upload_dialog #manual-upload-accesscode').val());
+            formData.append('pptq', $('div#manual_upload_dialog #manual-upload-pptq').val());
+            $.ajax({
+            type: "POST",
+            url: '@Url.Action("UploadManaul", "Partner")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+                success: function (response) {
+                    if (response.data) {
+                        $('#manual_upload_dialog').modal('hide');
+                        alertify.alert("Manual PDF Uploaded.");
+                    }
+            },
+            error: function (error) {
+            }
+        });
+        }
+    });
 
 	function remind(accessCodeValue) {
 		$.post("Remind", { accessCode: accessCodeValue }).done(function (result) {

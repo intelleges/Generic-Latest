@@ -3425,7 +3425,7 @@ namespace Generic
                 new ObjectParameter("accesscode", accesscode) :
                 new ObjectParameter("accesscode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF", accesscodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partnerPartnertypeTouchpointQuestionnaire>("pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode", accesscodeParameter);
         }
     
         public virtual ObjectResult<partnerPartnertypeTouchpointQuestionnaire> pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(string accesscode, MergeOption mergeOption)
@@ -24039,6 +24039,36 @@ namespace Generic
                 new ObjectParameter("accessCodeList", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getV_PartnerFindByList", accessCodeListParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(Nullable<int> pptq, byte[] pdf, Nullable<int> person, string comment)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var pdfParameter = pdf != null ?
+                new ObjectParameter("pdf", pdf) :
+                new ObjectParameter("pdf", typeof(byte[]));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload", pptqParameter, pdfParameter, personParameter, commentParameter);
         }
     }
 }
