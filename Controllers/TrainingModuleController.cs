@@ -61,7 +61,7 @@ namespace Generic.Controllers
 {
     [Authorize]
     [EnableCors(origins: "http://localhost:51090", headers: "*", methods: "*")]
-    public class TrainingController : Controller
+    public class TrainingModuleController : Controller
     {
         /// <summary>
         /// The Simple Authorizer
@@ -76,7 +76,7 @@ namespace Generic.Controllers
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             Session["partnersearch"] = arguments;
-            return RedirectToAction("FindTrainingResult");
+            return RedirectToAction("FindModuleResult");
 
         }
         [HttpPost]
@@ -1695,7 +1695,7 @@ namespace Generic.Controllers
             }
             else
             {
-                return RedirectToAction("FindPartner");
+                return RedirectToAction("FindModule");
             }
         }
         public ActionResult RestorePartner()
@@ -1719,7 +1719,7 @@ namespace Generic.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult FindPartner(string searchType)
+        public ActionResult FindModule(string searchType)
         {
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
 
@@ -1744,7 +1744,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string accesscode, string searchType)
+        public ActionResult FindModule(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string accesscode, string searchType)
         {
             db.xx_removePDFFrom5346();
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
@@ -1808,11 +1808,11 @@ namespace Generic.Controllers
             }
             else
             {
-                return RedirectToAction("FindPartnerResult");
+                return RedirectToAction("FindModuleResult");
             }
         }
 
-        public ActionResult FindPartnerResult()
+        public ActionResult FindModuleResult()
         {
             try
             {
@@ -1826,7 +1826,7 @@ namespace Generic.Controllers
             catch
             {
                 if (!Response.IsRequestBeingRedirected)
-                    return RedirectToAction("FindPartner");
+                    return RedirectToAction("FindModule");
                 else return Json("false");
             }
 
@@ -1996,7 +1996,7 @@ namespace Generic.Controllers
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
                 //Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
-            return RedirectToAction("FindPartnerResult");
+            return RedirectToAction("FindModuleResult");
 
         }
         public ActionResult PrintHTML(string accesscode)
@@ -2008,7 +2008,7 @@ namespace Generic.Controllers
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
                 return Redirect("~/Registration/Home/OrdersInHTML");
             }
-            return RedirectToAction("FindPartnerResult");
+            return RedirectToAction("FindModuleResult");
 
         }
 

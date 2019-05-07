@@ -672,7 +672,7 @@
     <Compile Include="Controllers\LinkedInConnectionController.cs" />
     <Compile Include="Controllers\LinkedInController.cs" />
     <Compile Include="Controllers\MerckController.cs" />
-    <Compile Include="Controllers\TrainingController.cs" />
+    <Compile Include="Controllers\TrainingModuleController.cs" />
     <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PartnerTypeController.cs" />
     <Compile Include="Controllers\PODController.cs" />
@@ -5990,13 +5990,13 @@
     <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionNo.cshtml" />
     <Content Include="Views\Questionnaire\QuestionnaireDetailQuestionUnlock.cshtml" />
     <Content Include="Views\Person\RestorePerson.cshtml" />
-    <Content Include="Views\Training\Create.cshtml" />
-    <Content Include="Views\Training\Delete.cshtml" />
-    <Content Include="Views\Training\Details.cshtml" />
-    <Content Include="Views\Training\Edit.cshtml" />
-    <Content Include="Views\Training\FindTraining.cshtml" />
-    <Content Include="Views\Training\FindTrainingResult.cshtml" />
-    <Content Include="Views\Training\Index.cshtml" />
+    <Content Include="Views\TrainingModule\Create.cshtml" />
+    <Content Include="Views\TrainingModule\Delete.cshtml" />
+    <Content Include="Views\TrainingModule\Details.cshtml" />
+    <Content Include="Views\TrainingModule\Edit.cshtml" />
+    <Content Include="Views\TrainingModule\FindModule.cshtml" />
+    <Content Include="Views\TrainingModule\FindModuleResult.cshtml" />
+    <Content Include="Views\TrainingModule\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
