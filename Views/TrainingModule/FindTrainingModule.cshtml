@@ -1,0 +1,260 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using Generic.Helpers;
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Find Training Module";
+}
+<style>
+    #panelFind select {
+        width: 300px;
+    }
+
+    .txtBox1 {
+        width: 205px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none;
+        margin: 0 0 0 0;
+    }
+
+    .txtBox {
+        width: 205px;
+        border-style: inset;
+        border-left-width: 2px;
+        border-top-width: 2px;
+        height: 15px;
+        border-bottom: none;
+        border-right: none;
+    }
+
+    .t-input {
+        height: 16px;
+    }
+
+    #panelFind td {
+        padding: 0 0 0 0;
+    }
+</style>
+<h2>Find Training Module</h2>
+
+<script type="text/javascript">
+    function clearInputs() {
+        $("#panelFind #inputTable input, #panelFind #inputTable select").val("");
+    }
+        function getDatePicker(){
+            var datepicker = $("#DatePicker").data("tDatePicker");
+            return datepicker;
+        }
+
+
+        jQuery(document).ready(function () {
+            //$(function () {
+            $('#touchpoint').change(function () {
+
+
+
+                var objtouchpointID = $('#touchpoint').val();
+
+
+                if (objtouchpointID == "") {
+                    objtouchpointID = 0;
+                }
+
+                var formData = { touchpointId: objtouchpointID };
+
+                $.ajax({
+                    url: "@Url.Content("~/Group/GetGroupByTouchpoint")",
+                    type: "post",
+                    data: formData,
+                    success: function (data) {
+                        var len = data.Data.length;
+                        var i = 0;
+                        var groupSelectList = "<option value=''></option>";
+                        for (i = 0; i < len; i++) {
+                            groupSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                        }
+
+                        $('#group').html(groupSelectList);
+
+
+                    },
+                    error: function (data) {
+                        var touchpointSelectList = "<option value=''></option>";
+                        $('#group').html(touchpointSelectList);
+                    }
+                });
+
+
+
+                $.ajax({
+                    url: "@Url.Content("~/PartnerType/GetPartnerTypeByTouchpoint")",
+                     type: "post",
+                     data: formData,
+                     success: function (data) {
+                         var len = data.Data.length;
+                         var i = 0;
+                         var partnerTypeSelectList = "<option value=''></option>";
+                         for (i = 0; i < len; i++) {
+                             partnerTypeSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
+                         }
+
+                         $('#partnertype').html(partnerTypeSelectList);
+
+
+                     },
+                     error: function (data) {
+                         var partnerTypeSelectList = "<option value=''></option>";
+                         $('#partnertype').html(partnerTypeSelectList);
+                     }
+                 });
+
+            });
+        });
+
+</script>
+
+<form id="FindpartnerForm" method="post" enctype="multipart/form-data">
+
+    <div id="panelFind">
+
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+
+        <table width="70%;" id="inputTable" style="float:left" border="0">
+            <tbody>
+                <tr>
+                    <td class="tLeftColumn">Touchpoint </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.DropDownList("touchpoint", String.Empty)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Type</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.DropDownList("partnertype", String.Empty)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Status</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.DropDownList("partnerStatus", String.Empty)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">
+                        <span id="lblGroupFind">Group</span>
+                    </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.DropDownList("group", String.Empty)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Name</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtNameFind" class="txtBox1" type="text" name="txtNameFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Internal ID (EID)</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtInternalIdFind" class="txtBox1" type="text" name="txtInternalIdFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Access Code</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="accesscode" class="txtBox1" type="text" name="accesscode">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Author Email</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtContactEmailFind" class="txtBox1" type="text" name="txtContactEmailFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Category</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtHROEmailFind" class="txtBox1" type="text" name="txtHROEmailFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Source</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtDunsNumberFind" class="txtBox1" type="text" name="txtDunsNumberFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Federal ID</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtFederalIdFind" class="txtBox1" type="text" name="txtFederalIdFind">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="tLeftColumn">Zip Code</td>
+                    <td width="5%"></td>
+                    <td class="tRightColumn">
+                        <input id="txtZipCodeFind" class="txtBox1" type="text" name="txtZipCodeFind">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tLeftColumn">Country</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style="width:210px;"} )
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table style="float:left">
+            <tr>
+                <td></td>
+                <td>
+
+                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height:28px" name="btnFind">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height:28px" name="btnCancel">
+
+
+
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" value="Clear" onclick="clearInputs()" style="width: 100px; height:28px">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" value="Upload" style="width: 100px; height:28px">
+                    <a href="#">Download Template</a>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</form>

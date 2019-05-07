@@ -1,0 +1,196 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Training Module";
+}
+
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Training Module</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.enterprise1.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.enterprise1.description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.internalID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.internalID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.address1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.address1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.address2)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.address2)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.city)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.city)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.state)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.state)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.province)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.province)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.zipcode)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.zipcode)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.country)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.country)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.phone)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.fax)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fax)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.firstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.firstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dunsNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dunsNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.federalID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.federalID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.status)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.status)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.loadHistory)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.loadHistory)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.owner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.owner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.author)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.author)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dateApproved)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dateApproved)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.lastModified)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lastModified)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

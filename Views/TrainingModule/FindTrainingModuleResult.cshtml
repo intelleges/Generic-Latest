@@ -1,0 +1,958 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_PartnerData>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Training";
+}
+@section header{
+    <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+}
+<style>
+    div#PartnerGrid {
+        font-size: 11px;
+    }
+
+    #modal {
+        height: 489px;
+    }
+
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
+
+    .modal-dialog {
+        z-index: 1050;
+    }
+
+    #partnersDocGrid {
+        font-size: 11px;
+    }
+
+        #partnersDocGrid .t-header {
+            padding: .8em .8em !important;
+        }
+</style>
+<script>
+
+</script>
+
+<div class="tw-bs">
+    <div class="container">
+        <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Print existing documents</h4>
+                    </div>
+                    <div class="modal-body">
+                        @*<button class="buttons glyphicon glyphicon-plus float-right" title="Add new document"></button>*@
+                        @*<form>
+                            <div class="form-group">
+                                <label for="uploadedFile">Upload  file</label>
+                                <input type="file" class="form-control" id="uploadedFile" />
+                            </div>
+                        </form>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editLCE" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Edit LC&amp;E Checklist Form</h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Manual Upload dialog*@
+        <div class="modal fade" id="manual_upload_dialog" role="dialog" aria-labelledby="manual_uploadLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Add a document</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="model-upload-manual">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="manualuploadfile">Choose a file</label>
+                                <div class="clear-fix"></div>
+                                <input type="file" class="form-control" id="manualuploadfile" name="manualuploadfile" accept="application/pdf" data-val-required="*" data-val="true" />
+                                <label>Upload PDF only(less than 2MB)</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="txt-manual-upload-comment" class="control-label col-sm-4">Add a comment</label>
+                                <div class="clear-fix"></div>
+                                <textarea class="form-control" rows="8" id="txt-manual-upload-comment" style="height: auto;"></textarea>
+                                <input type="hidden" id="manual-upload-accesscode" />
+                                <input type="hidden" id="manual-upload-pptq" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnUploadManual">Ok</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*End of Manual Upload dialog*@
+    </div>
+</div>
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+                .ToolBar(commands => commands
+                .Custom()
+                .HtmlAttributes(new { id = "export" })
+                .Text("Export to Excel")
+                .Action("ExportExcel", "Training"))
+
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
+                    columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
+                        @{
+
+                                        var columnData = item.PartnerName;
+                                        var width = 30;
+                                        var visibleText = string.Empty;
+                                        if (columnData != null)
+                                        {
+                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                        }
+                            <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
+                        }
+                        <div class="display_menu" style="display: none;">
+                            <ul>
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
+
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit</a></li>
+
+                                <li>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Get PDF</a></li>
+
+                                <li><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
+
+
+                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
+
+                                <li style='display:@(!Generic.SessionClass.SessionSingleton.IsSystemMaster?"none":"inherit")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
+
+                                @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
+                                            {
+                                    <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                                            }
+
+                                @*
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+
+                                    <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+
+                                    <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
+                                *@
+                            </ul>
+                        </div>
+                    </text>);
+                            columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
+
+                                @{
+                                                var columnData = item.status;
+                                                var width = 20;
+                                                var visibleText = string.Empty;
+                                                if (columnData != null)
+                                                {
+                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                }
+                                    <p title="@columnData">@visibleText</p>
+                                }
+
+
+                            </text>);
+                                    columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
+
+                                        @{
+                                                        var columnData = item.Contact;
+                                                        var width = 30;
+                                                        var visibleText = string.Empty;
+                                                        if (columnData != null)
+                                                        {
+                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                        }
+                                            <p title="@columnData">@visibleText</p>
+                                        }
+
+
+                                    </text>);
+                                            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
+
+                                                @{
+                                                                var columnData = item.AccessCode;
+                                                                var width = 8;
+                                                                var visibleText = string.Empty;
+                                                                if (columnData != null)
+                                                                {
+                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                }
+
+                                                    <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
+
+                                                                if (!string.IsNullOrEmpty(visibleText))
+                                                                {
+                                                        <div class="display_menu" style="display: none;">
+                                                            <ul>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'>
+                                                                    <a href="javascript:remind('@item.AccessCode')">
+                                                                        Remind
+                                                                    </a>
+                                                                </li>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (racix.net)</a></li>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Rescind</a></li>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Remove</a></li>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Retrieve</a></li>
+                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
+                                                            </ul>
+                                                        </div>
+                                                                }
+                                                }
+                                            </text>);
+                                                    columns.Bound(o => o.progress).Title("Cert Progress %").Width(120).Template(@<text>
+                                                        @{
+                                                            <div style="text-align: center;">@item.progress</div>
+                                                        }
+                                                    </text>);
+                                                            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text>
+
+                                                                        @{
+                                                                                        var columnData = item.ContactEmail;
+                                                                                        var width = 20;
+                                                                                        var visibleText = string.Empty;
+                                                                                        if (columnData != null)
+                                                                                        {
+                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                        }
+                                                                            <a title="@columnData" href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode&listing=y');">@visibleText</a>
+                                                                        }
+
+
+                                                            </text>);
+
+                                                                    columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
+
+                                                                        @{
+                                                                                        var columnData = item.ContactTitle;
+                                                                                        var width = 12;
+                                                                                        var visibleText = string.Empty;
+                                                                                        if (columnData != null)
+                                                                                        {
+                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                        }
+                                                                            <p title="@columnData">@visibleText</p>
+                                                                        }
+
+
+                                                                    </text>);
+
+                                                                            columns.Bound(o => o.owner).Title("Owner").Width(100).Template(@<text>
+
+                                                                                @{
+                                                                                                var columnData = item.owner;
+                                                                                                var width = 14;
+                                                                                                var visibleText = string.Empty;
+                                                                                                if (columnData != null)
+                                                                                                {
+                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                }
+                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                }
+
+
+                                                                            </text>); ;
+                                                                                    columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
+
+                                                                                        @{
+                                                                                                        var columnData = item.Country;
+                                                                                                        var width = 13;
+                                                                                                        var visibleText = string.Empty;
+                                                                                                        if (columnData != null)
+                                                                                                        {
+                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                        }
+                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                        }
+
+
+                                                                                    </text>);
+                                                                                            columns.Bound(o => o.city).Title("City").Width(100).Template(@<text>
+
+                                                                                                @{
+                                                                                                                var columnData = item.city;
+                                                                                                                var width = 10;
+                                                                                                                var visibleText = string.Empty;
+                                                                                                                if (columnData != null)
+                                                                                                                {
+                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                }
+                                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                                }
+
+
+                                                                                            </text>);
+                                                                                                    columns.Bound(o => o.state).Title("State").Width(50).Template(@<text>
+
+                                                                                                        @{
+                                                                                                                        var columnData = item.state;
+                                                                                                                        var width = 5;
+                                                                                                                        var visibleText = string.Empty;
+                                                                                                                        if (columnData != null)
+                                                                                                                        {
+                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                        }
+                                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                                        }
+
+
+                                                                                                    </text>); ;
+
+                                                                                                            columns.Bound(o => o.address).Title("Address").Width(150).Template(@<text>
+
+                                                                                                                @{
+                                                                                                                                var columnData = item.address;
+                                                                                                                                var width = 20;
+                                                                                                                                var visibleText = string.Empty;
+                                                                                                                                if (columnData != null)
+                                                                                                                                {
+                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                }
+                                                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                                                }
+
+
+                                                                                                            </text>);
+                                                                                                                    columns.Bound(o => o.zipcode).Title("Zipcode").Width(80).Template(@<text>
+
+                                                                                                                        @{
+                                                                                                                                        var columnData = item.zipcode;
+                                                                                                                                        var width = 10;
+                                                                                                                                        var visibleText = string.Empty;
+                                                                                                                                        if (columnData != null)
+                                                                                                                                        {
+                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                        }
+                                                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                                                        }
+
+
+                                                                                                                    </text>);
+
+                                                                                                                            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150).Template(@<text>
+
+                                                                                                                                @{
+                                                                                                                                                var columnData = item.Touchpoint;
+                                                                                                                                                var width = 25;
+                                                                                                                                                var visibleText = string.Empty;
+                                                                                                                                                if (columnData != null)
+                                                                                                                                                {
+                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                }
+                                                                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                                                                }
+
+
+                                                                                                                            </text>);
+                                                                                                                                    columns.Bound(o => o.Partnertype).Title("Partnertype").Width(120).Template(@<text>
+
+                                                                                                                                        @{
+                                                                                                                                                        var columnData = item.Partnertype;
+                                                                                                                                                        var width = 20;
+                                                                                                                                                        var visibleText = string.Empty;
+                                                                                                                                                        if (columnData != null)
+                                                                                                                                                        {
+                                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                        }
+                                                                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                                                                        }
+
+
+                                                                                                                                    </text>);
+                                                                                                                                            columns.Bound(o => o.Group).Title("Group").Width(70).Template(@<text>
+
+                                                                                                                                                @{
+                                                                                                                                                                var columnData = item.Group;
+                                                                                                                                                                var width = 7;
+                                                                                                                                                                var visibleText = string.Empty;
+                                                                                                                                                                if (columnData != null)
+                                                                                                                                                                {
+                                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                }
+                                                                                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                                                                                }
+
+
+                                                                                                                                            </text>);
+                                                                                                                                                    columns.Bound(o => o.phone).Title("Phone").Width(100);
+
+
+                                                                                                                                                })
+                                                                                                                                                                                                                                                                                                .DataKeys(keys => keys.Add(o => o.internalID))
+                                                                                                                                                                                                                                                                                                .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                                                                                                                                                                                                                                                                                                .Sortable(sorting => sorting.Enabled(true))
+
+                                                                                                                                                                                                                                                                                                .Scrollable(scrolling => scrolling
+                                                                                                                                                                                                                                                                                                .Enabled(true)
+                                                                                                                                                                                                                                                                                                .Height(380))
+                                                                                                                                                                                                                                                                                                .HtmlAttributes(new { @class = "ra" })
+
+
+
+)
+
+<div id="EmailDialog" title="Questionnaire Routing Form">
+    <p>Email dialog</p>
+</div>
+<div id="genericPopup" title=""></div>
+<style>
+    .t-grid-content {
+        overflow-x: scroll !important;
+    }
+
+        .t-grid-content tr > td:hover .menu_block + .display_menu {
+            display: block !important;
+        }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+
+    #madalEmailForm .table td[colspan='5'] {
+        text-align: center;
+    }
+</style>
+@*<script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
+<script type="text/javascript">
+
+	function printDocs(accessCode) {
+
+		//var grid = $("#partnersDocGrid").data("tGrid");
+		// grid.ajax.selectUrl = "/Partner/ShowDocs/?accessCode=" + accessCode;
+		//grid.ajaxRequest();
+		grid.rebind({ accessCode: accessCode });
+		//$("#emailDialog").modal("toggle");
+		@*$.post("ShowDocs", { accessCode: accessCode }).done(function (result) {
+            //if (result.length) {
+                $("#madalEmailForm").html("");
+                $("#madalEmailForm").append("<table class='table table-hover'></table>");
+                $("#madalEmailForm table").append("<th><td>Title</td><td>Doc Type</td><td>Upload Date</td><td>Uploaded by</td></th>");
+                if (!result.length) {
+                    $("#madalEmailForm table").append("<tr><td colspan='5'>There is no any documents</td></tr>");
+                }
+
+                for (var i = 0; i < result.length; i++) {
+                    //$("#madalEmailForm table").append("<tr><td></td><td></td><td></td><td></td><td></td></tr>");
+                   // $("#madalEmailForm").append("<p><a href='@Url.Action("DownloadPdf", "Partner")/" + result[i].id + "/?accessCode=" + accessCode + "' target='_blank'>" + result[i].title + "</p>");
+                }
+
+           // } else {
+               // alertify.alert('There are no available documents for this partner.');
+           // }
+        });*@
+	}
+	$(function () {
+		//jQuery.noConflict();
+		$("#EmailDialog").dialog({
+			autoOpen: false
+		});
+
+		$('#popup').bind('dialogclose', function (event) {
+			window.location.replace(window.location.href);
+		});
+
+
+
+	});
+
+	function RedirectScreen(url) {
+		window.location.replace(url);
+	}
+	var currentPTQAccessCode = null;
+	function changePTQ(accessCode) {
+		currentPTQAccessCode = accessCode;
+		$("#ptqList").data("tDropDownList").reload();
+		$("#changePtqDialog").modal("toggle");
+	}
+
+	function CloseMe() {
+		$("#genericPopup").dialog('close');
+		//$(".t-icon .t-refresh").trigger('click');
+
+		window.location.replace(window.location.href);
+    }
+
+    function ManualUpload(accessCode, pptq) {
+        $.get('@Url.Content("~/Partner/getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ")' + '?pptq=' + pptq, function (data) {
+            if (data.response.StatusId === 6 || data.response.StatusId === 7){
+                ProcessManualUpload(accessCode, pptq);
+			} else {
+                alertify.alert("You’re not permitted to add files manually for " + accessCode + " with " + data.response.StatusText + " status. Please contact your system administrator.");
+			}
+		});
+    }
+
+    function ProcessManualUpload(accessCode, pptq) {
+        alertify.confirm("Are you sure? After you upload valid document this will set " + accessCode + " to status RESPONDED COMPLETE.", function (e) {
+            if (e) {
+                // click yes
+                ShowManualUploadDailog(accessCode, pptq);
+
+            } else {
+                // click no
+            }
+        });
+    }
+
+    function ShowManualUploadDailog(accessCode, pptq) {
+        $('div#manual_upload_dialog #manual-upload-accesscode').val(accessCode);
+        $('div#manual_upload_dialog #manual-upload-pptq').val(pptq);
+        $('div#manual_upload_dialog #txt-manual-upload-comment').val('');
+        $('div#manual_upload_dialog #manualuploadfile').val(null);
+        $('#manual_upload_dialog').modal('show');
+    }
+
+    $(document.body).on('click', 'div#manual_upload_dialog #btnUploadManual', function (e) {
+        if ($('div#manual_upload_dialog #manualuploadfile').val()) {
+            var formData = new FormData();
+            var pdfFile = $('div#manual_upload_dialog #manualuploadfile')[0].files[0];
+            formData.append('pdfFile', pdfFile);
+            formData.append('comment', $('div#manual_upload_dialog #txt-manual-upload-comment').val());
+            formData.append('accessCode', $('div#manual_upload_dialog #manual-upload-accesscode').val());
+            formData.append('pptq', $('div#manual_upload_dialog #manual-upload-pptq').val());
+            $.ajax({
+            type: "POST",
+            url: '@Url.Action("UploadManaul", "Partner")',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+                success: function (response) {
+                    if (response.data) {
+                        $('#manual_upload_dialog').modal('hide');
+                        alertify.alert("Manual PDF Uploaded.");
+                    }
+            },
+            error: function (error) {
+            }
+        });
+        }
+    });
+
+	function remind(accessCodeValue) {
+		$.post("Remind", { accessCode: accessCodeValue }).done(function (result) {
+
+			if (result) {
+				alertify.alert(result);
+			}
+		});
+	}
+
+	function sms(accessCode) {
+		$.post("SendRemindSms", { accessCode: accessCode }).done(function (result) {
+			if (result) {
+				alertify.alert(result);
+			}
+		});
+	}
+
+
+	function OpenEmailDialog(ac) {
+		//jQuery.noConflict();
+
+		$.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
+
+			$("#EmailDialog").html(data);
+			$("#EmailDialog").dialog({
+				width: 1200,
+				height: 1000,
+			});
+			$("#EmailDialog").dialog('open');
+		});
+	}
+	$('#menu_block').hover(function () {
+		// alert("call");
+		$('#display_menu').show();
+	}, function () {
+		$('#display_menu').hide();
+	})
+
+	$('#menu_block').mouseenter(function () {
+		$('#display_menu').show();
+	}).mouseleave(function () {
+
+		$('#display_menu').hide();
+
+	});
+
+    function openEditPopup(id, touchpointId, accessCode) {
+        if (touchpointId == 4235) {
+            $.get("@Url.Content("~/LCE/EditPartial?accessCode=")" + accessCode + '&_=' + new Date().getTime(), function (data) {
+                $("#editLCE .modal-body").html(data);
+                $("#editLCE").modal("toggle");
+            });
+        } else {
+            $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
+                $("#genericPopup").html(data);
+                $("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+                $("#genericPopup").dialog('open');
+		});
+
+
+        }
+
+		//$("#genericPopup").dialog({ height: 600, title: "Edit/Correct" });
+		//$("#genericPopup").dialog('open');
+	}
+
+	function openRemovePopup(id, internalid, name) {
+
+
+
+		alertify.set({
+			labels: {
+				ok: "No",
+				cancel: "Yes"
+			},
+			buttonFocus: "cancel"
+		});
+		// button labels will be "Accept" and "Deny"
+		alertify.confirm("You are about to Remove " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+			if (e) {
+				// Click no
+			} else {
+				// click yes
+
+				$.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+					// $(".t-icon .t-refresh").trigger('click');
+					window.location.replace(window.location.href);
+				});
+
+			}
+		});
+
+
+	}
+
+
+	function openArchivePopup(id, internalid, name) {
+
+
+
+		alertify.set({
+			labels: {
+				ok: "No",
+				cancel: "Yes"
+			},
+			buttonFocus: "cancel"
+		});
+		// button labels will be "Accept" and "Deny"
+		alertify.confirm("You are about to Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+			if (e) {
+				// Click no
+			} else {
+				// click yes
+
+				$.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+					// $(".t-icon .t-refresh").trigger('click');
+					window.location.replace(window.location.href);
+				});
+
+			}
+		});
+
+
+	}
+
+	function openViewDetailPopup(id) {
+		$("#genericPopup").html("<p>Loading Data...</p>");
+		$.get("@Url.Content("~/Partner/Details/")" + id, function (data) {
+			$("#genericPopup").html(data);
+		});
+		$("#genericPopup").dialog({ height: 600, title: "View Detail" });
+		$("#genericPopup").dialog('open');
+	}
+
+	function openCompletePopup(accesscode) {
+		$("#genericPopup").html("<p>Loading Data...</p>");
+		$.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
+			$("#genericPopup").html(data);
+		});
+		$("#genericPopup").dialog({ height: 600, title: "Complete" });
+		$("#genericPopup").dialog('open');
+    }
+
+    function resetStatus(accessCode, internalID, touchpoint) {
+        $.get('@Url.Content("~/Partner/ResetStatus")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
+			if (data.res == 1) {
+                alertify.alert("The status for Access Code " + accessCode + " has been reset. Click on the Test link to test.<br/><br/><a onclick='resetStatus(\"" + accessCode + "\", \"" + internalID + "\", \"" + touchpoint +"\"); return false;'>Test link</a>");
+			} else {
+                alertify.alert("The status for Access Code " + accessCode+" has NOT changed");
+			}
+		});
+    }
+
+    function resetPdf(accessCode, internalID, touchpoint) {
+        $.get('@Url.Content("~/Partner/ResetPdf")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
+			if (data) {
+				alertify.alert("PDF document was reset");
+			} else {
+				alertify.alert("Something went wrong, please try again later");
+			}
+		});
+    }
+
+    var itemsForPrint = [];
+    function printNextPdf(item) {
+        if (item.status == 6 || item.status == 7 || item.status == 13) {
+            alertify.confirm('The current status for ' + item.touchpoint + ' is ' + item.statusDesc + ' for ' + item.partnerName+'. Would youlike to send a reminder?', function (e) {
+					if (e) {
+						// click yes
+                        remind(item.accesscode);
+                        var index = itemsForPrint.indexOf(item);
+                        if (index >= 0 && index < itemsForPrint.length - 1)
+                            printNextPdf(itemsForPrint[index + 1]);
+
+					} else {
+						// click no
+                        var index = itemsForPrint.indexOf(item);
+                        if (index >= 0 && index < itemsForPrint.length - 1)
+                            printNextPdf(itemsForPrint[index + 1]);
+					}
+				});
+        }
+        else {
+            setTimeout(function () {
+                 $('#yourLinkID').attr('href', "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + item.accesscode);
+                 document.getElementById('yourLinkID').click();
+            }, 1000);
+
+             var index = itemsForPrint.indexOf(item);
+             if (index >= 0 && index < itemsForPrint.length - 1) {
+
+                 alertify.confirm('You have printed PDF for ' + item.touchpoint + ', would you like to print PDF for ' + itemsForPrint[index + 1].touchpoint +'?', function (e) {
+                     if (e) {
+                         // click yes
+                         printNextPdf(itemsForPrint[index + 1]);
+
+                     } else {
+                         // click no
+                     }
+                 });
+             }
+        }
+    }
+
+    function checkToPrintPDF(pptqId, status, touchpoint) {
+        $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint }, function (data) {
+            if (status === 14) {
+                alertify.alert(data.message, function () {
+                      checkToPrintPDF(data.pptqId, data.status, data.touchpoint);
+    		    });
+            }
+            else if (data.items.length > 1) {
+                itemsForPrint = data.items;
+                printNextPdf(data.items[0]);
+            }
+            else if (data.msg != null) {
+                alertify.alert(data.msg, function () {
+    			window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+    		    });
+
+            }
+			else if (data.iscanprintPdf == true) {
+				window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+			}
+			else if (data.message.next == 6) {
+				alertify.alert(data[0].nextStep);
+			}
+			else if (data.message.next == 5) {
+				alertify.alert(data.message.nextStep);
+			}
+			else if (data.message.next == 4) {
+				alertify.alert(data.message.nextStep);
+			}
+			else if (data.message.next == 3) {
+				alertify.confirm(data.message.nextStep, function (e) {
+					if (e) {
+						// click yes
+						window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+
+					} else {
+						// click no
+					}
+				});
+			}
+		else if (data.message.next == 2) {
+			alertify.confirm(data.message.nextStep, function (e) {
+				if (e) {
+					// click yes
+					remind(data.accessCode);
+
+				} else {
+					// click no
+				}
+			});
+		}
+		else if (data.message.next == 1) {
+			alertify.confirm(data.message.nextStep, function (e) {
+				if (e) {
+					// click yes
+					remind(data.accessCode);
+
+				} else {
+					// click no
+				}
+			});
+		}
+		else {
+				alertify.alert(data.message.nextStep);
+			if (data.message.next > 6) {
+                checkToPrintPDF(data.message.next, status, touchpoint);
+			}
+		}
+		}).fail(function (jqXHR, textStatus, errorThrown) {
+			debugger;
+			alertify.alert('Error getting Touch Point!');
+		});
+	}
+
+	function checkToPrintHTML(status, accesscode) {
+		if (status.toLowerCase() == 'responded/complete') {
+			window.location.href = "@Url.Content("~/Partner/PrintHTML/?accesscode=")" + accesscode;
+		} else {
+			alert("it's not responded yet");
+		}
+	}
+
+	function ExecuteResponses(acceessCode, pptqId) {
+		$.getJSON("CheckResponses", { pptqId: pptqId }, function (data) {
+			if (data) {
+				if (data === true) {
+					window.location.href = '@Url.Action("GetResponses")' + '?pptqId=' + pptqId;
+				} else {
+					alertify.confirm(data, function (result) {
+
+						if (result) {
+							remind(acceessCode);
+						} else {
+							if (data.startsWith("Currently, there are only partitial (incomplete) data available for"))
+								alertify.confirm("Would you like to print partitial response?", function (endgeResult) {
+									if (endgeResult) {
+										window.location.href = '@Url.Action("GetResponses")' + '?pptqId=' + pptqId;
+									}
+								});
+
+						}
+					});
+				}
+			} else {
+				alertify.alert('There is no response data available for shadows. Please access the REFERENCE and try again');
+			}
+		});
+	}
+
+	$(function () {
+		$(".t-widget.t-dropdown.t-header").css("width", "100%");
+	});
+	$("#changePtqBtn").click(function () {
+
+	})
+</script>
+<div class="tw-bs">
+    <div class="container-fluid">
+        <div class="modal fade" id="changePtqDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Change  Partner type Touchpoint Questionnaire </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form id="changePtqForm">
+                            <div class="form-group">
+                                @Html.Label("ptqList", "Questionnaire")
+                                @Html.Telerik().DropDownList().Name("ptqList").DataBinding(conf => conf.Ajax().Select("CurrentPtqList", "Campaign")).DropDownHtmlAttributes(new { style = "width:500px;white-space:nowrap;" })
+                            </div>
+                            <button type="button" class="btn btn-default btn-block" id="changePtqBtn">Save</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a href="" id="yourLinkID" target="_blank"></a>
+</div>
+@if (Session["ACNewEmail"] != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            alertify.alert("You have successfully changed the point-of-contact email address for <br/> Access Code: @Session["accessCode"].ToString() from @Session["ACEmail"].ToString() to @Session["ACNewEmail"].ToString()");
+
+
+        });
+
+    </script>
+
+    Session["ACNewEmail"] = null;
+}

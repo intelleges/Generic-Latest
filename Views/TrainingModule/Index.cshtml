@@ -1,0 +1,263 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable< Generic.partner>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Training";
+}
+
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+
+
+@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        .Columns(columns =>
+        {
+            //columns.Bound(o => o.enterprise);
+
+           // columns.Bound(o => o.internalID).Title("Internal ID").Width(100);
+
+            //, Contact [email hyperlink], Phone, , , , , 
+
+            columns.Bound(o => o.name).Title("Partner Name").Width(300);
+
+            columns.Bound(o => o.email).Title("Contact").Width(200);
+
+            columns.Bound(o => o.phone).Title("Phone").Width(200);
+            columns.Bound(o => o.title).Title("Title").Width(200);
+            columns.Bound(o => o.country).Title("Country").Width(100);
+            columns.Bound(o => o.city).Title("City").Width(200);
+            columns.Template(o => 0).Title("Timezone").Width(100);
+            columns.Template(o => 0).Title("Last Contact Date").Width(100);
+            //columns.Bound(o => o.address1);
+
+            //columns.Bound(o => o.address2);
+
+          
+
+            //columns.Bound(o => o.state);
+
+            //columns.Bound(o => o.province);
+
+            //columns.Bound(o => o.zipcode);
+
+          
+
+          
+
+            //columns.Bound(o => o.fax);
+
+            //columns.Bound(o => o.firstName);
+
+            //columns.Bound(o => o.lastName);
+
+            
+
+           
+
+            //columns.Bound(o => o.dunsNumber);
+
+            //columns.Bound(o => o.federalID);
+
+            //columns.Bound(o => o.status);
+
+            //columns.Bound(o => o.loadHistory);
+
+            //columns.Bound(o => o.owner);
+
+            //columns.Bound(o => o.author);
+
+            //columns.Bound(o => o.dateApproved);
+
+            //columns.Bound(o => o.active);
+
+            //columns.Bound(o => o.lastModified);
+
+            columns.Template(s => Html.ActionLink("Edit", "Edit", new { s.id })).Title("Edit");
+            columns.Template(s => Html.ActionLink("Details", "Details", new { s.id })).Title("Details");
+            columns.Template(s => Html.ActionLink("Delete", "Delete", new { s.id })).Title("Delete");
+        })
+        .Pageable()
+        .Sortable().Scrollable(scrolling => scrolling
+           .Enabled(true)
+           .Height(300))
+)
+
+@*
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.enterprise1.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.internalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.province)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.firstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dunsNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.federalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.loadHistory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastModified)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.enterprise1.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.internalID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.province)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.zipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dunsNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.federalID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loadHistory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastModified)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+*@
