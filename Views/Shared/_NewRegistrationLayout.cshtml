@@ -52,11 +52,11 @@
 
 
 @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
-                .Add("telerik.common.css")
-                .Add("telerik.rtl.css")
-                .Add("telerik.vista.css")
-                .Combined(true)
-                .Compress(true)))
+                    .Add("telerik.common.css")
+                    .Add("telerik.rtl.css")
+                    .Add("telerik.vista.css")
+                    .Combined(true)
+                    .Compress(true)))
 
 
 
@@ -67,14 +67,14 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="logo-new">
-                            @{if (ViewBag.FormData!=null && !string.IsNullOrEmpty(ViewBag.FormData.CMS_IMG_HEADER_LINK))
+                            @{if (ViewBag.FormData != null && !string.IsNullOrEmpty(ViewBag.FormData.CMS_IMG_HEADER_LINK))
                                 {
                                     <a href="//@ViewBag.FormData.CMS_IMG_HEADER_LINK"
                                        target="_blank"><img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" /></a>
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt=""/>
+                                    <img src="@Url.Content("~/Contents/AdminStyle/images/Home-imgs/logo.png")" alt="" />
                                 }
                             }
                         </div>
@@ -96,13 +96,15 @@
                                 {
                                     <li><a href="~/Registration/Home/FileDownloadCMS?CMSName=QUESTIONNAIRE_FAQ" target="_blank">@formData.QUESTIONNAIRE_FAQ</a> </li>
                                 }
-                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER)&& !string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_LINK))
+                                @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_LINK))
                                 {
                                     <li><a href="@formData.QUESTIONNAIRE_DOC_OTHER_LINK" target="_blank">@formData.QUESTIONNAIRE_DOC_OTHER</a> </li>
                                 }
                                 @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO) && !string.IsNullOrEmpty(formData.QUESTIONNAIRE_VIDEO_LINK))
                                 {
-                                    <li><a href="@formData.QUESTIONNAIRE_VIDEO_LINK" target="_blank">@formData.QUESTIONNAIRE_VIDEO</a> </li>
+                                    <li>
+                                        <a  style="cursor:pointer;" id="lnkVideo" target="_blank">@formData.QUESTIONNAIRE_VIDEO</a>
+                                    </li>
                                 }
                                 @if (!string.IsNullOrEmpty(formData.QUESTIONNAIRE_DOC_OTHER_2))
                                 {
@@ -195,7 +197,7 @@
                     <div class="col-md-5">
 
                         <div class="footer-logo">
-                            @{if (ViewBag.FormData!=null && !string.IsNullOrEmpty(ViewBag.FormData.CMS_IMG_FOOTER_LINK))
+                            @{if (ViewBag.FormData != null && !string.IsNullOrEmpty(ViewBag.FormData.CMS_IMG_FOOTER_LINK))
                                 {
                                     <a href="//@ViewBag.FormData.CMS_IMG_FOOTER_LINK"
                                        target="_blank">Powered by Intelleges&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -206,7 +208,7 @@
                                 }
                             }
                         </div>
-                        </div>
+                    </div>
                     <div class="col-md-2">
                         <div class="footer-contact">
 
@@ -221,6 +223,24 @@
     </div>
 
 </div>
+
+@*Video Viewer dialog*@
+<div class="modal fade" id="video_dialog" role="dialog" aria-labelledby="manual_uploadLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <embed id="videopopup" src="" wmode="transparent" type="application/x-shockwave-flash"
+                       width="570" height="450" allowfullscreen="true" />
+            </div>
+        </div>
+    </div>
+</div>
+@*End of Manual Upload dialog*@
 
 <!-- jQuery -->
 @RenderSection("scripts", required: false)
@@ -237,7 +257,16 @@
 				$(".box-shadow-dropdown").insertBefore("table:first");
 				if ('@ViewBag.googleError' !== '') {
 					alertify.alert('@ViewBag.googleError');
-				}
+                }
+
+                var videoUrl = '@formData.QUESTIONNAIRE_VIDEO_LINK';
+                $(document.body).on('click', '#lnkVideo', function (e) {
+                    if (videoUrl) {
+                        var url = videoUrl.split('/')[3];
+                        $("#videopopup")[0].src = "https://www.youtube.com/v/" + url;
+                        $('#video_dialog').modal('show');
+                    }
+                });
 
 			});
 		})(jQuery);
@@ -249,10 +278,10 @@
 
 
 @(Html.Telerik().ScriptRegistrar()
-    .DefaultGroup(group => group
-        .Combined(false)
-        .Compress(false)
-         ).jQuery(false).jQueryValidation(false)
+        .DefaultGroup(group => group
+            .Combined(false)
+            .Compress(false)
+             ).jQuery(false).jQueryValidation(false)
 )
 
 
