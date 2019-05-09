@@ -233,9 +233,7 @@
                     <span aria-hidden="true">&times;</span><span class="sr-only"></span>
                 </button>
             </div>
-            <div class="modal-body">
-                <embed id="videopopup" src="" wmode="transparent" type="application/x-shockwave-flash"
-                       width="570" height="450" allowfullscreen="true" />
+            <div class="modal-body" id="dvvideo">
             </div>
         </div>
     </div>
@@ -263,7 +261,7 @@
                 $(document.body).on('click', '#lnkVideo', function (e) {
                     if (videoUrl) {
                         var url = videoUrl.split('/')[3];
-                        $("#videopopup")[0].src = "https://www.youtube.com/v/" + url;
+                        $('#dvvideo').html('<iframe width="570" height="450" src="https://www.youtube.com/embed/' + url + '?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
                         $('#video_dialog').modal('show');
                     }
                 });
