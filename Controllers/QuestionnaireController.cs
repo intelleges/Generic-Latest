@@ -200,7 +200,7 @@ namespace Generic.Controllers
             if(null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
             {
                 Session["REDIRECT_BY_EMAIL"] = -1;
-                Session["REDIRECT_BY_EMAIL_Query"] = Request.Url.Query;
+                Session["REDIRECT_BY_EMAIL_Query"] = new { id= id, pptqId= pptqId, questionId= questionId, partnerId= partnerId, responseId = responseId, email = email };
                 return RedirectToAction("Index", "Admin");
             }
 

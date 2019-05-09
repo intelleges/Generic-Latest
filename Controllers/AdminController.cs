@@ -402,8 +402,8 @@ namespace Generic.Controllers
                     var result = db.pr_validatePerson(userName, password).FirstOrDefault();
                     Session["REDIRECT_BY_EMAIL"] = result == 1 ? 1 : -2;
                     Session["REDIRECT_BY_EMAIL_APPROVAL"] = userName;
-                    string url = Request.UrlReferrer.ToString() + "/Questionnaire/QuestionnaireDetailQuestion" + Convert.ToString(Session["REDIRECT_BY_EMAIL_Query"]);
-                    return Redirect(url);
+                    dynamic queryStringData = Session["REDIRECT_BY_EMAIL_Query"];
+                    return RedirectToAction("QuestionnaireDetailQuestion", "Questionnaire", new { id = queryStringData.id, pptqId = queryStringData.pptqId, questionId = queryStringData.questionId, partnerId = queryStringData.partnerId, responseId = queryStringData.responseId, email = queryStringData.email });
                 }
                 else
                 {
