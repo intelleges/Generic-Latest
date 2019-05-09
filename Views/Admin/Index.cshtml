@@ -135,7 +135,14 @@
                                     </div>
                                 </form>
                                 <div class="submit-container">
-                                    <button class="button button-3d nomargin fright" value="login" onclick="$('#login-form').submit();">Log In</button>
+                                    @if (ViewBag.REDIRECT_BY_EMAIL == 1)
+                                    {
+                                        <button class="button button-3d nomargin fright" value="login" onclick="$('#login-form').submit();">Submit</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="button button-3d nomargin fright" value="login" onclick="$('#login-form').submit();">Log In</button>
+                                    }
                                 </div>
                                 <div class="need-help-wrapper">
                                     <h3>Need help?</h3>

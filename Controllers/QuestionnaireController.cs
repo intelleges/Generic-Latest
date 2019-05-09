@@ -197,6 +197,15 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public ActionResult QuestionnaireDetailQuestion(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
         {
+            if(null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+            {
+                Session["REDIRECT_BY_EMAIL"] = -1;
+                Session["REDIRECT_BY_EMAIL_Query"] = Request.Url.Query;
+                return RedirectToAction("Index", "Admin");
+            }
+
+            int REDIRECT_BY_EMAIL_FLAG = Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]);
+            Session["REDIRECT_BY_EMAIL"] = null;
             var contactUs = 1;
             ViewBag.returnUrl = "";
             var enterprises = db.pr_getEnterprise(contactUs);
@@ -209,6 +218,7 @@ namespace Generic.Controllers
                 EntitiesDBContext db1 = new EntitiesDBContext();
                 var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
                 p.status = 7;
+                p.docFolderAddress = "APPROVAL BY - " + Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
                 db1.SaveChanges();
 
                 ViewBag.AccessCode = p.accesscode;
@@ -247,44 +257,50 @@ namespace Generic.Controllers
             }
             else
             {
-                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
-                EntitiesDBContext db1 = new EntitiesDBContext();
-                var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
-                if (responseId == 75) p.status = 12;
-                else p.status = 8;
-                db1.SaveChanges();
-
-                var pptqObj = p;
-                if (responseId == 74)
+                if (REDIRECT_BY_EMAIL_FLAG != -2)
                 {
-                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                    if (amm != null)
+                    db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+                    EntitiesDBContext db1 = new EntitiesDBContext();
+                    var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
+                    if (responseId == 75) p.status = 12;
+                    else p.status = 8;
+
+                    p.docFolderAddress = "APPROVAL BY - " + Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
+                    db1.SaveChanges();
+
+                    var pptqObj = p;
+                    if (responseId == 74)
                     {
-                        Email email1 = new Email(amm);
-                        var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
-                        email1.accesscode = pptqObj.accesscode;
-
-                        email1.protocolTouchpoint = objtouchpoint.description;
-                        EmailFormat emailFormat = new EmailFormat();
-                        email1.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
-                        email1.body = emailFormat.sGetEmailBody(email1.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
-                        email1.emailTo = pptqObj.partner1.email;
-                        email1.url = Request.Url.ToString();
-                        email1.category = SendGridCategory.QuestionnaireResponse;
-                        email1.automailMessage = amm.id.ToString();
-
-                        SendEmail objSendEmail = new SendEmail();
-                        objSendEmail.sendEmail(email1, new EmailFormatSettings()
+                        var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                        if (amm != null)
                         {
-                            sender = null,
-                            enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
-                            partner = pptqObj.partner1,
-                            ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
-                            touchpoint = objtouchpoint
-                        });
+                            Email email1 = new Email(amm);
+                            var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
+                            email1.accesscode = pptqObj.accesscode;
+
+                            email1.protocolTouchpoint = objtouchpoint.description;
+                            EmailFormat emailFormat = new EmailFormat();
+                            email1.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                            email1.body = emailFormat.sGetEmailBody(email1.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                            email1.emailTo = pptqObj.partner1.email;
+                            email1.url = Request.Url.ToString();
+                            email1.category = SendGridCategory.QuestionnaireResponse;
+                            email1.automailMessage = amm.id.ToString();
+
+                            SendEmail objSendEmail = new SendEmail();
+                            objSendEmail.sendEmail(email1, new EmailFormatSettings()
+                            {
+                                sender = null,
+                                enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                                partner = pptqObj.partner1,
+                                ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                                touchpoint = objtouchpoint
+                            });
+                        }
                     }
                 }
 
+                ViewBag.REDIRECT_BY_EMAIL_FLAG = REDIRECT_BY_EMAIL_FLAG;
                 if (responseId == 75)
                     return View("QuestionnaireDetailQuestionNo", enterprises.FirstOrDefault());
                 else if (responseId == 74)

@@ -9209,6 +9209,11 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
           <Parameter Name="status" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_modifyPPTQStatus2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="partnerTypeTouchpointQuestionnaire" Type="int" Mode="In" />
+          <Parameter Name="response" Type="int" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="pr_modifyPPTQTeam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pptq" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -10378,6 +10383,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
         </Function>
         <Function Name="pr_validatePasswordByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="emailAddress" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="pr_validatePerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ProperCase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
@@ -18530,13 +18539,22 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="accessCodeList" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pr_getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ" ReturnType="Collection(Int32)">
-            <Parameter Name="pptq" Mode="In" Type="Int32" />
+          <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload" ReturnType="Collection(Int32)">
             <Parameter Name="pptq" Mode="In" Type="Int32" />
             <Parameter Name="pdf" Mode="In" Type="Binary" />
             <Parameter Name="person" Mode="In" Type="Int32" />
             <Parameter Name="comment" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_validatePerson" ReturnType="Collection(Int32)">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyPPTQStatus2">
+            <Parameter Name="partnerTypeTouchpointQuestionnaire" Mode="In" Type="Int32" />
+            <Parameter Name="response" Mode="In" Type="Int32" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -44247,6 +44265,8 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_getV_PartnerFindByList" FunctionName="hs3MVCMTQa2Model.Store.pr_getV_PartnerFindByList" />
           <FunctionImportMapping FunctionImportName="pr_getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getPartnerPartnertypeTouchpointQuestionnaireStatusByPPTQ" />
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload" />
+          <FunctionImportMapping FunctionImportName="pr_validatePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_validatePerson" />
+          <FunctionImportMapping FunctionImportName="pr_modifyPPTQStatus2" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQStatus2" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

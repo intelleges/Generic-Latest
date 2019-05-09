@@ -64,6 +64,11 @@ namespace Generic.Controllers
                 ViewBag.Project = "Generic";
                 ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
                 ViewBag.EnterpriseId = contactUs;
+                if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+                {
+                    ViewBag.REDIRECT_BY_EMAIL = 1;
+                }
+                else { ViewBag.REDIRECT_BY_EMAIL = 0; }
                 return View(enterprises.FirstOrDefault());
             }
             catch (Exception ex)
@@ -386,75 +391,85 @@ namespace Generic.Controllers
         }
 
 
-
         [HttpPost]
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
-                if (MembershipService.ValidateUser(userName, password))
+                if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
                 {
-                    FormsAuthentication.SetAuthCookie(userName, false);
-
-                    person person = db.pr_doLogin(userName, password).FirstOrDefault();
-                    var ip = Request.UserHostAddress;
-                    string[] computer_name = { ip };
-                    try
-                    {
-                        computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
-                    }
-                    catch (SocketException ex)
-                    {
-                        //if can't resolve remote host then set up IP address
-                    }
-                    String ecn = System.Environment.MachineName;
-                    var computerName = computer_name[0].ToString();
-                    var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
-
-                    if (res == null)
-                    {
-                        //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
-                        ViewBag.Message = "You failed to update login date & time";
-                    }
-
-                    SessionSingleton.LoggedInUserId = person.id;
-                    SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
-                    SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
-                    SessionSingleton.MyEnterPriseId = person.enterprise;
-                    SessionSingleton.Touchpoint = (int)person.campaign;
-
-                    try
-                    {
-                        SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
-                    }
-                    catch
-                    {
-                        SessionSingleton.EnterpriseURL = "#";
-                    }
-                    Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
-                    if (Url.IsLocalUrl(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
-                        {
-                            return RedirectToAction("ResetPassword", "Person");
-                        }
-                        else
-                        {
-                            return RedirectToAction("Home", "Admin");
-                        }
-                    }
-
-                    //}
+                    var result = db.pr_validatePerson(userName, password).FirstOrDefault();
+                    Session["REDIRECT_BY_EMAIL"] = result == 1 ? 1 : -2;
+                    Session["REDIRECT_BY_EMAIL_APPROVAL"] = userName;
+                    string url = Request.UrlReferrer.ToString() + "/Questionnaire/QuestionnaireDetailQuestion" + Convert.ToString(Session["REDIRECT_BY_EMAIL_Query"]);
+                    return Redirect(url);
                 }
                 else
                 {
-                    ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
+                    //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
+                    if (MembershipService.ValidateUser(userName, password))
+                    {
+                        FormsAuthentication.SetAuthCookie(userName, false);
+
+                        person person = db.pr_doLogin(userName, password).FirstOrDefault();
+                        var ip = Request.UserHostAddress;
+                        string[] computer_name = { ip };
+                        try
+                        {
+                            computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+                        }
+                        catch (SocketException ex)
+                        {
+                            //if can't resolve remote host then set up IP address
+                        }
+                        String ecn = System.Environment.MachineName;
+                        var computerName = computer_name[0].ToString();
+                        var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
+
+                        if (res == null)
+                        {
+                            //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
+                            ViewBag.Message = "You failed to update login date & time";
+                        }
+
+                        SessionSingleton.LoggedInUserId = person.id;
+                        SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
+                        SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
+                        SessionSingleton.MyEnterPriseId = person.enterprise;
+                        SessionSingleton.Touchpoint = (int)person.campaign;
+
+                        try
+                        {
+                            SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
+                        }
+                        catch
+                        {
+                            SessionSingleton.EnterpriseURL = "#";
+                        }
+                        Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
+                        if (Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                            {
+                                return RedirectToAction("ResetPassword", "Person");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Home", "Admin");
+                            }
+                        }
+
+                        //}
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
+                    }
                 }
             }
 

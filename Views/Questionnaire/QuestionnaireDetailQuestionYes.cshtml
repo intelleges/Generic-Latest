@@ -100,7 +100,15 @@
                                     <div class="login-logo">
                                         <a href="http://www.intelleges.com/"> <img src="~/Content/login/images/intelleges/intelleges-logo.png" alt="logo"></a>
                                     </div>
-                                    <h1 style="text-align:center">Supplier Approved</h1>
+                                    @if (ViewBag.REDIRECT_BY_EMAIL_FLAG == -2)
+                                    {
+                                    <h1 style="text-align:center">Supplier Not Approved - User Name Not Valid</h1>
+                                    }
+                                    else
+                                    {
+                                        <h1 style="text-align:center">Supplier Approved</h1>
+                                    }
+
                                 </form>
                                 <div class="need-help-wrapper">
                                     <h3>Need help?</h3>

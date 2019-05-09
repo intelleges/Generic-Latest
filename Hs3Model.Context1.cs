@@ -24070,5 +24070,35 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload", pptqParameter, pdfParameter, personParameter, commentParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_validatePerson(string email, string password)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_validatePerson", emailParameter, passwordParameter);
+        }
+    
+        public virtual int pr_modifyPPTQStatus2(Nullable<int> partnerTypeTouchpointQuestionnaire, Nullable<int> response, string email)
+        {
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQStatus2", partnerTypeTouchpointQuestionnaireParameter, responseParameter, emailParameter);
+        }
     }
 }
