@@ -10487,6 +10487,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Parameter Name="action" Type="varchar" Mode="In" />
           <Parameter Name="entity" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="xxx_test_005" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="pr_addCustomizedLSMWReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="honeywellBAA">
           <Parameter Name="partnumberSiteZcodePPTQ" Type="int" Mode="In" />
           <Parameter Name="zcode" Type="varchar(max)" Mode="In" />
@@ -18556,6 +18557,7 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
             <Parameter Name="response" Mode="In" Type="Int32" />
             <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="xxx_test_005" ReturnType="Collection(hs3MVCMTQa2Model.xxx_test_005_Result)" />
           </EntityContainer>
         <EntityType Name="accessLevel">
           <Key>
@@ -31731,6 +31733,10 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <Property Type="Int32" Name="priority" Nullable="true" />
           <Property Type="String" Name="loadGroup" Nullable="true" MaxLength="8" />
         </ComplexType>
+        <ComplexType Name="xxx_test_005_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -44267,6 +44273,14 @@ warning 6002: The table/view 'hs3MVCMTQa2.dbo.view_TouchpointData' does not have
           <FunctionImportMapping FunctionImportName="pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload" />
           <FunctionImportMapping FunctionImportName="pr_validatePerson" FunctionName="hs3MVCMTQa2Model.Store.pr_validatePerson" />
           <FunctionImportMapping FunctionImportName="pr_modifyPPTQStatus2" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyPPTQStatus2" />
+          <FunctionImportMapping FunctionImportName="xxx_test_005" FunctionName="hs3MVCMTQa2Model.Store.xxx_test_005">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.xxx_test_005_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

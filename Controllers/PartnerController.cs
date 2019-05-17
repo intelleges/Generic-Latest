@@ -1786,6 +1786,15 @@ namespace Generic.Controllers
                 arguments += "HROEmail=" + txtHROEmailFind + ";";
 
             Session["partnersearch"] = arguments;
+            if (touchpoint.HasValue)
+            {
+                Session["Partner_Find_Touchpoint"] = touchpoint.Value;
+            }
+            else
+            {
+                Session["Partner_Find_Touchpoint"] = null;
+            }
+
             if (searchType == "Remove")
             {
                 return RedirectToAction("RemovePartner");
@@ -1820,6 +1829,17 @@ namespace Generic.Controllers
                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
                 // List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
+
+                if (null != Session["Partner_Find_Touchpoint"])
+                {
+                    int touchpointid = Convert.ToInt32(Session["Partner_Find_Touchpoint"]);
+                    // as suggested by John touchpoint id need to be hardcoded
+                    if(touchpointid == 4270)
+                    {
+                        List<xxx_test_005_Result> touchpointDetails = db.xxx_test_005().ToList();
+                        ViewBag.TouchPointDetails = touchpointDetails;
+                    }
+                }
 
                 return View(abc);
             }

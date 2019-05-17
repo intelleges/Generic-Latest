@@ -3065,6 +3065,9 @@
     <Compile Include="v_PartnerFind.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="xxx_test_005_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="xx_getAllPDFHyperlinks_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

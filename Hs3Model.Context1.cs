@@ -24100,5 +24100,10 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPPTQStatus2", partnerTypeTouchpointQuestionnaireParameter, responseParameter, emailParameter);
         }
+    
+        public virtual ObjectResult<xxx_test_005_Result> xxx_test_005()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xxx_test_005_Result>("xxx_test_005");
+        }
     }
 }
