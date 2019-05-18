@@ -193,7 +193,7 @@
 
 
                                 </text>);
-                                        columns.Bound(o => o.touchpointID).Title("Detail").Width(150)
+                                        @*columns.Bound(o => o.touchpointID).Title("Detail").Width(150)
                                             .Hidden(null == ViewBag.TouchPointDetails ? true : false).Template(@<text>
 
                                             @{
@@ -217,7 +217,7 @@
                                             }
 
 
-                                        </text>);
+                                        </text>);*@
                                                 columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
 
                                                     @{
