@@ -368,13 +368,13 @@ namespace Generic.Helpers
         {
             sendEmail(email, sendFrom, ccSender, null, settings);
         }
-        public static void sendEmail(Email email, MailAddress sendFrom, bool ccSender, HttpFileCollectionBase attachments, EmailFormatSettings settings, iterateEmailText iterateEmailText = null)
+        public static void sendEmail(Email email, MailAddress sendFrom, bool ccSender, HttpFileCollectionBase attachments, EmailFormatSettings settings, iterateEmailText iterateEmailText = null, int? senderEnterpriseid = null)
         {
-
+            int enterpriseid = senderEnterpriseid.HasValue ? senderEnterpriseid.Value : Generic.Helpers.CurrentInstance.EnterpriseID;
             key objSendGridPassword = null;
             using (var db = new EntitiesDBContext())
             {
-                objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
+                objSendGridPassword = db.pr_getKeyAll(enterpriseid).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
 
                 var msg = new SendGridMessage();
                 List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
@@ -383,7 +383,7 @@ namespace Generic.Helpers
                 string htmlFooter = "";
 
                 additionalArguments.Add("ApplicationName", "MVCMT");
-                additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
+                additionalArguments.Add("enterprise", enterpriseid.ToString());
                 additionalArguments.Add("loadgroup", email.loadgroup);
                 additionalArguments.Add("accesscode", email.accesscode);
                 additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);

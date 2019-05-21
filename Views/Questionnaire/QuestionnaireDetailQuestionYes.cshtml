@@ -24,10 +24,58 @@
     <link rel="stylesheet" href="~/Content/login/css/magnific-popup.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/login/css/components/radio-checkbox.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/login/css/responsive.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/jquery.fancybox.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     @Styles.Render("~/bundles/alertifyCss")
     <script src="@Url.Content("~/Scripts/alertify.js")"></script>
+    <!-- External JavaScripts
+    ============================================= -->
+    <script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.fancybox.pack.js"></script>
+    <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+    <style>
+        div#PartnerGrid {
+            font-size: 11px;
+        }
+
+        #modal {
+            height: 489px;
+        }
+
+        .ui-dialog {
+            width: 99% !important;
+            left: 0;
+        }
+
+        .ui-progressbar {
+            position: relative;
+        }
+
+        .progress-label {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 4px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+        }
+
+        .fancybox-inner .buttons {
+            float: right !important;
+        }
+
+            .fancybox-inner .buttons .btn {
+                width: 100px;
+            }
+
+        .fancybox-inner p {
+            min-height: 40px;
+        }
+    </style>
     <!-- Document Title
     ============================================= -->
     <title>Login</title>
@@ -84,13 +132,88 @@
             </div>
         </div>
     </div>
+
+    @*Email popup start*@
+    <div class="modal fade" id="emailDialog" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="z-index:1041">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        @if (ViewBag.DropDownSubjects != null)
+                        {
+                            <div class="form-group">
+
+                                <label class="control-label" for="emailSubject">Automail</label>
+
+                                @Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+
+                            </div>
+                        }
+                        <div class="form-group">
+
+                            <label class="control-label" for="emailSubject">Subject</label>
+
+                            <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="emailText">Text</label>
+                            <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
+                            <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('emailText', {
+                                    extraAllowedContent: 'p{*}(tip)'
+                                });
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
+                        </div>
+                        <div class="form-group">
+                            <div class="row" style="height:34px;">
+                                <div class="col-xs-6">
+                                    <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label style="font-size: 14px;"><input type="checkbox" id="reset" name="reset" />Reset</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Emai popup end*@
     <!-- Document Wrapper
     ============================================= -->
     <div id="wrapper" class="clearfix">
         <!-- Content
         ============================================= -->
         <section id="content">
-            <div class="content-wrap nopadding">
+            <div class="content-wrap nopadding" id="dvSupplierSection">
                 <div class="section nopadding nomargin" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: #444;"></div>
                 <div class="section nobg full-screen nopadding nomargin">
                     <div id="login-wrapper" class="container vertical-middle divcenter clearfix">
@@ -102,7 +225,7 @@
                                     </div>
                                     @if (ViewBag.REDIRECT_BY_EMAIL_FLAG == -2)
                                     {
-                                    <h1 style="text-align:center">Supplier Not Approved - User Name Not Valid</h1>
+                                        <h1 style="text-align:center">Supplier Not Approved - User Name Not Valid</h1>
                                     }
                                     else
                                     {
@@ -121,26 +244,176 @@
                 </div>
             </div>
         </section><!-- #content end -->
-    </div><!-- #wrapper end -->
+    </div>
+
+
+
+    <div id="send-email-progress" style="display:none;">
+        <div style="padding: 10px 20px;">
+            <div id="progressbar"><div class="progress-label">Loading...</div></div>
+            <p id="progress-note"></p>
+            <div class="tw-bs buttons">
+                <button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
+            </div>
+        </div>
+    </div>
+    <!-- #wrapper end -->
     <!-- Go To Top
+
 
 
     <!-- Go To Top
     ============================================= -->
     <div id="gotoTop" class="icon-angle-up"></div>
 
-    <!-- External JavaScripts
-    ============================================= -->
-    <script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
-    <script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
+
     <script>
-    var enterpriseId = @ViewBag.EnterpriseId ;
+        var enterpriseId = @ViewBag.EnterpriseId;
+
     </script>
     <!-- Footer Scripts
     ============================================= -->
     <script type="text/javascript" src="~/Content/login/js/functions.js"></script>
     @Scripts.Render("~/Scripts/validator.js")
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js?v=1")"></script>
+    <script type="text/javascript">
+        var REDIRECT_BY_EMAIL_FLAG;
+        var pptqId;
+        var enterpriseId;
+
+        $(document).ready(function () {
+            //TODO: Puru, Need to uncomment for supplier Approval email feature
+            @*REDIRECT_BY_EMAIL_FLAG = @ViewBag.REDIRECT_BY_EMAIL_FLAG;
+            pptqId = @ViewBag.pptqId;
+            if (REDIRECT_BY_EMAIL_FLAG != -2) {
+                $('#dvSupplierSection').hide();
+                $("#emailDialog").modal("toggle");
+            }*@
+        });
+
+		function dropDownSubjectsChanged() {
+			var control = $("#DropDownSubjects");
+			if (control.val()) {
+				$.get("@Url.Action("GetAutomail", "Questionnaire")" + "?id=" + control.val()).done(function (result) {
+					if (result) {
+						$("#emailSubject").val(result.subject);
+                        CKEDITOR.instances["emailText"].setData(result.text + "<br> " + unescape(result.footer1));
+						//$("#emailText").val(result.text+"/n "+result.footer1);
+					}
+				})
+			} else {
+				$("#emailSubject").val("");
+				//$("#emailText").val("");
+				CKEDITOR.instances["emailText"].setData("");
+			}
+		}
+		var tipsShowed = false;
+		var accessCodes = [];
+		$(function () {
+
+			//$("#innerEmailDialog").dialog({
+			//    autoOpen: false
+			//});
+			$("#emailDialog").submit(function (e) {
+
+				e.preventDefault();
+				$("#emailDialog").modal("toggle");
+
+                var formdata = new FormData(); //FormData object
+                var fileInput = document.getElementById('EmailAttachmentUpload');
+                ////Iterating through each files selected in fileInput
+                for (i = 0; i < fileInput.files.length; i++) {
+                    //Appending each file to FormData object
+                    formdata.append("attachment", fileInput.files[i]);
+                }
+
+                formdata.append("pptqId", pptqId);
+                formdata.append("subject", $("#emailSubject").val());
+                formdata.append("text", $("#emailText").val());
+                formdata.append("userDate", new Date().toISOString());
+                formdata.append("ccSender", $("#ccSender").prop("checked"));
+                var control = $("#DropDownSubjects");
+                if (control.val()) {
+                    formdata.append("autoMailId", control.val());
+                }
+
+
+                $.ajax({
+                    url: '@Url.Action("SendSupplierEmail", "Questionnaire")',
+                    type: 'POST',
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        $('#dvSupplierSection').show();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+			});
+
+			$("#btnTips").click(function () {
+				var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
+				if (!tipsShowed) {
+					CKEDITOR.instances.emailText.setData(tip);
+					tipsShowed = true;
+				} else {
+					CKEDITOR.instances.emailText.setData("");
+					tipsShowed = false;
+				}
+			});
+
+		});
+
+        function sendSupplierEmail(progressbar, progressLabel)
+		{
+
+		}
+
+		function resotreMultiple(event) {
+			event.preventDefault();
+			var arr = [];
+			$(".chkPartners:checked").each(function (idx, item) {
+				arr.push(parseInt(item.value));
+			});
+			if (arr.length > 0) {
+				$.ajaxSettings.traditional = true
+				$.get('@Url.Action("UnArchievePartners", "Partner")', { items: arr }, function (data) {
+					if (data == true) {
+						window.location.replace(window.location.href);
+					}
+				});
+			}
+
+		}
+
+		function CloseMe() {
+			$("#genericPopup").dialog('close');
+			//$(".t-icon .t-refresh").trigger('click');
+
+			window.location.replace(window.location.href);
+		}
+
+
+		function
+        OpenEmailDialog(ac) {
+
+
+			$.get("@Url.Content("~/WrongContact/Index")", { accessCode: ac }, function (data) {
+
+				$("#innerEmailDialog").html(data);
+				$("#innerEmailDialog").dialog({
+					width: 1200,
+					height: 1000,
+				});
+				$("#innerEmailDialog").dialog('open');
+			});
+		}
+
+    </script>
+
 </body>
 </html>
 

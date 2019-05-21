@@ -197,10 +197,10 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public ActionResult QuestionnaireDetailQuestion(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
         {
-            if(null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+            if (null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
             {
                 Session["REDIRECT_BY_EMAIL"] = -1;
-                Session["REDIRECT_BY_EMAIL_Query"] = new { id= id, pptqId= pptqId, questionId= questionId, partnerId= partnerId, responseId = responseId, email = email };
+                Session["REDIRECT_BY_EMAIL_Query"] = new { id = id, pptqId = pptqId, questionId = questionId, partnerId = partnerId, responseId = responseId, email = email };
                 return RedirectToAction("Index", "Admin");
             }
 
@@ -307,6 +307,188 @@ namespace Generic.Controllers
                     return View("QuestionnaireDetailQuestionYes", enterprises.FirstOrDefault());
                 return RedirectToAction("home", "admin");
             }
+        }
+
+        //TODO: Puru, Need to remove above QuestionnaireDetailQuestion methd once John give go ahead for change in supplier Approval email feature
+        [AllowAnonymous]
+        public ActionResult QuestionnaireDetailQuestion_Puru(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
+        {
+            if(null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+            {
+                Session["REDIRECT_BY_EMAIL"] = -1;
+                Session["REDIRECT_BY_EMAIL_Query"] = new { id= id, pptqId= pptqId, questionId= questionId, partnerId= partnerId, responseId = responseId, email = email };
+                return RedirectToAction("Index", "Admin");
+            }
+
+            int REDIRECT_BY_EMAIL_FLAG = Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]);
+            Session["REDIRECT_BY_EMAIL"] = null;
+            var contactUs = 1;
+            ViewBag.returnUrl = "";
+            var enterprises = db.pr_getEnterprise(contactUs);
+            ViewBag.Project = "Generic";
+            ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
+            ViewBag.EnterpriseId = contactUs;
+
+            if (responseId == -1)
+            {
+                EntitiesDBContext db1 = new EntitiesDBContext();
+                var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
+                p.status = 7;
+                p.docFolderAddress = "APPROVAL BY - " + Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
+                db1.SaveChanges();
+
+                ViewBag.AccessCode = p.accesscode;
+                ViewBag.PartnerName = p.partner1.name;
+
+                var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Incomplete, p.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                var pptqObj = p;
+
+                if (amm != null)
+                {
+                    Email email1 = new Email(amm);
+                    var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
+                    email1.accesscode = pptqObj.accesscode;
+
+                    email1.protocolTouchpoint = objtouchpoint.description;
+                    EmailFormat emailFormat = new EmailFormat();
+                    email1.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email1.body = emailFormat.sGetEmailBody(email1.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email1.emailTo = pptqObj.partner1.email;
+                    email1.url = Request.Url.ToString();
+                    email1.category = SendGridCategory.QuestionnaireResponse;
+                    email1.automailMessage = amm.id.ToString();
+
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email1, new EmailFormatSettings()
+                    {
+                        sender = null,
+                        enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                        partner = pptqObj.partner1,
+                        ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                        touchpoint = objtouchpoint
+                    });
+                }
+
+                return View("QuestionnaireDetailQuestionUnlock", enterprises.FirstOrDefault());
+            }
+            else
+            {
+                if (REDIRECT_BY_EMAIL_FLAG != -2)
+                {
+                    db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, email, null, null, DateTime.Now, null, null, pptqId);
+                    EntitiesDBContext db1 = new EntitiesDBContext();
+                    var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
+                    if (responseId == 75) p.status = 12;
+                    else p.status = 8;
+
+                    p.docFolderAddress = "APPROVAL BY - " + Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
+                    db1.SaveChanges();
+
+                    int? partnerType = p.partnerTypeTouchpointQuestionnaire1.partnerType;
+                    int? touchpoint = p.partnerTypeTouchpointQuestionnaire1.touchpoint;
+                    ViewBag.DropDownSubjects = new SelectList(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).ToList(), "id", "subject").ToList();
+                    Session["automail_partnerType"] = partnerType;
+                    Session["automail_touchpoint"] = touchpoint;
+
+                    var pptqObj = p;
+                    //if (responseId == 74)
+                    //{
+                    //    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                    //    if (amm != null)
+                    //    {
+                    //        Email email1 = new Email(amm);
+                    //        var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
+                    //        email1.accesscode = pptqObj.accesscode;
+
+                    //        email1.protocolTouchpoint = objtouchpoint.description;
+                    //        EmailFormat emailFormat = new EmailFormat();
+                    //        email1.subject = emailFormat.sGetEmailBody(amm.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    //        email1.body = emailFormat.sGetEmailBody(email1.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    //        email1.emailTo = pptqObj.partner1.email;
+                    //        email1.url = Request.Url.ToString();
+                    //        email1.category = SendGridCategory.QuestionnaireResponse;
+                    //        email1.automailMessage = amm.id.ToString();
+
+                    //        SendEmail objSendEmail = new SendEmail();
+                    //        objSendEmail.sendEmail(email1, new EmailFormatSettings()
+                    //        {
+                    //            sender = null,
+                    //            enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    //            partner = pptqObj.partner1,
+                    //            ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                    //            touchpoint = objtouchpoint
+                    //        });
+                    //    }
+                    //}
+                }
+
+                ViewBag.REDIRECT_BY_EMAIL_FLAG = REDIRECT_BY_EMAIL_FLAG;
+                ViewBag.pptqId = pptqId;
+                if (responseId == 75)
+                    return View("QuestionnaireDetailQuestionNo", enterprises.FirstOrDefault());
+                else if (responseId == 74)
+                    return View("QuestionnaireDetailQuestionYes", enterprises.FirstOrDefault());
+                return RedirectToAction("home", "admin");
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult GetAutomail(int id)
+        {
+            var partnerType = (int)Session["automail_partnerType"];
+            var touchpoint = (int)Session["automail_touchpoint"];
+            return Json(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [HttpPost, ValidateInput(false)]
+        public ActionResult SendSupplierEmail(int? pptqId, string subject, string text, HttpPostedFileBase attachment, int? autoMailId, bool? ccSender)
+        {
+            var message = "";
+            EmailFormat formatter = new EmailFormat();
+            string email = Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
+            var person = db.pr_getPersonByEmail2(email).FirstOrDefault();
+            var currentPerson = db.pr_getPersonByEmail(person.enterprise, email).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+
+            var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+
+            subject = formatter.sGetEmailBody(subject, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+
+            try
+            {
+                var em = new Email()
+                {
+                    accesscode = pptq.accesscode,
+                    emailTo = pptq.partner1.email,
+                    subject = subject,
+                    url = Request.Url.ToString(),
+                    body = resultBody,
+                    protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+                    category = SendGridCategory.SendEmailByAccessCode,
+                    reminderSource = (int)Reminders.InviteRemind
+                };
+
+                if (autoMailId.HasValue)
+                    em.automailMessage = autoMailId.ToString();
+
+                SchedulerServiceHelper.sendEmail(
+                em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings()
+                {
+                    sender = null,
+                    enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    partner = pptq.partner1,
+                    touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1,
+                    ptq = pptq.partnerTypeTouchpointQuestionnaire1.id
+                }, null, person.enterprise);
+                message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
+            }
+            catch (Exception exp)
+            {
+                message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") NOT SENT!";
+            }
+
+            return Json(new { message = message });
         }
 
         [AllowAnonymous]
