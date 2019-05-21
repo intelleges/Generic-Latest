@@ -1832,18 +1832,17 @@ namespace Generic.Controllers
 
                 if (null != Session["Partner_Find_Touchpoint"])
                 {
-                    int touchpointid = Convert.ToInt32(Session["Partner_Find_Touchpoint"]);
-                    // as suggested by John touchpoint id need to be hardcoded
-                    if(touchpointid == 4270)
+                    int? touchpointid = Convert.ToInt32(Session["Partner_Find_Touchpoint"]);
+                    var touchpointDetails = db.pr_getSpecialDesignation(touchpointid).ToList();
+                    if(touchpointDetails.Count > 0)
                     {
-                        List<xxx_test_005_Result> touchpointDetails = db.xxx_test_005().ToList();
                         ViewBag.TouchPointDetails = touchpointDetails;
                     }
                 }
 
                 return View(abc);
             }
-            catch
+            catch(Exception ex)
             {
                 if (!Response.IsRequestBeingRedirected)
                     return RedirectToAction("FindPartner");

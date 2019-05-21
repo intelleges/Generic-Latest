@@ -2560,6 +2560,9 @@
     <Compile Include="pr_getSite_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getSpecialDesignation_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getStateAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
