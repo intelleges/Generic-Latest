@@ -478,7 +478,7 @@
             <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox48149_72948 /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox48149_72949 /> No </b></li>
-                <li><b><input type="checkbox" @ViewBag.Checkbox48149_NULL /> N/A </b>- Awarded subcontract(s) did not flow down FAR 52.204-10 </li>
+                @*<li><b><input type="checkbox" @ViewBag.Checkbox48149_NULL /> N/A </b>- Awarded subcontract(s) did not flow down FAR 52.204-10 </li>*@
             </ul>
             <p class="ml25">
                 <b><i>NOTE:</i></b>  If <b>Yes</b>, Honeywell is required to report to the US Government any <u>subcontract award(s) issued to supplier</u>, valued at $30,000 or more, that peg to prime contracts containing FAR 52.204-10.  Information pertaining to the subcontract award(s), along with the following information required by FAR 52.204-10(d)(2), will be made public.
@@ -493,7 +493,7 @@
             <p class="ml25">Is the physical place of performance located within the US?</p>
             <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox48157_72950 /> Yes </b></li>
-                <li><b><input type="checkbox" @ViewBag.Checkbox48157_72951 /> No </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox48157_72951 /> N/A </b></li>
             </ul>
         </div>
 
@@ -822,7 +822,7 @@
             <p class="ml25">
                 Supplier is currently compliant with 48 CFR 52.222-37 or will be compliant if applicable to a subsequently awarded purchase order or contract.
             </p>
-            <ul class="ml75 hr">
+            <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox48169_72978 /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox48169_72979 /> No </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox48169_72980 /> N/A </b> - The PO/Contract will be performed outside the US by employees not recruited within the US, District of Columbia, Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island</li>
@@ -842,7 +842,7 @@
             <p class="ml25">
                 Supplier is currently compliant with 48 CFR 52.222-40 or will be compliant if applicable to a subsequently awarded purchase order or contract.
             </p>
-            <ul class="ml75 hr">
+            <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox48170_72981 /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox48170_72982 /> No </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox48170_72983 /> N/A </b> - The PO/Contract will be performed exclusively outside the US</li>
@@ -899,7 +899,7 @@
             <p class="ml25">
                 Do you have a plan of action and milestones (POA&M) to become compliant?
             </p>
-            <ul class="ml75">
+            <ul class="ml75 hr">
                 <li><b><input type="checkbox" @ViewBag.Checkbox48173_Yes /> Yes </b></li>
                 <li><b><input type="checkbox" @ViewBag.Checkbox48173_No /> No </b></li>
                 <li class="mt20"><b>If No, explanation required: </b>@ViewBag.Checkbox48173_Comment</li>
