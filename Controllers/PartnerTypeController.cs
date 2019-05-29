@@ -131,7 +131,7 @@ namespace Generic.Controllers
             }
             else
             {
-                var partnerType = db.pr_getPartnertypeByTouchpoint(touchpointId).Select(x => new { x.id, x.description }).ToList();
+                var partnerType = db.pr_getPartnertypeByTouchpoint2(touchpointId).Select(x => new { x.id, x.description }).ToList();
                 return Json(new { Data = partnerType }, JsonRequestBehavior.AllowGet);
             }
         }

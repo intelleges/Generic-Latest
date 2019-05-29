@@ -24114,5 +24114,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSpecialDesignation_Result>("pr_getSpecialDesignation", touchpointParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnertypeByTouchpoint2_Result> pr_getPartnertypeByTouchpoint2(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeByTouchpoint2_Result>("pr_getPartnertypeByTouchpoint2", touchpointParameter);
+        }
     }
 }
