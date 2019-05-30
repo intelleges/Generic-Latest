@@ -21,7 +21,11 @@ namespace Generic.Controllers
             var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(Session["accessCode"].ToString()).FirstOrDefault();
             if (_pptq != null)
             {
-                db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(_pptq.id);
+                if (string.IsNullOrWhiteSpace(_pptq.zcode) || !_pptq.zcode.Equals("Manual", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(_pptq.id);
+                }
+
                 var _partnerId = _pptq.partner;
                 var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
                 partnerPartnertypeTouchpointQuestionnaire pptq = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
