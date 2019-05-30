@@ -1908,7 +1908,7 @@ namespace Generic.Controllers
 
                     var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                     int? personId = SessionSingleton.LoggedInUserId;
-                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(pptq, pdfFileData, person.id, comment);
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(pptq, pdfFileData, person.id, "manual");
                     SendManualUploadEmail(accessCode, person, pptq);
                     return Json(new { data = true }, JsonRequestBehavior.AllowGet);
                 }
