@@ -576,8 +576,8 @@ namespace Generic.Helpers
             using (var db = new EntitiesDBContext())
             {
                 objSendGridPassword = db.pr_getKeyAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
-
-
+                var person = db.pr_getPersonByEmail2(email.emailTo).FirstOrDefault();
+                var master = db.pr_getSystemMaster(person.enterprise.Value).FirstOrDefault();
                 var msg = new SendGridMessage();
                 List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();
                 Dictionary<string, string> additionalArguments = new Dictionary<string, string>();
@@ -722,7 +722,7 @@ namespace Generic.Helpers
 
                     string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
 
-                    msg.SetFrom("hs3admin2@intelleges.com", "Honeywell Supply Chain Security");
+                    msg.SetFrom(master.email, "Intelleges System Master");
                     msg.AddContent("text/html", htmlHeader + html);
                     msg.Subject = email.subject;
                     msg.AddCustomArgs(additionalArguments);
@@ -741,6 +741,7 @@ namespace Generic.Helpers
                     var task = client.SendEmailAsync(msg);
                     task.Wait();
                     var response = task.Result;
+                    var body = response.Body.ReadAsStringAsync().Result;
                     if (response.StatusCode != HttpStatusCode.Accepted)
                         throw new Exception("Not Send");
                 }
@@ -893,8 +894,9 @@ Intelleges Team
                     body = htmlBody,
                     category = SendGridCategory.SendPassword,
                     accesscode = accesscode,
-                }, "", null, master);
-
+                }, "", null);
+                var touchpoint = db.pr_getTouchpoint(person.campaign.Value).First();
+                //db.pr_addEventNotification(emailTo, DateTime.UtcNow, "??", "password reset", "intelleges", "password", "none", touchpoint.title, "mvcmt", "none", "none", person.enterprise.Value, "password reset");
                 htmlBody = string.Format(@"<br/><br/>
 System Master:,<br/><br/>
 Please be advised that {0} addressed reset their password.<br/><br/>

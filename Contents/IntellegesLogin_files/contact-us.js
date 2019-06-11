@@ -56,10 +56,11 @@
     $("#get_password_dialog #modalGetPassword button").on("click", function () {
         var validator = $("#modalGetPassword").validator('validate');
         var email = $('#inputEmailGetPassword').val();
+        
         if ($("#modalformControls .has-error").length == 0) {
             //GetForgotPassword
             $.ajax({
-                url: "https://www.intelleges.com/mvcmt/Generic/Admin/GetForgotPassword",
+                url: relative + "Admin/GetForgotPassword",
                 data: { Email: email },
                 type: "POST"
             }).done(function (data) {
