@@ -198,7 +198,7 @@ namespace Generic.Models
             get { return _emailTo; }
             set { _emailTo = value; }
         }
-
+        public string reason { get; set; }
         public string subject
         {
             get { return _subject; }

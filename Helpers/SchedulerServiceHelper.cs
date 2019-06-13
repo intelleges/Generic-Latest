@@ -586,12 +586,12 @@ namespace Generic.Helpers
                 string htmlHeader = "";
 
                 additionalArguments.Add("ApplicationName", "MVCMT");
-                additionalArguments.Add("enterprise", Generic.Helpers.CurrentInstance.EnterpriseID.ToString());
+                additionalArguments.Add("enterprise", person.enterprise.Value.ToString());
                 additionalArguments.Add("loadgroup", email.loadgroup);
                 additionalArguments.Add("accesscode", email.accesscode);
                 additionalArguments.Add("protocolTouchpoint", email.protocolTouchpoint);
                 additionalArguments.Add("email", email.emailTo);
-
+                additionalArguments.Add("reason", email.reason);
                 additionalArguments.Add("url", email.url);
                 additionalArguments.Add("category", ((int)email.category).ToString());
                 additionalArguments.Add("reminderSource", email.reminderSource == null ? "" : email.reminderSource.Value.ToString());
@@ -741,6 +741,7 @@ namespace Generic.Helpers
                     var task = client.SendEmailAsync(msg);
                     task.Wait();
                     var response = task.Result;
+                    
                     var body = response.Body.ReadAsStringAsync().Result;
                     if (response.StatusCode != HttpStatusCode.Accepted)
                         throw new Exception("Not Send");
@@ -887,16 +888,19 @@ Intelleges Team
 ", person.firstName, person.lastName, accesscode);
 
                 var master = db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                var touchpoint = db.pr_getTouchpoint(person.campaign.Value).First();
                 sendEmail(new Email()
                 {
                     subject = "Intelleges Account Request",
                     emailTo = emailTo,
                     body = htmlBody,
                     category = SendGridCategory.SendPassword,
-                    accesscode = accesscode,
+                    protocolTouchpoint = touchpoint.title,
+                    url = "intelleges.com",
+                    loadgroup="password reset",
+                    reason="password reset"
                 }, "", null);
-                var touchpoint = db.pr_getTouchpoint(person.campaign.Value).First();
-                //db.pr_addEventNotification(emailTo, DateTime.UtcNow, "??", "password reset", "intelleges", "password", "none", touchpoint.title, "mvcmt", "none", "none", person.enterprise.Value, "password reset");
+                
                 htmlBody = string.Format(@"<br/><br/>
 System Master:,<br/><br/>
 Please be advised that {0} addressed reset their password.<br/><br/>
