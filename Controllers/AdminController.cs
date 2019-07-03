@@ -389,8 +389,24 @@ namespace Generic.Controllers
 
             return RedirectToAction("Index", "Admin");
         }
-
-
+        private class LocationModelByIp
+        {
+            public string city { get;set; }
+            public string country_name { get; set; }
+            public string region_name { get; set; }
+            public string zip { get; set; }
+            public string hostname { get; set; }
+        }
+        private LocationModelByIp GetLocationByIp(string ip)
+        {
+            RestSharp.RestClient client = new RestSharp.RestClient("https://api.ipstack.com/");
+            RestSharp.RestRequest restRequest = new RestSharp.RestRequest(ip, RestSharp.Method.GET);
+            restRequest.AddQueryParameter("access_key", "8f578ab0f32617fe27ce82424db2ee3e");
+            restRequest.AddQueryParameter("hostname", "1");
+            restRequest.AddQueryParameter("fields", "city,country_name,region_name,zip,hostname");
+            var response = client.Execute<LocationModelByIp>(restRequest);
+            return response.Data;
+        }
         [HttpPost]
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
@@ -414,17 +430,19 @@ namespace Generic.Controllers
 
                         person person = db.pr_doLogin(userName, password).FirstOrDefault();
                         var ip = Request.UserHostAddress;
-                        string[] computer_name = { ip };
+                        var computerName = "";//computer_name[0].ToString();
+                        //string[] computer_name = { ip };
                         try
                         {
-                            computer_name = System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+                            var ipData = GetLocationByIp(ip);
+                            computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
                         }
                         catch (SocketException ex)
                         {
                             //if can't resolve remote host then set up IP address
                         }
                         String ecn = System.Environment.MachineName;
-                        var computerName = computer_name[0].ToString();
+                        
                         var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
 
                         if (res == null)
