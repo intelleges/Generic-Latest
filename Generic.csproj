@@ -914,6 +914,7 @@
     <Compile Include="Models\LCEModel.cs" />
     <Compile Include="Models\LnResult.cs" />
     <Compile Include="Models\NotificationsModels.cs" />
+    <Compile Include="Models\PersonEditModel.cs" />
     <Compile Include="Models\QuestionnaireLevelType.cs" />
     <Compile Include="Models\SendGridCategory.cs" />
     <Compile Include="multiTenantProjectType.cs">

@@ -508,7 +508,40 @@ Thanks in advance.<br>
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", person.enterprise);
             ViewBag.personStatus = new SelectList(db.personStatus, "id", "description", person.personStatus);
 
-            return View(person);
+            return View(new PersonEditModel()
+            {
+                active = person.active,
+                address1 = person.address1,
+                address2 = person.address2,
+                archivedDate = person.archivedDate,
+                campaign = person.campaign,
+                city = person.city,
+                country = person.country,
+                email = person.email,
+                enterprise = person.enterprise,
+                fax = person.fax,
+                firstName = person.firstName,
+                id = person.id,
+                internalId = person.internalId,
+                IsArchived  = person.IsArchived,
+                ismanager = person.ismanager,
+                lastName = person.lastName,
+                loadHistory = person.loadHistory,
+                manager = person.manager,
+                nickName = person.nickName,
+                nmNumber = person.nmNumber,
+                partnerPerPage= person.partnerPerPage,
+                //passWord = person.passWord,
+                personStatus = person.personStatus,
+                phone = person.phone,
+                resetDate = person.resetDate,
+                riskType = person.riskType,
+                socialSecurity = person.socialSecurity,
+                state = person.state,
+                suffix = person.suffix,
+                title = person.title,
+                zipcode = person.zipcode
+            });
         }
 
         //

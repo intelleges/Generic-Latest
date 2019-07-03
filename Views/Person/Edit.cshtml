@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Generic.person>
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.Models.PersonEditModel>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @{
@@ -76,7 +76,7 @@
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.personStatus, "personStatu")
+                @Html.LabelFor(model => model.personStatus, "Person Status")
             </div>
             <div class="editor-field">
                 @Html.DropDownList("personStatus", String.Empty)
@@ -165,13 +165,13 @@
                 @Html.ValidationMessageFor(model => model.nickName)
             </div>
 
-            <div class="editor-label">
+            @*<div class="editor-label">
                 @Html.LabelFor(model => model.passWord)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.passWord)
                 @Html.ValidationMessageFor(model => model.passWord)
-            </div>
+            </div>*@
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.email)
