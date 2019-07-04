@@ -33,6 +33,12 @@
     ============================================= -->
     <title>Login</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function recaptcha_callback() {
+            //alert("callback working");
+            $('#login-form .submit-container button').prop("disabled", false);
+        }
+    </script>
 </head>
 
 <body class="stretched">
@@ -103,14 +109,14 @@
                                     </div>
                                     <div class="form-cell">
                                         <label for="login-form-email">Enter your email:</label>
-                                        <input type="email" id="login-form-email"  name="username" value="" class="form-control not-dark" />
+                                        <input type="email" id="login-form-email" name="username" value="" class="form-control not-dark" />
                                     </div>
                                     <div class="form-cell">
                                         <label for="login-form-password">Enter your password:</label>
                                         <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
                                     </div>
                                     <div class="form-cell">
-                                        <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]"></div>
+                                        <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
                                     </div>
                                     <div id="loginerrordiv" style="color: red">
                                         @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
@@ -137,17 +143,19 @@
                                             <a href="#" id="forgotPasswordLinq">Forgot Password?</a>
                                         </div>
                                     </div>
+                                    <div class="submit-container">
+                                        @if (ViewBag.REDIRECT_BY_EMAIL == 1)
+                                        {
+                                            <button class="button button-3d nomargin fright" value="login" type="submit" disabled>Submit</button>
+                                            //onclick = "$('#login-form').submit();"
+                                        }
+                                        else
+                                        {
+                                            <button class="button button-3d nomargin fright" value="login" type="submit" disabled>Log In</button>
+                                        }
+                                    </div>
                                 </form>
-                                <div class="submit-container">
-                                    @if (ViewBag.REDIRECT_BY_EMAIL == 1)
-                                    {
-                                        <button class="button button-3d nomargin fright" value="login" onclick="$('#login-form').submit();">Submit</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="button button-3d nomargin fright" value="login" onclick="$('#login-form').submit();">Log In</button>
-                                    }
-                                </div>
+                               
                                 <div class="need-help-wrapper">
                                     <h3>Need help?</h3>
                                     <p>	Please call: 917 818 0225 <br /> or email us at <a href="mailto:help@intelleges.com"> help@intelleges.com</a></p>
