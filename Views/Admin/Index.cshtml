@@ -32,7 +32,7 @@
     <!-- Document Title
     ============================================= -->
     <title>Login</title>
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body class="stretched">
@@ -108,6 +108,9 @@
                                     <div class="form-cell">
                                         <label for="login-form-password">Enter your password:</label>
                                         <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
+                                    </div>
+                                    <div class="form-cell">
+                                        <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]"></div>
                                     </div>
                                     <div id="loginerrordiv" style="color: red">
                                         @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
