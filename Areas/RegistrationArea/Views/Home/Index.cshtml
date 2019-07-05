@@ -3,34 +3,46 @@
 @using Generic.Areas.RegistrationArea.Models
 @using Generic.Helpers
 @{
-	ViewBag.Title = "Index";
-	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
-	//Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
-	var formData = new ViewBagModel();
-	if (ViewBag.FormData != null)
-	{
-		formData = ViewBag.FormData as ViewBagModel;
-	}
+    ViewBag.Title = "Index";
+    Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
+    var formData = new ViewBagModel();
+    if (ViewBag.FormData != null)
+    {
+        formData = ViewBag.FormData as ViewBagModel;
+    }
 }
 
 
 
 @*@{
-	Html.RenderPartial("_TestPartialArea",null);
-	}
+    Html.RenderPartial("_TestPartialArea",null);
+    }
 
 
 
-	@using (Html.BeginForm("Submit", "Home", new { Area = "RegistrationArea" }))
-	{
-		<input type="submit" name="btn_test" value="Test Click" />
-	}
+    @using (Html.BeginForm("Submit", "Home", new { Area = "RegistrationArea" }))
+    {
+        <input type="submit" name="btn_test" value="Test Click" />
+    }
 
 *@
 
 @System.Web.Optimization.Styles.Render("~/bundles/alertifyCss")
 @System.Web.Optimization.Styles.Render("~/bundles/registrationCss")
 @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
+<script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
+<link href="//fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function recaptcha_callback() {
+        //alert("callback working");
+        $('.form-inline #btnlogin').prop("disabled", false);
+    }
+</script>
+
 <script>
 	$(document).ready(function () {
 		var message = '@ViewBag.message';
@@ -78,78 +90,81 @@
 </div>
 
 <section class="page-inner">
-	<div class="small-container">
-		@Html.Partial("_TopSection")
-		<div class="modal fade" id="textMessageDialog" role="dialog" aria-labelledby="gpsLabel" >
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span><span class="sr-only"></span>
-						</button>
-						<h4 class="modal-title" id="gpsLabel">@ViewBag.EmailVerificationLabel</h4>
-					</div>
-					<div class="modal-body">
-						<form id="textMessageDialogForm">
-							<div class="form-group">
-								<label class="control-label" for="msgText">@ViewBag.EmailVerificationLabel</label>
-								<input type="email" id="emailText" name="emailText" class="form-control" />
-								@*<textarea id="msgText" name="msgText" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>*@
-								<span data-valmsg-replace="true" data-valmsg-for="msgText" class="field-validation-valid help-inline" />
-							</div>
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary" name="submit">Send</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="sub-box text-center">
-			@if (formData.ENTERPRISE_ID == 1)
-			{
-				<div id="languageSelection" class="languageSelection">
-					<img src="~/Contents/images/us.jpg" data-language="en" title="English" />
-					<img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic" />
-					<img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
-					<img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
-					<img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
-					<img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
-					<img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
-					<img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
-				</div>
-			}
-			<div class="shadow-box outer-shadow outer-popup text-center">
-				<h1>@Html.Action("InstanceLogo", "Admin", new { area = "" }) </h1>
-				<h4>@formData.ACCESS_CODE_PLEASE_ENTER</h4>
-				@*<form >*@
-				<span id="ctl00_contentQuestionnaireBody_lblErrorMessage"></span>
-				<div class="form-inline">
-					@using (Html.BeginForm())
-					{
-						<div class="form-group">
-							<label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.ACCESS_CODE_SIPLE_TEXT &nbsp;&nbsp; </label>
-							<input type="text" class="form-control" name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode">
-							@*@if (ViewBag.EmailVerification)
-							{
-								<label for="emailVerification"><i class="fa fa-asterisk"></i>@ViewBag.EmailVerificationLabel &nbsp;&nbsp; </label>
-								<input class="form-control" name="emailVerification" type="email" id="emailVerification">
-							}*@
-							<input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" />
-							<div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
-							</div>
-						</div>
-					}
-				</div>
-				@*</form>*@
-				<hr>
-				<a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
-			</div>
-			<div class="sub-honeywell">
-				<label for="exampleInputName2"><i class="fa fa-asterisk"></i>Required Fields</label>
-			</div>
-		</div>
-	</div>
+    <div class="small-container">
+        @Html.Partial("_TopSection")
+        <div class="modal fade" id="textMessageDialog" role="dialog" aria-labelledby="gpsLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">@ViewBag.EmailVerificationLabel</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="textMessageDialogForm">
+                            <div class="form-group">
+                                <label class="control-label" for="msgText">@ViewBag.EmailVerificationLabel</label>
+                                <input type="email" id="emailText" name="emailText" class="form-control" />
+                                @*<textarea id="msgText" name="msgText" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>*@
+                                <span data-valmsg-replace="true" data-valmsg-for="msgText" class="field-validation-valid help-inline" />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-box text-center">
+            @if (formData.ENTERPRISE_ID == 1)
+            {
+                <div id="languageSelection" class="languageSelection">
+                    <img src="~/Contents/images/us.jpg" data-language="en" title="English" />
+                    <img src="~/Contents/images/Arabic.gif" data-language="ar" title="Arabic" />
+                    <img src="~/Contents/images/ChineseSimplified.jpg" data-language="zh-CN" title="Chinese Simplified" />
+                    <img src="~/Contents/images/French.jpg" data-language="fr" title="French" />
+                    <img src="~/Contents/images/DeutschGerman.jpg" data-language="de" title="German" />
+                    <img src="~/Contents/images/Italian.jpg" data-language="it" title="Italian" />
+                    <img src="~/Contents/images/Russia-Flag-icon.png" data-language="ru" title="Russian" />
+                    <img src="~/Contents/images/Spanish.jpg" data-language="es" title="Spanish" />
+                </div>
+            }
+            <div class="shadow-box outer-shadow outer-popup text-center">
+                <h1>@Html.Action("InstanceLogo", "Admin", new { area = "" }) </h1>
+                <h4>@formData.ACCESS_CODE_PLEASE_ENTER</h4>
+                @*<form >*@
+                <span id="ctl00_contentQuestionnaireBody_lblErrorMessage"></span>
+                <div class="form-inline">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-group">
+                            <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.ACCESS_CODE_SIPLE_TEXT &nbsp;&nbsp; </label>
+                            <input type="text" class="form-control" name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode">
+                            @*@if (ViewBag.EmailVerification)
+                                {
+                                    <label for="emailVerification"><i class="fa fa-asterisk"></i>@ViewBag.EmailVerificationLabel &nbsp;&nbsp; </label>
+                                    <input class="form-control" name="emailVerification" type="email" id="emailVerification">
+                                }*@
+                            <input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" disabled />
+                            <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
+                            </div>
+                            <div class="form-cell">
+                                <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @*</form>*@
+                <hr>
+                <a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
+            </div>
+            <div class="sub-honeywell">
+                <label for="exampleInputName2"><i class="fa fa-asterisk"></i>Required Fields</label>
+            </div>
+        </div>
+    </div>
 </section>
 <script>
 	$(document).ready(function () {
