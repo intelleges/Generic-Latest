@@ -82,7 +82,13 @@
     	});
 	});
 </script>
-
+<style>
+    .accesscode-captcha {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+        margin-left: 134px !important;
+    }
+</style>
 
 
 <div class="top-margin">
@@ -150,15 +156,14 @@
                             <input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" disabled />
                             <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
                             </div>
-                            <div class="form-cell">
+                            <div class="form-cell accesscode-captcha">
                                 <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
                             </div>
                         </div>
                     }
                 </div>
                 @*</form>*@
-                <hr>
-                <a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#">@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
+                <a id="LkBtnRetrieveAccessCode" class="LkBtnRetrieveAccessCode" href="#" style="margin-left:34px;" >@formData.RETRIEVE_ACCESS_CODE_TEXT</a>
             </div>
             <div class="sub-honeywell">
                 <label for="exampleInputName2"><i class="fa fa-asterisk"></i>Required Fields</label>
