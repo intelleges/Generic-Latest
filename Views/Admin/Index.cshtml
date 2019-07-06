@@ -34,15 +34,35 @@
     <title>Login</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $("#login_submit_button").on("click", function () {
+                return validate()
+            });
+        })
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
+        function validate() {
+            var email = $("#login-form-email").val();
+            if (isEmail(email)) {
+                $('#login-form').submit();
+                return true;
+            }
+            else {
+                alertify.alert("Please use a valid email when signing in. Thank you.");
+                return false;
+            }
+        }
         function recaptcha_callback() {
             //alert("callback working");
-            $('#login-form .submit-container button').prop("disabled", false);
+            $('#login_submit_button').prop("disabled", false);
         }
     </script>
 </head>
 
 <body class="stretched">
-    
+
     <!-- Modal Window
     ============================================= -->
     <div class="modal fade" id="guideTour" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -146,16 +166,16 @@
                                     <div class="submit-container">
                                         @if (ViewBag.REDIRECT_BY_EMAIL == 1)
                                         {
-                                            <button class="button button-3d nomargin fright" value="login" type="submit" disabled>Submit</button>
+                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Submit</button>
                                             //onclick = "$('#login-form').submit();"
                                         }
                                         else
                                         {
-                                            <button class="button button-3d nomargin fright" value="login" type="submit" disabled>Log In</button>
+                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Log In</button>
                                         }
                                     </div>
                                 </form>
-                               
+
                                 <div class="need-help-wrapper">
                                     <h3>Need help?</h3>
                                     <p>	Please call: 917 818 0225 <br /> or email us at <a href="mailto:help@intelleges.com"> help@intelleges.com</a></p>
