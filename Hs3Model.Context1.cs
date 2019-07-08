@@ -231,6 +231,7 @@ namespace Generic
         public virtual DbSet<questionnaire> questionnaire { get; set; }
         public virtual DbSet<questionDocument> questionDocument { get; set; }
         public virtual DbSet<pptqQRPublicComment> pptqQRPublicComment { get; set; }
+        public virtual DbSet<gridLevelMenu> gridLevelMenu { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -24122,6 +24123,155 @@ namespace Generic
                 new ObjectParameter("touchpoint", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnertypeByTouchpoint2_Result>("pr_getPartnertypeByTouchpoint2", touchpointParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addGridLevelMenu(Nullable<int> enterprise, Nullable<int> columnNumber, string columnName, string description, string url, Nullable<int> accessLevel, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var columnNumberParameter = columnNumber.HasValue ?
+                new ObjectParameter("columnNumber", columnNumber) :
+                new ObjectParameter("columnNumber", typeof(int));
+    
+            var columnNameParameter = columnName != null ?
+                new ObjectParameter("columnName", columnName) :
+                new ObjectParameter("columnName", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var accessLevelParameter = accessLevel.HasValue ?
+                new ObjectParameter("accessLevel", accessLevel) :
+                new ObjectParameter("accessLevel", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addGridLevelMenu", enterpriseParameter, columnNumberParameter, columnNameParameter, descriptionParameter, urlParameter, accessLevelParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveGridLevelMenu(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveGridLevelMenu", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGridLevelMenu_Result> pr_getGridLevelMenu(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGridLevelMenu_Result>("pr_getGridLevelMenu", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGridLevelMenuAll_Result> pr_getGridLevelMenuAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGridLevelMenuAll_Result>("pr_getGridLevelMenuAll", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGridLevelMenuAllByColumnName_Result> pr_getGridLevelMenuAllByColumnName(Nullable<int> enterprise, string columnName)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var columnNameParameter = columnName != null ?
+                new ObjectParameter("columnName", columnName) :
+                new ObjectParameter("columnName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGridLevelMenuAllByColumnName_Result>("pr_getGridLevelMenuAllByColumnName", enterpriseParameter, columnNameParameter);
+        }
+    
+        public virtual ObjectResult<pr_getGridLevelMenuAllByColumnNumber_Result> pr_getGridLevelMenuAllByColumnNumber(Nullable<int> enterprise, Nullable<int> columnNumber)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var columnNumberParameter = columnNumber.HasValue ?
+                new ObjectParameter("columnNumber", columnNumber) :
+                new ObjectParameter("columnNumber", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGridLevelMenuAllByColumnNumber_Result>("pr_getGridLevelMenuAllByColumnNumber", enterpriseParameter, columnNumberParameter);
+        }
+    
+        public virtual int pr_modifyGridLevelMenu(Nullable<int> id, Nullable<int> enterprise, Nullable<int> columnNumber, string columnName, string description, string url, Nullable<int> accessLevel, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var columnNumberParameter = columnNumber.HasValue ?
+                new ObjectParameter("columnNumber", columnNumber) :
+                new ObjectParameter("columnNumber", typeof(int));
+    
+            var columnNameParameter = columnName != null ?
+                new ObjectParameter("columnName", columnName) :
+                new ObjectParameter("columnName", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var urlParameter = url != null ?
+                new ObjectParameter("url", url) :
+                new ObjectParameter("url", typeof(string));
+    
+            var accessLevelParameter = accessLevel.HasValue ?
+                new ObjectParameter("accessLevel", accessLevel) :
+                new ObjectParameter("accessLevel", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyGridLevelMenu", idParameter, enterpriseParameter, columnNumberParameter, columnNameParameter, descriptionParameter, urlParameter, accessLevelParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeGridLevelMenu(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeGridLevelMenu", idParameter);
+        }
+    
+        public virtual int pr_unArchiveGridLevelMenu(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGridLevelMenu", idParameter);
         }
     }
 }
