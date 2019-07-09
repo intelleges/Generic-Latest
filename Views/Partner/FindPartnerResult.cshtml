@@ -822,6 +822,7 @@
 
     function checkToPrintPDF(pptqId, status, touchpoint) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint }, function (data) {
+            debugger;
             if (status === 14) {
                 alertify.alert(data.message, function () {
                       checkToPrintPDF(data.pptqId, data.status, data.touchpoint);

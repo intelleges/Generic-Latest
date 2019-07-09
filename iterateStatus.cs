@@ -14,11 +14,20 @@ namespace Generic
     
     public partial class iterateStatus
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public iterateStatus()
+        {
+            this.iterateStatusEvent = new HashSet<iterateStatusEvent>();
+        }
+    
         public int id { get; set; }
         public string code { get; set; }
         public string description { get; set; }
         public string nextAction { get; set; }
         public int sortOrder { get; set; }
         public bool active { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<iterateStatusEvent> iterateStatusEvent { get; set; }
     }
 }

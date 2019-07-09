@@ -31,6 +31,8 @@ namespace Generic
             this.partnumberSpreadsheetDataLoad = new HashSet<partnumberSpreadsheetDataLoad>();
             this.personLinkedinAuthInfo = new HashSet<personLinkedinAuthInfo>();
             this.partnerSpreadsheetDataLoads = new HashSet<partnerSpreadsheetDataLoad>();
+            this.partnerSpreadsheetDataLoad_XXX = new HashSet<partnerSpreadsheetDataLoad_XXX>();
+            this.personLoginAudit = new HashSet<personLoginAudit>();
         }
     
         public int id { get; set; }
@@ -95,5 +97,10 @@ namespace Generic
         public virtual ICollection<personLinkedinAuthInfo> personLinkedinAuthInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnerSpreadsheetDataLoad> partnerSpreadsheetDataLoads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<partnerSpreadsheetDataLoad_XXX> partnerSpreadsheetDataLoad_XXX { get; set; }
+        public virtual personPassword personPassword { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<personLoginAudit> personLoginAudit { get; set; }
     }
 }
