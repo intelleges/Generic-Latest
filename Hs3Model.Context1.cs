@@ -2527,22 +2527,14 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgency", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<agency> pr_getAgencyAll(Nullable<int> enterprise)
+        public virtual ObjectResult<agency> pr_getAgencyAll(int id)
         {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll", enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll");
         }
     
-        public virtual ObjectResult<agency> pr_getAgencyAll(Nullable<int> enterprise, MergeOption mergeOption)
+        public virtual ObjectResult<agency> pr_getAgencyAll(MergeOption mergeOption)
         {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll", mergeOption, enterpriseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll", mergeOption);
         }
     
         public virtual ObjectResult<autoMailMessage> pr_getAutomail(Nullable<int> id)
@@ -5031,7 +5023,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTranslationByResponse_Result>("pr_getTranslationByResponse", responseParameter);
         }
     
-        public virtual int pr_modifyAgency(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyAgency(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -5049,7 +5041,11 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAgency", idParameter, descriptionParameter, sortOrderParameter, activeParameter);
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyAgency", idParameter, descriptionParameter, sortOrderParameter, activeParameter, enterpriseParameter);
         }
     
         public virtual int pr_modifyAutomail(Nullable<int> id, Nullable<int> protocol, Nullable<int> touchpoint, Nullable<int> partnerType, Nullable<int> mailType, string subject, string text, string footer1, string footer2)
@@ -11683,24 +11679,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveTouchpointTarget", idParameter);
-        }
-    
-        public virtual ObjectResult<person> pr_getSystemMaster(Nullable<int> enterprise)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", enterpriseParameter);
-        }
-    
-        public virtual ObjectResult<person> pr_getSystemMaster(Nullable<int> enterprise, MergeOption mergeOption)
-        {
-            var enterpriseParameter = enterprise.HasValue ?
-                new ObjectParameter("enterprise", enterprise) :
-                new ObjectParameter("enterprise", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", mergeOption, enterpriseParameter);
         }
     
         public virtual int pr_bootstrapAutomailMessage(Nullable<int> partnertypetouchpointquestionnaire, string companyName, string touchpointTitle, string touchpointPurpose, string touchpointTarget)
@@ -25478,8 +25456,8 @@ namespace Generic
         public virtual ObjectResult<Nullable<decimal>> pr_addPersonLoginLog(Nullable<int> person, Nullable<int> country, string hostname, string region, string city, string zip, string ipAddress, string authenticationCode, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
+                new ObjectParameter("Person", person) :
+                new ObjectParameter("Person", typeof(int));
     
             var countryParameter = country.HasValue ?
                 new ObjectParameter("country", country) :
@@ -26366,9 +26344,13 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseCountryBlock_Result>("pr_getEnterpriseCountryBlock", idParameter);
         }
     
-        public virtual ObjectResult<pr_getEnterpriseCountryBlockAll_Result> pr_getEnterpriseCountryBlockAll()
+        public virtual ObjectResult<pr_getEnterpriseCountryBlockAll_Result> pr_getEnterpriseCountryBlockAll(Nullable<int> enterprise)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseCountryBlockAll_Result>("pr_getEnterpriseCountryBlockAll");
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getEnterpriseCountryBlockAll_Result>("pr_getEnterpriseCountryBlockAll", enterpriseParameter);
         }
     
         public virtual ObjectResult<pr_getEnterpriseSpreadsheetDataLoad_Result> pr_getEnterpriseSpreadsheetDataLoad(Nullable<int> id)
@@ -26906,8 +26888,8 @@ namespace Generic
         public virtual ObjectResult<pr_getPersonLoginLogAllByPerson_Result> pr_getPersonLoginLogAllByPerson(Nullable<int> person)
         {
             var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
+                new ObjectParameter("Person", person) :
+                new ObjectParameter("Person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginLogAllByPerson_Result>("pr_getPersonLoginLogAllByPerson", personParameter);
         }
@@ -28385,8 +28367,8 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             var personParameter = person.HasValue ?
-                new ObjectParameter("person", person) :
-                new ObjectParameter("person", typeof(int));
+                new ObjectParameter("Person", person) :
+                new ObjectParameter("Person", typeof(int));
     
             var countryParameter = country.HasValue ?
                 new ObjectParameter("country", country) :
@@ -30205,6 +30187,24 @@ namespace Generic
                 new ObjectParameter("enterprise", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getcustomizedLSMWReportx_Result>("pr_getcustomizedLSMWReportx", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<person> pr_getSystemMaster(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", enterpriseParameter);
+        }
+    
+        public virtual ObjectResult<person> pr_getSystemMaster(Nullable<int> enterprise, MergeOption mergeOption)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("pr_getSystemMaster", mergeOption, enterpriseParameter);
         }
     }
 }

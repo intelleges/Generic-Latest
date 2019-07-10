@@ -144,29 +144,27 @@
                             }
                             <div class="display_menu" style="display: none;">
                                 <ul>
-                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Archive") ? "inherit":"none")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
 
-                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="@item.Expr1" target="_blank">Complete</a></li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="@item.Expr1" target="_blank">Complete</a></li>
 
-                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit</a></li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Edit")?"inherit":"none")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit</a></li>
 
-                                    <li>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+                                    <li  style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get Docs")?"inherit":"none")'>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
 
-                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Get PDF</a></li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get PDF")?"inherit":"none")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Get PDF</a></li>
 
-                                    <li><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Manual Upload")?"inherit":"none")'><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
 
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
 
-                                    <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
 
-                                    <li style='display:@(!Generic.SessionClass.SessionSingleton.IsSystemMaster?"none":"inherit")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
-
-                                    @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAAFull)
+                                    @*if (Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind"))
                                                 {
                                         <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
                                                 }
-
-                                    @*
+                                    
                                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
 
                                         <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -250,17 +248,17 @@
                                                                             {
                                                                     <div class="display_menu" style="display: none;">
                                                                         <ul>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind") ? "inherit":"none")'>
                                                                                 <a href="javascript:remind('@item.AccessCode')">
                                                                                     Remind
                                                                                 </a>
                                                                             </li>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (intelleges.com)</a></li>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Re-Invite (racix.net)</a></li>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Rescind</a></li>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Remove</a></li>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="#">Retrieve</a></li>
-                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu || Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA ? "none" : "inherit")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite") ? "inherit":"none")'><a href="#">Re-Invite (intelleges.com)</a></li>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite (racix.net)") ? "inherit":"none")'><a href="#">Re-Invite (racix.net)</a></li>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Rescind") ? "inherit":"none")'><a href="#">Rescind</a></li>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remove") ? "inherit":"none")'><a href="#">Remove</a></li>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Retrieve") ?"inherit":"none")'><a href="#">Retrieve</a></li>
+                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("SMS") ? "inherit":"none")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
                                                                         </ul>
                                                                     </div>
                                                                             }
@@ -822,7 +820,6 @@
 
     function checkToPrintPDF(pptqId, status, touchpoint) {
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint }, function (data) {
-            debugger;
             if (status === 14) {
                 alertify.alert(data.message, function () {
                       checkToPrintPDF(data.pptqId, data.status, data.touchpoint);

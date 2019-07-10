@@ -1825,6 +1825,13 @@ namespace Generic.Controllers
         {
             try
             {
+                if(SessionSingleton.GridLevelMenuItems.Count == 0)
+                {
+                    var menuItemIds = db.pr_getRoleGridLevelMenuByRole(SessionSingleton.LoggedInUserRole).Select(i => i.gridlevelmenu).ToList();
+                    foreach(var menuItemId in menuItemIds)
+                        SessionSingleton.GridLevelMenuItems.Add(db.pr_getGridLevelMenu(menuItemId).FirstOrDefault().description);
+                }
+
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];

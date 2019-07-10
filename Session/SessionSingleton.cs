@@ -137,30 +137,15 @@ namespace Generic.SessionClass
 			}
 		}
 
-        public static bool ShouldDisplayMenu
+        public static List<string> GridLevelMenuItems
         {
             get
             {
-				return !IsSystemMaster;
+                return (List<string>)System.Web.HttpContext.Current.Session["GridLevelMenuItems"] ?? new List<string>();
             }
-        }
-        public static bool ShouldDisplayMenuBAA
-        {
-            get
+            set
             {
-                if (Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2)
-                {
-					return !IsSystemMaster;
-                }
-                else return false;
-				
-            }
-        }
-        public static bool ShouldDisplayMenuBAAFull
-        {
-            get
-            {
-                return Generic.Helpers.CurrentInstance.MultiTenantProjectType == 2 && !IsSystemMaster && Generic.Helpers.CurrentInstance.EnterpriseID == 2;
+                System.Web.HttpContext.Current.Session["GridLevelMenuItems"] = value;
             }
         }
 

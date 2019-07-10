@@ -40,7 +40,7 @@
             });
         })
         function isEmail(email) {
-            var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var regex = /^([a-zA-Z0-9!#$%&'*+-/=?^_`{|}~'])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             return regex.test(email);
         }
         function validate() {
@@ -166,12 +166,13 @@
                                     <div class="submit-container">
                                         @if (ViewBag.REDIRECT_BY_EMAIL == 1)
                                         {
-                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Submit</button>
-                                            //onclick = "$('#login-form').submit();"
+                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" @*disabled*@>Submit</button>
+                                            //onclick="$('#login-form').submit();"
                                         }
                                         else
                                         {
-                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Log In</button>
+                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate">Log In</button>
+                                            //
                                         }
                                     </div>
                                 </form>
