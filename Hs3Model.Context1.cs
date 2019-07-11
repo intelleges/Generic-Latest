@@ -2527,7 +2527,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgency", mergeOption, idParameter);
         }
     
-        public virtual ObjectResult<agency> pr_getAgencyAll(int id)
+        public virtual ObjectResult<agency> pr_getAgencyAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<agency>("pr_getAgencyAll");
         }

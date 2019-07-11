@@ -411,90 +411,100 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+                if (ModelState.IsValid)
                 {
-                    var result = db.pr_validatePerson(userName, password).FirstOrDefault();
-                    Session["REDIRECT_BY_EMAIL"] = result == 1 ? 1 : -2;
-                    Session["REDIRECT_BY_EMAIL_APPROVAL"] = userName;
-                    dynamic queryStringData = Session["REDIRECT_BY_EMAIL_Query"];
-                    return RedirectToAction("QuestionnaireDetailQuestion", "Questionnaire", new { id = queryStringData.id, pptqId = queryStringData.pptqId, questionId = queryStringData.questionId, partnerId = queryStringData.partnerId, responseId = queryStringData.responseId, email = queryStringData.email });
-                }
-                else
-                {
-                    //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
-                    if (MembershipService.ValidateUser(userName, password))
+                    if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
                     {
-                        FormsAuthentication.SetAuthCookie(userName, false);
-
-                        person person = db.pr_doLogin(userName, password).FirstOrDefault();
-                        var ip = Request.UserHostAddress;
-                        var computerName = "";//computer_name[0].ToString();
-                        //string[] computer_name = { ip };
-                        try
-                        {
-                            var ipData = GetLocationByIp(ip);
-                            computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
-                        }
-                        catch (SocketException ex)
-                        {
-                            //if can't resolve remote host then set up IP address
-                        }
-                        String ecn = System.Environment.MachineName;
-                        
-                        var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
-
-                        if (res == null)
-                        {
-                            //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
-                            ViewBag.Message = "You failed to update login date & time";
-                        }
-
-                        SessionSingleton.LoggedInUserId = person.id;
-                        SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
-                        SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
-                        SessionSingleton.MyEnterPriseId = person.enterprise;
-                        SessionSingleton.Touchpoint = (int)person.campaign;
-
-                        try
-                        {
-                            SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
-                        }
-                        catch
-                        {
-                            SessionSingleton.EnterpriseURL = "#";
-                        }
-                        Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
-                        if (Url.IsLocalUrl(returnUrl))
-                        {
-                            return Redirect(returnUrl);
-                        }
-                        else
-                        {
-                            if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
-                            {
-                                return RedirectToAction("ResetPassword", "Person");
-                            }
-                            else
-                            {
-                                return RedirectToAction("Home", "Admin");
-                            }
-                        }
-
-                        //}
+                        var result = db.pr_validatePerson(userName, password).FirstOrDefault();
+                        Session["REDIRECT_BY_EMAIL"] = result == 1 ? 1 : -2;
+                        Session["REDIRECT_BY_EMAIL_APPROVAL"] = userName;
+                        dynamic queryStringData = Session["REDIRECT_BY_EMAIL_Query"];
+                        return RedirectToAction("QuestionnaireDetailQuestion", "Questionnaire", new { id = queryStringData.id, pptqId = queryStringData.pptqId, questionId = queryStringData.questionId, partnerId = queryStringData.partnerId, responseId = queryStringData.responseId, email = queryStringData.email });
                     }
                     else
                     {
-                        ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
+                        //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
+                        if (MembershipService.ValidateUser(userName, password))
+                        {
+                            FormsAuthentication.SetAuthCookie(userName, false);
+
+                            person person = db.pr_doLogin(userName, password).FirstOrDefault();
+                            var ip = Request.UserHostAddress;
+                            var computerName = "";//computer_name[0].ToString();
+                                                  //string[] computer_name = { ip };
+                            try
+                            {
+                                var ipData = GetLocationByIp(ip);
+                                computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+                            }
+                            catch (SocketException ex)
+                            {
+                                //if can't resolve remote host then set up IP address
+                            }
+                            String ecn = System.Environment.MachineName;
+
+                            var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
+
+                            if (res == null)
+                            {
+                                //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
+                                ViewBag.Message = "You failed to update login date & time";
+                            }
+
+                            SessionSingleton.LoggedInUserId = person.id;
+                            SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
+                            SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
+                            SessionSingleton.MyEnterPriseId = person.enterprise;
+                            SessionSingleton.Touchpoint = (int)person.campaign;
+
+                            try
+                            {
+                                SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
+                            }
+                            catch
+                            {
+                                SessionSingleton.EnterpriseURL = "#";
+                            }
+                            Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
+                            if (Url.IsLocalUrl(returnUrl))
+                            {
+                                return Redirect(returnUrl);
+                            }
+                            else
+                            {
+                                if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                                {
+                                    return RedirectToAction("ResetPassword", "Person");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Home", "Admin");
+                                }
+                            }
+
+                            //}
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
+                        }
                     }
                 }
-            }
 
-            var enterprises = db.pr_getEnterprise(1);
-            ViewBag.EnterpriseId = 1;
-            // If we got this far, something failed, redisplay form
-            return View(enterprises.FirstOrDefault());
+                var enterprises = db.pr_getEnterprise(1);
+                ViewBag.EnterpriseId = 1;
+                // If we got this far, something failed, redisplay form
+                return View(enterprises.FirstOrDefault());
+            }
+            catch (Exception e) {
+                ModelState.AddModelError("LoginFailed", e);
+                var enterprises = db.pr_getEnterprise(1);
+                ViewBag.EnterpriseId = 1;
+                // If we got this far, something failed, redisplay form
+                return View(enterprises.FirstOrDefault());
+            }
         }
 
         public virtual ActionResult Logout()

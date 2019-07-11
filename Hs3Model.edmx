@@ -10663,13 +10663,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Parameter Name="Reference" Type="int" Mode="In" />
           <Parameter Name="user" Type="int" Mode="In" />
         </Function>
-        <Function Name="pr_modifyAgency" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="description" Type="varchar" Mode="In" />
-          <Parameter Name="sortOrder" Type="int" Mode="In" />
-          <Parameter Name="active" Type="bit" Mode="In" />
-          <Parameter Name="enterprise" Type="int" Mode="In" />
-        </Function>
         <Function Name="pr_modifyAlert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="person" Type="int" Mode="In" />
@@ -40651,12 +40644,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
                   <ScalarProperty Name="description" ParameterName="description" />
                   <ResultBinding Name="id" ColumnName="id" />
                 </InsertFunction>
-                <UpdateFunction FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAgency">
-                  <ScalarProperty Name="active" ParameterName="active" Version="Current" />
-                  <ScalarProperty Name="sortOrder" ParameterName="sortOrder" Version="Current" />
-                  <ScalarProperty Name="description" ParameterName="description" Version="Current" />
-                  <ScalarProperty Name="id" ParameterName="id" Version="Current" />
-                </UpdateFunction>
                 <DeleteFunction FunctionName="hs3MVCMTQa2Model.Store.pr_removeAgency">
                   <ScalarProperty Name="id" ParameterName="id" />
                 </DeleteFunction>
@@ -43354,7 +43341,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_modifyAgency" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAgency" />
           <FunctionImportMapping FunctionImportName="pr_modifyAutoMailType" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyAutoMailType" />
           <FunctionImportMapping FunctionImportName="pr_modifyCountry" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyCountry" />
           <FunctionImportMapping FunctionImportName="pr_modifyDomain" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyDomain" />
