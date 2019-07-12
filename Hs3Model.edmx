@@ -1127,7 +1127,7 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.foiaContactList2015' does not 
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="enterprise" Type="int" Nullable="false" />
+          <Property Name="ptq" Type="int" Nullable="false" />
           <Property Name="columnNumber" Type="int" Nullable="false" />
           <Property Name="columnName" Type="varchar" MaxLength="500" />
           <Property Name="description" Type="varchar" MaxLength="30" Nullable="false" />
@@ -6522,7 +6522,7 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Parameter Name="active" Type="bit" Mode="In" />
         </Function>
         <Function Name="pr_addGridLevelMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="columnNumber" Type="int" Mode="In" />
           <Parameter Name="columnName" Type="varchar" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -8973,14 +8973,14 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getGridLevelMenuAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getGridLevelMenuAllByColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="columnName" Type="varchar" Mode="In" />
         </Function>
         <Function Name="pr_getGridLevelMenuAllByColumnNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="columnNumber" Type="int" Mode="In" />
         </Function>
         <Function Name="pr_getGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -11159,7 +11159,7 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
         </Function>
         <Function Name="pr_modifyGridLevelMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
-          <Parameter Name="enterprise" Type="int" Mode="In" />
+          <Parameter Name="ptq" Type="int" Mode="In" />
           <Parameter Name="columnNumber" Type="int" Mode="In" />
           <Parameter Name="columnName" Type="varchar" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -22261,50 +22261,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Parameter Name="touchpoint" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="gridLevelMenu" EntityType="hs3MVCMTQa2Model.gridLevelMenu" />
-          <FunctionImport Name="pr_addGridLevelMenu" ReturnType="Collection(Decimal)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="columnNumber" Mode="In" Type="Int32" />
-            <Parameter Name="columnName" Mode="In" Type="String" />
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="url" Mode="In" Type="String" />
-            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="pr_archiveGridLevelMenu">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getGridLevelMenu" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenu_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getGridLevelMenuAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenuAll_Result)">
-          <Parameter Name="enterprise" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getGridLevelMenuAllByColumnName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnName_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="columnName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="pr_getGridLevelMenuAllByColumnNumber" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnNumber_Result)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="columnNumber" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_modifyGridLevelMenu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
-            <Parameter Name="columnNumber" Mode="In" Type="Int32" />
-            <Parameter Name="columnName" Mode="In" Type="String" />
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="url" Mode="In" Type="String" />
-            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
-            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
-            <Parameter Name="active" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="pr_removeGridLevelMenu">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="pr_unArchiveGridLevelMenu">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="alert" EntityType="hs3MVCMTQa2Model.alert" />
           <EntitySet Name="areaCodeTimeZone" EntityType="hs3MVCMTQa2Model.areaCodeTimeZone" />
           <EntitySet Name="cageNaics" EntityType="hs3MVCMTQa2Model.cageNaics" />
@@ -23342,9 +23298,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
             <Parameter Name="partnertype" Mode="In" Type="Int32" />
             <Parameter Name="accesscode" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="pr_getRoleGridLevelMenuByRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByRole_Result)">
-          <Parameter Name="role" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="pr_getShadowByReferencePPTQ" ReturnType="Collection(Int32)">
           <Parameter Name="pptq" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -24175,7 +24128,54 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Parameter Name="enterprise" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getSystemMaster" EntitySet="person" ReturnType="Collection(hs3MVCMTQa2Model.person)">
-            <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          <Parameter Name="enterprise" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_addGridLevelMenu" ReturnType="Collection(Decimal)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="columnNumber" Mode="In" Type="Int32" />
+            <Parameter Name="columnName" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_archiveGridLevelMenu">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGridLevelMenu" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenu_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGridLevelMenuAll" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenuAll_Result)">
+          <Parameter Name="ptq" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGridLevelMenuAllByColumnName" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnName_Result)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="columnName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getGridLevelMenuAllByColumnNumber" ReturnType="Collection(hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnNumber_Result)">
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="columnNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleGridLevelMenuByRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByRole_Result)">
+            <Parameter Name="role" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_modifyGridLevelMenu">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="ptq" Mode="In" Type="Int32" />
+            <Parameter Name="columnNumber" Mode="In" Type="Int32" />
+            <Parameter Name="columnName" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+            <Parameter Name="accessLevel" Mode="In" Type="Int32" />
+            <Parameter Name="sortOrder" Mode="In" Type="Int32" />
+            <Parameter Name="active" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="pr_removeGridLevelMenu">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_unArchiveGridLevelMenu">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -37396,7 +37396,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="enterprise" Type="Int32" Nullable="false" />
           <Property Name="columnNumber" Type="Int32" Nullable="false" />
           <Property Name="columnName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -37404,51 +37403,8 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Property Name="accessLevel" Type="Int32" />
           <Property Name="sortOrder" Type="Int32" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="ptq" Type="Int32" Nullable="false" />
         </EntityType>
-        <ComplexType Name="pr_getGridLevelMenu_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="enterprise" Nullable="false" />
-          <Property Type="Int32" Name="columnNumber" Nullable="false" />
-          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="accessLevel" Nullable="true" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getGridLevelMenuAll_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="enterprise" Nullable="false" />
-          <Property Type="Int32" Name="columnNumber" Nullable="false" />
-          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="accessLevel" Nullable="true" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getGridLevelMenuAllByColumnName_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="enterprise" Nullable="false" />
-          <Property Type="Int32" Name="columnNumber" Nullable="false" />
-          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="accessLevel" Nullable="true" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="pr_getGridLevelMenuAllByColumnNumber_Result">
-          <Property Type="Int32" Name="id" Nullable="false" />
-          <Property Type="Int32" Name="enterprise" Nullable="false" />
-          <Property Type="Int32" Name="columnNumber" Nullable="false" />
-          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="accessLevel" Nullable="true" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
         <EntityType Name="alert">
           <Key>
             <PropertyRef Name="id" />
@@ -40299,12 +40255,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Property Type="Int32" Name="pingRecordsProcessed" Nullable="false" />
           <Property Type="Int32" Name="type" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="pr_getRoleGridLevelMenuByRole_Result">
-          <Property Type="Int32" Name="role" Nullable="false" />
-          <Property Type="Int32" Name="gridlevelmenu" Nullable="false" />
-          <Property Type="Int32" Name="sortOrder" Nullable="false" />
-          <Property Type="Boolean" Name="active" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="pr_getSpecialDesignation2_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="title" Nullable="false" />
@@ -40606,6 +40556,56 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Property Type="DateTime" Name="COMPLETED_DATE" Nullable="false" />
           <Property Type="DateTime" Name="validToDate" Nullable="true" />
           <Property Type="String" Name="accesscode" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="pr_getGridLevelMenu_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="columnNumber" Nullable="false" />
+          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getGridLevelMenuAll_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="columnNumber" Nullable="false" />
+          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getGridLevelMenuAllByColumnName_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="columnNumber" Nullable="false" />
+          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getGridLevelMenuAllByColumnNumber_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="ptq" Nullable="false" />
+          <Property Type="Int32" Name="columnNumber" Nullable="false" />
+          <Property Type="String" Name="columnName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="description" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="accessLevel" Nullable="true" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getRoleGridLevelMenuByRole_Result">
+          <Property Type="Int32" Name="role" Nullable="false" />
+          <Property Type="Int32" Name="gridlevelmenu" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -53156,6 +53156,7 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <EntitySetMapping Name="gridLevelMenu">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.gridLevelMenu">
               <MappingFragment StoreEntitySet="gridLevelMenu">
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
                 <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
@@ -53163,76 +53164,10 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="columnName" ColumnName="columnName" />
                 <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="pr_addGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_addGridLevelMenu" />
-          <FunctionImportMapping FunctionImportName="pr_archiveGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveGridLevelMenu" />
-          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenu">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenu_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
-                <ScalarProperty Name="columnName" ColumnName="columnName" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenuAll">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenuAll_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
-                <ScalarProperty Name="columnName" ColumnName="columnName" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenuAllByColumnName" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenuAllByColumnName">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnName_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
-                <ScalarProperty Name="columnName" ColumnName="columnName" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenuAllByColumnNumber" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenuAllByColumnNumber">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnNumber_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="enterprise" ColumnName="enterprise" />
-                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
-                <ScalarProperty Name="columnName" ColumnName="columnName" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="pr_modifyGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyGridLevelMenu" />
-          <FunctionImportMapping FunctionImportName="pr_removeGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeGridLevelMenu" />
-          <FunctionImportMapping FunctionImportName="pr_unArchiveGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveGridLevelMenu" />
           <EntitySetMapping Name="alert">
             <EntityTypeMapping TypeName="hs3MVCMTQa2Model.alert">
               <MappingFragment StoreEntitySet="alert">
@@ -56495,16 +56430,6 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <FunctionImportMapping FunctionImportName="pr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpointIncomplete" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpointIncomplete" />
           <FunctionImportMapping FunctionImportName="pr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpointStripped" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpointStripped" />
           <FunctionImportMapping FunctionImportName="pr_getResponsesByProtocolTouchpointGroupPartnertypeTest" FunctionName="hs3MVCMTQa2Model.Store.pr_getResponsesByProtocolTouchpointGroupPartnertypeTest" />
-          <FunctionImportMapping FunctionImportName="pr_getRoleGridLevelMenuByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleGridLevelMenuByRole">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByRole_Result">
-                <ScalarProperty Name="role" ColumnName="role" />
-                <ScalarProperty Name="gridlevelmenu" ColumnName="gridlevelmenu" />
-                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
-                <ScalarProperty Name="active" ColumnName="active" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getShadowByReferencePPTQ" FunctionName="hs3MVCMTQa2Model.Store.pr_getShadowByReferencePPTQ" />
           <FunctionImportMapping FunctionImportName="pr_getSpecialDesignation2" FunctionName="hs3MVCMTQa2Model.Store.pr_getSpecialDesignation2">
             <ResultMapping>
@@ -57075,6 +57000,81 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="pr_getSystemMaster" FunctionName="hs3MVCMTQa2Model.Store.pr_getSystemMaster" />
+          <FunctionImportMapping FunctionImportName="pr_addGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_addGridLevelMenu" />
+          <FunctionImportMapping FunctionImportName="pr_archiveGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_archiveGridLevelMenu" />
+          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenu_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
+                <ScalarProperty Name="columnName" ColumnName="columnName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenuAll" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenuAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenuAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
+                <ScalarProperty Name="columnName" ColumnName="columnName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenuAllByColumnName" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenuAllByColumnName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnName_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
+                <ScalarProperty Name="columnName" ColumnName="columnName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getGridLevelMenuAllByColumnNumber" FunctionName="hs3MVCMTQa2Model.Store.pr_getGridLevelMenuAllByColumnNumber">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getGridLevelMenuAllByColumnNumber_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ptq" ColumnName="ptq" />
+                <ScalarProperty Name="columnNumber" ColumnName="columnNumber" />
+                <ScalarProperty Name="columnName" ColumnName="columnName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="accessLevel" ColumnName="accessLevel" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_getRoleGridLevelMenuByRole" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleGridLevelMenuByRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByRole_Result">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="gridlevelmenu" ColumnName="gridlevelmenu" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pr_modifyGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyGridLevelMenu" />
+          <FunctionImportMapping FunctionImportName="pr_removeGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeGridLevelMenu" />
+          <FunctionImportMapping FunctionImportName="pr_unArchiveGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveGridLevelMenu" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
