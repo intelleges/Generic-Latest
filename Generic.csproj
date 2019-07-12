@@ -3044,6 +3044,9 @@
     <Compile Include="pr_getRoleByPerson_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getRoleGridLevelMenuByPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getRoleGridLevelMenuByRole_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

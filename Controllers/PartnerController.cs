@@ -1827,7 +1827,8 @@ namespace Generic.Controllers
             {
                 if(SessionSingleton.GridLevelMenuItems.Count == 0)
                 {
-                    var menuItemIds = db.pr_getRoleGridLevelMenuByRole(SessionSingleton.LoggedInUserRole).Select(i => i.gridlevelmenu).ToList();
+                    var menuItemIds = db.pr_getRoleGridLevelMenuByPerson(SessionSingleton.LoggedInUserId).Select(i => i.gridlevelmenu).ToList();
+                    //var menuItemIds = db.pr_getRoleGridLevelMenuByRole(SessionSingleton.LoggedInUserRole).Select(i => i.gridlevelmenu).ToList();
                     var contextMenuItems = new List<string>();
                     foreach (var menuItemId in menuItemIds)
                     {

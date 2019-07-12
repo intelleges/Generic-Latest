@@ -30206,5 +30206,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveGridLevelMenu", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getRoleGridLevelMenuByPerson_Result> pr_getRoleGridLevelMenuByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleGridLevelMenuByPerson_Result>("pr_getRoleGridLevelMenuByPerson", personParameter);
+        }
     }
 }

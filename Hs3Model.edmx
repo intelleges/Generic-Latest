@@ -10353,6 +10353,9 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
         <Function Name="pr_getRoleByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="person" Type="int" Mode="In" />
         </Function>
+        <Function Name="pr_getRoleGridLevelMenuByPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="person" Type="int" Mode="In" />
+        </Function>
         <Function Name="pr_getRoleGridLevelMenuByRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="role" Type="int" Mode="In" />
         </Function>
@@ -24158,7 +24161,7 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
             <Parameter Name="columnNumber" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_getRoleGridLevelMenuByRole" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByRole_Result)">
-            <Parameter Name="role" Mode="In" Type="Int32" />
+          <Parameter Name="role" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_modifyGridLevelMenu">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -24172,10 +24175,13 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
             <Parameter Name="active" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="pr_removeGridLevelMenu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="pr_unArchiveGridLevelMenu">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pr_getRoleGridLevelMenuByPerson" ReturnType="Collection(hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByPerson_Result)">
+            <Parameter Name="person" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="accessLevel">
@@ -40602,6 +40608,12 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <Property Type="Boolean" Name="active" Nullable="false" />
         </ComplexType>
         <ComplexType Name="pr_getRoleGridLevelMenuByRole_Result">
+          <Property Type="Int32" Name="role" Nullable="false" />
+          <Property Type="Int32" Name="gridlevelmenu" Nullable="false" />
+          <Property Type="Int32" Name="sortOrder" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="pr_getRoleGridLevelMenuByPerson_Result">
           <Property Type="Int32" Name="role" Nullable="false" />
           <Property Type="Int32" Name="gridlevelmenu" Nullable="false" />
           <Property Type="Int32" Name="sortOrder" Nullable="false" />
@@ -57075,6 +57087,16 @@ warning 6002: The table/view 'hs3MVCMTQa2_dev.dbo.view_TouchpointData' does not 
           <FunctionImportMapping FunctionImportName="pr_modifyGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_modifyGridLevelMenu" />
           <FunctionImportMapping FunctionImportName="pr_removeGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_removeGridLevelMenu" />
           <FunctionImportMapping FunctionImportName="pr_unArchiveGridLevelMenu" FunctionName="hs3MVCMTQa2Model.Store.pr_unArchiveGridLevelMenu" />
+          <FunctionImportMapping FunctionImportName="pr_getRoleGridLevelMenuByPerson" FunctionName="hs3MVCMTQa2Model.Store.pr_getRoleGridLevelMenuByPerson">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="hs3MVCMTQa2Model.pr_getRoleGridLevelMenuByPerson_Result">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="gridlevelmenu" ColumnName="gridlevelmenu" />
+                <ScalarProperty Name="sortOrder" ColumnName="sortOrder" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
