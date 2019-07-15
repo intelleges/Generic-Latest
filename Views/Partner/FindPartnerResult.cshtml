@@ -146,11 +146,15 @@
                                 <ul>
                                     <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Archive") ? "inherit":"none")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
 
-                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="@item.Expr1" target="_blank">Complete</a></li>
+                                    @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="@item.Expr1" target="_blank">Complete</a></li>*@
+
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="javascript: openCompletePopup('@item.AccessCode')">Complete</a></li>
+
+                                    @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'>@Html.ActionLink("Complete", "Index", "Home", new { accessCode = item.AccessCode }, new { target = "_blank", area = "Registration" })</li>*@
 
                                     <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Edit")?"inherit":"none")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit</a></li>
 
-                                    <li  style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get Docs")?"inherit":"none")'>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get Docs")?"inherit":"none")'>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
 
                                     <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get PDF")?"inherit":"none")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Get PDF</a></li>
 
@@ -161,17 +165,17 @@
                                     <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
 
                                     @*if (Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind"))
-                                                {
-                                        <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
-                                                }
-                                    
-                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+                {
+        <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                }
 
-                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
 
-                                        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
 
-                                        <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
+        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+
+        <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
                                     *@
                                 </ul>
                             </div>
@@ -748,13 +752,16 @@
 		$("#genericPopup").dialog('open');
 	}
 
-	function openCompletePopup(accesscode) {
-		$("#genericPopup").html("<p>Loading Data...</p>");
+    function openCompletePopup(accesscode) {
+        debugger;
+        window.open("@Url.Content("~/Registration?Accesscode=")" + accesscode, '_blank');
+
+		@*$("#genericPopup").html("<p>Loading Data...</p>");
 		$.get("@Url.Content("~/Registration?Accesscode=")" + accesscode, function (data) {
 			$("#genericPopup").html(data);
 		});
 		$("#genericPopup").dialog({ height: 600, title: "Complete" });
-		$("#genericPopup").dialog('open');
+		$("#genericPopup").dialog('open');*@
     }
 
     function resetStatus(accessCode, internalID, touchpoint) {
