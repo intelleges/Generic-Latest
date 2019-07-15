@@ -36,6 +36,7 @@ namespace Generic.Controllers
         public CustomMembershipProvider MembershipService { get; set; }
         public CustomRoleProvider AuthorizationService { get; set; }
 
+
         protected override void Initialize(RequestContext requestContext)
         {
 
@@ -393,17 +394,19 @@ namespace Generic.Controllers
         {
             public string city { get; set; }
             public string country_name { get; set; }
+            public string country_code { get; set; }
             public string region_name { get; set; }
             public string zip { get; set; }
             public string hostname { get; set; }
         }
+
         private LocationModelByIp GetLocationByIp(string ip)
         {
             RestSharp.RestClient client = new RestSharp.RestClient("https://api.ipstack.com/");
             RestSharp.RestRequest restRequest = new RestSharp.RestRequest(ip, RestSharp.Method.GET);
             restRequest.AddQueryParameter("access_key", "8f578ab0f32617fe27ce82424db2ee3e");
             restRequest.AddQueryParameter("hostname", "1");
-            restRequest.AddQueryParameter("fields", "city,country_name,region_name,zip,hostname");
+            restRequest.AddQueryParameter("fields", "city,country_name,country_code,region_name,zip,hostname");
             var response = client.Execute<LocationModelByIp>(restRequest);
             return response.Data;
         }
@@ -430,6 +433,7 @@ namespace Generic.Controllers
                         FormsAuthentication.SetAuthCookie(userName, false);
 
                         person person = db.pr_doLogin(userName, password).FirstOrDefault();
+                        //var ip = "71.225.253.65";// Request.UserHostAddress;
                         var ip = Request.UserHostAddress;
                         var computerName = "";//computer_name[0].ToString();
                                               //string[] computer_name = { ip };
@@ -437,6 +441,35 @@ namespace Generic.Controllers
                         {
                             var ipData = GetLocationByIp(ip);
                             computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+
+                            // Checking host name validation
+                            var hostName = ipData.hostname;
+                            var companyName = db.pr_getEnterprise(person.enterprise)
+                                .Select(x => x.companyName).FirstOrDefault();
+                            if (hostName == null || !hostName.Contains(companyName))
+                            {
+                                var message = $@"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
+                                return SendAccessCode(person, ip, 
+                                    computerName, returnUrl, userName, message);
+                            }
+
+                            // Validating country code blocked
+
+                            var countryBlockedList = db.pr_getEnterpriseCountryBlockAll(enterprise: person.enterprise)
+                                .Select(x => x.country).ToList();
+
+                            foreach (var country in countryBlockedList)
+                            {
+                                var isCountryCodeBlocked = db.pr_getCountry(country)
+                                    .Any(x => x.code == ipData.country_code);
+
+                                if (isCountryCodeBlocked)
+                                {
+                                    var message = @"You are logging in from blocked location, Please get the security code sent to your email address and enter it below.";
+                                    return SendAccessCode(person, ip, 
+                                        computerName, returnUrl, userName, message);
+                                }
+                            }
                         }
                         catch (SocketException ex)
                         {
@@ -496,6 +529,144 @@ namespace Generic.Controllers
             ViewBag.EnterpriseId = 1;
             // If we got this far, something failed, redisplay form
             return View(enterprises.FirstOrDefault());
+        }
+
+        public ActionResult SendAccessCode(person person, string ip, 
+            string computerName, string returnUrl,
+            string userName,string message)
+        {
+            var master = db.pr_getSystemMaster(person.enterprise).FirstOrDefault();
+            var accessCode = db.pr_getAccesscode().FirstOrDefault();
+
+            var result = SendAccessCode(accessCode,
+                "Intelleges Login Access Code : " + accessCode,
+                master: master, person: person);
+
+            var model = new AccessCodeModel
+            {
+                Ip = ip,
+                Person = person,
+                ComputerName = computerName,
+                ReturnUrl = returnUrl,
+                AccessCode = accessCode,
+                UserName = userName,
+                Message = message
+            };
+            SessionSingleton.AccessCodeModelValue = model;
+            //return AccessCodeValidate();
+            return RedirectToAction("AccessCodeValidate");
+
+        }
+
+        public ActionResult AccessCodeValidate()
+        {
+            var accessCodeModel = SessionSingleton.AccessCodeModelValue;
+
+            ViewBag.Message = accessCodeModel.Message;
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public virtual ActionResult AccessCodeValidate(string securitycode)
+        {
+            var accessCodeModel = SessionSingleton.AccessCodeModelValue;
+            if (accessCodeModel.AccessCode.Equals(securitycode))
+            {
+                FormsAuthentication.SetAuthCookie(accessCodeModel.UserName, false);
+
+                var ip = accessCodeModel.Ip;
+                var person = accessCodeModel.Person;
+                var computerName = accessCodeModel.ComputerName;
+                var returnUrl = accessCodeModel.ReturnUrl;
+
+                String ecn = System.Environment.MachineName;
+
+                var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
+
+                if (res == null)
+                {
+                    //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
+                    ViewBag.Message = "You failed to update login date & time";
+                }
+
+                SessionSingleton.LoggedInUserId = person.id;
+                SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
+                SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
+                SessionSingleton.MyEnterPriseId = person.enterprise;
+                SessionSingleton.Touchpoint = (int)person.campaign;
+
+                try
+                {
+                    SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
+                }
+                catch
+                {
+                    SessionSingleton.EnterpriseURL = "#";
+                }
+                Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    try
+                    {
+                        if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                        {
+                            return RedirectToAction("ResetPassword", "Person");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Home", "Admin");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
+
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("AccessDenied", "Access Code Invalid or Expired.");
+            }
+            //SetLoginAccess(accessCodeModel);
+            return View();
+        }
+        
+        [HttpPost]
+        public bool SendAccessCode(string text, string subject, person master, person person)
+        {
+            var objSendEmail = new SendEmail();
+            if (person != null)
+            {
+                var email = new Email
+                {
+                    subject = subject,
+                    body = text,
+                    category = SendGridCategory.EmailSend,
+                    url = Request.Url.ToString(),
+                    emailTo = person.email
+                };
+                objSendEmail.sendEmail(email, new EmailFormatSettings()
+                {
+                    enterprise = new enterprise()
+                    {
+                        id = person.enterprise.Value
+                    }
+                }, new System.Net.Mail.MailAddress(master.email, master.firstName + " " + master.lastName));
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public virtual ActionResult Logout()

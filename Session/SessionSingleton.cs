@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Generic.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -230,6 +231,18 @@ namespace Generic.SessionClass
             set
             {
                 System.Web.HttpContext.Current.Session["NeedGetEvernoteText"] = value;
+            }
+        }
+
+        public static AccessCodeModel AccessCodeModelValue
+        {
+            get
+            {
+                return (AccessCodeModel)System.Web.HttpContext.Current.Session["AccessCodeModel"] ?? new AccessCodeModel();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["AccessCodeModel"] = value;
             }
         }
     }

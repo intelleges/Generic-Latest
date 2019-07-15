@@ -842,6 +842,7 @@
     <Compile Include="groupRiskGoal.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AccessCodeModel.cs" />
     <Compile Include="Helpers\AsyncEvernoteAuthorizer.cs" />
     <Compile Include="Helpers\ClientJavascriptHelper.cs" />
     <Compile Include="Helpers\CurrentInstance.cs" />
@@ -6665,6 +6666,7 @@
     <Content Include="Views\TrainingModule\FindModule.cshtml" />
     <Content Include="Views\TrainingModule\FindModuleResult.cshtml" />
     <Content Include="Views\TrainingModule\Index.cshtml" />
+    <Content Include="Views\Admin\AccessCodeValidate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

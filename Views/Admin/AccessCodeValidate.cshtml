@@ -1,0 +1,137 @@
+﻿
+@using System.Web.Optimization
+
+@inherits System.Web.Mvc.WebViewPage<Generic.enterprise>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <script type="text/javascript">
+        var relative = '@Url.Content("~")';
+    </script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="SemiColonWeb" />
+
+    <!-- Stylesheets
+    ============================================= -->
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/style.css?v=3" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/components/radio-checkbox.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/login/css/responsive.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    @Styles.Render("~/bundles/alertifyCss")
+    <script src="@Url.Content("~/Scripts/alertify.js")"></script>
+    <!-- Document Title
+    ============================================= -->
+    <title>Validate Access Code</title> 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $("#login_submit_button").on("click", function () {
+                return validate()
+            });
+        })
+        function isEmail(email) {
+            var regex = /^([a-zA-Z0-9!#$%&'*+-/=?^_`{|}~'])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            return regex.test(email);
+        }
+        function validate() {
+            //alertify.alert(" Thank you.");
+            $('#login-form').submit();
+            return true;
+            //var email = $("#login-form-email").val();
+            //if (isEmail(email)) {
+            //    $('#login-form').submit();
+            //    return true;
+            //}
+            //else {
+            //    alertify.alert("Please use a valid email when signing in. Thank you.");
+            //    return false;
+            //}
+        }
+        
+    </script>
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+    ============================================= -->
+    <div id="wrapper" class="clearfix">
+        <!-- Content
+        ============================================= -->
+        <section id="content">
+            <div class="content-wrap nopadding">
+                <div class="section nopadding nomargin" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: #444;"></div>
+                <div class="section nobg full-screen nopadding nomargin">
+                    <div id="login-wrapper" class="container vertical-middle divcenter clearfix">
+                        <div class="panel panel-default divcenter noradius noborder login">
+                            <div class="panel-body">
+                                <form id="login-form" name="login-form" class="nobottommargin" action="#" method="post">
+                                    <div class="login-logo">
+                                        <a href="http://www.intelleges.com/"> <img src="~/Content/login/images/intelleges/intelleges-icon.jpg" style="width:80px;float:right;" alt="logo"></a>
+                                    </div>
+                                    <div class="need-help-wrapper" style="text-align:left">
+                                        <p> @ViewBag.Message </p>
+                                    </div>
+                                    <div class="form-cell">
+                                        <label for="login-form-email">Security Code:</label>
+                                        <input type="text" id="login-form-code" name="securitycode" value="" class="form-control not-dark" />
+                                    </div>
+
+                                    <div id="loginerrordiv" style="color: red">
+                                        @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
+                                        {
+                                            foreach (System.Web.Mvc.ModelError error in modelState.Errors)
+                                            {
+                                                if (error != null)
+                                                {
+
+                                                    <span>Access Code Invalid or Expired.</span>
+
+                                                }
+
+                                            }
+                                        }
+                                    </div>
+
+                                    <div class="submit-container">
+                                        <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" @*disabled*@>Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+        </section><!-- #content end -->
+    </div><!-- #wrapper end -->
+    <!-- Go To Top
+
+
+    <!-- Go To Top
+    ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+    <!-- External JavaScripts
+    ============================================= -->
+    <script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
+    <script>
+    var enterpriseId = @ViewBag.EnterpriseId ;
+    </script>
+    <!-- Footer Scripts
+    ============================================= -->
+    <script type="text/javascript" src="~/Content/login/js/functions.js"></script>
+    @Scripts.Render("~/Scripts/validator.js")
+    <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js?v=1")"></script>
+</body>
+</html>
