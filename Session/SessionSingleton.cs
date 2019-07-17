@@ -245,5 +245,17 @@ namespace Generic.SessionClass
                 System.Web.HttpContext.Current.Session["AccessCodeModel"] = value;
             }
         }
+
+        public static TempModel TempModelValue
+        {
+            get
+            {
+                return (TempModel)System.Web.HttpContext.Current.Session["TempModel"] ?? new TempModel();
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session["TempModel"] = value;
+            }
+        }
     }
 }

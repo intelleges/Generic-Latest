@@ -25275,7 +25275,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonIteratePTQ", personParameter, ptqParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPersonLoginAudit(Nullable<int> person, Nullable<int> auditLoginEvent, Nullable<System.DateTime> timestamp, string deviceIP, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual ObjectResult<Nullable<decimal>> pr_addPersonLoginAudit(Nullable<int> person, Nullable<int> auditLoginEvent, Nullable<System.DateTime> timestamp, string deviceIP, string type, string continent_code, string continent_name, string country_code, string region_code, string region_name, string city, string zip, string hostname, string security_proxy_type, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var personParameter = person.HasValue ?
                 new ObjectParameter("person", person) :
@@ -25293,34 +25293,29 @@ namespace Generic
                 new ObjectParameter("deviceIP", deviceIP) :
                 new ObjectParameter("deviceIP", typeof(string));
     
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
     
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
+            var continent_codeParameter = continent_code != null ?
+                new ObjectParameter("continent_code", continent_code) :
+                new ObjectParameter("continent_code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonLoginAudit", personParameter, auditLoginEventParameter, timestampParameter, deviceIPParameter, sortOrderParameter, activeParameter);
-        }
+            var continent_nameParameter = continent_name != null ?
+                new ObjectParameter("continent_name", continent_name) :
+                new ObjectParameter("continent_name", typeof(string));
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPersonLoginLog(Nullable<int> person, Nullable<int> country, string hostname, string region, string city, string zip, string ipAddress, string authenticationCode, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
-        {
-            var personParameter = person.HasValue ?
-                new ObjectParameter("Person", person) :
-                new ObjectParameter("Person", typeof(int));
+            var country_codeParameter = country_code != null ?
+                new ObjectParameter("country_code", country_code) :
+                new ObjectParameter("country_code", typeof(string));
     
-            var countryParameter = country.HasValue ?
-                new ObjectParameter("country", country) :
-                new ObjectParameter("country", typeof(int));
+            var region_codeParameter = region_code != null ?
+                new ObjectParameter("region_code", region_code) :
+                new ObjectParameter("region_code", typeof(string));
     
-            var hostnameParameter = hostname != null ?
-                new ObjectParameter("hostname", hostname) :
-                new ObjectParameter("hostname", typeof(string));
-    
-            var regionParameter = region != null ?
-                new ObjectParameter("region", region) :
-                new ObjectParameter("region", typeof(string));
+            var region_nameParameter = region_name != null ?
+                new ObjectParameter("region_name", region_name) :
+                new ObjectParameter("region_name", typeof(string));
     
             var cityParameter = city != null ?
                 new ObjectParameter("city", city) :
@@ -25330,17 +25325,13 @@ namespace Generic
                 new ObjectParameter("zip", zip) :
                 new ObjectParameter("zip", typeof(string));
     
-            var ipAddressParameter = ipAddress != null ?
-                new ObjectParameter("ipAddress", ipAddress) :
-                new ObjectParameter("ipAddress", typeof(string));
+            var hostnameParameter = hostname != null ?
+                new ObjectParameter("hostname", hostname) :
+                new ObjectParameter("hostname", typeof(string));
     
-            var authenticationCodeParameter = authenticationCode != null ?
-                new ObjectParameter("authenticationCode", authenticationCode) :
-                new ObjectParameter("authenticationCode", typeof(string));
-    
-            var timestampParameter = timestamp.HasValue ?
-                new ObjectParameter("timestamp", timestamp) :
-                new ObjectParameter("timestamp", typeof(System.DateTime));
+            var security_proxy_typeParameter = security_proxy_type != null ?
+                new ObjectParameter("security_proxy_type", security_proxy_type) :
+                new ObjectParameter("security_proxy_type", typeof(string));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -25350,7 +25341,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonLoginLog", personParameter, countryParameter, hostnameParameter, regionParameter, cityParameter, zipParameter, ipAddressParameter, authenticationCodeParameter, timestampParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonLoginAudit", personParameter, auditLoginEventParameter, timestampParameter, deviceIPParameter, typeParameter, continent_codeParameter, continent_nameParameter, country_codeParameter, region_codeParameter, region_nameParameter, cityParameter, zipParameter, hostnameParameter, security_proxy_typeParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_addPersonPPTQQRSurveySetRACIX(Nullable<int> person, Nullable<int> pptqQR, Nullable<int> surveySet, Nullable<int> racix)
@@ -25801,15 +25792,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonLoginAudit", idParameter);
-        }
-    
-        public virtual int pr_archivePersonLoginLog(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonLoginLog", idParameter);
         }
     
         public virtual int pr_archivePersonPPTQClause1(Nullable<int> id)
@@ -26720,20 +26702,6 @@ namespace Generic
         public virtual ObjectResult<pr_getPersonLoginAuditAll_Result> pr_getPersonLoginAuditAll()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginAuditAll_Result>("pr_getPersonLoginAuditAll");
-        }
-    
-        public virtual ObjectResult<pr_getPersonLoginLog_Result> pr_getPersonLoginLog(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginLog_Result>("pr_getPersonLoginLog", idParameter);
-        }
-    
-        public virtual ObjectResult<pr_getPersonLoginLogAll_Result> pr_getPersonLoginLogAll()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginLogAll_Result>("pr_getPersonLoginLogAll");
         }
     
         public virtual ObjectResult<pr_getPersonLoginLogAllByPerson_Result> pr_getPersonLoginLogAllByPerson(Nullable<int> person)
@@ -28169,7 +28137,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonIteratePTQ", idParameter, personParameter, ptqParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual int pr_modifyPersonLoginAudit(Nullable<int> id, Nullable<int> person, Nullable<int> auditLoginEvent, Nullable<System.DateTime> timestamp, string deviceIP, Nullable<int> sortOrder, Nullable<bool> active)
+        public virtual int pr_modifyPersonLoginAudit(Nullable<int> id, Nullable<int> person, Nullable<int> auditLoginEvent, Nullable<System.DateTime> timestamp, string deviceIP, string type, string continent_code, string continent_name, string country_code, string region_code, string region_name, string city, string zip, string hostname, string security_proxy_type, Nullable<int> sortOrder, Nullable<bool> active)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -28191,38 +28159,29 @@ namespace Generic
                 new ObjectParameter("deviceIP", deviceIP) :
                 new ObjectParameter("deviceIP", typeof(string));
     
-            var sortOrderParameter = sortOrder.HasValue ?
-                new ObjectParameter("sortOrder", sortOrder) :
-                new ObjectParameter("sortOrder", typeof(int));
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
     
-            var activeParameter = active.HasValue ?
-                new ObjectParameter("active", active) :
-                new ObjectParameter("active", typeof(bool));
+            var continent_codeParameter = continent_code != null ?
+                new ObjectParameter("continent_code", continent_code) :
+                new ObjectParameter("continent_code", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLoginAudit", idParameter, personParameter, auditLoginEventParameter, timestampParameter, deviceIPParameter, sortOrderParameter, activeParameter);
-        }
+            var continent_nameParameter = continent_name != null ?
+                new ObjectParameter("continent_name", continent_name) :
+                new ObjectParameter("continent_name", typeof(string));
     
-        public virtual int pr_modifyPersonLoginLog(Nullable<int> id, Nullable<int> person, Nullable<int> country, string hostname, string region, string city, string zip, string ipAddress, string authenticationCode, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
+            var country_codeParameter = country_code != null ?
+                new ObjectParameter("country_code", country_code) :
+                new ObjectParameter("country_code", typeof(string));
     
-            var personParameter = person.HasValue ?
-                new ObjectParameter("Person", person) :
-                new ObjectParameter("Person", typeof(int));
+            var region_codeParameter = region_code != null ?
+                new ObjectParameter("region_code", region_code) :
+                new ObjectParameter("region_code", typeof(string));
     
-            var countryParameter = country.HasValue ?
-                new ObjectParameter("country", country) :
-                new ObjectParameter("country", typeof(int));
-    
-            var hostnameParameter = hostname != null ?
-                new ObjectParameter("hostname", hostname) :
-                new ObjectParameter("hostname", typeof(string));
-    
-            var regionParameter = region != null ?
-                new ObjectParameter("region", region) :
-                new ObjectParameter("region", typeof(string));
+            var region_nameParameter = region_name != null ?
+                new ObjectParameter("region_name", region_name) :
+                new ObjectParameter("region_name", typeof(string));
     
             var cityParameter = city != null ?
                 new ObjectParameter("city", city) :
@@ -28232,17 +28191,13 @@ namespace Generic
                 new ObjectParameter("zip", zip) :
                 new ObjectParameter("zip", typeof(string));
     
-            var ipAddressParameter = ipAddress != null ?
-                new ObjectParameter("ipAddress", ipAddress) :
-                new ObjectParameter("ipAddress", typeof(string));
+            var hostnameParameter = hostname != null ?
+                new ObjectParameter("hostname", hostname) :
+                new ObjectParameter("hostname", typeof(string));
     
-            var authenticationCodeParameter = authenticationCode != null ?
-                new ObjectParameter("authenticationCode", authenticationCode) :
-                new ObjectParameter("authenticationCode", typeof(string));
-    
-            var timestampParameter = timestamp.HasValue ?
-                new ObjectParameter("timestamp", timestamp) :
-                new ObjectParameter("timestamp", typeof(System.DateTime));
+            var security_proxy_typeParameter = security_proxy_type != null ?
+                new ObjectParameter("security_proxy_type", security_proxy_type) :
+                new ObjectParameter("security_proxy_type", typeof(string));
     
             var sortOrderParameter = sortOrder.HasValue ?
                 new ObjectParameter("sortOrder", sortOrder) :
@@ -28252,7 +28207,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLoginLog", idParameter, personParameter, countryParameter, hostnameParameter, regionParameter, cityParameter, zipParameter, ipAddressParameter, authenticationCodeParameter, timestampParameter, sortOrderParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLoginAudit", idParameter, personParameter, auditLoginEventParameter, timestampParameter, deviceIPParameter, typeParameter, continent_codeParameter, continent_nameParameter, country_codeParameter, region_codeParameter, region_nameParameter, cityParameter, zipParameter, hostnameParameter, security_proxy_typeParameter, sortOrderParameter, activeParameter);
         }
     
         public virtual int pr_modifyPersonSite(Nullable<int> id, Nullable<int> person, Nullable<int> site, Nullable<int> sortOrder, Nullable<bool> active)
@@ -28982,15 +28937,6 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonLoginAudit", idParameter);
-        }
-    
-        public virtual int pr_removePersonLoginLog(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonLoginLog", idParameter);
         }
     
         public virtual int pr_removePersonSite(Nullable<int> id)
@@ -30214,6 +30160,186 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleGridLevelMenuByPerson_Result>("pr_getRoleGridLevelMenuByPerson", personParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonLoginLogAll1_Result> pr_getPersonLoginLogAll1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginLogAll1_Result>("pr_getPersonLoginLogAll1");
+        }
+    
+        public virtual int pr_unArchivePersonLoginLog(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonLoginLog", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPersonLoginLog(Nullable<int> person, string deviceIP, string type, string continent_code, string continent_name, string country_code, string region_code, string region_name, string city, string zip, string hostname, string security_proxy_type, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var deviceIPParameter = deviceIP != null ?
+                new ObjectParameter("deviceIP", deviceIP) :
+                new ObjectParameter("deviceIP", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            var continent_codeParameter = continent_code != null ?
+                new ObjectParameter("continent_code", continent_code) :
+                new ObjectParameter("continent_code", typeof(string));
+    
+            var continent_nameParameter = continent_name != null ?
+                new ObjectParameter("continent_name", continent_name) :
+                new ObjectParameter("continent_name", typeof(string));
+    
+            var country_codeParameter = country_code != null ?
+                new ObjectParameter("country_code", country_code) :
+                new ObjectParameter("country_code", typeof(string));
+    
+            var region_codeParameter = region_code != null ?
+                new ObjectParameter("region_code", region_code) :
+                new ObjectParameter("region_code", typeof(string));
+    
+            var region_nameParameter = region_name != null ?
+                new ObjectParameter("region_name", region_name) :
+                new ObjectParameter("region_name", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("city", city) :
+                new ObjectParameter("city", typeof(string));
+    
+            var zipParameter = zip != null ?
+                new ObjectParameter("zip", zip) :
+                new ObjectParameter("zip", typeof(string));
+    
+            var hostnameParameter = hostname != null ?
+                new ObjectParameter("hostname", hostname) :
+                new ObjectParameter("hostname", typeof(string));
+    
+            var security_proxy_typeParameter = security_proxy_type != null ?
+                new ObjectParameter("security_proxy_type", security_proxy_type) :
+                new ObjectParameter("security_proxy_type", typeof(string));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonLoginLog", personParameter, deviceIPParameter, typeParameter, continent_codeParameter, continent_nameParameter, country_codeParameter, region_codeParameter, region_nameParameter, cityParameter, zipParameter, hostnameParameter, security_proxy_typeParameter, timestampParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePersonLoginLog(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonLoginLog", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonLoginLog_Result> pr_getPersonLoginLog(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginLog_Result>("pr_getPersonLoginLog", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonLoginLogAll_Result> pr_getPersonLoginLogAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonLoginLogAll_Result>("pr_getPersonLoginLogAll");
+        }
+    
+        public virtual int pr_modifyPersonLoginLog(Nullable<int> id, Nullable<int> person, string deviceIP, string type, string continent_code, string continent_name, string country_code, string region_code, string region_name, string city, string zip, string hostname, string security_proxy_type, Nullable<System.DateTime> timestamp, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var deviceIPParameter = deviceIP != null ?
+                new ObjectParameter("deviceIP", deviceIP) :
+                new ObjectParameter("deviceIP", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(string));
+    
+            var continent_codeParameter = continent_code != null ?
+                new ObjectParameter("continent_code", continent_code) :
+                new ObjectParameter("continent_code", typeof(string));
+    
+            var continent_nameParameter = continent_name != null ?
+                new ObjectParameter("continent_name", continent_name) :
+                new ObjectParameter("continent_name", typeof(string));
+    
+            var country_codeParameter = country_code != null ?
+                new ObjectParameter("country_code", country_code) :
+                new ObjectParameter("country_code", typeof(string));
+    
+            var region_codeParameter = region_code != null ?
+                new ObjectParameter("region_code", region_code) :
+                new ObjectParameter("region_code", typeof(string));
+    
+            var region_nameParameter = region_name != null ?
+                new ObjectParameter("region_name", region_name) :
+                new ObjectParameter("region_name", typeof(string));
+    
+            var cityParameter = city != null ?
+                new ObjectParameter("city", city) :
+                new ObjectParameter("city", typeof(string));
+    
+            var zipParameter = zip != null ?
+                new ObjectParameter("zip", zip) :
+                new ObjectParameter("zip", typeof(string));
+    
+            var hostnameParameter = hostname != null ?
+                new ObjectParameter("hostname", hostname) :
+                new ObjectParameter("hostname", typeof(string));
+    
+            var security_proxy_typeParameter = security_proxy_type != null ?
+                new ObjectParameter("security_proxy_type", security_proxy_type) :
+                new ObjectParameter("security_proxy_type", typeof(string));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonLoginLog", idParameter, personParameter, deviceIPParameter, typeParameter, continent_codeParameter, continent_nameParameter, country_codeParameter, region_codeParameter, region_nameParameter, cityParameter, zipParameter, hostnameParameter, security_proxy_typeParameter, timestampParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePersonLoginLog(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonLoginLog", idParameter);
         }
     }
 }

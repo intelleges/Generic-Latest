@@ -22,6 +22,8 @@ using Telerik.Web.Mvc;
 using System.Net.Sockets;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.Web.SessionState;
+using System.Collections;
 
 namespace Generic.Controllers
 {
@@ -410,6 +412,7 @@ namespace Generic.Controllers
             var response = client.Execute<LocationModelByIp>(restRequest);
             return response.Data;
         }
+
         [HttpPost]
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
@@ -433,15 +436,36 @@ namespace Generic.Controllers
                         FormsAuthentication.SetAuthCookie(userName, false);
 
                         person person = db.pr_doLogin(userName, password).FirstOrDefault();
-                        //var ip = "71.225.253.65";// Request.UserHostAddress;
-                        var ip = Request.UserHostAddress;
+
+                        var ip = "71.225.253.65";// Request.UserHostAddress;
+                        //var ip = Request.UserHostAddress;
                         var computerName = "";//computer_name[0].ToString();
                                               //string[] computer_name = { ip };
+
+                        var personLoginAudit = db.pr_getPersonLoginAuditAll()
+                            .Where(x => x.person == person.id)
+                            .OrderByDescending(x => x.timestamp)
+                            .FirstOrDefault();
+
+                        //if (personLoginAudit != null && personLoginAudit.auditLoginEvent == 1 && personLoginAudit.deviceIP != ip)
+                        //{
+                        //    // Show screen to Logout from previous session.
+                        //    var message = @"You are already logged in at ip address: "+ personLoginAudit.deviceIP + ". Would you like to end that session?";
+                        //    var tempModel = new TempModel
+                        //    {
+                        //        Message = message,
+                        //        PersonId = person.id
+                        //    };
+                        //    SessionSingleton.TempModelValue = tempModel;
+
+                        //    return RedirectToAction("DifferentIPLogout");
+                        //}
                         try
                         {
                             var ipData = GetLocationByIp(ip);
                             computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
 
+                            #region Checking MFA
                             // Checking host name validation
                             var hostName = ipData.hostname;
                             var companyName = db.pr_getEnterprise(person.enterprise)
@@ -449,7 +473,7 @@ namespace Generic.Controllers
                             if (hostName == null || !hostName.Contains(companyName))
                             {
                                 var message = $@"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
-                                return SendAccessCode(person, ip, 
+                                return SendAccessCode(person, ip,
                                     computerName, returnUrl, userName, message);
                             }
 
@@ -466,10 +490,12 @@ namespace Generic.Controllers
                                 if (isCountryCodeBlocked)
                                 {
                                     var message = @"You are logging in from blocked location, Please get the security code sent to your email address and enter it below.";
-                                    return SendAccessCode(person, ip, 
+                                    return SendAccessCode(person, ip,
                                         computerName, returnUrl, userName, message);
                                 }
                             }
+                            #endregion
+
                         }
                         catch (SocketException ex)
                         {
@@ -484,6 +510,8 @@ namespace Generic.Controllers
                             //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
                             ViewBag.Message = "You failed to update login date & time";
                         }
+
+                        //var loginAudit = db.pr_addPersonLoginAudit(person.id, 1, DateTime.Now, ip, 1, true);
 
                         SessionSingleton.LoggedInUserId = person.id;
                         SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
@@ -531,6 +559,11 @@ namespace Generic.Controllers
             return View(enterprises.FirstOrDefault());
         }
 
+        private static personLoginAudit GetLastActiveLoginActivity(string sessionId)
+        {
+            return null;
+        }
+
         public ActionResult SendAccessCode(person person, string ip, 
             string computerName, string returnUrl,
             string userName,string message)
@@ -567,6 +600,22 @@ namespace Generic.Controllers
             return View();
         }
 
+        
+        public ActionResult DifferentIPLogout()
+        {
+            var tempModel = SessionSingleton.TempModelValue;
+            ViewBag.Message = tempModel.Message;
+            ViewBag.PersonId = tempModel.PersonId;
+            return View();
+        }        
+
+        [HttpPost]
+        [AllowAnonymous]
+        public virtual ActionResult DifferentIPLogout(int? personId = null)
+        {
+            return null;
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public virtual ActionResult AccessCodeValidate(string securitycode)
@@ -590,6 +639,8 @@ namespace Generic.Controllers
                     //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
                     ViewBag.Message = "You failed to update login date & time";
                 }
+
+                //var loginAudit = db.pr_addPersonLoginAudit(person.id, 1, DateTime.Now, ip, 1, true);
 
                 SessionSingleton.LoggedInUserId = person.id;
                 SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
@@ -674,8 +725,8 @@ namespace Generic.Controllers
 
             //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
             //FormsAuthentication.RedirectToLoginPage();
-
             db.pr_modifyPersonLastLogoutDate(SessionSingleton.LoggedInUserId, DateTime.Now);
+            //var loginAudit = db.pr_addPersonLoginAudit(SessionSingleton.LoggedInUserId, 2, DateTime.Now, null, 1, true);
             FormsAuthentication.SignOut();
             Session.Abandon();
 

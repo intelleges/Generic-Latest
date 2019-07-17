@@ -870,6 +870,7 @@
     <Compile Include="Helpers\ResponsesExtensions.cs" />
     <Compile Include="Helpers\SchedulerServiceHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Helpers\TempModel.cs" />
     <Compile Include="Helpers\UIControl.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />
     <Compile Include="Helpers\Utility\EmailFormatSettings.cs" />
@@ -2536,6 +2537,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonLoginAudit_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonLoginLogAll1_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPersonLoginLogAllByPerson_Result.cs">
@@ -6667,6 +6671,7 @@
     <Content Include="Views\TrainingModule\FindModuleResult.cshtml" />
     <Content Include="Views\TrainingModule\Index.cshtml" />
     <Content Include="Views\Admin\AccessCodeValidate.cshtml" />
+    <Content Include="Views\Admin\DifferentIPLogout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
