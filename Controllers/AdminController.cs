@@ -398,8 +398,14 @@ namespace Generic.Controllers
             public string country_name { get; set; }
             public string country_code { get; set; }
             public string region_name { get; set; }
+            public string region_code { get; set; }
             public string zip { get; set; }
             public string hostname { get; set; }
+            public string continent_code { get; set; }
+            public string continent_name { get; set; }
+            public string type { get; set; }
+            public dynamic security { get; set; }
+
         }
 
         private LocationModelByIp GetLocationByIp(string ip)
@@ -408,7 +414,7 @@ namespace Generic.Controllers
             RestSharp.RestRequest restRequest = new RestSharp.RestRequest(ip, RestSharp.Method.GET);
             restRequest.AddQueryParameter("access_key", "8f578ab0f32617fe27ce82424db2ee3e");
             restRequest.AddQueryParameter("hostname", "1");
-            restRequest.AddQueryParameter("fields", "city,country_name,country_code,region_name,zip,hostname");
+            restRequest.AddQueryParameter("fields", "city,country_name,country_code,region_name,region_code,zip,hostname,continent_code,continent_name,type,security.proxy_type");
             var response = client.Execute<LocationModelByIp>(restRequest);
             return response.Data;
         }
@@ -465,14 +471,20 @@ namespace Generic.Controllers
                             var ipData = GetLocationByIp(ip);
                             computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
 
+                            var proxy_type = ipData.security?.proxy_type?.ToString() ?? "";
+                            db.pr_addPersonLoginLog(person.id, ip, ipData.type, ipData.continent_code, ipData.continent_name, ipData.country_code, ipData.region_code, ipData.region_name, ipData.city, ipData.zip, ipData.hostname,
+                                proxy_type, DateTime.Now,1,true);
+
                             #region Checking MFA
                             // Checking host name validation
                             var hostName = ipData.hostname;
                             var companyName = db.pr_getEnterprise(person.enterprise)
                                 .Select(x => x.companyName).FirstOrDefault();
-                            if (hostName == null || !hostName.Contains(companyName))
+                            if (
+                                string.IsNullOrWhiteSpace(hostName) || 
+                                hostName.IndexOf(companyName, StringComparison.OrdinalIgnoreCase) == -1)
                             {
-                                var message = $@"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
+                                var message = $"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
                                 return SendAccessCode(person, ip,
                                     computerName, returnUrl, userName, message);
                             }
@@ -496,6 +508,8 @@ namespace Generic.Controllers
                             }
                             #endregion
 
+                            
+
                         }
                         catch (SocketException ex)
                         {
@@ -518,6 +532,7 @@ namespace Generic.Controllers
                         SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
                         SessionSingleton.MyEnterPriseId = person.enterprise;
                         SessionSingleton.Touchpoint = (int)person.campaign;
+
 
                         try
                         {
