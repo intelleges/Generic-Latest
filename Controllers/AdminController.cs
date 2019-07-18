@@ -443,8 +443,8 @@ namespace Generic.Controllers
 
                         person person = db.pr_doLogin(userName, password).FirstOrDefault();
 
-                        var ip = "71.225.253.65";// Request.UserHostAddress;
-                        //var ip = Request.UserHostAddress;
+                       // var ip = "71.225.253.65";// Request.UserHostAddress;
+                        var ip = Request.UserHostAddress;
                         var computerName = "";//computer_name[0].ToString();
                                               //string[] computer_name = { ip };
 
