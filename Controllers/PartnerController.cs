@@ -1825,6 +1825,7 @@ namespace Generic.Controllers
         {
             try
             {
+                //throw new Exception("this is exception");
                 if(SessionSingleton.GridLevelMenuItems.Count == 0)
                 {
                     var menuItemIds = db.pr_getRoleGridLevelMenuByPerson(SessionSingleton.LoggedInUserId).Select(i => i.gridlevelmenu).ToList();
@@ -1858,7 +1859,13 @@ namespace Generic.Controllers
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message, ex.InnerException);
+                var string_with_your_data = ex.InnerException.ToString();
+
+                var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
+                var stream = new MemoryStream(byteArray);
+
+                return File(stream, "text/plain", "exception.txt");
+                //throw new Exception(ex.Message, ex.InnerException);
                 if (!Response.IsRequestBeingRedirected)
                     return RedirectToAction("FindPartner");
                 else return Json("false");
@@ -1869,6 +1876,19 @@ namespace Generic.Controllers
 
 
         }
+
+        public FileStreamResult CreateFile()
+        {
+            //todo: add some data from your database into that string:
+            var string_with_your_data = "";
+
+            var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
+            var stream = new MemoryStream(byteArray);
+
+            return File(stream, "text/plain", "your_file_name.txt");
+        }
+
+
 
         public ActionResult ResetStatus(string accessCode, string internalID, int? touchpoint)
         {
