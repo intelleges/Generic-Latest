@@ -1859,7 +1859,7 @@ namespace Generic.Controllers
             }
             catch(Exception ex)
             {
-                var string_with_your_data = ex.InnerException.ToString();
+                var string_with_your_data = ex.Message.ToString();
 
                 var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
                 var stream = new MemoryStream(byteArray);
