@@ -471,42 +471,42 @@ namespace Generic.Controllers
                             var ipData = GetLocationByIp(ip);
                             computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
 
-                            var proxy_type = ipData.security?.proxy_type?.ToString() ?? "";
-                            db.pr_addPersonLoginLog(person.id, ip, ipData.type, ipData.continent_code, ipData.continent_name, ipData.country_code, ipData.region_code, ipData.region_name, ipData.city, ipData.zip, ipData.hostname,
-                                proxy_type, DateTime.Now,1,true);
+                            //var proxy_type = ipData.security?.proxy_type?.ToString() ?? "";
+                            //db.pr_addPersonLoginLog(person.id, ip, ipData.type, ipData.continent_code, ipData.continent_name, ipData.country_code, ipData.region_code, ipData.region_name, ipData.city, ipData.zip, ipData.hostname,
+                            //    proxy_type, DateTime.Now,1,true);
 
-                            #region Checking MFA
-                            // Checking host name validation
-                            var hostName = ipData.hostname;
-                            var companyName = db.pr_getEnterprise(person.enterprise)
-                                .Select(x => x.companyName).FirstOrDefault();
-                            if (
-                                string.IsNullOrWhiteSpace(hostName) || 
-                                hostName.IndexOf(companyName, StringComparison.OrdinalIgnoreCase) == -1)
-                            {
-                                var message = $"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
-                                return SendAccessCode(person, ip,
-                                    computerName, returnUrl, userName, message);
-                            }
+                            //#region Checking MFA
+                            //// Checking host name validation
+                            //var hostName = ipData.hostname;
+                            //var companyName = db.pr_getEnterprise(person.enterprise)
+                            //    .Select(x => x.companyName).FirstOrDefault();
+                            //if (
+                            //    string.IsNullOrWhiteSpace(hostName) || 
+                            //    hostName.IndexOf(companyName, StringComparison.OrdinalIgnoreCase) == -1)
+                            //{
+                            //    var message = $"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
+                            //    return SendAccessCode(person, ip,
+                            //        computerName, returnUrl, userName, message);
+                            //}
 
-                            // Validating country code blocked
+                            //// Validating country code blocked
 
-                            var countryBlockedList = db.pr_getEnterpriseCountryBlockAll(enterprise: person.enterprise)
-                                .Select(x => x.country).ToList();
+                            //var countryBlockedList = db.pr_getEnterpriseCountryBlockAll(enterprise: person.enterprise)
+                            //    .Select(x => x.country).ToList();
 
-                            foreach (var country in countryBlockedList)
-                            {
-                                var isCountryCodeBlocked = db.pr_getCountry(country)
-                                    .Any(x => x.code == ipData.country_code);
+                            //foreach (var country in countryBlockedList)
+                            //{
+                            //    var isCountryCodeBlocked = db.pr_getCountry(country)
+                            //        .Any(x => x.code == ipData.country_code);
 
-                                if (isCountryCodeBlocked)
-                                {
-                                    var message = @"You are logging in from blocked location, Please get the security code sent to your email address and enter it below.";
-                                    return SendAccessCode(person, ip,
-                                        computerName, returnUrl, userName, message);
-                                }
-                            }
-                            #endregion
+                            //    if (isCountryCodeBlocked)
+                            //    {
+                            //        var message = @"You are logging in from blocked location, Please get the security code sent to your email address and enter it below.";
+                            //        return SendAccessCode(person, ip,
+                            //            computerName, returnUrl, userName, message);
+                            //    }
+                            //}
+                            //#endregion
 
                             
 
