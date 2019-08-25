@@ -864,7 +864,7 @@ namespace Generic.DataLayer
                 divn.Controls.Add(txtbox1);
 
                 tableCell.Controls.AddAt(0, divn);
-                addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
+                //addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
             }
             #region comment required
             if (question.commentRequired == CommentType.YN_COMMENT_REQUIRED_Y)

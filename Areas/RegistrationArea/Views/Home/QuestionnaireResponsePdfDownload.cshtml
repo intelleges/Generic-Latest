@@ -19,9 +19,14 @@
     <table width="100%">
         <tr>
             <td>
-                @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
-                {
-                    <img width="200px" src="@ViewBag.logoSrc"  style="" />
+                
+                @{
+
+                    if (@ViewBag.logoSrc != null)
+                    {
+                        <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:300px; border:none" />
+                         
+                    }
                 }
             </td>
         </tr>

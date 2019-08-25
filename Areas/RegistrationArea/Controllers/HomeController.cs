@@ -4278,23 +4278,43 @@ Intelleges Team";
             }
 
 
-            var firstOrDefault = enterprise.FirstOrDefault();
-            if (firstOrDefault != null)
+            //var firstOrDefault = enterprise.FirstOrDefault();
+            //ViewBag.logoSrc = firstOrDefault.logo;
+
+            var enterpriseLogo = enterprise.FirstOrDefault();
+            byte[] logoBytes = new byte[0];
+            var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+            string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+            if (Directory.Exists(Server.MapPath(dirname)))
             {
-                var logo = firstOrDefault.logo;
-                string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
-                if (Directory.Exists(dirname))
+                var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                if (!System.IO.File.Exists(physicalPath))
                 {
-                    var fileName = dirname + firstOrDefault.id + "Logo.png";
-                    if (!System.IO.File.Exists(fileName))
-                    {
-                        var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
-                        fs.Write(logo);
-                        fs.Close();
-                    }
-                    ViewBag.logoSrc = fileName;
+                    var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                    fs.Write(logo);
+                    fs.Close();
                 }
+                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
             }
+
+            //if (firstOrDefault != null)
+            //{
+            //    var logo = firstOrDefault.logo;
+            //    string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
+            //    if (Directory.Exists(dirname))
+            //    {
+            //        var fileName = dirname + firstOrDefault.id + "Logo.png";
+            //        if (!System.IO.File.Exists(fileName))
+            //        {
+            //            var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
+            //            fs.Write(logo);
+            //            fs.Close();
+            //        }
+            //        ViewBag.logoSrc = fileName;
+            //    }
+            //}
 
 
 
@@ -17999,7 +18019,7 @@ Intelleges Team";
             {
                 Session["accessCode"] = accesscode;
                 var prGetQuestionnaireByAccesscodeResult = db.pr_getQuestionnaireByAccesscode(accesscode).FirstOrDefault();
-                if (prGetQuestionnaireByAccesscodeResult != null && prGetQuestionnaireByAccesscodeResult.footer != "1")
+                if (prGetQuestionnaireByAccesscodeResult != null && prGetQuestionnaireByAccesscodeResult.footer != null)
                     return Redirect("~/Registration/Home/CustomizedPDFConfirmation");
                 else return Redirect("~/Registration/Home/PDFConfirmation");
             }
