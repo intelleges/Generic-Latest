@@ -1858,6 +1858,7 @@ namespace Generic.Controllers
             }
             catch(Exception ex)
             {
+                throw new Exception(ex.Message, ex.InnerException);
                 if (!Response.IsRequestBeingRedirected)
                     return RedirectToAction("FindPartner");
                 else return Json("false");
