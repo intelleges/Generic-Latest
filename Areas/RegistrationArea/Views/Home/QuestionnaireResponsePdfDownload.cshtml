@@ -24,7 +24,7 @@
 
                     if (@ViewBag.logoSrc != null)
                     {
-                        <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:300px; border:none" />
+                        <img src="@ViewBag.logoSrc" width="300" height="50" style="height:50px; width:300px; border:none" />
                          
                     }
                 }
@@ -37,7 +37,7 @@
         <table width="100%">
             <tr>
                 <td style="font-size: 15px; color: #081835">
-                    @ViewBag.QuestionnaireTitle - @item.Access_Code
+                    @Html.Raw(ViewBag.QuestionnaireTitle??"") - @item.Access_Code
                 </td>
             </tr>
         </table>

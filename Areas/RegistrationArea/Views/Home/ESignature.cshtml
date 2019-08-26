@@ -267,7 +267,7 @@
 
         <div class="sub-box">
             <div class="shadow-box padding-none full-width">
-                <div class="black-box-hd text-center" style="padding:15px 70px;">@formData.ESIGNATURE_PAGE_TEXT</div>
+                <div class="black-box-hd text-center" style="padding:15px 70px;">@Html.Raw(formData.ESIGNATURE_PAGE_TEXT??"")</div>
                 <div class="row main-content" id="ctl00_contentQuestionnaireBody_pnlAddEsignature">
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formSign" }))
                     {

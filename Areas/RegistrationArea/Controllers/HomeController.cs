@@ -4246,6 +4246,16 @@ Intelleges Team";
             return RedirectToAction("~/Registration/Home");
         }
 
+        [AllowAnonymous]
+        public ActionResult Logo(string fname)
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var enterpriseLogo = enterprise.FirstOrDefault();
+            byte[] logoBytes = new byte[0];
+            var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
+            return File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, fname);
+        }
+
         public ActionResult PDFConfirmation()
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
@@ -4277,47 +4287,7 @@ Intelleges Team";
                 }
             }
 
-
-            //var firstOrDefault = enterprise.FirstOrDefault();
-            //ViewBag.logoSrc = firstOrDefault.logo;
-
-            var enterpriseLogo = enterprise.FirstOrDefault();
-            byte[] logoBytes = new byte[0];
-            var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
-            string dirname = "~/uploadedFiles/EnterpriseLogo/";
-
-            if (Directory.Exists(Server.MapPath(dirname)))
-            {
-                var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
-                var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
-                if (!System.IO.File.Exists(physicalPath))
-                {
-                    var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
-                    fs.Write(logo);
-                    fs.Close();
-                }
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
-            }
-
-            //if (firstOrDefault != null)
-            //{
-            //    var logo = firstOrDefault.logo;
-            //    string dirname = @"C:\https\MVCMT\logo\"; //@"C:\https\MVCMT\Generic\uploadedFiles\EnterpriseLogo\";
-            //    if (Directory.Exists(dirname))
-            //    {
-            //        var fileName = dirname + firstOrDefault.id + "Logo.png";
-            //        if (!System.IO.File.Exists(fileName))
-            //        {
-            //            var fs = new BinaryWriter(new FileStream(fileName, FileMode.Append, FileAccess.Write));
-            //            fs.Write(logo);
-            //            fs.Close();
-            //        }
-            //        ViewBag.logoSrc = fileName;
-            //    }
-            //}
-
-
-
+            ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("logo", "home")+"?name="+ Generic.Helpers.CurrentInstance.EnterpriseID + ".png";
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
             if (pptq != null) return ViewPdf(result, pptq.id);
             else throw new Exception("Cannot find pptq");

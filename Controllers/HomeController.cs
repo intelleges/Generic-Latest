@@ -30,7 +30,15 @@ namespace Generic.Controllers
             return View();
         }
 
-
+        [AllowAnonymous]
+        public ActionResult Logo(string fname)
+        {
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var enterpriseLogo = enterprise.FirstOrDefault();
+            byte[] logoBytes = new byte[0];
+            var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
+            return File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, fname);
+        }
 
         [HttpPost]
         public ActionResult AddEnterprise(FormCollection frmCollection)
