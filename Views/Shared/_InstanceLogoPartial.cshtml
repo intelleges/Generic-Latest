@@ -13,6 +13,6 @@
     {
         string imageBase64 = Convert.ToBase64String(Model.logo);
         string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-        <img src="@imageSrc"  />
+        <img src="@imageSrc" style="max-height: 40px;" />
     }
 }
