@@ -1515,7 +1515,11 @@ namespace Generic.DataLayer
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
                     //divn.Visible = false;
-                    divn.Style.Add("display", "none");
+                    if (pptqResponse == null && pptqResponse.response == 75)
+                    {
+                        divn.Style.Add("display", "none");
+                    }
+
                     fileupload = new FileUpload();
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
