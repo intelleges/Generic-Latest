@@ -59,6 +59,7 @@ namespace Generic.Controllers
         {
             try
             {
+                ViewBag.useReCaptcha = !Request?.Url?.Host?.ToLower()?.StartsWith("localhost");
                 ViewBag.returnUrl = returnUrl;
                 var enterprises = db.pr_getEnterprise(contactUs);
                 //var elpptq = db.pr_getEnterpriseLandingPagePTQ(contactUs, (int)LangingPage.Login).FirstOrDefault();

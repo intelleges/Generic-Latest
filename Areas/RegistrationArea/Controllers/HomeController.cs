@@ -231,9 +231,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
         {
             try
             {
+                ViewBag.useReCaptcha = !Request?.Url?.Host?.ToLower()?.StartsWith("localhost");
                 ViewBagModel objViewBag = new ViewBagModel();
-                ViewBag.accesscode = accessCode;
-
+                ViewBag.accesscode = accessCode;               
                 objViewBag.CMS_PAGE_TITLE = CMS.ACCESS_CODE_TITLE;
                 objViewBag.CMS_PAGE_SUBTITLE = CMS.ACCESS_CODE_SUBTITLE;
                 objViewBag.CMS_PAGE_PANEL_ONE = CMS.ACCESS_CODE_PANEL_ONE;
