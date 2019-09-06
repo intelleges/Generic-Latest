@@ -528,7 +528,7 @@
         }
         //jQuery.noConflict();
         //jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
             var error = '@ViewBag.Error';
             if (error) {
                 alertify.alert(error);
@@ -623,7 +623,7 @@
 
             }
         }
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
 
 
             $("#reports").change(function () {

@@ -37,7 +37,7 @@
 
 
 @*<script>
-    $(document).ready(function () {
+    jQuery(document).ready(function ($) {
         var message = '@ViewBag.message';
         switch (message) {
             case "expired":
@@ -110,7 +110,7 @@
 
 @Scripts.Render("~/bundles/jquery")
 <script>
-    $(document).ready(function () {
+    jQuery(document).ready(function ($) {
         $(document).on("click", "#btnExit", null, function () {
             window.history.back();
         });

@@ -30,10 +30,10 @@
 
 @System.Web.Optimization.Styles.Render("~/bundles/alertifyCss")
 @System.Web.Optimization.Styles.Render("~/bundles/registrationCss")
-@System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+@*@System.Web.Optimization.Scripts.Render("~/bundles/jquery")*@
 
-<script type="text/javascript" src="~/Content/login/js/jquery.js"></script>
-<script type="text/javascript" src="~/Content/login/js/plugins.js"></script>
+@*<script type="text/javascript" src="~/Content/login/js/jquery.js"></script>*@
+@*<script type="text/javascript" src="~/Content/login/js/plugins.js"></script>*@
 <link href="//fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
@@ -44,7 +44,7 @@
 </script>
 
 <script>
-	$(document).ready(function () {
+	jQuery(document).ready(function ($) {
 		var message = '@ViewBag.message';
 		switch (message) {
 			case "expired":
@@ -175,7 +175,7 @@
     </div>
 </section>
 <script>
-	$(document).ready(function () {
+	jQuery(document).ready(function ($) {
 
 		$("#languageSelection img").click(function () {
 			$.post("@Url.Action("SetLanguage")", { language: $(this).data("language") }).done(function (result) {

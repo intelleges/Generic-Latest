@@ -100,7 +100,7 @@
 @section Scripts{
 	@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 <script>
-	$(document).ready(function () {
+	jQuery(document).ready(function ($) {
 		$("#Touchpoint").change(function () {
 			var touchpoint = $("#Touchpoint").val();
 			var defaultOption = "<option value>Select Partner Type</option>";

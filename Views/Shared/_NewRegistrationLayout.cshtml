@@ -44,7 +44,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-@Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
+@*@Scripts.Render("https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")*@
 
 
 
@@ -248,8 +248,8 @@
 @Scripts.Render("~/bundles/HomeBootstrapJs")
 <script src="~/Scripts/jquery.bootstrap-duallistbox.min.js"></script>
 <script>
-		(function ($) {
-			$(document).ready(function () {
+		//(function ($) {
+			jQuery(document).ready(function ($) {
 				$(".footer-outer").insertAfter(".page-inner");
 				$(".pre-next-btn").insertAfter(".shadow-outer");
 				$(".box-shadow-dropdown").insertBefore("table:first");
@@ -267,7 +267,7 @@
                 });
 
 			});
-		})(jQuery);
+		//})(jQuery);
 
 </script>
 

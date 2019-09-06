@@ -104,7 +104,7 @@
             $("#homepagediv").hide();
         }
         var enterpriseId = @ViewBag.EnterpriseId ;
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
 
             $('#scrollbar1').tinyscrollbar();
             $('#scrollbar2').tinyscrollbar();
@@ -368,7 +368,7 @@
         thankyou_click = function () {
             //            alert('hi');
 
-            $(document).ready(function () {
+            jQuery(document).ready(function ($) {
                 hidealldivs();
                 $("#freetrialtextdiv").show();
                 $("#confirmationdiv").show();
@@ -378,7 +378,7 @@
         thankyoufail_click = function () {
             //            alert('hi');
 
-            $(document).ready(function () {
+            jQuery(document).ready(function ($) {
                 hidealldivs();
                 $("#freetrialtextdiv").show();
                 $("#registrationfaildiv").show();

@@ -32,7 +32,7 @@
 @Scripts.Render("~/bundles/registrationJs")
 
 <script>
-    $(document).ready(function () {
+    jQuery(document).ready(function ($) {
         $("td.supplyright, td.supplyleft").each(function (item) {
             if ($(this).html().length > 400) {
                 $(this).addClass("smaller");

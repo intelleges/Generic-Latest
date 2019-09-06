@@ -226,7 +226,7 @@
 </form>
 
 <script>
-    $(document).ready(function () {
+    jQuery(document).ready(function ($) {
         $("#bulkContentForm").submit(function (e) {
             $("#bulkContentForm input[type=file]").each(function (o) {
                 if (e.isDefaultPrevented()) {

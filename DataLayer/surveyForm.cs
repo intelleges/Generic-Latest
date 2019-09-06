@@ -1515,7 +1515,7 @@ namespace Generic.DataLayer
                     HtmlGenericControl divn = new HtmlGenericControl();
                     divn.ID = "yDiv_" + question.id.ToString();
                     //divn.Visible = false;
-                    if (pptqResponse != null && pptqResponse.response == 75)
+                    if (pptqResponse==null||(pptqResponse != null && pptqResponse.response == 75))
                     {
                         divn.Style.Add("display", "none");
                     }

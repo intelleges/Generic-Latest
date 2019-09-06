@@ -314,7 +314,7 @@
     @Scripts.Render("~/bundles/HomeBootstrapJs")
     <script src="@Url.Content("~/Contents/IntellegesLogin_files/contact-us.js?v=1")"></script>
     <script>
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
             var windowWidth = $(window).width();
             var headerHeight = $("header").height();
             if (windowWidth > 767) {

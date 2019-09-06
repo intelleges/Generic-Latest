@@ -1,5 +1,5 @@
 ﻿
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
     //Change these values to style your modal popup
     var source = "Popup.aspx";

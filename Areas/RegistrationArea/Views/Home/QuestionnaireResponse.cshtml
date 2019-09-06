@@ -288,7 +288,7 @@
         }
 </style>
 <script type="text/javascript">
-    var hiddenDiv = $(document.createElement('div')), content = null;
+    var hiddenDiv = jQuery(document.createElement('div')), content = null;
 
     function submitForLater() {
         alertify.confirm("You will now exit the questionnaire. Please check your email for a reminder to re-access this questionnaire. Thank you.", function (e) {
@@ -319,7 +319,7 @@
     var val = [];
     var messages = [];
 
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
 
             //$(".disabledRow button, .disabledRow input, tr.disabledRow + tr > td > select, .disabledRow textarea, .disabledRow option ").prop("disabled",true);
             CKEDITOR.config.font_defaultLabel = 'Avenir-Roman-webfont';

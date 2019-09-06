@@ -99,7 +99,7 @@
 	@if (TempData["IncorrectZipCode"] != null)
 	{
 		<script>
-			$(document).ready(function () {
+			jQuery(document).ready(function ($) {
 				alertify.alert("@TempData["IncorrectZipCode"].ToString()");
 			});
 		</script>
@@ -107,7 +107,7 @@
 	@if (ViewBag.ErrorMessage != null)
 	{
 		<script>
-			$(document).ready(function () {
+			jQuery(document).ready(function ($) {
 				alertify.alert("@ViewBag.ErrorMessage.ToString()");
 			});
 		</script>
