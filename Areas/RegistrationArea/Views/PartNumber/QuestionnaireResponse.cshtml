@@ -16,13 +16,11 @@
         formData = ViewBag.FormData as ViewBagModel;
     }
 }
-
-@*<script type="text/javascript" src="@Url.Content("~/contents/js/animatedcollapse.js")"></script>*@
-<script src="~/Scripts/jquery.blockUI.js"></script>
+@section scripts{
+@*<script src="~/Scripts/jquery.blockUI.js"></script>*@
 @*@Scripts.Render("~/bundles/jquery")*@
 @Styles.Render("~/bundles/registrationCss")
 @Styles.Render("~/bundles/progressBarCss")
-@Scripts.Render("~/bundles/animatedCollapseJs")
 
 <style type="text/css">
     .t-grid td, t-grid-pager t-grid-bottom {
@@ -41,15 +39,15 @@
 
 <script type="text/javascript">
 
-    $("frmCreateGroup").submit(function (e) {
+    jQuery("frmCreateGroup").submit(function (e) {
 
-        if ($(this).valid()) {
+        if (jQuery(this).valid()) {
 
-            $.post('@Url.Action("~/Registration/PartNumber/QuestionnaireResponse")', $(this).serialize(), function (data) {
+            jQuery.post('@Url.Action("~/Registration/PartNumber/QuestionnaireResponse")', jQuery(this).serialize(), function (data) {
 
-                $("#dynamicData").html(data);
+                jQuery("#dynamicData").html(data);
 
-                $.validator.unobtrusive.parse($("#dynamicData"));
+                jQuery.validator.unobtrusive.parse(jQuery("#dynamicData"));
 
             });
 
@@ -66,21 +64,21 @@
             alertify.alert(message);//"");
         }
 
-        $("#btnSaveForLater").click(function (e) {
+        jQuery("#btnSaveForLater").click(function (e) {
 
             window.location.replace("Saveforlater");
 
         });
 
 
-        $("#imgBtnPrevious").click(function (e) {
+        jQuery("#imgBtnPrevious").click(function (e) {
 
             window.location.replace("PreviousPartNumberUI");
 
         });
 
 
-        $("#imgBtnNext").click(function (e) {
+        jQuery("#imgBtnNext").click(function (e) {
 
             window.location.replace("NextPartNumberUI");
 
@@ -93,7 +91,7 @@
 <script>
 
     jQuery(document).ready(function () {
-        $(".duedate").datepicker({
+        jQuery(".duedate").datepicker({
             showOn: "button",
             buttonImage: "../../Contents/images/calendar_button.gif",
             buttonImageOnly: true,
@@ -102,9 +100,9 @@
             maxDate: Date.parse("2100-01-01")
         });
 
-        $(".list2listComponent").prop('required', true);
+        jQuery(".list2listComponent").prop('required', true);
 
-        var dualListBox = $(".list2listComponent").bootstrapDualListbox({
+        var dualListBox = jQuery(".list2listComponent").bootstrapDualListbox({
             nonSelectedListLabel: 'Options',
             selectedListLabel: 'Selected',
             selectorMinimalHeight: 370,
@@ -139,7 +137,7 @@
 
         var level = Number('@ViewBag.Level');
         if (level == 6) {
-            $("#partNumberSelectList").bootstrapDualListbox({
+            jQuery("#partNumberSelectList").bootstrapDualListbox({
                 nonSelectedListLabel: 'Options',
                 selectedListLabel: 'Selected',
                 selectorMinimalHeight: 370,
@@ -158,10 +156,10 @@
         else {
 
             //$('[data-toggle="popover"]').tooltip();
-            $('.dropdownchange').change(function () {
-                var objpartNumberID = $('#partNumberSelectList').val();
-                var objsiteID = $('#siteSelectList').val();
-                var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
+            jQuery('.dropdownchange').change(function () {
+                var objpartNumberID = jQuery('#partNumberSelectList').val();
+                var objsiteID = jQuery('#siteSelectList').val();
+                var objpartnumberStatusID = jQuery('#partnumberStatusSelectList').val();
                 //var formData = { partNumberID: objpartNumberID, siteID: objsiteID, partnumberStatusID: objpartnumberStatusID };
 
                 //if (objpartnumberStatusID == "") {
@@ -169,28 +167,6 @@
                 //    $('#partNumberSelectList').html(partNumberSelectList);
                 //    return;
                 //}
-
-           @* $.ajax({
-                url: "@Url.Content("~/Registration/PartNumber/GetPartNumberByDropdown")",
-                type: "post",
-                data: formData,
-                success: function (data) {
-                    var len = data.Data.length;
-                    var i = 0;
-                    var partNumberSelectList = "<option value=''></option>";
-                    for (i = 0; i < len; i++) {
-                        partNumberSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
-                    }
-
-                    $('#partNumberSelectList').html(partNumberSelectList);
-
-
-                },
-                error: function (data) {
-                    var partNumberSelectList = "<option value=''></option>";
-                    $('#partNumberSelectList').html(partNumberSelectList);
-                }
-            });*@
 
                 var fData = '<input type="hidden" name="siteID" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusID" value="' + objpartnumberStatusID + '">';
 
@@ -218,21 +194,18 @@
 
 
 
-            $('#partNumberSelectList').change(function () {
+            jQuery('#partNumberSelectList').change(function () {
 
-                var objsiteID = $('#siteSelectList').val();
-                var objpartnumberStatusID = $('#partnumberStatusSelectList').val();
-                var objpartNumberID = $('#partNumberSelectList').val();
+                var objsiteID = jQuery('#siteSelectList').val();
+                var objpartnumberStatusID = jQuery('#partnumberStatusSelectList').val();
+                var objpartNumberID = jQuery('#partNumberSelectList').val();
                 // var formData = { partNumberSelectList: objpartNumberID, siteSelectList: objsiteID, partnumberStatusSelectList: objpartnumberStatusID };
 
                 if (objpartnumberStatusID == "") {
                     var partNumberSelectList1 = "<option value=''></option>";
-                    $('#partNumberSelectList').html(partNumberSelectList1);
+                    jQuery('#partNumberSelectList').html(partNumberSelectList1);
                     return;
                 }
-         @*   var form = $('<form method="post" action="@Url.Content("~/Registration/PartNumber/GetQuestionnaire")">' +
-             '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '"></form>');
-            $(form).submit();*@
 
                 var fData = '<input type="hidden" name="partNumberSelectList" value="' + objpartNumberID + '"><input type="hidden" name="siteSelectList" value="' + objsiteID + '"><input type="hidden" name="partnumberStatusSelectList" value="' + objpartnumberStatusID + '">';
 
@@ -253,58 +226,8 @@
                 f.appendChild(newDiv);
                 document.body.appendChild(f); // added this
                 f.submit();
-
-
-
-            @*$.post({
-                url: "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")",
-                type: "post",
-                data: formData,
-                success: function (data) {
-                    //var len = data.Data.length;
-                    //var i = 0;
-                    //var partNumberSelectList = "<option value=''></option>";
-                    //for (i = 0; i < len; i++) {
-                    //    partNumberSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
-                    //}
-
-                    //$('#partNumberSelectList').html(partNumberSelectList);
-
-
-                },
-                error: function (data) {
-                    // var partNumberSelectList = "<option value=''></option>";
-                    //  $('#partNumberSelectList').html(partNumberSelectList);
-                }
-            });*@
-
-                @*$.ajax({
-                url: "@Url.Content("~/Registration/PartNumber/GetQuestionnaire")",
-                type: "post",
-                data: formData,
-                success: function (data) {
-                    //var len = data.Data.length;
-                    //var i = 0;
-                    //var partNumberSelectList = "<option value=''></option>";
-                    //for (i = 0; i < len; i++) {
-                    //    partNumberSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].description + "</option>";
-                    //}
-
-                    //$('#partNumberSelectList').html(partNumberSelectList);
-
-
-                },
-                error: function (data) {
-                    // var partNumberSelectList = "<option value=''></option>";
-                    //  $('#partNumberSelectList').html(partNumberSelectList);
-                }
-            });*@
-
-
             });
-
         }
-
     });
 </script>
 
@@ -399,7 +322,7 @@
     }*/
 </style>
 
-
+}
 @section zCodes{
     @if (ViewBag.zcodeList is List<Generic.pr_getTransactionRecordAll_Result>)
     {

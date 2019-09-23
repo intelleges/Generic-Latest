@@ -362,12 +362,9 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnumberDetail" Width="1.5" PointX="18.75" PointY="35.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personAssignedIteratePartnerNaics" Width="1.5" PointX="35.75" PointY="26.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personIteratePTQ" Width="1.5" PointX="20.75" PointY="35.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAudit" Width="1.5" PointX="21.375" PointY="58.375" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginLog" Width="1.5" PointX="35.75" PointY="29.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personPassword" Width="1.5" PointX="21.375" PointY="63" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personSite" Width="1.5" PointX="35.75" PointY="34.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personStuff" Width="1.5" PointX="5.75" PointY="36.75" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personSupportItemFailureType" Width="1.5" PointX="11.75" PointY="36.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.racix" Width="1.5" PointX="13.75" PointY="36.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.railStatus" Width="1.5" PointX="23.75" PointY="36.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.roleGridLevelMenu" Width="1.5" PointX="37.75" PointY="0.75" />
@@ -404,11 +401,12 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__partn__7C7A5F0DX" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__perso__7E62A77FX" />
         <AssociationConnector Association="hs3MVCMTQa2Model.fk_passwordPerson" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_person" />
-        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__partner__touch__7D6E8346X" />
         <AssociationConnector Association="hs3MVCMTQa2Model.questionnairePage" />
         <AssociationConnector Association="hs3MVCMTQa2Model.touchpointQuestionnaire_deprecated" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAudit" Width="1.5" PointX="21" PointY="58.375" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_person" />
+        <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

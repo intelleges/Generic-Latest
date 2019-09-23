@@ -108,6 +108,63 @@
             }
             else $("#partnertype").html(defaultOption);
         });
+
+        $("#partnertype").change(function () {
+            var touchpoint = $("#touchpoint").val();
+            var partnertype = $("#partnertype").val();
+            var formData = { touchpoint, partnertype };
+            $.ajax({
+                url: "@Url.Content("~/partner/PreselectedQuestion")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    if (data.success === false) {
+                        alertify.set({
+                            labels: {
+                                ok: "OK", cancel: "Cancel"
+                            }
+                        });
+                        alertify.confirm(data.html, function (e) {
+                            if (e) {
+                                var questions = [];
+                                var answers = [];
+                                var success = true;
+                                $('.answers input[type=radio]').each(function () {
+                                    var n = $(this).attr('name');
+                                    var v = $("input[name='" + n + "']:checked").val();
+                                    if (v === null || v === undefined) {
+                                        success = false;
+                                    }
+                                    else {
+                                        questions.push(n.replace("q_", ""));
+                                        answers.push(v);
+                                    }
+                                });
+
+                                if (success === false) {
+                                    alert("Pls select answers");
+                                }
+                                else {
+                                    var formData1 = { questions, answers };
+                                    $.ajax({
+                                        url: "@Url.Content("~/partner/UpdatePreselectedQuestion")",
+                                        type: "post",
+                                        data: formData1
+                                    });
+                                }
+                            }
+                            else {
+
+                            }
+                        });
+                    }
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
         var formData = {};
         $('#protocol').change(function () {
             var objProtocolID = $('#protocol').val();
@@ -461,6 +518,14 @@
 </script>
 <!--#region collapse-->
 <style type="text/css">
+    .answers .box{
+        text-align:left!important;
+    }
+
+    .answers input[type=radio] {
+        width: 25px;
+    }
+
     #sub-menu {
         display: none;
     }

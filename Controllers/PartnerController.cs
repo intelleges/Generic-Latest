@@ -391,6 +391,45 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public ActionResult PreselectedQuestion(int? partnertype, int? touchpoint) {
+            var q = db.pr_getQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault();
+            if (q != null) {   
+                var items = db.pr_getPreselectedQuestionResponseByQuestionnaire(q.id).ToList();
+                if (items.Count > 0) {
+                    var qGroups = from item in items
+                                    group item by item.question;
+
+                    string html = "<div class='answers'>";
+                    foreach (var v in qGroups.ToList()) {
+                        html += "<b>"+ db.pr_getQuestion(v.Key).First().title + "</b><br/>";
+                        foreach (var v1 in v.ToList()) {
+                            html += "<input type='radio' name='q_" + v.Key + "' value='" + v1.response + "'>"+ db.pr_getResponse(v1.response).First().description + "<br/>";
+                        }
+                        html += "<br/><br/>";
+                    }
+                    html += "</div>";
+                    return Json(new { success = false, html });
+                }
+            }
+
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePreselectedQuestion(List<int> questions, List<int> answers) {
+            questions = questions.Distinct().ToList();
+            answers = answers.Distinct().ToList();
+            for (int i = 0; i < questions.Count; i++)
+            {
+                var q = questions[i];
+                var a = answers[i];
+                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(q, a, "", new byte[0], "", null, null, null, null);
+            }
+
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
         public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
         {
             List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();

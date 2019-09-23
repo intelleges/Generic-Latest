@@ -1201,9 +1201,6 @@
     <Compile Include="personLoginAuditEvent.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="personLoginLog.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="personPassword.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1232,9 +1229,6 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="personStuff.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="personSupportItemFailureType.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pptqAutoMailMessageLog.cs">
@@ -2710,6 +2704,9 @@
     <Compile Include="pr_getPPTQTeam_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPreselectedQuestionResponseByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPreviousPPTQByPPTQAndStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2810,6 +2807,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getQuestionnaireByPage_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getQuestionnaireByPartnertypeAndTouchpoint_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getQuestionnaireByPartnumberSiteZcodePPTQ_Result.cs">

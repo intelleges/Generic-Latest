@@ -51,7 +51,7 @@ namespace Generic.Controllers
             //ViewBag.admin = new SelectList(db.person, "id", "internalId");
             /*ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");*/
             /*ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");*/
-            ViewBag.agency = new SelectList(db.pr_getAgencyAll(), "id", "description");
+            ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
             ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description");
             return View();
         }
@@ -78,14 +78,14 @@ namespace Generic.Controllers
                     ViewBag.Name = protocol.name;
                     ViewBag.EndDate = protocol.endDate.HasValue ? protocol.endDate.Value.ToString("MM/dd/yyyy") : null;
                     /*ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", protocol.agency);*/
-                    ViewBag.agency = new SelectList(db.pr_getAgencyAll(), "id", "description", protocol.agency);
+                    ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", protocol.agency);
                     ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description", protocol.domain);
                     return View(protocol);
                 }
                 //return RedirectToAction("Create", "Touchpoint");
             }
 
-            ViewBag.agency = new SelectList(db.pr_getAgencyAll(), "id", "description", protocol.agency);
+            ViewBag.agency = new SelectList(db.pr_getAgencyAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description", protocol.agency);
             ViewBag.domain = new SelectList(db.pr_getDomainAll(), "id", "description", protocol.domain);
             return View(protocol);
         }
