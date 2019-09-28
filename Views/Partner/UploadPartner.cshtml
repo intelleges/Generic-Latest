@@ -65,6 +65,27 @@
 
     $('#partnertype').change(function () {
         $('#groupDiv').show();
+
+         var touchpoint = $("#touchpoint").val();
+            var partnertype = $("#partnertype").val();
+            var formData = { touchpoint, partnertype };
+            $.ajax({
+                url: "@Url.Content("~/partner/PreselectedQuestion")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    if (data.success === false) {
+                        $('#isR').val(true);
+                        alertify.alert("This upload requires template 2 with preselected question and response <br/> <a href='https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate2.xlsx'>Click here to download partner upload template#2</a>");
+                    }
+                    else {
+                        $('#isR').val(false);
+                    }
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
     });
 
     $('#group').change(function () {
@@ -215,7 +236,7 @@
 
 <form id="UploadpartnerForm" method="post" enctype="multipart/form-data">
     @Html.ValidationSummary(true)
-
+    @Html.Hidden("isR",false)
 
 
     <div class="editor-label">
@@ -269,14 +290,16 @@
         </div>
         <div class="editor-field">
             @(Html.Telerik().Upload()
-            .Name("uploadPartner")
-            .Multiple(false)
+                    .Name("uploadPartner")
+                    .Multiple(false)
             )
 
             <p class="note">
                 Maximum allowed file size: 10 MB
             </p>
             <p> <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate.xls">Click here to download partner upload template</a> </p>
+
+            <p> <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate2.xlsx">Click here to download partner upload template#2</a> </p>
         </div>
     </div>
     <p id="btnUploadDiv" style="display: none">

@@ -473,8 +473,6 @@ namespace Generic.Controllers
                             var response = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(item.Key, item.Value, null, new byte[0], "", DateTime.Now, null, null, pptq.id);
                         }
                     }
-
-                    var list = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptq.id).ToList();
                 }
 
                 Session["preSelected"] = null;
@@ -652,10 +650,8 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPartner(int protocol, int partnertype, int touchpoint, int group, HttpPostedFileBase uploadPartner)
+        public ActionResult UploadPartner(int protocol, int partnertype, int touchpoint, int group, bool isR, HttpPostedFileBase uploadPartner)
         {
-
-
             if (!Directory.Exists((Server.MapPath("~/uploadedFiles"))))
             {
                 Directory.CreateDirectory(Server.MapPath("~/uploadedFiles"));
@@ -739,6 +735,9 @@ namespace Generic.Controllers
             map.Add("PARTNER_DUNS", "dunsNumber");
 
             map.Add("POC EID", "federalID");
+            if (isR) {
+                map.Add("PRESELECTED", "preselected");
+            }
             //map.Add("PARTNER_SAP_ID", "PARTNER_SAP_ID");
             //map.Add("PARTNER_POC_TITLE", "title");
             //map.Add("PARTNER_DUNS", "dunsNumber");
@@ -811,6 +810,26 @@ namespace Generic.Controllers
                                 loadGroup,
                                 partners.DUE_DATE, group
                                ).ToList().FirstOrDefault();
+
+                            if (isR && !string.IsNullOrEmpty(partners.preselected))
+                            {
+                                var qrs =partners.preselected.Split(';').Where(o => !string.IsNullOrEmpty(o)).ToList();
+                                foreach (var item in qrs) {
+                                    var qr = item.Split(':');
+                                    var question = Convert.ToInt32(qr[0]);
+                                    var resp = Convert.ToInt32(qr[1]);
+
+
+                                    var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
+                                    int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).LastOrDefault().id;
+                                    foreach (var partnerItem in objPartners)
+                                    {
+                                        var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
+                                        var response = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(question, resp, null, new byte[0], "", DateTime.Now, null, null, pptq.id);
+                                    }
+                                }
+                            }
+
                             uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                         }
                         catch
