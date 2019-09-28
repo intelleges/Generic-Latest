@@ -392,8 +392,9 @@ namespace Generic.Controllers
 
         [HttpPost]
         public ActionResult PreselectedQuestion(int? partnertype, int? touchpoint) {
-            var q = db.pr_getQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).FirstOrDefault();
-            if (q != null) {   
+            var qs = db.pr_getQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).ToList();
+            if (qs.Count>0) {
+                var q = qs.First();
                 var items = db.pr_getPreselectedQuestionResponseByQuestionnaire(q.id).ToList();
                 if (items.Count > 0) {
                     var qGroups = from item in items
@@ -419,13 +420,14 @@ namespace Generic.Controllers
         public ActionResult UpdatePreselectedQuestion(List<int> questions, List<int> answers) {
             questions = questions.Distinct().ToList();
             answers = answers.Distinct().ToList();
+            Dictionary<int, int> preSelected = new Dictionary<int, int>();
             for (int i = 0; i < questions.Count; i++)
             {
                 var q = questions[i];
                 var a = answers[i];
-                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(q, a, "", new byte[0], "", null, null, null, null);
+                preSelected.Add(q, a);
             }
-
+            Session["preSelected"] = preSelected;
             return Json(new { success = true });
         }
 
@@ -456,6 +458,27 @@ namespace Generic.Controllers
                     ViewBag.MessageDetail = "Congratulations, you just added  " + partner.name + " to " + Target[0].title;
                 }
                 ModelState.Clear();
+
+                var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
+                int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).LastOrDefault().id;
+                foreach (var partnerItem in objPartners)
+                {
+                    var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
+
+                    if (Session["preSelected"] != null)
+                    {
+                        var dictionary = Session["preSelected"] as Dictionary<int, int>;
+                        foreach (var item in dictionary)
+                        {
+                            var response = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(item.Key, item.Value, null, new byte[0], "", DateTime.Now, null, null, pptq.id);
+                        }
+                    }
+
+                    var list = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptq.id).ToList();
+                }
+
+                Session["preSelected"] = null;
+
                 return View();
             }
             catch (Exception ex)
@@ -892,8 +915,6 @@ namespace Generic.Controllers
                 // db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire()
                 foreach (var partnerItem in objPartners)
                 {
-
-
                     var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
                     pptq.invitedDate = DateTime.Now;
                     var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
