@@ -76,7 +76,7 @@
                 success: function (data) {
                     if (data.success === false) {
                         $('#isR').val(true);
-                        alertify.alert("This upload requires template 2 with preselected question and response <br/> <a href='https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate2.xlsx'>Click here to download partner upload template#2</a>");
+                        alertify.alert("This upload requires template 2 with preselected question and response <br/> <a target='_blank' href='https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate2.xlsx'>Click here to download partner upload template#2</a>");
                     }
                     else {
                         $('#isR').val(false);
@@ -297,9 +297,9 @@
             <p class="note">
                 Maximum allowed file size: 10 MB
             </p>
-            <p> <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate.xls">Click here to download partner upload template</a> </p>
+            <p> <a target="_blank" href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate.xls">Click here to download partner upload template</a> </p>
 
-            <p> <a href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate2.xlsx">Click here to download partner upload template#2</a> </p>
+            <p> <a target="_blank" href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate2.xlsx">Click here to download partner upload template#2</a> </p>
         </div>
     </div>
     <p id="btnUploadDiv" style="display: none">
