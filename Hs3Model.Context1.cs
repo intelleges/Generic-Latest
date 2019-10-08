@@ -30257,5 +30257,110 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireByPartnertypeAndTouchpoint_Result>("pr_getQuestionnaireByPartnertypeAndTouchpoint", partnerTypeParameter, touchpointParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addCorrespondentQuestionnaire(Nullable<int> previousQuestionnaire, Nullable<int> currentQuestionnaire, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var previousQuestionnaireParameter = previousQuestionnaire.HasValue ?
+                new ObjectParameter("previousQuestionnaire", previousQuestionnaire) :
+                new ObjectParameter("previousQuestionnaire", typeof(int));
+    
+            var currentQuestionnaireParameter = currentQuestionnaire.HasValue ?
+                new ObjectParameter("currentQuestionnaire", currentQuestionnaire) :
+                new ObjectParameter("currentQuestionnaire", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addCorrespondentQuestionnaire", previousQuestionnaireParameter, currentQuestionnaireParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archiveCorrespondentQuestionnaire(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveCorrespondentQuestionnaire", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCorrespondentQuestionnaire_Result> pr_getCorrespondentQuestionnaire(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCorrespondentQuestionnaire_Result>("pr_getCorrespondentQuestionnaire", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCorrespondentQuestionnaireAll_Result> pr_getCorrespondentQuestionnaireAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCorrespondentQuestionnaireAll_Result>("pr_getCorrespondentQuestionnaireAll");
+        }
+    
+        public virtual ObjectResult<pr_getCorrespondentQuestionnaireByCurrentQuestionnaire_Result> pr_getCorrespondentQuestionnaireByCurrentQuestionnaire(Nullable<int> currentQuestionnaire)
+        {
+            var currentQuestionnaireParameter = currentQuestionnaire.HasValue ?
+                new ObjectParameter("currentQuestionnaire", currentQuestionnaire) :
+                new ObjectParameter("currentQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCorrespondentQuestionnaireByCurrentQuestionnaire_Result>("pr_getCorrespondentQuestionnaireByCurrentQuestionnaire", currentQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result> pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result>("pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode", accesscodeParameter);
+        }
+    
+        public virtual int pr_modifyCorrespondentQuestionnaire(Nullable<int> id, Nullable<int> previousQuestionnaire, Nullable<int> currentQuestionnaire, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var previousQuestionnaireParameter = previousQuestionnaire.HasValue ?
+                new ObjectParameter("previousQuestionnaire", previousQuestionnaire) :
+                new ObjectParameter("previousQuestionnaire", typeof(int));
+    
+            var currentQuestionnaireParameter = currentQuestionnaire.HasValue ?
+                new ObjectParameter("currentQuestionnaire", currentQuestionnaire) :
+                new ObjectParameter("currentQuestionnaire", typeof(int));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyCorrespondentQuestionnaire", idParameter, previousQuestionnaireParameter, currentQuestionnaireParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removeCorrespondentQuestionnaire(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCorrespondentQuestionnaire", idParameter);
+        }
+    
+        public virtual int pr_unArchiveCorrespondentQuestionnaire(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveCorrespondentQuestionnaire", idParameter);
+        }
     }
 }

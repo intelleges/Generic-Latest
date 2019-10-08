@@ -1597,6 +1597,15 @@
     <Compile Include="pr_getConfirmPartnerActionType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getCorrespondentQuestionnaireAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCorrespondentQuestionnaireByCurrentQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCorrespondentQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getCountFromPPTQByStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2705,6 +2714,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPreselectedQuestionResponseByQuestionnaire_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPreviousPPTQByPPTQAndStatus_Result.cs">
