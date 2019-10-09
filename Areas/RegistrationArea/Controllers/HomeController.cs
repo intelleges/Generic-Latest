@@ -989,7 +989,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
 
                 var items = db.pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(accessCode).ToList();
-                ViewBag.InfoPreviousPartner = items;
+                if (items.Count > 0)
+                {
+                    ViewBag.Pptq = ppptq.id;
+                    ViewBag.InfoPreviousPartner = items;
+                }
 
                 ViewBag.FormData = objViewBag;
                 if (question.footer == "7" || question.footer == "8" || question.footer == "9" || question.footer == "12")

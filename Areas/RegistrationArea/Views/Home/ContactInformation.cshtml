@@ -4,9 +4,9 @@
 @using Generic.Helpers
 @using System.Web.Optimization;
 @{
-   // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
+    // Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
     //Layout = "~/Views/Shared/_NewRegistrationLayout.cshtml";
-	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
     ViewBag.Title = "Contact Information";
     var formData = new ViewBagModel();
     if (ViewBag.FormData != null)
@@ -18,102 +18,102 @@
 
 
 @*@section Top{
-     @Html.Partial("_TopSection");
-}
+         @Html.Partial("_TopSection");
+    }
 
-<table class="tablesign2" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
+    <table class="tablesign2" height="78" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
 
-            <table class="infobox" border="0" align="center" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>
-                        <table class="innertable" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td height="25" colspan="2" class="infotitlebg">
-                                    @formData.CONTACT_INFORMATION_TEXT <span class="infotitlenormal">(@formData.VERIFY_CONTACT_TEXT_INFORMATION )</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top" class="tableinr">
-                                    <table border="0" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td height="20"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tableinnertd">
-                                                <table border="0" align="center" cellpadding="0" cellspacing="0">
-                                                    <tr>
-                                                        <td class="infobluecont">
-                                                            <strong>
-                                                                <span id="ctl00_contentQuestionnaireBody_lblFirstName">@Model.firstName</span>
-                                                                <span id="ctl00_contentQuestionnaireBody_lblLastName">@Model.lastName</span>
-                                                            </strong>
-                                                            <br />
-                                                            <span class="infobluecontnormal">
-                                                                <span id="ctl00_contentQuestionnaireBody_lblTitle">@Model.title</span>
+                <table class="infobox" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <table class="innertable" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td height="25" colspan="2" class="infotitlebg">
+                                        @formData.CONTACT_INFORMATION_TEXT <span class="infotitlenormal">(@formData.VERIFY_CONTACT_TEXT_INFORMATION )</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" class="tableinr">
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td height="20"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tableinnertd">
+                                                    <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td class="infobluecont">
+                                                                <strong>
+                                                                    <span id="ctl00_contentQuestionnaireBody_lblFirstName">@Model.firstName</span>
+                                                                    <span id="ctl00_contentQuestionnaireBody_lblLastName">@Model.lastName</span>
+                                                                </strong>
                                                                 <br />
-                                                                <span id="ctl00_contentQuestionnaireBody_lblEmail">@Model.email</span>
-                                                                <br />
-                                                                <span id="ctl00_contentQuestionnaireBody_lblPhone">@Model.phone</span>
-                                                                <br />
-                                                                <span id="ctl00_contentQuestionnaireBody_lblFax">@Model.fax</span>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td class="viewtable" align="right" valign="bottom">
-                                    <table border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td class="viewtd1" align="right">
-                                                <input type="submit" name="btnEdit" id="btnEdit" onclick="window.location = 'EditContactInformation';" value="@formData.CMS_PAGE_PREVIOUS_TEXT" style="border-width: 0px;" />
-                                            </td>
-                                            <td class="viewtd2" align="right">
-                                                <form action="@Url.Action("CorrectContactInformation")">
-                                                    <input type="submit" name="btnNext" id="btnNext" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
-                                                </form>
-                                            </td>
-                                            <td class="viewtd3">
-                                                &nbsp;
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                &nbsp;
-                                            </td>
-                                            <td>
-                                                &nbsp;
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    &nbsp;
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-</table>*@
+                                                                <span class="infobluecontnormal">
+                                                                    <span id="ctl00_contentQuestionnaireBody_lblTitle">@Model.title</span>
+                                                                    <br />
+                                                                    <span id="ctl00_contentQuestionnaireBody_lblEmail">@Model.email</span>
+                                                                    <br />
+                                                                    <span id="ctl00_contentQuestionnaireBody_lblPhone">@Model.phone</span>
+                                                                    <br />
+                                                                    <span id="ctl00_contentQuestionnaireBody_lblFax">@Model.fax</span>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="viewtable" align="right" valign="bottom">
+                                        <table border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td class="viewtd1" align="right">
+                                                    <input type="submit" name="btnEdit" id="btnEdit" onclick="window.location = 'EditContactInformation';" value="@formData.CMS_PAGE_PREVIOUS_TEXT" style="border-width: 0px;" />
+                                                </td>
+                                                <td class="viewtd2" align="right">
+                                                    <form action="@Url.Action("CorrectContactInformation")">
+                                                        <input type="submit" name="btnNext" id="btnNext" value="@formData.CMS_PAGE_NEXT_TEXT" style="border-width: 0px;" />
+                                                    </form>
+                                                </td>
+                                                <td class="viewtd3">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    &nbsp;
+                                                </td>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </table>*@
 
 <div class="top-margin">
 
@@ -151,9 +151,18 @@
 
 
                     <div class="col-sm-6 ">
-                        <form action="@Url.Action("CorrectContactInformation")">
-                            <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
-                        </form>
+                        @if (ViewBag.InfoPreviousPartner != null)
+                        {
+                            <form action="@Url.Action("CorrectContactInformation")" id="form-main">
+                                <button type="button" onclick="showModal();" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form action="@Url.Action("CorrectContactInformation")" id="form-main">
+                                <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            </form>
+                        }
 
                         <button type="submit" name="btnEdit" id="btnEdit" onclick="window.location = 'EditContactInformation';" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
                     </div>
@@ -163,5 +172,65 @@
             </div>
         </div>
     </div>
-  
 </section>
+
+
+@if (ViewBag.InfoPreviousPartner != null)
+{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .ui-progressbar {
+            position: relative;
+        }
+
+        .progress-label {
+            position: absolute;
+            left: 42%;
+            top: 4px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        var array = @Html.Raw(Json.Encode(ViewBag.InfoPreviousPartner));
+
+        function showModal() {
+            alertify.set({
+                labels: {
+                    ok: "OK", cancel: "Cancel"
+                }
+            });
+            alertify.confirm('TIME SAVER: Would you like to copy your previous responses to the current questionnaire?<br/><br/>PLEASE NOTE: Although this will save some time, you will still have to click NEXT until you reach the end and provide an eSignature. Thank you', function (e) {
+                if (e) {
+                    alertify.alert('<div id="progressbar"><div class="progress-label">Please wait..</div></div>', function () { $('#form-main').submit();});
+                    var progressbar = $("#progressbar"),
+                        progressLabel = $(".progress-label");
+
+                    progressbar.progressbar({
+                        value: false,
+                        change: function () {
+                            progressLabel.text(progressbar.progressbar("value") + "%");
+                        },
+                        complete: function () {
+                            progressLabel.text("Complete!");
+                        }
+                    });
+                    var formData1 = { items: array, pptq: '@ViewBag.Pptq' };
+                                  $.ajax({
+                                        url: "@Url.Content("~/partner/ConfirmPreselectedQuestion")",
+                                        type: "post",
+                                      data: formData1,
+                                      success: function (data) {
+                                          progressbar.progressbar("value", 100);
+                                      }
+                                    });
+                }
+                else {
+                    $('#form-main').submit();
+                }
+            });
+        }
+    </script>
+}
