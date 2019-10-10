@@ -988,11 +988,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     }
                 }
 
-                var items = db.pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(accessCode).ToList();
+                var items = db.pr_getCorrespondentQuestionnaireMapping(accessCode).ToList();
                 if (items.Count > 0)
                 {
                     ViewBag.Pptq = ppptq.id;
-                    ViewBag.InfoPreviousPartner = items;
+                    ViewBag.PreviousPptq = items.First().previousPPTQ;
+                    ViewBag.accessCode = accessCode;
                 }
 
                 ViewBag.FormData = objViewBag;

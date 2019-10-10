@@ -30362,5 +30362,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveCorrespondentQuestionnaire", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getCorrespondentQuestionnaireMapping_Result> pr_getCorrespondentQuestionnaireMapping(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCorrespondentQuestionnaireMapping_Result>("pr_getCorrespondentQuestionnaireMapping", accesscodeParameter);
+        }
     }
 }

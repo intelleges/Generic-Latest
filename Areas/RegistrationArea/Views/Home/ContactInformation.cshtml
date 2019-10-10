@@ -151,7 +151,7 @@
 
 
                     <div class="col-sm-6 ">
-                        @if (ViewBag.InfoPreviousPartner != null)
+                        @if (ViewBag.PreviousPptq != null)
                         {
                             <form action="@Url.Action("CorrectContactInformation")" id="form-main">
                                 <button type="button" onclick="showModal();" name="btnNext" id="btnNext" class="btn btn-default pull-right save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
@@ -175,7 +175,7 @@
 </section>
 
 
-@if (ViewBag.InfoPreviousPartner != null)
+@if (ViewBag.PreviousPptq != null)
 {
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
@@ -194,8 +194,6 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
-        var array = @Html.Raw(Json.Encode(ViewBag.InfoPreviousPartner));
-
         function showModal() {
             alertify.set({
                 labels: {
@@ -217,7 +215,7 @@
                             progressLabel.text("Complete!");
                         }
                     });
-                    var formData1 = { items: array, pptq: '@ViewBag.Pptq' };
+                    var formData1 = { prevPptq: '@ViewBag.PreviousPptq', pptq: '@ViewBag.Pptq', accessCode:'@ViewBag.accessCode' };
                                   $.ajax({
                                         url: "@Url.Content("~/partner/ConfirmPreselectedQuestion")",
                                         type: "post",
