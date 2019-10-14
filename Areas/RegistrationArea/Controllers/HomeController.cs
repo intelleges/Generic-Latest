@@ -13370,6 +13370,7 @@ Intelleges Team";
                         break;
                     case 49483:
                         ViewBag.PrimaryNaicsCode = item.comment;
+                        ViewBag.Input49483 = item.comment;
                         break;
                     case 49473:
                         ViewBag.Checkbox49473_Yes = item.response == _responseYES ? _chacked : string.Empty;
