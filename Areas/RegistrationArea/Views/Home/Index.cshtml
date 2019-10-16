@@ -156,7 +156,7 @@
                             <input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" />
                             <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
                             </div>
-                            @if ((bool)ViewBag.useReCaptcha)
+                            @if (ViewBag.useReCaptcha!=null &&(bool)ViewBag.useReCaptcha)
                             {
                             <div class="form-cell accesscode-captcha">
                                 <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>

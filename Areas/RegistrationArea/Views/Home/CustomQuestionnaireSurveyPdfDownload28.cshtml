@@ -412,7 +412,7 @@
             </p>
             <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox49516_74725 /> HAS </b> derived at least 80% and at least $25 million of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year.</li>
-                <li>Has <b><input type="checkbox" @ViewBag.Checkbox49516_74726 /> NOT </b> derived at least 80% and at least $25 million of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year. </li>
+                <li><input type="checkbox" @ViewBag.Checkbox49516_74726 /> Has <b>NOT </b> derived at least 80% and at least $25 million of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year. </li>
             </ul>
             <p class="ml25">
                 Executive Compensation
@@ -519,9 +519,9 @@
             </p>
             <p class="ml25"><b><i>Place of Performance:</i></b>To comply with FAR 52.204-10(d)(2), please provide the place of performance address if different than this Certification.</p>
             <ul class="ml75">
-                <li>Supplier Name: @ViewBag.Input49535</li>
-                <li>Street Address: @ViewBag.Input49536</li>
-                <li>City: @ViewBag.Input49537 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; State/Province: @ViewBag.Input49538 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Country: @ViewBag.Input49539 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Postal Code: @ViewBag.Input49540</li>
+                <li>Supplier Name: @((ViewBag.Input49535 ?? "").Replace("<p>", "").Replace("</p>", ""))</li>
+                <li>Street Address: @((ViewBag.Input49536 ?? "").Replace("<p>", "").Replace("</p>", ""))</li>
+                <li>City: @((ViewBag.Input49537 ?? "").Replace("<p>", "").Replace("</p>", "")) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; State/Province: @((ViewBag.Input49538 ?? "").Replace("<p>", "").Replace("</p>", "")) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Country: @((ViewBag.Input49539 ?? "").Replace("<p>", "").Replace("</p>", "")) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Postal Code: @((ViewBag.Input49540 ?? "").Replace("<p>", "").Replace("</p>", ""))</li>
 
             </ul>
             <p class="ml25">Is the physical place of performance located within the US?</p>
@@ -543,7 +543,7 @@
                 </b>
             </h2>
             <p class="ml25">
-                Supplier has implemented the controls required by FAR 52.204-21, Basic Safeguarding of Covered Contractor Information Systemneeds to be italicized.
+                Supplier has implemented the controls required by FAR 52.204-21, Basic Safeguarding of Covered Contractor Information System needs to be italicized.
             </p>
             <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox49542_74733 /> Yes </b></li>
@@ -952,7 +952,7 @@
                 </b>
             </h2>
             <p class="ml25">
-                Supplier is currently compliant with 48 CFR 252.246-7007 or will be compliant if applicable to a subsequently awarded purchase order or contract with USG.
+                Supplier is currently compliant with 48 CFR 252.246-7007 or will be compliant if applicable to a subsequently awarded purchase order or contract with USG end use.
             </p>
             <ul class="ml75">
                 <li><b><input type="checkbox" @ViewBag.Checkbox49570_74776 /> Yes</b></li>
@@ -1077,8 +1077,8 @@
                 </b>
             </h2>
             <p class="ml25">
-                Under 22 CFR § 122.1(a) of the International Traffic in Arms Regulations (ITAR), all companies that engage in the business of manufacturing or exporting defense articles or furnishing defense services are required to register annually with the US Department of State, Directorate of Defense Trade Controls (DDTC)
-                <br /><br />The DDTC administers the ITAR and controls the export and re-export of defense articles and the provision of defense services involving all products listed on the US Munitions List 22 CFR § 121.1(a).
+                Under 22 CFR &#167; 122.1(a) of the International Traffic in Arms Regulations (ITAR), all companies that engage in the business of manufacturing or exporting defense articles or furnishing defense services are required to register annually with the US Department of State, Directorate of Defense Trade Controls (DDTC)
+                <br /><br />The DDTC administers the ITAR and controls the export and re-export of defense articles and the provision of defense services involving all products listed on the US Munitions List 22 CFR &#167; 121.1(a).
                 <br /><br />
                 Is your company registered with the DDTC to manufacture defense articles?
             </p>
