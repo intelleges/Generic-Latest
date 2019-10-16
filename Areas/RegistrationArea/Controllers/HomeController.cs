@@ -13545,8 +13545,8 @@ Intelleges Team";
                         ViewBag.Input29 = (comments.Length > 1 ? comments[1] : comments[0]); //comments[0];
                         break;
                     case 49533:
-                        ViewBag.Checkbox49533_Yes = item.response == _responseYES ? _chacked : string.Empty;
-                        ViewBag.Checkbox49533_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox49533_Yes = item.response == 74729 ? _chacked : string.Empty;
+                        ViewBag.Checkbox49533_No = item.response != 74729 ? _chacked : string.Empty;
                         break;
                     case 49535:
                         ViewBag.Input49535 = item.comment;
