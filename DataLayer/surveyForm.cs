@@ -898,7 +898,7 @@ namespace Generic.DataLayer
                     innerdiv.InnerHtml = incldComment + " ";
                     innerdiv.Controls.Add(txtbox);
 
-                    HtmlGenericControl innerdivUpload = new HtmlGenericControl();
+                    HtmlGenericControl innerdivUpload = new HtmlGenericControl("div");
                     if (!string.IsNullOrEmpty(uploadedFile))
                     {
                         ////add empty cell
@@ -1023,7 +1023,7 @@ namespace Generic.DataLayer
                     innerdiv.InnerHtml = incldComment + " "; //"Include comments here: ";
                     innerdiv.Controls.Add(txtbox);
 
-                    HtmlGenericControl innerdivUpload = new HtmlGenericControl();
+                    HtmlGenericControl innerdivUpload = new HtmlGenericControl("div");
                     innerdivUpload.InnerHtml = "<br/>" + incldFileUpload + " "; //Upload written procedures here: ";
 
                     ////add validators to _fileUploadComment
@@ -1127,7 +1127,7 @@ namespace Generic.DataLayer
                     innerdiv.InnerHtml = incldComment + " ";//"Include comments here: ";
                     innerdiv.Controls.Add(txtbox);
 
-                    HtmlGenericControl innerdivUpload = new HtmlGenericControl();
+                    HtmlGenericControl innerdivUpload = new HtmlGenericControl("div");
                     innerdivUpload.InnerHtml = "<br/>" + incldFileUpload + " "; //Upload written procedures here: ";
 
                     ////add validators to _fileUploadComment
@@ -1224,7 +1224,7 @@ namespace Generic.DataLayer
                     innerdiv.InnerHtml = incldComment + " "; //"Include comments here: ";
                     innerdiv.Controls.Add(txtbox);
 
-                    HtmlGenericControl innerdivUpload = new HtmlGenericControl();
+                    HtmlGenericControl innerdivUpload = new HtmlGenericControl("div");
                     innerdivUpload.InnerHtml = "<br/>" + incldFileUpload + " "; //Upload written procedures here: ";
 
                     ////add validators to _fileUploadComment
@@ -1537,7 +1537,7 @@ namespace Generic.DataLayer
                     innerdiv.InnerHtml = incldComment + " "; //"Include comments here: ";
                     innerdiv.Controls.Add(txtbox);
 
-                    HtmlGenericControl innerdivUpload = new HtmlGenericControl();
+                    HtmlGenericControl innerdivUpload = new HtmlGenericControl("div");
                     innerdivUpload.InnerHtml = "<br/>" + incldFileUpload + " "; //Upload written procedures here: ";
 
                     ////add validators to _fileUploadComment
