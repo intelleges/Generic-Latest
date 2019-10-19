@@ -395,13 +395,10 @@ namespace Generic.Controllers
         public ActionResult ConfirmPreselectedQuestion(int prevPptq, int pptq, string accessCode) {
 
             var itemsPrev = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(prevPptq).ToList();
-            var items = db.pr_getCorrespondentQuestionnaireMapping(accessCode).ToList();
+            var items = db.pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(accessCode).ToList();
+            var dttm = DateTime.Now;
             foreach (var item in items) {
-                var iprev = itemsPrev.Where(o => o.question == item.previousQuestion && o.response == item.previousResponse).FirstOrDefault();
-                if (iprev != null)
-                {
-                    db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(item.currentQuestion, item.currentResponse, iprev.comment, new byte[0], "", DateTime.Now, null, null, pptq);
-                }
+                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(item.question, item.response, item.comment, new byte[0], "", dttm, null, null, pptq);
             }
             return Json(new { success = true });
         }
