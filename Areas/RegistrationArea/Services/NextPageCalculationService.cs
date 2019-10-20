@@ -66,7 +66,9 @@ namespace Generic.Areas.RegistrationArea.Services
                     }
                     else
                     {
-                        rID = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionidLogic, pptq).FirstOrDefault().response;
+
+                        var r = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionidLogic, pptq).FirstOrDefault();
+                        if(r!=null)rID = r.response;
                     }
 
                     response responsenew = db.pr_getResponse(rID).FirstOrDefault();
@@ -101,9 +103,10 @@ namespace Generic.Areas.RegistrationArea.Services
                         }
                     }
                 }
-                bool result = CalculateStack(ReversePolish(resultString)) > 0;
-                if (result)
-                {
+                bool result = false;
+                if(!string.IsNullOrEmpty(resultString))
+                    result = CalculateStack(ReversePolish(resultString)) > 0;
+                if (result){
                     return gotoQuestionId;
                 }
                 else
