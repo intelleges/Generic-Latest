@@ -200,7 +200,7 @@
                     ok: "OK", cancel: "Cancel"
                 }
             });
-            alertify.confirm('TIME SAVER: Would you like to copy your previous responses to the current questionnaire?<br/><br/>PLEASE NOTE: Although this will save some time, you will still have to click NEXT until you reach the end and provide an eSignature. Thank you', function (e) {
+            alertify.confirm('TIME SAVER: Would you like to copy your previous responses to the current questionnaire?<br/><br/>PLEASE NOTE: Although this will save some time, you will still have to click NEXT, and respond to questions that are blank until you reach the end and provide an eSignature. Thank you.', function (e) {
                 if (e) {
                     alertify.alert('<div id="progressbar"><div class="progress-label">Please wait..</div></div>', function () { $('#form-main').submit();});
                     var progressbar = $("#progressbar"),
