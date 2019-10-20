@@ -42,7 +42,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerClass" PointX="5.75" PointY="54.125" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerCorpInfo" PointX="12.75" PointY="54.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerLogDetail" PointX="10.75" PointY="6.75" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" PointX="15.75" PointY="58.625" Width="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnaire" PointX="15.75" PointY="58.625" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerReference" PointX="0.5" PointY="12.125" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerReminderStatus" PointX="12.75" PointY="3.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerRemitAddress" PointX="12.75" PointY="63.875" Width="1.5" IsExpanded="false" />

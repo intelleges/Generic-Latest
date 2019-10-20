@@ -30371,5 +30371,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCorrespondentQuestionnaireMapping_Result>("pr_getCorrespondentQuestionnaireMapping", accesscodeParameter);
         }
+    
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDate(Nullable<int> id, Nullable<System.DateTime> dueDate)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var dueDateParameter = dueDate.HasValue ?
+                new ObjectParameter("dueDate", dueDate) :
+                new ObjectParameter("dueDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDate", idParameter, dueDateParameter);
+        }
     }
 }

@@ -1727,6 +1727,8 @@ namespace Generic.Controllers
                         db.Entry(pptq).State = EntityState.Modified;
                         db.SaveChanges();
 
+                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDate(pptq.id, DueDate);
+
                         var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
                         objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
                         db.Entry(objpartner).State = EntityState.Modified;
@@ -1735,7 +1737,10 @@ namespace Generic.Controllers
                         var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
                         amm.text.Replace("[partner Access Code]", accesscode);
                         if (DueDate.HasValue)
+                        {
                             amm.text = amm.text.Replace("[Due Date]", DueDate.Value.ToString("MMM, dd, yyyy"));
+                            amm.text = amm.text.Replace("[due date]", DueDate.Value.ToString("MMM, dd, yyyy"));
+                        }
 
                         var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
                         Email email = new Email(amm);
