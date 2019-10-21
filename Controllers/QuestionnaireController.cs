@@ -263,7 +263,10 @@ namespace Generic.Controllers
                     EntitiesDBContext db1 = new EntitiesDBContext();
                     var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
                     if (responseId == 75) p.status = 12;
-                    else p.status = 8;
+                    else {
+                        p.status = 8;
+                        p.completedDate = DateTime.Now;
+                    }
 
                     p.docFolderAddress = "APPROVAL BY - " + Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
                     db1.SaveChanges();
