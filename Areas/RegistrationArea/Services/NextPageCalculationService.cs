@@ -103,7 +103,7 @@ namespace Generic.Areas.RegistrationArea.Services
                         }
                     }
                 }
-                bool result = false;
+                bool result = true;
                 if(!string.IsNullOrEmpty(resultString))
                     result = CalculateStack(ReversePolish(resultString)) > 0;
                 if (result){

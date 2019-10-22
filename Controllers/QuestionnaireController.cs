@@ -266,6 +266,11 @@ namespace Generic.Controllers
                     else {
                         p.status = 8;
                         p.completedDate = DateTime.Now;
+                        try
+                        {
+                            db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptqId);
+                        }
+                        catch { }
                     }
 
                     p.docFolderAddress = "APPROVAL BY - " + Convert.ToString(Session["REDIRECT_BY_EMAIL_APPROVAL"]);
