@@ -330,6 +330,14 @@ function showDivByCode(sender) {
     } else {
         jQuery(divname).hide();
     }
+
+    divname = "#yDiv_" + result;
+    if (jQuery(divname).data("code") === jQuery('#' + sender.id + ' input:checked').data("code")) {
+        jQuery(divname).show();
+    } else {
+        jQuery(divname).hide();
+    }
+
     if (jQuery("#AllDiv_" + result).length > 0) {
         jQuery("#AllDiv_" + result).show();
     }

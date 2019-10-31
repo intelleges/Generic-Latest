@@ -1520,6 +1520,31 @@ namespace Generic.DataLayer
                         divn.Style.Add("display", "none");
                     }
 
+                    Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+                    var responsesList = db.pr_getResponseByQuestion(question.id).ToList();
+                    foreach (Match match in checkCOde.Matches(incldComment))
+                    {
+                        if (responsesList.Any(o => o.zcode.ToLower() == match.Value.ToLower().Replace("(", "").Replace(")", "")))
+                        {
+                            divn.Attributes["data-code"] = match.Value;
+                            incldComment = incldComment.Replace(match.Value, "");
+                        }
+                    }
+                    if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
+                    {
+                        var result = responsesList.FirstOrDefault(o => o.description.Contains("No"));
+                        if (result != null)
+                        {
+                            divn.Attributes["data-code"] = result.zcode;
+                        }
+                    }
+
+                    if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode){
+                        divn.Style.Add("display", "");
+                    }
+                    else
+                        divn.Style.Add("display", "none");
+
                     fileupload = new FileUpload();
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
