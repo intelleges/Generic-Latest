@@ -30384,5 +30384,87 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDate", idParameter, dueDateParameter);
         }
+    
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaire2(Nullable<int> id, Nullable<int> partner, Nullable<int> partnerTypeTouchpointQuestionnaire, string accesscode, Nullable<int> invitedBy, Nullable<System.DateTime> invitedDate, Nullable<System.DateTime> completedDate, Nullable<System.DateTime> dueDate, Nullable<int> status, Nullable<int> progress, string zcode, byte[] pdf, string docFolderAddress, Nullable<decimal> score, string loadgroup)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var partnerTypeTouchpointQuestionnaireParameter = partnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", partnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            var invitedByParameter = invitedBy.HasValue ?
+                new ObjectParameter("invitedBy", invitedBy) :
+                new ObjectParameter("invitedBy", typeof(int));
+    
+            var invitedDateParameter = invitedDate.HasValue ?
+                new ObjectParameter("invitedDate", invitedDate) :
+                new ObjectParameter("invitedDate", typeof(System.DateTime));
+    
+            var completedDateParameter = completedDate.HasValue ?
+                new ObjectParameter("completedDate", completedDate) :
+                new ObjectParameter("completedDate", typeof(System.DateTime));
+    
+            var dueDateParameter = dueDate.HasValue ?
+                new ObjectParameter("dueDate", dueDate) :
+                new ObjectParameter("dueDate", typeof(System.DateTime));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var progressParameter = progress.HasValue ?
+                new ObjectParameter("progress", progress) :
+                new ObjectParameter("progress", typeof(int));
+    
+            var zcodeParameter = zcode != null ?
+                new ObjectParameter("zcode", zcode) :
+                new ObjectParameter("zcode", typeof(string));
+    
+            var pdfParameter = pdf != null ?
+                new ObjectParameter("pdf", pdf) :
+                new ObjectParameter("pdf", typeof(byte[]));
+    
+            var docFolderAddressParameter = docFolderAddress != null ?
+                new ObjectParameter("docFolderAddress", docFolderAddress) :
+                new ObjectParameter("docFolderAddress", typeof(string));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(decimal));
+    
+            var loadgroupParameter = loadgroup != null ?
+                new ObjectParameter("loadgroup", loadgroup) :
+                new ObjectParameter("loadgroup", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaire2", idParameter, partnerParameter, partnerTypeTouchpointQuestionnaireParameter, accesscodeParameter, invitedByParameter, invitedDateParameter, completedDateParameter, dueDateParameter, statusParameter, progressParameter, zcodeParameter, pdfParameter, docFolderAddressParameter, scoreParameter, loadgroupParameter);
+        }
+    
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(Nullable<int> pptq, Nullable<int> question, Nullable<int> response)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2", pptqParameter, questionParameter, responseParameter);
+        }
     }
 }

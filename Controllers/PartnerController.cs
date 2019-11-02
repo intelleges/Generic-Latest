@@ -392,32 +392,39 @@ namespace Generic.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ConfirmPreselectedQuestion(int prevPptq, int pptq, string accessCode) {
+        public ActionResult ConfirmPreselectedQuestion(int prevPptq, int pptq, string accessCode)
+        {
 
             var itemsPrev = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(prevPptq).ToList();
             var items = db.pr_getPreviousPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode(accessCode).ToList();
             var dttm = DateTime.Now;
-            foreach (var item in items) {
+            foreach (var item in items)
+            {
                 db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(item.question, item.response, item.comment, new byte[0], "", dttm, null, null, pptq);
             }
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult PreselectedQuestion(int? partnertype, int? touchpoint) {
+        public ActionResult PreselectedQuestion(int? partnertype, int? touchpoint)
+        {
             var qs = db.pr_getQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).ToList();
-            if (qs.Count>0) {
+            if (qs.Count > 0)
+            {
                 var q = qs.First();
                 var items = db.pr_getPreselectedQuestionResponseByQuestionnaire(q.id).ToList();
-                if (items.Count > 0) {
+                if (items.Count > 0)
+                {
                     var qGroups = from item in items
-                                    group item by item.question;
+                                  group item by item.question;
 
                     string html = "<div class='answers'>";
-                    foreach (var v in qGroups.ToList()) {
-                        html += "<b>"+ db.pr_getQuestion(v.Key).First().title + "</b><br/>";
-                        foreach (var v1 in v.ToList()) {
-                            html += "<input type='radio' name='q_" + v.Key + "' value='" + v1.response + "'>"+ db.pr_getResponse(v1.response).First().description + "<br/>";
+                    foreach (var v in qGroups.ToList())
+                    {
+                        html += "<b>" + db.pr_getQuestion(v.Key).First().title + "</b><br/>";
+                        foreach (var v1 in v.ToList())
+                        {
+                            html += "<input type='radio' name='q_" + v.Key + "' value='" + v1.response + "'>" + db.pr_getResponse(v1.response).First().description + "<br/>";
                         }
                         html += "<br/><br/>";
                     }
@@ -430,7 +437,8 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdatePreselectedQuestion(List<int> questions, List<int> answers) {
+        public ActionResult UpdatePreselectedQuestion(List<int> questions, List<int> answers)
+        {
             questions = questions.Distinct().ToList();
             answers = answers.Distinct().ToList();
             Dictionary<int, int> preSelected = new Dictionary<int, int>();
@@ -748,7 +756,8 @@ namespace Generic.Controllers
             map.Add("PARTNER_DUNS", "dunsNumber");
 
             map.Add("POC EID", "federalID");
-            if (isR) {
+            if (isR)
+            {
                 map.Add("PRESELECTED", "preselected");
             }
             //map.Add("PARTNER_SAP_ID", "PARTNER_SAP_ID");
@@ -826,8 +835,9 @@ namespace Generic.Controllers
 
                             if (isR && !string.IsNullOrEmpty(partners.preselected))
                             {
-                                var qrs =partners.preselected.Split(';').Where(o => !string.IsNullOrEmpty(o)).ToList();
-                                foreach (var item in qrs) {
+                                var qrs = partners.preselected.Split(';').Where(o => !string.IsNullOrEmpty(o)).ToList();
+                                foreach (var item in qrs)
+                                {
                                     var qr = item.Split(':');
                                     var question = Convert.ToInt32(qr[0]);
                                     var resp = Convert.ToInt32(qr[1]);
@@ -1923,7 +1933,7 @@ namespace Generic.Controllers
             try
             {
                 //throw new Exception("this is exception");
-                if(SessionSingleton.GridLevelMenuItems.Count == 0)
+                if (SessionSingleton.GridLevelMenuItems.Count == 0)
                 {
                     var menuItemIds = db.pr_getRoleGridLevelMenuByPerson(SessionSingleton.LoggedInUserId).Select(i => i.gridlevelmenu).ToList();
                     //var menuItemIds = db.pr_getRoleGridLevelMenuByRole(SessionSingleton.LoggedInUserRole).Select(i => i.gridlevelmenu).ToList();
@@ -1936,7 +1946,7 @@ namespace Generic.Controllers
                     }
                     SessionSingleton.GridLevelMenuItems = contextMenuItems;
                 }
-                
+
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
@@ -1946,7 +1956,7 @@ namespace Generic.Controllers
                 {
                     int? touchpointid = Convert.ToInt32(Session["Partner_Find_Touchpoint"]);
                     var touchpointDetails = db.pr_getSpecialDesignation(touchpointid).ToList();
-                    if(touchpointDetails.Count > 0)
+                    if (touchpointDetails.Count > 0)
                     {
                         ViewBag.TouchPointDetails = touchpointDetails;
                     }
@@ -1954,7 +1964,7 @@ namespace Generic.Controllers
 
                 return View(abc);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var string_with_your_data = ex.Message.ToString();
 
@@ -2004,10 +2014,10 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult UploadManaul()
         {
-            if(Request.Files.Count > 0)
+            if (Request.Files.Count > 0)
             {
                 var pdfFile = Request.Files[0];
-                if(null != pdfFile && pdfFile.ContentLength > 0)
+                if (null != pdfFile && pdfFile.ContentLength > 0)
                 {
                     string accessCode = string.Empty;
                     string comment = string.Empty;
@@ -2026,7 +2036,7 @@ namespace Generic.Controllers
                     if (null != Request.Form["pptq"])
                     {
                         int pptqvalue;
-                        if(int.TryParse(Convert.ToString(Request.Form["pptq"]), out pptqvalue))
+                        if (int.TryParse(Convert.ToString(Request.Form["pptq"]), out pptqvalue))
                         {
                             pptq = pptqvalue;
                         }
@@ -2054,7 +2064,7 @@ namespace Generic.Controllers
             if (null != pptqObj)
             {
                 var response = db.pr_getAutoMailmessageByMailtypeandPTQ((int)AutoMailTypes.Complete_Confirmation, pptqObj.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
-                if(null != response)
+                if (null != response)
                 {
                     Email email = new Email(response);
                     var objtouchpoint = db.pr_getTouchpoint(pptqObj.partnerTypeTouchpointQuestionnaire1.touchpoint).FirstOrDefault();
@@ -2063,7 +2073,7 @@ namespace Generic.Controllers
                     email.protocolTouchpoint = objtouchpoint.description;
                     EmailFormat emailFormat = new EmailFormat();
                     email.subject = emailFormat.sGetEmailBody(response.subject, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
-                    email.body = emailFormat.sGetEmailBody(email.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,                                                                                                objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
+                    email.body = emailFormat.sGetEmailBody(email.body, null, pptqObj.partner1, pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, pptqObj.partnerTypeTouchpointQuestionnaire);
 
                     var partner = db.pr_getPartnerByPPTQ(pptq).FirstOrDefault();
                     email.emailTo = partner.email + ";" + person.email;
@@ -2080,7 +2090,7 @@ namespace Generic.Controllers
                         partner = pptqObj.partner1,
                         ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                         touchpoint = objtouchpoint
-                    },new System.Net.Mail.MailAddress(person.email, person.FullName));
+                    }, new System.Net.Mail.MailAddress(person.email, person.FullName));
                 }
             }
         }
@@ -2585,7 +2595,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult SendEmailByAccessCode(string accessCode, string subject, string text, HttpPostedFileBase attachment, int? autoMailId, bool? ccSender)
+        public ActionResult SendEmailByAccessCode(string accessCode, string subject, string text, HttpPostedFileBase attachment, int? autoMailId, bool? ccSender, string footer2)
         {
             var message = "";
             EmailFormat formatter = new EmailFormat();
@@ -2623,6 +2633,20 @@ namespace Generic.Controllers
                     ptq = pptq.partnerTypeTouchpointQuestionnaire1.id
                 });
                 message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
+
+                if (!string.IsNullOrEmpty(footer2))
+                {
+                    string[] array = footer2.Split(';');
+                    foreach (string item in array.Where(o=>!string.IsNullOrEmpty(o)))
+                    {
+                        string[] arr = item.Split(':');
+                        int pptqId = pptq.id;
+                        int questionId = Convert.ToInt32(arr[0]);
+                        int responseId = Convert.ToInt32(arr[1]);
+                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(pptqId, questionId, responseId);
+                    }
+                }
+
             }
             catch (Exception exp)
             {
@@ -4948,7 +4972,8 @@ namespace Generic.Controllers
                 {
                     msg = fm;
                 }
-                else if (message == null){
+                else if (message == null)
+                {
                     iscanprintPdf = true;
                 }
             }

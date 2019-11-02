@@ -290,11 +290,13 @@
 	<script src="~/Scripts/validator.js"></script>
 
 	<script type="text/javascript">
+        var footer2 = null;
 		function dropDownSubjectsChanged() {
 			var control = $("#DropDownSubjects");
 			if (control.val()) {
 				$.get("@Url.Action("GetAutomail","Partner")" + "?id=" + control.val()).done(function (result) {
-					if (result) {
+                    if (result) {
+                        footer2 = result.footer2;
 						$("#emailSubject").val(result.subject);
                         CKEDITOR.instances["emailText"].setData(result.text + "<br> " + unescape(result.footer1));
 						//$("#emailText").val(result.text+"/n "+result.footer1);
@@ -393,9 +395,12 @@
 
 			formdata.append("accessCode", accessCodes[nextIndex]);
 			formdata.append("subject", $("#emailSubject").val());
-			formdata.append("text", $("#emailText").val());
+            formdata.append("text", $("#emailText").val());
+            formdata.append("footer2", footer2);
 			formdata.append("userDate", new Date().toISOString());
-			formdata.append("ccSender", $("#ccSender").prop("checked"));
+            formdata.append("ccSender", $("#ccSender").prop("checked"));
+
+
 			var control = $("#DropDownSubjects");
 			if (control.val()) {
 				formdata.append("autoMailId", control.val());
