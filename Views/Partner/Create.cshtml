@@ -124,8 +124,7 @@
                                 ok: "OK", cancel: "Cancel"
                             }
                         });
-                        alertify.confirm(data.html, function (e) {
-                            if (e) {
+                        alertify.alert(data.html, function () {
                                 var questions = [];
                                 var answers = [];
                                 var success = true;
@@ -142,7 +141,8 @@
                                 });
 
                                 if (success === false) {
-                                    alert("Pls select answers");
+                                    alert("Please select a response");
+                                    $("#partnertype").change();
                                 }
                                 else {
                                     var formData1 = { questions, answers };
@@ -152,10 +152,7 @@
                                         data: formData1
                                     });
                                 }
-                            }
-                            else {
-
-                            }
+                          
                         });
                     }
                 },
