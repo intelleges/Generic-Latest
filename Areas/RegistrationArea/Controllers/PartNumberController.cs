@@ -175,7 +175,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 if (nextPartNumber != null)
                 {
-                    partNumberSelectList = new int[] { nextPartNumber.partnumber };
+                    //partNumberSelectList = new int[] { nextPartNumber.partnumber };
                     siteSelectList = nextPartNumber.site;
                 }
 
@@ -1031,7 +1031,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //}
             //else
             //{
-            ViewBag.partNumberSelectList = new MultiSelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).Where(p => p.site == siteID).ToList(), "partnumber", "description", partNumberID);
+            ViewBag.partNumberSelectList = new MultiSelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).ToList(), "partnumber", "description", partNumberID);
             //}
             Session["partnumber"] = partNumberID;
         }
@@ -1346,11 +1346,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 if (partnumberStatusSelectList != 0)
                 {
-                    var partNumberList = db.pr_getPartnumberByPPTQSiteAndStatus(pptq, Int32.Parse(Session["site"].ToString()), Int32.Parse(Session["partnumberstatus"].ToString())).Distinct().ToList();
+                    var partNumberList = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).ToList();
                     try
                     {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
-                        Session["partnumber"] = partNumberList.First().id;
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                        //Session["partnumber"] = partNumberList.First().id;
                     }
                     catch
                     {
@@ -1359,11 +1359,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 else
                 {
-                    var partNumberList = db.pr_getPartnumberByPPTQandSite(pptq, Int32.Parse(Session["site"].ToString())).Distinct().ToList();
+                    var partNumberList = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).ToList();
                     try
                     {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description", partNumberList.First().id);
-                        Session["partnumber"] = partNumberList.First().id;
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                        //Session["partnumber"] = partNumberList.First().id;
                     }
                     catch
                     {
