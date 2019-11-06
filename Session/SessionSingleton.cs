@@ -138,6 +138,14 @@ namespace Generic.SessionClass
 			}
 		}
 
+        public static bool ShouldDisplayMenu
+        {
+            get
+            {
+                return !IsSystemMaster;
+            }
+        }
+
         public static List<string> GridLevelMenuItems
         {
             get
