@@ -563,7 +563,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 // Skip ZCode update            
                 //var context = new EntitiesDBContext();
-                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault(); ;
+                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQ(partNumberSelectList[0]).FirstOrDefault();
 
                 meesage = ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, PartNumberSiteZcodepptq);
 

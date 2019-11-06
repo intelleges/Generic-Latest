@@ -8855,13 +8855,22 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnumberSiteZcodeByPPTQ", partnerPartnertypeTouchpointQuestionnaireParameter);
         }
     
-        public virtual int pr_getPartnumberSiteZcodePPTQ(Nullable<int> id)
+        public virtual ObjectResult<partNumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getPartnumberSiteZcodePPTQ", idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQ", idParameter);
+        }
+    
+        public virtual ObjectResult<partNumberSiteZcodePPTQ> pr_getPartnumberSiteZcodePPTQ(Nullable<int> id, MergeOption mergeOption)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<partNumberSiteZcodePPTQ>("pr_getPartnumberSiteZcodePPTQ", mergeOption, idParameter);
         }
     
         public virtual ObjectResult<questionnaireLevelType> pr_getQuestionnaireLevelType(Nullable<int> id)
