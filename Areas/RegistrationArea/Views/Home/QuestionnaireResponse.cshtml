@@ -408,7 +408,14 @@
                 $.each($('.field-validation-valid'), function (index, obj) {
                     var id = $(obj).attr('data-valmsg-for');
                     if ($('#' + id).is("textarea") && $('#cke_' + id).length > 0)
-                        if (CKEDITOR.instances[id].getData().length === 0) success = false;
+                        if (CKEDITOR.instances[id].getData().length === 0) {
+                            success = false;
+                            var html = '<span id="req_' + id + '"><span class="field-validation-error" data-valmsg-replace="true"><span generated="true" class="">Required</span></span></span>';
+                            $('#cke_' + id).after(html);
+                        }
+                        else {
+                            $("#req_" + id).remove();
+                        }
                 });
 
                 if (success === false) return false;
