@@ -512,7 +512,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         //else responseComment = null;
                         //var context = new EntitiesDBContext();
-                        var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault();
+                        partNumberSiteZcodePPTQ PartNumberSiteZcodepptq = null;
+                        if (partNumberSelectList != null && partNumberSelectList.Length>0) {
+                            PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault();
+                        }
                         if (PartNumberSiteZcodepptq != null)
                         {
                             var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
@@ -865,8 +868,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     updateZcodesAll();
 
                     int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
-                    var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault(); ;
-
+                    partNumberSiteZcodePPTQ PartNumberSiteZcodepptq = null;
+                    foreach (var item in partNumberSelectList)
+                    {
+                        PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQ(item).FirstOrDefault(); 
+                        if (PartNumberSiteZcodepptq != null) break;
+                    }
 
                     string countryCode = "";
                     if (Session["CountryCode"] != null)
@@ -1031,7 +1038,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //}
             //else
             //{
-            ViewBag.partNumberSelectList = new MultiSelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).ToList(), "partnumber", "description", partNumberID);
+            ViewBag.partNumberSelectList = new MultiSelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).ToList(), "id", "description", partNumberID);
             //}
             Session["partnumber"] = partNumberID;
         }
