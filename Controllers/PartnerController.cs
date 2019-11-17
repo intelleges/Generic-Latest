@@ -216,7 +216,7 @@ namespace Generic.Controllers
 
         public ActionResult PartnerDocuments(string accessCode)
         {
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o => o.uploadedfile != null).ToList().Select(o => new PartnerExternalDocModel(o, pptq.partner1.email)).ToList();
             return View(result);
         }
@@ -278,7 +278,7 @@ namespace Generic.Controllers
         public ActionResult ShowDocs(string accessCode)
         {
 
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             List<ShowDocsModel> result = new List<ShowDocsModel>();
             if (pptq != null)
                 result = db.pr_getPPTQDocByPPTQ(pptq.id).ToList().Select(o => new ShowDocsModel(o)).ToList();
@@ -289,7 +289,7 @@ namespace Generic.Controllers
         [HttpGet]
         public ActionResult DownloadPdf(int id, string accessCode)
         {
-            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var result = db.pr_getPartnerDocs(pptq.partner, pptq.partnerTypeTouchpointQuestionnaire1.questionnaire, pptq.partnerTypeTouchpointQuestionnaire).Where(o => o.id == id && o.uploadedfile != null).FirstOrDefault();
             return File(result.uploadedfile, result.uploadedFileType);
         }
