@@ -1539,7 +1539,7 @@ namespace Generic.DataLayer
                         }
                     }
 
-                    if (pptqResponse != null && pptqResponse.response == 75 || pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode){
+                    if (/*pptqResponse != null && pptqResponse.response == 75 ||*/ pptqResponse != null && pptqResponse.response1 != null && divn.Attributes["data-code"] != null && divn.Attributes["data-code"].Replace("(", "").Replace(")", "") == pptqResponse.response1.zcode){
                         divn.Style.Add("display", "");
                     }
                     else
