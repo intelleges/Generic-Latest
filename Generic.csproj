@@ -5066,6 +5066,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\AccessCodeMissing.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload27.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload28.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload29.cshtml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
