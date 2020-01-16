@@ -1053,7 +1053,30 @@ namespace Generic.Controllers
             Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
 
+            if (null != Session["Partner_Find_Touchpoint"])
+            {
+                int? touchpointid = Convert.ToInt32(Session["Partner_Find_Touchpoint"]);
+                var touchpointDetails = db.pr_getSpecialDesignation(touchpointid).ToList();
+                if (touchpointDetails.Count > 0)
+                {
+                    var touchpointdat = touchpointDetails;
+                    foreach (var item in abc)
+                    {
+                        if (null != touchpointdat)
+                        {
+                            var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
+                            if (null != touchpointdata)
+                            {
+                                item.CompletedAs = touchpointdata.title;
+                            }
+                        }
+                    }
+                }
+            }
 
+            //var touchpointdat = ViewBag.TouchPointDetails as List<pr_getSpecialDesignation_Result>;
+            
+            
 
 
 
