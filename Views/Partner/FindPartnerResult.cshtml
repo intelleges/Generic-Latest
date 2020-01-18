@@ -121,116 +121,104 @@
     </div>
 </div>
 @( Html.Telerik().Grid(Model).Name("PartnerGrid")
-                                                    .ToolBar(commands => commands
-                                                    .Custom()
-                                                    .HtmlAttributes(new { id = "export" })
-                                                    .Text("Export to Excel")
-                                                    .Action("ExportExcel", "partner"))
+                                                                    .ToolBar(commands => commands
+                                                                    .Custom()
+                                                                    .HtmlAttributes(new { id = "export" })
+                                                                    .Text("Export to Excel")
+                                                                    .Action("ExportExcel", "partner"))
 
-                                                    .Columns(columns =>
-                                                    {
-                                                        columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
-                                                        columns.Bound(o => o.dunsNumber).Title("DUNS#").Width(150).Encoded(false);
-                                                        columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
-
-                                                            @{
-                                                                            var columnData = item.status;
-                                                                            var width = 20;
-                                                                            var visibleText = string.Empty;
-                                                                            if (columnData != null)
-                                                                            {
-                                                                                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                            }
-                                                                <p title="@columnData">@visibleText</p>
-                                                            }
-
-
-                                                        </text>);
-                                                                columns.Bound(o => o.touchpointID).Title("Completed As").Width(150).Template(@<text>
-
-                                                                    @{
-                                                                                    var columnData = string.Empty;
-                                                                                    List<pr_getSpecialDesignation_Result> touchpointdat = ViewBag.TouchPointDetails;
-                                                                                    if (null != touchpointdat)
-                                                                                    {
-                                                                                        var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
-                                                                                        if (null != touchpointdata)
-                                                                                        {
-                                                                                            columnData = touchpointdata.title;
-                                                                                        }
-                                                                                    }
-                                                                                    var width = 20;
-                                                                                    var visibleText = string.Empty;
-                                                                                    if (columnData != null)
-                                                                                    {
-                                                                                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                    }
-                                                                        <p title="@columnData">@visibleText</p>
-                                                                    }
-
-
-                                                                </text>);
-                                                                        columns.Bound(o => o.progress).Title("Cert Progress %").Width(120).Template(@<text>
+                                                                    .Columns(columns =>
+                                                                    {
+                                                                        columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
+                                                                        columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
                                                                             @{
-                                                                                <div style="text-align: center;">@item.progress</div>
-                                                                            }
-                                                                        </text>);
-                                                                                columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
-                                                                                    @{
 
-                                                                                                    var columnData = item.PartnerName;
-                                                                                                    var width = 30;
+                                                                                            var columnData = item.PartnerName;
+                                                                                            var width = 30;
+                                                                                            var visibleText = string.Empty;
+                                                                                            if (columnData != null)
+                                                                                            {
+                                                                                                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                            }
+                                                                                <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
+                                                                            }
+                                                                            <div class="display_menu" style="display: none;">
+                                                                                <ul>
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Archive") ? "inherit":"none")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+
+                                                                                    @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="@item.Expr1" target="_blank">Complete</a></li>*@
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="javascript: openCompletePopup('@item.AccessCode')">Complete</a></li>
+
+                                                                                    @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'>@Html.ActionLink("Complete", "Index", "Home", new { accessCode = item.AccessCode }, new { target = "_blank", area = "Registration" })</li>*@
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Edit")?"inherit":"none")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit</a></li>
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get Docs")?"inherit":"none")'>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get PDF")?"inherit":"none")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Get PDF</a></li>
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Manual Upload")?"inherit":"none")'><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
+
+                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
+
+                                                                                    @*if (Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind"))
+                                                                                                {
+                                                                                        <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                                                                                                }
+
+                                                                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+
+                                                                                        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+
+                                                                                        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+
+                                                                                        <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
+                                                                                    *@
+                                                                                </ul>
+                                                                            </div>
+                                                                        </text>);
+                                                                                columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
+
+                                                                                    @{
+                                                                                                    var columnData = item.AccessCode;
+                                                                                                    var width = 8;
                                                                                                     var visibleText = string.Empty;
                                                                                                     if (columnData != null)
                                                                                                     {
                                                                                                         visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
                                                                                                     }
-                                                                                        <a href='#' id='@item.PartnerName' class="menu_block" title="@columnData">@visibleText</a>
+
+                                                                                        <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
+
+                                                                                                    if (!string.IsNullOrEmpty(visibleText))
+                                                                                                    {
+                                                                                            <div class="display_menu" style="display: none;">
+                                                                                                <ul>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind") ? "inherit":"none")'>
+                                                                                                        <a href="javascript:remind('@item.AccessCode')">
+                                                                                                            Remind
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite") ? "inherit":"none")'><a href="#">Re-Invite (intelleges.com)</a></li>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite (racix.net)") ? "inherit":"none")'><a href="#">Re-Invite (racix.net)</a></li>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Rescind") ? "inherit":"none")'><a href="#">Rescind</a></li>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remove") ? "inherit":"none")'><a href="#">Remove</a></li>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Retrieve") ?"inherit":"none")'><a href="#">Retrieve</a></li>
+                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("SMS") ? "inherit":"none")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                                    }
                                                                                     }
-                                                                                    <div class="display_menu" style="display: none;">
-                                                                                        <ul>
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Archive") ? "inherit":"none")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
-
-                                                                                            @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="@item.Expr1" target="_blank">Complete</a></li>*@
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'><a href="javascript: openCompletePopup('@item.AccessCode')">Complete</a></li>
-
-                                                                                            @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Complete")?"inherit":"none")'>@Html.ActionLink("Complete", "Index", "Home", new { accessCode = item.AccessCode }, new { target = "_blank", area = "Registration" })</li>*@
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Edit")?"inherit":"none")'><a href="javascript:openEditPopup(@item.id, @item.touchpointID, '@item.AccessCode')">Edit</a></li>
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get Docs")?"inherit":"none")'>@Html.ActionLink("Get Docs", "PartnerDocuments", "Partner", new { accessCode = item.AccessCode }, new { target = "_blank" })</li>
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Get PDF")?"inherit":"none")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Get PDF</a></li>
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Manual Upload")?"inherit":"none")'><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
-
-                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
-
-                                                                                            @*if (Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind"))
-                                                                                                        {
-                                                                                                <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
-                                                                                                        }
-
-                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-
-                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-
-                                                                                                <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
-
-                                                                                                <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
-                                                                                            *@
-                                                                                        </ul>
-                                                                                    </div>
                                                                                 </text>);
 
-                                                                                        columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
+                                                                                        columns.Bound(o => o.status).Title("Status").Width(150).Template(@<text>
 
                                                                                             @{
-                                                                                                            var columnData = item.Contact;
-                                                                                                            var width = 30;
+                                                                                                            var columnData = item.status;
+                                                                                                            var width = 20;
                                                                                                             var visibleText = string.Empty;
                                                                                                             if (columnData != null)
                                                                                                             {
@@ -241,28 +229,39 @@
 
 
                                                                                         </text>);
-                                                                                                columns.Bound(o => o.phone).Title("Phone #").Width(100);
-                                                                                                columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text>
+                                                                                                columns.Bound(o => o.touchpointID).Title("Completed As").Width(150).Template(@<text>
 
                                                                                                     @{
-                                                                                                                    var columnData = item.ContactEmail;
+                                                                                                                    var columnData = string.Empty;
+                                                                                                                    List<pr_getSpecialDesignation_Result> touchpointdat = ViewBag.TouchPointDetails;
+                                                                                                                    if (null != touchpointdat)
+                                                                                                                    {
+                                                                                                                        var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
+                                                                                                                        if (null != touchpointdata)
+                                                                                                                        {
+                                                                                                                            columnData = touchpointdata.title;
+                                                                                                                        }
+                                                                                                                    }
                                                                                                                     var width = 20;
                                                                                                                     var visibleText = string.Empty;
                                                                                                                     if (columnData != null)
                                                                                                                     {
                                                                                                                         visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
                                                                                                                     }
-                                                                                                        <a title="@columnData" href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode&listing=y');">@visibleText</a>
+                                                                                                        <p title="@columnData">@visibleText</p>
                                                                                                     }
 
 
                                                                                                 </text>);
 
-                                                                                                        columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
+                                                                                                        columns.Bound(o => o.dunsNumber).Title("DUNS#").Width(150).Encoded(false);
+
+
+                                                                                                        columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
 
                                                                                                             @{
-                                                                                                                            var columnData = item.ContactTitle;
-                                                                                                                            var width = 12;
+                                                                                                                            var columnData = item.Contact;
+                                                                                                                            var width = 30;
                                                                                                                             var visibleText = string.Empty;
                                                                                                                             if (columnData != null)
                                                                                                                             {
@@ -273,26 +272,28 @@
 
 
                                                                                                         </text>);
-                                                                                                                columns.Bound(o => o.address).Title("Address").Width(150).Template(@<text>
+
+                                                                                                                columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text>
 
                                                                                                                     @{
-                                                                                                                                    var columnData = item.address;
+                                                                                                                                    var columnData = item.ContactEmail;
                                                                                                                                     var width = 20;
                                                                                                                                     var visibleText = string.Empty;
                                                                                                                                     if (columnData != null)
                                                                                                                                     {
                                                                                                                                         visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
                                                                                                                                     }
-                                                                                                                        <p title="@columnData">@visibleText</p>
+                                                                                                                        <a title="@columnData" href="javascript://" onclick="RedirectScreen('../WrongContact/Index?accesscode=@item.AccessCode&listing=y');">@visibleText</a>
                                                                                                                     }
 
 
                                                                                                                 </text>);
-                                                                                                                        columns.Bound(o => o.city).Title("City").Width(100).Template(@<text>
+
+                                                                                                                        columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
 
                                                                                                                             @{
-                                                                                                                                            var columnData = item.city;
-                                                                                                                                            var width = 10;
+                                                                                                                                            var columnData = item.ContactTitle;
+                                                                                                                                            var width = 12;
                                                                                                                                             var visibleText = string.Empty;
                                                                                                                                             if (columnData != null)
                                                                                                                                             {
@@ -303,11 +304,12 @@
 
 
                                                                                                                         </text>);
-                                                                                                                                columns.Bound(o => o.state).Title("State").Width(50).Template(@<text>
+                                                                                                                                columns.Bound(o => o.phone).Title("Phone #").Width(100);
+                                                                                                                                columns.Bound(o => o.address).Title("Address").Width(150).Template(@<text>
 
                                                                                                                                     @{
-                                                                                                                                                    var columnData = item.state;
-                                                                                                                                                    var width = 5;
+                                                                                                                                                    var columnData = item.address;
+                                                                                                                                                    var width = 20;
                                                                                                                                                     var visibleText = string.Empty;
                                                                                                                                                     if (columnData != null)
                                                                                                                                                     {
@@ -318,12 +320,10 @@
 
 
                                                                                                                                 </text>);
-
-
-                                                                                                                                        columns.Bound(o => o.zipcode).Title("Zipcode").Width(80).Template(@<text>
+                                                                                                                                        columns.Bound(o => o.city).Title("City").Width(100).Template(@<text>
 
                                                                                                                                             @{
-                                                                                                                                                            var columnData = item.zipcode;
+                                                                                                                                                            var columnData = item.city;
                                                                                                                                                             var width = 10;
                                                                                                                                                             var visibleText = string.Empty;
                                                                                                                                                             if (columnData != null)
@@ -335,11 +335,11 @@
 
 
                                                                                                                                         </text>);
-                                                                                                                                                columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
+                                                                                                                                                columns.Bound(o => o.state).Title("State").Width(50).Template(@<text>
 
                                                                                                                                                     @{
-                                                                                                                                                                    var columnData = item.Country;
-                                                                                                                                                                    var width = 13;
+                                                                                                                                                                    var columnData = item.state;
+                                                                                                                                                                    var width = 5;
                                                                                                                                                                     var visibleText = string.Empty;
                                                                                                                                                                     if (columnData != null)
                                                                                                                                                                     {
@@ -352,14 +352,11 @@
                                                                                                                                                 </text>);
 
 
-
-
-                                                                                                                                                        columns.Bound(o => o.enterprise).Title("Enterprise").Width(90);
-                                                                                                                                                        columns.Bound(o => o.owner).Title("Owner").Width(100).Template(@<text>
+                                                                                                                                                        columns.Bound(o => o.zipcode).Title("Zipcode").Width(80).Template(@<text>
 
                                                                                                                                                             @{
-                                                                                                                                                                            var columnData = item.owner;
-                                                                                                                                                                            var width = 14;
+                                                                                                                                                                            var columnData = item.zipcode;
+                                                                                                                                                                            var width = 10;
                                                                                                                                                                             var visibleText = string.Empty;
                                                                                                                                                                             if (columnData != null)
                                                                                                                                                                             {
@@ -370,11 +367,11 @@
 
 
                                                                                                                                                         </text>);
-                                                                                                                                                                columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150).Template(@<text>
+                                                                                                                                                                columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
 
                                                                                                                                                                     @{
-                                                                                                                                                                                    var columnData = item.Touchpoint;
-                                                                                                                                                                                    var width = 25;
+                                                                                                                                                                                    var columnData = item.Country;
+                                                                                                                                                                                    var width = 13;
                                                                                                                                                                                     var visibleText = string.Empty;
                                                                                                                                                                                     if (columnData != null)
                                                                                                                                                                                     {
@@ -385,11 +382,12 @@
 
 
                                                                                                                                                                 </text>);
-                                                                                                                                                                        columns.Bound(o => o.Partnertype).Title("Partnertype").Width(120).Template(@<text>
+
+                                                                                                                                                                        columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150).Template(@<text>
 
                                                                                                                                                                             @{
-                                                                                                                                                                                            var columnData = item.Partnertype;
-                                                                                                                                                                                            var width = 20;
+                                                                                                                                                                                            var columnData = item.Touchpoint;
+                                                                                                                                                                                            var width = 25;
                                                                                                                                                                                             var visibleText = string.Empty;
                                                                                                                                                                                             if (columnData != null)
                                                                                                                                                                                             {
@@ -400,11 +398,11 @@
 
 
                                                                                                                                                                         </text>);
-                                                                                                                                                                                columns.Bound(o => o.Group).Title("Group").Width(70).Template(@<text>
+                                                                                                                                                                                columns.Bound(o => o.Partnertype).Title("Partnertype").Width(120).Template(@<text>
 
                                                                                                                                                                                     @{
-                                                                                                                                                                                                    var columnData = item.Group;
-                                                                                                                                                                                                    var width = 7;
+                                                                                                                                                                                                    var columnData = item.Partnertype;
+                                                                                                                                                                                                    var width = 20;
                                                                                                                                                                                                     var visibleText = string.Empty;
                                                                                                                                                                                                     if (columnData != null)
                                                                                                                                                                                                     {
@@ -415,61 +413,67 @@
 
 
                                                                                                                                                                                 </text>);
-                                                                                                                                                                                        columns.Bound(o => o.pptq).Title("PPTQ").Width(90);
-                                                                                                                                                                                        columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
+                                                                                                                                                                                        columns.Bound(o => o.Group).Title("Group").Width(70).Template(@<text>
 
-                                                                                                                                                                    @{
-                                                                                                                                                                                    var columnData = item.AccessCode;
-                                                                                                                                                                                    var width = 8;
-                                                                                                                                                                                    var visibleText = string.Empty;
-                                                                                                                                                                                    if (columnData != null)
-                                                                                                                                                                                    {
-                                                                                                                                                                                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                    }
-
-                                                                                                                                                                        <a href='#' id='@item.AccessCode' class="menu_block" title="@columnData">@visibleText</a>
-
-                                                                                                                                                                                    if (!string.IsNullOrEmpty(visibleText))
-                                                                                                                                                                                    {
-                                                                                                                                                                            <div class="display_menu" style="display: none;">
-                                                                                                                                                                                <ul>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind") ? "inherit":"none")'>
-                                                                                                                                                                                        <a href="javascript:remind('@item.AccessCode')">
-                                                                                                                                                                                            Remind
-                                                                                                                                                                                        </a>
-                                                                                                                                                                                    </li>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite") ? "inherit":"none")'><a href="#">Re-Invite (intelleges.com)</a></li>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite (racix.net)") ? "inherit":"none")'><a href="#">Re-Invite (racix.net)</a></li>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Rescind") ? "inherit":"none")'><a href="#">Rescind</a></li>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remove") ? "inherit":"none")'><a href="#">Remove</a></li>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Retrieve") ?"inherit":"none")'><a href="#">Retrieve</a></li>
-                                                                                                                                                                                    <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("SMS") ? "inherit":"none")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
-                                                                                                                                                                                </ul>
-                                                                                                                                                                            </div>
-                                                                                                                                                                                    }
-                                                                                                                                                                    }
-                                                                                                                                                        </text>);
-                                                       
-                                                        columns.Bound(o => o.Expr1).Title("Expr1").Width(90);
-                                                        columns.Bound(o => o.campaign).Title("Campaign").Width(90);
-                                                        columns.Bound(o => o.active).Title("Active").Width(90);
+                                                                                                                                                                                            @{
+                                                                                                                                                                                                            var columnData = item.Group;
+                                                                                                                                                                                                            var width = 7;
+                                                                                                                                                                                                            var visibleText = string.Empty;
+                                                                                                                                                                                                            if (columnData != null)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                                visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                <p title="@columnData">@visibleText</p>
+                                                                                                                                                                                            }
 
 
+                                                                                                                                                                                        </text>);
+
+
+                                                                                                                                                                                                
+                                                                                                                                                                                                columns.Bound(o => o.owner).Title("Owner").Width(100).Template(@<text>
+
+                                                                                                                                                                                                    @{
+                                                                                                                                                                                                                    var columnData = item.owner;
+                                                                                                                                                                                                                    var width = 14;
+                                                                                                                                                                                                                    var visibleText = string.Empty;
+                                                                                                                                                                                                                    if (columnData != null)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                        <p title="@columnData">@visibleText</p>
+                                                                                                                                                                                                    }
+
+
+                                                                                                                                                                                                </text>);
+
+                                                                                                                                                                                                        
+
+
+                                                                                                                                                                                                        columns.Bound(o => o.progress).Title("Cert Progress %").Width(120).Template(@<text>
+                                                                                                                                                                                                            @{
+                                                                                                                                                                                                                <div style="text-align: center;">@item.progress</div>
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                        </text>);
+                                                                        columns.Bound(o => o.Expr1).Title("Expr1").Width(90);
+                                                                        
 
 
 
 
 
 
-                                                    })
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .DataKeys(keys => keys.Add(o => o.internalID))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Sortable(sorting => sorting.Enabled(true))
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Scrollable(scrolling => scrolling
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Enabled(true)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Height(380))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .HtmlAttributes(new { @class = "ra" })
+
+                                                                    })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .DataKeys(keys => keys.Add(o => o.internalID))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Sortable(sorting => sorting.Enabled(true))
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Scrollable(scrolling => scrolling
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Enabled(true)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .Height(380))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .HtmlAttributes(new { @class = "ra" })
 
 
 
