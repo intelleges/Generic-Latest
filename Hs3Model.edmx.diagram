@@ -55,7 +55,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTouchpointQuestionnaireLanguage" PointX="12.75" PointY="69.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerType" PointX="8" PointY="59.5" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeGroupGoal" PointX="14.75" PointY="0.75" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" PointX="28.5" PointY="61.625" Width="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerTypeTouchpointQuestionnaire" PointX="28.5" PointY="61.625" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.person" PointX="18.75" PointY="56" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personLoginAuditEvent" PointX="18.75" PointY="52.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.personRelationship" PointX="24" PointY="59.625" Width="1.5" IsExpanded="false" />

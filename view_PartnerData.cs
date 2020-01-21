@@ -44,7 +44,5 @@ namespace Generic
         public int campaign { get; set; }
         public Nullable<bool> active { get; set; }
         public Nullable<int> progress { get; set; }
-        public string CompletedAs { get; set; }
-
     }
 }

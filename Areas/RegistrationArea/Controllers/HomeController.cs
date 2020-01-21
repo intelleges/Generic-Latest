@@ -2117,7 +2117,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                         if (checkpsz.Count == 0)
                         {
-                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, null, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, null, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
                         else
@@ -2157,7 +2157,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                                var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, responseId, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
                                 // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                             }
                             else
@@ -2300,8 +2300,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).FirstOrDefault();
                         if (checkpsz == null)
                         {
-
-                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
+                            //var test = db.
+                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = 
+                                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
 
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }

@@ -1067,7 +1067,7 @@ namespace Generic.Controllers
                             var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
                             if (null != touchpointdata)
                             {
-                                item.CompletedAs = touchpointdata.title;
+                               // item.CompletedAs = touchpointdata.title; //TODO:FIX
                             }
                         }
                     }
