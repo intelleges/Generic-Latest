@@ -1865,7 +1865,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
 
             //2    6 -> 3 4 5
-
+            var startIndex = (questionNo * 2) + (jumpToQuestion - questionId - 2) * 2;
+            if (zcode.Length < startIndex)
+            {
+                zcode = zcode.PadRight(startIndex,'$');
+            }
             string NewZcodePart3 = zcode.Substring((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2, zcode.Length - ((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2));
             //3    45
             //zzzz zzzzzz zzzzzz
