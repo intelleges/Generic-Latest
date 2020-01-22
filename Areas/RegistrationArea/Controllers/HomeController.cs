@@ -1975,7 +1975,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         val.Add(v1);
                         nextQst.Add(nq);
                         messages.Add(msg);
-                        qendTitle.Add(tts.Where(o => o.id == nq).First().title);
+                        string title = "";
+                        var v = tts.Where(o => o.id == nq).FirstOrDefault();
+                        if (v != null) title = v.title;
+                        qendTitle.Add(title);
                     }
                 }
             }
