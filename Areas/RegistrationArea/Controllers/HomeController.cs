@@ -13939,9 +13939,9 @@ Intelleges Team";
                 switch (item.question)
                 {
                     case 49783:
-                        ViewBag.Checkbox49496_74700 = item.response == 76175 ? _chacked : string.Empty;
-                        ViewBag.Checkbox49496_74698 = item.response == 76176 ? _chacked : string.Empty;
-                        ViewBag.Checkbox49496_74699 = item.response == 76177 ? _chacked : string.Empty;
+                        ViewBag.Checkbox49496_74798 = item.response == 76175 ? _chacked : string.Empty;
+                        ViewBag.Checkbox49496_74699 = item.response == 76176 ? _chacked : string.Empty;
+                        ViewBag.Checkbox49496_74600 = item.response == 76177 ? _chacked : string.Empty;
                         break;
                     case 49770:
                         ViewBag.PrimaryNaicsCode = item.comment;
