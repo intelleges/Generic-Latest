@@ -561,7 +561,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             int.TryParse(answer, out answerValue);
                             if (answerValue > 0)
                             {
-                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList[0], siteSelectList, answerValue);
+                                if (partNumberSelectList == null)
+                                {
+                                    meesage = "Please select part number option.";
+                                }
+                                else
+                                {
+                                    jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList[0], siteSelectList, answerValue);
+                                }
                             }
                         }
                     }
