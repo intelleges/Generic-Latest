@@ -112,8 +112,6 @@ namespace Generic.Areas.RegistrationArea.Services
                         return gotoQuestionId;
                     else if (gotoELseQuestionId > 0)
                         return gotoELseQuestionId;
-                    else
-                        return questionidLogic + 1;
                 }
             }
             return 0;
