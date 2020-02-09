@@ -513,7 +513,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         //else responseComment = null;
                         //var context = new EntitiesDBContext();
                         partNumberSiteZcodePPTQ PartNumberSiteZcodepptq = null;
-                        if (partNumberSelectList != null && partNumberSelectList.Length>0) {
+                        if (partNumberSelectList != null && partNumberSelectList.Length > 0)
+                        {
                             PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault();
                         }
                         if (PartNumberSiteZcodepptq != null)
@@ -556,7 +557,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         if (objQuestion.skipLogicAnswer != null)
                         {
-                            jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList[0], siteSelectList);
+                            int answerValue = 0;
+                            int.TryParse(answer, out answerValue);
+                            if (answerValue > 0)
+                            {
+                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, partNumberSelectList[0], siteSelectList, answerValue);
+                            }
                         }
                     }
                 }
@@ -815,7 +821,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     if (string.IsNullOrEmpty(errorQueryString))
                     {
                         string str = "";
-                        foreach (int i in partNumberSelectList) {
+                        foreach (int i in partNumberSelectList)
+                        {
                             str += "partNumberSelectList=" + i + "&";
                         }
 
@@ -871,7 +878,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     partNumberSiteZcodePPTQ PartNumberSiteZcodepptq = null;
                     foreach (var item in partNumberSelectList)
                     {
-                        PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQ(item).FirstOrDefault(); 
+                        PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQ(item).FirstOrDefault();
                         if (PartNumberSiteZcodepptq != null) break;
                     }
 
@@ -1086,7 +1093,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 previouspartnumber = previouspartnumbers[0];
 
             if (Session["partnumber"] is int)
-                previouspartnumber = Convert.ToInt32( Session["partnumber"]);
+                previouspartnumber = Convert.ToInt32(Session["partnumber"]);
 
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
             int site = Convert.ToInt32(Session["site"]);

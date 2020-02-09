@@ -11,7 +11,7 @@ namespace Generic.Areas.RegistrationArea.Services
 {
     public static class NextPageCalculationService
     {
-        public static int GetJumpToQuestion(question objQuestion, EntitiesDBContext db, int pptq, int? partNumberSelectList = null, int? siteSelectList = null)
+        public static int GetJumpToQuestion(question objQuestion, EntitiesDBContext db, int pptq, int? partNumberSelectList = null, int? siteSelectList = null, int? answer = null)
         {
             if (objQuestion.skipLogicAnswer == SkipLogicAnswer.B)
             {
@@ -19,12 +19,12 @@ namespace Generic.Areas.RegistrationArea.Services
                 var bitwiseDocs = (FilesUploaded)db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptq).FirstOrDefault().score;
                 if (!bitwiseDocs.HasFlag(bitwiseValue)) return 0;
             }
-            string[] strQuestionLogic = objQuestion.skipLogicJump.Split(";".ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
+            string[] strQuestionLogic = objQuestion.skipLogicJump.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             for (int k = 0; k < strQuestionLogic.Length; k++)
             {
                 string[] subStrQuestionlogic = strQuestionLogic[k].Split("&|".ToCharArray());
                 var resultString = "";
-                int gotoQuestionId = 0, gotoELseQuestionId = 0;
+                int gotoQuestionId = 0, gotoELseQuestionId = 0, questionidLogic = 0;
                 for (int j = 0; j < subStrQuestionlogic.Length; j++)
                 {
                     var equalSign = "=";
@@ -37,18 +37,18 @@ namespace Generic.Areas.RegistrationArea.Services
                         equalSign = "=";
                     }
                     string[] strquestionid = subStrQuestionlogic[j].Split(equalSign);
-                    int questionidLogic = Convert.ToInt32(strquestionid[0]);
+                    questionidLogic = Convert.ToInt32(strquestionid[0]);
                     string[] strNewQuestionAns = strquestionid[1].Split(':');
                     int ansLogicStatus = 0;
                     if (strNewQuestionAns.Length > 0)
                     {
                         ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
                     }
-                    if (strNewQuestionAns.Length > 1)
+                    if (strNewQuestionAns.Length > 1 && ansLogicStatus == answer)
                     {
                         gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
                     }
-                    if (strNewQuestionAns.Length > 2)
+                    if (strNewQuestionAns.Length > 2 && ansLogicStatus == answer)
                     {
                         gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
                     }
@@ -61,14 +61,14 @@ namespace Generic.Areas.RegistrationArea.Services
                     if (partNumberSelectList.HasValue)
                     {
                         var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
-                        if(PartNumberSiteZcodepptq != null)
+                        if (PartNumberSiteZcodepptq != null)
                             rID = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionidLogic, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
                     }
                     else
                     {
 
                         var r = context.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionidLogic, pptq).FirstOrDefault();
-                        if(r!=null)rID = r.response;
+                        if (r != null) rID = r.response;
                     }
 
                     response responsenew = db.pr_getResponse(rID).FirstOrDefault();
@@ -104,19 +104,17 @@ namespace Generic.Areas.RegistrationArea.Services
                     }
                 }
                 bool result = true;
-                if(!string.IsNullOrEmpty(resultString))
+                if (!string.IsNullOrEmpty(resultString))
                     result = CalculateStack(ReversePolish(resultString)) > 0;
-                if (result){
-                    return gotoQuestionId;
-                }
-                else
+                if (result)
                 {
-                    if (gotoELseQuestionId != 0)
-                    {
+                    if (gotoQuestionId > 0)
+                        return gotoQuestionId;
+                    else if (gotoELseQuestionId > 0)
                         return gotoELseQuestionId;
-                    }
+                    else
+                        return questionidLogic + 1;
                 }
-
             }
             return 0;
         }
