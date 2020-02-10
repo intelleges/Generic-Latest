@@ -44,11 +44,19 @@ namespace Generic.Areas.RegistrationArea.Services
                     {
                         ansLogicStatus = Convert.ToInt32(strNewQuestionAns[0]);
                     }
-                    if (strNewQuestionAns.Length > 1 && ansLogicStatus == answer)
+                    //if (strNewQuestionAns.Length > 1 && ansLogicStatus == answer)
+                    //{
+                    //    gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
+                    //}
+                    //if (strNewQuestionAns.Length > 2 && ansLogicStatus == answer)
+                    //{
+                    //    gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
+                    //}
+                    if (strNewQuestionAns.Length > 1)
                     {
                         gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
                     }
-                    if (strNewQuestionAns.Length > 2 && ansLogicStatus == answer)
+                    if (strNewQuestionAns.Length > 2)
                     {
                         gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
                     }
@@ -108,11 +116,22 @@ namespace Generic.Areas.RegistrationArea.Services
                     result = CalculateStack(ReversePolish(resultString)) > 0;
                 if (result)
                 {
-                    if (gotoQuestionId > 0)
-                        return gotoQuestionId;
-                    else if (gotoELseQuestionId > 0)
-                        return gotoELseQuestionId;
+                    return gotoQuestionId;
                 }
+                else
+                {
+                    if (gotoELseQuestionId != 0)
+                    {
+                        return gotoELseQuestionId;
+                    }
+                }
+                //if (result)
+                //{
+                //    if (gotoquestionid > 0)
+                //        return gotoquestionid;
+                //    else if (gotoelsequestionid > 0)
+                //        return gotoelsequestionid;
+                //}
             }
             return 0;
         }
