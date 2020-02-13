@@ -1868,7 +1868,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var startIndex = (questionNo * 2) + (jumpToQuestion - questionId - 2) * 2;
             if (zcode.Length < startIndex)
             {
-                zcode = zcode.PadRight(startIndex,'$');
+                zcode = zcode.PadRight(startIndex, '$');
             }
             string NewZcodePart3 = zcode.Substring((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2, zcode.Length - ((questionNo * 2) + (jumpToQuestion - questionId - 2) * 2));
             //3    45
@@ -2124,7 +2124,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var checkpsz = db.pr_getPartnerPartnerTypeTouchPointQuestionnaireQuestionResponseByQuestionAndPPTQ(questionId, pptq).ToList();
                         if (checkpsz.Count == 0)
                         {
-                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId ,74, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, 74, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
                         else
@@ -2308,7 +2308,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         if (checkpsz == null)
                         {
                             //var test = db.
-                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = 
+                            var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId =
                                 db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
 
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
@@ -2340,7 +2340,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         if (objQuestion.skipLogicAnswer != null)
                         {
-                            jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq);
+                            int answerValue = 0;
+                            int.TryParse(answer, out answerValue);
+                            if (answerValue > 0)
+                                jumpToQuestion = NextPageCalculationService.GetJumpToQuestion(objQuestion, db, pptq, null, null, answerValue);
                         }
                     }
                     //}

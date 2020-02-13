@@ -38,6 +38,7 @@ namespace Generic.Areas.RegistrationArea.Services
                     }
                     string[] strquestionid = subStrQuestionlogic[j].Split(equalSign);
                     questionidLogic = Convert.ToInt32(strquestionid[0]);
+
                     string[] strNewQuestionAns = strquestionid[1].Split(':');
                     int ansLogicStatus = 0;
                     if (strNewQuestionAns.Length > 0)
@@ -52,7 +53,7 @@ namespace Generic.Areas.RegistrationArea.Services
                     //{
                     //    gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
                     //}
-                    if (strNewQuestionAns.Length > 1)
+                    if (strNewQuestionAns.Length > 1 && ansLogicStatus == answer)
                     {
                         gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
                     }
