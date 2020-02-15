@@ -117,7 +117,10 @@ namespace Generic.Areas.RegistrationArea.Services
                     result = CalculateStack(ReversePolish(resultString)) > 0;
                 if (result)
                 {
-                    return gotoQuestionId;
+                    if (gotoQuestionId != 0)
+                    {
+                        return gotoQuestionId;
+                    }
                 }
                 else
                 {
