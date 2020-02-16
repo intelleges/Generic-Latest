@@ -53,7 +53,18 @@ namespace Generic.Areas.RegistrationArea.Services
                     //{
                     //    gotoELseQuestionId = Convert.ToInt32(strNewQuestionAns[2]);
                     //}
-                    if (strNewQuestionAns.Length > 1 && ansLogicStatus == answer)
+                    //The answer must be mapped to some special static codes in the jump
+                    //do not change the bellow
+                    var cAnswer = answer;
+                    if (answer == 74)
+                        cAnswer = 1;
+                    if (answer == 75)
+                        cAnswer = 0;
+                    if (answer == 77)
+                        cAnswer = 2;
+                    if (answer == 76)
+                        cAnswer = -1;
+                    if (strNewQuestionAns.Length > 1 && ansLogicStatus == cAnswer)
                     {
                         gotoQuestionId = Convert.ToInt32(strNewQuestionAns[1]);
                     }
