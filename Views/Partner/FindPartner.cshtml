@@ -58,8 +58,12 @@
             //$(function () {
             //debugger;
             // $("#touchpoint").val($("#touchpoint option:first").val());
-            $("#touchpoint").val(@Session["touchpoint"])
-                .change();
+            if ($("#touchpoint option[value='@Session["touchpoint"]']").length > 0) {
+                $("#touchpoint").val(@Session["touchpoint"]).change();
+            }
+            else {
+                $("#touchpoint").prop("selectedIndex", 1).change();
+            }
             $('#touchpoint').change(function () {
 
 
@@ -223,7 +227,7 @@
                     <td class="tLeftColumn">Country</td>
                     <td class="tCenterColumn"></td>
                     <td class="tRightColumn">
-                        @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style="width:210px;"} )
+                        @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style = "width:210px;" })
                     </td>
                 </tr>
 
