@@ -1843,18 +1843,6 @@ namespace Generic.Controllers
             return PartialView("_TouchpointPartial", model);
         }
 
-        private void ModifyCurrentTouchpoint(int selectedTouchpoint)
-        {
-            try
-            {
-                db.pr_modifyPersonTouchpoint((int)Session["LoggedInUserId"], selectedTouchpoint);
-                Session["touchpoint"] = selectedTouchpoint;
-            }
-            catch (Exception ex)
-            {
-            }
-        }
-
         public JsonResult ChangeTouchpoint(int touchPointId)
         {
             try
@@ -1985,7 +1973,6 @@ namespace Generic.Controllers
 
         public JsonResult GetCurrentTouchPoint(int touchPointId)
         {
-           // ModifyCurrentTouchpoint(touchPointId);
             var touchpoint = db.pr_getTouchpoint(touchPointId).FirstOrDefault();
             return Json(new { touchpoint.description }, JsonRequestBehavior.AllowGet);
         }

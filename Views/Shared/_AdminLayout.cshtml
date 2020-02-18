@@ -634,7 +634,7 @@
         }
         function GetCurrentTouchPoint(touchPointId) {
             $.ajax({
-                url: '../Admin/GetCurrentTouchPoint?touchPointId=' + touchPointId,
+                url: '/Admin/GetCurrentTouchPoint?touchPointId=' + touchPointId,
                 type: 'GET',
                 data: touchPointId,
                 processData: false,
@@ -672,8 +672,8 @@
                     }
                 }
             });
-            var touchPointId = $("#touchpoint").val() == "" ? 0 : parseInt($("#touchpoint").val());
-            GetCurrentTouchPoint(touchPointId);
+            //var touchPointId = $("#touchpoint").val() == "" ? 0 : parseInt($("#touchpoint").val());
+            GetCurrentTouchPoint(@Session["touchpoint"]);
         });
 
     </script>
