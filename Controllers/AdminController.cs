@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Text;
-using System.IO;
-using Generic.Helpers;
-using System.Web.Security;
-using System.Web.Routing;
-using Generic.Models;
+﻿using Generic.Helpers;
 //using Generic.Helpers;
 using Generic.Helpers.Utility;
-using System.Net;
+using Generic.Models;
 using Generic.SessionClass;
-using System.Reflection;
 using Generic.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
-using WebMatrix.WebData;
-using Telerik.Web.Mvc;
+using System.IO;
+using System.Linq;
 using System.Net.Sockets;
-using Newtonsoft.Json;
-using System.Text.RegularExpressions;
-using System.Web.SessionState;
-using System.Collections;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
+using Telerik.Web.Mvc;
 
 namespace Generic.Controllers
 {
@@ -444,7 +437,7 @@ namespace Generic.Controllers
 
                         person person = db.pr_doLogin(userName, password).FirstOrDefault();
 
-                       // var ip = "71.225.253.65";// Request.UserHostAddress;
+                        // var ip = "71.225.253.65";// Request.UserHostAddress;
                         var ip = Request.UserHostAddress;
                         var computerName = "";//computer_name[0].ToString();
                                               //string[] computer_name = { ip };
@@ -509,7 +502,7 @@ namespace Generic.Controllers
                             //}
                             //#endregion
 
-                            
+
 
                         }
                         catch (SocketException ex)
@@ -580,9 +573,9 @@ namespace Generic.Controllers
             return null;
         }
 
-        public ActionResult SendAccessCode(person person, string ip, 
+        public ActionResult SendAccessCode(person person, string ip,
             string computerName, string returnUrl,
-            string userName,string message)
+            string userName, string message)
         {
             var master = db.pr_getSystemMaster(person.enterprise).FirstOrDefault();
             var accessCode = db.pr_getAccesscode().FirstOrDefault();
@@ -616,14 +609,14 @@ namespace Generic.Controllers
             return View();
         }
 
-        
+
         public ActionResult DifferentIPLogout()
         {
             var tempModel = SessionSingleton.TempModelValue;
             ViewBag.Message = tempModel.Message;
             ViewBag.PersonId = tempModel.PersonId;
             return View();
-        }        
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -705,7 +698,7 @@ namespace Generic.Controllers
             //SetLoginAccess(accessCodeModel);
             return View();
         }
-        
+
         [HttpPost]
         public bool SendAccessCode(string text, string subject, person master, person person)
         {
@@ -1850,13 +1843,26 @@ namespace Generic.Controllers
             return PartialView("_TouchpointPartial", model);
         }
 
-        public JsonResult ChangeTouchpoint(int selectedTouchpoint)
+        private void ModifyCurrentTouchpoint(int selectedTouchpoint)
         {
             try
             {
                 db.pr_modifyPersonTouchpoint((int)Session["LoggedInUserId"], selectedTouchpoint);
                 Session["touchpoint"] = selectedTouchpoint;
-                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        public JsonResult ChangeTouchpoint(int touchPointId)
+        {
+            try
+            {
+                db.pr_modifyPersonTouchpoint((int)Session["LoggedInUserId"], touchPointId);
+                Session["touchpoint"] = touchPointId;
+                var touchpoint = db.pr_getTouchpoint(touchPointId).FirstOrDefault();
+                return Json(new { touchpoint.description }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -1975,6 +1981,13 @@ namespace Generic.Controllers
         public virtual ActionResult CheckScheduleStatus()
         {
             return Json(db.pr_getReminderScheduledTaskHeartBeat().FirstOrDefault() > 0);
+        }
+
+        public JsonResult GetCurrentTouchPoint(int touchPointId)
+        {
+           // ModifyCurrentTouchpoint(touchPointId);
+            var touchpoint = db.pr_getTouchpoint(touchPointId).FirstOrDefault();
+            return Json(new { touchpoint.description }, JsonRequestBehavior.AllowGet);
         }
     }
 
