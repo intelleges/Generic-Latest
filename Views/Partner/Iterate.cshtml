@@ -2007,7 +2007,22 @@
         width: 32px;
     }
 </style>
+<div>
+    @{
+        var touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+        string selectedToucId = "0";
+        if (touchpoints != null && touchpoints.Any(o => o.Selected))
+        {
+            selectedToucId = touchpoints.FirstOrDefault(o => o.Selected).Value;
+        }
+        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
+    }
 
+    @using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
+    {
+
+    }
+</div>
 <div class="container-fluid">
     <div class="modal fade" id="addNoteDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
         <div class="modal-dialog">

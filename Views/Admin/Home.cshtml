@@ -139,7 +139,7 @@
 
     @using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
     {
-        @Html.DropDownList("touchpoint", (IEnumerable<SelectListItem>) touchpoints, "Select Touchpoint", new {@class = "form-control", onchange = "Update_Dashboard_Values()"})
+        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>) touchpoints, "Select Touchpoint", new {@class = "form-control", onchange = "Update_Dashboard_Values()"})
     }
 
 

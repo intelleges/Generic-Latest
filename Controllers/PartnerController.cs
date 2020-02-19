@@ -2923,6 +2923,12 @@ namespace Generic.Controllers
             ViewBag.owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
             // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
             ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "title");
+            ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o => new SelectListItem()
+            {
+                Text = o.title,
+                Value = o.id.ToString(),
+                Selected = o.id == SessionSingleton.Touchpoint
+            }).ToList();
             ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
             ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");

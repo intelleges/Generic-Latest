@@ -277,11 +277,11 @@
                     @*<b>Select Touchpoint</b>*@
                     @if (touchpoints != null)
                           {
-                        @Html.DropDownList("Touchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
+                        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
                           }
                           else
                           {
-                        <select id="Touchpoint" name="Touchpoint">
+                        <select id="maintouchpoint" name="Touchpoint">
                             <option value="">Select Touchpoint</option>
                         </select>
                           }
@@ -689,7 +689,7 @@
 
         <script>
             function Update_Dashboard_Values() {
-                var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+                var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
                 ChangeTouchpoint(touchPointId);
                 var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
                 window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
@@ -702,7 +702,7 @@
     {
         <script>
             function Update_Dashboard_Values() {
-                var touchPointId = $("#Touchpoint").val() == "" ? 0 : parseInt($("#Touchpoint").val());
+                var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
                 ChangeTouchpoint(touchPointId);
                 var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
                 window.location = "dashboard2_1?id=" + touchPointId + "&groupid=" + groupId;
@@ -713,7 +713,7 @@
     {
         <script>
             function Update_Dashboard_Values() {
-                var touchPointId = $("#touchpoint").val() == "" ? 0 : parseInt($("#touchpoint").val());
+                var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
                 ChangeTouchpoint(touchPointId);
             }
         </script>
