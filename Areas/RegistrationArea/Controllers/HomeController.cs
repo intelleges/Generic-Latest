@@ -1757,6 +1757,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
             string zcode = pptq.zcode ?? allQuestions.Aggregate("", (r, t) => r += "ZZ");
+            if (zcode.Length < allQuestions.Count)
+            {
+                var initZcode = db.pr_getQuestionnaireInitZcode(questionnaireId).FirstOrDefault();
+                zcode = zcode + initZcode.Substring(0, initZcode.Length - zcode.Length);
+            }
             int questionNo = 0;
             foreach (var item in allQuestions)
             {
@@ -1843,6 +1848,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             var allQuestions = db.pr_getQuestionByQuestionnaire(questionnaireId).ToList();
             string zcode = pptq.zcode ?? allQuestions.Aggregate("", (r, t) => r += "ZZ");
+            if (zcode.Length < allQuestions.Count)
+            {
+                var initZcode = db.pr_getQuestionnaireInitZcode(questionnaireId).FirstOrDefault();
+                zcode = zcode + initZcode.Substring(0, initZcode.Length - zcode.Length);
+            }
             int questionNo = 1;
             foreach (var item in allQuestions)
             {
