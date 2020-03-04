@@ -2671,6 +2671,9 @@
     <Compile Include="pr_getPPTQDoc_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPPTQEmailParserEmailByPPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPPTQforIterate_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

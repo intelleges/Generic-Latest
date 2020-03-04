@@ -1067,7 +1067,7 @@ namespace Generic.Controllers
                             var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
                             if (null != touchpointdata)
                             {
-                               // item.CompletedAs = touchpointdata.title; //TODO:FIX
+                                // item.CompletedAs = touchpointdata.title; //TODO:FIX
                             }
                         }
                     }
@@ -1075,8 +1075,8 @@ namespace Generic.Controllers
             }
 
             //var touchpointdat = ViewBag.TouchPointDetails as List<pr_getSpecialDesignation_Result>;
-            
-            
+
+
 
 
 
@@ -2523,6 +2523,21 @@ namespace Generic.Controllers
             return Json(new { list = db.pr_getIterateEmailTextAll(personId).Select(o => new { o.id, o.subject }).ToList() }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetParsedEmails(int pptq)
+        {
+            return Json(new
+            {
+                list = db.pr_getPPTQEmailParserEmailByPPTQ(pptq).Select(o => new
+                {
+                    o.id,
+                    dateSent=o.dateSent.ToString("MM/dd/yyyy@HH:mm:ss tt"),
+                    o.emailFrom,
+                    o.emailTo,
+                    o.text,
+                    o.subject
+                }).OrderByDescending(o => o.dateSent).ToList()
+            }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult GetAutomailIterate(int id, int? pptq)
         {
             if (pptq.HasValue)
@@ -2660,7 +2675,7 @@ namespace Generic.Controllers
                 if (!string.IsNullOrEmpty(footer2))
                 {
                     string[] array = footer2.Split(';');
-                    foreach (string item in array.Where(o=>!string.IsNullOrEmpty(o)))
+                    foreach (string item in array.Where(o => !string.IsNullOrEmpty(o)))
                     {
                         string[] arr = item.Split(':');
                         int pptqId = pptq.id;
@@ -3027,6 +3042,7 @@ namespace Generic.Controllers
 
             //db.pr_getTotalCommissionGoal(SessionSingleton.LoggedInUserId).FirstOrDefault();
             ViewBag.TotalCallsToday = allTodaysCalls;
+
             return View();
         }
 

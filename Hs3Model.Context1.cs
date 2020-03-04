@@ -30557,5 +30557,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5", questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, actionDateParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
         }
+    
+        public virtual ObjectResult<pr_getPPTQEmailParserEmailByPPTQ_Result> pr_getPPTQEmailParserEmailByPPTQ(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPPTQEmailParserEmailByPPTQ_Result>("pr_getPPTQEmailParserEmailByPPTQ", pptqParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getPPTQEmailParserEmailByPPTQCount(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPPTQEmailParserEmailByPPTQCount", pptqParameter);
+        }
     }
 }

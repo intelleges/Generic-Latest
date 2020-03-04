@@ -1781,6 +1781,33 @@
             }
         });
     }
+    function ViewParsedEmails(pptq) {
+        $.get("@Url.Action("GetParsedEmails", "Partner")" + "?pptq=" + pptq).done(function (result) {
+    		if (result) {
+
+                $('#emailsReceived')
+					.empty();
+
+                var html = "";
+                $.each(result.list, function (index, val) {
+
+                    html = html + val.dateSent+ '-';
+                    html = html + ' ' + val.subject+' - from';
+                    html = html + ' ' + val.emailFrom + ' - to';
+                    html = html + ' ' + val.emailTo + ' - to';
+                    html = html + "<br/>";
+                    html = html + val.text;
+                    html = html + "<br/>";
+                });
+                $('#emailsReceived')
+                    .append(html);
+                $("#viewParsedEmailsDialog").modal("toggle");
+          }
+    	});
+    }
+    function CloseParsedEmails() {
+        $("#viewParsedEmailsDialog").modal("hide");
+    }
 </script>
 
 <style type="text/css">
@@ -2203,7 +2230,47 @@
     </div>
 
 
+    <div class="modal fade" id="viewParsedEmailsDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Reply to Email</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="parsedEmailSubject">Subject</label>
+                            <input id="parsedEmailSubject" name="parsedEmailSubject" class="form-control" type="text" placeholder="Please Enter Email's Subject" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="parsedEmailSubject" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="parsedEmailReply">Email Reply</label>
+                            <textarea id="parsedEmailReply" name="parsedEmailReply" class="form-control" placeholder="Please Enter Email Reply" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="parsedEmailReply" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('parsedEmailReply');
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="noteText1">Emails Received)</label>
+                            <div id="emailsReceived" name="emailsReceived" class="form-control" style="overflow: auto; height:250px">
 
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
 
 
     <div class="modal fade" id="noteUpdateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
@@ -3658,6 +3725,7 @@
             <li><a href='#'>Note</a></li>
 <li><a href='#'>Text</a></li>
             <li><a href='#'>Add</a></li>
+            <li><a href='#' onclick='ViewParsedEmails(<#=pptq#>)'>Replies</a></li>
         </ul>
     </div>
 ").Width(230);
@@ -4023,7 +4091,7 @@
 			$.fancybox.close();
 			$("#noteUpdateDialog").modal("toggle");
 		});
-	}
+        }
     </script>
 }
 
