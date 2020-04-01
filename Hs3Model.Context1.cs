@@ -30575,5 +30575,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getPPTQEmailParserEmailByPPTQCount", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getGroupByName_Result> pr_getGroupByName(Nullable<int> enterprise, string name)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByName_Result>("pr_getGroupByName", enterpriseParameter, nameParameter);
+        }
     }
 }

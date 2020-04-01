@@ -90,18 +90,18 @@ namespace Generic.Controllers
             //var excelRead = new ExcelQueryFactory(physicalPath.ToString());
 
 
-			var map = new Dictionary<string, string>();
-			map.Add("internalID", "internalId");
-			map.Add("StateName", "state");
-			map.Add("CountryName", "country");
-			//excelRead.AddMapping<ExcelPerson>(x => x.internalId, "internalID");
-			//excelRead.AddMapping<ExcelPerson>(x => x.state, "StateName");
-			//excelRead.AddMapping<ExcelPerson>(x => x.country, "CountryName");
+            var map = new Dictionary<string, string>();
+            map.Add("internalID", "internalId");
+            map.Add("StateName", "state");
+            map.Add("CountryName", "country");
+            //excelRead.AddMapping<ExcelPerson>(x => x.internalId, "internalID");
+            //excelRead.AddMapping<ExcelPerson>(x => x.state, "StateName");
+            //excelRead.AddMapping<ExcelPerson>(x => x.country, "CountryName");
 
 
 
             //   var columnnames = excelRead.GetColumnNames(sheetname);
-            var personinExcel =ExcelMapper.GetRows<ExcelPerson>(physicalPath,sheetname,map).ToList();// from a in excelRead.Worksheet<ExcelPerson>(sheetname) select a;
+            var personinExcel = ExcelMapper.GetRows<ExcelPerson>(physicalPath, sheetname, map).ToList();// from a in excelRead.Worksheet<ExcelPerson>(sheetname) select a;
 
 
             List<Tuple<int, string>> uploadedperson = new List<Tuple<int, string>>();
@@ -112,7 +112,7 @@ namespace Generic.Controllers
             {
                 if (personItem.internalId != null)
                 {
-                    if (personItem.phone == null)
+                    if (personItem.phone == null || string.IsNullOrEmpty(personItem.GroupName))
                     {
                         ErrorView objerrorView = new ErrorView();
                         objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
@@ -143,6 +143,14 @@ namespace Generic.Controllers
                         countryIdSpreadsheet = objCountrySpreadSheet.id;
                     }
 
+                    var groupSpreadsheet = db.pr_getGroupByName(Generic.Helpers.CurrentInstance.EnterpriseID, objPerson.GroupName).FirstOrDefault();
+                    if (groupSpreadsheet == null)
+                    {
+                        ErrorView objerrorView = new ErrorView();
+                        objerrorView.errorMessage = "Record " + uploadedperson.Count.ToString() + " of " + countpartNumbers + " has invalid GroupName" + objPerson.GroupName + ".";
+                        return PartialView("_Error", objerrorView);
+                    }
+
                     using (var context = new EntitiesDBContext())
                     {
                         person objaddPerson = new person();
@@ -170,6 +178,8 @@ namespace Generic.Controllers
                         objaddPerson.state = stateIdSpreadSheet;
                         objaddPerson.country = countryIdSpreadsheet;
                         objaddPerson.passWord = db.pr_getAccesscode().FirstOrDefault();
+
+                        objaddPerson.GroupId = groupSpreadsheet.id;
 
                         objaddPerson.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                         db.person.Add(objaddPerson);
@@ -221,7 +231,7 @@ namespace Generic.Controllers
                 ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
                 ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             }
-           
+
             var max = db.pr_getUserMaxTotalActiveUsers(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             if (max.total_active_users >= max.enterprise_usermax)
                 ViewBag.MaxDone = true;
@@ -249,15 +259,15 @@ namespace Generic.Controllers
             ViewBag.state = new SelectList(db.pr_getStateAll(isInside ? 1 : interpriseId), "id", "name", person.state);
             ViewBag.country = new SelectList(db.pr_getCountryAll(isInside ? 1 : interpriseId), "id", "name", person.country);
 
-            ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise( interpriseId), "id", "description");
-            ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise( interpriseId), "id", "name");
+            ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(interpriseId), "id", "description");
+            ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(interpriseId), "id", "name");
 
             if (ModelState.IsValid)
             {
                 int flag = 0;
                 try
                 {
-                   
+
                     person.personStatus = (int)PersonHelper.PersonStatus.Invited;
                     person.active = 1;
                     person.ismanager = isInside ? 1 : 0;
@@ -265,7 +275,7 @@ namespace Generic.Controllers
                     person.riskType = 0;
                     person.loadHistory = 0;
                     person.passWord = db.pr_getAccesscode().FirstOrDefault();
-                    
+
                     person.enterprise = interpriseId;
 
                     using (var context = new EntitiesDBContext())
@@ -273,12 +283,12 @@ namespace Generic.Controllers
                         context.person.Add(person);
                         context.SaveChanges();
                     }
-					if (person.id == 0) throw new Exception("System unable to add additional users. You have reached the maximum limit of user accounts for this enterprise. Please contact your system administrator. Thank you.");
+                    if (person.id == 0) throw new Exception("System unable to add additional users. You have reached the maximum limit of user accounts for this enterprise. Please contact your system administrator. Thank you.");
                     SessionSingleton.PersonId = person.id;
                     using (var context = new EntitiesDBContext())
                     {
                         context.pr_addPersonRole(person.id, person.RoleId);
-                                               
+
                         if (isInside)
                         {
                             var menuCount = context.pr_bootstrapSystemMasterMenu(person.RoleId).FirstOrDefault();
@@ -287,22 +297,22 @@ namespace Generic.Controllers
                             var group = context.pr_bootstrapGroup(person.enterprise, person.id).FirstOrDefault();
                             context.pr_modifyPersonTouchpoint(person.id, int.Parse(touchpoint.ToString()));
                             context.pr_addPersonGroup(int.Parse(group.ToString()), person.id);
-                            var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o=>o.enterprise==person.enterprise);
-							context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise, sysinfo.credit, sysinfo.sortOrder, sysinfo.active);
+                            var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o => o.enterprise == person.enterprise);
+                            context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise, sysinfo.credit, sysinfo.sortOrder, sysinfo.active);
                         }
-						else context.pr_addPersonGroup(person.id, person.GroupId); 
+                        else context.pr_addPersonGroup(person.id, person.GroupId);
                     }
                     //if (!isInside)
                     //{
-                        person objdefaultSystemMaster = isInside ? person : db.pr_getPerson(person.manager).FirstOrDefault();
-                        // db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                        if (objdefaultSystemMaster == null)
-                        {
-                            ViewBag.message = "System manager is required";
-                            flag = 1;
-                        }
+                    person objdefaultSystemMaster = isInside ? person : db.pr_getPerson(person.manager).FirstOrDefault();
+                    // db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    if (objdefaultSystemMaster == null)
+                    {
+                        ViewBag.message = "System manager is required";
+                        flag = 1;
+                    }
 
-                        if (flag == 0)
+                    if (flag == 0)
                     {
                         int? PersonId = person.id;
 
@@ -333,12 +343,12 @@ namespace Generic.Controllers
                 catch (Exception exp)
                 {
 
-					string errors = "";
-					errors = exp.Message;
-					if (exp.InnerException != null)
-						errors += " ; " +exp.InnerException.Message;
+                    string errors = "";
+                    errors = exp.Message;
+                    if (exp.InnerException != null)
+                        errors += " ; " + exp.InnerException.Message;
 
-					ViewBag.message = errors;
+                    ViewBag.message = errors;
                     return View(person);
                 }
             }
@@ -349,12 +359,12 @@ namespace Generic.Controllers
                 {
                     foreach (ModelError error in modelState.Errors)
                     {
-                      errors +=  error.ErrorMessage+ " ; ";
+                        errors += error.ErrorMessage + " ; ";
                     }
                 }
                 ViewBag.message = errors;
             }
-            
+
 
 
             return View(person);
@@ -446,7 +456,7 @@ Intelleges Team";
 
                 enterprise objEnterprise = db.pr_getEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault();
 
-				db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, true, SessionSingleton.EnterPriseId, 0, 0, true);
+                db.pr_addEnterpriseSystemInfo(null, null, null, coordinator, null, coordinatorEmail, null, null, true, SessionSingleton.EnterPriseId, 0, 0, true);
 
 
 
@@ -487,15 +497,19 @@ Thanks in advance.<br>
                 email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
                 //  email.body = objamm.text;
                 email.emailTo = objSystemMaster.email;
-				email.category = SendGridCategory.CreatePerson;
-				email.url = Request.Url.ToString();
-				email.accesscode = email.accesscode;
-				email.protocolTouchpoint = objCurrentTouchpoint.description;
+                email.category = SendGridCategory.CreatePerson;
+                email.url = Request.Url.ToString();
+                email.accesscode = email.accesscode;
+                email.protocolTouchpoint = objCurrentTouchpoint.description;
 
                 SendEmail objSendEmail = new SendEmail();
-                objSendEmail.sendEmail(email, new EmailFormatSettings() {
-                     sender = objInvitingUser, receiver = objSystemMaster, systemMaster = objdefaultSystemMaster,
-                      enterprise= objEnterprise, touchpoint = objCurrentTouchpoint
+                objSendEmail.sendEmail(email, new EmailFormatSettings()
+                {
+                    sender = objInvitingUser,
+                    receiver = objSystemMaster,
+                    systemMaster = objdefaultSystemMaster,
+                    enterprise = objEnterprise,
+                    touchpoint = objCurrentTouchpoint
                 });
             }
 
@@ -531,14 +545,14 @@ Thanks in advance.<br>
                 firstName = person.firstName,
                 id = person.id,
                 internalId = person.internalId,
-                IsArchived  = person.IsArchived,
+                IsArchived = person.IsArchived,
                 ismanager = person.ismanager,
                 lastName = person.lastName,
                 loadHistory = person.loadHistory,
                 manager = person.manager,
                 nickName = person.nickName,
                 nmNumber = person.nmNumber,
-                partnerPerPage= person.partnerPerPage,
+                partnerPerPage = person.partnerPerPage,
                 //passWord = person.passWord,
                 personStatus = person.personStatus,
                 phone = person.phone,
@@ -926,12 +940,16 @@ Thanks in advance.<br>
             }
         }
 
-        public ActionResult RetorePersonFunc(int id) {
+        public ActionResult RetorePersonFunc(int id)
+        {
 
             var person = db.pr_getPerson(id).First();
             db.pr_unArchivePerson(id);
-            return Json(new { message =person.firstName + " "+person.lastName 
-                + " with internalID="+person.internalId+" has been successfully restored and is now active."}, JsonRequestBehavior.AllowGet);
+            return Json(new
+            {
+                message = person.firstName + " " + person.lastName
+                + " with internalID=" + person.internalId + " has been successfully restored and is now active."
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RestorePerson()
