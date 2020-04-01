@@ -10,6 +10,7 @@ namespace Generic.ViewModel
         public string StateName { get; set; }
         public string CountryName { get; set; }
         public string GroupName { get; set; }
+        public string RoleName { get; set; }
 
     }
     public class ExcelAMLMM

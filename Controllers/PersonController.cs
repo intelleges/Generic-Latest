@@ -112,7 +112,8 @@ namespace Generic.Controllers
             {
                 if (personItem.internalId != null)
                 {
-                    if (personItem.phone == null || string.IsNullOrEmpty(personItem.GroupName))
+                    if (personItem.phone == null || string.IsNullOrEmpty(personItem.GroupName)
+                        || string.IsNullOrEmpty(personItem.RoleName))
                     {
                         ErrorView objerrorView = new ErrorView();
                         objerrorView.errorMessage = "Record " + recordNumber.ToString() + " of " + countpartNumbers + " has invalid values.";
@@ -150,6 +151,13 @@ namespace Generic.Controllers
                         objerrorView.errorMessage = "Record " + uploadedperson.Count.ToString() + " of " + countpartNumbers + " has invalid GroupName" + objPerson.GroupName + ".";
                         return PartialView("_Error", objerrorView);
                     }
+                    var roleSpreadsheet = db.pr_getRoleByName(objPerson.RoleName,Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    if (roleSpreadsheet == null)
+                    {
+                        ErrorView objerrorView = new ErrorView();
+                        objerrorView.errorMessage = "Record " + uploadedperson.Count.ToString() + " of " + countpartNumbers + " has invalid RoleName" + objPerson.RoleName + ".";
+                        return PartialView("_Error", objerrorView);
+                    }
 
                     using (var context = new EntitiesDBContext())
                     {
@@ -179,11 +187,12 @@ namespace Generic.Controllers
                         objaddPerson.country = countryIdSpreadsheet;
                         objaddPerson.passWord = db.pr_getAccesscode().FirstOrDefault();
 
-                        objaddPerson.GroupId = groupSpreadsheet.id;
-
                         objaddPerson.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                         db.person.Add(objaddPerson);
                         db.SaveChanges();
+
+                        db.pr_addPersonRole(objaddPerson.id, roleSpreadsheet.id);
+                        db.pr_addPersonGroup(objaddPerson.id, groupSpreadsheet.id);
 
                         int? PartnerId = objaddPerson.id;
                         uploadedperson.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
