@@ -161,7 +161,6 @@ namespace Generic.Controllers
                         objaddPerson.phone = objPerson.phone;
                         objaddPerson.email = objPerson.email;
 
-
                         objaddPerson.personStatus = (int)PersonHelper.PersonStatus.Loaded;
                         objaddPerson.active = 1;
                         objaddPerson.ismanager = 0;
@@ -178,10 +177,15 @@ namespace Generic.Controllers
 
                         int? PartnerId = objaddPerson.id;
                         uploadedperson.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
+                        if (PartnerId == 0)
+                            continue;
+                        var objSystemMaster = db.pr_getPerson(objaddPerson.id).FirstOrDefault();
+                        enterprise objEnterprise = db.pr_getEnterprise(objaddPerson.enterprise)
+                            .FirstOrDefault();
+                        person objdefaultSystemMaster = db.pr_getSystemMaster(objaddPerson.enterprise)
+                            .FirstOrDefault();
+                        SendCreatePersonEmail(false, objdefaultSystemMaster, objSystemMaster, objEnterprise);
                     }
-
-
-
                 }
             }
             Session["uploadedPersonList"] = uploadedperson;
@@ -299,69 +303,24 @@ namespace Generic.Controllers
                         }
 
                         if (flag == 0)
-                        {
-                            int? PersonId = person.id;
+                    {
+                        int? PersonId = person.id;
 
 
 
-                            // Email Invite
-                            var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+                        // Email Invite
+                        var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
 
-                            enterprise objEnterprise = db.pr_getEnterprise(interpriseId).FirstOrDefault();
+                        enterprise objEnterprise = db.pr_getEnterprise(interpriseId).FirstOrDefault();
 
+                        SendCreatePersonEmail(isInside, objdefaultSystemMaster, objSystemMaster, objEnterprise);
 
-                            autoMailMessage objamm = new autoMailMessage();
+                        //return RedirectToAction("AssignGroup", "Person");
+                        ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
+                        ViewBag.success = 1;
 
-                            objamm.subject = "Intelleges Account Created";
-                            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
-                            if (isInside)
-                                objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
-Congratulations. We have created your Intelleges Account.<br><br>
-Your user name is : [User Email]<br><br>
-Your current password is: [Temporary Access Code]<br><br>
-To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>. <br><br>
-To change your existing password select Change Password once you log in.<br><br>
-To protect your privacy, we only send this information to the email address on file for this account. <br><br>
-If you have any questions, please contact your Account Administrator admin@intelleges.com.<br><br>
-Thank you.<br><br>
-Intelleges Team";
-                            else
-                                objamm.text = @"Hello <b>[Receiver Full Name]</b>,<br><br>
-Congratulations. Your Intelleges System Master <b>[System Master FullName]</b> has added you to the Intelleges [Touchpoint Title] Platform.<br>
-Your user name is : [User Email]<br>
-Your current password is: [Temporary Access Code]<br>
-To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>.<br>
-To change your existing password select Change Password once you log in.<br>
-To protect your privacy, we only send this information to the email address on file for this account. <br>
-If you have any questions, please contact your Account Administrator [System Master Email].<br><br>
-Thank you.<br>
-Intelleges Team";                          
-
-
-                            Email email = new Email(objamm);
-                            person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
-
-                            touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objInvitingUser.campaign).FirstOrDefault();
-
-                            EmailFormat emailFormat = new EmailFormat();
-                            email.subject = emailFormat.sGetEmailBody(email.subject, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
-                            //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
-                            email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
-                            //  email.body = objamm.text;
-                            email.emailTo = objSystemMaster.email;
-							email.protocolTouchpoint = objCurrentTouchpoint.description;
-							email.category = SendGridCategory.Create;
-							email.url = Request.Url.ToString();
-
-                            SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(email, new EmailFormatSettings() {  enterprise = objEnterprise, systemMaster = objdefaultSystemMaster, sender = objInvitingUser, receiver = objSystemMaster, touchpoint = objCurrentTouchpoint });
-
-                            //return RedirectToAction("AssignGroup", "Person");
-                            ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
-                            ViewBag.success = 1;
-
-                            return View();
-                        }
+                        return View();
+                    }
                     //}
                     //else
                     //{
@@ -369,7 +328,7 @@ Intelleges Team";
                     //    ViewBag.success = 1;
                     //    return View();
                     //}
-                    
+
                 }
                 catch (Exception exp)
                 {
@@ -399,6 +358,55 @@ Intelleges Team";
 
 
             return View(person);
+        }
+
+        private void SendCreatePersonEmail(bool isInside, person objdefaultSystemMaster, person objSystemMaster, enterprise objEnterprise)
+        {
+            autoMailMessage objamm = new autoMailMessage();
+
+            objamm.subject = "Intelleges Account Created";
+            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+            if (isInside)
+                objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
+Congratulations. We have created your Intelleges Account.<br><br>
+Your user name is : [User Email]<br><br>
+Your current password is: [Temporary Access Code]<br><br>
+To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>. <br><br>
+To change your existing password select Change Password once you log in.<br><br>
+To protect your privacy, we only send this information to the email address on file for this account. <br><br>
+If you have any questions, please contact your Account Administrator admin@intelleges.com.<br><br>
+Thank you.<br><br>
+Intelleges Team";
+            else
+                objamm.text = @"Hello <b>[Receiver Full Name]</b>,<br><br>
+Congratulations. Your Intelleges System Master <b>[System Master FullName]</b> has added you to the Intelleges [Touchpoint Title] Platform.<br>
+Your user name is : [User Email]<br>
+Your current password is: [Temporary Access Code]<br>
+To access your intelleges.com account please click here <a href='[Project Url]'>[Project Url]</a>.<br>
+To change your existing password select Change Password once you log in.<br>
+To protect your privacy, we only send this information to the email address on file for this account. <br>
+If you have any questions, please contact your Account Administrator [System Master Email].<br><br>
+Thank you.<br>
+Intelleges Team";
+
+
+            Email email = new Email(objamm);
+            person objInvitingUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+
+            touchpoint objCurrentTouchpoint = db.pr_getTouchpoint(objInvitingUser.campaign).FirstOrDefault();
+
+            EmailFormat emailFormat = new EmailFormat();
+            email.subject = emailFormat.sGetEmailBody(email.subject, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
+            //   email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq);
+            email.body = emailFormat.sGetEmailBody(email.body, objInvitingUser, objSystemMaster, objCurrentTouchpoint, objEnterprise, objdefaultSystemMaster);
+            //  email.body = objamm.text;
+            email.emailTo = objSystemMaster.email;
+            email.protocolTouchpoint = objCurrentTouchpoint.description;
+            email.category = SendGridCategory.Create;
+            email.url = Request.Url.ToString();
+
+            SendEmail objSendEmail = new SendEmail();
+            objSendEmail.sendEmail(email, new EmailFormatSettings() { enterprise = objEnterprise, systemMaster = objdefaultSystemMaster, sender = objInvitingUser, receiver = objSystemMaster, touchpoint = objCurrentTouchpoint });
         }
 
         public ActionResult CreatePerson()
