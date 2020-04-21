@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Generic.Helpers.PartnerHelper
 {
-   
+
     public enum PartnerStatus
     {
         Loaded = 1,
@@ -17,10 +17,14 @@ namespace Generic.Helpers.PartnerHelper
         Responded_Incomplete = 7,
         Responded_Complete = 8,
         No_Response = 9,
-        Transferred = 10,
+        PendingApproval = 10,
         Refusal = 11,
         Rejected_By_Manager = 12,
-        Approved_By_Manager = 13
+        Approved_By_Manager = 13,
+        Shadowed = 14,
+        Removed_Unsubscribed = 15,
+        Paper_Copy_Available=22,
+        Requires_Customer_Input=23
     }
 
 }
