@@ -2716,6 +2716,10 @@ namespace Generic.Controllers
                 }
                 else
                 {
+                    if (pptq.status == 10)
+                    {
+                        //TODO: send approval email
+                    }
                     result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
                 }
 

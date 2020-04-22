@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Generic.Helpers.Questionnaire
 {
@@ -39,14 +40,14 @@ namespace Generic.Helpers.Questionnaire
         public const int XX_CHECKBOX_X = 15;
         public const int YN_UPLOADEXPIRY_Y = 16;
         public const int YN_UPLOADEXPIRY_N = 17;
-		public const int TEXT_NUMBER_N_X = 18;
-		public const int TEXT_NUMBER_Y_X = 19;
-		public const int XX_COMMENT_ALL = 20;
-		public const int YN_REFERENCE_Y = 21;
-		public const int YN_REFERENCE_N = 22;
+        public const int TEXT_NUMBER_N_X = 18;
+        public const int TEXT_NUMBER_Y_X = 19;
+        public const int XX_COMMENT_ALL = 20;
+        public const int YN_REFERENCE_Y = 21;
+        public const int YN_REFERENCE_N = 22;
 
-		public const int YN_COLORPICKER_Y = 23;
-		public const int YN_COLORPICKER_N = 24;
+        public const int YN_COLORPICKER_Y = 23;
+        public const int YN_COLORPICKER_N = 24;
         public const int YN_COMMENT_Y_PUBLIC = 25;
         public const int YN_COMMENT_N_PUBLIC = 26;
         // old system
@@ -235,5 +236,13 @@ namespace Generic.Helpers.Questionnaire
         public int PartnumberSiteZcode { get; set; }
     }
 
+    public static class QuestionnaireHelper
+    {
+        public static string GetQuestionnaireUrl(Uri baseUri, UrlHelper urlHelper, int partnerId, string email, int pptqId, string qnextId, int responseId)
+        {
+            return new Uri(baseUri, urlHelper.Action("QuestionnaireDetailQuestion", "Questionnaire",
+                                new { id = -1, ModifyResponse = qnextId, area = String.Empty, pptqId = pptqId, questionId = qnextId, partnerId = partnerId, responseId = responseId, email = email })).ToString();
+        }
+    }
 
 }

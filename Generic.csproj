@@ -849,6 +849,7 @@
     <Compile Include="Helpers\CustomMembershipProvider.cs" />
     <Compile Include="Helpers\CustomRoleProvider.cs" />
     <Compile Include="Helpers\DatabaseTranslationService.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Helpers\EvernoteAuthorizer.cs" />
     <Compile Include="Helpers\ExcelMapper.cs" />
     <Compile Include="Helpers\Exceptions\WrongSkipLogicJumpColumn.cs" />
@@ -870,6 +871,7 @@
     <Compile Include="Helpers\ResponsesExtensions.cs" />
     <Compile Include="Helpers\SchedulerServiceHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TempModel.cs" />
     <Compile Include="Helpers\UIControl.cs" />
     <Compile Include="Helpers\Utility\EmailFormat.cs" />
