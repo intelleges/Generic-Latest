@@ -2530,7 +2530,7 @@ namespace Generic.Controllers
                 list = db.pr_getPPTQEmailParserEmailByPPTQ(pptq).Select(o => new
                 {
                     o.id,
-                    dateSent=o.dateSent.ToString("MM/dd/yyyy@HH:mm:ss tt"),
+                    dateSent = o.dateSent.ToString("MM/dd/yyyy@HH:mm:ss tt"),
                     o.emailFrom,
                     o.emailTo,
                     o.text,
@@ -2718,7 +2718,27 @@ namespace Generic.Controllers
                 {
                     if (pptq.status == 10)
                     {
-                        //TODO: send approval email
+                        var baseUri = new Uri(Request.Url.GetLeftPart(UriPartial.Authority));
+                        var questionnaire = db.pr_getQuestionnaireByPPTQ(pptq.id).FirstOrDefault();
+                        if (questionnaire == null)
+                            return result;
+                        var appQuestion = db.pr_getApprovalRequestQuestionByQuestionnaire(questionnaire.id).FirstOrDefault();
+                        if (appQuestion == null)
+                            return result;
+                        var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq.id, appQuestion.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";", "").Trim() + ";").ToList();
+                        string qsss = "";
+                        foreach (var item in list)
+                        {
+                            qsss += db.pr_getQuestionTitle(item.Question).First() + "<br/>";
+                        }
+
+                        var choices = appQuestion.emailAlertList.Split(new char[] { ';' });
+                        if (choices.Count() < 2)
+                            return result;
+                        var email = choices[0].Split(':')[1];
+                        var qnextId = choices[1].Replace("[", "").Replace("]", "");
+                        EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString());
+                        return result;
                     }
                     result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
                 }
