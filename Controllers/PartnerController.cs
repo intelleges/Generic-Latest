@@ -3070,6 +3070,122 @@ namespace Generic.Controllers
             return View();
         }
 
+        public virtual async Task<ActionResult> IterateFindPartnerResults(bool? showNotes, bool needGmailAuth = false)
+        {
+            ViewBag.state = new SelectList(db.state.ToList(), "stateCode", "name");
+            ViewBag.country = new SelectList(db.country.ToList(), "id", "name");
+            ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+            ViewBag.owner = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).Select(v => new SelectListItem { Value = v.id.ToString(), Text = string.Format("{0} {1}", v.firstName, v.lastName) }).ToList();
+            // db.pr_getTouchpointAllByEnterprise(SessionSingleton.EnterPriseId).FirstOrDefault().
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "title");
+            ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o => new SelectListItem()
+            {
+                Text = o.title,
+                Value = o.id.ToString(),
+                Selected = o.id == SessionSingleton.Touchpoint
+            }).ToList();
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+            ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
+            ViewBag.nextaction = new SelectList(db.pr_getIterateNextAction().ToList(), "id", "nextAction");
+            ViewBag.partnerstatus = new SelectList(db.pr_getIteratePartnerStatusAll().ToList(), "id", "description");
+            ViewBag.iterateObjections = new SelectList(db.pr_getIterateObjectionAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "description");
+            var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (currentPerson != null)
+                ViewBag.currentUserPartnerType = new SelectList(db.pr_getPartnertypeByTouchpoint(currentPerson.campaign).ToList(), "id", "name");
+
+            ViewBag.PersonAll = db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+
+            ViewBag.PersonAllDropDown = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "nickName");
+
+            ViewBag.DropDownSubjects = new SelectList(new List<iterateEmailText>(), "id", "subject").ToList();
+
+            //Scheduler Initializeer
+            //var scheduler = new DHXScheduler(this) { LoadData = true, EnableDataprocessor = true };
+            // ViewBag.Scheduler = scheduler.Render();
+            ViewBag.SchedulerICallUri = db.pr_getPersonIcal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.showNotes = showNotes;
+            ViewBag.gmailAuth = needGmailAuth;
+            var allTodaysCalls = db.pr_getDailyCallTotal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var allClosedTodayCallsItem = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 20);
+            var allConectYearCallsItem = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 3);
+            if (allConectYearCallsItem != null)
+            {
+                ViewBag.YearSuccessfulCallConnectActual = allConectYearCallsItem.total;
+            }
+            else ViewBag.YearSuccessfulCallConnectActual = 0;
+            var allConectTodayCallsItem = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 3);
+            if (allConectTodayCallsItem != null)
+            {
+                ViewBag.TodaySuccessfulCallConnectActual = allConectTodayCallsItem.total;
+            }
+            else ViewBag.TodaySuccessfulCallConnectActual = 0;
+
+            ViewBag.YearsCallsActual = db.pr_getTotalCall(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var daysGone = db.pr_getDailyCountAll(SessionSingleton.LoggedInUserId).Count();
+            ViewBag.DaysGone = daysGone;
+            ViewBag.DaysLeft = 250 - daysGone;
+            if (ViewBag.DaysLeft == 0)
+                ViewBag.DaysLeft = 1;
+            var a1 = db.pr_getTotalCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 2);
+            if (a1 != null)
+            {
+                ViewBag.YearSuccessfulCallAppointmentActual = a1.total;
+            }
+            else
+            {
+                ViewBag.YearSuccessfulCallAppointmentActual = 0;
+            }
+            if (allClosedTodayCallsItem != null)
+            {
+                ViewBag.ActualEarned = allClosedTodayCallsItem.total * 0.23 * 135 * 12;
+                ViewBag.YearSuccessfulCall_Close_Actual = allClosedTodayCallsItem.total;
+                ViewBag.YearSuccessfulCall_Close_Needed = 355 - allClosedTodayCallsItem.total;
+                ViewBag.CalltoCloseRatio = ViewBag.YearsCallsActual / ViewBag.YearSuccessfulCall_Close_Actual;
+                ViewBag.ConnecttoCloseRatio = ViewBag.YearSuccessfulCallConnectActual / ViewBag.YearSuccessfulCall_Close_Actual;
+                ViewBag.AppointmenttoCloseRatio = ViewBag.YearSuccessfulCallAppointmentActual / ViewBag.YearSuccessfulCall_Close_Actual;
+            }
+            else
+            {
+                ViewBag.ActualEarned = 0;
+                ViewBag.YearSuccessfulCall_Close_Actual = 0;
+                ViewBag.YearSuccessfulCall_Close_Needed = 355;
+                ViewBag.CalltoCloseRatio = 0;
+                ViewBag.ConnecttoCloseRatio = 0;
+                ViewBag.AppointmenttoCloseRatio = 0;
+            }
+            //
+            ViewBag.TodaySuccessfulCall_Close_Needed = ViewBag.YearSuccessfulCall_Close_Needed / ViewBag.DaysLeft;
+            ViewBag.YearSuccessfulCallAppointmentNeeded = ViewBag.AppointmenttoCloseRatio * ViewBag.YearSuccessfulCall_Close_Needed;
+            ViewBag.YearSuccessfulCallConnectNeeded = ViewBag.ConnecttoCloseRatio * ViewBag.YearSuccessfulCall_Close_Needed;
+            ViewBag.TodaySuccessfulCallConnectNeeded = ViewBag.TodaySuccessfulCall_Close_Needed * ViewBag.ConnecttoCloseRatio;
+            ViewBag.TodayCalls_Needed = ViewBag.TodaySuccessfulCall_Close_Needed * ViewBag.CalltoCloseRatio;
+            ViewBag.TodayCalls_Actual = db.pr_getDailyCallTotal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.TodayDEFICIT = ViewBag.TodayCalls_Needed - ViewBag.TodayCalls_Actual;
+            ViewBag.YearCalls_Needed = ViewBag.CalltoCloseRatio * ViewBag.DaysLeft;
+            var dailyCallCount = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 20);
+            if (dailyCallCount != null)
+            {
+                ViewBag.TodaySuccessfulCall_Close_Actual = dailyCallCount.total;
+            }
+            else ViewBag.TodaySuccessfulCall_Close_Actual = 0;
+            var dailyAppCallCount = db.pr_getDailyCallCount(SessionSingleton.LoggedInUserId).ToList().FirstOrDefault(o => o.lastContactID == 20);
+            if (dailyAppCallCount != null)
+            {
+                ViewBag.TodaySuccessfulCallAppointmentActual = dailyAppCallCount.total;
+            }
+            else ViewBag.TodaySuccessfulCallAppointmentActual = 0;
+            ViewBag.TodaySuccessfulCallAppointmentNeeded = ViewBag.AppointmenttoCloseRatio * ViewBag.TodaySuccessfulCall_Close_Needed;
+            var commissionGoal = db.pr_getTotalCommissionGoal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            if (commissionGoal != null)
+                ViewBag.commissionGoal = commissionGoal.commissionGoal;
+            else ViewBag.commissionGoal = 0;
+
+            //db.pr_getTotalCommissionGoal(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.TotalCallsToday = allTodaysCalls;
+
+            return View();
+        }
+
         /// <summary>
         /// Method import events from google calendar
         /// </summary>

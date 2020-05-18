@@ -24,7 +24,25 @@ namespace Generic.Helpers
 
             return layoutName;
         }
-		public static string GetNewLayout()
+
+        public static string GetFullScreenLayout()
+        {
+            // Default to the generic layout 
+            // Note the output will be in the tmp folder when published. 
+            string layoutName = "~/tmp/Views/Shared/_GenericLayoutPage.cshtml";
+
+            if (Generic.Helpers.CurrentInstance.IsGeneric == 1)
+            {
+                layoutName = "~/Views/Shared/_AdminFullScreenLayout.cshtml";
+            }
+            else
+            {
+                layoutName = "~/tmp/Views/Shared/_AdminFullScreenLayout.cshtml";
+            }
+
+            return layoutName;
+        }
+        public static string GetNewLayout()
 		{
 			// Default to the generic layout 
 			// Note the output will be in the tmp folder when published. 
