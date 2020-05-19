@@ -1,0 +1,566 @@
+﻿
+@inherits System.Web.Mvc.WebViewPage
+@using Generic.Helpers
+@using System.Web.Mvc.Html
+@using Telerik.Web.Mvc.UI;
+@using System.Web.Optimization;
+@using Generic.ViewModel
+@{
+
+    string EnterpriseName = string.Empty;
+    string LoginName = string.Empty;
+    string ProductName = string.Empty;
+    string SubscriptionTypeName = string.Empty;
+    string SubscriptionStatusName = string.Empty;
+
+    IEnumerable<SelectListItem> touchpoints = null;
+    IEnumerable<SelectListItem> groups = null;
+    Generic.Controllers.AdminController objAdminController = null;
+    try
+    {
+        Generic.Controllers.EnterpriseController objEnterpriseController = new Generic.Controllers.EnterpriseController();
+        objAdminController = new Generic.Controllers.AdminController();
+
+
+        Generic.enterprise objEnterprise = objEnterpriseController.GetEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID);
+        ProductName = objEnterpriseController.GetProduct((int)objEnterprise.product).description;
+        SubscriptionTypeName = objEnterpriseController.GetSubscriptionType((int)objEnterprise.subscriptionType).description;
+        SubscriptionStatusName = objEnterpriseController.GetSubscriptionStatus((int)objEnterprise.subscriptionStatus).description;
+
+
+    }
+    catch (Exception ex)
+    {
+    }
+    Generic.Controllers.PersonController objPersonController = new Generic.Controllers.PersonController();
+
+    Generic.person objPerson = objPersonController.GetPerson(User.Identity.Name);
+    if (objPerson != null)
+    {
+        LoginName = objPerson.firstName + " " + objPerson.lastName;
+    }
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Intelleges</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="icon" href="@Url.Content("~/Contents/images/favicon.ico")" type="image/ico" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/site.css?v=2")
+    @Styles.Render("~/Content/themes/base/css")
+    <link href="@Url.Content("~/Content/jquery.fancybox.css")" rel="stylesheet" />
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <script src="~/Scripts/kendo/2015.2.624/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Scripts/alertify.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
+    <script src="~/Scripts/kendo/2015.2.624/kendo.ui.core.min.js"></script>
+    @*<script src="~/Scripts/kendo/2015.1.318/kendo.core.min.js"></script>*@
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="~/Scripts/jquery.fancybox.pack.js"></script>
+    @RenderSection("header", false)
+    <link rel="stylesheet" href="@Url.Content("~/Content/tw-bs.css")" />
+    <link href="@Url.Content("~/Content/themes/base/alertify.core.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/themes/base/alertify.default.css")" rel="stylesheet" />
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group
+                                    .Add("telerik.common.css")
+                                            .Add("telerik.vista.css")
+                                    .Combined(true)
+                                    .Compress(true)))
+
+    <script>
+        alertify.set({ buttonReverse: true });
+       
+    </script>
+    <style>
+        #Touchpoint {
+            width: 290px;
+            margin: 10px;
+        }
+
+        #reports {
+            margin: 10px 10px 10px 10px !important;
+        }
+
+        select#templates {
+            height: 25px;
+            width: 215px !important;
+        }
+    </style>
+    <style>
+        #fb-content1 {
+            font-family: 'Avenir LT Std' !important;
+        }
+
+            #fb-content1 .btn-send-contactUs {
+                background-color: #ff5f67;
+            }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="content-wrapper-full-width main-content clear-fix">
+            <div>
+                <div class="admin-logo">
+                    <div class="site-title">
+                        <a id="IntellegesLogoHref" href="#">
+                            @Html.Action("InstanceLogo", "Admin")
+                        </a>
+                        @*<div class="chat-image">
+                                        <img src="~/Content/image-chat.png" width="32" style="width:32px;" onclick="opennSubmitPopup();" />
+                                <p class="img__description">
+                                    Your suggestions, ideas and complaints will greatly help us.
+                                </p>
+                            </div>*@
+                    </div>
+
+                    <form id="selectlogoForm" enctype="multipart/form-data">
+                        <input type="file" id="selectlogo" style="display:none;" />
+                    </form>
+                </div>
+
+                <div style="float: left; top: -20px; position: relative; left: 20px;">
+                    @* <h1>STANDARD EDITION</h1>*@
+                </div>
+                <div class="admin-nav-about">
+                    <nav>
+                        <ul id="menu">
+
+                            <li>@Html.ActionLink("Home", "Home", "Admin")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li><a href="#" onclick="opennSubmitPopup();">Contact Us</a></li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="tw-bs">
+        <div class="container">
+            <div class="modal fade" id="addIteratePerson" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                            </button>
+                            <h4 class="modal-title" id="gpsLabel">Add Iterate Point of Contact</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addIteratePersonForm">
+                                <h4>
+                                    Select the Person You Wish to Add Iterate POC Data To
+                                </h4>
+                                <div class="form-group">
+                                    <label class="control-label" for="activeUsers">Active Users</label>
+
+                                    @*@Html.DropDownList("partnerType", null, new { @class = "form-control", data_val_required = "*", data_val = "true" })*@
+                                    <span data-valmsg-replace="true" data-valmsg-for="partnerType" class="field-validation-valid help-inline" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="partnerGroup">Partner Group</label>
+                                    @*@Html.DropDownList("partnerGroup", (IEnumerable<SelectListItem>)ViewBag.group, new { @class = "form-control", data_val_required = "*", data_val = "true" })*@
+                                    <span data-valmsg-replace="true" data-valmsg-for="partnerGroup" class="field-validation-valid help-inline" />
+
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #IteratePartners .t-header a {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    </style>
+
+
+    @*<div id="fb-content1" style="display:none;">
+            <div class="support-popup">
+
+                <div class="header-popup"><h2 class="header-popup"> How can we help you?</h2><img src="~/Content/login/images/intelleges/intelleges-icon.png" width="64" style="width:64px;" />
+        </div>
+                <p class="header-popup">For immediate assistance please call <b>@ViewBag.masterFirstLastNames @@ @ViewBag.masterPhone</b></p>
+                <textarea placeholder="Your suggestions, ideas and complaints will greatly help us." maxlength="1500" required></textarea>
+                <br />
+
+                    <div class="tw-bs buttons">
+                        <button type="button" style="background-color: #ff5f67;" class="btn btn-primary" onclick="sendRequest($(this).parent().parent().find('textarea').val());">Submit</button>
+                        <button type="button" class="btn btn-default" onclick="$.fancybox.close();">Cancel</button>
+                    </div>
+
+            </div>
+        </div>*@
+    <style>
+        .tw-bs .container .modal-backdrop {
+            z-index: initial;
+        }
+    </style>
+    <div class="tw-bs">
+        <div class="container">
+            <div class="modal fade" tabindex="-1" role="dialog" id="fb-content1" area-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title" style="font-size:22px;">
+                                <b>How can we help you?</b>
+                                <img class="pull-right" src="~/Content/login/images/intelleges/intelleges-icon.jpg" style="    width: 38px;
+    " />
+                                @*margin-left: 250px;<button type="button" class="pull-right close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>*@
+                            </div>
+                        </div>
+                        <div class="modal-body">
+
+                            <textarea maxlength="1500" required style="height: 150px;" class="form-control"></textarea>
+
+                        </div>
+                        <div class="modal-footer">
+                            <span class="pull-left"> For immediate assistance please call <b>@ViewBag.masterFirstLastNames @@ @ViewBag.masterPhone</b></span>
+                            <button type="button" style="background-color: #ff5f67;" class="btn btn-primary" onclick="sendRequest($(this).parent().parent().find('textarea').val());">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        @RenderBody();
+    </div>
+    <div id="popup" style="display:none;">
+        <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
+    </div>
+    @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")*@
+    <script type="text/javascript">
+        window.onscroll = function () { myFunction() };
+
+        // Get the header
+        var header = document.getElementById("headerMenu");
+
+        // Get the offset position of the navbar
+        var sticky = header.offsetTop;
+
+        // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+        function sendRequest(text)
+        {
+            $.post("../admin/sendrequest", { text: text })
+                .done(function (result) {
+                    if (result && result.success) {
+                        alertify.alert("Message sent!");
+                    } else {
+                        alertify.alert("There was an issue during message sending! Please contact us by phone.");
+                    }
+                    //var str = JSON.stringify({
+                    //    channel: "#moog",
+                    //    text: result.msg
+                    //});
+
+                    //$.post('https://hooks.slack.com/services/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?parse=full',
+                    //    //'payload={"channel": "#moog", "text": "' + $("<div/>").html(result.msg).html() + '", "attachments": [] }'
+                    //    'payload=' + str
+                    //).done(function (data1) {
+
+                    //});
+                });
+            $("#fb-content1").modal("toggle");
+            //$.fancybox.close();
+        }
+
+        function onSplitter2Load(e) {
+            @RenderSection("onSplitter2Load", false)
+        }
+        function OpenManualAddModal(url) {
+            jQuery.noConflict(); // Sergeys change: uncommented this line
+
+
+            jQuery("#popup").dialog({
+                autoOpen: true,
+                modal: true,
+                height: 550,
+                width: 900,
+                open: function () {
+                    jQuery("#modal").attr("src", url);
+
+                }
+            });
+        }
+
+        function CloseManualAddModalWithAlert(alert) {
+            jQuery.noConflict(); // Sergeys change: uncommented this line
+            $("#popup").dialog('close');
+            alertify.alert(alert);
+        }
+
+        function opennSubmitPopup()
+        {
+            $("#fb-content1").modal("toggle");
+            //$.fancybox({
+            //    'content': $('#fb-content1').html(),
+            //    closeBtn: false,
+            //    closeClick: false,
+            //    modal: false,
+            //    type: 'html',
+            //    width: 400,
+            //    height: 300,
+            //    padding:0,
+            //    afterClose: function () {
+            //    },
+            //    afterShow: function () {
+            //        $('html').removeClass('fancybox-lock');
+
+            //        // fancybox-margin fancybox-lock
+            //    },
+            //    helpers: {
+            //        overlay: {
+            //            css: {
+            //                'background': 'rgba(0, 0, 0, 0.5)'
+            //            }
+            //        }
+            //    }
+            //});
+        }
+
+        //function OpenManualAddModalFullWidth(url) {
+        //    jQuery.noConflict();
+        //    $("#popup").dialog({
+        //        autoOpen: true,
+        //        modal: true,
+        //        height: 550,
+        //        width: 100%,
+        //        open: function () {
+        //            $("#modal").attr("src", url);
+
+        //        }
+        //    });
+        //}
+        //$(function () {
+        //    $.blockUI.defaults.css = {};
+        //    //jQuery.noConflict();
+        //    $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+        //});
+
+
+    </script>
+    <script type="text/javascript">
+        function openAddIteratePersonModal() {
+            $("#addIteratePerson").modal("toggle");
+        }
+        //jQuery.noConflict();
+        //jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
+        jQuery(document).ready(function ($) {
+            var error = '@ViewBag.Error';
+            if (error) {
+                alertify.alert(error);
+            }
+            //var height = $(window).height();
+            // $("#Splitter1").height(height);
+            //$("#Splitter1 t-pane").height(height);
+            //$("#Splitter2").height(height);
+            //$("#Splitter2 t-pane").height(height);
+            //$("#modal").height(height-$("#body header").height());
+            //$("#popap").height(height);
+            //logo uploading
+            $("#selectlogoForm").submit(function (e) {
+                var file_data = $('#selectlogo').prop('files')[0];
+                var form_data = new FormData();
+                form_data.append('uploadLogo', file_data);
+                $.ajax({
+                    url: '../Admin/UploadLogo/',
+                    type: 'POST',
+                    data: form_data,
+                    processData: false,
+                    contentType: false,
+                    cache: false
+                }).done(function (data) {
+                    if (data) {
+                        $('#IntellegesLogoHref').html(data);
+                    }
+                });
+                e.preventDefault();
+            });
+            $("#selectlogo").change(function (e) {
+                //submit form if the file selected
+                $("#selectlogoForm").submit();
+            });
+            $('#IntellegesLogoHref').click(function () {
+                @*alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to leave the Intelleges Compliance Process Automation Platform and visit www.intelleges.com. Is that OK?", function (e) {
+            if (e) {
+                window.location.replace("http://@Generic.SessionClass.SessionSingleton.EnterpriseURL");
+
+            } else {
+                // user clicked "cancel"
+                window.location.replace("https://intelleges.com");
+            }
+        });*@
+                alertify.confirm("Would you like to upload new logo?", function (result) {
+                    if (result) {
+                        $("#selectlogo").click();
+                    }
+                });
+
+            });
+        });
+
+        //
+    </script>
+
+    <script>
+        function GetURLParameter(ind) {
+
+
+            var index = window.location.href.indexOf("Dashbord1");
+
+            var sPageURL = window.location.href.substring(index + 10);
+
+
+
+            var values = sPageURL.split("/");
+
+
+
+
+            if (values.length < 0) {
+
+                return -1;
+            }
+            else {
+
+                if (ind == 0)
+                    return values[0];
+                else
+                    return values[1];
+
+            }
+        }
+        function GetCurrentTouchPoint(touchPointId) {
+            $.ajax({
+                url:'@Url.Action("GetCurrentTouchPoint","Admin",null)'+'/?touchPointId=' + touchPointId,
+                type: 'GET',
+                data: touchPointId,
+                processData: false,
+                contentType: false,
+                cache: false
+            }).done(function (data) {
+                if (data) {
+                    $('#TouchPointDescription').html(data.description);
+                }
+            });
+        }
+        function ChangeTouchpoint(touchPointId) {
+            $.ajax({
+                url: '../Admin/ChangeTouchpoint?touchPointId=' + touchPointId,
+                type: 'GET',
+                data: touchPointId,
+                processData: false,
+                contentType: false,
+                cache: false
+            }).done(function (data) {
+                if (data) {
+                    $('#TouchPointDescription').html(data.description);
+                }
+            });
+        }
+        jQuery(document).ready(function ($) {
+
+
+            $("#reports").change(function () {
+                if ($("#reports").val() != '') {
+                    if ($("#reports").val().indexOf("Rail") > 0) {
+                        window.location.assign($("#reports").val());
+                    } else {
+                        window.open($("#reports").val());
+                    }
+                }
+            });
+            //var touchPointId = $("#touchpoint").val() == "" ? 0 : parseInt($("#touchpoint").val());
+            GetCurrentTouchPoint(@Session["touchpoint"]);
+        });
+
+    </script>
+    <script src="/Scripts/bootstrap.js"></script>
+    @RenderSection("scripts", required: false)
+    @(Html.Telerik().ScriptRegistrar().jQuery(false).jQueryValidation(false)
+                                                            //.DefaultGroup(group => group
+                                                            //            .Add("~/Scripts/jquery-1.9.1.min.js")
+                                                            //.Combined(true)
+                                                            //.Compress(true)
+                                                            // ).jQuery(false)
+                                                            .OnDocumentReady(@<text>
+                                                                @* var splitter = $('#Splitter2').data('tSplitter');
+                                                                    splitter.size(".t-pane", $(window).height()+"px");
+                                                                           $(window).bind('resize', function() {
+                                                                            splitter.size(".t-pane", $(window).height()+"px");
+                                                                           });*@
+                                                            </text>)
+    )
+
+    @if (Request.Url.ToString().Trim().ToLower().Contains("dashbord1"))
+    {
+
+        <script>
+            function Update_Dashboard_Values() {
+                var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
+                ChangeTouchpoint(touchPointId);
+                var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+                window.location = "Dashbord1?id=" + touchPointId + "&groupid=" + groupId;
+            }
+        </script>
+    }
+    else
+
+    if (Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
+    {
+        <script>
+            function Update_Dashboard_Values() {
+                var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
+                ChangeTouchpoint(touchPointId);
+                var groupId = $("#Group").val() == "" ? 0 : parseInt($("#Group").val());
+                window.location = "dashboard2_1?id=" + touchPointId + "&groupid=" + groupId;
+            }
+        </script>
+    }
+    else
+    {
+        <script>
+            function Update_Dashboard_Values() {
+                var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
+                ChangeTouchpoint(touchPointId);
+            }
+        </script>
+    }
+
+</body>
+
+</html>
