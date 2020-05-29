@@ -1542,8 +1542,8 @@ namespace Generic.Controllers
             if (group != 0)
                 arguments += "groupID=" + group + ";";
 
-            //if (touchpoint != 0)
-               // arguments += "touchpointID=" + touchpoint + ";";
+            if (touchpoint != 0)
+                arguments += "touchpointID=" + touchpoint + ";";
 
             if (partnerType != 0)
                 arguments += "partnertypeID=" + partnerType + ";";
