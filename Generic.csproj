@@ -6699,7 +6699,7 @@
     <Content Include="Views\Admin\DifferentIPLogout.cshtml" />
     <Content Include="UploadTemplates\addPartnerTemplate2.xlsx" />
     <Content Include="Views\Partner\IterateFindPartnerResults.cshtml" />
-    <Content Include="Views\Shared\_AdminFullScreenLayout.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_AdminFullScreenLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
