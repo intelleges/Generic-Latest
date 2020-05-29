@@ -1053,6 +1053,40 @@ namespace Generic.Controllers
             Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
 
+            var excelData = abc.Select(i => new ExcelPartnerData
+            {
+                id = i.id,
+                enterprise = i.enterprise,
+                internalID = i.internalID,
+                PartnerName = i.PartnerName,
+                Contact = i.Contact,
+                phone = i.phone,
+                ContactEmail = i.ContactEmail,
+                dunsNumber = i.dunsNumber,
+                ContactTitle = i.ContactTitle,
+                owner = i.owner,
+                countryID = i.countryID,
+                Country = i.Country,
+                city = i.city,
+                state = i.state,
+                address = i.address,
+                zipcode = i.zipcode,
+                touchpointID = i.touchpointID,
+                Touchpoint = i.Touchpoint,
+                partnertypeID = i.partnertypeID,
+                Partnertype = i.Partnertype,
+                groupID = i.groupID,
+                Group = i.Group,
+                pptq = i.pptq,
+                AccessCode = i.AccessCode,
+                statusID = i.statusID,
+                status = i.status,
+                Expr1 = i.Expr1,
+                campaign = i.campaign,
+                active = i.active,
+                progress = i.progress,
+                CompletedAs = string.Empty
+            }).ToList();
             if (null != Session["Partner_Find_Touchpoint"])
             {
                 int? touchpointid = Convert.ToInt32(Session["Partner_Find_Touchpoint"]);
@@ -1060,32 +1094,23 @@ namespace Generic.Controllers
                 if (touchpointDetails.Count > 0)
                 {
                     var touchpointdat = touchpointDetails;
-                    foreach (var item in abc)
+                    foreach (var item in excelData)
                     {
-                        if (null != touchpointdat)
-                        {
-                            var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
-                            if (null != touchpointdata)
-                            {
-                                // item.CompletedAs = touchpointdata.title; //TODO:FIX
-                            }
-                        }
+                        if (null == touchpointdat)
+                            continue;
+                        var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
+                        if (null == touchpointdata)
+                            continue;
+                        item.CompletedAs = touchpointdata.title;
                     }
                 }
             }
-
             //var touchpointdat = ViewBag.TouchPointDetails as List<pr_getSpecialDesignation_Result>;
-
-
-
-
-
             var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<view_PartnerData>));
-
+            var serializer = new XmlSerializer(typeof(List<ExcelPartnerData>));
 
             //We turn it into an XML and save it in the memory
-            serializer.Serialize(stream, abc);
+            serializer.Serialize(stream, excelData);
             stream.Position = 0;
 
             //We return the XML from the memory as a .xls file
@@ -1093,6 +1118,11 @@ namespace Generic.Controllers
 
 
         }
+        public class ExcelPartnerData : view_PartnerData
+        {
+            public string CompletedAs { get; set; }
+        }
+
         public ActionResult InvitePartnersListDownload()
         {
 
@@ -4142,7 +4172,7 @@ namespace Generic.Controllers
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
                 var filterResults = !string.IsNullOrEmpty(Session["partnersearch"].ToString());
                 List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
-                var filteredPptqs = objPartnerDateList.Select(p=>p.pptq).ToList();
+                var filteredPptqs = objPartnerDateList.Select(p => p.pptq).ToList();
 
                 var ipsall = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
                 var psall = db.pr_getPartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
