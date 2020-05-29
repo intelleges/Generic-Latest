@@ -1,0 +1,3239 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.partner>
+
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI
+@using Generic.ViewModel
+
+@{
+    #region My
+    Layout = LayoutHelper.GetFullScreenLayout();
+    ViewBag.Title = "Iterate";
+    #endregion
+
+    List<Generic.person> persons = ViewBag.PersonAll as List<Generic.person>;
+}
+
+<style type="text/css">
+    #nad {
+        font-size: 11px !important;
+    }
+
+    html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dhx_month_body {
+        height: 20px !important;
+    }
+
+    #IteratePartners .t-filter-options.t-group.t-popup {
+        width: 155px !important;
+    }
+
+    .dhx_cal_date, .dhx_cal_next_button, .dhx_cal_prev_button, .dhx_cal_tab, .dhx_cal_today_button {
+        line-height: 20px !important;
+        height: 20px !important;
+        font-size: 10px !important;
+    }
+
+    .dhx_cal_tab {
+        width: 33px !important;
+    }
+
+    .dhx_cal_prev_button {
+        width: 20px !important;
+        right: 22px !important;
+    }
+
+    .dhx_cal_next_button {
+        right: 1px !important;
+        width: 20px !important;
+    }
+
+    .dhx_cal_tab.dhx_cal_tab_first {
+        left: 0px !important;
+    }
+
+    .dhx_cal_tab[name="week_tab"] {
+        left: 34px !important;
+    }
+
+    .dhx_cal_tab.dhx_cal_tab_last {
+        left: 68px !important;
+    }
+
+    .dhx_cal_today_button {
+        width: 37px !important;
+        right: 166px !important;
+        font-size: 10px !important;
+    }
+
+    .dhx_cal_date {
+        left: 49px !important;
+        font-size: 9px !important;
+    }
+
+    .dhx_cal_navline div, .dhx_cal_date {
+        top: 10px !important;
+    }
+
+    .dhx_cal_navline {
+        height: 40px !important;
+    }
+
+    #IteratePartners tr > td:hover .menu_block + .display_menu {
+        /*display: block !important;*/
+    }
+
+    #IteratePartners tr > td:hover .menu_block + .display_menu_right {
+        display: block !important;
+    }
+
+    .left-panel-group .btn.btn-primary {
+        font-size: 9px !important;
+    }
+
+    .btn.btn-primary {
+        font-size: 12px !important;
+    }
+
+    .remove-link {
+        color: red !important;
+        font-weight: bold;
+        font-size: 1.2em;
+        float: right;
+        margin-bottom: 5px;
+        margin-right: 20px;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: fixed;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .display_menu_right {
+        left: -178px;
+        overflow: visible;
+        position: fixed;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+
+    #IteratePartners tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+
+    .display_menu_right > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu_right li {
+        list-style: none outside none;
+        width: 143px;
+    }
+
+
+    .display_menu .sub-items {
+        display: none;
+    }
+
+    .display_menu > ul > li:hover > .sub-items {
+        /*display:block;*/
+    }
+</style>
+
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+
+<script>
+
+	jQuery(document).ready(function () {
+
+        $("#tabstrip a.t-link[href='#tabstrip-5']").append("<i class='glyphicon glyphicon-cog'></i>");
+        $("#touchpoint").change(function () {
+            var touchpoint = $("#touchpoint").val();
+            var defaultOption = "<option value>Select Partner Type</option>";
+            if (touchpoint) {
+                $.getJSON("GetPartnerTypes/" + touchpoint).done(function (result) {
+                    if (result) {
+                        var len = result.length;
+                        var i = 0;
+                        for (i = 0; i < len; i++) {
+                            defaultOption += "<option value='" + result[i].id + "'>" + result[i].name + "</option>";
+                        }
+
+                        $('#partnertype').html(defaultOption);
+                    }
+                });
+            }
+            else $("#partnertype").html(defaultOption);
+        });
+        $('#protocol').change(function () {
+            var objProtocolID = $('#protocol').val();
+            var formData = { protocolId: objProtocolID };
+            if (objProtocolID == "") {
+                var touchpointSelectList = "<option value=''>-Select-</option>";
+                $('#touchpoint').html(touchpointSelectList);
+                return;
+            }
+            $.ajax({
+                url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
+                type: "post",
+                data: formData,
+                success: function (data) {
+                    var len = data.Data.length;
+                    var i = 0;
+                    var touchpointSelectList = "<option value=''></option>";
+                    for (i = 0; i < len; i++) {
+                        touchpointSelectList += "<option value='" + data.Data[i].id + "'>" + data.Data[i].title + "</option>";
+                    }
+
+                    $('#touchpoint').html(touchpointSelectList);
+                    $('#touchpointDiv').show();
+
+                },
+                error: function (data) {
+                    var touchpointSelectList = "<option value=''> -Select-</option>";
+                    $('#touchpoint').html(touchpointSelectList);
+                }
+            });
+        });
+        if ("@ViewBag.Message" == "1") {
+            debugger;
+            alertify.set({
+                labels: {
+                    ok: "Invite Later", cancel: "Invite Now"
+                }
+            });
+            alertify.confirm("", function (e) {
+                if (e) {
+                    // Click no
+                } else {
+                    // click yes
+                    $.ajax({
+                        url: "@Url.Content("~/partner/InvitePartners")",
+                        type: "post",
+                        success: function (data) {
+
+                            alertify.set({
+                                labels: {
+                                    ok: "ok", cancel: "cancel"
+                                }
+                            });
+
+                            //dataClear();
+                            alertify.alert(data.Data.message);
+                            $('#alertify-ok').text('OK');
+                            var len = data.EventNotification.length;
+                            $('#btnInviteList').show();
+                            if (len == 0) {
+                                alertify.alert("Please wait, data processing");
+                                $('#alertify-ok').text('OK');
+                            } else {
+
+                                var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                                for (i = 0; i < len; i++)
+                                    events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                                $('#DivEventNotification').html(events);
+                            }
+
+                        },
+                        error: function (data) {
+
+                        }
+                    });
+                }
+            });
+        }
+        if ("@ViewBag.Message" == "2") {
+
+            alertify.alert('@ViewBag.MessageDetail');
+            dataClear();
+        }
+        if ("@ViewBag.Message" == "error") {
+
+            alertify.alert('@ViewBag.MessageDetail');
+            dataClear();
+        }
+
+
+        $('#btnInvite').click(function (e) {
+            e.preventDefault();
+        });
+
+        $('#btnInviteList').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersList")",
+                type: "post",
+                success: function (data) {
+                    var len = data.EventNotification.length;
+
+                    if (len == 0) {
+                        alertify.alert("Please wait, data processing");
+                    } else {
+
+                        var events = "<table><tr><td>Email</td><td>Loadgroup</td><td>Accesscode</td><td>Event</td><td>Reason</td><td>Protocol Touchpoint</td><td>Date</td></tr>";
+                        for (i = 0; i < len; i++)
+                            events += "<tr><td>" + data.EventNotification[i].email + "</td><td>" + data.EventNotification[i].loadgroup + "</td><td>" + data.EventNotification[i].accesscode + "</td><td>" + data.EventNotification[i].event + "</td><td>" + data.EventNotification[i].reason + "</td><td>" + data.EventNotification[i].protocolTouchpoint + "</td><td>" + data.EventNotification[i].timestamp + "</td></tr>";
+
+
+                        $('#DivEventNotification').html(events);
+                    }
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
+        $('#btnInvitelater').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "@Url.Content("~/partner/InvitePartnersLater")",
+                type: "post",
+                success: function (data) {
+                    alertify.alert(data.Data.message);
+
+                },
+                error: function (data) {
+                    alertify.alert(data.Data.message);
+                }
+            });
+        });
+
+        $("#btnClear").click(function (e) {
+            alertify.confirm("Please confirm you wish you clear all Iterate records", function (result) {
+                if (result) {
+                    $.post("ClearIterateData").done(function (postResult) {
+                        alertify.alert("All iterates removed");
+                        $("#IteratePartners").data("tGrid").ajaxRequest();
+                    });
+                }
+            });
+
+        });
+        $("#btnSave").click(function () {
+            if (iterate.selectedPartnerId) {
+                $.post("SaveIteratePartner", {
+                    partnerid: iterate.selectedPartnerId,
+                    name: $("#addPartner #name").val(),
+                    id: $("#addPartner #internalID").val(),
+                    address: $("#addPartner #address1").val(),
+                    phone: $("#addPartner #phone").val(),
+                    city: $("#addPartner #city").val(),
+                    state: $("#addPartner #state").val(),
+                    zipcode: $("#addPartner #zipcode").val(),
+                    firstName: $("#addPartner #firstName").val(),
+                    lastName: $("#addPartner #lastName").val(),
+                    title: $("#addPartner #title").val(),
+                    email: $("#addPartner #email").val(),
+                    url: $("#addPartner #dunsNumber").val(),
+                    na: $("#addPartner #nextaction").val(),
+                    nad: $("#addPartner #nad").data("tDateTimePicker").value().toISOString(),
+                    partnerStatus: $("#partnerstatus").val()
+                }).done(function (result) {
+                    if (result) {
+                        iterate.saved = true;
+                        $("#IteratePartners").data("tGrid").ajaxRequest();
+                        $("#evernotesDiv").jstree(true).refresh();
+                    }
+                });
+            }
+        });
+        $("#btnDownload").click(function (e) {
+            window.location.href = "ExportPartnerExcel";
+        });
+
+        function dataClear() {
+            $("#name").val("");
+            $("#internalID").val("");
+            $("#address1").val("");
+            $("#address2").val("");
+            $("#city").val("");
+            $("#state").val("0");
+            $("#province").val("");
+            $("#zipcode").val("");
+            $("#country").val("0");
+            $("#phone").val("");
+            $("#fax").val("");
+            $("#firstName").val("");
+            $("#lastName").val("");
+            $("#title").val("");
+            $("#email").val("");
+            $("#dunsNumber").val("");
+            $("#federalID").val("");
+            $("#owner").val("");
+            $("#author").val("");
+            $("#protocol").val("");
+            $("#touchpoint").val("");
+            $("#partnertype").val("");
+            $("#group").val("");
+            $("#DueDate").val("");
+        }
+    });
+    function doSomething() {
+
+    }
+
+    $("#btnConfirm").click(function () {
+        debugger;
+        alertify.alert('you choose Confirm');
+    });
+
+    $("#btnConfirmlater").click(function () {
+        debugger;
+        alertify.alert('you choose Confirm Later');
+    });
+</script>
+<script>
+    // For todays date;
+    Date.prototype.today = function () {
+        return this.toLocaleDateString("en-US");
+        // return ((this.getDate() < 10) ? "0" : "") + this.getDate() + "/" + (((this.getMonth() + 1) < 10) ? "0" : "") + (this.getMonth() + 1) + "/" + this.getFullYear();
+    }
+
+    // For the time now
+    Date.prototype.timeNow = function () {
+        return this.toLocaleTimeString("en-US");
+        // return ((this.getHours() < 10) ? "0" : "") + this.getHours() + ":" + ((this.getMinutes() < 10) ? "0" : "") + this.getMinutes() + ":" + ((this.getSeconds() < 10) ? "0" : "") + this.getSeconds();
+    }
+    var iterate = (function () {
+        return {
+            data: [],
+            selectedPartner: "",
+			person: null,
+            globalVars: {
+                allNotesIds: []
+            },
+            underDevelopment: "under development"
+        }
+    })();
+
+    //fill Iteration form on IteratePartners Grid RowSelect
+    function loadSelectedRowData(e) {
+        var partnerGrid = $("#IteratePartners").data("tGrid");
+        var row = e.row;
+        var selectedItem = partnerGrid.dataItem(row);
+
+        iterate.selectedPartnerId = selectedItem.id;
+        iterate.selectedPartner = selectedItem.name;
+        iterate.selectedPartnerData = selectedItem;
+        $('#iteratePrev').data('rowIndex', row.rowIndex - 1);
+        $('#iterateNext').data('rowIndex', row.rowIndex + 1);
+
+        //TODO : update next code
+        $("#addPartner #name").val(selectedItem.name);
+        $("#addPartner #internalID").val(selectedItem.internalID);
+        $("#addPartner #address1").val(selectedItem.address1);
+        $("#addPartner #address2").val(selectedItem.address2);
+        $("#addPartner #city").val(selectedItem.city);
+        $("#addPartner #state").val(selectedItem.state);
+        $("#addPartner #province").val("");
+        $("#addPartner #zipcode").val(selectedItem.zipcode);
+        $("#addPartner #country").text(selectedItem.country);
+        $("#addPartner #phone").val(selectedItem.phone);
+        $("#addPartner #fax").val(selectedItem.fax);
+        $("#addPartner #firstName").val(selectedItem.firstname);
+        $("#addPartner #lastName").val(selectedItem.lastname);
+        $("#addPartner #title").val(selectedItem.title);
+        $("#addPartner #email").val(selectedItem.email);
+        $("#addPartner #dunsNumber").val(selectedItem.dunsnumber);
+        $("#addPartner #federalID").val(selectedItem.federalID);
+        var accessCode = selectedItem.address2 && selectedItem.address2.split(" - ").length > 2 ? selectedItem.address2.split(" - ")[2] : "";
+        if (accessCode) {
+            $("#AccessCode").text("Access Code: " + accessCode);
+        }
+        //$("#owner").val("");
+        //$("#author").val("");
+        //$("#protocol").val("");
+        //$("#touchpoint").val("");
+        //$("#partnertype").val("");
+        //$("#group").val("");
+        //$("#DueDate").val("");
+        $("#partnerstatus").val(selectedItem.iteratePartnerStatus);
+        //$("#nad").data("tDateTimePicker").value(selectedItem.nextActionDate);
+        $("#nextaction").val(selectedItem.nextActionID);
+    }
+    function clearFields() {
+        $("#name").val("");
+        $("#internalID").val("");
+        $("#address1").val("");
+        $("#address2").val("");
+        $("#city").val("");
+        $("#state").val("0");
+        $("#province").val("");
+        $("#zipcode").val("");
+        // $("#country").text(selectedItem.country);
+        $("#phone").val("");
+        $("#fax").val("");
+        $("#firstName").val("");
+        $("#lastName").val("");
+        $("#title").val("");
+        $("#email").val("");
+        $("#dunsNumber").val("");
+        $("#federalID").val("");
+        //$("#owner").val("");
+        //$("#author").val("");
+        //$("#protocol").val("");
+        //$("#touchpoint").val("");
+        //$("#partnertype").val("");
+        //$("#group").val("");
+        //$("#DueDate").val("");
+        $("#partnerstatus").val("0");
+        //$("#nad").data("tDateTimePicker").value("");
+        $("#nextaction").val("0");
+    }
+
+    function AddNote(title, text, partner, partnerId) {
+    	$.fancybox.showLoading();
+
+        $("#addNoteDialog button[type='submit'], #addNoteDialog button[type='button']").prop("disabled", true);
+        $.post("AddNote", {
+            partnerName: partner,
+            noteTitle: title,
+            noteText: text,
+            partnerId: partnerId
+        }).done(function (result) {
+            $("#addNoteDialog button[type='submit'], #addNoteDialog button[type='button']").prop("disabled", false);
+            if (result !== "done") {
+                //window.location.href = result;
+            }
+            else {
+
+            	$.post("GetEvernoteText", { partnerId: partnerId }).done(function (e) {
+            		if (e.text) {
+            			var date = new Date();
+            			if (e.text !== "none") {
+
+            				CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
+            					callback: function () {
+
+            					}
+            				});
+
+            				$('#noteText1').html(e.text);
+            			} else {
+            				CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
+            					callback: function () {
+            					}
+            				});
+            			}
+            		} else {
+            			window.location.href = e;
+            		}
+
+            		$.fancybox.hideLoading();
+
+            	});
+
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+            }
+        });
+        //$.ajax({
+        //    type: "POST",
+        //    dataType: 'json',
+        //    url: "AddNote",
+        //    async:true,
+        //    data: {
+        //        partnerName: partner,
+        //        noteTitle: title,
+        //        noteText: text,
+        //        partnerId:partnerId
+        //    },
+        //    success: function (result) {
+
+        //        //                        HidePartnerFindLoader();
+        //    }
+        //});
+    }
+    function showNotesPanel() {
+        var splitter = $("#Splitter2").data("tSplitter");
+        var pane = $("#Splitter2 > .t-pane")[2]; // the 3d pane
+        splitter.expand(pane);
+    }
+    function showBottomPanel() {
+        var splitterFirst = $("#Splitter1").data("tSplitter");
+        var pane = $("#Splitter1 > .t-pane")[2]; // the bottom pane
+        var firstPane = $("#Splitter1 > .t-pane")[0]; // the top pane
+        splitterFirst.expand(pane);
+        splitterFirst.collapse(firstPane);
+        $("body").scrollTop($("body")[0].scrollHeight);
+    }
+    function checkoAuth() {
+        var checkResult = false;
+        $.ajax({
+            url: "IteratePartnerCheckoAuth",
+            async: false,
+            type: "POST"
+        }).done(function (result) {
+            if (result !== true) {
+                alertify.alert("Please wait for authentification");
+                window.location.href = result;
+                checkResult = false;
+            } else checkResult = true;
+        });
+        return checkResult;
+    }
+
+    function Grid_onRowDataBound(e){
+        var row = e.row;
+        var data = e.dataItem;
+        $("#partnerstatus option").each(function(){
+            if($(this).val()){
+                $("#PSU"+data.id).append("<li><a href='#' onclick='changeStatus(" + data.id + "," + $(this).val() + ");'>" + $(this).text() + "</a></li>");
+            }
+        });
+        $("#iterateObjections option").each(function () {
+            if ($(this).val()) {
+                $("#OBJ_" + data.id).append("<li><a href='#' onclick='changeObjection(" + data.id + "," + $(this).val() + ");'>" + $(this).text() + "</a></li>");
+            }
+        });
+    }
+
+    function Grid1_onDataBound(e) {
+    	$('#buttons-panel .btn-primary').addClass('disabled');
+    	$('#closeNoteHistoryPopup').removeClass('disabled');
+    }
+
+    var alternatives = [];
+    var alternativeIndex = 0;
+    var rowDataMain = null;
+    var element = null;
+
+    function Grid_onDataBound(e) {
+    	$("#IteratePartners td").mouseover(function () {
+    		if ($(this).find('.display_menu').length > 0) {
+    			var offset = $(this).find('.menu_block').offset();
+    			$(this).find('.display_menu').css({ position: 'fixed', left: offset.left + 40, top: offset.top - $(document).scrollTop() });
+    			$(this).find('.display_menu').show();
+    		}
+
+    		if ($(this).find('.display_menu_right').length > 0) {
+    			var offset = $(this).find('.menu_block').offset();
+    			$(this).find('.display_menu_right').css({ position: 'fixed', left: offset.left - 178, top: offset.top - $(document).scrollTop() });
+    			$(this).find('.display_menu_right').show();
+    		}
+
+    	}).mouseout(function () {
+    		$(this).find('.display_menu').hide();
+    		$(this).find('.display_menu_right').hide();
+    	});
+
+    	$(".display_menu > ul > li").mouseover(function () {
+    		$(this).find('.sub-items').show();
+
+    	}).mouseout(function () {
+    		$(this).find('.sub-items').hide();
+    	});
+
+        $("td a.menu_block.title").each(function () {
+            if ($(this).text().length > 13) {
+                $(this).text($(this).text().substr(0, 13) + "...");
+            }
+        });
+        //append time zone information
+        $(".address2").each(function () {
+            var text = $(this).text();
+            var result="";
+            if (text && text.length>2) {
+                text = text.substr(0, 3);
+                var offset = 0;
+                var cMoment = moment();
+                switch (text) {
+                    case "EST": offset = -5 * 60;
+                        break;
+                    case "CST": offset = -6 * 60; break;
+                    case "MST": offset = -7 * 60; break;
+                    case "PST": offset = -8 * 60; break;
+                default:break;
+                }
+                if (offset != 0) {
+                    cMoment.utcOffset(offset);
+                    var startMoment = moment(cMoment).startOf("day");
+                    //=12.00 PM
+                    if (cMoment.isSame(moment(startMoment).hours(12))) {
+                        result = "NOON - ";
+                    }
+                    else
+                        if (cMoment.isBetween(startMoment, moment(startMoment).hours(5).minutes(59).seconds(59))) {
+                            result = "EARLY MORNING - ";
+                        } else
+                        //00:01 am - 11:59 am
+                            if (cMoment.isBetween(moment(startMoment).hours(6), moment(startMoment).hours(11).minutes(59).seconds(59))) {
+                        result = "MORNING - ";
+                    } else {
+                        //00.01 PM -5.59 PM
+                        if (cMoment.isBetween(moment(startMoment).hours(12), moment(startMoment).hours(17).minutes(59).seconds(59))) {
+                            result = "AFTERNOON - ";
+                        } else
+                            //06.00 PM -11.59 PM
+                            if (cMoment.isBetween(moment(startMoment).hours(18), moment(startMoment).hours(23).minutes(59).seconds(59))) {
+                            result = "EVENING - ";
+                        }
+                    }
+                }
+                if (result) {
+                    $(this).text(result + " " + $(this).text());
+                }
+            }
+        });
+        $(".display_menu ul li a").click(function (e) {
+            //note menu item click
+            if ($(this).text() === "Note") {
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
+            }
+            if ($(this).text() === "Email") {
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                var pptq = rowData.pptq;
+                if (pptq === undefined)
+                    pptq = null;
+
+                person = rowData.person;
+
+                if (pptq)
+                    $('#DropDownSubjects').data("pptq", pptq);
+                else
+                    $('#DropDownSubjects').removeData("pptq");
+                $.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + rowData.person + "&pptq=" + pptq).done(function (result) {
+                    if (result) {
+
+                        $('#DropDownSubjects')
+                            .empty()
+                            .append('<option selected="selected">Please select automail</option>');
+
+
+                        $.each(result.list, function (index, val) {
+                            $('#DropDownSubjects')
+                                .append($("<option></option>")
+                                    .attr("value", val.id)
+                                    .text(val.subject));
+                        });
+                    }
+                });
+
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartnerId1 = rowData.id;
+                iterate.person = rowData.person;
+                iterate.email = rowData.email;
+                iterate.pptq = rowData.pptq;
+                iterate.selectedPartner = rowData.name;
+                $("#emailSubject").val("");
+                CKEDITOR.instances.emailText.setData("");
+                //if (!checkoAuth()) return;
+                $("#emailDialog").modal("toggle");
+            }
+            if ($(this).text() === "Meet") {
+                e.preventDefault();
+                alertify.alert('Functionality not available yet.');
+            }
+
+            if ($(this).text() === "Update") {
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                element = $(this).parents("tr")[0];
+                console.log(element);
+
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                $("#updateDialog #id").val(rowData.id);
+                $("#updateDialog #pptq").val(rowData.pptq);
+                $("#updateDialog #name").val(rowData.name);
+                $("#updateDialog #firstName").val(rowData.firstname);
+                $("#updateDialog #lastName").val(rowData.lastname);
+                $("#updateDialog #title").val(rowData.title);
+                $("#updateDialog #email").val(rowData.email);
+                $("#updateDialog #phone").val(rowData.phone);
+
+                $.get("@Url.Action("GetInfoByPptq", "Partner")" + '?pptq=' + rowData.pptq, function (data) {
+                    $("#updateDialog #gr").val(data.gr);
+                    $("#updateDialog #pt").val(data.pt);
+                });
+
+                $('#alternativeForm').parent().hide();
+                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
+                $("#updateDialog .modal-dialog").removeClass('modal-lg');
+                $('#alternativeForm .previous').hide();
+                $('#alternativeForm .next').hide();
+
+                rowDataMain = rowData;
+                console.log(rowDataMain);
+                console.log($(this).parents("tr")[0]);
+                alternatives = [];
+                alternativeIndex = 0;
+
+                if (rowData.phone == 9999999999 || rowData.email == '') {
+                    $.fancybox.showLoading();
+                    $.post("@Url.Action("SearchAlternative", "Partner")", { name: rowData.name, email: rowData.email, lastname: rowData.lastname })
+                        .done(function (data) {
+                            $.fancybox.hideLoading();
+                            if (data.length != 0) {
+
+                                alternatives = data;
+                                alternativeIndex = 0;
+
+                                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-6');
+                                $("#updateDialog .modal-dialog").addClass('modal-lg');
+
+                                $('#firstName_a').val(data[0].firstname);
+                                $('#lastName_a').val(data[0].lastname);
+                                $('#title_a').val(data[0].title);
+                                $('#phone_a').val(data[0].phone);
+                                $('#email_a').val(data[0].email);
+
+                                if (data.length > 1) {
+                                    $('#alternativeForm .previous').show();
+                                    $('#alternativeForm .next').show();
+                                }
+
+                                $('#alternativeForm').parent().show();
+                            }
+                            else {
+                                //alertify.alert('there is no match, sorry.');
+                            }
+                        });
+                }
+
+            	$("#updateDialog").modal("toggle");
+            }
+            if ($(this).text() === "Nurture/Remind") {
+                e.preventDefault();
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                iterate.selectedPersonId = rowData.personID;
+                iterate.selectedPartnerId = rowData.id;
+                $.post("NurtureRemindIteratePartner", {
+                    internalId: rowData.internalID,
+                    email: rowData.email,
+                    partnerId: rowData.id,
+                    personId: rowData.personID
+                }).done(function (result) {
+                    if (result !== "NOT_RELATED") {
+                        alertify.alert(result);
+                    }
+                    else {
+                        $("#nurturePartner").modal("toggle");
+                    }
+                });
+            }
+            if ($(this).text() === "Add") {
+                //var partnerGrid = $("#IteratePartners").data("tGrid");
+                //var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                //iterate.selectedPartnerId = rowData.id;
+                //$("#newIteratePartner").modal("toggle");
+                window.location.href = "@Url.Action("Create", "Partner")";
+            }
+            if ($(this).text() === "Sample\\Subscribe") {
+            	alertify.alert('Functionality not available yet.');
+
+                /*var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                alertify.confirm("Please confirm that "+rowData.firstname+" "+rowData.lastname+" has agreed to a free 30 day license (subscription/free trial) for Intelleges Standard Edition Product", function (e) {
+                    if (e) {
+                        $.post("IteratePartnerSubscription", { iPartnerId: rowData.id }).done(function (result) {
+                            if (!result.error) {
+                                alertify.alert("Partner Invited");
+                            } else {
+                                alertify.alert(result.error);
+                            }
+                        });
+                    }
+                }); */
+
+            }
+            if ($(this).text() === "Text") {
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                var rowData = partnerGrid.dataItem($(this).parents("tr")[0]);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                $("#textMessageDialog").modal("toggle");
+            }
+        });
+        if (iterate.saved) {
+            $($("#Company" + iterate.selectedPartnerId).parents("tr")[0]).click();
+            iterate.saved = false;
+
+        }
+        else {
+            iterate.selectedPartnerId = 0;
+            clearFields();
+        }
+    }
+
+    function updateDialogPrevious()
+    {
+        console.log(element);
+        var el = $(element).prev()[0];
+        if (el != undefined)
+         openElement(el);
+    }
+
+    function updateDialogNext() {
+        console.log(el);
+        var el = $(element).next()[0];
+        if (el != undefined)
+            openElement(el);
+    }
+
+    function openElement(el) {
+
+                var partnerGrid = $("#IteratePartners").data("tGrid");
+                element = el;
+                var rowData = partnerGrid.dataItem(el);
+                console.log(rowData);
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = rowData.id;
+                iterate.selectedPartner = rowData.name;
+                $("#updateDialog #id").val(rowData.id);
+                $("#updateDialog #pptq").val(rowData.pptq);
+                $("#updateDialog #name").val(rowData.name);
+                $("#updateDialog #firstName").val(rowData.firstname);
+                $("#updateDialog #lastName").val(rowData.lastname);
+                $("#updateDialog #title").val(rowData.title);
+                $("#updateDialog #email").val(rowData.email);
+                $("#updateDialog #phone").val(rowData.phone);
+
+                $.get("@Url.Action("GetInfoByPptq", "Partner")" + '?pptq=' + rowData.pptq, function (data) {
+                    $("#updateDialog #gr").val(data.gr);
+                    $("#updateDialog #pt").val(data.pt);
+                });
+
+                $('#alternativeForm').parent().hide();
+                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-12');
+                $("#updateDialog .modal-dialog").removeClass('modal-lg');
+                $('#alternativeForm .previous').hide();
+                $('#alternativeForm .next').hide();
+
+                rowDataMain = rowData;
+                alternatives = [];
+                alternativeIndex = 0;
+
+                if (rowData.phone == 9999999999 || rowData.email == '') {
+                    $.fancybox.showLoading();
+                    $.post("@Url.Action("SearchAlternative", "Partner")", { name: rowData.name, email: rowData.email, lastname: rowData.lastname })
+                        .done(function (data) {
+                            $.fancybox.hideLoading();
+                            if (data.length != 0) {
+
+                                alternatives = data;
+                                alternativeIndex = 0;
+
+                                $("#updateDialog #madalEmailForm").parent().attr('class', 'col-lg-6');
+                                $("#updateDialog .modal-dialog").addClass('modal-lg');
+
+                                $('#firstName_a').val(data[0].firstname);
+                                $('#lastName_a').val(data[0].lastname);
+                                $('#title_a').val(data[0].title);
+                                $('#phone_a').val(data[0].phone);
+                                $('#email_a').val(data[0].email);
+
+                                if (data.length > 1) {
+                                    $('#alternativeForm .previous').show();
+                                    $('#alternativeForm .next').show();
+                                }
+
+                                $('#alternativeForm').parent().show();
+                            }
+                            else {
+                                //alertify.alert('there is no match, sorry.');
+                            }
+                        });
+                }
+
+            	//$("#updateDialog").modal("toggle");
+    }
+
+    function redgreenBox(element) {
+        if ($(element).hasClass('red-box')) {
+            $(element).removeClass('red-box');
+            $(element).addClass('green-box');
+        }
+        else {
+            $(element).removeClass('green-box');
+            $(element).addClass('red-box');
+        }
+    }
+
+    function alternativeDialogPrevious()
+    {
+        if (alternativeIndex - 1 >= 0) {
+            alternativeIndex = alternativeIndex-1;
+            $('#firstName_a').val(alternatives[alternativeIndex].firstname);
+            $('#lastName_a').val(alternatives[alternativeIndex].lastname);
+            $('#title_a').val(alternatives[alternativeIndex].title);
+            $('#phone_a').val(alternatives[alternativeIndex].phone);
+            $('#email_a').val(alternatives[alternativeIndex].email);
+        }
+    }
+
+    function alternativeDialogNext() {
+        if (alternativeIndex + 1 < alternatives.length) {
+            alternativeIndex = alternativeIndex+1;
+            $('#firstName_a').val(alternatives[alternativeIndex].firstname);
+            $('#lastName_a').val(alternatives[alternativeIndex].lastname);
+            $('#title_a').val(alternatives[alternativeIndex].title);
+            $('#phone_a').val(alternatives[alternativeIndex].phone);
+            $('#email_a').val(alternatives[alternativeIndex].email);
+        }
+    }
+
+    function updateDialogClear() {
+    	$("#updateDialog #name").val('');
+    	$("#updateDialog #firstName").val('');
+    	$("#updateDialog #lastName").val('');
+    	$("#updateDialog #title").val('');
+    	$("#updateDialog #email").val('');
+    	$("#updateDialog #phone").val('');
+    }
+
+    function showNoteEditor(partnerId, partnerName) {
+        //if (!checkoAuth()) return;
+        $.post("GetEvernoteText", { partnerId: partnerId }).done(function (e) {
+            if (e.text) {
+                var date = new Date();
+                if (e.text !== "none") {
+
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>" , {
+                        callback: function () {
+                            $("#noteTitle").val(partnerName);
+                            $("#noteTitle").attr("disabled", true);
+                            $("#addNoteDialog").modal("toggle");
+                        }
+                    });
+
+                    $('#noteText1').html(e.text);
+                } else {
+                    CKEDITOR.instances.noteText.setData("<hr/><div>" + date.today() + "@@" + date.timeNow() + "-note added - by " + e.email + "</div>", {
+                        callback: function () {
+                            $("#noteTitle").val(partnerName);
+                            $("#noteTitle").attr("disabled", true);
+                            $("#addNoteDialog").modal("toggle");
+                        }
+                    });
+                }
+            } else {
+                window.location.href = e;
+            }
+
+        });
+    }
+
+    @section onSplitter2Load{
+    if ('@ViewBag.showNotes' === "True") {
+        showNotesPanel();
+    }
+    if ('@ViewBag.gmailAuth' === "True") {
+        checkoAuth();
+    }
+    }
+    function loadNotesIds() {
+        $.post("getIteratePartnerNoteIds").done(function (result) {
+            if (result) {
+                iterate.globalVars.allNotesIds = result;
+            }
+        });
+    }
+
+
+    //#region First declaration
+    jQuery(document).ready(function ($) {
+        loadNotesIds();
+
+        $("#btnLoad").click(function () {
+            //$(".t-button.t-upload-button").click();
+            $("#excelFile").click();
+        });
+        $("#addEverNote").click(function () {
+            //AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);
+        });
+        $("#addNoteDialog").submit(function (e) {
+            e.preventDefault();
+            AddNote($("#noteTitle").val(), $("#noteText").val(), iterate.selectedPartner, iterate.selectedPartnerId);
+        });
+        $("#textMessageDialogForm").submit(function (e) {
+            e.preventDefault();
+            $.post("SendTextMessage", { text: $("#textMessageDialogForm #msgText").val(), partnerId: iterate.selectedPartnerId }).done(function (result) {
+                if (result.error) {
+                    alertify.alert(result.error);
+                } else {
+                    alertify.alert(result);
+                    $("#textMessageDialog").modal("toggle");
+                }
+            });
+        });
+        $("#newIteratePartner").submit(function (e) {
+            e.preventDefault();
+            $("#newIteratePartner :input").prop("disable", true);
+            $.ajax({
+                url: "AddNewIteratePartner", data: {
+                    partnerId: iterate.selectedPartnerId,
+                    firstName: $("#newIteratePartner #firstName").val(),
+                    lastName: $("#newIteratePartner #lastName").val(),
+                    phoneNumber: $("#newIteratePartner #phoneNumber").val(),
+                    email: $("#newIteratePartner #email").val(),
+                    title: $("#newIteratePartner #title").val()
+                }, method: "POST", async: true
+            }).done(function (result) {
+                $("#newIteratePartner").modal("toggle");
+                $("#newIteratePartner :input").prop("disable", false);
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+            }).fail(function () {
+                alertify.alert("There was an error during adding operation. Please try again later.");
+                $("#newIteratePartner :input").prop("disable", false);
+            });
+
+        });
+
+        $("#emailFooterDialogForm").submit(function (e) {
+            e.preventDefault();
+            $.post("EditEmailFooter", { text: $("#emailFooterDialogForm #emailFooter").val() }).done(function (result) {
+                $("#emailFooterDialog").modal("toggle");
+            });
+        });
+
+        $("#updateDialog").submit(function (e) {
+        	e.preventDefault();
+        	var formdata = new FormData(); //FormData object
+
+        	formdata.append("id", $("#updateDialog #id").val());
+        	formdata.append("name", $("#updateDialog #name").val());
+        	formdata.append("firstName", $("#updateDialog #firstName").val());
+        	formdata.append("lastName", $("#updateDialog #lastName").val());
+        	formdata.append("title", $("#updateDialog #title").val());
+        	formdata.append("email", $("#updateDialog #email").val());
+            formdata.append("phone", $("#updateDialog #phone").val());
+            formdata.append("pptq", $("#updateDialog #pptq").val());
+
+        	$.ajax({
+        		url: 'UpdateIterate',
+        		type: 'POST',
+        		data: formdata,
+        		processData: false,
+        		contentType: false,
+        		cache: false
+        	}).done(function (result) {
+        		$("#updateDialog button[type='submit'], #updateDialog button[type='button']").prop("disabled", false);
+        		if (result.error) {
+        			$("#updateDialog").modal("toggle");
+        			alertify.alert(result.error);
+        		} else {
+        				$("#IteratePartners").data("tGrid").ajaxRequest();
+        				//$("#evernotesDiv").jstree(true).refresh();
+        				$("#updateDialog").modal("toggle");
+
+        		}
+
+        	});
+        });
+
+    	//send email to partner
+        $("#noteUpdateDialog").submit(function (e) {
+        	e.preventDefault();
+        	var formdata = new FormData();
+        	formdata.append("id", selectedItemNote.iteratePartnerNote);
+        	formdata.append("text", $("#noteUpdateText").val());
+
+        	$("#noteUpdateDialog input[type='submit'], #noteUpdateDialog input[type='button']").prop("disabled", true);
+
+        	$.ajax({
+        		url: 'UpdateIterateNote',
+        		type: 'POST',
+        		data: formdata,
+        		processData: false,
+        		contentType: false,
+        		cache: false
+        	}).done(function (result) {
+        		$("#noteUpdateDialog input[type='submit'], #noteUpdateDialog input[type='button']").prop("disabled", false);
+
+        		$("#noteUpdateDialog").modal("toggle");
+
+        		var url = '@Url.Action("GetIterateNotes", "Partner")' + '?partnerId=' + iterate.selectedPartnerId;
+        		$.fancybox({
+        			closeBtn: false,
+        			closeClick: false,
+        			modal: true,
+        			href: url,
+        			type: 'ajax',
+        			minWidth: 400,
+        			minHeight: 150
+        		});
+        	});
+        });
+
+
+
+
+        //send email to partner
+        $("#emailDialog").submit(function (e) {
+
+        	e.preventDefault();
+        	//Email Sent to {IteatePartner.Email]
+
+        	alertify.set({
+        		labels: {
+        			ok: "Yes", cancel: "No"
+        		}
+        	});
+
+        	alertify.confirm("Please confirm you want to send '" + $("#emailSubject").val() + "' to "+iterate.email, function (e) {
+        		if (e) {
+
+        			var formdata = new FormData(); //FormData object
+        			var fileInput = document.getElementById('EmailAttachmentUpload');
+        			////Iterating through each files selected in fileInput
+        			for (i = 0; i < fileInput.files.length; i++) {
+        				//Appending each file to FormData object
+        				formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        			}
+        			fileInput = document.getElementById('EmailAttachmentUpload2');
+        			////Iterating through each files selected in fileInput
+        			for (i = 0; i < fileInput.files.length; i++) {
+        				//Appending each file to FormData object
+        				formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        			}
+        			formdata.append("iterateTextId", $("#DropDownSubjects").val());
+                    formdata.append("partnerId", iterate.selectedPartnerId);
+                    formdata.append("pptq", iterate.pptq);
+        			formdata.append("subject", $("#emailSubject").val());
+        			formdata.append("text", $("#emailText").val());
+        			formdata.append("userDate", new Date().toISOString());
+        			formdata.append("ccSender", $("#ccSender").prop("checked"));
+
+
+        			$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+        			$.ajax({
+        				url: 'SendIteratePartnerEmail',
+        				type: 'POST',
+        				data: formdata,
+        				processData: false,
+        				contentType: false,
+        				cache: false
+        			}).done(function (result) {
+        				$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+        				if (result.error) {
+        					$("#emailDialog").modal("toggle");
+        					alertify.alert(result.error);
+        				} else {
+        					if (result === "done") {
+        						$("#IteratePartners").data("tGrid").ajaxRequest();
+        						$("#emailDialog").modal("toggle");
+
+        						alertify.confirm("Email Sent to " + iterate.email + ". Would you like to transfer to Intelleges colleague?", function (e) {
+        							if (e) {
+        								alertify.set({
+        									labels: {
+        										ok: "Ok", cancel: "Cancel"
+        									}
+        								});
+
+        								$('#transferDialog').modal("toggle");
+
+        							}
+        						});
+
+        					}
+        					else {
+        						window.location.href = result;
+        					}
+        				}
+
+        			});
+        		}
+        	});
+
+        });
+
+
+
+
+
+        $("#nurturePartner").submit(function (e) {
+            e.preventDefault();
+            $.post("CreateAndInviteIteratePartner", {
+                partnerId: iterate.selectedPartnerId,
+                personId: iterate.selectedPersonId,
+                partnertype: $("#partnerType").val(),
+                group: $("#partnerGroup").val()
+            }).done(function (result) {
+                if (result) {
+                    $("#nurturePartner").modal("toggle");
+                    $("#IteratePartners").data("tGrid").ajaxRequest();
+                    //$("#evernotesDiv").jstree(true).refresh();
+                    alertify.alert(result);
+                }
+            });
+        });
+
+        //#region partnerspanel
+        function validateControl() {
+
+            if ($("#name").val() == "") {
+                alertify.alert("Name is required");
+                return false;
+            }
+            if ($("#internalID").val() == "") {
+                alertify.alert("internalID is required");
+                return false;
+            }
+
+            if ($("#firstName").val() == "") {
+                alertify.alert("First Name is required");
+                return false;
+            }
+            if ($("#lastName").val() == "") {
+                alertify.alert("Last Name is required");
+                return false;
+            }
+            if ($("#email").val() == "") {
+                alertify.alert("Email is required");
+                return false;
+            }
+            if ($("#protocol").val() == "") {
+                alertify.alert("Protocol is required");
+                return false;
+            }
+            if ($("#touchpoint").val() == "") {
+                alertify.alert("Touchpoint is required");
+                return false;
+            }
+            if ($("#DueDate").val() == "") {
+                alertify.alert("Due Date is required");
+                return false;
+            }
+            if ($("#group").val() == "") {
+                alertify.alert("Group is required");
+                return false;
+            }
+            if ($("#partnertype").val() == "") {
+                alertify.alert("Partner type is required");
+                return false;
+            }
+            if ($("#owner").val() == "") {
+                alertify.alert("Owner is required");
+                return false;
+            }
+
+            if ($("#address1").val() === "" && $("#address2").val() === "") {
+                alertify.alert("Address is required");
+                return false;
+            }
+            if ($("#city").val() === "") {
+                alertify.alert("City is required");
+                return false;
+            }
+            if ($("#state").val() === "") {
+                alertify.alert("State is required");
+                return false;
+            }
+            if ($("#zipcode").val() === "") {
+                alertify.alert("Zip Code is required");
+                return false;
+            }
+            if ($("#country").val() === "") {
+                alertify.alert("Country is required");
+                return false;
+            }
+            if ($("#phone").val() === "") {
+                alertify.alert("Phone is required");
+                return false;
+            }
+            if ($("#title").val() === "") {
+                alertify.alert("Title is required");
+                return false;
+            }
+            if ($("#dunsNumber").val() === "") {
+                alertify.alert("DUNS Number is required");
+                return false;
+            }
+            if ($("#dunsNumber").val() === "") {
+                alertify.alert("DUNS Number is required");
+                return false;
+            }
+        }
+        $("#searctText").keypress(function (event) {
+            if (event.which == 13) {
+                seacrhPartner();
+            }
+        });
+        $("#btnSearch").click(function () {
+            seacrhPartner();
+        });
+        function ShowPartnerFindLoader() {
+            $(".loader").show();
+        }
+        function HidePartnerFindLoader() {
+            $(".loader").hide();
+        }
+        function rowSelected(row) {
+            $('#tblPartners tbody tr').removeClass("info");
+            $(row).addClass("info");
+            for (var i = 0; i < iterate.data.length; i++) {
+                if (iterate.data[i].id == $(row).data().partnerid) {
+                    $("#name").val(iterate.data[i].PartnerName);
+                    $("#internalID").val(iterate.data[i].internalID);
+                    $("#address1").val(iterate.data[i].address);
+                    $("#phone").val(iterate.data[i].phone);
+                    $("#city").val(iterate.data[i].city);
+                    $("#state").val(iterate.data[i].state);
+                    $("#zipcode").val(iterate.data[i].zipcode);
+                    var names = iterate.data[i].Contact.split(' ');
+                    if (names.length > 0)
+                        $("#firstName").val(names[0]);
+                    if (names.length > 2)
+                        $("#lastName").val(names[2]);
+                    else if (names.length > 1)
+                        $("#lastName").val(names[1]);
+                    $("#title").val(iterate.data[i].ContactTitle);
+                    $("#email").val(iterate.data[i].ContactEmail);
+                    $("#dunsNumber").val(iterate.data[i].dunsNumber);
+                    $("#group").val(iterate.data[i].groupID);
+                    $("#touchpoint").val(iterate.data[i].touchpointID);
+                    $("#partnertype").val(iterate.data[i].partnertypeID);
+                    break;
+                }
+            }
+        }
+        function seacrhPartner(load) {
+            if (!load) {
+                var searchText = $("#searctText").val();
+                if (searchText) {
+                    ShowPartnerFindLoader();
+                    $("#tblPartners tbody").empty();
+                    $.ajax({
+                        type: "POST",
+                        url: "IterateContacts",
+                        data: {
+                            searchText: searchText
+                        },
+                        success: function (result) {
+                            if (result) {
+                                if (result.length > 0) {
+                                    iterate.data = result;
+                                    for (var i = 0; i < result.length; i++) {
+                                        addRow(result[i]);
+                                    }
+                                    $('#tblPartners tbody tr').click(function () {
+                                        rowSelected(this);
+                                        // row was clicked
+                                    });
+                                } else {
+                                    addNotFoundRow();
+                                }
+                            }
+                            HidePartnerFindLoader();
+                        }
+                    });
+                }
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "IterateAllContacts",
+                    success: function (result) {
+                        $("#tblPartners tbody").empty();
+                        if (result) {
+                            if (result.length > 0) {
+
+                                for (var i = 0; i < result.length; i++) {
+                                    addRow(result[i], true);
+                                }
+                                $('#tblPartners tbody tr').click(function () {
+                                    rowSelected();
+                                });
+                            } else {
+                                addNotFoundRow();
+                            }
+                        }
+                        HidePartnerFindLoader();
+                    }
+                });
+            }
+        }
+        function addNotFoundRow() {
+            $("#tblPartners tbody").append("<tr><td><div>Partners not found</div></td></tr>");
+        }
+        function addRow(data, all) {
+            if (!all) {
+                var imageClass = "";
+                switch (data.statusID) {
+                    case 6: imageClass = "gradient-red"; break;
+                    case 7: imageClass = "gradient-yellow"; break;
+                    case 8: imageClass = "gradient-green"; break;
+                }
+                $("#tblPartners tbody").append("<tr data-partnerid='" + data.id + "'><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.Contact + "</div></td><td><div>" + data.PartnerName + "</div></td></tr>");
+            }
+            else {
+                var imageClass = "";
+                switch (data.status) {
+                    case 6: imageClass = "gradient-red"; break;
+                    case 7: imageClass = "gradient-yellow"; break;
+                    case 8: imageClass = "gradient-green"; break;
+                }
+                $("#tblPartners tbody").append("<tr><td><div class='line-wrapper'><div class='img img-circle " + imageClass + "' title='" + data.status + "' ></div></div></td><td><div>" + data.FirstName + " " + data.LastName + "</div></td><td><div>" + data.name + "</div></td></tr>");
+            }
+        }
+        function nextRow() {
+            if ($(".table tr.info").length > 0) {
+                $(".table tr.info").next().click();
+            } else $(".table tbody tr:first-child").click();
+        }
+        function prevRow() {
+            if ($(".table tr.info").length > 0) {
+                $(".table tr.info").prev().click();
+            } else $(".table tbody tr:last-child").click();
+        }
+
+        $(".clickable").click(function () {
+            //if ($(".table tr").length === 0)
+            // return;
+            if ($(this).text() === "<<")
+                $("#IteratePartners tr.t-state-selected").prev().click();//prevRow();
+            else $("#IteratePartners tr.t-state-selected").next().click();// nextRow();
+        });
+        //#endregion
+    });
+
+    var iterateEmailTextId = -1;
+    var isoneattachremoved = false;
+    var istwoattachremoved = false;
+
+    function editIterateEmailText() {
+    	iterateEmailTextId = $("#DropDownSubjects").val();
+    	$("#DropDownSubjects").parent().hide();
+    	$('#text1').parent().removeClass('hidden');
+    	$('#footer1').parent().removeClass('hidden');
+    	$('#emailText').parent().addClass('hidden');
+
+    	if ($('#EmailAttachmentUpload_attach2').hasClass('hidden'))
+    		$('#EmailAttachmentUpload4').parent().removeClass('hidden');
+    	else
+    		$('#EmailAttachmentUpload_attach2').find('.remove-link').removeClass('hidden');
+
+    	if ($('#EmailAttachmentUpload_attach').hasClass('hidden'))
+    		$('#EmailAttachmentUpload3').parent().removeClass('hidden');
+    	else
+    		$('#EmailAttachmentUpload_attach').find('.remove-link').removeClass('hidden');
+
+    	$('#EmailAttachmentUpload').parent().addClass('hidden');
+    	$('#EmailAttachmentUpload2').parent().addClass('hidden');
+
+    	$('#sendButton').addClass('hidden');
+    	$('#testButton').addClass('hidden');
+    	$('#addButton').addClass('hidden');
+    	$('#editButton').addClass('hidden');
+    	$('#saveButton').removeClass('hidden');
+    	$('#cancelButton').removeClass('hidden');
+
+    	document.getElementById("EmailAttachmentUpload3").value = "";
+    	document.getElementById("EmailAttachmentUpload4").value = "";
+    	isoneattachremoved = false;
+    	istwoattachremoved = false;
+    }
+
+
+    function addIterateEmailText() {
+    	$("#DropDownSubjects").parent().hide();
+    	$('#text1').parent().removeClass('hidden');
+    	$('#footer1').parent().removeClass('hidden');
+    	$('#emailText').parent().addClass('hidden');
+    	$('#sendButton').addClass('hidden');
+    	$('#testButton').addClass('hidden');
+    	$('#addButton').addClass('hidden');
+    	$('#editButton').addClass('hidden');
+    	$('#saveButton').removeClass('hidden');
+    	$('#cancelButton').removeClass('hidden');
+
+    	$('#EmailAttachmentUpload3').parent().removeClass('hidden');
+    	$('#EmailAttachmentUpload4').parent().removeClass('hidden');
+
+    	$('#EmailAttachmentUpload').parent().addClass('hidden');
+    	$('#EmailAttachmentUpload2').parent().addClass('hidden');
+
+    	$('#EmailAttachmentUpload_attach2').addClass('hidden');
+    	$('#EmailAttachmentUpload_attach').addClass('hidden');
+    	$('.remove-link').addClass('hidden');
+
+    	CKEDITOR.instances["text1"].setData('');
+    	CKEDITOR.instances["footer1"].setData('');
+    	$('#emailSubject').val('');
+    	iterateEmailTextId = -1;
+    	isoneattachremoved = false;
+    	istwoattachremoved = false;
+
+    	document.getElementById("EmailAttachmentUpload3").value = "";
+    	document.getElementById("EmailAttachmentUpload4").value = "";
+    }
+
+    function removeIterateEmailText() {
+    	alertify.set({
+    		labels: {
+    			ok: "Yes", cancel: "No"
+    		}
+    	});
+
+    	alertify.confirm("You are about to remove '" + $("#emailSubject").val() + "' Are you sure? ", function (e) {
+    		if (e) {
+    			var formdata = new FormData();
+    			formdata.append("id", $("#DropDownSubjects").val());
+    			$.ajax({
+    				url: 'RemoveIterateEmailText',
+    				type: 'POST',
+    				data: formdata,
+    				processData: false,
+    				contentType: false,
+    				cache: false
+    			}).done(function (obj) {
+    				refreshPopup();
+    			});
+    		} else {
+
+    		}
+    	});
+    }
+
+    function refreshPopup() {
+    	$.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + iterate.person + "&pptq=").done(function (result) {
+    		if (result) {
+
+    			$('#DropDownSubjects')
+					.empty()
+					.append('<option selected="selected">Please select automail</option>');
+
+
+    			$.each(result.list, function (index, val) {
+    				$('#DropDownSubjects')
+.append($("<option></option>")
+		   .attr("value", val.id)
+		   .text(val.subject));
+    			});
+
+    			dropDownSubjectsChanged();
+    			cancelChangesIterateEmailText();
+    		}
+    	});
+    }
+
+	function cancelChangesIterateEmailText() {
+
+		isoneattachremoved = false;
+		istwoattachremoved = false;
+		document.getElementById("EmailAttachmentUpload3").value = "";
+		document.getElementById("EmailAttachmentUpload4").value = "";
+
+    	if (iterateEmailTextId != -1) {
+    		$('#editButton').removeClass('hidden');
+    	}
+
+    	$("#DropDownSubjects").parent().show();
+    	$('#text1').parent().addClass('hidden');
+    	$('#footer1').parent().addClass('hidden');
+
+
+    	$('#EmailAttachmentUpload3').parent().addClass('hidden');
+    	$('#EmailAttachmentUpload4').parent().addClass('hidden');
+    	$('.remove-link').addClass('hidden');
+
+    	$('#EmailAttachmentUpload').parent().removeClass('hidden');
+    	$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+
+    	$('#emailText').parent().removeClass('hidden');
+    	$('#saveButton').addClass('hidden');
+    	$('#cancelButton').addClass('hidden');
+    	$('#sendButton').removeClass('hidden');
+    	$('#testButton').removeClass('hidden');
+    	$('#addButton').removeClass('hidden');
+
+    	dropDownSubjectsChanged();
+	}
+
+
+	function removeAttachment(type, element) {
+		if (type == 'one') {
+			isoneattachremoved = true;
+			$('#EmailAttachmentUpload3').parent().removeClass('hidden');
+		}
+		else {
+			istwoattachremoved = true;
+			$('#EmailAttachmentUpload4').parent().removeClass('hidden');
+		}
+
+		$(element).parent().addClass('hidden');
+	}
+
+    function saveIterateEmailText() {
+    	var formdata = new FormData();
+    	var fileInput = document.getElementById('EmailAttachmentUpload3');
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		formdata.append('one', fileInput.files[i]);
+    	}
+    	fileInput = document.getElementById('EmailAttachmentUpload4');
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		formdata.append('two', fileInput.files[i]);
+    	}
+    	formdata.append("id", iterateEmailTextId);
+    	formdata.append("person", iterate.person);
+    	formdata.append("subject", $("#emailSubject").val());
+    	formdata.append("text", CKEDITOR.instances["text1"].getData());
+    	formdata.append("footer1", CKEDITOR.instances["footer1"].getData());
+    	formdata.append("isoneattachremoved", isoneattachremoved);
+    	formdata.append("istwoattachremoved", istwoattachremoved);
+    	$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+    	$.ajax({
+    		url: 'SaveIterateEmailText',
+    		type: 'POST',
+    		data: formdata,
+    		processData: false,
+    		contentType: false,
+    		cache: false
+    	}).done(function (result) {
+    		$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+    		if (result.error) {
+    			$("#emailDialog").modal("toggle");
+    			alertify.alert(result.error);
+    		} else {
+    			refreshPopup();
+    		}
+
+    	});
+    }
+
+    function emailDialogSendTest() {
+    	var formdata = new FormData(); //FormData object
+    	var fileInput = document.getElementById('EmailAttachmentUpload');
+    	////Iterating through each files selected in fileInput
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		//Appending each file to FormData object
+    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    	}
+    	fileInput = document.getElementById('EmailAttachmentUpload2');
+    	////Iterating through each files selected in fileInput
+    	for (i = 0; i < fileInput.files.length; i++) {
+    		//Appending each file to FormData object
+    		formdata.append(fileInput.files[i].name, fileInput.files[i]);
+    	}
+    	formdata.append("iterateTextId", $("#DropDownSubjects").val());
+    	formdata.append("partnerId", iterate.selectedPartnerId);
+    	formdata.append("subject", $("#emailSubject").val());
+    	formdata.append("text", CKEDITOR.instances["emailText"].getData());
+    	formdata.append("userDate", new Date().toISOString());
+    	formdata.append("ccSender", $("#ccSender").prop("checked"));
+    	$("#emailDialog input[type='submit'], #emailDialog input[type='button']").prop("disabled", true);
+    	$.ajax({
+    		url: 'SendIteratePartnerEmailTest',
+    		type: 'POST',
+    		data: formdata,
+    		processData: false,
+    		contentType: false,
+    		cache: false
+    	}).done(function (result) {
+    		$("#emailDialog button[type='submit'], #emailDialog button[type='button']").prop("disabled", false);
+    		if (result.error) {
+    			$("#emailDialog").modal("toggle");
+    			alertify.alert(result.error);
+    		} else {
+    			alertify.alert('Done');
+    		}
+
+    	});
+    }
+    function findLinkedInProfile(profile) {
+        $.post('FindAndRedirectToLinkedInProfile', profile, function (result) {
+            if (result) {
+                window.open(result, "_blank");
+            } else {
+                alertify.alert("Sorry. Can't find linkedin profile");
+            }
+        });
+    }
+    function ViewParsedEmails(pptq) {
+        $.get("@Url.Action("GetParsedEmails", "Partner")" + "?pptq=" + pptq).done(function (result) {
+    		if (result) {
+
+                $('#emailsReceived')
+					.empty();
+
+                var html = "";
+                $.each(result.list, function (index, val) {
+
+                    html = html + val.dateSent+ '-';
+                    html = html + ' ' + val.subject+' - from';
+                    html = html + ' ' + val.emailFrom + ' - to';
+                    html = html + ' ' + val.emailTo + ' - to';
+                    html = html + "<br/>";
+                    html = html + val.text;
+                    html = html + "<br/>";
+                });
+                $('#emailsReceived')
+                    .append(html);
+                $("#viewParsedEmailsDialog").modal("toggle");
+          }
+    	});
+    }
+    function CloseParsedEmails() {
+        $("#viewParsedEmailsDialog").modal("hide");
+    }
+</script>
+
+<style type="text/css">
+    .t-grid-content {
+        height:600px!important;
+    }
+    .clickable {
+        cursor: pointer;
+    }
+
+    #iterateDiagramGrid .t-grid-header .t-header .t-link {
+        height: 25px !important;
+    }
+
+    .loader {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 50000;
+        background-color: blue;
+        opacity: 0.5;
+    }
+
+        .loader img {
+            top: 50%;
+            left: 50%;
+        }
+
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .threecol, twocol {
+        width: 100%;
+        display: inline-block;
+    }
+
+    #noteText1 {
+        overflow-y: auto;
+        min-height: 150px;
+        overflow-x: hidden;
+    }
+
+    .green-box, .red-box {
+        background-image: url(../Content/green-box.png);
+        display: inline-block;
+        margin: 0 auto;
+        text-indent: -9999px;
+        width: 34px;
+        height: 34px;
+        background-size: cover;
+        cursor: pointer;
+        float: left;
+    }
+
+    .red-box {
+        background-image: url(../Content/red-box.png);
+    }
+
+
+    #alternativeForm input[type=text] {
+        float: left;
+        width: 80%;
+    }
+
+    /*.twocol .editor-label {
+            width: 10%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+        .twocol .editor-field, .row .editor-field {
+            width: 35%;
+            display: inline-block;
+        }
+
+        .threecol .editor-label, .row .editor-label {
+            width: 10%;
+            display: inline-block;
+            font-size: 11px;
+        }
+
+        .threecol .editor-field, .row .editor-field {
+            width: 20%;
+            display: inline-block;
+        }
+    */
+    .editor-field label, .editor-field input, .editor-field select, .editor-field input, .editor-field select {
+        width: 100%;
+        display: inline-block;
+        font-size: 11px;
+    }
+
+    .txtClass {
+        width: 100%;
+        border-radius: 5px;
+        border-color: rgb(169, 169, 169);
+    }
+
+    .ddlClass {
+        height: 25px;
+        width: 100% !important;
+        border-radius: 5px;
+    }
+
+    #DueDate {
+        border-radius: 5px;
+        /*height: 18px;*/
+    }
+
+
+    .btn_b {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 12px !important;
+        padding: 3px 20px 5px 20px !important;
+        text-decoration: none;
+    }
+
+        .btn_b:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+
+    .mytab {
+        height: 320px;
+    }
+
+    .bottom-buffer {
+        margin-bottom: 13px;
+    }
+    /*.container .t-link {
+                padding: .3em 2px !important;
+            }*/
+    .big-input {
+        width: 57% !important;
+    }
+
+        .big-input input {
+            width: 336px;
+        }
+
+    .gradient-red {
+        background: #ed943b; /* Old browsers */
+        background: -moz-linear-gradient(left, #ed943b 4%, #e56d38 52%, #ce5033 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(4%,#ed943b), color-stop(52%,#e56d38), color-stop(100%,#ce5033)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(left, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* IE10+ */
+        background: linear-gradient(to right, #ed943b 4%,#e56d38 52%,#ce5033 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed943b', endColorstr='#ce5033',GradientType=1 ); /* IE6-9 */
+    }
+
+    .gradient-yellow {
+        background: #fceabb; /* Old browsers */
+        background: -moz-linear-gradient(left, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fceabb), color-stop(50%,#fccd4d), color-stop(51%,#f8b500), color-stop(100%,#fbdf93)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(left, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* IE10+ */
+        background: linear-gradient(to right, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93',GradientType=1 ); /* IE6-9 */
+    }
+
+    .gradient-green {
+        background: #c9de96; /* Old browsers */
+        background: -moz-linear-gradient(left, #c9de96 0%, #8ab66b 44%, #398235 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c9de96), color-stop(44%,#8ab66b), color-stop(100%,#398235)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(left, #c9de96 0%,#8ab66b 44%,#398235 100%); /* IE10+ */
+        background: linear-gradient(to right, #c9de96 0%,#8ab66b 44%,#398235 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=1 ); /* IE6-9 */
+    }
+
+    .gradient-blue {
+        background: #d0e4f7; /* Old browsers */
+        background: -moz-linear-gradient(left, #d0e4f7 0%, #73b1e7 24%, #0a77d5 50%, #539fe1 79%, #87bcea 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#d0e4f7), color-stop(24%,#73b1e7), color-stop(50%,#0a77d5), color-stop(79%,#539fe1), color-stop(100%,#87bcea)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(left, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* IE10+ */
+        background: linear-gradient(to right, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=1 ); /* IE6-9 */
+    }
+
+    .img {
+        width: 12px;
+        height: 12px;
+    }
+
+    #tblPartners td {
+        font-size: 12px;
+    }
+
+        #tblPartners tr, #tblPartners td .line-wrapper {
+            height: 6px;
+            line-height: 6px;
+        }
+
+    .table tr {
+        cursor: pointer;
+    }
+
+    .excelBtn {
+        background-size: 100% auto;
+        background-image: url("../../Contents/images/xlsx-1567.png");
+        height: 32px;
+        width: 32px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="modal fade" id="addNoteDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Add new partner's note </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="noteTitle">Title</label>
+                            <input id="noteTitle" name="noteTitle" class="form-control" type="text" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="noteTitle" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="noteText">New Note</label>
+                            <textarea id="noteText" name="noteText" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="noteText" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('noteText');
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="noteText1">Previous Note(s)</label>
+                            <div id="noteText1" name="noteText1" class="form-control" placeholder="Please Enter Note's' Title" data-val-required="*" data-val="true"></div>
+                            <span data-valmsg-replace="true" data-valmsg-for="noteText1" class="field-validation-valid help-inline" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        <div class="form-group">
+                            <label class="control-label" for="emailSubject">Automail</label>
+                            @Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+
+                        </div>
+                        <div class="form-group">
+
+                            <label class="control-label" for="emailSubject">Subject</label>
+                            <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="emailText">Text</label>
+                            <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
+                            <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('emailText');
+                            </script>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="text1">Text</label>
+                            <textarea id="text1" name="text1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="text1" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('text1');
+                            </script>
+                        </div>
+
+                        <div class="form-group hidden">
+                            <label class="control-label" for="footer1">Footer</label>
+                            <textarea id="footer1" name="footer1" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="footer1" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('footer1');
+                            </script>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="EmailAttachmentUpload">Attachment1 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" />
+                        </div>
+                        <div class="form-group hidden" id="EmailAttachmentUpload_attach">
+                            <label class="control-label"></label>
+                            <a href="#" class="remove-link" onclick="removeAttachment('one', this); return false;">Remove</a>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="EmailAttachmentUpload2">Attachment2 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload2" type="file" name="EmailAttachmentUpload2" />
+                        </div>
+                        <div class="form-group hidden" id="EmailAttachmentUpload_attach2">
+                            <label class="control-label"></label>
+                            <a href="#" class="remove-link" onclick="removeAttachment('two', this); return false;">Remove</a>
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="EmailAttachmentUpload3">Attachment1 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload3" type="file" name="EmailAttachmentUpload3" />
+                        </div>
+                        <div class="form-group hidden">
+                            <label class="control-label" for="EmailAttachmentUpload4">Attachment2 (optional)</label>
+                            <input class="form-control" id="EmailAttachmentUpload4" type="file" name="EmailAttachmentUpload4" />
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <button type="submit" class="btn btn-primary" name="submit" id="sendButton">Send</button>
+                                    <button type="button" class="btn btn-primary" name="submit" id="testButton" onclick="emailDialogSendTest();">Test</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" onclick="editIterateEmailText();" id="editButton">Edit</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" id="saveButton" onclick="saveIterateEmailText();">Save</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="addIterateEmailText();" id="addButton">Add</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" id="removeButton" onclick="removeIterateEmailText();">Remove</button>
+                                    <button type="button" class="btn btn-primary hidden" name="submit" id="cancelButton" onclick="cancelChangesIterateEmailText();">Cancel</button>
+
+                                    <button type="button" class="btn btn-primary" name="submit">Tags</button>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="checkbox">
+                                        <label style="font-size: 14px;"><input type="checkbox" id="ccSender" name="ccSender" checked />cc Sender</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="transferDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Transfer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        <div class="form-group">
+                            @Html.DropDownList("DropDownTransfer", (IEnumerable<SelectListItem>)ViewBag.PersonAllDropDown, htmlAttributes: new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="transfer2();">Ok</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#transferDialog').modal('toggle');">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewParsedEmailsDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Reply to Email</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="parsedEmailSubject">Subject</label>
+                            <input id="parsedEmailSubject" name="parsedEmailSubject" class="form-control" type="text" placeholder="Please Enter Email's Subject" data-val-required="*" data-val="true" />
+                            <span data-valmsg-replace="true" data-valmsg-for="parsedEmailSubject" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="parsedEmailReply">Email Reply</label>
+                            <textarea id="parsedEmailReply" name="parsedEmailReply" class="form-control" placeholder="Please Enter Email Reply" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="parsedEmailReply" class="field-validation-valid help-inline" />
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace('parsedEmailReply');
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="noteText1">Emails Received)</label>
+                            <div id="emailsReceived" name="emailsReceived" class="form-control" style="overflow: auto; height:250px">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="noteUpdateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Edit note</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="madalEmailForm">
+                        <div class="form-group">
+                            <label class="control-label" for="noteUpdateText">Text</label>
+                            <textarea id="noteUpdateText" name="noteUpdateText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="noteUpdateText" class="field-validation-valid help-inline" />
+                            <script>
+                                CKEDITOR.replace('noteUpdateText');
+                            </script>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <button type="submit" class="btn btn-primary" name="submit">Update</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+
+            <input id="id" name="id" class="form-control" type="hidden" />
+            <input id="pptq" name="pptq" class="form-control" type="hidden" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Update</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form id="madalEmailForm">
+                                <div class="form-group">
+
+                                    <label class="control-label" for="name">Name</label>
+                                    <input id="name" name="name" class="form-control" type="text" placeholder="Please Enter name" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="firstName">First Name</label>
+                                    <input id="firstName" name="firstName" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="lastName">Last Name</label>
+                                    <input id="lastName" name="lastName" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="email">Email</label>
+                                    <input id="email" name="email" class="form-control" type="text" placeholder="Please Enter email" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="phone">Phone</label>
+                                    <input id="phone" name="phone" class="form-control" type="text" placeholder="Please Enter phone" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Title</label>
+                                    <input id="title" name="title" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Partner Type</label>
+                                    <input id="pt" name="pt" class="form-control" type="text" placeholder="" data-val-required="*" data-val="true" disabled />
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label" for="title">Group</label>
+                                    <input id="gr" name="gr" class="form-control" type="text" placeholder="" data-val-required="*" data-val="true" disabled />
+                                </div>
+                                <div class="form-group text-right left-panel-group">
+                                    <button type="button" class="btn btn-primary" onclick="findLinkedInProfile({firstName: $('#updateDialog #firstName').val(), lastName:$('#updateDialog #lastName').val(), name:$('#updateDialog #name').val()})">
+                                        <i class="fa fa-linkedin-square" aria-hidden="true" style="font-size:18px;"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="Email2(rowDataMain.pptq, rowDataMain.person, rowDataMain.id, $('#updateDialog #email').val(), $('#updateDialog #name').val());">Email</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="TwilioCall2(rowDataMain.id, $('#updateDialog #phone').val());">Call</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogPrevious();">Previous</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogNext();">Next</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="updateDialogClear();">Clear</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" name="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6" style="display:none;">
+                            <form id="alternativeForm">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">Alternative</label>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">First Name </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="firstName_a" name="firstName_a" class="form-control" type="text" placeholder="Please Enter first name" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #firstName').val(rowDataMain.firstname); return false;"></a><a class="green-box" onclick="$('#updateDialog #firstName').val($('#firstName_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+
+                                    <label class="control-label" for="lastName">Last Name </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="lastName_a" name="lastName_a" class="form-control" type="text" placeholder="Please Enter last name" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #lastName').val(rowDataMain.lastname); return false;"></a><a class="green-box" onclick="$('#updateDialog #lastName').val($('#lastName_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="email_a" name="email_a" class="form-control" type="text" placeholder="Please Enter email" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #email').val(rowDataMain.email); return false;"></a><a class="green-box" onclick="$('#updateDialog #email').val($('#email_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label" for="phone">Phone </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="phone_a" name="phone_a" class="form-control" type="text" placeholder="Please Enter phone" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #phone').val(rowDataMain.phone); return false;"></a><a class="green-box" onclick="$('#updateDialog #phone').val($('#phone_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label" for="title">Title </label>
+                                    <div class="clear-fix"></div>
+                                    <input id="title_a" name="title_a" class="form-control" type="text" placeholder="Please Enter title" data-val-required="*" data-val="true" disabled />
+                                    <a class="red-box" onclick="$('#updateDialog #title').val(rowDataMain.title); return false;"></a><a class="green-box" onclick="$('#updateDialog #title').val($('#title_a').val()); return false;"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="form-group text-right ">
+                                    <button type="button" class="btn btn-primary" onclick="findLinkedInProfile({firstName: $('#updateDialog #firstName_a').val(), lastName:$('#updateDialog #lastName_a').val(), name:$('#updateDialog #name').val()})">
+                                        <i class="fa fa-linkedin-square" aria-hidden="true" style="font-size:18px;"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="Email2(rowDataMain.pptq, rowDataMain.person, alternatives[alternativeIndex].id, $('#email_a').val(), $('#firstName_a').val(), $('#phone_a').val(), $('#firstName_a').val(), $('#lastName_a').val(), $('#title_a').val(), $('#updateDialog #email').val());">Email</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="TwilioCall2(-1, $('#phone_a').val());">Call</button>
+                                    <button type="button" class="btn btn-primary previous" name="submit" style="display:none;" onclick="alternativeDialogPrevious();">Previous</button>
+                                    <button type="button" class="btn btn-primary next" name="submit" style="display:none;" onclick="alternativeDialogNext();">Next</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog').modal('toggle');">Cancel</button>
+                                    <button type="button" class="btn btn-primary" name="submit" onclick="$('#updateDialog #madalEmailForm').submit();">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Select partner type and group </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="partnerType">Partner Type</label>
+
+                            @Html.DropDownList("partnerType", (IEnumerable<SelectListItem>)ViewBag.currentUserPartnerType, new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="partnerType" class="field-validation-valid help-inline" />
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="partnerGroup">Partner Group</label>
+                            @Html.DropDownList("partnerGroup", (IEnumerable<SelectListItem>)ViewBag.group, new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="partnerGroup" class="field-validation-valid help-inline" />
+
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newIteratePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Add new partner to iterate </h4>
+                </div>
+                <div class="modal-body">
+                    <form id="modalGetPassword">
+                        <div class="form-group">
+                            <label class="control-label" for="firstName">First Name</label>
+                            @Html.TextBox("firstName", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="firstName" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="lastName">Last Name</label>
+                            @Html.TextBox("lastName", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="lastName" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="title">Title</label>
+                            @Html.TextBox("title", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="title" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="phoneNumber">Phone Number</label>
+                            @Html.TextBox("phoneNumber", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="phoneNumber" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="email">Email</label>
+                            @Html.TextBox("email", "", new { @class = "form-control", data_val_required = "*", data_val = "true" })
+                            <span data-valmsg-replace="true" data-valmsg-for="email" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="emailFooterDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">E-Mail Footer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="emailFooterDialogForm">
+                        <div class="form-group">
+                            <label class="control-label" for="emailFooter">Footer Text</label>
+                            <textarea id="emailFooter" name="emailFooter" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="emailFooter" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="IterateUploadingErrorDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="iuedfHeader">E-Mail Footer</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="IterateUploadingErrorDialogForm">
+                        <div class="form-group">
+
+
+                        </div>
+                        <div class="form-group">
+                            <textarea id="IterateUploadingErrorDialogFormFooter" name="IterateUploadingErrorDialogFormFooter" class="form-control" readonly rows="8"></textarea>
+                        </div>
+                        @*<div class="form-group">
+                                <button type="button" class="btn btn-primary" name="submit">Close</button>
+                            </div>*@
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="textMessageDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">SMS Message Sending</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="textMessageDialogForm">
+                        <div class="form-group">
+                            <label class="control-label" for="msgText">Message Text</label>
+                            <textarea id="msgText" name="msgText" class="form-control" placeholder="Please Enter Footer Text" data-val-required="*" data-val="true" rows="5"></textarea>
+                            <span data-valmsg-replace="true" data-valmsg-for="msgText" class="field-validation-valid help-inline" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+	function dropDownSubjectsChanged() {
+		var control = $("#DropDownSubjects");
+		if (control.val() && control.val() != 'Please select automail') {
+			$.get("@Url.Action("GetAutomailIterate","Partner")" + "?id=" + control.val() + "&pptq="
+				+ $('#DropDownSubjects').data().pptq).done(function (result) {
+				if (result) {
+					$("#emailSubject").val(result.subject);
+					CKEDITOR.instances["emailText"].setData(result.text + '<br/>'+result.footer1);
+					CKEDITOR.instances["text1"].setData(result.text);
+					CKEDITOR.instances["footer1"].setData(result.footer1);
+
+					if (result.attachmentOneName!=null&& result.attachmentOneName.length > 0) {
+						$('#EmailAttachmentUpload').parent().addClass('hidden');
+						$('#EmailAttachmentUpload_attach label').html(result.attachmentOneName);
+						$('#EmailAttachmentUpload_attach').removeClass('hidden');
+					}
+					else {
+						$('#EmailAttachmentUpload').parent().removeClass('hidden');
+						$('#EmailAttachmentUpload_attach').addClass('hidden');
+					}
+
+
+					if (result.attachmentTwoName!=null&& result.attachmentTwoName.length > 0) {
+						$('#EmailAttachmentUpload2').parent().addClass('hidden');
+						$('#EmailAttachmentUpload_attach2 label').html(result.attachmentTwoName);
+						$('#EmailAttachmentUpload_attach2').removeClass('hidden');
+					}
+					else {
+						$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+						$('#EmailAttachmentUpload_attach2').addClass('hidden');
+					}
+
+					$('#editButton').removeClass('hidden');
+					$('#removeButton').removeClass('hidden');
+					$('.remove-link').addClass('hidden');
+					document.getElementById("EmailAttachmentUpload").value = "";
+					document.getElementById("EmailAttachmentUpload2").value = "";
+				}
+			})
+
+		} else {
+			$("#emailSubject").val("");
+			CKEDITOR.instances["emailText"].setData("");
+
+			$('#editButton').addClass('hidden');
+			$('#removeButton').addClass('hidden');
+
+			$('#EmailAttachmentUpload').parent().removeClass('hidden');
+			$('#EmailAttachmentUpload2').parent().removeClass('hidden');
+			document.getElementById("EmailAttachmentUpload").value = "";
+			document.getElementById("EmailAttachmentUpload2").value = "";
+			$('#EmailAttachmentUpload_attach2').addClass('hidden');
+			$('#EmailAttachmentUpload_attach').addClass('hidden');
+			$('.remove-link').addClass('hidden');
+
+		}
+	}
+
+
+    function editEmailFooter() {
+        $.post("getEmailFooter").done(function (result) {
+            if (result) {
+                $('#emailFooterDialogForm #emailFooter').val(result);
+            } else {
+                $('#emailFooterDialogForm #emailFooter').val("");
+            }
+            $("#emailFooterDialog").modal("toggle");
+        });
+
+    }
+    function evernotesTree_onSelect(e) {
+        if (e.item) {
+            if ("Authorize to get notebooks" === $(this).data("tTreeView").getItemText(e.item)) {
+                $.get("AuthorizeEverNote", function (result) {
+                    if (result) {
+                        window.location.href = result;
+                    }
+                });
+            }
+        }
+    }
+    function onSuccess(e) {
+        alertify.alert(e.response.message, function () {
+            if (e.response.existsCount > 0) {
+                $("#iuedfHeader").text("These " + e.response.existsCount + " DUPLICATE Partners WERE NOT ADDED to Iterate.");
+                for (var i = 0; i < e.response.existsCount; i++) {
+                    $("#IterateUploadingErrorDialogFormFooter").text($("#IterateUploadingErrorDialogFormFooter").text() + "\n" + e.response.exitsList[i]);
+                }
+                $("#IterateUploadingErrorDialog").modal("toggle");
+                //
+            }
+        });
+        $("#IteratePartners").data("tGrid").ajaxRequest();
+        //$("#topCallapsePanel").html("")
+    }
+    function onError(e) {
+        var err = e.XMLHttpRequest.responseText;
+        alertify.alert("There was server error:" + err);
+    }
+
+    function onNodeDropped(e) {
+        console.log(1);
+    }
+
+    jQuery(document).ready(function ($) {
+        $("#IteratePartners").show();
+        $("#btnTips").click(function () {
+            var tip = "<ol><li>[Salutation: Hello FirstName]<br></li><li>[Appreciation: Thanks for meeting, taking my call, inviting me to your home, etc.]<br></li><li>[Information/Problem: Please let me know if you are free to meet; I am not what you decided, etc.]<br></li><li>[Organization: I am attaching a date/some dates for a teleconference, etc.]<br></li><li>[Anticipation: I am looking forward to meeting]<br></li><li>[Re-Appreciation: Thanks again for your help/time/efforts]<br></li><li>[Appellation: David, Steve, Sam Smith]<br></li><li>[Exhortation: Let&#39;s get this done/Go Team/Have a Great Day!!!!]<br></li></ol>";
+            if (!iterate.globalVars.tipsShowed) {
+                CKEDITOR.instances.emailText.setData(tip);
+                iterate.globalVars.tipsShowed = true;
+            } else {
+                CKEDITOR.instances.emailText.setData("");
+                iterate.globalVars.tipsShowed = false;
+            }
+        });
+        $("#AccessCode").click(function () {
+            if (iterate.selectedPartnerData) {
+                $.post("CheckIteratePartnerAccessCodePartnNumber", { iPartner: iterate.selectedPartnerData }).done(function (result) {
+                    if (result) {
+                        $("#partNumbersGridPanel").show();
+                        $("#partNumbersGrid").data("tGrid").ajaxRequest();
+                        showBottomPanel();
+                    } else {
+                        $("#partNumbersGridPanel").hide();
+                    }
+                });
+            }
+        });
+        $("#excelFile").closest(".k-upload-button")
+                        .find("span")
+                        .text("Select file to upload");
+
+        //Initialize the scheduler
+        $(document).on('click', '.t-link[href="#tabstrip-2"]', function () {
+            $('.dhx_cal_tab_last').click();
+        });
+        $(document).on('click', '#getiCal', function () {
+            $.ajax({
+                url: "@Url.Content("~/Partner/GetPersonIcal")",
+                type: "POST",
+                success: function (data) {
+                    alertify.alert(data.Data);
+                    document.getElementById('hdnICal').value = text;
+                },
+                error: function (data) {
+                }
+            });
+        });
+        $(document).on('click', '#setiCal', function () {
+            var text = prompt("Enter Calendar Url", "");
+            //var iCal = document.getElementById('hdnICal').value;
+            if (text) {
+                $.ajax({
+                    url: "@Url.Content("~/Partner/ModifyPersonIcal")",
+                    type: "POST",
+                    data: { iCal: text },
+                    success: function (data) {
+                        alertify.alert(data.Data);
+                    },
+                    error: function (data) {
+                    }
+                });
+            } else alertify.alert("Please enter valid calendar URI.");
+        });
+
+    });
+    function changeStatus(id, status) {
+        $.post("ChangeiteratePartnerStatus", {
+            partnerId: id,
+            partnerStatusId: status
+        }).done(function (result) {
+            if (result === true) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+               // $("#evernotesDiv").jstree(true).refresh();
+                clearFields();
+            }
+            else {
+                window.location.href = result;
+            }
+        });
+    }
+    function changeObjection(id, objection) {
+        $.post("ChangeObjection", {
+            partnerId: id,
+            objectionId: objection
+        }).done(function (result) {
+            if (result === true) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+                clearFields();
+            }
+        });
+    }
+    function changeNextAction(id, nextAction) {
+        var d = new Date();
+        //var offset = d.getTimezoneOffset();
+        //var dt = new Date(d.getTime() - (offset * 60000));
+        $.post("ChangeIteratePartnerNextAction", {
+            partnerId: id,
+            nextActionId: nextAction,
+            localDate: d.toISOString()
+        }).done(function (result) {
+            if (result) {
+                $("#IteratePartners").data("tGrid").ajaxRequest();
+                clearFields();
+            }
+        });
+    }
+
+    function transfer(id, ownerid, element) {
+    	$.post("Transfer", {
+    		partnerId: id,
+    		ownerId: ownerid
+    	}).done(function (result) {
+    		if (result) {
+    			$("#IteratePartners").data("tGrid").ajaxRequest();
+    			clearFields();
+    		}
+    	});
+
+    }
+
+    function transfer2() {
+    	$('#transferDialog').modal("toggle");
+    	$.post("Transfer", {
+    		partnerId: iterate.selectedPartnerId1,
+    		ownerId: $('#DropDownTransfer').val()
+    	}).done(function (result) {
+    		if (result) {
+    			alertify.alert("This confirms that you have transferred " + iterate.selectedPartner + " to " + $('#DropDownTransfer  option:selected').text());
+    			$("#IteratePartners").data("tGrid").ajaxRequest();
+    		}
+    	});
+
+
+    }
+
+
+    	function changeLastContact(id, lastContact) {
+    		$.post("ChangeIteratePartnerLastContact", {
+    			partnerId: id,
+    			lastContactId: lastContact
+    		}).done(function (result) {
+    			if (result === true) {
+    				$("#IteratePartners").data("tGrid").ajaxRequest();
+    				//$("#evernotesDiv").jstree(true).refresh();
+    				clearFields();
+    			}
+    			else {
+    				window.location.href = result;
+    			}
+    		});
+    	}
+    	function callIfNeed(partnerId, nextActionId, row) {
+    		if (nextActionId === 1 || nextActionId === 15) {
+    			TwilioCall(partnerId, row);
+    		}
+    	}
+    	function shownote(sender, partnerId) {
+    		var partnerGrid = $("#IteratePartners").data("tGrid");
+    		var rowData = partnerGrid.dataItem($(sender).parents("tr")[0]);
+    		//data can be used for whatever it needed
+    		iterate.selectedPartnerId = rowData.id;
+    		iterate.selectedPartner = rowData.name;
+    		showNoteEditor(iterate.selectedPartnerId, iterate.selectedPartner);
+    	}
+
+    	function showgridnotes(sender, partnerId) {
+    		var partnerGrid = $("#IteratePartners").data("tGrid");
+    		var rowData = partnerGrid.dataItem($(sender).parents("tr")[0]);
+    		//data can be used for whatever it needed
+    		var url = '@Url.Action("GetIterateNotes", "Partner")' + '?partnerId=' + rowData.id;
+    		iterate.selectedPartnerId = rowData.id;
+    		$.fancybox({
+    			closeBtn: false,
+    			closeClick: false,
+    			modal: true,
+    			href: url,
+    			type: 'ajax',
+    			minWidth: 400,
+    			minHeight: 150
+    		});
+    	}
+</script>
+
+
+@{
+    var counter = 1;
+
+    string subItemsPersons = "";
+    foreach (Generic.person item in persons)
+    {
+        subItemsPersons += "<li><a onclick='transfer(<#=id#>," + item.id + ",this);' href='#'>" + item.nickName + "</a></li>";
+    }
+
+}
+@Html.DropDownList("iterateObjections", (System.Web.Mvc.SelectList)ViewBag.iterateObjections, new { @style = "display:none" });
+@Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
+{
+columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
+<a href='#' id='Company<#=id#>' class='menu_block'><#=name#></a>
+<div class='display_menu' style='display: none;'>
+    <ul>
+      <li><a href='#' onclick='TwilioCall(<#=id#>,this);'>Call/Next Call</a></li>
+        <li><a href='#'>Email</a></li>
+        <li><a href='#'>Meet</a></li>
+        <li><a href='#'>Update</a></li>
+        <li><a href='#' onclick='changeLastContact(<#=id#>,4);'>Remove</a></li>
+<li><a href='#'>Nurture/Remind</a></li>
+<li><a href='#'  >Sample\\Subscribe</a></li>
+        <li><a href='#'>Note</a></li>
+<li><a href='#'>Text</a></li>
+        <li><a href='#'>Add</a></li>
+        <li><a href='#' onclick='ViewParsedEmails(<#=pptq#>)'>Replies</a></li>
+    </ul>
+</div>
+").Width(230);
+columns.Bound(o => o.nextAction).Title("Next Action").Width(100).ClientTemplate(@"
+<a href='#' id='NA<#=id#>' class='menu_block' ondblclick='callIfNeed(<#=id#>,<#=nextActionID#>, this)'><#=nextAction#></a>
+").Filterable(false);
+columns.Bound(o => o.NextActionDateDisplay).Title("Next Action Date").Width(130).ClientTemplate(@"
+<a href='#' id='NAD<#=id#>' class='menu_block'><#=NextActionDateDisplay#></a>
+<div class='display_menu' style='display: none;'>
+    <ul>
+      <li><a href='#' onclick='changeNextAction(<#=id#>,1);'>Call Back</a></li>
+        <li><a href='#' onclick='changeNextAction(<#=id#>,2);'>Set Appointment</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,4);'>Remove</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,5);'>Email Follow-up</a></li>
+<li><a href='#' onclick='changeNextAction(<#=id#>,15);'>Call</a></li>
+<li><a href='#'>Transfer</a>
+<ul class='sub-items'>" + subItemsPersons + "</ul></li></ul></div>");
+columns.Bound(o => o.firstname).Title("First name").Width(80).Filterable(false);
+columns.Bound(o => o.lastname).Title("Last name").Width(100);
+columns.Bound(o => o.title).Title("Title").Width(90).Filterable(false).ClientTemplate(@"
+    <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
+<div class='display_menu' style='display: none;width:200px;'>
+   <span style='width:100%'><p><#=title#></p> <span class='address2'><#=address2#></span> - <a href='http://<#=federalID#>'><#=federalID#></a>- <span class='address2'><#=annualRevenue#></span>- <span class='address2'><#=numberOfEmployees#></span>-<span class='address2'><#=fax#></span></span>
+</div>
+");
+columns.Bound(o => o.objection).Title("Objection").Width(100).ClientTemplate("<a id='OBJ<#=id#>' class='menu_block'><#=objection#></a><div class='display_menu_right' style='display: none;'><ul id='OBJ_<#=id#>'></ul></div>");
+columns.Bound(o => o.lastContact).Title("Last Contact").Width(120).ClientTemplate(@"
+<a href='#' id='LC<#=id#>' class='menu_block'><#=lastContact#></a>
+<div class='display_menu' style='display: none;'>
+    <ul>
+      <li><a href='#' onclick='changeLastContact(<#=id#>,1);'>Busy</a></li>
+        <li><a href='#' onclick='changeLastContact(<#=id#>,2);'>Successful Call - Appointment</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,3);'>Successful Call - Call Back</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,4);'>Do Not Call</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,5);'>Hung Up</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,6);'>Left Message</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,7);'>No Answer</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,8);'>No Help</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,9);'>Not In Service</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,10);'>No Message Left (Call Back)</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,11);'>Transferred</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,12);'>Wrong Number</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,13);'>Music Box</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,14);'>Other</a></li>
+<li><a href='#' onclick='changeLastContact(<#=id#>,15);'>No Touchpoint</a></li>
+    </ul>
+</div>
+").Filterable(true);
+columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120).Filterable(false);
+columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
+columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
+columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
+columns.Bound(o => o.iteratePartnerStatus).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatus_Description#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
+
+columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
+<a href='#' id='note<#=id#>' class='menu_block'><#=Note#></a>
+<div class='display_menu_right' style='display: none;'>
+    <ul>
+      <li><a href='#' onclick='shownote(this,<#=id#>);'>Add</a></li>
+      <li><a href='#' onclick='showgridnotes(this,<#=id#>);'>Edit</a></li>
+    </ul>
+</div>
+").Filterable(false);
+}
+                                        ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Scrollable(s=>s.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound").OnRowDataBound("Grid_onRowDataBound")).HtmlAttributes(new { style = "font-size:10px; height:600px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
+
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/validator.js"></script>
+    <script src="http://lab.jakiestfu.com/contextjs/context.js"></script>
+    <script>
+        $(function () {
+            $("#evernotesDiv").jstree({
+                "core": {
+                    "check_callback": function (operation, node, node_parent, node_position, more) {
+                        if (operation == 'move_node') {
+                            // console.log(node_parent);
+                            if (node_parent.type == 'notebook') {
+                                return true;
+                            } else
+                                return false;
+                        }
+                        return true;
+                    },
+                    "data": {
+                        "url": "EvernoteNotebooksList",
+                        "data": "json"
+                    }
+                },
+                "dnd": {
+                    "is_draggable": function (node) {
+                        console.log('is_draggable called: ', node[0]);
+                        if (node[0].type != 'note') {
+                            return false;
+                            console.log('node isnt note ');
+                        }
+                        if (iterate.globalVars.allNotesIds.indexOf(node[0].id) < 0) {
+                            console.log('notesId doesnt contain current node ', iterate.globalVars.allNotesIds, node[0].id);
+                            return false;
+                        }
+                        return true;
+                    }
+                },
+                "types": {
+                    "root": {
+
+                    },
+                    "notebook": {
+
+                    },
+                    "note": {
+
+                    }
+                },
+                "plugins": ["dnd", "types"]
+            }).bind("redraw.jstree", function (event, data) {
+                //after redraw bind dblclick
+                $("#evernotesDiv").off("dblclick", "a");
+                $("#evernotesDiv").delegate("a", "dblclick", function (e) {
+                    //if nodes type=== "note" then show note
+                    e.preventDefault();
+                    if ($("#evernotesDiv").data("jstree").get_type($(this).parent()) === "note") {
+                        $.post("GetIteratePartnerByNote", { noteId: $(this).parent().attr("id") }).done(function (result) {
+                            if (result.finded) {
+                                iterate.selectedPartnerId = result.partnerId;
+                                iterate.selectedPartner = result.partnerName;
+                                showNoteEditor(result.partnerId, result.partnerName);
+                            }
+                            else alertify.alert("There is no iterate partner for selected note");
+                        });
+                    }
+                });
+            });
+            $(document).on("dnd_stop.vakata", function (event, data, element) {
+                if (data) {
+                    $.post("UpdateNote", {
+                        title: iterate.globalVars.nodeText,
+                        id: iterate.globalVars.nodeId,
+                        newNoteBookId: iterate.globalVars.parentNode
+                    },
+                        function (result) {
+                            if (result.iteratestatusid) {
+                                var grid = $("#IteratePartners").data("tGrid");
+                                grid.ajaxRequest();
+                                //var nItem = grid.dataSource.find(result.partnerid);
+                                //if (nItem) {
+                                //    grid.dataSource.find(result.partnerid).iteratePartnerStatus = result.iteratestatusid;
+                                //    grid.dataSource.find(result.partnerid).iteratePartnerStatusDescription = result.iteratestatusdescription;
+
+                                //}
+                                if (iterate.selectedPartnerId === result.partnerid)
+                                    $("#partnerstatus").val(result.iteratestatusid);
+                            }
+                        });
+                }
+            });
+            $('#evernotesDiv').on("move_node.jstree", function (e, data) {
+                //data.node, data.parent, data.old_parent is what you need
+                iterate.globalVars.parentNode = data.parent;
+                iterate.globalVars.nodeText = data.node.text;
+                iterate.globalVars.nodeId = data.node.id;
+
+            });
+            $("#evernotesDiv").on("select_node.jstree", function (event, data) {
+                if (data) {
+                    if (data.node.text === "Authorize to get notebooks") {
+                        $.get("AuthorizeEverNote", function (result) {
+                            if (result) {
+                                window.location.href = result;
+                            }
+                        });
+                    }
+                }
+            });
+
+
+
+        });
+
+
+        //Rewritten update.
+        function TwilioCall(Id, row) {
+            var url = '@Url.Action("CallPartnerNow", "Partner")';
+            var partnerGrid = $("#IteratePartners").data("tGrid");
+            var rowData = partnerGrid.dataItem($(row).parents("tr")[0]);
+            jQuery.ajax({
+                type: "post",
+                url: url,
+                data: { id: rowData.id, phone: rowData.phone }, //pass according to needs.
+                cache: false,
+                async: true,
+                success: function (result) {
+
+                },
+                error: function (header, status, e) {
+                    //location.reload();
+
+                }
+            });
+        }
+
+        function TwilioCall2(id, phone) {
+
+            console.log(id);
+            console.log(phone);
+
+            var url = '@Url.Action("CallPartnerNow", "Partner")';
+            jQuery.ajax({
+                type: "post",
+                url: url,
+                data: { id: id, phone: phone}, //pass according to needs.
+                cache: false,
+                async: true,
+                success: function (result) {
+
+                },
+                error: function (header, status, e) {
+                    //location.reload();
+
+                }
+            });
+        }
+
+        function Email2(pptq, person, id, email, name, phone, firstName, lastName, title, mainEmail) {
+            $("#updateDialog").modal("toggle");
+            $.post("CheckEmailAndCreateNewPartnerIfNeeded", { pptq: pptq, person: person, id: id, email: email, name: name, phone: phone, firstName: firstName, lastName: lastName, title: title, mainEmail: mainEmail}, function (checkResult) {
+                //if (result)
+                if (checkResult.pptq === undefined)
+                    pptq = null;
+
+                if (pptq)
+                    $('#DropDownSubjects').data("pptq", pptq);
+                else
+                    $('#DropDownSubjects').removeData("pptq");
+                $.get("@Url.Action("GetSubjectsIterateByPerson", "Partner")" + "?personId=" + checkResult.person + "&pptq=" + checkResult.pptq).done(function (result) {
+                    if (result) {
+
+                        $('#DropDownSubjects')
+                            .empty()
+                            .append('<option selected="selected">Please select automail</option>');
+
+
+                        $.each(result.list, function (index, val) {
+                            $('#DropDownSubjects')
+                                .append($("<option></option>")
+                                    .attr("value", val.id)
+                                    .text(val.subject));
+                        });
+                    }
+                });
+
+                //data can be used for whatever it needed
+                iterate.selectedPartnerId = id;
+                iterate.selectedPartnerId1 = id;
+                iterate.person = person;
+                iterate.email = email;
+
+                iterate.selectedPartner = name;
+                $("#emailSubject").val("");
+                CKEDITOR.instances.emailText.setData("");
+                //if (!checkoAuth()) return;
+                $("#emailDialog").modal("toggle");
+            });
+
+
+
+            }
+
+
+    </script>
+
+    <script type="text/javascript">
+
+	var selectedItemNote = null;
+	function setSelectedRowData(e) {
+		var partnerGrid = $("#iterateNotesGrid").data("tGrid");
+		var row = e.row;
+		selectedItemNote = partnerGrid.dataItem(row);
+		$('#buttons-panel .btn-primary').removeClass('disabled');
+	}
+
+	function viewNote() {
+		$.fancybox({
+			closeBtn: true,
+			closeClick: true,
+			modal: false,
+			content: selectedItemNote.note,
+			type: 'html',
+			minWidth: 400,
+			minHeight: 150,
+			afterClose: function () {
+
+				var url = '@Url.Action("GetIterateNotes", "Partner")' + '?partnerId=' + iterate.selectedPartnerId;
+				$.fancybox({
+					closeBtn: false,
+					closeClick: false,
+					modal: true,
+					href: url,
+					type: 'ajax',
+					minWidth: 400,
+					minHeight: 150
+				});
+			}
+		});
+	}
+
+	function archiveNote() {
+		$.get("@Url.Action("ArchiveIterateNote", "Partner")" + "?id=" + selectedItemNote.iteratePartnerNote).done(function (result) {
+			$("#iterateNotesGrid").data("tGrid").ajaxRequest();
+		});
+	}
+
+	function editNote()
+	{
+		$.get("@Url.Action("EditIterateNote", "Partner")" + "?id=" + selectedItemNote.iteratePartnerNote).done(function (result) {
+			CKEDITOR.instances["noteUpdateText"].setData(result.text);
+			$.fancybox.close();
+			$("#noteUpdateDialog").modal("toggle");
+		});
+        }
+    </script>
+}
+
+@section header{
+    @System.Web.Optimization.Styles.Render("~/Content/jstree")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jstree")
+    <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/dhtmlxscheduler/dhtmlxscheduler.css" rel="stylesheet" />
+    <script src="~/Scripts/dhtmlxScheduler/dhtmlxscheduler.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+}
+
