@@ -1167,7 +1167,7 @@ namespace Generic.Controllers
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
             var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
             ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
-
+            ViewBag.TouchPointId = _touchpoint;
             foreach (var ptqItem in ptq)
             {
 
@@ -1535,12 +1535,15 @@ namespace Generic.Controllers
         }
 
         [Authorize]
-        public virtual ActionResult DashboardPartners(int status, int group, int partnerType)
+        public virtual ActionResult DashboardPartners(int status, int group, int partnerType, int touchpoint)
         {
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             if (group != 0)
                 arguments += "groupID=" + group + ";";
+
+            //if (touchpoint != 0)
+               // arguments += "touchpointID=" + touchpoint + ";";
 
             if (partnerType != 0)
                 arguments += "partnertypeID=" + partnerType + ";";
@@ -1548,6 +1551,7 @@ namespace Generic.Controllers
             if (status != 0)
                 arguments += "StatusID=" + status + ";";
             Session["partnersearch"] = arguments;
+            Session["Partner_Find_Touchpoint"] = touchpoint;
             return RedirectToAction("FindPartnerResult", "partner");
         }
 

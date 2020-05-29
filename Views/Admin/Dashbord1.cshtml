@@ -142,7 +142,7 @@
                                 <tr>
                                     <td class="AlgnRight"> @Model.ptqGroups[groupAdded].goal&nbsp; </td>
                                     <td class="AlgnRight">
-                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Touchpoint=@ViewBag.TouchPointId&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{ int? uc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Unconfirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                                 totalUC += uc;
                                             }
@@ -150,7 +150,7 @@
                                         </a>
                                     </td>
                                     <td class="AlgnRight">
-                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.PendingApproval)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Touchpoint=@ViewBag.TouchPointId&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.PendingApproval)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{ int? rw = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.PendingApproval).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                                 totalRW += rw;
                                             }
@@ -158,7 +158,7 @@
                                         </a>
                                     </td>
                                     <td class="AlgnRight">
-                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Touchpoint=@ViewBag.TouchPointId&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{ int? con = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Confirmed).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                                 totalC += con;
                                             }
@@ -167,7 +167,7 @@
                                         </a>
                                     </td>
                                     <td class="AlgnRight" style="background-color: #E56D38">
-                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Touchpoint=@ViewBag.TouchPointId&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{ int? nr = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Invited_NoResponse).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                                 totalNR += nr;
                                             }
@@ -177,7 +177,7 @@
                                         </a>
                                     </td>
                                     <td class="AlgnRight" style="background-color:#FDEB41">
-                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Touchpoint=@ViewBag.TouchPointId&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{ int? ri = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Incomplete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                                 totalRI += ri;
 
@@ -186,7 +186,7 @@
                                         </a>
                                     </td>
                                     <td class="AlgnRight" style="background-color: #BCD637">
-                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
+                                        <a style="text-decoration:none" href="~/Admin/DashboardPartners?PartnerType=@partnerType.ID&Touchpoint=@ViewBag.TouchPointId&Status=@((int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete)&Group=@Model.groups[groupAdded].id" target="_blank">
                                             @{int? rc = Model.ptqDashboard.Where(x => x.partnertype == partnerType.ID && x.group == @Model.groups[groupAdded].id && x.statusID == (int)Generic.Helpers.PartnerHelper.PartnerStatus.Responded_Complete).Select(s => s.total).DefaultIfEmpty(0).FirstOrDefault();
                                                 totalRC += rc;
                                             } @rc
