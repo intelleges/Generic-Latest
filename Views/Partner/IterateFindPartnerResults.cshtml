@@ -2885,7 +2885,7 @@
 
 }
 @Html.DropDownList("iterateObjections", (System.Web.Mvc.SelectList)ViewBag.iterateObjections, new { @style = "display:none" });
-@Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPerson3_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
+@Html.Telerik().Grid(new List<Generic.pr_getIteratePartnerPersonByPartnertypeGroupStatus_Result>()).Name("IteratePartners").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Partner")).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.id)).Columns(columns =>
 {
 columns.Bound(o => o.name).Title("Company name").ClientTemplate(@"
 <a href='#' id='Company<#=id#>' class='menu_block'><#=name#></a>
@@ -2924,7 +2924,7 @@ columns.Bound(o => o.lastname).Title("Last name").Width(100);
 columns.Bound(o => o.title).Title("Title").Width(90).Filterable(false).ClientTemplate(@"
     <a href='#' id='title<#=id#>' class='menu_block title'><#=title#></a>
 <div class='display_menu' style='display: none;width:200px;'>
-   <span style='width:100%'><p><#=title#></p> <span class='address2'><#=address2#></span> - <a href='http://<#=federalID#>'><#=federalID#></a>- <span class='address2'><#=annualRevenue#></span>- <span class='address2'><#=numberOfEmployees#></span>-<span class='address2'><#=fax#></span></span>
+   <span style='width:100%'><p><#=title#></p> <span class='address2'><#=address2#></span> - <a href='http://<#=federalID#>'><#=federalID#></a>- <span class='address2'><#=annualRevenue#></span>- <span class='address2'><#=numberofemployees#></span>-<span class='address2'><#=fax#></span></span>
 </div>
 ");
 columns.Bound(o => o.objection).Title("Objection").Width(100).ClientTemplate("<a id='OBJ<#=id#>' class='menu_block'><#=objection#></a><div class='display_menu_right' style='display: none;'><ul id='OBJ_<#=id#>'></ul></div>");
@@ -2954,10 +2954,10 @@ columns.Bound(o => o.lastContactDate).Title("Last Contact Date").Width(120).Filt
 columns.Bound(o => o.previousContact).Title("Prev Contact").Width(100).Filterable(false);
 columns.Bound(o => o.previousContactDate).Title("Prev Contact Date").Width(120).Filterable(false);
 columns.Bound(o => o.phone).Title("Phone number").Width(50).Visible(false);
-columns.Bound(o => o.iteratePartnerStatus).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatus_Description#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
+columns.Bound(o => o.iteratePartnerStatusDescription).Title("Status").Width(100).ClientTemplate("<a id='PS<#=id#>' class='menu_block'><#=iteratePartnerStatusDescription#></a><div class='display_menu_right' style='display: none;'><ul id='PSU<#=id#>'></ul></div>");
 
 columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
-<a href='#' id='note<#=id#>' class='menu_block'><#=Note#></a>
+<a href='#' id='note<#=id#>' class='menu_block'><#=NotesDescription#></a>
 <div class='display_menu_right' style='display: none;'>
     <ul>
       <li><a href='#' onclick='shownote(this,<#=id#>);'>Add</a></li>

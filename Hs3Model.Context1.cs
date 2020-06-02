@@ -30588,5 +30588,22 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getGroupByName_Result>("pr_getGroupByName", enterpriseParameter, nameParameter);
         }
+    
+        public virtual ObjectResult<pr_getIteratePartnerPersonByPartnertypeGroupStatus_Result> pr_getIteratePartnerPersonByPartnertypeGroupStatus(Nullable<int> partnertype, Nullable<int> group, Nullable<int> status)
+        {
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPersonByPartnertypeGroupStatus_Result>("pr_getIteratePartnerPersonByPartnertypeGroupStatus", partnertypeParameter, groupParameter, statusParameter);
+        }
     }
 }

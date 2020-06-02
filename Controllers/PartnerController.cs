@@ -4170,29 +4170,12 @@ namespace Generic.Controllers
             try
             {
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
-                var filterResults = !string.IsNullOrEmpty(Session["partnersearch"].ToString());
-                List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
-                var filteredPptqs = objPartnerDateList.Select(p => p.pptq).ToList();
-
                 var ipsall = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
                 var psall = db.pr_getPartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
-                var result = db.pr_getIteratePartnerPerson3(SessionSingleton.LoggedInUserId).ToList();
-                if (filterResults)
-                {
-                    result = result.Where(p => p.pptq.HasValue && filteredPptqs.Contains(p.pptq.Value)).ToList();
-                }
-                result.ForEach(o =>
-                {
-                    if (o.iteratePartnerStatus.HasValue)
-                        if (o.pptq.HasValue)
-                        {
-                            o.iteratePartnerStatus_Description = psall.ContainsKey(o.iteratePartnerStatus.Value) ? psall[o.iteratePartnerStatus.Value] : "";
-                        }
-                        else
-                        {
-                            o.iteratePartnerStatus_Description = ipsall.ContainsKey(o.iteratePartnerStatus.Value) ? ipsall[o.iteratePartnerStatus.Value] : "";
-                        }
-                });
+                var groupId = (int)Session["groupID"];
+                var partnerTypeId = (int)Session["partnertypeID"];
+                var statusId = (int)Session["statusID"];
+                var result = db.pr_getIteratePartnerPersonByPartnertypeGroupStatus(partnerTypeId, groupId, statusId).ToList();
                 if (SessionSingleton.AddIteratePartnerId.HasValue)
                 {
                     var topItem = result.FirstOrDefault(o => o.id == SessionSingleton.AddIteratePartnerId.Value);

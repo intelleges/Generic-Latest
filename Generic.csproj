@@ -1042,6 +1042,7 @@
     <Compile Include="Models\LnResult.cs" />
     <Compile Include="Models\NotificationsModels.cs" />
     <Compile Include="Models\PersonEditModel.cs" />
+    <Compile Include="Models\pr_getIteratePartnerPersonByPartnertypeGroupStatus.cs" />
     <Compile Include="Models\QuestionnaireLevelType.cs" />
     <Compile Include="Models\SendGridCategory.cs" />
     <Compile Include="multiTenantProjectType.cs">
@@ -1969,6 +1970,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIteratePartnerPersonByExternalID_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getIteratePartnerPersonByPartnertypeGroupStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getIteratePartnerPerson_Result.cs">

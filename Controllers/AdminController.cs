@@ -1552,6 +1552,9 @@ namespace Generic.Controllers
                 arguments += "StatusID=" + status + ";";
             Session["partnersearch"] = arguments;
             Session["Partner_Find_Touchpoint"] = touchpoint;
+            Session["groupID"] = group;
+            Session["partnertypeID"] = partnerType;
+            Session["statusID"] = status;
             return RedirectToAction("FindPartnerResult", "partner");
         }
 
