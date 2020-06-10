@@ -4519,14 +4519,14 @@ namespace Generic.Controllers
         {
             try
             {
-                var ip = db.pr_getIteratePartner(id).First();
-                var ipr = db.pr_getIteratePersonAll().Where(o => o.iteratePartner == ip.id).First();
-
-                db.pr_modifyIteratePartner(ip.id, ip.internalID, name, ip.address1, ip.address2, ip.city, ip.state, ip.zipcode, ip.country, ip.dunsnumber, ip.federalID, ip.numberOfEmployees, ip.annualRevenue, ip.status, ip.owner, ip.author, ip.dateApproved, ip.active, ip.dateAdded, null, ip.lastModified, ip.person, ip.note);
-
-                db.pr_modifyIteratePerson(ipr.id, firstName, lastName, title, email, phone, ipr.fax, ipr.active, ipr.dateAdded, ipr.lastModified, ipr.iteratePartner, ipr.lastContact, ipr.lastContactDate, ipr.previousContact, ipr.previousContactDate, ipr.nextAction, ipr.nextActionDate, ipr.notes, null);
-
                 var partner = db.pr_getPartnerByPPTQ(pptq).First();
+                //var ip = db.pr_getIteratePartner(partner.id).First();
+                //var ipr = db.pr_getIteratePersonAll().Where(o => o.iteratePartner == ip.id).First();
+
+                //db.pr_modifyIteratePartner(ip.id, ip.internalID, name, ip.address1, ip.address2, ip.city, ip.state, ip.zipcode, ip.country, ip.dunsnumber, ip.federalID, ip.numberOfEmployees, ip.annualRevenue, ip.status, ip.owner, ip.author, ip.dateApproved, ip.active, ip.dateAdded, null, ip.lastModified, ip.person, ip.note);
+
+                //db.pr_modifyIteratePerson(ipr.id, firstName, lastName, title, email, phone, ipr.fax, ipr.active, ipr.dateAdded, ipr.lastModified, ipr.iteratePartner, ipr.lastContact, ipr.lastContactDate, ipr.previousContact, ipr.previousContactDate, ipr.nextAction, ipr.nextActionDate, ipr.notes, null);
+
                 db.pr_modifyPartner(partner.id, Generic.Helpers.CurrentInstance.EnterpriseID, partner.internalID, name, partner.address1, partner.address2, partner.city, partner.state, partner.province, partner.zipcode, partner.country, phone, partner.fax, firstName, lastName, title, email, partner.dunsNumber, partner.federalID, partner.status, partner.loadHistory, partner.owner, partner.author, partner.dateApproved, partner.active, partner.lastModified);
             }
             catch (Exception ex)
