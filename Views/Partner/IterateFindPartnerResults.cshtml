@@ -2826,16 +2826,23 @@
     }
 
     function referral(id, lastContact) {
-        var url = '@Url.Action("referral", "partner")' + '?id=' + id;
-        $.fancybox({
-            closeBtn: false,
-            closeClick: false,
-            modal: true,
-            href: url,
-            type: 'ajax',
-            minWidth: 400,
-            minHeight: 150
-        });
+         alertify.set({
+                labels: {
+                    ok: "No",
+                    cancel: "Yes"
+                },
+                buttonFocus: "cancel"
+            });
+            // button labels will be "Accept" and "Deny"
+        alertify.confirm('<div style="padding: 10px 20px;"><div class= "editor-label"><label>Referral Type</label></div><div class="editor-field"><select id="referralType" onchange="referralTypeChange();" class="form-control"><option value="Care Guides">Care Guides</option><option value="Telehealth/Telemedicine">Telehealth/Telemedicine</option><option value="Test Site Finder">Test Site Finder</option><option value="Mental Health Service">Mental Health Service</option><option value="Other">Other</option></select></div><div class="editor-label"><label>Referral Specification</label></div><div class="editor-field"><select id="referralSpecification" class="form-control"><option value="Care Guides 1">Care Guides 1</option><option value="Care Guides 2">Care Guides 2</option><option value="Care Guides 3">Care Guides 3</option></select></div></div>', function (e) {
+                if (e) {
+                    
+
+                } else {
+                   
+                   
+                }
+            });
     }
 
 
@@ -2843,7 +2850,7 @@
         $('#referralSpecification').find('option').remove();
         var v =$('#referralType').val();
 
-        for (var i = 0; i < 3; i++) {
+        for (var i = 1; i < 4; i++) {
             var optionText = v + " " + i.toString();
             $('#referralSpecification').append(`<option value="${optionText}"> 
                                        ${optionText} 

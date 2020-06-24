@@ -7,7 +7,7 @@
        <label>Referral Type</label>
     </div>
     <div class="editor-field">
-        <select id="referralType" onchange="referralTypeChange();">
+        <select id="referralType" class="form-control" onchange="referralTypeChange();">
             <option value="Care Guides">Care Guides</option>
             <option value="Telehealth/Telemedicine">Telehealth/Telemedicine</option>
             <option value="Test Site Finder">Test Site Finder</option>
@@ -19,12 +19,10 @@
         <label>Referral Specification</label>
     </div>
     <div class="editor-field">
-        <select id="referralSpecification">
-
+        <select id="referralSpecification" class="form-control">
+            <option value="Care Guides 1">Care Guides 1</option>
+            <option value="Care Guides 2">Care Guides 2</option>
+            <option value="Care Guides 3">Care Guides 3</option>
         </select>
     </div>
-    <p style="float: right; width: 20%;">
-        <input type="button" value="Ok" onclick="$.fancybox.close();" />
-        <input type="button" onclick="$.fancybox.close();" value="Cancel" />
-    </p>
 </div>
