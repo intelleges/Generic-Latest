@@ -3643,6 +3643,11 @@ namespace Generic.Controllers
             return View(db.pr_getIteratePartnerNoteAllGrid(partnerId).ToList());
         }
 
+        [HttpGet]
+        public ActionResult Referral(int id) {
+            return View();
+        }
+
         [GridAction]
         public ActionResult GetIterateNotesGrid(int partnerId)
         {

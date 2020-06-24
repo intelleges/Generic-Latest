@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<div style="padding: 10px 20px;">
+    <div class="editor-label">
+       <label>Referral Type</label>
+    </div>
+    <div class="editor-field">
+        <select id="referralType" onchange="referralTypeChange();">
+            <option value="Care Guides">Care Guides</option>
+            <option value="Telehealth/Telemedicine">Telehealth/Telemedicine</option>
+            <option value="Test Site Finder">Test Site Finder</option>
+            <option value="Mental Health Service">Mental Health Service</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="editor-label">
+        <label>Referral Specification</label>
+    </div>
+    <div class="editor-field">
+        <select id="referralSpecification">
+
+        </select>
+    </div>
+    <p style="float: right; width: 20%;">
+        <input type="button" value="Ok" onclick="$.fancybox.close();" />
+        <input type="button" onclick="$.fancybox.close();" value="Cancel" />
+    </p>
+</div>

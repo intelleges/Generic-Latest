@@ -2825,6 +2825,33 @@
 
     }
 
+    function referral(id, lastContact) {
+        var url = '@Url.Action("referral", "partner")' + '?id=' + id;
+        $.fancybox({
+            closeBtn: false,
+            closeClick: false,
+            modal: true,
+            href: url,
+            type: 'ajax',
+            minWidth: 400,
+            minHeight: 150
+        });
+    }
+
+
+    function referralTypeChange() {
+        $('#referralSpecification').find('option').remove();
+        var v =$('#referralType').val();
+
+        for (var i = 0; i < 3; i++) {
+            var optionText = v + " " + i.toString();
+            $('#referralSpecification').append(`<option value="${optionText}"> 
+                                       ${optionText} 
+                                  </option>`);
+        }
+
+        $('#referralSpecification option').eq(0).prop('selected', true);
+    }
 
     	function changeLastContact(id, lastContact) {
     		$.post("ChangeIteratePartnerLastContact", {
@@ -2946,7 +2973,7 @@ columns.Bound(o => o.lastContact).Title("Last Contact").Width(120).ClientTemplat
 <li><a href='#' onclick='changeLastContact(<#=id#>,12);'>Wrong Number</a></li>
 <li><a href='#' onclick='changeLastContact(<#=id#>,13);'>Music Box</a></li>
 <li><a href='#' onclick='changeLastContact(<#=id#>,14);'>Other</a></li>
-<li><a href='#' onclick='changeLastContact(<#=id#>,15);'>No Touchpoint</a></li>
+<li><a href='#' onclick='referral(<#=id#>,15);'>Referral</a></li>
     </ul>
 </div>
 ").Filterable(true);

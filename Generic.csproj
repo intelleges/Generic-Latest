@@ -6704,6 +6704,7 @@
     <Content Include="UploadTemplates\addPartnerTemplate2.xlsx" />
     <Content Include="Views\Partner\IterateFindPartnerResults.cshtml" />
     <EmbeddedResource Include="Views\Shared\_AdminFullScreenLayout.cshtml" />
+    <Content Include="Views\Partner\Referral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
