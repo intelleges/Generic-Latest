@@ -3644,7 +3644,8 @@ namespace Generic.Controllers
         }
 
         [HttpGet]
-        public ActionResult Referral(int id) {
+        public ActionResult Referral(int id)
+        {
             return View();
         }
 
@@ -4175,11 +4176,25 @@ namespace Generic.Controllers
             try
             {
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
+                var args = arguments.Split(";");
+                //var abc = (List<view_PartnerData>)Session["partner"];
                 var ipsall = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
                 var psall = db.pr_getPartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
-                var groupId = (int)Session["groupID"];
-                var partnerTypeId = (int)Session["partnertypeID"];
-                var statusId = (int)Session["statusID"];
+                var groupId = (int?)Session["groupID"];
+                if (!groupId.HasValue)
+                {
+                    groupId = ExtractSearchArgument(args, "groupID");
+                }
+                var partnerTypeId = (int?)Session["partnertypeID"];
+                if (!partnerTypeId.HasValue)
+                {
+                    partnerTypeId = ExtractSearchArgument(args, "partnertypeID");
+                }
+                var statusId = (int?)Session["statusID"];
+                if (!statusId.HasValue)
+                {
+                    statusId = ExtractSearchArgument(args, "statusID");
+                }
                 var result = db.pr_getIteratePartnerPersonByPartnertypeGroupStatus(partnerTypeId, groupId, statusId).ToList();
                 if (SessionSingleton.AddIteratePartnerId.HasValue)
                 {
@@ -4194,6 +4209,17 @@ namespace Generic.Controllers
             {
                 return Json(new GridModel());
             }
+        }
+
+        private static int? ExtractSearchArgument(string[] args, string keyName)
+        {
+            var groupArg = args.FirstOrDefault(a => a.Contains(keyName));
+            if (groupArg != null)
+            {
+                var keys = groupArg.Split("=");
+                return int.Parse(keys[1]);
+            }
+            return null;
         }
 
         [GridAction]
@@ -4984,7 +5010,7 @@ namespace Generic.Controllers
                     int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(iPartner.internalID, "", iPartner.dunsnumber, iPartner.name, iPartner.address1, iPartner.address2, iPartner.city, "1", iPartner.zipcode, "1", iPerson.firstname, iPerson.lastname, iPerson.title, iPerson.phone, iPerson.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, 1, 3111, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.Now.AddDays(2), 0).ToList().FirstOrDefault();
 
 
-                    var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(1, 3111).FirstOrDefault();
+                    var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(666, 43141).FirstOrDefault();
                     var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
                     if (pptq != null)
                         Invite(pptq.partner, ptq.id);
