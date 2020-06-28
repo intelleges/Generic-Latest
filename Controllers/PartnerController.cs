@@ -354,6 +354,46 @@ namespace Generic.Controllers
             return View(partner);
         }
 
+        [AllowAnonymous]
+
+        public ActionResult Subscribe(int? questionnaire, int? partnertype, int? touchpoint, int? protocol, int? group, int? person_id)
+        {
+            string g = Guid.NewGuid().ToString();
+            ViewBag.partnertypeVal = partnertype;
+            ViewBag.touchpointVal = touchpoint;
+            ViewBag.protocolVal = protocol;
+
+            var partner = new partner()
+            {
+                email = g + "@random.com",
+                internalID = g,
+                dunsNumber = g,
+                name = g + "@random.com",
+                address1 = "",
+                address2 = "",
+                city = "Boston",
+                state = 1,
+                zipcode = 11111.ToString(),
+                country = 1,
+                firstName = "",
+                lastName = "",
+            };
+
+            int? partnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, "", partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, person_id, (int)PartnerStatus.Loaded, group.ToString(), DateTime.Now, group).ToList().FirstOrDefault();
+
+            var target = db.touchpoint.Where(x => x.id == (touchpoint)).ToList();
+            var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(group.ToString()).ToList();
+            int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertype, touchpoint).LastOrDefault().id;
+            string accessCode = "";
+            foreach (var partnerItem in objPartners)
+            {
+                var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
+                accessCode = pptq.accesscode;
+                db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq.id, 6);
+            }
+
+            return Redirect("https://www.intelleges.com/mvcmt/Generic" + "/Registration/?accessCode=" + accessCode + "&advanced=true");
+        }
         //
         // GET: /Partner/Create
 

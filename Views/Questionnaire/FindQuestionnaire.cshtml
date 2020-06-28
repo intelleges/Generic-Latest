@@ -99,10 +99,18 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;
                         <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
                 </td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="btnFacebookTest" class="txtBox1" value="Facebook Test Button" type="button" style="width: 200px; height: 28px" name="btnFacebookTest"onclick="testFacebook();" >
+                </td>
             </tr>
 
         </table>
     </div>
 </form>
 
-n
+<script type="text/javascript">
+    function testFacebook() {
+        window.location = '@Url.Action("Subscribe", "Partner")' +'?questionnaire=5164&partnertype=666&touchpoint=4314&protocol=2214&group=2503&person_id=13201';
+    }
+</script>
