@@ -411,8 +411,8 @@ namespace Generic.Controllers
 
         protected void GenerateCreateDropDownLists()
         {
-            ViewBag.state = new SelectList(db.state, "id", "name");
-            ViewBag.country = new SelectList(db.country, "id", "name");
+            ViewBag.state = new SelectList(db.pr_getStateAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
+            ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.protocol = new SelectList(db.pr_getProtocolAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "name");
             ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name");
             ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname");
@@ -2041,6 +2041,7 @@ namespace Generic.Controllers
                 }
 
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
+                
                 Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
                 // List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
