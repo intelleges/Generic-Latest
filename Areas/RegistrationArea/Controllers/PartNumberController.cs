@@ -175,13 +175,19 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 if (nextPartNumber != null)
                 {
-                    Session["pn"] = new int[] { nextPartNumber.partnumber };
+                    Session["pn"] = nextPartNumber.description;
                     siteSelectList = nextPartNumber.site;
                 }
 
             }
             Session["partnumber"] = partNumberSelectList;
-            if (partNumberSelectList != null) Session["pn"] = partNumberSelectList;
+            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+
+            if (partNumberSelectList != null && partNumberSelectList.Count()>0)
+            {
+                var pnf = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.partnumber == partNumberSelectList[0]).First();
+                Session["pn"] = pnf.description;
+            }
 
             Session["site"] = siteSelectList;
             Session["partnumberstatus"] = partnumberStatusSelectList;
@@ -191,7 +197,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBag.showSplitter = (objQuestionnaire.letter == 1
                 || objQuestionnaire.letter == 99);
             ViewBag.Level = objQuestionnaire.levelType;
-            int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+           
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
             //temp comment out
             //JB: this ends process of setting dropdown bindings based on data in session
@@ -264,10 +270,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             //JB: to set dropdown bindings begins
             Session["partnumber"] = partNumberSelectList;
-            Session["pn"] = partNumberSelectList;
-
+           
             Session["partnumberstatus"] = partnumberStatusSelectList;
-
             Session["site"] = siteSelectList;
 
             int questionnaireId = 0;
@@ -293,13 +297,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
+            if (partNumberSelectList != null && partNumberSelectList.Count() > 0)
+            {
+                var pnf = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.partnumber == partNumberSelectList[0]).First();
+                Session["pn"] = pnf.description;
+            }
+
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
             //JB: to set dropdown bindings ends
             //explain this -- start here
 
             jumpToQuestion = 0;
-
-
             foreach (var keyName in formCollection.Keys)
             {
                 answer = formCollection[keyName.ToString()];
@@ -352,10 +360,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                         var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault();
 
-                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
+                        var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.partnumber).ToList();
                         if (checkpsz.Count == 0)
                         {
-                            db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
+                            db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.partnumber);
                         }
                         else
                         {
@@ -363,7 +371,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             if (checkpszObj != null)
                             {
                                 var checkpszId = checkpszObj.id;
-                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.partnumber);
                             }
                         }
                         meesage = ZcodeModify(questionnaireId, questionId, responseId, PartNumberSiteZcodepptq);
@@ -392,10 +400,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                             var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault();
 
-                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
+                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.partnumber).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.partnumber);
                             }
                             else
                             {
@@ -403,7 +411,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 if (checkpszObj != null)
                                 {
                                     var checkpszId = checkpszObj.id;
-                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.id);
+                                    db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, null, null, null, PartNumberSiteZcodepptq.partnumber);
                                 }
                             }
 
@@ -522,10 +530,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         }
                         if (PartNumberSiteZcodepptq != null)
                         {
-                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.id).ToList();
+                            var checkpsz = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionId, PartNumberSiteZcodepptq.partnumber).ToList();
                             if (checkpsz.Count == 0)
                             {
-                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, PartNumberSiteZcodepptq.id);
+                                db.pr_addPartnumberSiteZcodePPTQQuestionResponse(questionId, responseId, responseComment, null, null, dueDate, null, null, PartNumberSiteZcodepptq.partnumber);
                             }
                             else
                             {
@@ -536,7 +544,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                     var checkpszId = checkpszObj.id;
                                     try
                                     {
-                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, dueDate, null, null, PartNumberSiteZcodepptq.id);
+                                        db.pr_modifyPartnumberSiteZcodePPTQQuestionResponse(checkpszId, questionId, responseId, responseComment, null, null, dueDate, null, null, PartNumberSiteZcodepptq.partnumber);
                                     }
                                     catch (Exception ex)
                                     {
@@ -582,8 +590,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 // Skip ZCode update            
                 //var context = new EntitiesDBContext();
-                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQ(partNumberSelectList[0]).FirstOrDefault();
-
+                var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList[0], siteSelectList, pptq).FirstOrDefault();
                 meesage = ZcodeModifyForSkip(questionnaireId, questionId, jumpToQuestion, PartNumberSiteZcodepptq);
 
             }
@@ -894,7 +901,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         countryCode = Session["CountryCode"].ToString();
                     }
-                    CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.id, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
+                    CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.partnumber, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
                     {
                         LIFNR = x.LIFNR,
                         MATNR = x.MATNR,
@@ -903,7 +910,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         ZCODE = x.ZCODE,
                         ZPOST = x.ZPOST,
                         COMPLETED_DATE = x.COMPLETED_DATE,
-                        PartnumberSiteZcode = PartNumberSiteZcodepptq.id
+                        PartnumberSiteZcode = PartNumberSiteZcodepptq.partnumber
                     }).FirstOrDefault();
                     if (finalAnswer)
                     {
@@ -1431,10 +1438,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 partnerPartnertypeTouchpointQuestionnaire objpptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault();
                 var statuses = dbConext.pr_getPartnumberSiteZcodePPTQByPPTQ(objpptq.id).ToList().Select(x => x.status).Distinct().ToList();
-                if (statuses.Any(o => o == Status.COMPLETED || o == Status.INCOMPLETE))
-                {
+                if (statuses.Any(o => o == Status.NOT_STARTED || o == Status.INCOMPLETE))
                     dbConext.pr_modifyPPTQStatus(objpptq.partner, objpptq.partnerTypeTouchpointQuestionnaire, (int)PartnerStatus.Responded_Incomplete);
-                }
             }
             return pptq;
         }

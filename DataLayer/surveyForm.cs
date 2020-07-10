@@ -341,7 +341,7 @@ namespace Generic.DataLayer
             if (HttpContext.Current.Session["pn"] !=null) {
                 try
                 {
-                    pn = ((int[])HttpContext.Current.Session["pn"])[0].ToString();
+                    pn = HttpContext.Current.Session["pn"].ToString();
                 }
                 catch { }
             }

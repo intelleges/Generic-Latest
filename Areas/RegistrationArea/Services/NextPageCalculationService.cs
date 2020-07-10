@@ -81,8 +81,10 @@ namespace Generic.Areas.RegistrationArea.Services
                     if (partNumberSelectList.HasValue)
                     {
                         var PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQByPartnumberSiteAndPPTQ(partNumberSelectList, siteSelectList, pptq).FirstOrDefault();
-                        if (PartNumberSiteZcodepptq != null)
-                            rID = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionidLogic, PartNumberSiteZcodepptq.id).FirstOrDefault().response;
+                        if (PartNumberSiteZcodepptq != null) {
+                            var rd = db.pr_getPartnumberSiteZcodePPTQQuestionResponseByQuestionAndPartnumberSite(questionidLogic, PartNumberSiteZcodepptq.partnumber).FirstOrDefault();
+                            if (rd != null) rID = rd.response;
+                        }
                     }
                     else
                     {
