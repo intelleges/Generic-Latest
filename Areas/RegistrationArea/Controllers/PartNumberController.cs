@@ -175,12 +175,14 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 if (nextPartNumber != null)
                 {
-                    //partNumberSelectList = new int[] { nextPartNumber.partnumber };
+                    Session["pn"] = new int[] { nextPartNumber.partnumber };
                     siteSelectList = nextPartNumber.site;
                 }
 
             }
             Session["partnumber"] = partNumberSelectList;
+            if (partNumberSelectList != null) Session["pn"] = partNumberSelectList;
+
             Session["site"] = siteSelectList;
             Session["partnumberstatus"] = partnumberStatusSelectList;
             int questionnaireId = (int)Session["questionnaire"];
@@ -262,6 +264,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             }
             //JB: to set dropdown bindings begins
             Session["partnumber"] = partNumberSelectList;
+            Session["pn"] = partNumberSelectList;
 
             Session["partnumberstatus"] = partnumberStatusSelectList;
 
@@ -590,9 +593,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 // save uploaded files
                 saveUploadedFile(protocolId, touchpointId, partnerId, questionnaireId, pptq);
-
-
-
 
                 if (goEsignature == "true")
                 {
@@ -1052,7 +1052,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             //}
             //else
             //{
-            ViewBag.partNumberSelectList = new MultiSelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).ToList(), "id", "description", partNumberID);
+            ViewBag.partNumberSelectList = new MultiSelectList(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptqID).ToList(), "partnumber", "description", partNumberID);
             //}
             Session["partnumber"] = partNumberID;
         }
@@ -1367,28 +1367,28 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 if (partnumberStatusSelectList != 0)
                 {
-                    var partNumberList = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).ToList();
+                    var partNumberList = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED).ToList();
                     try
                     {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "partnumber", "description");
                         //Session["partnumber"] = partNumberList.First().id;
                     }
                     catch
                     {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "partnumber", "description");
                     }
                 }
                 else
                 {
-                    var partNumberList = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).ToList();
+                    var partNumberList = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED).ToList();
                     try
                     {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "partnumber", "description");
                         //Session["partnumber"] = partNumberList.First().id;
                     }
                     catch
                     {
-                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "id", "description");
+                        ViewBag.partNumberSelectList = new SelectList(partNumberList, "partnumber", "description");
                     }
                 }
 

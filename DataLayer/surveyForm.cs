@@ -336,7 +336,17 @@ namespace Generic.DataLayer
             strQuestion = format.sGetEmailBody(strQuestion, null, _currentPartner, _enterprise, objpptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, objpptq.partnerTypeTouchpointQuestionnaire);
             question.Question = strQuestion;
 
-            if (this.showContentOnly)
+
+            string pn = "";
+            if (HttpContext.Current.Session["pn"] !=null) {
+                try
+                {
+                    pn = ((int[])HttpContext.Current.Session["pn"])[0].ToString();
+                }
+                catch { }
+            }
+
+                if (this.showContentOnly)
             {
                 label.Text = question.Question + " " + getRuleByquestion(question.id);
             }
@@ -350,6 +360,8 @@ namespace Generic.DataLayer
                     label.Text += this.errorMessage;
                 }
             }
+
+            label.Text = (label.Text ?? "").Replace("[part number]", pn);
 
             if (HttpContext.Current.Session["accessCode"].ToString() == "328186YV")
             {
