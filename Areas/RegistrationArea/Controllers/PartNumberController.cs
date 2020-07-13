@@ -603,9 +603,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 if (goEsignature == "true")
                 {
-
-                    return Redirect("../Home/eSignature");
-
+                    if(db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED && o.status != 4).Count()>0)
+                        return Redirect("../Home/finish");
+                    else return Redirect("../Home/eSignature");
                 }
 
                 if (saveForLaterButton == true)
@@ -901,7 +901,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         countryCode = Session["CountryCode"].ToString();
                     }
-                    CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.partnumber, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
+                    CustomizedLSMW objCustomizedLSMW = db.pr_addCustomizedLSMWReport(PartNumberSiteZcodepptq.id, PartNumberSiteZcodepptq.zcode, countryCode).Select(x => new CustomizedLSMW
                     {
                         LIFNR = x.LIFNR,
                         MATNR = x.MATNR,
@@ -910,7 +910,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         ZCODE = x.ZCODE,
                         ZPOST = x.ZPOST,
                         COMPLETED_DATE = x.COMPLETED_DATE,
-                        PartnumberSiteZcode = PartNumberSiteZcodepptq.partnumber
+                        PartnumberSiteZcode = PartNumberSiteZcodepptq.id
                     }).FirstOrDefault();
                     if (finalAnswer)
                     {
@@ -936,7 +936,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             Session["partnumber"] = null;
                             Session["site"] = null;
                             Session["partnumberstatus"] = null;
-                            return Redirect("~/Registration/Home/eSignature");
+
+                            if (db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED && o.status != 4).Count() > 0)
+                                return Redirect("~/Registration/Home/finish");
+                            else
+                                return Redirect("~/Registration/Home/eSignature");
                         }
                     }
                     else
@@ -946,7 +950,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         Session["partnumber"] = null;
                         Session["site"] = null;
                         Session["partnumberstatus"] = null;
-                        return Redirect("~/Registration/Home/eSignature");
+
+                        if (db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED && o.status != 4).Count() > 0)
+                            return Redirect("~/Registration/Home/finish");
+                        else
+                            return Redirect("~/Registration/Home/eSignature");
                     }
                 }
 
@@ -978,8 +986,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 else
                 {
 
-
-                    return Redirect("~/Registration/Home/eSignature");
+                    int pptq = 0;
+                    using (var dbConext = new EntitiesDBContext())
+                    {
+                        pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+                        if (db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED && o.status != 4).Count() > 0)
+                            return Redirect("~/Registration/Home/finish");
+                        else
+                            return Redirect("~/Registration/Home/eSignature");
+                    }
 
                 }
             }
@@ -1311,8 +1326,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult SaveForLater()
         {
             updateZcodesAll();
-            Response.Redirect("~/Registration/Home/eSignature");
-            return View();
+
+            int pptq = 0;
+            using (var dbConext = new EntitiesDBContext())
+            {
+                pptq = dbConext.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
+                if (db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.status != Status.COMPLETED && o.status != 4).Count() > 0)
+                    Response.Redirect("~/Registration/Home/finish");
+                else
+                    Response.Redirect("~/Registration/Home/eSignature");
+                return View();
+            }
         }
 
         public ActionResult PreviousPartNumberUI()
