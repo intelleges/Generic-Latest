@@ -187,6 +187,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 var pnf = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.partnumber == partNumberSelectList[0]).First();
                 Session["pn"] = pnf.description;
+                siteSelectList = pnf.site;
             }
 
             Session["site"] = siteSelectList;
@@ -272,7 +273,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             Session["partnumber"] = partNumberSelectList;
            
             Session["partnumberstatus"] = partnumberStatusSelectList;
-            Session["site"] = siteSelectList;
+            
 
             int questionnaireId = 0;
             int partnerId = 0;
@@ -295,12 +296,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
             string skip = "";
             string goEsignature = "";
 
+            Session["site"] = siteSelectList;
+
             int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
 
             if (partNumberSelectList != null && partNumberSelectList.Count() > 0)
             {
                 var pnf = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.partnumber == partNumberSelectList[0]).First();
                 Session["pn"] = pnf.description;
+                Session["site"] = pnf.site;
             }
 
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);
