@@ -291,7 +291,7 @@
             <div class="display_menu" style="display: none;top: -10px;left: 110px;height: 60px;width: 120px;">
                 <ul style="margin-top: 5px;">
                     <li><a href="javascript:DetailsDialog.removePartNumber(@item.id)">Remove</a></li>
-                    <li><a href="javascript:DetailsDialog.resetPartNumber(@item.partner,@item.id)">Reset</a></li>
+                    <li><a href="javascript:DetailsDialog.resetPartNumber(@ViewBag.PptqId,@item.id, @ViewBag.QuestionnaireId)">Reset</a></li>
                 </ul>
             </div>
             </text>);
@@ -352,8 +352,8 @@
                     }
                 });               
             },
-            resetPartNumber: function (pptqId, pnId) {
-                $.ajax("ResetPartNumber", { type: "POST", data: { partnerId: pptqId, partNumberId: pnId } }).done(function (result) {
+            resetPartNumber: function (pptqId, pnId, questionnaireId) {
+                $.ajax("ResetPartNumberByPptq", { type: "POST", data: { pptqId: pptqId, partNumberId: pnId, questionnaireId: questionnaireId } }).done(function (result) {
                     if (result) {
                         alertify.alert(result);
                     }

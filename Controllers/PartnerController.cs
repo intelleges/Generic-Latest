@@ -162,6 +162,24 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public string ResetPartNumberByPptq(int pptqId, int partNumberId, int questionnaireId)
+        {
+            var result = "";
+            try
+            {
+                db.pr_resetPartnumberSiteZcodePPTQQuestionResponseByPPTQPartnumber(pptqId, partNumberId);
+                var resulrValues = db.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber(pptqId, partNumberId).FirstOrDefault();
+                if (resulrValues != null)
+                    result = string.Format("Congratulations you have reset partnumber: {0} to status: {1} for site: {2}", resulrValues.partnumber, resulrValues.status, resulrValues.site);
+
+            }
+            catch
+            {
+            }
+            return result;
+        }
+
+        [HttpPost]
         public bool RemovePartnersQuestinnarie(string[] values)
         {
             var result = false;
@@ -304,7 +322,11 @@ namespace Generic.Controllers
             var pptq = partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault();
             if (pptq != null)
             {
-                ViewBag.partNumbers = db.pr_getPartnumberByPPTQ(pptq.id).ToList();
+                var list = db.pr_getPartnumberByPPTQ(pptq.id).ToList();
+                var q = db.pr_getQuestionnaireByPPTQ(pptq.id).FirstOrDefault();
+                ViewBag.partNumbers = list;
+                ViewBag.PptqId = pptq.id;
+                ViewBag.QuestionnaireId = q.id;
             }
 
             try

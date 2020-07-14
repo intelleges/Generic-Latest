@@ -305,6 +305,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var pnf = db.pr_getPartnumberSiteZcodePPTQByPPTQ_ToDo_ByPPTQ(pptq).Where(o => o.partnumber == partNumberSelectList[0]).First();
                 Session["pn"] = pnf.description;
                 Session["site"] = pnf.site;
+                siteSelectList = pnf.site;
             }
 
             dropdownBindings(siteSelectList, partnumberStatusSelectList, pptq, partNumberSelectList);

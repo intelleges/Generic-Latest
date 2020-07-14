@@ -175,19 +175,20 @@
                                                                                             <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
 
                                                                                             <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
+                                                                                            <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("View Detail")?"inherit":"none")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
 
                                                                                             @*if (Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind"))
-                                                                                                        {
-                                                                                                <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
-                                                                                                        }
+                {
+        <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
+                }
 
-                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
 
-                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+        <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu||Generic.SessionClass.SessionSingleton.ShouldDisplayMenuBAA?"none":"inherit")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
 
-                                                                                                <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
+        <li><a href="javascript:changePTQ('@item.AccessCode')">Change PTQ</a></li>
 
-                                                                                                <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
+        <li><a href="javascript:ExecuteResponses('@item.AccessCode',@item.pptq)">Response</a></li>
                                                                                             *@
                                                                                         </ul>
                                                                                     </div>
