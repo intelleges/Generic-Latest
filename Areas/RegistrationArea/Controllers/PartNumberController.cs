@@ -652,13 +652,13 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             var objQuestion = db.pr_getQuestion(questionId).FirstOrDefault();
 
-            if (objQuestion.responseType == ResponseType.DROPDOWN)
-            {
+            //if (objQuestion.responseType == ResponseType.DROPDOWN)
+           // {
                 if (responseZcode.zcode != null)
                 {
                     Session["CountryCode"] = responseZcode.zcode;
                 }
-            }
+          //  }
 
             string NewZcodePart2_CurrentQuestion = "--";
             if (responseZcode != null)
@@ -895,9 +895,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                     int pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(Session["accessCode"].ToString()).FirstOrDefault().id;
                     partNumberSiteZcodePPTQ PartNumberSiteZcodepptq = null;
+                    var mlist = db.pr_getPartnumberSiteZcodePPTQByPPTQ(pptq).ToList();
                     foreach (var item in partNumberSelectList)
                     {
-                        PartNumberSiteZcodepptq = db.pr_getPartnumberSiteZcodePPTQ(item).FirstOrDefault();
+                        PartNumberSiteZcodepptq = mlist.Where(o=>o.partnumber == item).FirstOrDefault();
                         if (PartNumberSiteZcodepptq != null) break;
                     }
 
