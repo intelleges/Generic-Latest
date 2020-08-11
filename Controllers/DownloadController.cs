@@ -13,6 +13,8 @@ namespace Generic.Controllers
 
         public ActionResult Index(string accesscode)
         {
+            throw new Exception("Page not found");
+
             /*var t = db.xx_getAllPDFHyperlinks().Where(o => o.accesscode == accesscode).FirstOrDefault();
             if (t == null)
                 return Content("");*/
