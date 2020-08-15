@@ -30605,5 +30605,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getIteratePartnerPersonByPartnertypeGroupStatus_Result>("pr_getIteratePartnerPersonByPartnertypeGroupStatus", partnertypeParameter, groupParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<pr_getLetter_Result> pr_getLetter(string description)
+        {
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLetter_Result>("pr_getLetter", descriptionParameter);
+        }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Generic.Helpers;
+using static Generic.Areas.RegistrationArea.Controllers.HomeController;
 
 namespace Generic.Controllers
 {
@@ -22,6 +24,35 @@ namespace Generic.Controllers
                 AuthorizationService = new CustomRoleProvider();
 
             base.Initialize(requestContext);
+        }
+
+        [Authorize]
+        public ActionResult eula() {
+            List<enterprise> enterprise = db.pr_getEnterprise(1).ToList();
+            var enterpriseLogo = enterprise.FirstOrDefault();
+            byte[] logoBytes = new byte[0];
+            var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
+            string dirname = "~/uploadedFiles/EnterpriseLogo/";
+            string logoImg = "";
+            if (Directory.Exists(Server.MapPath(dirname)))
+            {
+                var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                if (!System.IO.File.Exists(physicalPath))
+                {
+                    var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                    fs.Write(logo);
+                    fs.Close();
+                }
+                string s = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                logoImg = "<img src='"+s+"' runat='server' style='height: 50px; width: 300px; border: none' />";
+            }
+
+            var items = db.pr_getLetter("EULA");
+            byte[] bytes = null;
+            string html = "<html><head></head><body>" + logoImg + "<br/><br/>" + items.First().body + "</body></html>";
+            bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(html);
+            return new BinaryContentResult(bytes, "application/pdf", "eula.pdf");
         }
 
         [Authorize]

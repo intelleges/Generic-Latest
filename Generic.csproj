@@ -2065,6 +2065,9 @@
     <Compile Include="pr_getLCE_Special_Data_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getLetter_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getLinkedInConnectionDataLoadAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
