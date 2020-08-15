@@ -227,7 +227,7 @@
 
             @*<div class="clear-fix"></div>*@
 
-            <div style="float: right">Hello, @LoginName - <span id="TouchPointDescription"></span> -- <a href="/home/eula">@ProductName, @SubscriptionTypeName, @SubscriptionStatusName</a></div>
+            <div style="float: right">Hello, @LoginName - <span id="TouchPointDescription"></span> -- <a href="@Url.Content("~/home/eula")">@ProductName, @SubscriptionTypeName, @SubscriptionStatusName</a></div>
             <div class="clear-fix"></div>
 
             @Html.Action("Menu", "Admin")
