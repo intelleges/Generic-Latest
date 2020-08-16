@@ -2043,6 +2043,43 @@ namespace Generic.Controllers
             }
         }
 
+
+        [HttpPost]
+        public ActionResult FindPartner2(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string accesscode, string searchType)
+        {
+            string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+            if (touchpoint != null)
+                arguments += "touchpointID=" + touchpoint + ";";
+            if (group != null)
+                arguments += "groupID=" + group + ";";
+            if (country != null)
+                arguments += "countryID=" + country + ";";
+            if (partnertype != null)
+                arguments += "partnertypeID=" + partnertype + ";";
+            if (partnerStatus != null)
+                arguments += "StatusID=" + partnerStatus + ";";
+            if (txtInternalIdFind != "")
+                arguments += "InternalId=" + txtInternalIdFind + ";";
+            if (txtDunsNumberFind != "")
+                arguments += "DunsNumber=" + txtDunsNumberFind + ";";
+            if (txtNameFind != "")
+                arguments += "PartnerName=" + txtNameFind + ";";
+            if (txtFederalIdFind != "")
+                arguments += "FederalId=" + txtFederalIdFind + ";";
+            if (accesscode != "")
+                arguments += "accesscode=" + accesscode + ";";
+            if (txtContactEmailFind != "")
+                arguments += "ContactEmail=" + txtContactEmailFind + ";";
+            if (txtHROEmailFind != "")
+                arguments += "HROEmail=" + txtHROEmailFind + ";";
+
+            arguments = arguments + "active=1;";
+
+           var items = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(items);
+            return View(objPartnerViewModelList);
+        }
+
         public ActionResult FindPartnerResult()
         {
             try
@@ -2077,6 +2114,19 @@ namespace Generic.Controllers
                         ViewBag.TouchPointDetails = touchpointDetails;
                     }
                 }
+
+                ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+                ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId), "id", "name");
+
+                ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+                ViewBag.searchType ="";
+
 
                 return View(abc);
             }
@@ -2838,6 +2888,25 @@ namespace Generic.Controllers
 
             }
             return result;
+        }
+
+        [HttpPost]
+        public dynamic shadow(string accessCode, int pptq)
+        {
+            var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            string status = "shadow";
+            if (pptqObj.status != 14) {
+                var items = db.pr_getShadowByReferencePPTQ(pptq).ToList();
+                if (items.Count > 0)
+                {
+                    status = "reference";
+                }
+                else {
+                    status = "";
+                }
+            }
+
+            return Json(new { status });
         }
 
         [HttpPost]

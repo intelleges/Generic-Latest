@@ -1,0 +1,132 @@
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.ViewModel.PartnerViewModel>>
+@using System.Web.Mvc.Html
+@using Generic.Helpers
+@using Telerik.Web.Mvc.UI;
+@{
+    Layout = null;
+
+    ViewBag.Title = "Partner";
+}
+
+<style>
+    div#PartnerGrid2 {
+        font-size: 11px;
+    }
+    #PartnerGrid2 .t-grid-header table {
+        height: 30px;
+        padding-top: 0px;
+    }
+</style>
+
+
+<form method="post" id="gridForm">
+    <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+    @( Html.Telerik().Grid(Model).Name("PartnerGrid2")
+        .ToolBar(commands =>
+        {
+            commands.Template(
+                "<input style='width: 50px;' type='button' value='Go' id='btnGo' />");
+        })
+
+            .Columns(columns =>
+            {
+
+                columns.Bound(o => o.IsSelected)
+
+               .Title("")
+               .Template(@<text>
+
+
+                <input type='radio' style="width: 40px;" id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
+
+            </text>)
+                .Width(50)
+                .HtmlAttributes(new { style = "text-align:center" }).Sortable(false);
+            columns.Bound(o => o.internalID).Title("Internal ID").Width(100).Encoded(false);
+            columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400);
+            columns.Bound(o => o.Contact).Title("Contact").Width(100);
+            columns.Bound(o => o.phone).Title("Phone").Width(100);
+            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200);
+                columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(200);
+
+                            columns.Bound(o => o.owner).Title("Owner").Width(100);
+                            columns.Bound(o => o.Country).Title("Country").Width(100);
+                            columns.Bound(o => o.city).Title("City").Width(100);
+                            columns.Bound(o => o.state).Title("State").Width(100);
+
+                            columns.Bound(o => o.address).Title("Address").Width(200);
+                            columns.Bound(o => o.zipcode).Title("Zipcode").Width(100);
+
+                            columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
+                            columns.Bound(o => o.Partnertype).Title("Partnertype").Width(100);
+                            columns.Bound(o => o.Group).Title("Group").Width(100);
+                            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(100);
+                                    columns.Bound(o => o.status).Title("Status").Width(200);
+
+
+                                })
+                                
+                                                                                                    .DataKeys(keys => keys.Add(o => o.internalID))
+                                                                                                    .Pageable(pager => pager.PageSize(13).Total(200).Enabled(true))
+                                                                                                    .Sortable(sorting => sorting.Enabled(true))
+
+                                                                                                    .Scrollable(scrolling => scrolling
+                                                                                                       .Enabled(true)
+                                                                                                       .Height(380))
+                                                                                                       .HtmlAttributes(new { @class = "ra" })
+
+
+
+    )
+</form>
+<style>
+    .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
+
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
+
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
+
+    .display_menu > ul {
+        padding: 0 16px;
+    }
+
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#btnGo").click(function (e) {
+            alertify.set({
+                labels: {
+                    ok: "Ok",
+                    cancel: "Cancel"
+                },
+                buttonFocus: "ok"
+            });
+            if ($('input:radio[name$=chkSelect]:checked').length == 0) {
+                alertify.alert("Please select at least one partner");
+            } else {
+                alertify.alert('We are still working on this functionalit thank you for your patience');
+            }
+
+        });
+    });
+</script>
+
+
+
