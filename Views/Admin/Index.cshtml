@@ -57,6 +57,7 @@
         function recaptcha_callback() {
             //alert("callback working");
             $('#login_submit_button').prop("disabled", false);
+            $('#login_submit_button').show();
         }
     </script>
 </head>
@@ -175,7 +176,7 @@
                                         }
                                         else
                                         {
-                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate">Log In</button>
+                                            <button id="login_submit_button" style="display:none;" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Log In</button>
                                             //
                                         }
                                     </div>
