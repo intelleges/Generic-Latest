@@ -414,6 +414,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
         {
