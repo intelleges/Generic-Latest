@@ -136,7 +136,7 @@
                                         <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
                                     </div>
 
-                                    @if (ViewBag.useReCaptch!=null && (bool)ViewBag.useReCaptcha)
+                                    @if (ViewBag.useReCaptcha!=null && (bool)ViewBag.useReCaptcha)
                                     {
                                         <div class="form-cell">
                                             <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
