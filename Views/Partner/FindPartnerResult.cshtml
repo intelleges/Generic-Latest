@@ -1124,18 +1124,36 @@
 				}
 			});
 		}
-		else if (data.message.next == 1) {
-			alertify.confirm(data.message.nextStep, function (e) {
+            else if (data.message.next == 1) {
+                var html = '<div style="text-align:left;">';
+                html += ' <input type="radio" style="width:30px;" id="choiseSelect" checked name="choiseSelect" value="1" >' + data.message.nextStep+'<br/>';
+                html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="2" >Print the pending approval PDF<br/>';
+                html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="3" >Approve this supplier<br/>';
+                html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="4" >Reject this supplier<br/>';
+
+                html += '</div>';
+                alertify.confirm(html, function (e) {
 				if (e) {
-					// click yes
-					remind(data.accessCode);
+                    var val = $("input[name='choiseSelect']:checked").val();
+                    alert(val);
+                    if (val === '1')
+                        remind(data.accessCode);
+                    else if (val === '2') {
+                        window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
+                    }
+                    else if (val === '3') {
+                        $.post("Approve", { accessCode: data.accessCode }).done(function (result) { });
+                    }
+                    else if (val === '4') {
+                        $.post("Reject", { accessCode: data.accessCode }).done(function (result) { });
+                    }
 
 				} else {
 					// click no
 				}
 			});
 		}
-		else {
+            else {
 				alertify.alert(data.message.nextStep);
 			if (data.message.next > 6) {
                 checkToPrintPDF(data.message.next, status, touchpoint);

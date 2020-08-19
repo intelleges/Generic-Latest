@@ -2838,6 +2838,46 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public string Approve(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+
+            var baseUri = new Uri(Request.Url.GetLeftPart(UriPartial.Authority));
+            var questionnaire = db.pr_getQuestionnaireByPPTQ(pptq.id).FirstOrDefault();
+            var appQuestion = db.pr_getApprovalRequestQuestionByQuestionnaire(questionnaire.id).FirstOrDefault();
+            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq.id, appQuestion.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";", "").Trim() + ";").ToList();
+            string qsss = "";
+            foreach (var item in list) qsss += db.pr_getQuestionTitle(item.Question).First() + "<br/>";
+
+            var choices = appQuestion.emailAlertList.Split(new char[] { ';' });
+            var email = choices[0].Split(':')[1];
+            var qnextId = choices[1].Replace("[", "").Replace("]", "");
+            EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString());
+            return "success";
+        }
+
+        [HttpPost]
+        public string Reject(string accessCode)
+        {
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+
+            var baseUri = new Uri(Request.Url.GetLeftPart(UriPartial.Authority));
+            var questionnaire = db.pr_getQuestionnaireByPPTQ(pptq.id).FirstOrDefault();
+            var appQuestion = db.pr_getApprovalRequestQuestionByQuestionnaire(questionnaire.id).FirstOrDefault();
+            var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq.id, appQuestion.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";", "").Trim() + ";").ToList();
+            string qsss = "";
+            foreach (var item in list) qsss += db.pr_getQuestionTitle(item.Question).First() + "<br/>";
+
+            var choices = appQuestion.emailAlertList.Split(new char[] { ';' });
+            var email = choices[0].Split(':')[1];
+            var qnextId = choices[1].Replace("[", "").Replace("]", "");
+            EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString());
+            return "success";
+        }
+
+        [HttpPost]
         public string Remind(string accessCode)
         {
 
