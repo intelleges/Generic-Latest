@@ -1135,7 +1135,6 @@
                 alertify.confirm(html, function (e) {
 				if (e) {
                     var val = $("input[name='choiseSelect']:checked").val();
-                    alert(val);
                     if (val === '1')
                         remind(data.accessCode);
                     else if (val === '2') {
