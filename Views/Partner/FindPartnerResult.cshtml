@@ -856,17 +856,32 @@
     function confirmShadow(accesscode, pptq2)
     {
         $.post("shadowconfirm", { accessCode: accesscode, pptq: pptq2, shadowaccessCode: shadowAcceCode, shadowpptq: shadowPptq }).done(function (result) {
-            alertify.alert(result.message, function () { window.location.reload();});
+            alertify.set({
+                labels: {
+                    ok: "Ok",
+                    cancel: "Cancel"
+                },
+                buttonFocus: "ok"
+            });
+            alertify.confirm(result.message, function (e) {
+                if (e) {
+                    $.post("shadowconfirm2", { accessCode: accesscode, pptq: pptq2, shadowaccessCode: shadowAcceCode, shadowpptq: shadowPptq }).done(function (result) { window.location.reload(); });
+                } else {
+                   // window.location.reload();
+                }
+            });
+
         });
     }
 
     var shadowAcceCode = null;
     var shadowPptq = null;
     function shadow(accessCode, pptq) {
+        shadowAcceCode = accessCode;
+        shadowPptq = pptq;
         $.post("shadow", { accessCode: accessCode, pptq: pptq }).done(function (result) {
             if (result.status === "") {
-                shadowAcceCode = accessCode;
-                shadowPptq = pptq;
+              
                 $("#updateDialog").modal("toggle");
             }
             else if (result.status === 'shadow') {
