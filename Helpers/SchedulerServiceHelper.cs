@@ -864,7 +864,7 @@ namespace Generic.Helpers
             return result;
         }
 
-        public static void SendPassword(pr_getPersonByEmail2_Result person, string emailTo)
+        public static void SendPassword(person person, string emailTo)
         {
             Generic.Helpers.CurrentInstance.EnterpriseID = person.enterprise.Value;
             using (EntitiesDBContext db = new EntitiesDBContext())

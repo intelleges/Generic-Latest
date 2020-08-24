@@ -80,7 +80,7 @@ namespace Generic.Controllers
         public virtual string GetForgotPassword(string email)
         {
             var resultString = "";
-            var result = db.pr_getPersonByEmail2(email).FirstOrDefault();
+            var result = db.pr_getPersonByEmailForLoginAttempts(email).FirstOrDefault();
             if (result == null)
                 resultString = email + " is invalid and no longer has access to that Intelleges account. Please contact your Account Administrator to activate an expired account or to register a new one.";
             else
