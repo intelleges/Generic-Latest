@@ -37,7 +37,7 @@
                .Template(@<text>
 
 
-                <input type='radio' style="width: 40px;" id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' />
+                <input type='radio' style="width: 40px;" id='chkMessage' name='chkSelect' class="chkPartners" value='@item.id' accesscode="@item.AccessCode" pptq="@item.id"/>
 
             </text>)
                 .Width(50)
@@ -121,7 +121,9 @@
             if ($('input:radio[name$=chkSelect]:checked').length == 0) {
                 alertify.alert("Please select at least one partner");
             } else {
-                alertify.alert('We are still working on  this functionality. Thank you for your patience.');
+                var accesscode = $('input:radio[name$=chkSelect]:checked:first').attr("accesscode");
+                var pptq2 = $('input:radio[name$=chkSelect]:checked:first').attr("pptq");
+                confirmShadow(accesscode, pptq2);
             }
 
         });

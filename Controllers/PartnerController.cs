@@ -2950,6 +2950,16 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public dynamic shadowconfirm(string accessCode,int pptq,string shadowaccessCode, int shadowpptq)
+        {   
+            var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+            var pptq2= db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(shadowaccessCode).FirstOrDefault();
+            db.pr_makeShadowOfReference(shadowpptq, pptq1.id, SessionSingleton.LoggedInUserId);
+            string message = "You have converted " + pptq2.partner1.name + " with access code " + shadowaccessCode + " to a SHADOW with REFERENCE "+ pptq1.partner1.name + " with acccess code " + accessCode + ".";
+            return Json(new { message });
+        }
+
+        [HttpPost]
         public string SendRemindSms(string accessCode)
         {
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
