@@ -2593,6 +2593,15 @@
     <Compile Include="pr_getPersonPreviousNext_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPersonPrintPDFAllByPerson_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonPrintPDFAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPersonPrintPDF_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPersonPwdByEmail_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

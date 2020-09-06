@@ -30614,5 +30614,117 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getLetter_Result>("pr_getLetter", descriptionParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPersonPrintPDF(Nullable<int> person, Nullable<int> pptq, string address2, Nullable<System.DateTime> date, Nullable<int> sortorder, Nullable<bool> active)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("address2", address2) :
+                new ObjectParameter("address2", typeof(string));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var sortorderParameter = sortorder.HasValue ?
+                new ObjectParameter("sortorder", sortorder) :
+                new ObjectParameter("sortorder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPersonPrintPDF", personParameter, pptqParameter, address2Parameter, dateParameter, sortorderParameter, activeParameter);
+        }
+    
+        public virtual int pr_archivePersonPrintPDF(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePersonPrintPDF", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonPrintPDF_Result> pr_getPersonPrintPDF(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPrintPDF_Result>("pr_getPersonPrintPDF", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPersonPrintPDFAll_Result> pr_getPersonPrintPDFAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPrintPDFAll_Result>("pr_getPersonPrintPDFAll");
+        }
+    
+        public virtual ObjectResult<pr_getPersonPrintPDFAllByPerson_Result> pr_getPersonPrintPDFAllByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPersonPrintPDFAllByPerson_Result>("pr_getPersonPrintPDFAllByPerson", personParameter);
+        }
+    
+        public virtual int pr_modifyPersonPrintPDF(Nullable<int> id, Nullable<int> person, Nullable<int> pptq, string address2, Nullable<System.DateTime> date, Nullable<int> sortorder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var address2Parameter = address2 != null ?
+                new ObjectParameter("address2", address2) :
+                new ObjectParameter("address2", typeof(string));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            var sortorderParameter = sortorder.HasValue ?
+                new ObjectParameter("sortorder", sortorder) :
+                new ObjectParameter("sortorder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonPrintPDF", idParameter, personParameter, pptqParameter, address2Parameter, dateParameter, sortorderParameter, activeParameter);
+        }
+    
+        public virtual int pr_removePersonPrintPDF(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePersonPrintPDF", idParameter);
+        }
+    
+        public virtual int pr_unArchivePersonPrintPDF(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonPrintPDF", idParameter);
+        }
     }
 }

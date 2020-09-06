@@ -5340,6 +5340,9 @@ namespace Generic.Controllers
         }
         public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId, int status, int touchpoint)
         {
+            var current_person = db.pr_getPerson(SessionSingleton.LoggedInUserId).First();
+            db.pr_addPersonPrintPDF(SessionSingleton.LoggedInUserId, pptqId, current_person.address2, DateTime.Now, 0, true);  
+
             var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
             string msg = null;
