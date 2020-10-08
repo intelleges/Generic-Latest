@@ -47,12 +47,9 @@ namespace IntellegesWebsite
             if (httpContext.User.Identity.IsAuthenticated)
             {
                 var ip = httpContext.Request.UserHostAddress;
-                var person = db.pr_getPersonByEmail2(httpContext.User.Identity.Name);
+                var person = db.pr_getPersonByEmail2(httpContext.User.Identity.Name).FirstOrDefault();
                 string last_ip = "";
-                if (person != null && person.Count() > 0)
-                {
-                    last_ip = person.First().address2;
-                }
+                if (person != null) last_ip = person.address2;
 
                 if (ip != last_ip)
                 {
