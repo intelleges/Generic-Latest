@@ -39,20 +39,24 @@ namespace IntellegesWebsite
 
         private void OnPostAuthenticate(Object sender, EventArgs e)
         {
-            EntitiesDBContext db = new EntitiesDBContext();
-
+           
             HttpApplication httpApplication = (HttpApplication)sender;
             HttpContext httpContext = httpApplication.Context;
 
-            if (httpContext.User.Identity.IsAuthenticated)
+            if (httpContext.User!=null && httpContext.User.Identity!=null && httpContext.User.Identity.IsAuthenticated)
             {
+                EntitiesDBContext db = new EntitiesDBContext();
+
                 var ip = httpContext.Request.UserHostAddress;
                 var person = db.pr_getPersonByEmail2(httpContext.User.Identity.Name).FirstOrDefault();
                 string last_ip = "";
-                if (person != null) last_ip = person.address2;
+                if (person != null) last_ip = person.address2.Split(':')[0];
 
                 if (ip != last_ip)
                 {
+                    httpApplication.Context.Response.Headers.Add("ip",string.Format("<{0}>; rev=canonical", ip));
+                    httpApplication.Context.Response.Headers.Add("ip_db", string.Format("<{0}>; rev=canonical", last_ip));
+                    //httpContext.Response.Write(ip + " "+ last_ip);
                     FormsAuthentication.SignOut();
                     FormsAuthentication.RedirectToLoginPage();
                 }
