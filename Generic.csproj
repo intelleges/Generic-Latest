@@ -871,6 +871,7 @@
     <Compile Include="Helpers\ResponsesExtensions.cs" />
     <Compile Include="Helpers\SchedulerServiceHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Helpers\SingleSessionEnforcement.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TempModel.cs" />
     <Compile Include="Helpers\UIControl.cs" />
