@@ -2100,8 +2100,13 @@ namespace Generic.Controllers
                 }
 
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
-                
-                Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+
+                string view_name = "view_PartnerData";
+                //12655
+                if(SessionSingleton.LoggedInUserId == 12527)
+                    view_name = "view_PartnerData3";
+
+                Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  '"+ view_name + "' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
                 // List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
 

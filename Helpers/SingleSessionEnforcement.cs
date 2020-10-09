@@ -70,7 +70,7 @@ namespace IntellegesWebsite
 
         public void Init(HttpApplication context)
         {
-            context.PostAuthenticateRequest += new EventHandler(OnPostAuthenticate);
+            context.AuthenticateRequest += new EventHandler(OnPostAuthenticate);
         }
     }
 }
