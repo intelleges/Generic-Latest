@@ -95,32 +95,44 @@ namespace Generic.Helpers
                 var start = ws.Dimension.Start;
                 var end = ws.Dimension.End;
                 var columnNames = new Dictionary<int, string>();
-                for (int row = start.Row; row <= end.Row; row++)
-                { // Row by row...
-                    T obj = Activator.CreateInstance<T>();
-                    var properties = obj.GetType().GetProperties();
-                    for (int col = start.Column; col <= end.Column; col++)
-                    { // ... Cell by cell...
-                        object cellValue = ws.Cells[row, col].Text; // This got me the actual value I needed.
-                        if (row == start.Row)
-                        {
-                            columnNames.Add(col, cellValue.ToString());
+                int currentRow = 0;
+                int currentCol = 0;
+                string colText = "";
+                try
+                {
+                    for (int row = start.Row; row <= end.Row; row++)
+                    { // Row by row..
+                        currentRow++;
+                        T obj = Activator.CreateInstance<T>();
+                        var properties = obj.GetType().GetProperties();
+                        for (int col = start.Column; col <= end.Column; col++)
+                        { // ... Cell by cell...
+                            currentCol++;
+                            colText = ws.Cells[row, col].Text;
+                            object cellValue = ws.Cells[row, col].Text; // This got me the actual value I needed.
+                            if (row == start.Row)
+                            {
+                                columnNames.Add(col, cellValue.ToString());
+                            }
+                            else
+                            {
+                                PropertyInfo property = null;
+                                if (mapping.ContainsKey(columnNames[col]))
+                                    property = properties.FirstOrDefault(o => o.Name.ToLower() == mapping[columnNames[col]].ToLower());
+                                else property = properties.FirstOrDefault(o => o.Name.ToLower() == columnNames[col].ToLower());
+                                if (property != null)
+                                    SetValue(property, cellValue, obj);
+                                //property.SetValue(obj, cellValue);
+                            }
                         }
-                        else
+                        if (row != start.Row)
                         {
-                            PropertyInfo property = null;
-                            if (mapping.ContainsKey(columnNames[col]))
-                                property = properties.FirstOrDefault(o => o.Name.ToLower() == mapping[columnNames[col]].ToLower());
-                            else property = properties.FirstOrDefault(o => o.Name.ToLower() == columnNames[col].ToLower());
-                            if (property != null)
-                                SetValue(property, cellValue, obj);
-                            //property.SetValue(obj, cellValue);
+                            result.Add(obj);
                         }
                     }
-                    if (row != start.Row)
-                    {
-                        result.Add(obj);
-                    }
+                }
+                catch (Exception e) {
+                    throw new Exception("Column:" + currentCol + ", Row:" + currentRow + ", Value:" + colText);
                 }
             }
             return result;
