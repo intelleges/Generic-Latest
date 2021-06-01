@@ -1,7 +1,7 @@
 ﻿using Elmah;
 using Generic.Helpers;
 using Google.Apis.Services;
-using LightInject;
+//using LightInject;
 using LightInject.Mvc;
 using LightInject.Web;
 using System;
@@ -23,14 +23,14 @@ namespace Generic
     {
         protected void Application_Start()
         {
-            var container = new ServiceContainer();
-            container.RegisterControllers();
-            //register other services
-            container.Register<IDatabaseTranslationService, DatabaseTranslationService>(new PerScopeLifetime());
-            container.Register<IGoogleTranslatorHelper, GoogleTranslatorHelper>(new PerScopeLifetime());            
-            container.EnablePerWebRequestScope();
-            container.EnableMvc();
-			
+            //var container = new ServiceContainer();
+            //container.RegisterControllers();
+            ////register other services
+            //container.Register<IDatabaseTranslationService, DatabaseTranslationService>(new PerScopeLifetime());
+            //container.Register<IGoogleTranslatorHelper, GoogleTranslatorHelper>(new PerScopeLifetime());
+            //container.EnablePerWebRequestScope();
+            //container.EnableMvc();
+
             Helpers.CurrentInstance.IsGeneric = 1;
             AreaRegistration.RegisterAllAreas();
 
