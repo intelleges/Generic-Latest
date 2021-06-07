@@ -626,14 +626,9 @@ Thanks in advance.<br>
         [HttpPost]
         public ActionResult ResetPassword(string password)
         {
-            person objUser = db.pr_getPersonByEmail(Generic.Helpers.CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
-            objUser.passWord = password;
-            objUser.personStatus = (int)PersonHelper.PersonStatus.Registered;
-            objUser.riskType = 1;
-            objUser.loadHistory = 1;
-            db.Entry(objUser).State = EntityState.Modified;
-            db.SaveChanges();
-            ViewBag.Message = 1;
+            var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            var validation = db.pr_modifyPersonPasswordByID(person.id, password);
+            ViewBag.message = validation;
             return View();
         }
 
