@@ -90,7 +90,18 @@
     }
 </style>
 
-
+<script>
+    Array.prototype.reduce = function (callback, initialVal) {
+        var accumulator = (initialVal === undefined) ? undefined : initialVal;
+        for (var i = 0; i < this.length; i++) {
+            if (accumulator !== undefined)
+                accumulator = callback.call(undefined, accumulator, this[i], i, this);
+            else
+                accumulator = this[i];
+        }
+        return accumulator;
+    };
+</script>
 <div class="top-margin">
 
 </div>
@@ -145,24 +156,25 @@
                 <div class="form-inline">
                     @using (Html.BeginForm())
                     {
-                        <div class="form-group">
-                            <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.ACCESS_CODE_SIPLE_TEXT &nbsp;&nbsp; </label>
-                            <input type="text" class="form-control" name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode">
-                            @*@if (ViewBag.EmailVerification)
-                                {
-                                    <label for="emailVerification"><i class="fa fa-asterisk"></i>@ViewBag.EmailVerificationLabel &nbsp;&nbsp; </label>
-                                    <input class="form-control" name="emailVerification" type="email" id="emailVerification">
-                                }*@
-                            <input type="submit" name="btnlogin" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" />
-                            <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
-                            </div>
-                            @if (ViewBag.useReCaptcha!=null &&(bool)ViewBag.useReCaptcha)
-                            {
+                    <div class="form-group">
+                        <label for="exampleInputName2"><i class="fa fa-asterisk"></i>@formData.ACCESS_CODE_SIPLE_TEXT &nbsp;&nbsp; </label>
+                        <input type="text" class="form-control" name="AccessCode" type="text" id="AccessCode" value="@ViewBag.accesscode">
+                        @*@if (ViewBag.EmailVerification)
+        {
+            <label for="emailVerification"><i class="fa fa-asterisk"></i>@ViewBag.EmailVerificationLabel &nbsp;&nbsp; </label>
+            <input class="form-control" name="emailVerification" type="email" id="emailVerification">
+        }*@
+                        <input type="submit" name="btnlogin" disabled="disabled" id="btnlogin" value="@formData.CMS_SUBMIT_TEXT" class="btn btn-warning honeywell-color-btn" />
+                        
+                        <div class="errormsg" id="ctl00_contentQuestionnaireBody_ValidationSummary1" style=" display: none;">
+                        </div>
+                        @if (ViewBag.useReCaptcha != null && (bool)ViewBag.useReCaptcha)
+                        {
                             <div class="form-cell accesscode-captcha">
                                 <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
                             </div>
-                            }
-                        </div>
+                        }
+                    </div>
                     }
                 </div>
                 @*</form>*@
