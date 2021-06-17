@@ -1754,8 +1754,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     var pnszCodepptq = contect.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
                     pnszCodepptq.zcode = zzcode;
-                    contect.Entry(pnszCodepptq).State = EntityState.Modified;
-                    contect.SaveChanges();
+                    //contect.Entry(pnszCodepptq).State = EntityState.Modified;
+                   // contect.SaveChanges();
+                    contect.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(pptq.id, pptq.partner, pptq.partnerTypeTouchpointQuestionnaire, pptq.accesscode, pptq.invitedBy, pptq.invitedDate, pptq.completedDate, pptq.status, pptq.progress, zzcode, new byte[0], pptq.docFolderAddress, pptq.score, pptq.loadGroup);
                 }
             }
             return result;

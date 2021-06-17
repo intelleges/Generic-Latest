@@ -313,6 +313,9 @@ namespace Generic.DataLayer
         }
         string currentsurvey = "";
         string previoussurvey = "";
+        //string ext = "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx";
+        string ext = "pdf";
+
         //    private void showquestion(survey survey, question question, int index, Table table)
         private void showquestion(questionnaire questionnaire, surveyset surveyset, survey survey, question question, int index, Table table, string urlQuestion)
         {
@@ -777,10 +780,12 @@ namespace Generic.DataLayer
             fileupload.Attributes.Add("required", "");
             fileupload.Attributes.Add("data-val-filesize", "Maximum file size is 2MB");
             fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
+          
+
             fileupload.Attributes.Add("fileextensions", "");
-            fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+            fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
             fileupload.Attributes.Add("data-val-required", "Required");
-            fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+            fileupload.Attributes.Add("data-val-fileextensions", "Invalid! File Type valid : "+ ext);
             fileupload.Attributes.Add("data-val", "true");
             response response = new response();
 
@@ -883,7 +888,6 @@ namespace Generic.DataLayer
             {
                 if (divflag == 1 && divShowHideFlag == 1)
                 {
-
                     HtmlGenericControl div = new HtmlGenericControl("div");
                     div.ID = "yDiv_" + question.id.ToString();
                     div.Style.Add("display", "block");
@@ -896,9 +900,9 @@ namespace Generic.DataLayer
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
                     fileupload.Attributes.Add("data-val-required", "Required");
-                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + " : doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + " : " + ext);
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -1021,9 +1025,9 @@ namespace Generic.DataLayer
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
                     fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": "+ ext);
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -1122,13 +1126,14 @@ namespace Generic.DataLayer
                     txtbox.Width = 600;
                     fileupload = new FileUpload();
 
+              
                     fileupload.Attributes.Add("data-val-filesize", _translator.Translate("Maximum file size is 2MB", _currentLanguage));
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
                     fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": "+ ext);
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -1222,9 +1227,9 @@ namespace Generic.DataLayer
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
                     fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": "+ ext);
 
                     fileupload.Attributes.Add("data-val", "true");
                     fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
@@ -1563,9 +1568,9 @@ namespace Generic.DataLayer
                     fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                     fileupload.Attributes.Add("required", "");
                     fileupload.Attributes.Add("fileextensions", "");
-                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
                     fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                    fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": "+ ext);
 
                     fileupload.Attributes.Add("data-val", "true");
                     txtbox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
@@ -1853,9 +1858,9 @@ namespace Generic.DataLayer
                 fileupload.Attributes.Add("data-val-filesize-filesize", "2097152");
                 fileupload.Attributes.Add("required", "");
                 fileupload.Attributes.Add("fileextensions", "");
-                fileupload.Attributes.Add("data-val-fileextensions-fileextensions", "doc,docx,pdf,jpg,jpeg,gif,bmp,png,xls,xlsx,txt,ppt,pptx");
+                fileupload.Attributes.Add("data-val-fileextensions-fileextensions", ext);
                 fileupload.Attributes.Add("data-val-required", _translator.Translate("Required", _currentLanguage));
-                fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": doc,docx, pdf, jpg, jpeg, gif, bmp, png, xls, xlsx, txt,ppt,pptx");
+                fileupload.Attributes.Add("data-val-fileextensions", _translator.Translate("Invalid! Valid file types", _currentLanguage) + ": "+ ext);
                 fileupload.Attributes.Add("data-val", "true");
                 fileupload.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_fileUploadComment";
 
