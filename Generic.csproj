@@ -4132,6 +4132,7 @@
     <Content Include="Contents\images\xlsx-1567.png" />
     <Content Include="Contents\IntellegesLogin_files\contact-us.js" />
     <Content Include="Contents\IntellegesLogin_files\merck_india.jpg" />
+    <Content Include="Contents\RegistrationStyle\css\registration-ext.css" />
     <Content Include="Content\login\css\animate.css" />
     <Content Include="Content\login\css\bootstrap-modal-carousel.min.css" />
     <Content Include="Content\login\css\bootstrap-rtl.css" />
@@ -5092,6 +5093,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload27.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload28.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload29.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload30.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

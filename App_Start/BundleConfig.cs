@@ -53,7 +53,8 @@ namespace Generic
                    "~/Contents/RegistrationStyle/js/registration.js"
                    ));
             bundles.Add(new StyleBundle("~/bundles/registrationCss").Include(
-                   "~/Contents/RegistrationStyle/css/registration.css"
+                   "~/Contents/RegistrationStyle/css/registration.css",
+                   "~/Contents/RegistrationStyle/css/registration-ext.css"
                    ));
             bundles.Add(new StyleBundle("~/bundles/alertifyCss").Include(
                   "~/Content/themes/base/alertify.core.css",
