@@ -805,6 +805,10 @@ tr.pager td {
     float:left;
 }
 
+#IntellegesLogoHref img {
+    max-width:140px;
+}
+
 .chat-image {
     float: left;
     margin-top: 6px;
