@@ -2135,6 +2135,9 @@
     <Compile Include="pr_getMultiTenantProjectType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getNAICS2012_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getNarrativePPTQAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -3822,6 +3825,7 @@
     <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\footer-logo.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\logo.png" />
+    <Content Include="Contents\images\Battelle.png" />
     <Content Include="Contents\images\if_MB__note_81100.png" />
     <Content Include="Contents\images\i_386abcb4f9499a4e_html_55b65ccf.gif" />
     <Content Include="Contents\AdminStyle\css\bootstrap.css" />

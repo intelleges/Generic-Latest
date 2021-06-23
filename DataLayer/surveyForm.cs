@@ -597,6 +597,8 @@ namespace Generic.DataLayer
                 else if (responseTypeDescription == "textComment" ||
                          responseTypeDescription == "textInteger" ||
                          responseTypeDescription == "textNumber" ||
+                         responseTypeDescription == "text_naics" ||
+                         responseTypeDescription == "text_y_n" ||
                          responseTypeDescription == "textarea")
                 {
                     controlId = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_text";
@@ -2275,6 +2277,69 @@ namespace Generic.DataLayer
                         if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                         {
 
+                            textBox.Text = convertLanguageApi(pptqResponse.comment);
+                        }
+
+                        //add empty cell
+                        tableCell = new TableCell();
+                        tableCell.Text = "&nbsp;";
+                        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                        tableCell.Style.Add("border-spacing", "0");
+                        tableCell.Style.Add("padding-right", "5px");
+                        tableRow.Controls.Add(tableCell);
+
+                        tableCell = new TableCell();
+                        tableCell.ColumnSpan = 2;
+                        tableCell.Controls.Add(textBox);
+                        tableRow.Controls.Add(tableCell);
+                        break;
+                    case "text_naics":
+                        textBox = new TextBox();
+                        textBox.TextMode = TextBoxMode.Number;
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        textBox.Width = 50;
+                        if (question.required > 0)
+                        {
+                            textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                            textBox.Attributes["data-val-required"] = "Required";
+                        }
+                        if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                        {
+                            textBox.Text = convertLanguageApi(pptqResponse.comment);
+                        }
+
+                        textBox.Attributes["data-val-length-min"] = 6.ToString();
+                        textBox.Attributes["data-val-length-max"] = 6.ToString();
+
+                        //add empty cell
+                        tableCell = new TableCell();
+                        tableCell.Text = "&nbsp;";
+                        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                        tableCell.Style.Add("border-spacing", "0");
+                        tableCell.Style.Add("padding-right", "5px");
+                        tableRow.Controls.Add(tableCell);
+
+                        tableCell = new TableCell();
+                        tableCell.ColumnSpan = 2;
+                        tableCell.Controls.Add(textBox);
+                        tableRow.Controls.Add(tableCell);
+                        break;
+                    case "text_y_n":
+                        textBox = new TextBox();
+                        textBox.TextMode = TextBoxMode.Number;
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        textBox.Width = 100;
+                        if (question.required > 0)
+                        {
+                            textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                            textBox.Attributes["data-val-required"] = "Required";
+                        }
+
+                        textBox.Attributes["data-val-length-min"] = 1.ToString();
+                        textBox.Attributes["data-val-length-max"] = 50.ToString();
+
+                        if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                        {
                             textBox.Text = convertLanguageApi(pptqResponse.comment);
                         }
 

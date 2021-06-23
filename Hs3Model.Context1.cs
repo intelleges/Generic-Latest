@@ -30726,5 +30726,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePersonPrintPDF", idParameter);
         }
+    
+        public virtual ObjectResult<pr_getNAICS2012_Result> pr_getNAICS2012(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getNAICS2012_Result>("pr_getNAICS2012", idParameter);
+        }
     }
 }
