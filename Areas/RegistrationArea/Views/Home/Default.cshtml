@@ -3,26 +3,124 @@
 @using Generic.Helpers
 @{
     ViewBag.Title = "Session time out";
-	Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
+    Layout = Generic.Helpers.LayoutHelper.GetNewRegistrationLayout();
 }
+@Styles.Render("~/bundles/registrationCss")
+
 <style>
-    h2 {
-        font-size: 40px;
-        color:rgb(175,175,175);
+    .txtstuff {
+        resize: none; /* remove this if you want the user to be able to resize it in modern browsers */
+        overflow: hidden;
     }
-    span {
-        font-size: 20px;       
-    }
-    .infologinbanner {
+
+    .hiddendiv {
         display: none;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
+    }
+
+    /* the styles for 'commmon' are applied to both the textarea and the hidden clone */
+    /* these must be the same for both */
+    .common {
+        width: 500px;
+        min-height: 32px;
+        overflow: hidden;
+    }
+
+    .lbr {
+        line-height: 3px;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .entry-content {
+        font-family: Avenir-Roman-webfont;
+        font-size: 17px;
+    }
+
+    .cke_editable {
+        font-size: 18px;
+    }
+
+    #ui-datepicker-div {
+        z-index: 1000 !important;
+    }
+
+    .questionaire-table table tr td table {
+        vertical-align: middle;
+        display: inline-table;
+        width: 100%;
+    }
+
+    .questionaire-table table tr > td {
+        text-align: left;
+        border: 1.5px solid #fff;
+        padding-left: 2px;
+        padding-right: 0px;
+    }
+
+    .questionaire-table #getQuestionCommentAllByQuestionGrid table tr > td:nth-child(n+2) {
+        width: unset !important;
     }
 </style>
-<img src="../../../../Contents/images/1Logo.png" alt="" style="width:180px;"/>
-<h2>Oops, session timed-out</h2>
+<style type="text/css">
+    .t-grid td, t-grid-pager t-grid-bottom {
+        font-size: 10px !important;
+    }
 
-<span>
-    For security reasons we have timed-out your system. If you are completing a REGISTRATION please return to your invitation email and click on the link you received. Otherwise, if you are a USER, please login again. Thank you.
-</span><br />
-<span>
-    Thank you.
-</span>
+    .t-grid-header .t-header .t-link {
+        font-size: 10px !important;
+        height: 25px !important;
+    }
+
+    .t-splitter .t-scrollable {
+        overflow-x: hidden;
+    }
+
+
+    body .page-inner ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+        body .page-inner ol li {
+            counter-increment: step-counter !important;
+            margin-bottom: 5px !important;
+        }
+
+            body .page-inner ol li::before {
+                content: counter(step-counter)'.' !important;
+                margin-right: 10px !important;
+                font-size: 13px !important;
+                color: #333 !important;
+                font-weight: bold !important;
+                padding: 3px 8px !important;
+                position: inherit;
+                margin-left: 0px;
+            }
+</style>
+<div class="top-margin">
+
+</div>
+
+<section class="page-inner">
+    <div class="small-container">
+        @Html.Partial("_TopSection")
+
+        <div class="sub-box">
+            <h2>Oops, session timed-out</h2>
+
+            <span>
+                For security reasons we have timed-out your system. If you are completing a REGISTRATION please return to your invitation email and click on the link you received. Otherwise, if you are a USER, please login again. Thank you.
+            </span>
+            <br />
+            <span>
+                Thank you.
+            </span>
+        </div>
+    </div>
+</section>
