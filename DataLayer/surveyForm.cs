@@ -2297,7 +2297,7 @@ namespace Generic.DataLayer
                         textBox = new TextBox();
                         textBox.TextMode = TextBoxMode.Number;
                         controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                        textBox.Width = 50;
+                        textBox.Width = 100;
                         if (question.required > 0)
                         {
                             textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
@@ -2308,8 +2308,9 @@ namespace Generic.DataLayer
                             textBox.Text = convertLanguageApi(pptqResponse.comment);
                         }
 
-                        textBox.Attributes["data-val-length-min"] = 6.ToString();
-                        textBox.Attributes["data-val-length-max"] = 6.ToString();
+                        //textBox.Attributes["data-val-length-min"] = 6.ToString();
+                        //textBox.Attributes["data-val-length-max"] = 6.ToString();
+                        textBox.Attributes["maxlength"] = 6.ToString();
 
                         //add empty cell
                         tableCell = new TableCell();
@@ -2328,15 +2329,16 @@ namespace Generic.DataLayer
                         textBox = new TextBox();
                         textBox.TextMode = TextBoxMode.Number;
                         controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
-                        textBox.Width = 100;
+                        textBox.Width = 300;
                         if (question.required > 0)
                         {
                             textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
                             textBox.Attributes["data-val-required"] = "Required";
                         }
 
-                        textBox.Attributes["data-val-length-min"] = 1.ToString();
-                        textBox.Attributes["data-val-length-max"] = 50.ToString();
+                        //textBox.Attributes["data-val-length-min"] = 1.ToString();
+                        //textBox.Attributes["data-val-length-max"] = 50.ToString();
+                        textBox.Attributes["maxlength"] = 50.ToString();
 
                         if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                         {
