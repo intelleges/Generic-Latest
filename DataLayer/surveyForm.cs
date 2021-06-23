@@ -2327,7 +2327,6 @@ namespace Generic.DataLayer
                         break;
                     case "text_y_n":
                         textBox = new TextBox();
-                        textBox.TextMode = TextBoxMode.Number;
                         controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         textBox.Width = 300;
                         if (question.required > 0)
