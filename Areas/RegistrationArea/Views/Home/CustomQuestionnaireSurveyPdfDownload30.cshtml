@@ -1,0 +1,344 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FORM-ICS Certificate Form 2020</title>
+    <style type="text/css">
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 14px;
+        }
+
+        .notes {
+            background-attachment: local;
+            background-image: linear-gradient(to right, white 10px, transparent 10px), linear-gradient(to left, white 10px, transparent 10px), repeating-linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
+            line-height: 31px;
+            padding: 8px 10px;
+        }
+
+        div {
+            padding-right: 40px;
+            padding-left: 40px;
+        }
+
+        h1, h2 {
+            color: blue;
+            font-size: 18px !important;
+        }
+
+        img {
+            width: 25%;
+        }
+
+        .img-div {
+            text-align: right;
+        }
+
+        .table-data {
+            width: 80%;
+        }
+
+            .table-data td {
+                height: 24px;
+            }
+
+                .table-data td:nth-child(odd) {
+                    width: 15%;
+                    text-align: left;
+                }
+    </style>
+</head>
+<body>
+    <br><br>
+    <div>
+        <div class="img-div">
+            <img src="@Server.MapPath("~/Contents/Images/Battelle.png")" />
+        </div>
+        <h1>FY 2020 Certification of Annual Incurred Cost Submission (ICS) </h1>
+        <br>
+        <table border="1" cellspacing="0" class="table-data">
+            <tr>
+                <td>Subcontract Number(s)</td>
+                <td> @(ViewBag.partner.internalID) </td>
+            </tr>
+            <tr>
+                <td>Subcontractor’s Legal Name and any DBAs:</td>
+                <td>@(ViewBag.partner.name)   </td>
+            </tr>
+            <tr>
+                <td>Street Address:</td>
+                <td>@(ViewBag.partner.address1 + "," + ViewBag.partner.address2)  </td>
+            </tr>
+            <tr>
+                <td>City, State Zip:</td>
+                <td>@(ViewBag.partner.city + ", " + ViewBag.state + " " + ViewBag.partner.zipcode) </td>
+            </tr>
+            <tr>
+                <td>Phone Number:</td>
+                <td>@(ViewBag.partner.phone)  </td>
+            </tr>
+            <tr>
+                <td>Email Address:</td>
+                <td>@(ViewBag.signature == null ? "" : ViewBag.signature.email)  </td>
+            </tr>
+            <tr>
+                <td>Fiscal Year 2020 Date Range:</td>
+                <td>@(ViewBag.Q51323_Comment + " - " + @ViewBag.Q51324_Comment)  </td>
+            </tr>
+        </table>
+        <br><br>
+
+        <h1>Section 1:  ICS Status</h1>
+        <p align="justify">
+            In accordance with FAR 52.216-7 - Allowable Cost and Payment, applicable to the above listed subcontract(s), the Subcontractor shall submit an annual incurred cost proposal, with proposed indirect rates, to its cognizant Federal audit agency no later than six months after the expiration of each of its fiscal years, unless extended in writing by the cognizant Federal official.
+            <br>
+            <br>
+            Unless billing rate ceilings are otherwise established in the subcontract, Battelle shall reimburse the Subcontractor at its provisional billing rates submitted to/approved by the Government until the Subcontractor's incurred cost proposal rates are submitted. Subject to Limitation of Funds, Battelle shall then reimburse the Subcontractor at its submitted ICS rates until the Subcontractor's final audited indirect rates are settled with the Government, at which point Battelle shall then reimburse the Subcontractor at those final audited rates.
+        </p>
+
+
+        <h2>Please check all that apply for fiscal year 2020</h2>
+        <ol type="1">
+            <li>
+                @if (@ViewBag.Checkbox51312_Yes != string.Empty)
+                {
+                    <span>&#x2611;</span>
+                }
+                @if (@ViewBag.Checkbox51312_No != string.Empty)
+                {
+                    <span>&#x2610;</span>
+                }
+                We have submitted our annual incurred cost proposal for fiscal year 2020 on @ViewBag.Q51312_Comment
+                <ul type="circle">
+                    <li>
+                        We @if (@ViewBag.Checkbox51313_Yes != string.Empty)
+                        {
+                            <span>&#x2611;</span>
+                        }
+                        have @if (@ViewBag.Checkbox51313_No != string.Empty)
+                        {
+                            <span> &#x2610;</span>
+                        }<u><b> have not</b></u> submitted an adjusted invoice to reflect our submitted rates. (if they have no.)
+                    </li>
+                    <li>
+                        Our submitted rates @if (@ViewBag.Checkbox51314_Yes != string.Empty)
+                        {
+                            <span> &#x2611;</span>
+                        }  are @if (@ViewBag.Checkbox51314_No != string.Empty)
+                        {
+                            <span> &#x2610;</span>
+                        }<u><b> are not</b></u> lower than the provisional rates billed for the above listed Subcontracts.
+                    </li>
+                </ul>
+            </li>
+            <br>
+
+            <li>
+                @if (@ViewBag.Checkbox51315_Yes != string.Empty || @ViewBag.Checkbox51315_Yes != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                @if (@ViewBag.Checkbox51315_No != string.Empty || @ViewBag.Checkbox51315_Yes != null)
+                {
+                    <span> &#x2610;</span>
+                }
+                The cognizant Federal official has granted an extension and our annual incurred cost proposal for the fiscal year 2020 will be submitted no later than @ViewBag.Q51315_Comment
+            </li>
+            <br>
+
+            <li>
+                @if (@ViewBag.Checkbox51318_Yes != string.Empty || @ViewBag.Checkbox51318_Yes != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                @if (@ViewBag.Checkbox51318_No != string.Empty || @ViewBag.Checkbox51318_Yes != null)
+                {
+                    <span>&#x2610;</span>
+                }
+                We are an educational institution subject to the cost principles in Subpart E of the Uniform Guidance (2 CFR 200) and bill negotiated predetermined or fixed indirect rates. Therefore, final annual incurred cost proposals are not required.<u><b> Please provide the redacted Negotiated Indirect Cost Rate Agreement (NICRA) as evidence. </b></u>
+            </li>
+            <br>
+
+            <li>
+                @if (@ViewBag.Q51316_Response != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                }
+                We have not submitted our annual incurred cost proposal for the fiscal year 2020.<b> Please explain why: </b><br><br>
+                <ul>
+                    @if (@ViewBag.Q51316_Response != null)
+                    {
+                        foreach (var item in @ViewBag.Q51316_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+
+                </ul>
+            </li>
+            <br>
+
+            <li>
+                @if (@ViewBag.Checkbox51319_Yes != string.Empty || @ViewBag.Checkbox51319_Yes != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                @if (@ViewBag.Checkbox51319_No != string.Empty || @ViewBag.Checkbox51319_No != null)
+                {
+                    <span> &#x2610;</span>
+                }
+
+                We have not submitted an annual incurred cost proposal for one or more years prior to fiscal year 2020.<b> Please explain which fiscal years have not been submitted and the reasons why:  </b><br><br>
+                <ul>
+                    @if (@ViewBag.Q51320_Response != null)
+                    {
+                        foreach (var item in @ViewBag.Q51320_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+
+                </ul>
+            </li>
+            <br>
+
+            <li>
+                @if (@ViewBag.Q51322_Response != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                }
+                During 2020 we received final audited indirect rates for the following fiscal years:<br><br>
+                <ul>
+                    @if (@ViewBag.Q51322_Response != null)
+                    {
+
+                        foreach (var item in @ViewBag.Q51322_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+                </ul>
+            </li>
+        </ol><br>
+
+        <h1>Section 2:  DCAA/DCMA/Other Cognizant Authority</h1>
+        <p align="justify">Please enter the following information for your organization.</p><br>
+
+        <table border="1" cellspacing="0" class="table-data">
+            <tr>
+                <td>DCMA Office or Other Cognizant Authority:</td>
+                <td>  </td>
+            </tr>
+            <tr>
+                <td>Administrative Contracting Officer’s Name:</td>
+                <td>@Html.Raw(ViewBag.Input51326)  </td>
+            </tr>
+            <tr>
+                <td>Street Address:</td>
+                <td>@Html.Raw(ViewBag.Input51327)  </td>
+            </tr>
+            <tr>
+                <td>City, State Zip:</td>
+                <td>@Html.Raw(ViewBag.Input51328),@Html.Raw(ViewBag.Q51329_response) @Html.Raw(ViewBag.Input51330)  </td>
+            </tr>
+            <tr>
+                <td>Email Address:</td>
+                <td>@Html.Raw(ViewBag.Input51331)  </td>
+            </tr>
+        </table>
+        <br><br>
+
+        <table border="1" cellspacing="0" class="table-data">
+            <tr>
+                <td>DCAA Office or Other Cognizant Audit Authority:</td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>Auditors’ Names If Known</td>
+                <td>@Html.Raw(ViewBag.Input51333) </td>
+            </tr>
+            <tr>
+                <td>Street Address:</td>
+                <td>@Html.Raw(ViewBag.Input51334) </td>
+            </tr>
+            <tr>
+                <td>City, State Zip:</td>
+                <td>@Html.Raw(ViewBag.Input51335), @Html.Raw(ViewBag.Q51336_response) @Html.Raw(ViewBag.Input51337) </td>
+            </tr>
+            <tr>
+                <td>Email Address:</td>
+                <td>@Html.Raw(ViewBag.Input51338)</td>
+            </tr>
+        </table>
+        <br /><br />
+
+        <h1>Section 3: </h1>
+        <h2><b>Process for Submitting Adjusting Invoices</b></h2>
+        <p align="justify">Subcontractors whose ICS rates or final audited rates are lower than their billing rates, resulting in cost reductions, should process credits to Battelle in accordance with the directions below:</p>
+        <ul align="justify" type="circle">
+            <li>Where credits are due and additional costs sufficient to offset credits under the applicable subcontract line items/funding line items remain to be invoiced, the Subcontractor shall offset the remaining costs by the credit amount in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. Credits should be applied to the applicable subcontract line item/funding line item on which the costs were initially invoiced, and an accompanying note should provide a brief description of the rate adjustments applied. </li>
+            <br />
+
+            <li>Where credits are due under a subcontract line item/funding line item where the Subcontractor does not have any remaining costs to invoice, the Subcontractor shall submit a check made payable to Battelle Memorial Institute and an accompanying invoice, including a description of the adjustment (i.e., state “ICS submittal rate adjustment” or “final rate adjustment”) and identification of the applicable subcontract line item/funding line item, to <b>Battelle Memorial Institute,ATTN: Treasury Services, 505 King Avenue, Columbus, OH 43201</b> Checks for credits are due in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. </li>
+            <br />
+
+            <li>Where credits are due under a subcontract line item/funding line item where some costs remain to be invoiced but are insufficient to offset the full credit amount, the Subcontractor shall offset the remaining costs by the credit amount in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. Credits should be applied to the applicable subcontract line item/funding line item on which the costs were initially invoiced. In addition, the Subcontractor should follow the check issuance process outlined in the bullet point above for the amount of the remaining credit that was not offset by the costs. A separate credit invoice should accompany the submission of the check. </li>
+            <br />
+        </ul>
+
+        <p align="justify">Subcontractors whose ICS rates or final audited rates are higher than their billing rates, resulting in cost increases, should follow the applicable directions below:</p>
+        <ul align="justify" type="circle">
+
+            <li>Where the Subcontractor forecasts having adequate funds to bill all remaining performance/deliverables to completion at the upwardly adjusted rates, the Subcontractor shall submit its upward adjustment invoice and provide support for the adjustment (e.g., a redacted rate letter if applicable). The Subcontractor must comply with all funding limitations as outlined in its subcontract. Note that Battelle may coordinate with the DCAA and/or the Subcontractor's cognizant audit agency to verify the accuracy of the rate adjustment prior to payment. </li>
+            <br>
+
+            <li>Where the Subcontractor<u><b> does not</b></u> have adequate funds to bill all remaining performance/deliverables to completion at the upwardly adjusted rates, the Subcontractor shall notify the cognizant Battelle Subcontracts Representative of the requested upward adjustment amount and explanation for the adjustment (i.e., ICS rate updates or settlement of final audited rates). Depending on availability of funds, Battelle may allocate additional funds to the Subcontractor. The Subcontractor shall not invoice the upward adjustment unless/until funds are made available. </li>
+            <br>
+
+            <li>Where the Subcontractor has fixed indirect rates or other set billing ceiling rates identified in its subcontract, the Subcontractor shall not submit upward rate adjustments. </li>
+
+        </ul><br><br><br><br><br><br><br><br><br><br>
+
+        <table cellspacing="0">
+            <tr>
+                <td style="border: 1px solid black;" width="900" height="30">&nbsp; @(ViewBag.signature == null ? "" : ViewBag.signature.email) </td>
+                <td style="border: 1px solid black;" width="300">&nbsp;@ViewBag.completeDate </td>
+            </tr>
+            <tr>
+                <td style="border: none;">Subcontractor Representative's Signature</td>
+                <td style="border: none;">Date</td>
+            </tr>
+        </table>
+        <br><br><br><br>
+
+        <table cellspacing="0">
+            <tr>
+                <td style="border: 1px solid black;" width="900" height="30">&nbsp;@(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName)) </td>
+                <td style="border: 1px solid black;" width="300">&nbsp;@ViewBag.personTitle </td>
+            </tr>
+            <tr>
+                <td style="border: none;">Print Name</td>
+                <td style="border: none;">Title</td>
+            </tr>
+        </table>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+</body>
+</html>

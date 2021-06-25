@@ -5098,6 +5098,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload28.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload29.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload30.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload31.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
