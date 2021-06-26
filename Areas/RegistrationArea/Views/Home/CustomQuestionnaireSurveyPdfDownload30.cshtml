@@ -51,7 +51,7 @@
             }
 
                 .table-data td:nth-child(odd) {
-                    width: 15%;
+                    width: 20%;
                     text-align: left;
                 }
     </style>
@@ -60,7 +60,7 @@
     <br><br>
     <div>
         <div class="img-div">
-            <img src="@Server.MapPath("~/Contents/Images/Battelle.png")" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/BATTELLE-BLUE.svg/1280px-BATTELLE-BLUE.svg.png" />
         </div>
         <h1>FY 2020 Certification of Annual Incurred Cost Submission (ICS) </h1>
         <br>
@@ -70,7 +70,7 @@
                 <td> @(ViewBag.partner.internalID) </td>
             </tr>
             <tr>
-                <td>Subcontractor’s Legal Name and any DBAs:</td>
+                <td>Subcontractor's Legal Name and any DBAs:</td>
                 <td>@(ViewBag.partner.name)   </td>
             </tr>
             <tr>
@@ -142,11 +142,11 @@
             <br>
 
             <li>
-                @if (@ViewBag.Checkbox51315_Yes != string.Empty || @ViewBag.Checkbox51315_Yes != null)
+                @if (@ViewBag.Checkbox51315_Yes != string.Empty && @ViewBag.Checkbox51315_Yes != null)
                 {
                     <span> &#x2611;</span>
                 }
-                @if (@ViewBag.Checkbox51315_No != string.Empty || @ViewBag.Checkbox51315_Yes != null)
+                else
                 {
                     <span> &#x2610;</span>
                 }
@@ -155,11 +155,11 @@
             <br>
 
             <li>
-                @if (@ViewBag.Checkbox51318_Yes != string.Empty || @ViewBag.Checkbox51318_Yes != null)
+                @if (@ViewBag.Checkbox51318_Yes != string.Empty && @ViewBag.Checkbox51318_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
-                @if (@ViewBag.Checkbox51318_No != string.Empty || @ViewBag.Checkbox51318_Yes != null)
+                @if (@ViewBag.Checkbox51318_No != string.Empty && @ViewBag.Checkbox51318_No != null)
                 {
                     <span>&#x2610;</span>
                 }
@@ -191,11 +191,11 @@
             <br>
 
             <li>
-                @if (@ViewBag.Checkbox51319_Yes != string.Empty || @ViewBag.Checkbox51319_Yes != null)
+                @if (@ViewBag.Checkbox51319_Yes != string.Empty && @ViewBag.Checkbox51319_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
-                @if (@ViewBag.Checkbox51319_No != string.Empty || @ViewBag.Checkbox51319_No != null)
+                else
                 {
                     <span> &#x2610;</span>
                 }
@@ -235,7 +235,7 @@
                     }
                 </ul>
             </li>
-        </ol><br>
+        </ol><br><br><br><br><br><br>
 
         <h1>Section 2:  DCAA/DCMA/Other Cognizant Authority</h1>
         <p align="justify">Please enter the following information for your organization.</p><br>
@@ -246,7 +246,7 @@
                 <td>  </td>
             </tr>
             <tr>
-                <td>Administrative Contracting Officer’s Name:</td>
+                <td>Administrative Contracting Officer's Name:</td>
                 <td>@Html.Raw(ViewBag.Input51326)  </td>
             </tr>
             <tr>
@@ -270,7 +270,7 @@
                 <td> </td>
             </tr>
             <tr>
-                <td>Auditors’ Names If Known</td>
+                <td>Auditors' Names If Known</td>
                 <td>@Html.Raw(ViewBag.Input51333) </td>
             </tr>
             <tr>
