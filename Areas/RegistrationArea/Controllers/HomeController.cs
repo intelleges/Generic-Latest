@@ -55,7 +55,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
         const string PHYSYCAL_ADDRESS = "Physical Address";
         const string ADDRESS_ONE = "Address One";
-        const string ADDRESS_TWO = "Address Two";
+        const string ADDRESS_TWO = "Subcontract #(s)";
         const string CITY = "City";
         const string STATE_TEXT = "Country's State";
         const string POSTAL_CODE = "Postal Code";
