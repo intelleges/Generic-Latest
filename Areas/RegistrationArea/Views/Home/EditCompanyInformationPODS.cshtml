@@ -253,87 +253,88 @@
 					<div class="black-box-hd">@formData.COMPANY_INFORMATION_TEXT (@formData.VERIFY_COMPANY_INFO)</div>
 					<div class="row main-content" id=" ctl00_contentquestionnairebody_panelcontent">
 
-						<div class="form-horizontal black-box-form">
-							<span id="ctl00_contentQuestionnaireBody_lblErrorMessage" style="color: Red;"></span>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.Company:<i class="fa fa-asterisk"></i> </label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.dunsNumber, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.dunsNumber)
+                        <div class="form-horizontal black-box-form">
+                            <span id="ctl00_contentQuestionnaireBody_lblErrorMessage" style="color: Red;"></span>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.Company:<i class="fa fa-asterisk"></i> </label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.dunsNumber, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.dunsNumber)
 
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.PHYSYCAL_ADDRESS:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.name, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.name)
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_ONE:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.address1, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.address1)
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_TWO:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.address2, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.address2)
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.CITY:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.city, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.city)
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.STATE_TEXT:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9 selectbox">
-										@Html.TextBoxFor(model => model.province, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.province)
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.POSTAL_CODE:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.zipcode, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.zipcode)
-									</div>
-								</div>
-							</div>
-							<div class="col-md-9">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-3 control-label">@formData.PROVINCE:<i class="fa fa-asterisk"></i></label>
-									<div class="col-sm-9">
-										@Html.TextBoxFor(model => model.title, new { @class = "form-control" })
-										@Html.ValidationMessageFor(model => model.title)
-									</div>
-								</div>
-							</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_TWO:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.address2, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.address2)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.PHYSYCAL_ADDRESS:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.name)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_ONE:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.address1, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.address1)
+                                    </div>
+                                </div>
+                            </div>
 
-							<div class="col-md-3">
-								<button type="submit" name="btnCancel" id="btnCancel" onclick="javascript: history.go(-1); return false;" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
-								<button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
-							</div>
-						</div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.CITY:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.city, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.city)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.STATE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9 selectbox">
+                                        @Html.TextBoxFor(model => model.province, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.province)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.POSTAL_CODE:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.zipcode, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.zipcode)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.PROVINCE:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.title, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.title)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <button type="submit" name="btnCancel" id="btnCancel" onclick="javascript: history.go(-1); return false;" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                                <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            </div>
+                        </div>
 
 
 

@@ -51,112 +51,112 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_TWO:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.address2, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.address2)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-12 control-label">
                                         <strong>
                                             @formData.PHYSYCAL_ADDRESS
-                                    </strong>
-                                </label>
-                                
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_ONE:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.address1, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.address1)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_TWO:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.address2, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.address2)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.CITY:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.city, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.city)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.STATE_TEXT:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9 selectbox">
-                                    @(Html.Telerik().ComboBox()
-            .Name("state")
-            .AutoFill((bool)ViewBag.combobox.ComboBoxAttributes.AutoFill)
-            .BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))
-            .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.combobox.ComboBoxAttributes.Width) })
-            .Filterable(filtering =>
-            {
-                if ((int)ViewBag.combobox.ComboBoxAttributes.FilterMode != 0)
-                {
-                    filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
-                }
-            })
-            .HighlightFirstMatch((bool)ViewBag.combobox.ComboBoxAttributes.HighlightFirst)
-                                    )
-
-
-                                    @Html.ValidationMessageFor(model => model.state)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.POSTAL_CODE:<i class="fa fa-asterisk"></i></label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.zipcode, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.zipcode)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.PROVINCE:</label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(model => model.province, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.province)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">@formData.COUNTRY_TEXT:</label>
-                                <div class="col-sm-9 selectbox">
-                                    @(Html.Telerik().ComboBox()
-            .Name("country")
-            .AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)
-            .BindTo(new SelectList((IEnumerable<country>)ViewBag.countries, "id", "name", (int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
-            .HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.comboboxCountry.ComboBoxAttributes.Width) })
-            .Filterable(filtering =>
-            {
-                if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0)
-                {
-                    filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
-                }
-            })
-            .HighlightFirstMatch((bool)ViewBag.comboboxCountry.ComboBoxAttributes.HighlightFirst)
-                                    )
-                                    @Html.ValidationMessageFor(model => model.country)
-
+                                        </strong>
+                                    </label>
 
                                 </div>
                             </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.ADDRESS_ONE:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.address1, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.address1)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.CITY:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.city, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.city)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.STATE_TEXT:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9 selectbox">
+                                        @(Html.Telerik().ComboBox()
+.Name("state")
+.AutoFill((bool)ViewBag.combobox.ComboBoxAttributes.AutoFill)
+.BindTo(new SelectList((IEnumerable<state>)ViewBag.states, "id", "stateCode", (int)ViewBag.combobox.ComboBoxAttributes.SelectedIndex))
+.HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.combobox.ComboBoxAttributes.Width) })
+.Filterable(filtering =>
+{
+if ((int)ViewBag.combobox.ComboBoxAttributes.FilterMode != 0)
+{
+                                filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
+}
+})
+.HighlightFirstMatch((bool)ViewBag.combobox.ComboBoxAttributes.HighlightFirst)
+                                        )
+
+
+                                        @Html.ValidationMessageFor(model => model.state)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.POSTAL_CODE:<i class="fa fa-asterisk"></i></label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.zipcode, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.zipcode)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.PROVINCE:</label>
+                                    <div class="col-sm-9">
+                                        @Html.TextBoxFor(model => model.province, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.province)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label">@formData.COUNTRY_TEXT:</label>
+                                    <div class="col-sm-9 selectbox">
+                                        @(Html.Telerik().ComboBox()
+.Name("country")
+.AutoFill((bool)ViewBag.comboboxCountry.ComboBoxAttributes.AutoFill)
+.BindTo(new SelectList((IEnumerable<country>)ViewBag.countries, "id", "name", (int)ViewBag.comboboxCountry.ComboBoxAttributes.SelectedIndex))
+.HtmlAttributes(new { style = string.Format("width:{0}px", ViewBag.comboboxCountry.ComboBoxAttributes.Width) })
+.Filterable(filtering =>
+{
+if ((int)ViewBag.comboboxCountry.ComboBoxAttributes.FilterMode != 0)
+{
+                                filtering.FilterMode(AutoCompleteFilterMode.StartsWith);
+}
+})
+.HighlightFirstMatch((bool)ViewBag.comboboxCountry.ComboBoxAttributes.HighlightFirst)
+                                        )
+                                        @Html.ValidationMessageFor(model => model.country)
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" name="btnCancel" id="btnCancel" onclick="javascript: history.go(-1); return false;" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
+                                <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <button type="submit" name="btnCancel" id="btnCancel" onclick="javascript: history.go(-1); return false;" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_PREVIOUS_TEXT</button>
-                            <button type="submit" name="btnNext" id="btnNext" class="btn btn-default pull-left save-btn">@formData.CMS_PAGE_NEXT_TEXT</button>
-                        </div>
-                    </div>
 
 
 
