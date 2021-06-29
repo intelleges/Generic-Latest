@@ -164,6 +164,7 @@
                     <span>&#x2610;</span>
                 }
                 We are an educational institution subject to the cost principles in Subpart E of the Uniform Guidance (2 CFR 200) and bill negotiated predetermined or fixed indirect rates. Therefore, final annual incurred cost proposals are not required.<u><b> Please provide the redacted Negotiated Indirect Cost Rate Agreement (NICRA) as evidence. </b></u>
+                    @ViewBag.Q51318_Comment
             </li>
             <br>
 
@@ -205,6 +206,16 @@
                     @if (@ViewBag.Q51320_Response != null)
                     {
                         foreach (var item in @ViewBag.Q51320_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+
+                </ul>
+                <ul>
+                    @if (@ViewBag.Q51321_Response != null)
+                    {
+                        foreach (var item in @ViewBag.Q51321_Response)
                         {
                             <li>@item</li>
                         }

@@ -14469,6 +14469,7 @@ Intelleges Team";
                     case 51318:
                         ViewBag.Checkbox51318_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox51318_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseYES) ViewBag.Q51318_Comment = item.comment;
                         break;
                     case 51319:
                         ViewBag.Checkbox51319_Yes = item.response == _responseYES ? _chacked : string.Empty;
