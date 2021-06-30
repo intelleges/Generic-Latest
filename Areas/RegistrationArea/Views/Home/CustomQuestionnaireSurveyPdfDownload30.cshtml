@@ -79,7 +79,7 @@
             </tr>
             <tr>
                 <td>City, State Zip:</td>
-                <td>@(ViewBag.partner.city + ", " + ViewBag.state + " " + ViewBag.partner.zipcode) </td>
+                <td>@(ViewBag.partner.city +" "+ ViewBag.state + " " + ViewBag.partner.zipcode) </td>
             </tr>
             <tr>
                 <td>Phone Number:</td>
@@ -126,7 +126,7 @@
                         have @if (@ViewBag.Checkbox51313_No != string.Empty)
                         {
                             <span> &#x2610;</span>
-                        }<u><b> have not</b></u> submitted an adjusted invoice to reflect our submitted rates. (if they have no.)
+                        } submitted an adjusted invoice to reflect our submitted rates. 
                     </li>
                     <li>
                         Our submitted rates @if (@ViewBag.Checkbox51314_Yes != string.Empty)
@@ -135,7 +135,7 @@
                         }  are @if (@ViewBag.Checkbox51314_No != string.Empty)
                         {
                             <span> &#x2610;</span>
-                        }<u><b> are not</b></u> lower than the provisional rates billed for the above listed Subcontracts.
+                        } lower than the provisional rates billed for the above listed Subcontracts.
                     </li>
                 </ul>
             </li>
@@ -266,7 +266,7 @@
             </tr>
             <tr>
                 <td  colspan="3">City, State Zip:</td>
-                <td  colspan="5">@Html.Raw(ViewBag.Input51328),@Html.Raw(ViewBag.Q51329_response) @Html.Raw(ViewBag.Input51330)  </td>
+                <td  colspan="5">@Html.Raw(ViewBag.Input51328) @Html.Raw(ViewBag.Q51329_response) @Html.Raw(ViewBag.Input51330)  </td>
             </tr>
             <tr>
                 <td colspan="3">Email Address:</td>
@@ -281,7 +281,7 @@
                 <td> </td>
             </tr>
             <tr>
-                <td>Auditors' Names If Known</td>
+                <td>Auditor's Name's If Known</td>
                 <td>@Html.Raw(ViewBag.Input51333) </td>
             </tr>
             <tr>
@@ -306,7 +306,7 @@
             <li>Where credits are due and additional costs sufficient to offset credits under the applicable subcontract line items/funding line items remain to be invoiced, the Subcontractor shall offset the remaining costs by the credit amount in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. Credits should be applied to the applicable subcontract line item/funding line item on which the costs were initially invoiced, and an accompanying note should provide a brief description of the rate adjustments applied. </li>
             <br />
 
-            <li>Where credits are due under a subcontract line item/funding line item where the Subcontractor does not have any remaining costs to invoice, the Subcontractor shall submit a check made payable to Battelle Memorial Institute and an accompanying invoice, including a description of the adjustment (i.e., state “ICS submittal rate adjustment” or “final rate adjustment”) and identification of the applicable subcontract line item/funding line item, to <b>Battelle Memorial Institute,ATTN: Treasury Services, 505 King Avenue, Columbus, OH 43201</b> Checks for credits are due in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. </li>
+            <li>Where credits are due under a subcontract line item/funding line item where the Subcontractor does not have any remaining costs to invoice, the Subcontractor shall submit a check made payable to Battelle Memorial Institute and an accompanying invoice, including a description of the adjustment (i.e., state "ICS submittal rate adjustment" or "final rate adjustment") and identification of the applicable subcontract line item/funding line item, to <b>Battelle Memorial Institute,ATTN: Treasury Services, 505 King Avenue, Columbus, OH 43201</b> Checks for credits are due in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. </li>
             <br />
 
             <li>Where credits are due under a subcontract line item/funding line item where some costs remain to be invoiced but are insufficient to offset the full credit amount, the Subcontractor shall offset the remaining costs by the credit amount in a timely fashion, normally within the next billing cycle following the identification of the credit (i.e., the date of the Subcontractor's incurred cost submission or final audited rate letter) and no later than 120 days from that date. Credits should be applied to the applicable subcontract line item/funding line item on which the costs were initially invoiced. In addition, the Subcontractor should follow the check issuance process outlined in the bullet point above for the amount of the remaining credit that was not offset by the costs. A separate credit invoice should accompany the submission of the check. </li>
@@ -332,7 +332,7 @@
                 <td style="border: 1px solid black;" width="300">&nbsp;@ViewBag.completeDate </td>
             </tr>
             <tr>
-                <td style="border: none;">Subcontractor Representative's Signature</td>
+                <td style="border: none;">Subcontractor Representative's (Email) Signature</td>
                 <td style="border: none;">Date</td>
             </tr>
         </table>
