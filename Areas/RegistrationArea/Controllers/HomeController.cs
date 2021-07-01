@@ -2874,7 +2874,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (partner.country == null)
             {
-                ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+                ViewBag.country = db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID);
+                //ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             }
             else
             {

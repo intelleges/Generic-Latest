@@ -74,8 +74,12 @@
                 <td>@(ViewBag.partner.name)   </td>
             </tr>
             <tr>
+                <td>Subcontract Number</td>
+                <td> @((ViewBag.partner.address2??"").Replace("SubContract Number:","")) </td>
+            </tr>
+            <tr>
                 <td>Street Address:</td>
-                <td>@(ViewBag.partner.address1 + "," + ViewBag.partner.address2)  </td>
+                <td>@(ViewBag.partner.address1)  /td>
             </tr>
             <tr>
                 <td>City, State Zip:</td>
@@ -281,7 +285,7 @@
                 <td> </td>
             </tr>
             <tr>
-                <td>Auditor's Name's If Known</td>
+                <td>Auditor's Names If Known</td>
                 <td>@Html.Raw(ViewBag.Input51333) </td>
             </tr>
             <tr>
