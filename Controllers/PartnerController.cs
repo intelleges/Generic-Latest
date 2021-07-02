@@ -4408,7 +4408,7 @@ namespace Generic.Controllers
 
         private static int? ExtractSearchArgument(string[] args, string keyName)
         {
-            var groupArg = args.FirstOrDefault(a => a.Contains(keyName));
+            var groupArg = args.FirstOrDefault(a => a.ToLower().Contains(keyName.ToLower()));
             if (groupArg != null)
             {
                 var keys = groupArg.Split("=");
