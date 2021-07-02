@@ -123,23 +123,25 @@
                 We have submitted our annual incurred cost proposal for fiscal year 2020 on @ViewBag.Q51312_Comment
                 <ul type="circle">
                     <li>
-                        We @if (@ViewBag.Checkbox51313_Yes != string.Empty)
+                        @if (@ViewBag.Checkbox51313_Yes != string.Empty && @ViewBag.Checkbox51313_Yes != null)
                         {
                             <span>&#x2611;</span>
                         }
-                        have @if (@ViewBag.Checkbox51313_No != string.Empty)
+                        @if (@ViewBag.Checkbox51313_No != string.Empty)
                         {
                             <span> &#x2610;</span>
-                        } submitted an adjusted invoice to reflect our submitted rates. 
+                        }
+                        We have submitted an adjusted invoice to reflect our submitted rates.
                     </li>
                     <li>
-                        Our submitted rates @if (@ViewBag.Checkbox51314_Yes != string.Empty)
+                        @if (@ViewBag.Checkbox51314_Yes != string.Empty && @ViewBag.Checkbox51314_Yes != null)
                         {
                             <span> &#x2611;</span>
-                        }  are @if (@ViewBag.Checkbox51314_No != string.Empty)
+                        } @if (@ViewBag.Checkbox51314_No != string.Empty)
                         {
                             <span> &#x2610;</span>
-                        } lower than the provisional rates billed for the above listed Subcontracts.
+                        }
+                        Our submitted rates are lower than the provisional rates billed for the above listed Subcontracts.
                     </li>
                 </ul>
             </li>
