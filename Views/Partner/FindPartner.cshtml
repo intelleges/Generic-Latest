@@ -54,7 +54,10 @@
         }
 
 
-        jQuery(document).ready(function () {
+    jQuery(document).ready(function () {
+        if ('@(ViewBag.Error??"")'.length > 0) {
+            alertify.alert('@ViewBag.Error');
+        }
             //$(function () {
             //debugger;
             // $("#touchpoint").val($("#touchpoint option:first").val());

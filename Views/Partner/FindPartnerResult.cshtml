@@ -318,14 +318,14 @@
                                                                                 )
                                                                                  .ToolBar(commands => commands
                                                                                     .Custom()
-                                                                                    .HtmlAttributes(new { id = "iterate" })
+                                                                                    .HtmlAttributes(new { id = "iterate" , onclick="CheckIterateValidity()" })
                                                                                     .Text("Iterate")
-                                                                                    .Action("IterateFindPartnerResults", "partner")
+                                                                                    
                                                                                 )
                                                                                 .Columns(columns =>
-                                                                                 {
-                                                                                     columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
-                                                                                     columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
+                                                                                {
+                                                                                columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
+                                                                                columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
                                                                                         @{
 
                                                                                                         var columnData = item.PartnerName;
@@ -721,7 +721,11 @@
 @*<script src="~/Scripts/jquery-1.8.2.js"></script>
     <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
 <script type="text/javascript">
-
+    function CheckIterateValidity() {
+        alertify.alert("Paertner search data is not valid, to do iterate.");
+        window.location.href = '@Url.Action("IterateFindPartnerResults")';
+        return false;
+    }
 	function printDocs(accessCode) {
 
 		//var grid = $("#partnersDocGrid").data("tGrid");
@@ -881,7 +885,7 @@
         shadowPptq = pptq;
         $.post("shadow", { accessCode: accessCode, pptq: pptq }).done(function (result) {
             if (result.status === "") {
-              
+
                 $("#updateDialog").modal("toggle");
             }
             else if (result.status === 'shadow') {

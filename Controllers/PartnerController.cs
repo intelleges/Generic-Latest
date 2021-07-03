@@ -1974,6 +1974,25 @@ namespace Generic.Controllers
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
+            if (searchType == "Remind") {
+                if (touchpoint == null || group == null || partnertype == null || partnerStatus == null)
+                {
+                    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+                    ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId), "id", "name");
+
+                    ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                    ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+                    ViewBag.searchType = searchType;
+                    ViewBag.Error = "Iterate requires you to select Touchpoint, Parthertype, Status and Group as part of your Partner Find criteria.";
+                    return View();
+                }
+            }
+
             if (touchpoint != null)
                 arguments += "touchpointID=" + touchpoint + ";";
             if (group != null)

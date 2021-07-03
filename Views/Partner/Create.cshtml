@@ -405,7 +405,31 @@
 
 	function submitForm() {
 		$("form").submit();
-	}
+    }
+
+    function submitTestForm() {
+        $("#protocol").prop("selectedIndex", 1);
+        $("#touchpoint").prop("selectedIndex", 1);
+        $("#partnertype").prop("selectedIndex", 1);
+        $("#internalID").val(Math.floor(Math.random() * 1000000).toString());
+        $("#name").val("FirstName LastName");
+        $("#address1").val("address 1 - test");
+        $("#address2").val("address 2 - test");
+        $("#city").val("city -test");
+        $("#state").prop("selectedIndex", 1);
+        $("#zipcode").val("123456");
+        $("#country").prop("selectedIndex", 1);
+        $("#phone").val("1234567890");
+        $("#firstName").val("FirstName -Test");
+        $("#lastName").val("Lastname - test");
+        $("#title").val("Compliance Manager");
+        $("#email").val("hitesh.asodiya@intelleges.com");
+        $("#dunsNumber").val("12345");
+        $("#group").prop("selectedIndex", 1);
+        $("#owner").prop("selectedIndex", 1);
+        $("#DueDate").val(new Date());
+        $("form").submit();
+    }
 
 
     //#region First declaration
@@ -884,6 +908,7 @@
                 @*<input type="submit" value="Save" />*@
                 <input type="button" value="Save" class="btn" onclick="submitForm();" />
                 <input type="button" value="Clear" class="btn" id="btnClear" />
+                <input type="button" value="Test" class="btn" id="btnTest" onclick="submitTestForm();" />
                 @*<input type="button" onclick="CloseMe()" value="Cancel" />*@
             </p>
         </div>
