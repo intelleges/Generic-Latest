@@ -76,6 +76,7 @@ namespace Generic.Controllers
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             Session["partnersearch"] = arguments;
+
             return RedirectToAction("FindPartnerResult");
 
         }
@@ -2027,6 +2028,7 @@ namespace Generic.Controllers
                 arguments += "HROEmail=" + txtHROEmailFind + ";";
 
             Session["partnersearch"] = arguments;
+
             if (touchpoint.HasValue)
             {
                 Session["Partner_Find_Touchpoint"] = touchpoint.Value;
@@ -2119,7 +2121,7 @@ namespace Generic.Controllers
                 }
 
                 string arguments = Session["partnersearch"].ToString() + "active=1;";
-
+                ViewBag.PartnerSearch = arguments;
                 string view_name = "view_PartnerData";
                 //12655
                 if(SessionSingleton.LoggedInUserId == 12527)
