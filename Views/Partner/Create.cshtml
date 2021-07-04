@@ -152,7 +152,7 @@
                                         data: formData1
                                     });
                                 }
-                          
+
                         });
                     }
                 },
@@ -408,27 +408,47 @@
     }
 
     function submitTestForm() {
-        $("#protocol").prop("selectedIndex", 1);
-        $("#touchpoint").prop("selectedIndex", 1);
-        $("#partnertype").prop("selectedIndex", 1);
-        $("#internalID").val(Math.floor(Math.random() * 1000000).toString());
-        $("#name").val("FirstName LastName");
-        $("#address1").val("address 1 - test");
-        $("#address2").val("address 2 - test");
-        $("#city").val("city -test");
-        $("#state").prop("selectedIndex", 1);
-        $("#zipcode").val("123456");
-        $("#country").prop("selectedIndex", 1);
-        $("#phone").val("1234567890");
-        $("#firstName").val("FirstName -Test");
-        $("#lastName").val("Lastname - test");
-        $("#title").val("Compliance Manager");
-        $("#email").val("hitesh.asodiya@intelleges.com");
-        $("#dunsNumber").val("12345");
-        $("#group").prop("selectedIndex", 1);
-        $("#owner").prop("selectedIndex", 1);
-        $("#DueDate").val(new Date());
-        $("form").submit();
+        function getFormattedDate(date) {
+            var year = date.getFullYear();
+
+            var month = (1 + date.getMonth()).toString();
+            month = month.length > 1 ? month : '0' + month;
+
+            var day = date.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+
+            return month + '/' + day + '/' + year;
+        }
+        $("#protocol").prop("selectedIndex", 1).trigger("change");
+        setTimeout(selectFirst(), 1000);
+        function selectFirst() {
+            $("#touchpoint").prop("selectedIndex", 1).trigger("change");
+            setTimeout(selectSecond(), 1000);
+        }
+        function selectSecond() {
+            $("#partnertype").prop("selectedIndex", 1).trigger("change");
+            setTimeout(selectThird(), 1000);
+        }
+        function selectThird() {
+            $("#internalID").val(Math.floor(Math.random() * 1000000).toString());
+            $("#name").val("FirstName LastName");
+            $("#address1").val("address 1 - test");
+            $("#address2").val("address 2 - test");
+            $("#city").val("city -test");
+            $("#state").prop("selectedIndex", 1);
+            $("#zipcode").val("123456");
+            $("#country").prop("selectedIndex", 1);
+            $("#phone").val("1234567890");
+            $("#firstName").val("FirstName -Test");
+            $("#lastName").val("Lastname - test");
+            $("#title").val("Compliance Manager");
+            $("#email").val("hitesh.asodiya@intelleges.com");
+            $("#dunsNumber").val("12345");
+            $("#group").prop("selectedIndex", 1).trigger("change");
+            $("#owner").prop("selectedIndex", 1).trigger("change");
+            $("#DueDate").val(getFormattedDate(new Date()));
+            $("form").submit();
+        }
     }
 
 
@@ -539,8 +559,8 @@
 </script>
 <!--#region collapse-->
 <style type="text/css">
-    .answers .box{
-        text-align:left!important;
+    .answers .box {
+        text-align: left !important;
     }
 
     .answers input[type=radio] {
@@ -904,7 +924,7 @@
 
 
             </div>
-            <p style="float: right; width: 20%;">
+            <p style="float: right; width: 30%;">
                 @*<input type="submit" value="Save" />*@
                 <input type="button" value="Save" class="btn" onclick="submitForm();" />
                 <input type="button" value="Clear" class="btn" id="btnClear" />
