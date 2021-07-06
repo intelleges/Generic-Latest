@@ -169,7 +169,8 @@
             <div class="twocol">
                 @*@Html.HiddenFor(model => model.id)*@
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.name)
+                    @Html.Label("Name")
+                    @*@Html.LabelFor(model => model.name)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.name, new { @class = "txtClass" })
@@ -177,7 +178,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.description)
+                    @Html.Label("Description")
+                    @*@Html.LabelFor(model => model.description)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.description, new { @class = "txtClass" })
@@ -186,7 +188,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.background)
+                    @Html.Label("Background")
+                    @*@Html.LabelFor(model => model.background)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextAreaFor(model => model.background, new { @style = "width:300px !important" })
@@ -194,7 +197,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.keyBenefits)
+                    @Html.Label("Key Benefits")
+                    @*@Html.LabelFor(model => model.keyBenefits)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.keyBenefits, new { @class = "txtClass" })
@@ -203,14 +207,16 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.abbreviation)
+                    @Html.Label("Abbreviation")
+                    @*@Html.LabelFor(model => model.abbreviation)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.abbreviation, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.abbreviation)
                 </div>
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.summary)
+                    @Html.Label("Summary")
+                    @*@Html.LabelFor(model => model.summary)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.summary, new { @class = "txtClass" })
@@ -247,14 +253,16 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.riskBenefits)
+                    @Html.Label("Risk Benefits")
+                    @*@Html.LabelFor(model => model.riskBenefits)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.riskBenefits, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.riskBenefits)
                 </div>
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.keyWords)
+                    @Html.Label("Keywords")
+                    @*@Html.LabelFor(model => model.keyWords)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.keyWords, new { @class = "txtClass" })
@@ -263,14 +271,16 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.domain)
+                    @Html.Label("Domain")
+                    @*@Html.LabelFor(model => model.domain)*@
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("domain", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.domain)
                 </div>
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.agency)
+                    @Html.Label("Agency")
+                    @*@Html.LabelFor(model => model.agency)*@
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("agency", null, String.Empty, new { @class = "ddlClass" })
@@ -282,7 +292,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.checkList)
+                    @Html.Label("Check list")
+                    @*@Html.LabelFor(model => model.checkList)*@
                 </div>
                 <div class="editor-field">
                     @(Html.Telerik().Upload()
@@ -292,7 +303,8 @@
                     @Html.ValidationMessageFor(model => model.checkList)
                 </div>
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.bestPractice)
+                    @Html.Label("Best Practice")
+                    @*@Html.LabelFor(model => model.bestPractice)*@
                 </div>
                 <div class="editor-field">
                     @(Html.Telerik().Upload()
@@ -308,7 +320,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.purpose)
+                    @Html.Label("Purpose")
+                    @*@Html.LabelFor(model => model.purpose)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextAreaFor(model => model.purpose, new { @style = "width:300px !important" })

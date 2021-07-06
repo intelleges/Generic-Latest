@@ -168,7 +168,8 @@
                 </div>*@
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.name)
+                    @Html.Label("Name")
+                    @*@Html.LabelFor(model => model.name)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.name, new { @class = "txtClass" })
@@ -176,7 +177,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.description)
+                    @Html.Label("Description")
+                    @*@Html.LabelFor(model => model.description)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.description, new { @class = "txtClass" })
@@ -184,7 +186,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.groupCollection, "groupCollection1")
+                    @Html.Label("Group Collection")
+                    @*@Html.LabelFor(model => model.groupCollection, "groupCollection1")*@
                 </div>
                 <div class="editor-field" style="width: 27% !important;">
                     @Html.DropDownList("groupCollection", null, String.Empty, new { @class = "ddlClass" })

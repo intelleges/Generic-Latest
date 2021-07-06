@@ -169,14 +169,16 @@
             <div class="twocol">
                 @*@Html.HiddenFor(model => model.id)*@
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.protocol)
+                    @Html.Label("Protocol")
+                    @*@Html.LabelFor(model => model.protocol)*@
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("protocol", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.protocol)
                 </div>
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.title)
+                    @Html.Label("Title")
+                    @*@Html.LabelFor(model => model.title)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.title, new { @class = "txtClass" })
@@ -192,7 +194,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.sponsor)
+                    @Html.Label("Sponsor")
+                    @*@Html.LabelFor(model => model.sponsor)*@
                 </div>
                 <div class="editor-field">
 
@@ -201,7 +204,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.admin)
+                    @Html.Label("Admin")
+                    @*@Html.LabelFor(model => model.admin)*@
                 </div>
                 <div class="editor-field">
 
@@ -211,7 +215,8 @@
             </div>
             <div class="threecol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.description)
+                    @Html.Label("Description")
+                    @*@Html.LabelFor(model => model.description)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.description, new { @class = "txtClass" })
@@ -219,14 +224,16 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.abbreviation)
+                    @Html.Label("Abbreviation")
+                    @*@Html.LabelFor(model => model.abbreviation)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(model => model.abbreviation, new { @class = "txtClass" })
                     @Html.ValidationMessageFor(model => model.abbreviation)
                 </div>
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.target)
+                    @Html.Label("Target")
+                    @*@Html.LabelFor(model => model.target)*@
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("target", null, String.Empty, new { @class = "ddlClass" })
@@ -235,7 +242,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.purpose)
+                    @Html.Label("Purpose")
+                    @*@Html.LabelFor(model => model.purpose)*@
                 </div>
                 <div class="editor-field">
                     @Html.TextAreaFor(model => model.purpose, new { @class = "txtClass" })
@@ -244,7 +252,8 @@
             </div>
             <div class="threecol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.automaticReminder)
+                    @Html.Label("Automatic Reminder")
+                    @*@Html.LabelFor(model => model.automaticReminder)*@
                 </div>
                 <div class="editor-field">
                     @* @Html.TextBoxFor(model => model.automaticReminder, new { @class = "txtClass" })
