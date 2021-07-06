@@ -28,7 +28,26 @@
         $("#RoleId").val("0");
         $("#GroupId").val("0");
     }
-
+    function submitTestForm() {
+        $("#firstName").val("FirstName -Test");
+        $("#lastName").val("Lastname - test");
+        $("#suffix").val("");
+        $("#internalId").val(Math.floor(Math.random() * 1000000).toString());
+        $("#title").val("User");
+        $("#email").val($("#hdfLoginEMail").val());
+        $("#address1").val("address 1 - test");
+        $("#address2").val("address 2 - test");
+        $("#city").val("city -test");
+        $("#state").prop("selectedIndex", 1);
+        $("#zipcode").val("123456");
+        $("#country").prop("selectedIndex", 1);
+        $("#phone").val("1234567890");
+        $("#manager").prop("selectedIndex", 1);
+        $("#campaign").prop("selectedIndex", 1);
+        $("#RoleId").prop("selectedIndex", 1).trigger("change");
+        $("#GroupId").prop("selectedIndex", 1).trigger("change");
+        $("form").submit();
+    }
     jQuery(document).ready(function ($) {
         //$('.cancelPopup').click(function () {
         //    window.parent.$('#popup').dialog('close');
@@ -216,7 +235,7 @@
 <div class="addPersondiv">
     <h2>Create Person</h2>
 </div>
-
+<input type="hidden" value="@ViewBag.LoggedInOwner" id="hdfLoginEMail" />
 
 @using (Html.BeginForm())
 {
@@ -240,7 +259,8 @@
                 @* @Html.HiddenFor(model => model.id)*@
                 <input type="hidden" name="id" value="0" />
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.firstName)
+                    @Html.Label("First name")
+                    @*@Html.LabelFor(model => model.firstName)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.firstName, new { @class = "txtClass" })
@@ -248,7 +268,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.lastName)
+                    @Html.Label("Last name")
+                    @*@Html.LabelFor(model => model.lastName)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.lastName, new { @class = "txtClass" })
@@ -256,7 +277,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.suffix)
+                    @Html.Label("Suffix")
+                    @*@Html.LabelFor(model => model.suffix)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.suffix, new { @class = "txtClass" })
@@ -266,7 +288,8 @@
             </div>
             <div class="threecol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.internalId)
+                    @Html.Label("Internal ID")
+                    @*@Html.LabelFor(model => model.internalId)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.internalId, new { @class = "txtClass" })
@@ -274,7 +297,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.title)
+                    @Html.Label("Title")
+                    @*@Html.LabelFor(model => model.title)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.title, new { @class = "txtClass" })
@@ -282,7 +306,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.email)
+                    @Html.Label("Email")
+                    @*@Html.LabelFor(model => model.email)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.email, new { @class = "txtClass" })
@@ -291,7 +316,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.address1)
+                    @Html.Label("Address 1")
+                    @*@Html.LabelFor(model => model.address1)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.address1, new { @class = "txtClass" })
@@ -299,7 +325,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.address2)
+                    @Html.Label("Address 2")
+                    @*@Html.LabelFor(model => model.address2)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.address2, new { @class = "txtClass" })
@@ -309,7 +336,8 @@
 
             <div class="threecol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.city)
+                    @Html.Label("City")
+                    @*@Html.LabelFor(model => model.city)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.city, new { @class = "txtClass" })
@@ -317,7 +345,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.state)
+                    @Html.Label("State")
+                    @*@Html.LabelFor(model => model.state)*@
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("state", null, String.Empty, new { @class = "ddlClass" })
@@ -325,7 +354,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.zipcode)
+                    @Html.Label("Zip Code")
+                    @*@Html.LabelFor(model => model.zipcode)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.zipcode, new { @class = "txtClass" })
@@ -334,7 +364,8 @@
             </div>
             <div class="twocol">
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.country)
+                    @Html.Label("Country")
+                    @*@Html.LabelFor(model => model.country)*@
                 </div>
                 <div class="editor-field">
                     @Html.DropDownList("country", null, String.Empty, new { @class = "ddlClass" })
@@ -342,7 +373,8 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.phone)
+                    @Html.Label("Phone")
+                    @*@Html.LabelFor(model => model.phone)*@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.phone, new { @class = "txtClass" })
@@ -353,7 +385,8 @@
             {
                 <div class="twocol">
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.manager)
+                        @Html.Label("Manager")
+                        @*@Html.LabelFor(model => model.manager)*@
                     </div>
                     <div class="editor-field">
                         @Html.DropDownList("manager", null, String.Empty, new { @class = "ddlClass" })
@@ -361,7 +394,8 @@
                     </div>
 
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.campaign)
+                        @Html.Label("Campaign")
+                        @*@Html.LabelFor(model => model.campaign)*@
                     </div>
                     <div class="editor-field">
                         @Html.DropDownList("campaign", null, String.Empty, new { @class = "ddlClass" })
@@ -379,32 +413,33 @@
                 @Html.DropDownList("RoleId", null, String.Empty, new { @class = "ddlClass" })
                 @Html.ValidationMessageFor(model => model.RoleId)
             </div>
-             @if (!(ViewBag.enterpriseId is int))
+            @if (!(ViewBag.enterpriseId is int))
             {
-            <div class="editor-label">
-                <label for="GroupId">Group</label>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("GroupId", null, String.Empty, new { @class = "ddlClass" })
+                <div class="editor-label">
+                    <label for="GroupId">Group</label>
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("GroupId", null, String.Empty, new { @class = "ddlClass" })
 
-                @Html.ValidationMessageFor(model => model.GroupId)
-            </div>
-             }
+                    @Html.ValidationMessageFor(model => model.GroupId)
+                </div>
+            }
         </div>
         @* <div class="threecol">
-            <div class="editor-label">
-            </div>
-            <div class="editor-field">
-                <a id="lnkgroup" href="javascript:doSomething();" style="font-size: 1em;">Add Group</a>
-            </div>
+                <div class="editor-label">
+                </div>
+                <div class="editor-field">
+                    <a id="lnkgroup" href="javascript:doSomething();" style="font-size: 1em;">Add Group</a>
+                </div>
 
-            <div class="editor-field">
-                <a id="lnkrole" href="javascript:doSomething();" style="font-size: 1em;">Add Role</a>
-            </div>
-        </div>*@
-        <p style="float: right; width: 20%;">
+                <div class="editor-field">
+                    <a id="lnkrole" href="javascript:doSomething();" style="font-size: 1em;">Add Role</a>
+                </div>
+            </div>*@
+        <p style="float: right; width: 30%;">
             <input type="submit" value="Save" class="btn" />
             <input type="button" value="Clear" class="btn" id="btnClear" />
+            <input type="button" value="Test" class="btn" id="btnTest" onclick="submitTestForm();" />
         </p>
     </fieldset>
 }

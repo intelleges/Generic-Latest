@@ -151,7 +151,7 @@ namespace Generic.Controllers
                         objerrorView.errorMessage = "Record " + uploadedperson.Count.ToString() + " of " + countpartNumbers + " has invalid GroupName" + objPerson.GroupName + ".";
                         return PartialView("_Error", objerrorView);
                     }
-                    var roleSpreadsheet = db.pr_getRoleByName(objPerson.RoleName,Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                    var roleSpreadsheet = db.pr_getRoleByName(objPerson.RoleName, Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
                     if (roleSpreadsheet == null)
                     {
                         ErrorView objerrorView = new ErrorView();
@@ -240,6 +240,7 @@ namespace Generic.Controllers
                 ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise2(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "description");
                 ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
             }
+            ViewBag.LoggedInOwner = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().email;
 
             var max = db.pr_getUserMaxTotalActiveUsers(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             if (max.total_active_users >= max.enterprise_usermax)
