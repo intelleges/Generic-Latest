@@ -1,9 +1,10 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 @using Generic.Helpers
-@using System.Web.Mvc.Html
+@using System.Web.Mvc.Html;
 @using Telerik.Web.Mvc.UI;
 @using System.Web.Optimization;
-@using Generic.ViewModel
+@using Generic.ViewModel;
+@using Generic;
 @{
 
     string EnterpriseName = string.Empty;
@@ -37,6 +38,12 @@
     if (objPerson != null)
     {
         LoginName = objPerson.firstName + " " + objPerson.lastName;
+        EntitiesDBContext db = new EntitiesDBContext();
+        Generic.person systemMaster = db.pr_getSystemMaster(objPerson.enterprise).FirstOrDefault();
+        if (objPerson.id == systemMaster.id)
+        {
+            ViewBag.IsSystemMaster = true;
+        }
     }
 
 }
@@ -414,6 +421,7 @@
     <div id="popup" style="display:none;">
         <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
     </div>
+    @Html.Hidden("hdfIsSystemMaster", (object)ViewBag.IsSystemMaster)
     @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jqueryui")*@
     <script type="text/javascript">
@@ -580,12 +588,25 @@
                 window.location.replace("https://intelleges.com");
             }
         });*@
-                alertify.confirm("Would you like to upload new logo?", function (result) {
-                    if (result) {
-                        $("#selectlogo").click();
-                    }
-                });
-
+                if ($("#hdfIsSystemMaster").val().toLowerCase() === "true") {
+                    alertify.confirm("Would you like to upload new logo?", function (result) {
+                        if (result) {
+                            $("#selectlogo").click();
+                        }
+                    });
+                }
+                else {
+                    alertify.set({
+                        labels: {
+                            ok: "Yes", cancel: "No"
+                        }
+                    });
+                    alertify.confirm("Would you like to logout and go to the <a href='https://intelleges.com'> Intelleges.com </a> website?", function (result) {
+                        if (result) {
+                            window.location.replace("https://intelleges.com");
+                        }
+                    });
+                }
             });
         });
 
