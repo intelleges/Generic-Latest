@@ -1619,7 +1619,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(pptqItem.accesscode).FirstOrDefault();
                 var qnextId = choices[1].Replace("[", "").Replace("]", "");
                 var baseUri = new Uri(Request.Url.GetLeftPart(UriPartial.Authority));
-                EmailHelper.SendEmailAlertWhere(pptqItem.partner1, pptqObj, pptqItem.accesscode, email, pptq, q.id, qnextId, qsss,baseUri, Url,Request.Url.ToString());
+                EmailHelper.SendEmailAlertWhere(pptqItem.partner1, pptqObj, pptqItem.accesscode, email, pptq, q.id, qnextId, qsss, baseUri, Url, Request.Url.ToString());
                 return Json(new { success = false, message });
             }
         }
@@ -14482,7 +14482,7 @@ Intelleges Team";
                         var selectedYearIds = item.comment.Split(",");
                         var selectedYears = resultFiscalYear.Where(w => selectedYearIds.Contains(w.Last()) == true).Select(s => s[0]).ToList();
                         ViewBag.Q51320_response = selectedYears;
-                        
+
                         break;
                     case 51321:
                         var resultReasonsNotSubmitted = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
@@ -14490,7 +14490,7 @@ Intelleges Team";
                         var reasondIds_51321 = item.comment.Split(",");
                         var selectedReason_51321 = resultReasonsNotSubmitted.Where(w => reasondIds_51321.Contains(w.Last()) == true).Select(s => s[0]).ToList();
                         ViewBag.Q51321_response = selectedReason_51321;
-                       
+
                         break;
                     case 51322:
                         var resultFiscalYearAudit = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
@@ -14498,7 +14498,7 @@ Intelleges Team";
                         var selectedYearIds_51322 = item.comment.Split(",");
                         var selectedYears_51322 = resultFiscalYearAudit.Where(w => selectedYearIds_51322.Contains(w.Last()) == true).Select(s => s[0]).ToList();
                         ViewBag.Q51322_response = selectedYears_51322;
-                       
+
                         break;
                     case 51323:
                         ViewBag.Checkbox51323_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -14535,15 +14535,14 @@ Intelleges Team";
                         ViewBag.Input51327 = item.comment;
                         break;
                     case 51328:
-                        ViewBag.Input51328 = item.comment;
+                        ViewBag.Input51328 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
                         break;
                     case 51329:
                         ViewBag.Q51329_response = "";
                         if (item.response1.description != null)
                         {
-                            var resultAdminsState = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description).ToList();
-                            var selectedState_51329 = resultAdminsState.Select(s => s = item.response1.description).FirstOrDefault();
-                            ViewBag.Q51329_response = selectedState_51329;
+                            var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
+                            ViewBag.Q51329_response = resultAdminsState.description;
                         }
                         break;
                     case 51330:
@@ -14563,15 +14562,14 @@ Intelleges Team";
                         ViewBag.Input51334 = item.comment;
                         break;
                     case 51335:
-                        ViewBag.Input51335 = item.comment;
+                        ViewBag.Input51335 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
                         break;
                     case 51336:
                         ViewBag.Q51336_response = "";
                         if (item.response1.description != null)
                         {
-                            var resultAuditState = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description).ToList();
-                            var selectedStateId_51336 = resultAuditState.Select(s => s = item.response1.description).FirstOrDefault();
-                            ViewBag.Q51336_response = selectedStateId_51336;
+                            var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
+                            ViewBag.Q51336_response = resultAuditState.description;
                         }
                         break;
                     case 51337:

@@ -79,11 +79,11 @@
             </tr>
             <tr>
                 <td>Street Address:</td>
-                <td>@(ViewBag.partner.address1)  /td>
+                <td>@(ViewBag.partner.address1)  </td>
             </tr>
             <tr>
                 <td>City, State Zip:</td>
-                <td>@(ViewBag.partner.city +" "+ ViewBag.state + " " + ViewBag.partner.zipcode) </td>
+                <td>@(ViewBag.partner.city + " "+ ViewBag.state + " " + ViewBag.partner.zipcode) </td>
             </tr>
             <tr>
                 <td>Phone Number:</td>
@@ -272,7 +272,7 @@
             </tr>
             <tr>
                 <td  colspan="3">City, State Zip:</td>
-                <td  colspan="5">@Html.Raw(ViewBag.Input51328) @Html.Raw(ViewBag.Q51329_response) @Html.Raw(ViewBag.Input51330)  </td>
+                <td  colspan="5">@Html.Raw(ViewBag.Input51328 + ", " + ViewBag.Q51329_response + " " + ViewBag.Input51330)  </td>
             </tr>
             <tr>
                 <td colspan="3">Email Address:</td>
@@ -296,7 +296,7 @@
             </tr>
             <tr>
                 <td>City, State Zip:</td>
-                <td>@Html.Raw(ViewBag.Input51335), @Html.Raw(ViewBag.Q51336_response) @Html.Raw(ViewBag.Input51337) </td>
+                <td>@Html.Raw(ViewBag.Input51335 + ", " + ViewBag.Q51336_response + " " + ViewBag.Input51337) </td>
             </tr>
             <tr>
                 <td>Email Address:</td>
