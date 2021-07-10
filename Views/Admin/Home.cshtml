@@ -42,14 +42,15 @@
         
         var data = google.visualization.arrayToDataTable([
                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
-                     ['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
-                     ['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
+                     //['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
+                     //['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
                      ['Reminder',  @ViewBag.dataAll["bounce"], @ViewBag.dataAll["click"], @ViewBag.dataAll["deferred"], @ViewBag.dataAll["delivered"], @ViewBag.dataAll["dropped"], @ViewBag.dataAll["open"], @ViewBag.dataAll["processed"]]
         ]);
 
         var options = {
-            title: 'Invite, Iterate, Reminders Sent',
-            chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
+            title: 'Reminders Sent',
+            chartArea: { top: 50, width: "60%", height: "70%", left: 60 }//,
+            //isStacked: true
         };
 
         var chart = new google.visualization.BarChart(document.getElementById('columnchart_material'));
@@ -66,14 +67,15 @@
         });
         var datadaily = google.visualization.arrayToDataTable([
                      ['Group', 'Bounce', 'Click', 'Deferred', 'Delivered', 'Dropped', 'Open', 'Processed'],
-                     ['Invite', 20, 30, 50, 90, 10, 10, 27],
-                     ['Iterate', 70, 10, 15, 45, 42, 26, 20],
+                     //['Invite', 20, 30, 50, 90, 10, 10, 27],
+                     //['Iterate', 70, 10, 15, 45, 42, 26, 20],
                      ['Reminder', @ViewBag.dataToday["bounce"], @ViewBag.dataToday["click"], @ViewBag.dataToday["deferred"], @ViewBag.dataToday["delivered"], @ViewBag.dataToday["dropped"], @ViewBag.dataToday["open"], @ViewBag.dataToday["processed"]]
         ]);
 
         var optionsdaily = {
-            title: 'Invite, Iterate, Reminders Sent Daily',
-            chartArea: { top: 50, width: "65%", height: "70%", left: 60 }
+            title: 'Reminders Sent Daily',
+            chartArea: { top: 50, width: "60%", height: "70%", left: 60 }//,
+            //isStacked: true
         };
 
         var chartdaily = new google.visualization.BarChart(document.getElementById('columnchart_material_daily'));
