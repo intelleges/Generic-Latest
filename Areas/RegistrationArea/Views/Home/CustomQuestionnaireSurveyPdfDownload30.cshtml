@@ -192,8 +192,17 @@
                             <li>@item</li>
                         }
                     }
-
                 </ul>
+                @if (ViewBag.Q51317_Response != null)
+                {
+                    if (@ViewBag.Checkbox51317_Yes != string.Empty && @ViewBag.Checkbox51317_Yes != null)
+                    {
+                        <p>You have selected Other as reason.<b> Please explain why: </b></p>
+                        <ul>
+                            <li>@ViewBag.Q51317_Response</li>
+                        </ul>
+                    }
+                }
             </li>
             <br>
 
