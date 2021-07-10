@@ -3169,8 +3169,8 @@ namespace Generic.Controllers
             var listRequest = service.Cse.List("site:linkedin.com/in OR site:linkedin.com/pub -pub.dir " + model.GetSearchString());
             listRequest.Cx = ConfigurationManager.AppSettings["GoogleCse"];
             Google.Apis.Customsearch.v1.Data.Search search = listRequest.Execute();
-            var firstItem = search.Items != null ? search.Items.FirstOrDefault() : null;
-            return Json(firstItem != null ? firstItem.Link : "");
+            var firstItem = search.Items != null ? search.Items : null;
+            return Json(firstItem);
         }
         public ActionResult CheckEmailAndCreateNewPartnerIfNeeded(CheckEmailAndCreateNewPartnerModel model)
         {

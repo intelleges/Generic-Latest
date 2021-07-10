@@ -199,7 +199,7 @@
                 return;
             }
             $.ajax({
-                url: "@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
+                url:"@Url.Content("~/touchpoint/GetTouchPointWithTitleByprotocolId")",
                 type: "post",
                 data: formData,
                 success: function (data) {
@@ -1777,7 +1777,19 @@
     function findLinkedInProfile(profile) {
         $.post('FindAndRedirectToLinkedInProfile', profile, function (result) {
             if (result) {
-                window.open(result, "_blank");
+                $("#updateDialog").modal("toggle");
+                $("#linkedInSearchDialog").modal("toggle");
+                if (result.length > 0) {
+                    var gridLinkedInSearch = "<table class='t-grid-content'>";
+                    for (var i = 0; i < result.length; i++) {
+
+                        gridLinkedInSearch += ("<tr><td>" + result[i].Title.split('-')[0] + "</td><td>" + result[i].Title.split('-')[1] + "</td><td><a target='_blank' href='" + result[i].FormattedUrl  + "'>Open</a></tr>")
+                    }
+                    gridLinkedInSearch += "</table>";
+                }
+
+                $("#divLinkedInSearchResult").html(gridLinkedInSearch);
+                //window.open(result, "_blank");
             } else {
                 alertify.alert("Sorry. Can't find linkedin profile");
             }
@@ -1814,8 +1826,9 @@
 
 <style type="text/css">
     .t-grid-content {
-        height:600px!important;
+        height: 600px !important;
     }
+
     .clickable {
         cursor: pointer;
     }
@@ -2430,7 +2443,26 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="linkedInSearchDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+        <div class="modal-dialog">
 
+            <input id="id" name="id" class="form-control" type="hidden" />
+            <input id="pptq" name="pptq" class="form-control" type="hidden" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                    </button>
+                    <h4 class="modal-title" id="gpsLabel">Linked In search result</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="t-widget t-grid" id="divLinkedInSearchResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="nurturePartner" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -2836,11 +2868,11 @@
             // button labels will be "Accept" and "Deny"
         alertify.confirm('<div style="padding: 10px 20px;"><div class= "editor-label"><label>Referral Type</label></div><div class="editor-field"><select id="referralType" onchange="referralTypeChange();" class="form-control"><option value="Care Guides">Care Guides</option><option value="Telehealth/Telemedicine">Telehealth/Telemedicine</option><option value="Test Site Finder">Test Site Finder</option><option value="Mental Health Service">Mental Health Service</option><option value="Other">Other</option></select></div><div class="editor-label"><label>Referral Specification</label></div><div class="editor-field"><select id="referralSpecification" class="form-control"><option value="Care Guides 1">Care Guides 1</option><option value="Care Guides 2">Care Guides 2</option><option value="Care Guides 3">Care Guides 3</option></select></div></div>', function (e) {
                 if (e) {
-                    
+
 
                 } else {
-                   
-                   
+
+
                 }
             });
     }
@@ -2852,8 +2884,8 @@
 
         for (var i = 1; i < 4; i++) {
             var optionText = v + " " + i.toString();
-            $('#referralSpecification').append(`<option value="${optionText}"> 
-                                       ${optionText} 
+            $('#referralSpecification').append(`<option value="${optionText}">
+                                       ${optionText}
                                   </option>`);
         }
 
@@ -3000,7 +3032,7 @@ columns.Bound(o => o.NotesDescription).Title("N").Width(15).ClientTemplate(@"
 </div>
 ").Filterable(false);
 }
-                                        ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Scrollable(s=>s.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound").OnRowDataBound("Grid_onRowDataBound")).HtmlAttributes(new { style = "font-size:10px; height:600px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
+                                        ).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Scrollable(s => s.Enabled(true)).Sortable().ClientEvents(e => e.OnRowSelect("loadSelectedRowData").OnDataBound("Grid_onDataBound").OnRowDataBound("Grid_onRowDataBound")).HtmlAttributes(new { style = "font-size:10px; height:600px;" }).Filterable(o => o.Filters(filters => filters.Add(filter => filter.nextActionDate).IsLessThan(DateTime.Now.Date.AddDays(1)).And().IsGreaterThanOrEqualTo(DateTime.Now.Date)).ShowOrOption())
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
