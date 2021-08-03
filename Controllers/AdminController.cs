@@ -61,6 +61,7 @@ namespace Generic.Controllers
                 ViewBag.Project = "Generic";
                 ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
                 ViewBag.EnterpriseId = contactUs;
+                
                 if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
                 {
                     ViewBag.REDIRECT_BY_EMAIL = 1;
