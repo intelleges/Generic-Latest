@@ -1192,10 +1192,13 @@
 		}
             else if (data.message.next == 1) {
                 var html = '<div style="text-align:left;">';
-                html += ' <input type="radio" style="width:30px;" id="choiseSelect" checked name="choiseSelect" value="1" >' + data.message.nextStep+'<br/>';
-                html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="2" >Print the pending approval PDF<br/>';
-                html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="3" >Approve this supplier<br/>';
-                html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="4" >Reject this supplier<br/>';
+                html += ' <input type="radio" style="width:30px;" id="choiseSelect" checked name="choiseSelect" value="1" >' + data.message.nextStep + '<br/>';
+                if (data.message.newStatus == 10) {
+                    html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="2" >Print the pending approval PDF<br/>';
+                    html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="3" >Approve this supplier<br/>';
+                    html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="4" >Reject this supplier<br/>';
+                }
+               
 
                 html += '</div>';
                 alertify.confirm(html, function (e) {
