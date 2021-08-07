@@ -124,6 +124,18 @@ function showdropdowndiv(sender, showIfNeededFuntion) {
             showIfNeededFuntion(divname, s, "(" + jQuery(divname).data("code") + ")");
         }
     }
+
+    divname = "#yDiv_" + result;
+    arr = expr.exec(jQuery(divname).data("code"));
+    if (arr && arr.length > 0) {
+        showIfNeededFuntion(divname, s, arr[0]);
+    } else {
+        if (jQuery(divname).data("code")) {
+            showIfNeededFuntion(divname, s, "(" + jQuery(divname).data("code") + ")");
+        }
+    }
+
+
     if (jQuery("#AllDiv_" + result).length > 0) {
         jQuery("#AllDiv_" + result).show();
     }

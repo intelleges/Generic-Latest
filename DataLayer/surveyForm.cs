@@ -1386,6 +1386,7 @@ namespace Generic.DataLayer
                             incldComment = incldComment.Replace(match.Value, "");
                         }
                     }
+
                     if (string.IsNullOrEmpty(divn.Attributes["data-code"]) && db.pr_questionResponseWarningCheck(question.id).FirstOrDefault() != null)
                     {
                         var result = responsesList.FirstOrDefault(o => o.description.Contains("No"));
@@ -1617,7 +1618,13 @@ namespace Generic.DataLayer
                     }
                     else
                         divn.Style.Add("display", "none");
+
+                   var  responseCollection = db.pr_getResponseByQuestion(question.id).ToList();
                     txtbox1.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_Commenttext";
+                    Regex checkCOde = new Regex("\\([A-Z][A-Z]\\)");
+                    var r = responseCollection.Where(o => o.description.Contains("Yes")).FirstOrDefault();
+                    if (r != null)
+                        divn.Attributes["data-code"] = r.description.Replace("Yes","");
 
                     divn.InnerHtml = incldComment + " "; //"Include comments here: ";                   
                     txtbox1.Attributes.Add("required", "");
