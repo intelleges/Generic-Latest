@@ -2184,7 +2184,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             {
                                 responseComment = strvl;
                             }
-                            else responseComment = null;
+                            else
+                            {
+                                string strvl1 = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_Commenttext"];
+                                if (!string.IsNullOrEmpty(strvl1))
+                                {
+                                    responseComment = strvl1;
+                                }
+                                else { 
+                                    responseComment = null; 
+                                }
+                            }
                         }
                         var checkBoxes = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_checkboxList"];
                         if (checkBoxes != null)
