@@ -467,31 +467,32 @@ namespace Generic.Controllers
                             var ipData = GetLocationByIp(ip);
                             computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
                             //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
-                            int countryId = 1;
-                            if (ipData != null)
-                            {
-                                if (ipData.country_code.Length == 2)
-                                {
-                                    var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
-                                    countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
-                                }
-                                else if (ipData.country_code.Length == 3)
-                                {
-                                    var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
-                                    countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
-                                }
-                                else
-                                {
-                                    var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
-                                    countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
-                                }
-                            }
+                            //int countryId = 1;
+                            //if (ipData != null)
+                            //{
+                            //    if (ipData.country_code.Length == 2)
+                            //    {
+                            //        var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
+                            //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                            //    }
+                            //    else if (ipData.country_code.Length == 3)
+                            //    {
+                            //        var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
+                            //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                            //    }
+                            //    else
+                            //    {
+                            //        var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
+                            //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                            //    }
+                            //}
 
-                            var personEmail = db.pr_getPersonByEmail2(userName).FirstOrDefault();
-                            if (personEmail != null)
-                            {
-                                db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Successful_Login).ToString(), DateTime.Now, 1, true);
-                            }
+                            //var personEmail = db.pr_getPersonByEmail2(userName).FirstOrDefault();
+                            //if (personEmail != null)
+                            //{
+                            //    db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Successful_Login).ToString(), DateTime.Now, 1, true);
+                            //    db.SaveChanges();
+                            //}
                             //var proxy_type = ipData.security?.proxy_type?.ToString() ?? "";
                             //db.pr_addPersonLoginLog(person.id, ip, ipData.type, ipData.continent_code, ipData.continent_name, ipData.country_code, ipData.region_code, ipData.region_name, ipData.city, ipData.zip, ipData.hostname,
                             //    proxy_type, DateTime.Now,1,true);
