@@ -25,6 +25,7 @@ namespace Generic
         public Nullable<int> score { get; set; }
         public Nullable<int> partnerPartnerTypeTouchpointQuestionnaire { get; set; }
         public Nullable<System.DateTime> timestamp { get; set; }
+        public byte[] commentEncrypted { get; set; }
     
         public virtual partnerPartnertypeTouchpointQuestionnaire partnerPartnertypeTouchpointQuestionnaire1 { get; set; }
         public virtual response response1 { get; set; }

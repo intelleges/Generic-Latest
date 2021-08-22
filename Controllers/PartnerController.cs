@@ -2874,7 +2874,8 @@ namespace Generic.Controllers
             var baseUri = new Uri(Request.Url.GetLeftPart(UriPartial.Authority));
             var questionnaire = db.pr_getQuestionnaireByPPTQ(pptq.id).FirstOrDefault();
             var appQuestion = db.pr_getApprovalRequestQuestionByQuestionnaire(questionnaire.id).FirstOrDefault();
-            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq.id, (int)PartnerStatus.Approved_By_Manager);
+            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq.id, (int)PartnerStatus.Responded_Complete);
+            db.pr_addPartnerPartnertypeTouchpointQuestionnairePersonApproval(pptq.id, SessionSingleton.LoggedInUserId, (int)PartnerStatus.Approved_By_Manager, null, null);
             var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq.id, appQuestion.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";", "").Trim() + ";").ToList();
             string qsss = "";
             foreach (var item in list) qsss += db.pr_getQuestionTitle(item.Question).First() + "<br/>";

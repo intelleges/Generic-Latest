@@ -864,6 +864,7 @@
     <Compile Include="Helpers\IPAddressRange.cs" />
     <Compile Include="Helpers\LandingPage.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
+    <Compile Include="Helpers\LoginStatus.cs" />
     <Compile Include="Helpers\PartnerHelper.cs" />
     <Compile Include="Helpers\PartNumberHelper.cs" />
     <Compile Include="Helpers\PersonHelper.cs" />
@@ -1092,6 +1093,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerPartnertypeTouchpointQuestionnaire.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partnerPartnertypeTouchpointQuestionnairePersonApproval.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="partnerPartnertypeTouchpointQuestionnaireQuestionResponse.cs">
@@ -1617,6 +1621,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCountryAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCountryByCode_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getCountryByGovernanceCode_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getCountryByName_Result.cs">
@@ -2274,6 +2284,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireByTouchpointInternalIDAndEmail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnairePersonApprovalAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnairePersonApproval_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByAccessCode_Result.cs">

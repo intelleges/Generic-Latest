@@ -299,6 +299,7 @@ namespace Generic
         public virtual DbSet<view_ProtocolData_2> view_ProtocolData_2 { get; set; }
         public virtual DbSet<view_QuestionnaireQuestionResponse> view_QuestionnaireQuestionResponse { get; set; }
         public virtual DbSet<personLoginAudit> personLoginAudit { get; set; }
+        public virtual DbSet<partnerPartnertypeTouchpointQuestionnairePersonApproval> partnerPartnertypeTouchpointQuestionnairePersonApproval { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -30734,6 +30735,105 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getNAICS2012_Result>("pr_getNAICS2012", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnairePersonApproval_Result> pr_getPartnerPartnertypeTouchpointQuestionnairePersonApproval(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnairePersonApproval_Result>("pr_getPartnerPartnertypeTouchpointQuestionnairePersonApproval", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerPartnertypeTouchpointQuestionnairePersonApprovalAll_Result> pr_getPartnerPartnertypeTouchpointQuestionnairePersonApprovalAll(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerPartnertypeTouchpointQuestionnairePersonApprovalAll_Result>("pr_getPartnerPartnertypeTouchpointQuestionnairePersonApprovalAll", enterpriseParameter);
+        }
+    
+        public virtual int pr_modifyPartnerPartnertypeTouchpointQuestionnairePersonApproval(Nullable<int> id, Nullable<int> pptq, Nullable<int> person, Nullable<int> status, byte[] notes, Nullable<System.DateTime> timestamp)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("Person", person) :
+                new ObjectParameter("Person", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var notesParameter = notes != null ?
+                new ObjectParameter("notes", notes) :
+                new ObjectParameter("notes", typeof(byte[]));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerPartnertypeTouchpointQuestionnairePersonApproval", idParameter, pptqParameter, personParameter, statusParameter, notesParameter, timestampParameter);
+        }
+    
+        public virtual int pr_removePartnerPartnertypeTouchpointQuestionnairePersonApproval(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removePartnerPartnertypeTouchpointQuestionnairePersonApproval", idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addPartnerPartnertypeTouchpointQuestionnairePersonApproval(Nullable<int> pptq, Nullable<int> person, Nullable<int> status, byte[] notes, Nullable<System.DateTime> timestamp)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("Person", person) :
+                new ObjectParameter("Person", typeof(int));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            var notesParameter = notes != null ?
+                new ObjectParameter("notes", notes) :
+                new ObjectParameter("notes", typeof(byte[]));
+    
+            var timestampParameter = timestamp.HasValue ?
+                new ObjectParameter("timestamp", timestamp) :
+                new ObjectParameter("timestamp", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnerPartnertypeTouchpointQuestionnairePersonApproval", pptqParameter, personParameter, statusParameter, notesParameter, timestampParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCountryByCode_Result> pr_getCountryByCode(string code)
+        {
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCountryByCode_Result>("pr_getCountryByCode", codeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getCountryByGovernanceCode_Result> pr_getCountryByGovernanceCode(string governanceCode)
+        {
+            var governanceCodeParameter = governanceCode != null ?
+                new ObjectParameter("governanceCode", governanceCode) :
+                new ObjectParameter("governanceCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCountryByGovernanceCode_Result>("pr_getCountryByGovernanceCode", governanceCodeParameter);
         }
     }
 }

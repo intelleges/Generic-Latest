@@ -61,7 +61,7 @@ namespace Generic.Controllers
                 ViewBag.Project = "Generic";
                 ViewBag.LinkedInLoginUri = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("ExternalLogin", "Admin");
                 ViewBag.EnterpriseId = contactUs;
-                
+
                 if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
                 {
                     ViewBag.REDIRECT_BY_EMAIL = 1;
@@ -439,7 +439,7 @@ namespace Generic.Controllers
 
                         person person = db.pr_doLogin(userName, password).FirstOrDefault();
 
-                        // var ip = "71.225.253.65";// Request.UserHostAddress;
+                        //var ip = "71.225.253.65";// Request.UserHostAddress;
                         var ip = Request.UserHostAddress;
                         var computerName = "";//computer_name[0].ToString();
                                               //string[] computer_name = { ip };
@@ -559,6 +559,39 @@ namespace Generic.Controllers
                     }
                     else
                     {
+                        var ip = Request.UserHostAddress;
+                        var ipData = GetLocationByIp(ip);
+                        var computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;
+                        //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
+                        int countryId = 1;
+                        if (ipData != null )
+                        {
+                            if (ipData.country_code.Length == 2)
+                            {
+                                var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
+                                countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                            }
+                            else if (ipData.country_code.Length == 3)
+                            {
+                                var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
+                                countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                            }
+                            else
+                            {
+                                var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
+                                countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                            }
+                        }
+
+                        var person = db.pr_getPersonByEmail2(userName).FirstOrDefault();
+                        if (person != null && person.email == userName)
+                        {
+                            db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Password_Valid_Email).ToString(), DateTime.Now, 1, true);
+                        }
+                        else
+                        {
+                            db.pr_addPersonLoginLog(5, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Login_Invalid_Email).ToString(), DateTime.Now, 1, true);
+                        }
                         ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
                     }
                 }
