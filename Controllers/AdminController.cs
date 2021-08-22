@@ -584,7 +584,7 @@ namespace Generic.Controllers
                         }
 
                         var person = db.pr_getPersonByEmail2(userName).FirstOrDefault();
-                        if (person != null && person.email == userName)
+                        if (person != null)
                         {
                             db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Password_Valid_Email).ToString(), DateTime.Now, 1, true);
                         }
