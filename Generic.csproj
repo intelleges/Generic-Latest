@@ -3838,6 +3838,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload32.cshtml" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\connect-enterprise.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\footer-logo.png" />
     <Content Include="Contents\AdminStyle\images\Home-imgs\logo.png" />
