@@ -14710,7 +14710,7 @@ Intelleges Team";
                         break;
                     case 52023:
                         ViewBag.Checkbox52023_85764 = item.response == 85764 ? _chacked : string.Empty;
-                        ViewBag.Checkbox52023_85764 = item.response == 85765 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52023_85765 = item.response == 85765 ? _chacked : string.Empty;
                         ViewBag.Checkbox52023_85766 = item.response == 85766 ? _chacked : string.Empty;
                         break;
                     case 52024:
