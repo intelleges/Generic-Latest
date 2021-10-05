@@ -4431,6 +4431,56 @@ namespace Generic.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult DownloadIteratePartnersExcel()
+        {
+            try
+            {
+                string arguments = Session["partnersearch"].ToString() + "active=1;";
+                var args = arguments.Split(";");
+                //var abc = (List<view_PartnerData>)Session["partner"];
+                var ipsall = db.pr_getIteratePartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
+                var psall = db.pr_getPartnerStatusAll().ToList().ToDictionary(o => o.id, o => o.description);
+                var groupId = (int?)Session["groupID"];
+                if (!groupId.HasValue)
+                {
+                    groupId = ExtractSearchArgument(args, "groupID");
+                }
+                var partnerTypeId = (int?)Session["partnertypeID"];
+                if (!partnerTypeId.HasValue)
+                {
+                    partnerTypeId = ExtractSearchArgument(args, "partnertypeID");
+                }
+                var statusId = (int?)Session["statusID"];
+                if (!statusId.HasValue)
+                {
+                    statusId = ExtractSearchArgument(args, "statusID");
+                }
+                var result = db.pr_getIteratePartnerPersonByPartnertypeGroupStatus(partnerTypeId, groupId, statusId).ToList();
+                if (SessionSingleton.AddIteratePartnerId.HasValue)
+                {
+                    var topItem = result.FirstOrDefault(o => o.id == SessionSingleton.AddIteratePartnerId.Value);
+                    result.Remove(topItem);
+                    result.Insert(0, topItem);
+                    SessionSingleton.AddIteratePartnerId = null;
+                }
+                var stream = new MemoryStream();
+                var serializer = new XmlSerializer(typeof(List<pr_getIteratePartnerPersonByPartnertypeGroupStatus_Result>));
+
+                //We turn it into an XML and save it in the memory
+                serializer.Serialize(stream, result);
+                stream.Position = 0;
+
+                //We return the XML from the memory as a .xls file
+                return File(stream, "application/vnd.ms-excel", "IteratePartners.xls");
+            }
+            catch (Exception ex)
+            {
+                return File("There are some errors", "application/vnd.ms-excel", "IteratePartners.xls");
+                //return Json(new GridModel());
+            }
+        }
+
         private static int? ExtractSearchArgument(string[] args, string keyName)
         {
             var groupArg = args.FirstOrDefault(a => a.ToLower().Contains(keyName.ToLower()));

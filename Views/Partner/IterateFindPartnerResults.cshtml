@@ -395,19 +395,19 @@
             $("#group").val("");
             $("#DueDate").val("");
         }
-        $("#liDownloadExcel").show();
+        $("#liDownloadExcel").show(); 
         $("#liAbout").hide();
         $("#liContactUs").hide();
-        $("#liDownloadExcel").click(function (e) {
-            var htmlTable = $("#IteratePartners div.t-grid-content table")[0].outerHTML;
-            window.open('data:application/vnd.ms-excel,' + encodeURIComponent(htmlTable), '_blank');
-            e.preventDefault();
-            //$("#IteratePartners div.t-grid-content table").table2excel({
-            //    name: 'exported',
-            //    filename: "Iterate download"
-            //});
-            //e.preventDefault();
-        });
+        //$("#liDownloadExcel").click(function (e) {
+        //    var htmlTable = $("#IteratePartners div.t-grid-content table")[0].outerHTML;
+        //    window.open('data:application/vnd.ms-excel,' + encodeURIComponent(htmlTable), '_blank');
+        //    e.preventDefault();
+        //    //$("#IteratePartners div.t-grid-content table").table2excel({
+        //    //    name: 'exported',
+        //    //    filename: "Iterate download"
+        //    //});
+        //    //e.preventDefault();
+        //});
     });
     function doSomething() {
 
