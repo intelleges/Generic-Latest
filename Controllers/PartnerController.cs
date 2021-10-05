@@ -1977,7 +1977,8 @@ namespace Generic.Controllers
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
-            if (searchType == "Remind") {
+            if (searchType == "Remind")
+            {
                 if (touchpoint == null || group == null || partnertype == null || partnerStatus == null)
                 {
                     ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
@@ -2098,7 +2099,7 @@ namespace Generic.Controllers
 
             arguments = arguments + "active=1;";
 
-           var items = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            var items = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(items);
             return View(objPartnerViewModelList);
         }
@@ -2126,10 +2127,10 @@ namespace Generic.Controllers
                 ViewBag.PartnerSearch = arguments;
                 string view_name = "view_PartnerData";
                 //12655
-                if(SessionSingleton.LoggedInUserId == 12527)
+                if (SessionSingleton.LoggedInUserId == 12527)
                     view_name = "view_PartnerData3";
 
-                Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  '"+ view_name + "' , '" + arguments + "'").ToList();
+                Session["partner"] = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  '" + view_name + "' , '" + arguments + "'").ToList();
                 List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
                 // List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
 
@@ -2153,7 +2154,7 @@ namespace Generic.Controllers
 
                 ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 
-                ViewBag.searchType ="";
+                ViewBag.searchType = "";
 
 
                 return View(abc);
@@ -2965,13 +2966,15 @@ namespace Generic.Controllers
         {
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             string status = "shadow";
-            if (pptqObj.status != 14) {
+            if (pptqObj.status != 14)
+            {
                 var items = db.pr_getShadowByReferencePPTQ(pptq).ToList();
                 if (items.Count > 0)
                 {
                     status = "reference";
                 }
-                else {
+                else
+                {
                     status = "";
                 }
             }
@@ -2980,11 +2983,11 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public dynamic shadowconfirm(string accessCode,int pptq,string shadowaccessCode, int shadowpptq)
-        {   
+        public dynamic shadowconfirm(string accessCode, int pptq, string shadowaccessCode, int shadowpptq)
+        {
             var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            var pptq2= db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(shadowaccessCode).FirstOrDefault();
-            string message = "You have converted " + pptq2.partner1.name + " with access code " + shadowaccessCode + " to a SHADOW with REFERENCE "+ pptq1.partner1.name + " with acccess code " + accessCode + ".";
+            var pptq2 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(shadowaccessCode).FirstOrDefault();
+            string message = "You have converted " + pptq2.partner1.name + " with access code " + shadowaccessCode + " to a SHADOW with REFERENCE " + pptq1.partner1.name + " with acccess code " + accessCode + ".";
             return Json(new { message });
         }
 
@@ -5399,6 +5402,39 @@ namespace Generic.Controllers
             else
                 return Json(new { error = "There is no a such a person" });
         }
+        public ActionResult DownloadDashboard(int? id, int? groupid)
+        {
+            Dashboard1 dashBoard = new Dashboard1();
+            int _touchpoint = 0;
+            var groupList = new List<group>();
+
+
+            if (id == null || id == 0)
+                _touchpoint = SessionSingleton.Touchpoint;
+            else
+                _touchpoint = (int)id;
+
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
+            ViewBag.TouchPointId = _touchpoint;
+            List<pr_getDashboardCountForReferenceByPTQforReport_Result> objDashboard = new List<pr_getDashboardCountForReferenceByPTQforReport_Result>();
+            foreach (var ptqItem in ptq)
+            {
+                 objDashboard = db.pr_getDashboardCountForReferenceByPTQforReport(ptqItem.id).ToList();
+            }
+            // client.Calls
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getDashboardCountForReferenceByPTQforReport_Result>));
+
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objDashboard);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "Dashboard.xls");
+        }
 
 
         public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus(string accessCode)
@@ -5421,7 +5457,7 @@ namespace Generic.Controllers
         public ActionResult PartnertypeTouchpointQuestionnaireCampaignStatus3(int pptqId, int status, int touchpoint)
         {
             var current_person = db.pr_getPerson(SessionSingleton.LoggedInUserId).First();
-            db.pr_addPersonPrintPDF(SessionSingleton.LoggedInUserId, pptqId, current_person.address2, DateTime.Now, 0, true);  
+            db.pr_addPersonPrintPDF(SessionSingleton.LoggedInUserId, pptqId, current_person.address2, DateTime.Now, 0, true);
 
             var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
             var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();

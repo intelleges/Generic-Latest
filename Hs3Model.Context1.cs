@@ -30835,5 +30835,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getCountryByGovernanceCode_Result>("pr_getCountryByGovernanceCode", governanceCodeParameter);
         }
+    
+        public virtual ObjectResult<pr_getDashboardCountForReferenceByPTQforReport_Result> pr_getDashboardCountForReferenceByPTQforReport(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForReferenceByPTQforReport_Result>("pr_getDashboardCountForReferenceByPTQforReport", ptqParameter);
+        }
     }
 }
