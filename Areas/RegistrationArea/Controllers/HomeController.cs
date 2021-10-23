@@ -15771,6 +15771,143 @@ Intelleges Team";
             }
             return pptqID;
         }
+
+        public static int FillCustomPdfHtml33(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+        {
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.partnerHeader = _partnerHeader;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+            var partnerId = pptq != null ? pptq.partner : -1;
+            var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+            eSignature _signature = sigs.FirstOrDefault();
+            var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            //_signature
+            ViewBag.signature = _signature;
+            ViewBag.personTitle = _partner != null ? _partner.title : "";
+            if (pptq != null)
+                ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+            var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+            if (question.footer == "4")
+            {
+                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+            }
+            else
+                if (enterprise != null && enterprise.Any())
+            {
+                var enterpriseLogo = enterprise.FirstOrDefault();
+                byte[] logoBytes = new byte[0];
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+                if (Directory.Exists(Server.MapPath(dirname)))
+                {
+                    var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                    var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                    if (!System.IO.File.Exists(physicalPath))
+                    {
+                        var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                }
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+            var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+            //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+            var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+
+
+            var _responseYES = 74;
+            var _responseNO = 75;
+            var _chacked = "checked";
+            var _responseSplitter = "--";
+            Regex codeRegex = new Regex("\\([A-Z][A-Z]\\)");
+            //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+
+            string executives = "";
+            var test = _PPTQQuestionResponse.OrderBy(r => r.question).ToList().Select(s => s.question);
+            foreach (var item in _PPTQQuestionResponse)
+            {
+                var comments = new string[10];
+                switch (item.question)
+                {
+                    case 52258:
+                        ViewBag.Checkbox52258_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox52258_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 52259:
+                        ViewBag.Checkbox52259_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox52259_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 52260:
+                        ViewBag.Checkbox52260_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox52260_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 52261:
+                        ViewBag.Input52261 = item.comment;
+                        break;
+                    case 52262:
+                        ViewBag.Input52262 = item.comment;
+                        break;
+                    case 52263:
+                        ViewBag.Input52263 = item.comment;
+                        break;
+                    case 52264:
+                        ViewBag.Input52264 = item.comment;
+                        break;
+                    case 52265:
+                        ViewBag.Checkbox52265_AC = item.response == 87019 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52265_AB = item.response == 87018 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52265_AA = item.response == 87017 ? _chacked : string.Empty;
+                        ViewBag.Input52265 = item.comment;
+                        break;
+                    case 52266:
+                        ViewBag.Checkbox52266_AC = item.response == 87022 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52266_AB = item.response == 87021 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52266_AA = item.response == 87020 ? _chacked : string.Empty;
+                        ViewBag.Input52266 = item.comment;
+                        break;
+                    case 52267:
+                        ViewBag.Checkbox52267_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox52267_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 52268:
+                        ViewBag.Checkbox52268_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox52268_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 52269:
+                        ViewBag.Checkbox52269_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox52269_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                }
+
+                ViewBag.Executives = executives;
+            }
+            return pptqID;
+        }
+
         public ActionResult CustomizedPDFConfirmation()
         {
             string ViewName = string.Empty;
@@ -15943,6 +16080,12 @@ Intelleges Team";
                 pptqID = FillCustomPdfHtml32(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload32";
                 //Headre -<div style='padding-top:10px; padding-bottom:10px;' ><img height='30' width='180' src='" + Server.MapPath("~/Contents/Images/Battelle.png") + "' align='right' /></div>
+                return ViewCustomizedPdf(pptqID, ViewName, "");
+            }
+            else if (question != null && (question.footer == "33"))
+            {
+                pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload33";
                 return ViewCustomizedPdf(pptqID, ViewName, "");
             }
             // else return PDFConfirmation();
