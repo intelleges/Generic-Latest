@@ -80,21 +80,21 @@
                     &nbsp;
                     Street Address:
                 </td>
-                <td>&nbsp; @(ViewBag.partner.address1) </td>
+                <td>&nbsp;@(ViewBag.partner.address1) </td>
             </tr>
             <tr>
                 <td>
                     &nbsp;
                     City, State Zip:
                 </td>
-                <td>&nbsp;  @(ViewBag.partner.city + ", " + ViewBag.state + ", " + ViewBag.partner.zipcode) </td>
+                <td>&nbsp;@(ViewBag.partner.city + ", " + ViewBag.state + ", " + ViewBag.partner.zipcode) </td>
             </tr>
             <tr>
                 <td>
                     &nbsp;
                     Phone Number:
                 </td>
-                <td>&nbsp; @(ViewBag.partner.phone) </td>
+                <td>&nbsp;@(ViewBag.partner.phone) </td>
             </tr>
             <tr>
                 <td>
@@ -109,43 +109,40 @@
         <strong>1. </strong>
         @if (@ViewBag.Checkbox52258_Yes != string.Empty && @ViewBag.Checkbox52258_Yes != null)
         {
-            <span>Yes &#x2611;</span>
+        <span>Yes &#x2611;</span>
         }
         else
         {
-            <span>Yes &#x2610;</span>
+        <span>Yes &#x2610;</span>
         }
         @if (@ViewBag.Checkbox52258_No != string.Empty && @ViewBag.Checkbox52258_No != null)
         {
-            <span>No &#x2611;</span>
+        <span>No &#x2611;</span>
         }
         else
         {
-            <span>No &#x2610;</span>
+        <span>No &#x2610;</span>
         } Do<b>
             @(ViewBag.partner.name)
-        </b> personnel working on or in connection with a Battelle
-        subcontract or purchase order provide <strong>on-premise</strong> services
-        that require <b>@(ViewBag.partner.name)</b> personnel to visit any
-        Battelle physical locations.
+        </b> personnel working on or in connection with a Battelle subcontract or purchase order provide <strong>on-premise</strong> services that require <b>@(ViewBag.partner.name)</b> personnel to visit Battelle physical locations.
     </p>
     <p align="justify">
         <strong>2. </strong>
         @if (@ViewBag.Checkbox52259_Yes != string.Empty && @ViewBag.Checkbox52259_Yes != null)
         {
-            <span>Yes &#x2611;</span>
+        <span>Yes &#x2611;</span>
         }
         else
         {
-            <span> Yes &#x2610;</span>
+        <span> Yes &#x2610;</span>
         }
         @if (@ViewBag.Checkbox52259_No != string.Empty && @ViewBag.Checkbox52259_No != null)
         {
-            <span>No &#x2611;</span>
+        <span>No &#x2611;</span>
         }
         else
         {
-            <span> No &#x2610;</span>
+        <span> No &#x2610;</span>
         }Do<b>
             @(ViewBag.partner.name)
         </b> personnel working on or in connection with a Battelle
@@ -157,19 +154,19 @@
         <strong>3. </strong>
         @if (@ViewBag.Checkbox52260_Yes != string.Empty && @ViewBag.Checkbox52260_Yes != null)
         {
-            <span>Yes &#x2611;</span>
+        <span>Yes &#x2611;</span>
         }
         else
         {
-            <span>Yes &#x2610;</span>
+        <span>Yes &#x2610;</span>
         }
         @if (@ViewBag.Checkbox52260_No != string.Empty && @ViewBag.Checkbox52260_No != null)
         {
-            <span>No &#x2611;</span>
+        <span>No &#x2611;</span>
         }
         else
         {
-            <span> No &#x2610;</span>
+        <span> No &#x2610;</span>
         }
         <b>@(ViewBag.partner.name)</b> Has or will <b>
             @(ViewBag.partner.name)
@@ -191,20 +188,28 @@
         <strong>4. </strong>
         @if (@ViewBag.Checkbox52265_AC != string.Empty && @ViewBag.Checkbox52265_AC != null)
         {
-            <span>Yes &#x2611;</span>
+        <span>Yes &#x2611;</span>
         }
         else
         {
-            <span> Yes &#x2610;</span>
+        <span> Yes &#x2610;</span>
         }
         @if (@ViewBag.Checkbox52265_AA != string.Empty && @ViewBag.Checkbox52265_AA != null)
         {
-            <span>No &#x2611;</span>
+        <span>No &#x2611;</span>
         }
         else
         {
-            <span> No &#x2610;</span>
-        }Is<b>@(ViewBag.partner.name)</b> in compliance or will
+        <span> No &#x2610;</span>
+        }
+        @if (@ViewBag.Checkbox52265_AB != string.Empty && @ViewBag.Checkbox52265_AB != null)
+        {
+        <span>In Progress &#x2611;</span>
+        }
+        else
+        {
+        <span>In Progress &#x2610;</span>
+        } Is <b>@(ViewBag.partner.name)</b> in compliance or will
         <b>@(ViewBag.partner.name)</b> comply with Executive Order 14042
         guidance on <strong>masking and social distancing</strong> as noted in the
         Guidance.
@@ -222,52 +227,56 @@
         <strong>5. </strong>
         @if (@ViewBag.Checkbox52266_AC != string.Empty && @ViewBag.Checkbox52266_AC != null)
         {
-            <span>Yes &#x2611;</span>
+        <span>Yes &#x2611;</span>
         }
         else
         {
-            <span> Yes &#x2610;</span>
+        <span> Yes &#x2610;</span>
         }
         @if (@ViewBag.Checkbox52266_AA != string.Empty && @ViewBag.Checkbox52266_AA != null)
         {
-            <span>No &#x2611;</span>
+        <span>No &#x2611;</span>
         }
         else
         {
-            <span> No &#x2610;</span>
-        } Have all of @(ViewBag.partner.name)
-        personnel working on or in connection with a Battelle subcontract or
-        purchase order been fully <strong>vaccinated</strong> or will be fully
-        vaccinated by December 8, 2021?
+        <span> No &#x2610;</span>
+        }
+        @if (@ViewBag.Checkbox52266_AB != string.Empty && @ViewBag.Checkbox52266_AB != null)
+        {
+        <span>In Progress &#x2611;</span>
+        }
+        else
+        {
+        <span>In Progress &#x2610;</span>
+        } Have all of  <b>@(ViewBag.partner.name)</b> personnel working on or in connection with a Battelle subcontract or purchase order been fully <strong>vaccinated</strong> or will be fully vaccinated by December 8, 2021?
     </p>
     <p align="justify">
         <em>
-            Please explain why your company responded No/Not sure/Not
-            applicable/Other regarding its compliance with Executive Order 14042
-            guidance on employee vaccination requirements for federal contractors
-            as noted in the Guidance.
-            @ViewBag.Input52266
+            Please explain why your company responded No/Not sure/Not applicable/Other regarding its compliance with Executive Order 14042 guidance on employee vaccination requirements for federal contractors as noted in the Guidance. @ViewBag.Input52266
         </em>
     </p>
     <p align="justify">
         <strong>6. </strong>
         @if (@ViewBag.Checkbox52267_Yes != string.Empty && @ViewBag.Checkbox52267_Yes != null)
         {
-            <span>Yes &#x2611;</span>
+        <span>Yes &#x2611;</span>
         }
         else
         {
-            <span> Yes &#x2610;</span>
+        <span> Yes &#x2610;</span>
         }
         @if (@ViewBag.Checkbox52267_No != string.Empty && @ViewBag.Checkbox52267_No != null)
         {
-            <span>No &#x2611;</span>
+        <span>No &#x2611;</span>
         }
         else
         {
-            <span> No &#x2610;</span>
+        <span> No &#x2610;</span>
         } Do you have any additional point-of-contact emails or <strong>comments</strong>
     </p>
+    <h1>
+        Esignature
+    </h1>
     <p align="justify">
         <b>@(ViewBag.partner.name)</b>  ("Subcontractor") hereby certifies to
         Battelle Memorial Institute, with which Subcontractor does business that
@@ -280,24 +289,22 @@
         subcontracts, purchase orders and agreements between Subcontractor and
         Battelle Memorial Institute.
     </p>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table cellspacing="0">
         <tr>
-            <td>
-                @(ViewBag.signature == null ? "" : ViewBag.signature.email)
-            </td>
-            <td>@ViewBag.completeDate</td>
+            <td width="70%">Print Name</td>
+            <td width="30%" height="30">&nbsp;@(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName)) </td>
         </tr>
         <tr>
-            <td><strong>Subcontractor Representative's ESignature (Email)</strong></td>
-            <td><strong>Date</strong></td>
+            <td width="70%">Title</td>
+            <td width="30%">&nbsp;@ViewBag.personTitle </td>
         </tr>
         <tr>
-            <td>@(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName))</td>
-            <td>@ViewBag.personTitle</td>
+            <td width="70%">Subcontractor Representative's ESignature (Email)</td>
+            <td width="30%" height="30">&nbsp;@(ViewBag.signature == null ? "" : ViewBag.signature.email) </td>
         </tr>
         <tr>
-            <td><strong>Print Name</strong></td>
-            <td><strong>Title</strong></td>
+            <td width="70%">Date</td>
+            <td width="30%">&nbsp;@ViewBag.completeDate </td>
         </tr>
     </table>
 </body>
