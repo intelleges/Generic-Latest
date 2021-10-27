@@ -558,6 +558,7 @@
             function Update_Dashboard_Values() {
                 var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
                 ChangeTouchpoint(touchPointId);
+                location.reload();
             }
         </script>
     }
