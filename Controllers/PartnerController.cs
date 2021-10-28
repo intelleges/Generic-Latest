@@ -1797,6 +1797,7 @@ namespace Generic.Controllers
 
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult RemovePartner(string searchType, List<int> chkSelect, List<int> partnertypeID, List<int> touchpoint, List<string> AccessCode, List<string> ContactEmail, DateTime? DueDate)
         {
             if (searchType == "Remove")
@@ -1833,86 +1834,91 @@ namespace Generic.Controllers
                 foreach (int partnerID in chkSelect)
                 {
                     // Code to Invite selected partners
-
-                    int partnertypeId = partnertypeID[index];
-                    int touchpointId = touchpoint[index];
-                    string accesscode = AccessCode[index];
-                    string emailID = ContactEmail[index];
-
-                    // var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
-
-                    int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertypeId, touchpointId).LastOrDefault().id;
-
-                    var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accesscode).FirstOrDefault();
-
-                    //var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, ptq).FirstOrDefault();
-                    if (pptq != null)
+                    try
                     {
-                        pptq.invitedDate = DateTime.Now;
-                        var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
-                        pptq.invitedBy = person.id;
-                        pptq.status = (int)PartnerStatus.Invited_NoResponse;
-                        db.Entry(pptq).State = EntityState.Modified;
-                        db.SaveChanges();
+                        int partnertypeId = partnertypeID[index];
+                        int touchpointId = touchpoint[index];
+                        string accesscode = AccessCode[index];
+                        string emailID = ContactEmail[index];
 
-                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDate(pptq.id, DueDate);
+                        // var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
 
-                        var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
-                        objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
-                        db.Entry(objpartner).State = EntityState.Modified;
-                        db.SaveChanges();
+                        int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnertypeId, touchpointId).LastOrDefault().id;
 
-                        var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
-                        amm.text.Replace("[partner Access Code]", accesscode);
-                        if (DueDate.HasValue)
+                        var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accesscode).FirstOrDefault();
+
+                        //var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerID, ptq).FirstOrDefault();
+                        if (pptq != null)
                         {
-                            amm.text = amm.text.Replace("[Due Date]", DueDate.Value.ToString("MMM, dd, yyyy"));
-                            amm.text = amm.text.Replace("[due date]", DueDate.Value.ToString("MMM, dd, yyyy"));
-                        }
+                            pptq.invitedDate = DateTime.Now;
+                            var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                            pptq.invitedBy = person.id;
+                            pptq.status = (int)PartnerStatus.Invited_NoResponse;
+                            db.Entry(pptq).State = EntityState.Modified;
+                            db.SaveChanges();
 
-                        var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
-                        Email email = new Email(amm);
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireDueDate(pptq.id, DueDate);
 
-                        if (Session["loadgroup"] != null)
-                        {
-                            email.loadgroup = "";
-                        }
-                        email.accesscode = accesscode;
-                        email.protocolTouchpoint = objtouchpoint.description;
+                            var objpartner = db.pr_getPartner(partnerID).FirstOrDefault();
+                            objpartner.status = partnerStatusTypes.PARTNER_INVITED_NO_RESPONSE;
+                            db.Entry(objpartner).State = EntityState.Modified;
+                            db.SaveChanges();
 
-                        EmailFormat emailFormat = new EmailFormat();
-                        email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
-                        email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
-                        email.emailTo = objpartner.email;
-                        email.url = Request.Url.ToString();
-                        email.automailMessage = amm.id.ToString();
-                        email.category = SendGridCategory.RemovePartner;
-                        email.accesscode = accesscode;
-
-                        SendEmail objSendEmail = new SendEmail();
-
-                        int checkEventNotification = 0;
-
-                        try
-                        {
-                            checkEventNotification = db.pr_eventNotificationCheck(accesscode).FirstOrDefault().Value;
-                        }
-                        catch { }
-
-                        if (checkEventNotification == 0)
-                        {
-                            objSendEmail.sendEmail(email, new EmailFormatSettings()
+                            var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+                            amm.text.Replace("[partner Access Code]", accesscode);
+                            if (DueDate.HasValue)
                             {
-                                enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
-                                partner = objpartner,
-                                sender = person,
-                                ptq = ptq,
-                                touchpoint = objtouchpoint
-                            });
-                        }
+                                amm.text = amm.text.Replace("[Due Date]", DueDate.Value.ToString("MMM, dd, yyyy"));
+                                amm.text = amm.text.Replace("[due date]", DueDate.Value.ToString("MMM, dd, yyyy"));
+                            }
 
+                            var objtouchpoint = db.pr_getTouchpoint(touchpointId).FirstOrDefault();
+                            Email email = new Email(amm);
+
+                            if (Session["loadgroup"] != null)
+                            {
+                                email.loadgroup = "";
+                            }
+                            email.accesscode = accesscode;
+                            email.protocolTouchpoint = objtouchpoint.description;
+
+                            EmailFormat emailFormat = new EmailFormat();
+                            email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                            email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, objtouchpoint, ptq);
+                            email.emailTo = objpartner.email;
+                            email.url = Request.Url.ToString();
+                            email.automailMessage = amm.id.ToString();
+                            email.category = SendGridCategory.RemovePartner;
+                            email.accesscode = accesscode;
+
+                            SendEmail objSendEmail = new SendEmail();
+
+                            int checkEventNotification = 0;
+
+                            try
+                            {
+                                checkEventNotification = db.pr_eventNotificationCheck(accesscode).FirstOrDefault().Value;
+                            }
+                            catch { }
+
+                            if (checkEventNotification == 0)
+                            {
+                                objSendEmail.sendEmail(email, new EmailFormatSettings()
+                                {
+                                    enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                                    partner = objpartner,
+                                    sender = person,
+                                    ptq = ptq,
+                                    touchpoint = objtouchpoint
+                                });
+                            }
+
+                        }
+                        index++;
                     }
-                    index++;
+                    catch (Exception) { 
+                    //Wrong format email
+                    }
 
                 }
                 ViewBag.searchType = "Invite";
