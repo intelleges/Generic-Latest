@@ -30844,5 +30844,32 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForReferenceByPTQforReport_Result>("pr_getDashboardCountForReferenceByPTQforReport", ptqParameter);
         }
+    
+        public virtual ObjectResult<string> pr_getTouchpointAdminEmail(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getTouchpointAdminEmail", touchpointParameter);
+        }
+    
+        public virtual ObjectResult<string> pr_getTouchpointAdminEmailByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("pr_getTouchpointAdminEmailByTouchpoint", touchpointParameter);
+        }
+    
+        public virtual ObjectResult<pr_getTouchpointAdminPersonByTouchpoint_Result> pr_getTouchpointAdminPersonByTouchpoint(Nullable<int> touchpoint)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointAdminPersonByTouchpoint_Result>("pr_getTouchpointAdminPersonByTouchpoint", touchpointParameter);
+        }
     }
 }

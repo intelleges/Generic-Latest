@@ -3309,6 +3309,9 @@
     <Compile Include="pr_getTotalCommissionGoal_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getTouchpointAdminPersonByTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getTouchpointAllByEnterpriseForPartnerAdd_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

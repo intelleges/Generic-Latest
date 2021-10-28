@@ -228,7 +228,16 @@ namespace Generic.Helpers.Utility
             string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
 
             if (sendFrom == null)
-                msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
+            {
+                if (settings != null && settings.touchpoint!= null)
+                {
+                    var r = db.pr_getTouchpointAdminPersonByTouchpoint(settings.touchpoint.id).First();
+                    msg.SetFrom(r.email, r.firstName + " "+ r.lastName);
+                }
+                else {
+                    msg.SetFrom(objEnterpriseSystemInfo.coordinatorEmail, objEnterpriseSystemInfo.contractCoordinator);
+                } 
+            } 
             else
                 msg.SetFrom(sendFrom.Address, sendFrom.DisplayName);
 
