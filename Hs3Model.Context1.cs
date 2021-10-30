@@ -6302,7 +6302,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonManager", idParameter, managerParameter);
         }
     
-        public virtual int pr_modifyPersonPasswordByID(Nullable<int> id, string pwd)
+        public virtual ObjectResult<Nullable<int>> pr_modifyPersonPasswordByID(Nullable<int> id, string pwd)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
@@ -6312,7 +6312,7 @@ namespace Generic
                 new ObjectParameter("pwd", pwd) :
                 new ObjectParameter("pwd", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPersonPasswordByID", idParameter, pwdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_modifyPersonPasswordByID", idParameter, pwdParameter);
         }
     
         public virtual int pr_modifyPersonRelationshipType(Nullable<int> id, string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)

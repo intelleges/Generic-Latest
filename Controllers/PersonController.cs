@@ -628,7 +628,7 @@ Thanks in advance.<br>
         public ActionResult ResetPassword(string password)
         {
             var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-            var validation = db.pr_modifyPersonPasswordByID(person.id, password);
+            int validation = db.pr_modifyPersonPasswordByID(person.id, password).First().Value;
             ViewBag.message = validation;
             return View();
         }
