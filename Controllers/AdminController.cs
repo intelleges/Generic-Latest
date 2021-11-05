@@ -54,7 +54,7 @@ namespace Generic.Controllers
         {
             try
             {
-                if(Request.IsAuthenticated)
+                if (Request.IsAuthenticated)
                 {
                     string userName = "";
                     var claims = ((ClaimsIdentity)User.Identity).Claims.ToList();
@@ -63,7 +63,7 @@ namespace Generic.Controllers
                     FormsAuthentication.SetAuthCookie(userName, false);
                     person person = db.sp_getPersonforSAML(userName).FirstOrDefault();
                     if (person == null) return View();
- 
+
                     //var ip = "71.225.253.65";// Request.UserHostAddress;
                     var ip = Request.UserHostAddress;
                     var computerName = "";//computer_name[0].ToString();
