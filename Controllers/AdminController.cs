@@ -101,22 +101,7 @@ namespace Generic.Controllers
                         SessionSingleton.EnterpriseURL = "#";
                     }
                     Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
-                    if (Url.IsLocalUrl(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
-                        {
-                            return RedirectToAction("ResetPassword", "Person");
-                        }
-                        else
-                        {
-                            return RedirectToAction("Home", "Admin");
-                        }
-                    }
-
+                    return RedirectToAction("Home", "Admin");
                 }
 
                 ViewBag.useReCaptcha = !Request?.Url?.Host?.ToLower()?.StartsWith("localhost");
