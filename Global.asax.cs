@@ -33,7 +33,7 @@ namespace Generic
 
             Helpers.CurrentInstance.IsGeneric = 1;
             AreaRegistration.RegisterAllAreas();
-
+           // ControllerBuilder.Current.DefaultNamespaces.Add("Sustainsys.Saml2.Mvc.Controllers");
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

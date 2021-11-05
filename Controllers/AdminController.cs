@@ -4,6 +4,7 @@ using Generic.Helpers.Utility;
 using Generic.Models;
 using Generic.SessionClass;
 using Generic.ViewModel;
+using Sustainsys.Saml2.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,6 +12,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Claims;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -52,6 +54,71 @@ namespace Generic.Controllers
         {
             try
             {
+                if(Request.IsAuthenticated)
+                {
+                    string userName = "";
+                    var claims = ((ClaimsIdentity)User.Identity).Claims.ToList();
+                    userName = claims.Where(o => o.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").First().Value;
+
+                    FormsAuthentication.SetAuthCookie(userName, false);
+                    person person = db.sp_getPersonforSAML(userName).FirstOrDefault();
+                    if (person == null) return View();
+ 
+                    //var ip = "71.225.253.65";// Request.UserHostAddress;
+                    var ip = Request.UserHostAddress;
+                    var computerName = "";//computer_name[0].ToString();
+                                          //string[] computer_name = { ip };
+
+                    var personLoginAudit = db.pr_getPersonLoginAuditAll()
+                        .Where(x => x.person == person.id)
+                        .OrderByDescending(x => x.timestamp)
+                        .FirstOrDefault();
+
+                    try
+                    {
+                        var ipData = GetLocationByIp(ip);
+                        computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;
+                    }
+                    catch (SocketException ex)
+                    {
+                        //if can't resolve remote host then set up IP address
+                    }
+                    string ecn = System.Environment.MachineName;
+                    var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
+                    SessionSingleton.LoggedInUserId = person.id;
+                    SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
+                    SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
+                    SessionSingleton.MyEnterPriseId = person.enterprise;
+                    SessionSingleton.Touchpoint = (int)person.campaign;
+
+
+                    try
+                    {
+                        SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
+                    }
+                    catch
+                    {
+                        SessionSingleton.EnterpriseURL = "#";
+                    }
+                    Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                        {
+                            return RedirectToAction("ResetPassword", "Person");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Home", "Admin");
+                        }
+                    }
+
+                }
+
                 ViewBag.useReCaptcha = !Request?.Url?.Host?.ToLower()?.StartsWith("localhost");
                 ViewBag.returnUrl = returnUrl;
                 var enterprises = db.pr_getEnterprise(contactUs);
@@ -419,6 +486,12 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
         {
+            if (string.IsNullOrEmpty(password))
+            {
+                var person = db.sp_getPersonforSAML(userName).FirstOrDefault();
+                if (person != null)
+                    return RedirectToAction("signin", "saml2");
+            }
 
             if (ModelState.IsValid)
             {

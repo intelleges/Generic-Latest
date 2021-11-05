@@ -30871,5 +30871,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getTouchpointAdminPersonByTouchpoint_Result>("pr_getTouchpointAdminPersonByTouchpoint", touchpointParameter);
         }
+    
+        public virtual ObjectResult<person> sp_getPersonforSAML(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("sp_getPersonforSAML", emailParameter);
+        }
+    
+        public virtual ObjectResult<person> sp_getPersonforSAML(string email, MergeOption mergeOption)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("sp_getPersonforSAML", mergeOption, emailParameter);
+        }
     }
 }

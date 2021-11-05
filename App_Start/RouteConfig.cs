@@ -29,6 +29,15 @@ namespace Generic
                 new string[] { "Generic.Controllers" }  //NOTE: namespace to check 
                 );
 
+
+            routes.MapRoute("GenericNew3", // Route name 
+                "{controller}/{action}/{id}",
+                // URL with parameters 
+                new { controller = "Saml2", action = "Signin", id = UrlParameter.Optional},// Parameter defaults 
+                null,
+                new string[] { "Sustainsys.Saml2.Mvc" }  //NOTE: namespace to check 
+                );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
