@@ -49,17 +49,25 @@ namespace IntellegesWebsite
 
                 var ip = httpContext.Request.UserHostAddress;
                 var person = db.pr_getPersonByEmail2(httpContext.User.Identity.Name).FirstOrDefault();
+                if (person == null) {
+                    var claims = ((System.Security.Claims.ClaimsIdentity)httpContext.User.Identity).Claims.ToList();
+                    var claim = claims.Where(o => o.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault();
+                    if (claim != null) {
+                        person = db.pr_getPersonByEmail2(claim.Value).FirstOrDefault();
+                    }
+                }
+                
                 string last_ip = "";
                 if (person != null) last_ip = person.address2.Split(':')[0];
 
-                if (ip != last_ip)
+                /*if (ip != last_ip)
                 {
                     httpApplication.Context.Response.Headers.Add("ip",string.Format("<{0}>; rev=canonical", ip));
                     httpApplication.Context.Response.Headers.Add("ip_db", string.Format("<{0}>; rev=canonical", last_ip));
                     //httpContext.Response.Write(ip + " "+ last_ip);
                     FormsAuthentication.SignOut();
                     FormsAuthentication.RedirectToLoginPage();
-                }
+                }*/
             }
         }
 
