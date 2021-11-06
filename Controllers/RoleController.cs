@@ -48,7 +48,6 @@ namespace Generic.Controllers
         // POST: /Role/Create
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(role role)
         {
             role.enterprise = SessionSingleton.EnterPriseId;
@@ -82,7 +81,6 @@ namespace Generic.Controllers
         // POST: /Role/Edit/5
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(role role)
         {
             if (ModelState.IsValid)
@@ -112,7 +110,6 @@ namespace Generic.Controllers
         // POST: /Role/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             role role = db.role.Find(id);
