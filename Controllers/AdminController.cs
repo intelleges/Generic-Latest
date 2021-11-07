@@ -850,6 +850,9 @@ namespace Generic.Controllers
         public virtual ActionResult Logout()
         {
 
+            var claims = ((ClaimsIdentity)User.Identity).Claims.ToList();
+            var claim = claims.Where(o => o.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").FirstOrDefault();
+
             //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
             //FormsAuthentication.RedirectToLoginPage();
             db.pr_modifyPersonLastLogoutDate(SessionSingleton.LoggedInUserId, DateTime.Now);
@@ -857,11 +860,11 @@ namespace Generic.Controllers
             FormsAuthentication.SignOut();
             Session.Abandon();
 
+            if (claim != null)
+                return RedirectToAction("signout", "saml2");
             return RedirectToAction("Index");
-            //}
-
-
         }
+
         [Authorize]
         [HttpPost]
         public ActionResult SetEventGroup(string group)
