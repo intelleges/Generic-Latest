@@ -861,7 +861,7 @@ namespace Generic.Controllers
             Session.Abandon();
 
             if (claim != null)
-                return RedirectToAction("signout", "saml2");
+                return RedirectToAction("logout", "saml2");
             return RedirectToAction("Index");
         }
 
