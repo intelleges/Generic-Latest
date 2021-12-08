@@ -470,216 +470,219 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public virtual ActionResult Index(string userName, string password, string returnUrl)
         {
-            if (string.IsNullOrEmpty(password))
+            try
             {
-                var person = db.sp_getPersonforSAML(userName).FirstOrDefault();
-                if (person != null)
-                    return RedirectToAction("signin", "saml2");
-            }
-
-            if (ModelState.IsValid)
-            {
-                if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+                if (string.IsNullOrEmpty(password))
                 {
-                    var result = db.pr_validatePerson(userName, password).FirstOrDefault();
-                    Session["REDIRECT_BY_EMAIL"] = result == 1 ? 1 : -2;
-                    Session["REDIRECT_BY_EMAIL_APPROVAL"] = userName;
-                    dynamic queryStringData = Session["REDIRECT_BY_EMAIL_Query"];
-                    return RedirectToAction("QuestionnaireDetailQuestion", "Questionnaire", new { id = queryStringData.id, pptqId = queryStringData.pptqId, questionId = queryStringData.questionId, partnerId = queryStringData.partnerId, responseId = queryStringData.responseId, email = queryStringData.email });
+                    var person = db.sp_getPersonforSAML(userName).FirstOrDefault();
+                    if (person != null)
+                        return RedirectToAction("signin", "saml2");
                 }
-                else
+
+                if (ModelState.IsValid)
                 {
-                    //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
-                    if (MembershipService.ValidateUser(userName, password))
+                    if (null != Session["REDIRECT_BY_EMAIL"] && Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
                     {
-                        FormsAuthentication.SetAuthCookie(userName, false);
-
-                        person person = db.pr_doLogin(userName, password).FirstOrDefault();
-
-                        //var ip = "71.225.253.65";// Request.UserHostAddress;
-                        var ip = Request.UserHostAddress;
-                        var computerName = "";//computer_name[0].ToString();
-                                              //string[] computer_name = { ip };
-
-                        var personLoginAudit = db.pr_getPersonLoginAuditAll()
-                            .Where(x => x.person == person.id)
-                            .OrderByDescending(x => x.timestamp)
-                            .FirstOrDefault();
-
-                        //if (personLoginAudit != null && personLoginAudit.auditLoginEvent == 1 && personLoginAudit.deviceIP != ip)
-                        //{
-                        //    // Show screen to Logout from previous session.
-                        //    var message = @"You are already logged in at ip address: "+ personLoginAudit.deviceIP + ". Would you like to end that session?";
-                        //    var tempModel = new TempModel
-                        //    {
-                        //        Message = message,
-                        //        PersonId = person.id
-                        //    };
-                        //    SessionSingleton.TempModelValue = tempModel;
-
-                        //    return RedirectToAction("DifferentIPLogout");
-                        //}
-                        try
-                        {
-                            var ipData = GetLocationByIp(ip);
-                            computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
-                            //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
-                            //int countryId = 1;
-                            //if (ipData != null)
-                            //{
-                            //    if (ipData.country_code.Length == 2)
-                            //    {
-                            //        var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
-                            //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
-                            //    }
-                            //    else if (ipData.country_code.Length == 3)
-                            //    {
-                            //        var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
-                            //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
-                            //    }
-                            //    else
-                            //    {
-                            //        var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
-                            //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
-                            //    }
-                            //}
-
-                            //var personEmail = db.pr_getPersonByEmail2(userName).FirstOrDefault();
-                            //if (personEmail != null)
-                            //{
-                            //    db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Successful_Login).ToString(), DateTime.Now, 1, true);
-                            //    db.SaveChanges();
-                            //}
-                            //var proxy_type = ipData.security?.proxy_type?.ToString() ?? "";
-                            //db.pr_addPersonLoginLog(person.id, ip, ipData.type, ipData.continent_code, ipData.continent_name, ipData.country_code, ipData.region_code, ipData.region_name, ipData.city, ipData.zip, ipData.hostname,
-                            //    proxy_type, DateTime.Now,1,true);
-
-                            //#region Checking MFA
-                            //// Checking host name validation
-                            //var hostName = ipData.hostname;
-                            //var companyName = db.pr_getEnterprise(person.enterprise)
-                            //    .Select(x => x.companyName).FirstOrDefault();
-                            //if (
-                            //    string.IsNullOrWhiteSpace(hostName) || 
-                            //    hostName.IndexOf(companyName, StringComparison.OrdinalIgnoreCase) == -1)
-                            //{
-                            //    var message = $"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
-                            //    return SendAccessCode(person, ip,
-                            //        computerName, returnUrl, userName, message);
-                            //}
-
-                            //// Validating country code blocked
-
-                            //var countryBlockedList = db.pr_getEnterpriseCountryBlockAll(enterprise: person.enterprise)
-                            //    .Select(x => x.country).ToList();
-
-                            //foreach (var country in countryBlockedList)
-                            //{
-                            //    var isCountryCodeBlocked = db.pr_getCountry(country)
-                            //        .Any(x => x.code == ipData.country_code);
-
-                            //    if (isCountryCodeBlocked)
-                            //    {
-                            //        var message = @"You are logging in from blocked location, Please get the security code sent to your email address and enter it below.";
-                            //        return SendAccessCode(person, ip,
-                            //            computerName, returnUrl, userName, message);
-                            //    }
-                            //}
-                            //#endregion
-
-
-
-                        }
-                        catch (SocketException ex)
-                        {
-                            //if can't resolve remote host then set up IP address
-                        }
-                        String ecn = System.Environment.MachineName;
-
-                        var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
-
-                        if (res == null)
-                        {
-                            //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
-                            ViewBag.Message = "You failed to update login date & time";
-                        }
-
-                        //var loginAudit = db.pr_addPersonLoginAudit(person.id, 1, DateTime.Now, ip, 1, true);
-
-                        SessionSingleton.LoggedInUserId = person.id;
-                        SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
-                        SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
-                        SessionSingleton.MyEnterPriseId = person.enterprise;
-                        SessionSingleton.Touchpoint = (int)person.campaign;
-
-
-                        try
-                        {
-                            SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
-                        }
-                        catch
-                        {
-                            SessionSingleton.EnterpriseURL = "#";
-                        }
-                        Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
-                        if (Url.IsLocalUrl(returnUrl))
-                        {
-                            return Redirect(returnUrl);
-                        }
-                        else
-                        {
-                            if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
-                            {
-                                return RedirectToAction("ResetPassword", "Person");
-                            }
-                            else
-                            {
-                                return RedirectToAction("Home", "Admin");
-                            }
-                        }
-
-                        //}
+                        var result = db.pr_validatePerson(userName, password).FirstOrDefault();
+                        Session["REDIRECT_BY_EMAIL"] = result == 1 ? 1 : -2;
+                        Session["REDIRECT_BY_EMAIL_APPROVAL"] = userName;
+                        dynamic queryStringData = Session["REDIRECT_BY_EMAIL_Query"];
+                        return RedirectToAction("QuestionnaireDetailQuestion", "Questionnaire", new { id = queryStringData.id, pptqId = queryStringData.pptqId, questionId = queryStringData.questionId, partnerId = queryStringData.partnerId, responseId = queryStringData.responseId, email = queryStringData.email });
                     }
                     else
                     {
-                        var ip = Request.UserHostAddress;
-                        var ipData = GetLocationByIp(ip);
-                        var computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;
-                        //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
-                        int countryId = 1;
-                        if (ipData != null )
+                        //  CustomMembershipProvider MembershipService = new CustomMembershipProvider();
+                        if (MembershipService.ValidateUser(userName, password))
                         {
-                            if (ipData.country_code.Length == 2)
+                            FormsAuthentication.SetAuthCookie(userName, false);
+
+                            person person = db.pr_doLogin(userName, password).FirstOrDefault();
+
+                            //var ip = "71.225.253.65";// Request.UserHostAddress;
+                            var ip = Request.UserHostAddress;
+                            var computerName = "";//computer_name[0].ToString();
+                                                  //string[] computer_name = { ip };
+
+                            var personLoginAudit = db.pr_getPersonLoginAuditAll()
+                                .Where(x => x.person == person.id)
+                                .OrderByDescending(x => x.timestamp)
+                                .FirstOrDefault();
+
+                            //if (personLoginAudit != null && personLoginAudit.auditLoginEvent == 1 && personLoginAudit.deviceIP != ip)
+                            //{
+                            //    // Show screen to Logout from previous session.
+                            //    var message = @"You are already logged in at ip address: "+ personLoginAudit.deviceIP + ". Would you like to end that session?";
+                            //    var tempModel = new TempModel
+                            //    {
+                            //        Message = message,
+                            //        PersonId = person.id
+                            //    };
+                            //    SessionSingleton.TempModelValue = tempModel;
+
+                            //    return RedirectToAction("DifferentIPLogout");
+                            //}
+                            try
                             {
-                                var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
-                                countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                var ipData = GetLocationByIp(ip);
+                                computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;//System.Net.Dns.GetHostEntry(Request.ServerVariables["remote_addr"]).HostName.Split(new Char[] { '.' });
+                                                                                                                                                                  //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
+                                                                                                                                                                  //int countryId = 1;
+                                                                                                                                                                  //if (ipData != null)
+                                                                                                                                                                  //{
+                                                                                                                                                                  //    if (ipData.country_code.Length == 2)
+                                                                                                                                                                  //    {
+                                                                                                                                                                  //        var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
+                                                                                                                                                                  //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                                                                                                                                                  //    }
+                                                                                                                                                                  //    else if (ipData.country_code.Length == 3)
+                                                                                                                                                                  //    {
+                                                                                                                                                                  //        var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
+                                                                                                                                                                  //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                                                                                                                                                  //    }
+                                                                                                                                                                  //    else
+                                                                                                                                                                  //    {
+                                                                                                                                                                  //        var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
+                                                                                                                                                                  //        countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                                                                                                                                                  //    }
+                                                                                                                                                                  //}
+
+                                //var personEmail = db.pr_getPersonByEmail2(userName).FirstOrDefault();
+                                //if (personEmail != null)
+                                //{
+                                //    db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Successful_Login).ToString(), DateTime.Now, 1, true);
+                                //    db.SaveChanges();
+                                //}
+                                //var proxy_type = ipData.security?.proxy_type?.ToString() ?? "";
+                                //db.pr_addPersonLoginLog(person.id, ip, ipData.type, ipData.continent_code, ipData.continent_name, ipData.country_code, ipData.region_code, ipData.region_name, ipData.city, ipData.zip, ipData.hostname,
+                                //    proxy_type, DateTime.Now,1,true);
+
+                                //#region Checking MFA
+                                //// Checking host name validation
+                                //var hostName = ipData.hostname;
+                                //var companyName = db.pr_getEnterprise(person.enterprise)
+                                //    .Select(x => x.companyName).FirstOrDefault();
+                                //if (
+                                //    string.IsNullOrWhiteSpace(hostName) || 
+                                //    hostName.IndexOf(companyName, StringComparison.OrdinalIgnoreCase) == -1)
+                                //{
+                                //    var message = $"You are logging in from a location outside of {companyName}, please get the security code sent to your email address and enter it below.";
+                                //    return SendAccessCode(person, ip,
+                                //        computerName, returnUrl, userName, message);
+                                //}
+
+                                //// Validating country code blocked
+
+                                //var countryBlockedList = db.pr_getEnterpriseCountryBlockAll(enterprise: person.enterprise)
+                                //    .Select(x => x.country).ToList();
+
+                                //foreach (var country in countryBlockedList)
+                                //{
+                                //    var isCountryCodeBlocked = db.pr_getCountry(country)
+                                //        .Any(x => x.code == ipData.country_code);
+
+                                //    if (isCountryCodeBlocked)
+                                //    {
+                                //        var message = @"You are logging in from blocked location, Please get the security code sent to your email address and enter it below.";
+                                //        return SendAccessCode(person, ip,
+                                //            computerName, returnUrl, userName, message);
+                                //    }
+                                //}
+                                //#endregion
+
+
+
                             }
-                            else if (ipData.country_code.Length == 3)
+                            catch (SocketException ex)
                             {
-                                var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
-                                countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                //if can't resolve remote host then set up IP address
+                            }
+                            String ecn = System.Environment.MachineName;
+
+                            var res = db.pr_modifyPersonLastLoginDate(person.id, DateTime.Now, string.Format("{0}:{1}", ip, computerName));
+
+                            if (res == null)
+                            {
+                                //  ModelState.AddModelError("Update Error", "You failed to update login date & time");
+                                ViewBag.Message = "You failed to update login date & time";
+                            }
+
+                            //var loginAudit = db.pr_addPersonLoginAudit(person.id, 1, DateTime.Now, ip, 1, true);
+
+                            SessionSingleton.LoggedInUserId = person.id;
+                            SessionSingleton.LoggedInUserRole = db.pr_getPersonRoleByPerson(person.id).FirstOrDefault().role;
+                            SessionSingleton.IsSystemMaster = db.pr_isSystemMaster(person.id).First() == 1 ? true : false;
+                            SessionSingleton.MyEnterPriseId = person.enterprise;
+                            SessionSingleton.Touchpoint = (int)person.campaign;
+
+
+                            try
+                            {
+                                SessionSingleton.EnterpriseURL = db.pr_getEnterpriseSystemInfo(person.enterprise).FirstOrDefault().companyWebSite;
+                            }
+                            catch
+                            {
+                                SessionSingleton.EnterpriseURL = "#";
+                            }
+                            Generic.Helpers.CurrentInstance.EnterpriseID = int.Parse(person.enterprise.ToString());
+                            if (Url.IsLocalUrl(returnUrl))
+                            {
+                                return Redirect(returnUrl);
                             }
                             else
                             {
-                                var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
-                                countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                if (person.personStatus == (int)PersonHelper.PersonStatus.Invited)
+                                {
+                                    return RedirectToAction("ResetPassword", "Person");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Home", "Admin");
+                                }
                             }
-                        }
 
-                        var person = db.pr_getPersonByEmail2(userName).FirstOrDefault();
-                        if (person != null)
-                        {
-                            db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Password_Valid_Email).ToString(), DateTime.Now, 1, true);
+                            //}
                         }
                         else
                         {
-                            db.pr_addPersonLoginLog(5, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Login_Invalid_Email).ToString(), DateTime.Now, 1, true);
+                            var ip = Request.UserHostAddress;
+                            var ipData = GetLocationByIp(ip);
+                            var computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;
+                            //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
+                            int countryId = 1;
+                            if (ipData != null)
+                            {
+                                if (ipData.country_code.Length == 2)
+                                {
+                                    var countryCode = db.pr_getCountryByCode(ipData?.country_code).FirstOrDefault();
+                                    countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                }
+                                else if (ipData.country_code.Length == 3)
+                                {
+                                    var countryCode = db.pr_getCountryByGovernanceCode(ipData?.country_code).FirstOrDefault();
+                                    countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                }
+                                else
+                                {
+                                    var countryCode = db.pr_getCountryByName(ipData?.country_name).FirstOrDefault();
+                                    countryId = countryCode != null ? (countryCode.id > 0 ? countryCode.id : 1) : 1;
+                                }
+                            }
+
+                            var person = db.pr_getPersonByEmail2(userName).FirstOrDefault();
+                            if (person != null)
+                            {
+                                db.pr_addPersonLoginLog(person.id, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Password_Valid_Email).ToString(), DateTime.Now, 1, true);
+                            }
+                            else
+                            {
+                                db.pr_addPersonLoginLog(5, countryId, ipData?.hostname, ipData?.region_code, ipData?.city, ipData?.zip, ip, ((int)LoginStatus.Failed_Login_Invalid_Email).ToString(), DateTime.Now, 1, true);
+                            }
+                            ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
                         }
-                        ModelState.AddModelError("LoginFailed", "The user name or password provided is incorrect.");
                     }
                 }
             }
-
+            catch { }
             var enterprises = db.pr_getEnterprise(1);
             ViewBag.EnterpriseId = 1;
             // If we got this far, something failed, redisplay form

@@ -291,6 +291,16 @@
                                 <input type="hidden" id="manual-upload-accesscode" />
                                 <input type="hidden" id="manual-upload-pptq" />
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-8">Set status for access code <span id="spnAccessCode"></span> </label>
+                                <div class="clear-fix"></div>
+                                <span class="control-label col-sm-6">
+                                    <input type="radio" class="col-sm-2" id="rdoRespondedComplete" name="statusAccessCode" value="8" /> Responded Complete
+                                </span>
+                                <span class="control-label col-sm-6">
+                                    <input type="radio" class="col-sm-2" id="rdoPendingApproval" checked="checked" name="statusAccessCode" value="10" /> Pending Approval
+                                </span>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -831,7 +841,7 @@
     }
 
     function ProcessManualUpload(accessCode, pptq) {
-        alertify.confirm("Are you sure? After you upload valid document this will set " + accessCode + " to status RESPONDED COMPLETE.", function (e) {
+        alertify.confirm("Are you sure? After you upload valid document for " + accessCode + " you will have to set the status RESPONDED COMPLETE or  PENDING APPROVAL.", function (e) {
             if (e) {
                 // click yes
                 ShowManualUploadDailog(accessCode, pptq);
@@ -844,6 +854,7 @@
 
     function ShowManualUploadDailog(accessCode, pptq) {
         $('div#manual_upload_dialog #manual-upload-accesscode').val(accessCode);
+        $('div#manual_upload_dialog #spnAccessCode').text(accessCode);
         $('div#manual_upload_dialog #manual-upload-pptq').val(pptq);
         $('div#manual_upload_dialog #txt-manual-upload-comment').val('');
         $('div#manual_upload_dialog #manualuploadfile').val(null);
@@ -858,6 +869,7 @@
             formData.append('comment', $('div#manual_upload_dialog #txt-manual-upload-comment').val());
             formData.append('accessCode', $('div#manual_upload_dialog #manual-upload-accesscode').val());
             formData.append('pptq', $('div#manual_upload_dialog #manual-upload-pptq').val());
+            formData.append('status', $('div#manual_upload_dialog input[name="statusAccessCode"]:checked').val());
             $.ajax({
             type: "POST",
             url: '@Url.Action("UploadManaul", "Partner")',

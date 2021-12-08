@@ -2223,6 +2223,7 @@ namespace Generic.Controllers
                     string accessCode = string.Empty;
                     string comment = string.Empty;
                     int? pptq = null;
+                    int? status = null;
 
                     if (null != Request.Form["comment"])
                     {
@@ -2243,6 +2244,16 @@ namespace Generic.Controllers
                         }
                     }
 
+
+                    if (null != Request.Form["status"])
+                    {
+                        int statusValue;
+                        if (int.TryParse(Convert.ToString(Request.Form["status"]), out statusValue))
+                        {
+                            status = statusValue;
+                        }
+                    }
+
                     byte[] pdfFileData = null;
                     using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
                     {
@@ -2252,6 +2263,7 @@ namespace Generic.Controllers
                     var person = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                     int? personId = SessionSingleton.LoggedInUserId;
                     db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(pptq, pdfFileData, person.id, "manual");
+                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq, status);
                     SendManualUploadEmail(accessCode, person, pptq);
                     return Json(new { data = true }, JsonRequestBehavior.AllowGet);
                 }
