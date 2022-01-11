@@ -15611,10 +15611,12 @@ Intelleges Team";
                         break;
                     case 52245:
                         var resultOwnership = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
-
-                        var selectedOwnership = item.comment.Split(",");
-                        var selectedOwnership_52245 = resultOwnership.Where(w => selectedOwnership.Contains(w.Last()) == true).Select(s => s[0]).ToList();
-                        ViewBag.Q52245_response = selectedOwnership_52245;
+                        if (!string.IsNullOrEmpty(item.comment))
+                        {
+                            var selectedOwnership = item.comment.Split(",");
+                            var selectedOwnership_52245 = resultOwnership.Where(w => selectedOwnership.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                            ViewBag.Q52245_response = selectedOwnership_52245;
+                        }
 
                         break;
                     case 52246:
