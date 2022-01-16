@@ -1635,6 +1635,38 @@ namespace Generic.DataLayer
                     tableCell.Controls.AddAt(0, divn);
                     addControlValidator(txtbox1.ID, "requiredFieldValidator", tableCell);
                 }
+                else if (question.commentType == CommentType.YN_NAICS_Y)
+                {
+                    /*var textBox = new TextBox();
+                    textBox.TextMode = TextBoxMode.Number;
+                    controlId = textBox.ID = "question_" + question.id.ToString() + "_" + survey.id.ToString() + "_text";
+                    textBox.Width = 100;
+                    if (question.required > 0)
+                    {
+                        textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                        textBox.Attributes["data-val-required"] = "Required";
+                    }
+                    if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
+                    {
+                        textBox.Text = convertLanguageApi(pptqResponse.comment);
+                    }
+
+                    textBox.Attributes["maxlength"] = 6.ToString();
+                    textBox.Attributes.Add("onchange", "changenics(this);");
+                    //add empty cell
+                    tableCell = new TableCell();
+                    tableCell.Text = "&nbsp;";
+                    tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                    tableCell.Style.Add("border-spacing", "0");
+                    tableCell.Style.Add("padding-right", "5px");
+                    tableRow.Controls.Add(tableCell);
+
+                    tableCell = new TableCell();
+                    tableCell.ColumnSpan = 2;
+                    tableCell.Controls.Add(textBox);
+                    tableRow.Controls.Add(tableCell);*/
+                    
+                }
                 else if (question.commentType == CommentType.YN_COMMENT_Y_PUBLIC)
                 {
                     HtmlGenericControl divn = new HtmlGenericControl();
@@ -2153,9 +2185,14 @@ namespace Generic.DataLayer
                             textBox.Attributes["data-val-length-min"] = question.required.ToString();
                             textBox.Attributes["data-val-length-max"] = question.required.ToString();
                         }
+
+                        if (question.commentType == CommentType.YN_NAICS_Y) {
+                            //textBox.Attributes.Add("onchange", "changenics(this, '" + question.id + "');");
+                            textBox.Attributes.Add("oninput", "changenics(this, '" + question.id + "');");
+                        }
+
                         if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
                         {
-
                             textBox.Text = convertLanguageApi(pptqResponse.comment);
                         }
 

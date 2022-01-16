@@ -1871,6 +1871,23 @@ namespace Generic.Areas.RegistrationArea.Controllers
             return View(db.pr_getQuestionCommentAllByQuestion(id).ToList());
         }
 
+        [HttpPost]
+        public ActionResult validateNics(int q, int val)
+        {
+            var res = db.pr_getSbaSizingStandardNAICS(val).FirstOrDefault();
+            if (res == null) return Json(new { success = true });
+            var question = db.pr_getQuestion(q).FirstOrDefault();
+            if (question == null || string.IsNullOrEmpty(question.commentBoxTxt)) return Json(new { success = true });
+
+            List<string> arr = question.commentBoxTxt.Split("\r\n").ToList();
+            string message = "";
+            if (arr[0].Contains("<> 0") && res.revenue != 0)
+                message = arr[1];
+            else message = arr[3];
+
+            return Json(new { message = message.Replace("[Description]", res.description).Replace("[NAICS]", (res.NAICS ?? 0).ToString()).Replace("[employee]", (res.employee ?? 0).ToString()).Replace("[revenue]", (res.revenue ?? 0).ToString()), success = false });
+        }
+
         public ActionResult RemoveItemsByQid(int pptqQR, string jumpTo)
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";

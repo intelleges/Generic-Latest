@@ -30889,5 +30889,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<person>("sp_getPersonforSAML", mergeOption, emailParameter);
         }
+    
+        public virtual ObjectResult<pr_getSbaSizingStandardNAICS_Result> pr_getSbaSizingStandardNAICS(Nullable<int> naics)
+        {
+            var naicsParameter = naics.HasValue ?
+                new ObjectParameter("naics", naics) :
+                new ObjectParameter("naics", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSbaSizingStandardNAICS_Result>("pr_getSbaSizingStandardNAICS", naicsParameter);
+        }
     }
 }
