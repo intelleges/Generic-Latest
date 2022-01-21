@@ -13,7 +13,7 @@
     <title>FORM-ICS Certificate Form 2020</title>
     <style type="text/css">
         body {
-            font-family: "Times New Roman", Times, serif;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
             font-size: 14px;
         }
 
@@ -25,8 +25,8 @@
         }
 
         div {
-            padding-right: 40px;
-            padding-left: 40px;
+            padding-right: 20px;
+            padding-left: 20px;
         }
 
         h1, h2 {
@@ -75,14 +75,14 @@
             <p> Street Address : @(ViewBag.partner.address1) </p>
             <p>Contact Phone No. (xxx-xxx-xxxx) : @(ViewBag.partner.phone)  </p>
             <p>City, State, and Postal Code : @(ViewBag.partner.city + ", " + ViewBag.state + ", " + ViewBag.partner.zipcode) </p>
-            <p>Taxpayer Identification No. (TIN) or Social Security Number (SSN) : @ViewBag.Checkbox52148_Comment </p>
+            <p>Taxpayer Identification No. (TIN) or Social Security Number (SSN) : @Html.Raw(@ViewBag.Checkbox52148_Comment) </p>
             <p> E-mail Address : @(ViewBag.signature == null ? "" : ViewBag.signature.email)</p>
             <p>Dun &amp; Bradstreet (D-U-N-S) Number : @ViewBag.partner.dunsNumber</p>
-            <p>Primary NAICS code * :  @ViewBag.Checkbox52242_Comment</p>
-            <p>Secondary NAICS (s) code*</p>
+            <p>Primary NAICS code  :  @ViewBag.Checkbox52242_Comment</p>
+            <p>Secondary NAICS (s) code</p>
             <p>Date Range : @(ViewBag.Q52158_Comment + " - " + @ViewBag.Q52159_Comment) </p>
 
-            <p>* Reference http://www.census.gov/eos/www/naics/ for NAICS codes. 1. Type and Size of Business Organization</p>
+            <p>Reference http://www.census.gov/eos/www/naics/ for NAICS codes. 1. Type and Size of Business Organization</p>
 
             <p>(Check all that apply)</p>
             <p>
@@ -121,7 +121,7 @@
                 }  Large Business
             </p>
 
-            <p>&#9744; Small Business * To identify the appropriate small business size standard, visit gov/NAICS (https://eweb1.sba.gov/naics/dsp_naicssearch2.cfm) and enter Offeror&rsquo;s primary NAICS Code to determine small business status according to US Small Business Administration (SBA) guidelines found at www.sba.gov.</p>
+            <p>&#9744; Small Business To identify the appropriate small business size standard, visit gov/NAICS (https://eweb1.sba.gov/naics/dsp_naicssearch2.cfm) and enter Offeror&rsquo;s primary NAICS Code to determine small business status according to US Small Business Administration (SBA) guidelines found at www.sba.gov.</p>
 
             <p>
                 @if (@ViewBag.Checkbox52244_Yes != string.Empty && @ViewBag.Checkbox52244_Yes != null)
@@ -132,48 +132,71 @@
                 //@if (@ViewBag.Checkbox52244_No != string.Empty && @ViewBag.Checkbox52244_No != null)
                 {
                     <span>&#x2610;</span>
-                }  Small Disadvantaged Business (SDB) * * A firm that is at least 51 percent owned and controlled by one or more socially and economically disadvantaged individual(s); or, in the case of any publicly-owned business, at least 51 percent of the stock of which is owned by one or more socially and economically disadvantaged individuals; and, * Whose management and daily business operations are controlled by one or more such individuals. * A Small Disadvantaged Business can be self-certified or previously certified by the SBA. * (Please check the appropriate category of ownership)
+                }  Small Disadvantaged Business (SDB). A firm that is at least 51 percent owned and controlled by one or more socially and economically disadvantaged individual(s); or, in the case of any publicly-owned business, at least 51 percent of the stock of which is owned by one or more socially and economically disadvantaged individuals; and, whose management and daily business operations are controlled by one or more such individuals. A Small Disadvantaged Business can be self-certified or previously certified by the SBA. (Please check the appropriate category of ownership)
                     </p>
 
             <p>
                 @if (@ViewBag.Checkbox52245_87005 != string.Empty && @ViewBag.Checkbox52245_87005 != null)
                 {
                     <span>&#x2611;</span>
-                }Black American
-                    </p>
+                } 
+                else {
+                <span>&#x2610;</span>
+                } Black American
+            </p>
 
             <p>
                 @if (@ViewBag.Checkbox52245_87006 != string.Empty && @ViewBag.Checkbox52245_87006 != null)
                 {
                     <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
                 } Hispanic American
-                    </p>
+            </p>
 
             <p>
                 @if (@ViewBag.Checkbox52245_87007 != string.Empty && @ViewBag.Checkbox52245_87007 != null)
                 {
                     <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
                 } Native American (American Indians, Eskimos, Aleuts or Native Hawaiians)
-                    </p>
+            </p>
 
             <p>
                 @if (@ViewBag.Checkbox52245_87008 != string.Empty && @ViewBag.Checkbox52245_87008 != null)
                 {
                     <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
                 } Asian-Pacific American (persons with origins from Burma, Thailand, Malaysia, Indonesia, Singapore, Brunei, Japan, China, Taiwan, Laos, Cambodia (Kampuchea), Vietnam, Korea, The Philippines, US Trust Territory of the Pacific Islands (Republic of Palau), Republic of the Marshall Islands, Federated States of Micronesia, The Commonwealth of the Northern Mariana Islands, Guam, Samoa, Macao, Hong Kong, Fiji, Tonga, Kiribati, Tuvalu or Nauru)
-                    </p>
+            </p>
 
             <p>
                 @if (@ViewBag.Checkbox52245_87009 != string.Empty && @ViewBag.Checkbox52245_87009 != null)
                 {
                     <span>&#x2611;</span>
-                }Subcontinent Asian (Asian-Indian) American (persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands or Nepal)
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Subcontinent Asian (Asian-Indian) American (persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands or Nepal)
             </p>
 
             <p>
                 @if (@ViewBag.Checkbox52245_87010 != string.Empty && @ViewBag.Checkbox52245_87010 != null)
                 {
                     <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
                 } Individual/Concerns, other than one of the preceding. Specify  enter text.
             </p>
 
@@ -186,7 +209,8 @@
                 //@if (@ViewBag.Checkbox52246_No != string.Empty && @ViewBag.Checkbox52246_No != null)
                 {
                     <span>&#x2610;</span>
-                }  Certified 8(a) Firm* * A firm which is unconditionally owned and controlled by one or more socially and economically disadvantaged individuals and eligible for the SBA&rsquo;s 8(a) Business Development Program (13 CFR 124-8(a)).
+                }  Certified 8(a) Firm
+                A firm which is unconditionally owned and controlled by one or more socially and economically disadvantaged individuals and eligible for the SBA&rsquo;s 8(a) Business Development Program (13 CFR 124-8(a)).
                     </p>
 
             <p>
@@ -198,7 +222,8 @@
                 //@if (@ViewBag.Checkbox52247_No != string.Empty && @ViewBag.Checkbox52247_No != null)
                 {
                     <span>&#x2610;</span>
-                }  Historically Underutilized Business Zone (HUBZone) Small Business* * A firm listed on the SBA&rsquo;s List of Qualified HUBZone Small Business Concerns by meeting the requirements of 13 CFR 126.200.
+                }  Historically Underutilized Business Zone (HUBZone) Small Business
+                A firm listed on the SBA&rsquo;s List of Qualified HUBZone Small Business Concerns by meeting the requirements of 13 CFR 126.200.
             </p>
 
             <p>
@@ -210,7 +235,8 @@
                 //@if (@ViewBag.Checkbox52248_No != string.Empty && @ViewBag.Checkbox52248_No != null)
                 {
                     <span>&#x2610;</span>
-                } Woman-Owned Small Business (WOSB) * A firm which is at least 51 percent owned and controlled by one or more women; or in the case of any publicly owned business, at least 51 percent of the stock of which is owned by one or more women; and * Whose management and daily business operations are controlled by one or more women.
+                } Woman-Owned Small Business (WOSB)
+                A firm which is at least 51 percent owned and controlled by one or more women; or in the case of any publicly owned business, at least 51 percent of the stock of which is owned by one or more women; and whose management and daily business operations are controlled by one or more women.
                     </p>
 
             <p>
@@ -222,7 +248,8 @@
                 //@if (@ViewBag.Checkbox52249_No != string.Empty && @ViewBag.Checkbox52249_No != null)
                 {
                     <span>&#x2610;</span>
-                } Economically Disadvantaged Woman-Owned Small Business (EDWOSB) * A firm which is at least 51 percent directly and unconditionally owned by, and the management and daily business operations of which are controlled by, one or more women who are citizens of the US; and * Who are economically disadvantaged in accordance with 13 CFR part 127.
+                } Economically Disadvantaged Woman-Owned Small Business (EDWOSB)
+                A firm which is at least 51 percent directly and unconditionally owned by, and the management and daily business operations of which are controlled by, one or more women who are citizens of the US; and who are economically disadvantaged in accordance with 13 CFR part 127.
                     </p>
 
             <p>
@@ -234,7 +261,8 @@
                 //@if (@ViewBag.Checkbox52250_No != string.Empty && @ViewBag.Checkbox52250_No != null)
                 {
                     <span>&#x2610;</span>
-                } Veteran-Owned Small Business (VOSB) * A firm which is not less than 51 percent owned by one or more veterans, as defined in 38 U.S.C. 101(2), or, in the case of any publicly owned business, not less than 51 percent of the stock is owned by one or more veterans; and * Whose management and daily business operations are controlled by one or more veterans.
+                } Veteran-Owned Small Business (VOSB)
+                A firm which is not less than 51 percent owned by one or more veterans, as defined in 38 U.S.C. 101(2), or, in the case of any publicly owned business, not less than 51 percent of the stock is owned by one or more veterans; and whose management and daily business operations are controlled by one or more veterans.
                     </p>
 
             <p>
@@ -246,7 +274,8 @@
                 //@if (@ViewBag.Checkbox52251_No != string.Empty && @ViewBag.Checkbox52251_No != null)
                 {
                     <span>&#x2610;</span>
-                }  Service-Disabled Veteran-Owned Small Business (SD-VOSB) * A firm which is not less than 51 percent owned by one or more service-disabled veterans, as defined in 38 U.S.C. 101(16), or, in the case of any publicly owned business, not less than 51 percent of the stock is owned by one or more service-disabled veterans; and * Whose management and daily business operations are controlled by one or more service-disabled veterans or, in the case of a service-disabled veteran with permanent and severe disability, the spouse or permanent caregiver of such veteran.
+                }  Service-Disabled Veteran-Owned Small Business (SD-VOSB)
+                A firm which is not less than 51 percent owned by one or more service-disabled veterans, as defined in 38 U.S.C. 101(16), or, in the case of any publicly owned business, not less than 51 percent of the stock is owned by one or more service-disabled veterans; and whose management and daily business operations are controlled by one or more service-disabled veterans or, in the case of a service-disabled veteran with permanent and severe disability, the spouse or permanent caregiver of such veteran.
                     </p>
 
             <p>
@@ -258,7 +287,8 @@
                 //@if (@ViewBag.Checkbox52240_No != string.Empty && @ViewBag.Checkbox52240_No != null)
                 {
                     <span>&#x2610;</span>
-                } Historically Black College or University/Minority Institution (HBCU/MI) * An institution meeting the requirements of 34 CFR 608.2 as determined by the Secretary of Education; or * An institution of higher education meeting the requirements of Section 365(3) of the Higher Education Act of 1965.
+                } Historically Black College or University/Minority Institution (HBCU/MI) 
+                An institution meeting the requirements of 34 CFR 608.2 as determined by the Secretary of Education; or an institution of higher education meeting the requirements of Section 365(3) of the Higher Education Act of 1965.
             </p>
 
             <p>State Certifications:</p>
@@ -272,8 +302,10 @@
                 //@if (@ViewBag.Checkbox52252_No != string.Empty && @ViewBag.Checkbox52252_No != null)
                 {
                     <span>&#x2610;</span>
-                } Minority-Owned Business Enterprise (MBE) * A firm that is at least 51 percent owned, operated and controlled by one or more ethnic minority US citizens. * Firm is certified by National Minority Supplier Development Council (NMSDC) or an affiliate. * (Please check the appropriate category of ownership)
-                    </p>
+                } Minority-Owned Business Enterprise (MBE)
+                A firm that is at least 51 percent owned, operated and controlled by one or more ethnic minority US citizens. 
+                Firm is certified by National Minority Supplier Development Council (NMSDC) or an affiliate. (Please check the appropriate category of ownership)
+            </p>
 
             <p>
                 @if (@ViewBag.Checkbox52253_87011 != string.Empty && @ViewBag.Checkbox52253_87011 != null)
@@ -283,7 +315,7 @@
                 else
                 {
                     <span>&#x2610;</span>
-                }Black American
+                } Black American
             </p>
 
             <p>
@@ -305,7 +337,7 @@
                 else
                 {
                     <span>&#x2610;</span>
-                }Native American
+                } Native American
             </p>
 
             <p>
@@ -328,7 +360,9 @@
                 //@if (@ViewBag.Checkbox52254_No != string.Empty && @ViewBag.Checkbox52254_No != null)
                 {
                     <span>&#x2610;</span>
-                } Woman-Owned Business (WBE) * A firm that is at least 51 percent owned, operated, and controlled by one or more women that are US citizens. * Firm is certified by Women&rsquo;s Business Enterprise National Council (WBENC) or an affiliate.
+                } Woman-Owned Business (WBE) 
+                A firm that is at least 51 percent owned, operated, and controlled by one or more women that are US citizens. 
+                Firm is certified by Women&rsquo;s Business Enterprise National Council (WBENC) or an affiliate.
             </p>
 
             <p>2. Common Parent and Predecessor of Offeror (FAR 52.204-17, 52.204-20)</p>
@@ -343,9 +377,9 @@
                 {
                     <span>&#x2610;</span>
                 } The offeror is not owned or controlled by a common parent.
-                    </p>
+            </p>
 
-            <p>&#9744; Name and TIN of common parent: Name:  @ViewBag.Checkbox52147_Comment TIN:  @ViewBag.Checkbox52148_Comment.</p>
+            <p>&#9744; Name and TIN of common parent: Name: @Html.Raw(ViewBag.Checkbox52147_Comment) TIN: @Html.Raw(@ViewBag.Checkbox52148_Comment).</p>
 
             <p>
                 @if (@ViewBag.Checkbox52190_Yes != string.Empty && @ViewBag.Checkbox52190_Yes != null)
@@ -357,7 +391,7 @@
                 {
                     <span>&#x2610;</span>
                 } Offeror, its parent company, or subsidiaries, is/has been owned or controlled by a foreign entity.
-                    </p>
+            </p>
 
             <p>
                 The Offeror represents that it @if (@ViewBag.Checkbox52150_Yes != string.Empty && @ViewBag.Checkbox52150_Yes != null)
@@ -374,10 +408,10 @@
                 else
                 {
                     <span>&#x2610;</span>
-                } IS NOT a successor to a predecessor that held a Federal contract or grant within the last three years. 3. Registration with the Directorate of Defense Trade Controls (DDTC)
+                } IS NOT a successor to a predecessor that held a Federal contract or grant within the last three years.
             </p>
-
             <p>
+                3. Registration with the Directorate of Defense Trade Controls (DDTC)
                 The Offeror certifies that it  @if (@ViewBag.Checkbox52149_Yes != string.Empty && @ViewBag.Checkbox52149_Yes != null)
                 {
                     <span>&#x2611;</span>
@@ -392,10 +426,10 @@
                 else
                 {
                     <span>&#x2610;</span>
-                } IS NOT required to be registered to manufacture or export defense articles or furnish defense services as required by the International Traffic in Arms Regulations (22 CFR Part 122). If required to be registered, the Offeror certifies it is currently registered with the DDTC. 4. Presence of Conflict Minerals In Products Supplied By Offeror
+                } IS NOT required to be registered to manufacture or export defense articles or furnish defense services as required by the International Traffic in Arms Regulations (22 CFR Part 122). If required to be registered, the Offeror certifies it is currently registered with the DDTC. 
             </p>
-
             <p>
+                4. Presence of Conflict Minerals In Products Supplied By Offeror
                 @if (@ViewBag.Checkbox52157_Yes != string.Empty && @ViewBag.Checkbox52157_Yes != null)
                 {
                     <span>&#x2611;</span>
@@ -432,19 +466,22 @@
             <p> 5. Accounting and Business System Adequacy Representation
             </p>
 
-            <p>For Battelle to determine the adequacy of the Offeror&rsquo;s accounting and business systems to meet the cost accumulation and reporting requirements of Government contracts, the Offeror shall provide the following information: * What is Offeror&rsquo;s current fiscal year?  enter text.</p>
+            <p>For Battelle to determine the adequacy of the Offeror&rsquo;s accounting and business systems to meet the cost accumulation and reporting requirements of Government contracts, the Offeror shall provide the following information: </p>
+            <p> What is Offeror&rsquo;s current fiscal year?  enter text.</p>
 
-            <p>Start Date enter a date.</p>
+            <p>Start Date @(ViewBag.Q52158_Comment)</p>
 
-            <p>End Date enter a date. * Government Audit Agency:</p>
+            <p>End Date @(@ViewBag.Q52159_Comment)</p>
 
-            <p>Name of Agency:  enter text.</p>
+            <p>Government Audit Agency:</p>
 
-            <p>Address:  enter text.</p>
+            <p>Name of Agency:  @Html.Raw(ViewBag.Checkbox52198_Comment)</p>
 
-            <p>Name of Auditor:  enter text.</p>
+            <p>Address:   @Html.Raw(ViewBag.Checkbox52199_Comment)</p>
 
-            <p>Telephone:  enter text.</p>
+            <p>Name of Auditor:   @Html.Raw(ViewBag.Checkbox52200_Comment)</p>
+
+            <p>Telephone:   @Html.Raw(ViewBag.Checkbox52201_Comment)</p>
 
             <p>
                 @if (@ViewBag.Checkbox52202_Yes != string.Empty && @ViewBag.Checkbox52202_Yes != null)
@@ -457,16 +494,15 @@
                 }Cognizant Administrative Contracting Officer (CACO):
             </p>
 
-            <p>Name of Agency:  @ViewBag.Checkbox52203_Comment</p>
+            <p>Name of Agency: @Html.Raw(ViewBag.Checkbox52203_Comment)</p>
 
-            <p>Address:  @ViewBag.Checkbox52204_Comment</p>
+            <p>Address:   @Html.Raw(ViewBag.Checkbox52204_Comment)</p>
 
-            <p>Name of CACO:  @ViewBag.Checkbox52205_Comment</p>
+            <p>Name of CACO:  @Html.Raw(ViewBag.Checkbox52205_Comment)</p>
 
-            <p>Telephone:  @ViewBag.Checkbox52206_Comment</p>
+            <p>Telephone:   @Html.Raw(ViewBag.Checkbox52206_Comment)</p>
 
-            <p>
-                * Has Offeror been awarded a federal government prime contract in the past 3 years?
+            <p>Has Offeror been awarded a federal government prime contract in the past 3 years?
                 @if (@ViewBag.Checkbox52194_Yes != string.Empty && @ViewBag.Checkbox52194_Yes != null)
                 {
                     <span>&#x2611;</span>
@@ -499,12 +535,16 @@
 
             <p>&#9744; Labor Hour/Time and Materials, Contract Number  enter text.</p>
 
-            <p>&#9744; Fixed Price, Contract Number  enter text. * Accounting System - Does Offeror have a federal government-approved accounting system? &#9744; YES &#9744; NO</p>
+            <p>&#9744; Fixed Price, Contract Number  enter text. 
+            Accounting System - Does Offeror have a federal government-approved accounting system? &#9744; YES &#9744; NO</p>
 
-            <p>If YES, answer below: * Date of approval enter a date. * Government office granting approval (if different than above)  enter text. * Audit Report Number  enter text. * Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
+            <p>If YES, answer below: 
+            Date of approval enter a date. 
+            Government office granting approval (if different than above)  enter text. 
+            Audit Report Number  enter text. 
+            Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
 
-            <p>
-                * Purchasing System - Does Offeror have a federal government-approved purchasing system?
+            <p> Purchasing System - Does Offeror have a federal government-approved purchasing system?
                 @if (@ViewBag.Checkbox52212_Yes != string.Empty && @ViewBag.Checkbox52212_Yes != null)
                 {
                     <span>&#x2611;</span>
@@ -523,10 +563,13 @@
                 } NO
             </p>
 
-            <p>If YES, answer below: * Date of approval enter a date. * Government office granting approval (if different than above)  enter text. * Audit Report Number  enter text. * Upon Battelle&rsquo;s request, Offeror shall provide a copy of such approval letter.</p>
+            <p>If YES, answer below: 
+            Date of approval enter a date. 
+            Government office granting approval (if different than above)  enter text. 
+            Audit Report Number  enter text. 
+            Upon Battelle&rsquo;s request, Offeror shall provide a copy of such approval letter.</p>
 
-            <p>
-                * Property System - Does Offeror have a federal government-approved property system?
+            <p> Property System - Does Offeror have a federal government-approved property system?
                 @if (@ViewBag.Checkbox52216_Yes != string.Empty && @ViewBag.Checkbox52216_Yes != null)
                 {
                     <span>&#x2611;</span>
@@ -546,7 +589,12 @@
             </p>
 
             <p>
-                If YES, answer below: * Date of approval enter a date. * Government office granting approval (if different than above)  enter text. * Audit Report Number  enter text. * Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter. * In addition to the Offeror&rsquo;s business systems (from DFARS 252.242-7005) identified above, does Offeror have any other business systems (e.g., Estimating, EVMS, MMAS) that have been audited and deemed inadequate? @if (@ViewBag.Checkbox52220_Yes != string.Empty && @ViewBag.Checkbox52220_Yes != null)
+                If YES, answer below: 
+                Date of approval enter a date. 
+                Government office granting approval (if different than above)  enter text. 
+                Audit Report Number  enter text. 
+                Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter. 
+                In addition to the Offeror&rsquo;s business systems (from DFARS 252.242-7005) identified above, does Offeror have any other business systems (e.g., Estimating, EVMS, MMAS) that have been audited and deemed inadequate? @if (@ViewBag.Checkbox52220_Yes != string.Empty && @ViewBag.Checkbox52220_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -563,8 +611,7 @@
                 } NO
             </p>
 
-            <p>
-                * Is Offeror&rsquo;s organization subject to Cost Accounting Standards (CAS) (48 CFR Chapter 99)? @if (@ViewBag.Checkbox52221_Yes != string.Empty && @ViewBag.Checkbox52221_Yes != null)
+            <p> Is Offeror&rsquo;s organization subject to Cost Accounting Standards (CAS) (48 CFR Chapter 99)? @if (@ViewBag.Checkbox52221_Yes != string.Empty && @ViewBag.Checkbox52221_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -581,8 +628,7 @@
                 } NO
             </p>
 
-            <p>
-                If YES, is it Full or Modified CAS? @if (@ViewBag.Checkbox52222_86978 != string.Empty && @ViewBag.Checkbox52222_86978 != null)
+            <p> If YES, is it Full or Modified CAS? @if (@ViewBag.Checkbox52222_86978 != string.Empty && @ViewBag.Checkbox52222_86978 != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -596,7 +642,9 @@
                 else
                 {
                     <span>&#x2610;</span>
-                }  Modified * Cost Accounting Disclosure Statement - Does Offeror have adequate disclosure statements? @if (@ViewBag.Checkbox52223_Yes != string.Empty && @ViewBag.Checkbox52223_Yes != null)
+                }  Modified
+            </p>
+            <p> Cost Accounting Disclosure Statement - Does Offeror have adequate disclosure statements? @if (@ViewBag.Checkbox52223_Yes != string.Empty && @ViewBag.Checkbox52223_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -613,18 +661,25 @@
                 } NO
             </p>
 
-            <p>If YES, answer below: * Date of approval: enter a date. * Government office granting approval (if different than above)  enter text. * Audit Report Number  enter text. * Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter. * If Offeror does not have an approved CAS Disclosure Statement or approved accounting system, the Offeror&rsquo;s cost accounting system is:</p>
+            <p> If YES, answer below: 
+                Date of approval: enter a date. 
+                Government office granting approval (if different than above)  enter text. 
+                Audit Report Number  enter text. 
+                Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter. 
+                If Offeror does not have an approved CAS Disclosure Statement or approved accounting system, the Offeror&rsquo;s cost accounting system is:</p>
 
             <p>&#9744; Job order type</p>
 
             <p>&#9744; Process type</p>
 
-            <p>&#9744; Other, describe (e.g. QuickBooks, Peachtree)  enter text. * Have the Offeror&rsquo;s provisional indirect billing/bidding rates been evaluated and approved by a government agency? &#9744; YES &#9744; NO</p>
+            <p>&#9744; Other, describe (e.g. QuickBooks, Peachtree)  enter text. 
+             Have the Offeror&rsquo;s provisional indirect billing/bidding rates been evaluated and approved by a government agency? &#9744; YES &#9744; NO</p>
 
-            <p>If YES, answer below: * Period covering: enter a date. To: enter a date. * Agency granting approval:  enter text.</p>
+            <p>If YES, answer below: 
+            Period covering: enter a date. To: enter a date. 
+            Agency granting approval:  enter text.</p>
 
-            <p>
-                * Has the Offeror had Accepted Incurred Cost Submissions? @if (@ViewBag.Checkbox52232_Yes != string.Empty && @ViewBag.Checkbox52232_Yes != null)
+            <p> Has the Offeror had Accepted Incurred Cost Submissions? @if (@ViewBag.Checkbox52232_Yes != string.Empty && @ViewBag.Checkbox52232_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -642,10 +697,15 @@
             </p>
 
             <p>
-                If YES, answer below: * Date of the last Incurred Cost Submission:  @if (@ViewBag.Input52233 != string.Empty && @ViewBag.Input52233 != null)
+                If YES, answer below: 
+                Date of the last Incurred Cost Submission:  @if (@ViewBag.Input52233 != string.Empty && @ViewBag.Input52233 != null)
                 {
                     @ViewBag.Input52233
-                }  * Fiscal Period covered by the last Incurred Cost Submission: enter a date. * Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? enter a date. * Offeror has received final indirect rates for which fiscal years?  enter text. * Has Offeror adjusted its billings to reflect changes for Year-end, Interim and Final Rates received? @if (@ViewBag.Checkbox52237_Yes != string.Empty && @ViewBag.Checkbox52237_Yes != null)
+                } 
+                Fiscal Period covered by the last Incurred Cost Submission: enter a date. 
+                Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? enter a date. 
+                Offeror has received final indirect rates for which fiscal years?  enter text. 
+                Has Offeror adjusted its billings to reflect changes for Year-end, Interim and Final Rates received? @if (@ViewBag.Checkbox52237_Yes != string.Empty && @ViewBag.Checkbox52237_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -662,7 +722,10 @@
                 }  NO
             </p>
 
-            <p>If NO, answer below: * The cognizant Federal official has granted an extension, and Offeror&rsquo;s annual incurred cost proposal for this fiscal year will be submitted no later than: enter a date. * Offeror is not required to submit an annual incurred cost proposal. Please briefly explain why (e.g., small business, educational institution with Negotiated Indirect Cost Rate Agreement (NICRA), other):  enter text. * Offeror has not submitted an annual incurred cost submission for this fiscal year or one or more prior years. Please briefly explain why:  enter text.</p>
+            <p>If NO, answer below: 
+            The cognizant Federal official has granted an extension, and Offeror&rsquo;s annual incurred cost proposal for this fiscal year will be submitted no later than: enter a date. 
+            Offeror is not required to submit an annual incurred cost proposal. Please briefly explain why (e.g., small business, educational institution with Negotiated Indirect Cost Rate Agreement (NICRA), other):  enter text. 
+            Offeror has not submitted an annual incurred cost submission for this fiscal year or one or more prior years. Please briefly explain why:  enter text.</p>
 
             <p>
                 6. Certification Regarding Responsibility Matters, Tax Liability and Felony Conviction (FAR 52.209-5, 52.209-11)
@@ -800,7 +863,10 @@
                 else
                 {
                     <span>&#x2610;</span>
-                } IS NOT a corporation that was convicted of a felony criminal violation under a Federal law within the preceding 24 months. 7. Previous Contracts and Compliance Reports (FAR 52.222-22)
+                } IS NOT a corporation that was convicted of a felony criminal violation under a Federal law within the preceding 24 months.
+            </p>
+            <p>
+                7. Previous Contracts and Compliance Reports (FAR 52.222-22)
             </p>
 
             <p>The Offeror represents that:</p>
@@ -812,6 +878,7 @@
             <p>Representations indicating submission of required compliance reports, signed by proposed subcontractors, will be obtained before subcontract awards.</p>
 
             <p>&#9744; It is exempt (less than 50 employees). </p>
+
             <p> 8. Affirmative Action Compliance (FAR 52.222-25)</p>
 
             <p>The Offeror represents that:</p>
@@ -820,7 +887,8 @@
 
             <p>&#9744; It has not previously had contracts subject to the written affirmative action programs requirement of the rules and regulations of the Secretary of Labor; or</p>
 
-            <p>&#9744; It is exempt (less than 50 employees and/or less than $50,000 in Government contracts during the prior 12-month period). 9. Reporting Executive Compensation and First-Tier Subcontract Awards (FAR 52.204-10)</p>
+            <p>&#9744; It is exempt (less than 50 employees and/or less than $50,000 in Government contracts during the prior 12-month period). </p>
+            <p> 9. Reporting Executive Compensation and First-Tier Subcontract Awards (FAR 52.204-10)</p>
 
             <p>The Offeror represents that:</p>
 
@@ -830,9 +898,11 @@
 
             <p>&#9744; YES &#9744; NO</p>
 
-            <p>If YES, Offeror is not required to complete Section 10. If NO, Offeror must proceed to Section 10. 10. Total Compensation of Offeror&rsquo;s Executives + See 52.204-10 for a list of definitions as used in this provision.</p>
+            <p>If YES, Offeror is not required to complete Section 10. If NO, Offeror must proceed to Section 10. 
+            </p>
+            <p>10. Total Compensation of Offeror&rsquo;s Executives + See 52.204-10 for a list of definitions as used in this provision.</p>
 
-            <p>* In Offeror's preceding fiscal year, did Offeror receive 80 percent or more of its annual gross revenues from Federal</p>
+            <p>In Offeror's preceding fiscal year, did Offeror receive 80 percent or more of its annual gross revenues from Federal</p>
 
             <p>contracts (and subcontracts), loans, grants (and subgrants), cooperative agreements, and other forms of Federal financial assistance?</p>
 
@@ -846,11 +916,13 @@
 
             <p>&#9744; YES &#9744; NO</p>
 
-            <p>If YES, proceed to (d) below. If NO, Offeror is not required to complete the remainder of this Section 10. * Does the public have access to information about the compensation of the Executives through periodic reports filed under section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or section 6104 of the Internal Revenue Code of 1986? (To determine if the public has access to the compensation information, see the U.S. Securities and Exchange Commission Summary Compensation Table at http://www.sec.gov/answers/execomp.htm.)</p>
+            <p>If YES, proceed to (d) below. If NO, Offeror is not required to complete the remainder of this Section 10. 
+                Does the public have access to information about the compensation of the Executives through periodic reports filed under section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or section 6104 of the Internal Revenue Code of 1986? (To determine if the public has access to the compensation information, see the U.S. Securities and Exchange Commission Summary Compensation Table at http://www.sec.gov/answers/execomp.htm.)</p>
 
             <p>&#9744; YES &#9744; NO</p>
 
-            <p>If Yes, Offeror is not required to complete the remainder of this Section 10. If No, proceed to (e) below. * Offeror must provide in the space below the names and total compensation of each of Offeror's five most highly compensated Executives for its preceding completed fiscal year. If Battelle awards Offeror a Subcontract or Purchase Order, Offeror shall update the information in this Section 10 for Offeror's fiscal year preceding the date of award of such Subcontract or Purchase Order:</p>
+            <p>If Yes, Offeror is not required to complete the remainder of this Section 10. If No, proceed to (e) below. 
+                Offeror must provide in the space below the names and total compensation of each of Offeror's five most highly compensated Executives for its preceding completed fiscal year. If Battelle awards Offeror a Subcontract or Purchase Order, Offeror shall update the information in this Section 10 for Offeror's fiscal year preceding the date of award of such Subcontract or Purchase Order:</p>
 
             <p>Executive Name: Executive Total Compensation 1. _______________________________________________ _____________________________________________</p>
 
@@ -862,16 +934,15 @@
 
             <p>5. _______________________________________________ _____________________________________________</p>
 
-            <p>* &#9744; Offeror hereby acknowledges and agrees that Offeror shall, at the time of award that is subject to FAR 52.204-10, provide Battelle the Offeror's applicable and current information which Battelle is required by law to report to the US Government and which information will be made available to the public.</p>
+            <p> &#9744; Offeror hereby acknowledges and agrees that Offeror shall, at the time of award that is subject to FAR 52.204-10, provide Battelle the Offeror's applicable and current information which Battelle is required by law to report to the US Government and which information will be made available to the public.</p>
 
             <p>11. Representation Regarding Certain Telecommunications and Video Surveillance Services or Equipment (FAR 52.204-24)</p>
 
-            <p>* Definitions and Prohibitions. See 52.204-25 for a list of definitions and prohibitions as used in this provision.</p>
+            <p>Definitions and Prohibitions. See 52.204-25 for a list of definitions and prohibitions as used in this provision.</p>
 
-            <p> * The Offeror represents that:</p>
+            <p>The Offeror represents that:</p>
 
-            <p>
-                * It @if (@ViewBag.Checkbox52160_Yes != string.Empty && @ViewBag.Checkbox52160_Yes != null)
+            <p>It @if (@ViewBag.Checkbox52160_Yes != string.Empty && @ViewBag.Checkbox52160_Yes != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -889,15 +960,19 @@
                 }  WILL NOT PROVIDE covered telecommunications equipment or services to the Government in the performance of any contract, subcontract or other contractual instrument resulting from this solicitation; and
             </p>
 
-            <p>* After conducting a reasonable inquiry, for purposes of this representation, the Offeror represents that:</p>
+            <p> After conducting a reasonable inquiry, for purposes of this representation, the Offeror represents that:</p>
 
-            <p>It &#9744; DOES, &#9744; DOES NOT USE covered telecommunications equipment or services, or use any equipment, system, or service that uses covered telecommunications equipment or services.</p>
+            @*<p>It &#9744; DOES, &#9744; DOES NOT USE covered telecommunications equipment or services, or use any equipment, system, or service that uses covered telecommunications equipment or services.</p>*@
 
-            <p>If the Offeror has represented that it &ldquo;WILL PROVIDE&rdquo; or that it &ldquo;DOES USE&rdquo; covered telecommunications equipment or services, the Offeror shall provide the following information as part of the offer&mdash; * A description of all covered telecommunications equipment and services offered (include brand; model number, such as original equipment manufacturer (OEM) number, manufacturer part number, or wholesaler number; and item description, as applicable); * Explanation of the proposed use of covered telecommunications equipment and services and any factors relevant to determining if such use would be permissible under the prohibition paragraph of this provision; * For services, the entity providing the covered telecommunications services (include entity name, unique entity identifier, and Commercial and Government Entity (CAGE) code, if known); and * For equipment, the entity that produced the covered telecommunications equipment (include entity name, unique entity identifier, CAGE code, and whether the entity was the OEM or a distributor if known).</p>
+            <p>If the Offeror has represented that it &ldquo;WILL PROVIDE&rdquo; covered telecommunications equipment or services, the Offeror shall provide the following information as part of the offer&mdash; 
+                A description of all covered telecommunications equipment and services offered (include brand; model number, such as original equipment manufacturer (OEM) number, manufacturer part number, or wholesaler number; and item description, as applicable); 
+                Explanation of the proposed use of covered telecommunications equipment and services and any factors relevant to determining if such use would be permissible under the prohibition paragraph of this provision; 
+                For services, the entity providing the covered telecommunications services (include entity name, unique entity identifier, and Commercial and Government Entity (CAGE) code, if known); and 
+                For equipment, the entity that produced the covered telecommunications equipment (include entity name, unique entity identifier, CAGE code, and whether the entity was the OEM or a distributor if known).</p>
 
             <p>The following FAR and DFARS provisions are incorporated by reference. They do not require the completion of any data. Offeror&rsquo;s signature on page One asserts that Offeror complies with each of these provisions.</p>
 
-            <p> FAR 52.203-2: Certificate of Independent Price Determination</p>
+            <p>FAR 52.203-2: Certificate of Independent Price Determination</p>
 
             <p>FAR 52.203-11: Certification and Disclosure Regarding Payments to Influence Certain Federal Transactions</p>
 
