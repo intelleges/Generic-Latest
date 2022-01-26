@@ -15495,8 +15495,8 @@ Intelleges Team";
                         break;
                     case 52196:
                         ViewBag.Checkbox52196_86977 = item.response == 86977 ? _chacked : string.Empty;
-                        //ViewBag.Checkbox52196_86977 = item.response == 86979 ? _chacked : string.Empty;
-                        //ViewBag.Checkbox52196_86977 = item.response == 86980 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52196_86979 = item.response == 86979 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52196_86980 = item.response == 86980 ? _chacked : string.Empty;
                         var resultContractAwarded = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
 
                         //var selectedYearIds = item.comment.Split(",");
@@ -15689,6 +15689,10 @@ Intelleges Team";
                         ViewBag.Checkbox52257_No = item.response == _responseNO ? _chacked : string.Empty;
                         break;
                     case 52147:
+                        if (!string.IsNullOrEmpty(item.comment))
+                        {
+                            ViewBag.Checkbox52147_Yes = _chacked;
+                        }
                         ViewBag.Checkbox52147_Comment = item.comment;
                         break;
                     case 52148:
