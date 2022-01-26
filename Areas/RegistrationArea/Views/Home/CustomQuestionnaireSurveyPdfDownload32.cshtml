@@ -1,4 +1,4 @@
-﻿﻿@inherits System.Web.Mvc.WebViewPage
+﻿﻿﻿@inherits System.Web.Mvc.WebViewPage
 @using System.Web.Mvc.Html
 @using System.Web.Mvc
 @using Generic.Helpers
@@ -131,7 +131,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52187_No != string.Empty && @ViewBag.Checkbox52187_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Foreign Corporation or entity</b>(Foreign Corporations or entities must complete questions 2 through 10)
@@ -143,7 +142,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52239_No != string.Empty && @ViewBag.Checkbox52239_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Nonprofit Organization</b>
@@ -155,14 +153,20 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52243_No != string.Empty && @ViewBag.Checkbox52243_No != null)
             {
                 <span>&#x2610;</span>
-            }  <b>Large Business</b>
+            } <b>Large Business</b>
         </p>
 
         <p>
-            &#9744; <b> Small Business</b>
+            @if (@ViewBag.Checkbox52243_Yes != string.Empty && @ViewBag.Checkbox52243_Yes != null)
+            {
+                <span>&#x2610;</span>
+            }
+            else
+            {
+                <span>&#x2611;</span>
+            } <b> Small Business</b>
             <ul><li>To identify the appropriate small business size standard, visit gov/NAICS (https://eweb1.sba.gov/naics/dsp_naicssearch2.cfm) and enter Offeror&rsquo;s primary NAICS Code to determine small business status according to US Small Business Administration (SBA) guidelines found at www.sba.gov.</li></ul>
         </p>
         <p>
@@ -171,7 +175,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52244_No != string.Empty && @ViewBag.Checkbox52244_No != null)
             {
                 <span>&#x2610;</span>
             } <b> Small Disadvantaged Business (SDB).</b>
@@ -260,11 +263,14 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52246_No != string.Empty && @ViewBag.Checkbox52246_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Certified 8(a) Firm</b>
-        <p><ul><li> A firm which is unconditionally owned and controlled by one or more socially and economically disadvantaged individuals and eligible for the SBA&rsquo;s 8(a) Business Development Program (13 CFR 124-8(a)). </li></ul></p>
+        <p>
+            <ul>
+                <li> A firm which is unconditionally owned and controlled by one or more socially and economically disadvantaged individuals and eligible for the SBA&rsquo;s 8(a) Business Development Program (13 CFR 124-8(a)). </li>
+            </ul>
+        </p>
         </p>
 
         <p>
@@ -273,11 +279,14 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52247_No != string.Empty && @ViewBag.Checkbox52247_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Historically Underutilized Business Zone (HUBZone) Small Business </b>
-        <p><ul><li> A firm listed on the SBA&rsquo;s List of Qualified HUBZone Small Business Concerns by meeting the requirements of 13 CFR 126.200.</li></ul></p>
+        <p>
+            <ul>
+                <li> A firm listed on the SBA&rsquo;s List of Qualified HUBZone Small Business Concerns by meeting the requirements of 13 CFR 126.200.</li>
+            </ul>
+        </p>
         </p>
 
         <p>
@@ -286,7 +295,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52248_No != string.Empty && @ViewBag.Checkbox52248_No != null)
             {
                 <span>&#x2610;</span>
             } <b> Woman-Owned Small Business (WOSB)</b>
@@ -306,7 +314,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52249_No != string.Empty && @ViewBag.Checkbox52249_No != null)
             {
                 <span>&#x2610;</span>
             }<b> Economically Disadvantaged Woman-Owned Small Business (EDWOSB)</b>
@@ -326,7 +333,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52250_No != string.Empty && @ViewBag.Checkbox52250_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Veteran-Owned Small Business (VOSB)</b>
@@ -346,7 +352,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52251_No != string.Empty && @ViewBag.Checkbox52251_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Service-Disabled Veteran-Owned Small Business (SD-VOSB)</b>
@@ -366,7 +371,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52240_No != string.Empty && @ViewBag.Checkbox52240_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Historically Black College or University/Minority Institution (HBCU/MI)</b>
@@ -388,7 +392,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52252_No != string.Empty && @ViewBag.Checkbox52252_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Minority-Owned Business Enterprise (MBE)</b>
@@ -449,7 +452,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52254_No != string.Empty && @ViewBag.Checkbox52254_No != null)
             {
                 <span>&#x2610;</span>
             } <b>Woman-Owned Business (WBE)</b>
@@ -473,7 +475,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52146_No != string.Empty && @ViewBag.Checkbox52146_No != null)
             {
                 <span>&#x2610;</span>
             } The offeror is not owned or controlled by a common parent.
@@ -485,7 +486,6 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52146_No != string.Empty && @ViewBag.Checkbox52146_No != null)
             {
                 <span>&#x2610;</span>
             }  Name and TIN of common parent:
@@ -508,14 +508,14 @@
                 <span>&#x2611;</span>
             }
             else
-            //@if (@ViewBag.Checkbox52190_No != string.Empty && @ViewBag.Checkbox52190_No != null)
             {
                 <span>&#x2610;</span>
             } Offeror, its parent company, or subsidiaries, is/has been owned or controlled by a foreign entity.
         </p>
 
         <p>
-            The Offeror represents that it @if (@ViewBag.Checkbox52150_Yes != string.Empty && @ViewBag.Checkbox52150_Yes != null)
+            The Offeror represents that it
+            @if (@ViewBag.Checkbox52150_Yes != string.Empty && @ViewBag.Checkbox52150_Yes != null)
             {
                 <span>&#x2611;</span>
             }
@@ -568,8 +568,8 @@
 
         <p><i>Conflict Minerals</i> have been defined by the SEC as consisting of the following: Tantalum, extracted from Columbite-Tantalite, or Coltan; Tin, extracted from Cassiterite; Gold; and Tungsten, extracted from Wolframite, when these minerals have originated from a Covered Country, which includes: Angola, Burundi, Central African Republic, the Republic of the Congo, Democratic Republic of Congo, Rwanda, South Sudan, Tanzania, Uganda, and Zambia.</p>
 
-        <p>Are Conflict Minerals necessary to the functionality or production of any products which Offeror proposes to supply as part of its proposal/materials to Battelle?</p>
-
+        <p>
+            Are Conflict Minerals necessary to the functionality or production of any products which Offeror proposes to supply as part of its proposal/materials to Battelle?
         <p>
             @if (@ViewBag.Checkbox52156_Yes != string.Empty && @ViewBag.Checkbox52156_Yes != null)
             {
@@ -588,7 +588,7 @@
                 <span>&#x2610;</span>
             } <b>NO</b>
         </p>
-
+        </p>
 
         <!-- Section 5 -->
         <h3>
@@ -600,10 +600,10 @@
         <p>
             <ul>
                 <li>
-        <p>Start Date @(ViewBag.Q52158_Comment)</p>
+        <p>Start Date : @(ViewBag.Q52158_Comment)</p>
         </li>
         <li>
-            <p>End Date @(@ViewBag.Q52159_Comment)</p>
+            <p>End Date : @(ViewBag.Q52159_Comment)</p>
         </li>
         </ul>
         </p>
@@ -630,9 +630,8 @@
                         </ul>
                     </p>
                 </td>
-                <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
+            </tr>
+            <tr>
                 <td>
                     <p>
                         @if (@ViewBag.Checkbox52202_Yes != string.Empty && @ViewBag.Checkbox52202_Yes != null)
@@ -713,6 +712,16 @@
                 <span>&#x2610;</span>
             } Fixed Price, Contract Number:
         </p>
+        <p>
+            @if (@ViewBag.Checkbox52196_86979 != string.Empty && @ViewBag.Checkbox52196_86979 != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } Other, Contract Number:
+        </p>
         </p>
         <br />
         <p>
@@ -737,13 +746,13 @@
             If YES, answer below:
             <ul>
                 <li>
-        <p>Date of approval : .</p>
+        <p>Date of approval : @ViewBag.Checkbox52207_Comment .</p>
         </li>
         <li>
-            <p>Government office granting approval (if different than above): .</p>
+            <p>Government office granting approval (if different than above): @ViewBag.Checkbox52210_Comment .</p>
         </li>
         <li>
-            <p>Audit Report Number: .</p>
+            <p>Audit Report Number: @Html.Raw(ViewBag.Checkbox52211_Comment) .</p>
         </li>
         <li>
             <p>Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
@@ -774,13 +783,13 @@
             If YES, answer below:
             <ul>
                 <li>
-        <p>Date of approval</p>
+        <p>Date of approval : @ViewBag.Checkbox52212_Comment</p>
         </li>
         <li>
-            <p>Government office granting approval (if different than above) :</p>
+            <p>Government office granting approval (if different than above) : @ViewBag.Checkbox52214_Comment</p>
         </li>
         <li>
-            <p>Audit Report Number:</p>
+            <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52215_Comment) .</p>
         </li>
         <li>
             <p>Upon Battelle&rsquo;s request, Offeror shall provide a copy of such approval letter.</p>
@@ -811,13 +820,13 @@
             If YES, answer below:
             <ul>
                 <li>
-        <p>Date of approval: .</p>
+        <p>Date of approval: @ViewBag.Checkbox52216_Comment .</p>
         </li>
         <li>
-            <p>Government office granting approval (if different than above): .</p>
+            <p>Government office granting approval (if different than above): @ViewBag.Checkbox52218_Comment .</p>
         </li>
         <li>
-            <p>Audit Report Number: .</p>
+            <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52219_Comment) .</p>
         </li>
         <li>
             <p>Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
@@ -907,13 +916,13 @@
             If YES, answer below:
             <ul>
                 <li>
-        <p>Date of approval:</p>
+        <p>Date of approval: @ViewBag.Checkbox52223_Comment </p>
         </li>
         <li>
-            <p>Government office granting approval (if different than above):.</p>
+            <p>Government office granting approval (if different than above): @ViewBag.Checkbox52225_Comment .</p>
         </li>
         <li>
-            <p>Audit Report Number:</p>
+            <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52226_Comment) .</p>
         </li>
         <li>
             <p>Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
@@ -922,23 +931,41 @@
         </p>
         </p>
         <br />
-        <p>(10) If Offeror does not have an approved CAS Disclosure Statement or approved accounting system, the Offeror&rsquo;s cost accounting system is:
-        <p>&#9744; Job order type</p>
-
-        <p>&#9744; Process type</p>
-
         <p>
-            &#9744; Other, describe (e.g. QuickBooks, Peachtree)
-        </p>
+            (10) If Offeror does not have an approved CAS Disclosure Statement or approved accounting system, the Offeror&rsquo;s cost accounting system is:
+            <ul>
+                <li>Job order type</li>
+                <li>Process type</li>
+                <li>Other, describe (e.g. QuickBooks, Peachtree)</li>
+            </ul>
+        <p> Answer :  @Html.Raw(ViewBag.Checkbox52208_Comment) </p>
         </p>
         <br />
-        <p>(11) Have the Offeror&rsquo;s provisional indirect billing/bidding rates been evaluated and approved by a government agency? &#9744; <b>YES</b> &#9744; <b>NO</b>
+        <p>
+            (11) Have the Offeror&rsquo;s provisional indirect billing/bidding rates been evaluated and approved by a government agency?
+            @if (@ViewBag.Checkbox52227_Yes != string.Empty && @ViewBag.Checkbox52227_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>YES</b>
+            @if (@ViewBag.Checkbox52227_No != string.Empty && @ViewBag.Checkbox52227_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            }<b>NO</b>
         <p>
             If YES, answer below:
             <ul>
                 <li>
-        <p>Period covering:  To:</p></li>
-        <li><p>Agency granting approval:</p></li>
+        <p>Period covering: @ViewBag.Checkbox52230_Comment To: @ViewBag.Checkbox52231_Comment </p>
+        </li>
+        <li><p>Agency granting approval: @Html.Raw(ViewBag.Checkbox52229_Comment) </p></li>
         </ul>
         </p>
         </p>
@@ -965,19 +992,16 @@
             If YES, answer below:
             <ul>
                 <li>
-                    Date of the last Incurred Cost Submission:  @if (@ViewBag.Input52233 != string.Empty && @ViewBag.Input52233 != null)
-                    {
-                        @ViewBag.Input52233
-                    }
+                    Date of the last Incurred Cost Submission:  @ViewBag.Input52233
                 </li>
                 <li>
-                    Fiscal Period covered by the last Incurred Cost Submission: .
+                    Fiscal Period covered by the last Incurred Cost Submission: @ViewBag.Input52233 - @ViewBag.Input52234 .
                 </li>
                 <li>
-                    Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? .
+                    Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? @ViewBag.Q52235_response .
                 </li>
                 <li>
-                    Offeror has received final indirect rates for which fiscal years?
+                    Offeror has received final indirect rates for which fiscal years? @ViewBag.Q52236_response
                 </li>
                 <li>
                     Has Offeror adjusted its billings to reflect changes for Year-end, Interim and Final Rates received?
@@ -1010,6 +1034,7 @@
                 </li>
                 <li>
                     Offeror has not submitted an annual incurred cost submission for this fiscal year or one or more prior years. Please briefly explain why:
+                    @ViewBag.Input52235
                 </li>
             </ul>
         </p>
@@ -1140,7 +1165,7 @@
         </p>
 
         <p>
-            @if (@ViewBag.Checkbox52168_Yes != string.Empty && @ViewBag.Checkbox52168_Yes != null)
+            @if (@ViewBag.Checkbox52166_Yes != string.Empty && @ViewBag.Checkbox52166_Yes != null)
             {
                 <span>&#x2611;</span>
             }
@@ -1148,7 +1173,7 @@
             {
                 <span>&#x2610;</span>
             } <b>IS,</b>
-            @if (@ViewBag.Checkbox52168_No != string.Empty && @ViewBag.Checkbox52168_No != null)
+            @if (@ViewBag.Checkbox52166_No != string.Empty && @ViewBag.Checkbox52166_No != null)
             {
                 <span>&#x2611;</span>
             }
@@ -1167,61 +1192,198 @@
 
         <p>The Offeror represents that:</p>
 
-        <p>It &#9744; <b> HAS,</b> &#9744; <b>HAS NOT</b> participated in a previous contract or subcontract subject to the Equal Opportunity Clause of this solicitation;</p>
+        <p>
+            It @if (@ViewBag.Checkbox52168_Yes != string.Empty && @ViewBag.Checkbox52168_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b> HAS,</b>
+            @if (@ViewBag.Checkbox52168_No != string.Empty && @ViewBag.Checkbox52168_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b> HAS NOT</b> participated in a previous contract or subcontract subject to the Equal Opportunity Clause of this solicitation;
+        </p>
 
-        <p>It &#9744; <b> HAS,</b> &#9744; <b>HAS NOT</b> filed all required compliance reports; and</p>
+        <p>
+            It
+            @if (@ViewBag.Checkbox52170_Yes != string.Empty && @ViewBag.Checkbox52170_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b> HAS,</b>
+            @if (@ViewBag.Checkbox52170_No != string.Empty && @ViewBag.Checkbox52170_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            }<b>HAS NOT</b> filed all required compliance reports; and representations indicating submission of required compliance reports, signed by proposed subcontractors, will be obtained before subcontract awards.
+        </p>
 
-        <p>Representations indicating submission of required compliance reports, signed by proposed subcontractors, will be obtained before subcontract awards.</p>
-
-        <p>&#9744; It is exempt (less than 50 employees). </p>
+        <p>
+            @if (@ViewBag.Checkbox52169_Yes != string.Empty && @ViewBag.Checkbox52169_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } It is exempt (less than 50 employees).
+        </p>
 
         <!-- Section 8 -->
         <h3> <b>8. Affirmative Action Compliance (FAR 52.222-25)</b></h3>
 
         <p>The Offeror represents that:</p>
 
-        <p>&#9744; It <b>HAS </b>developed and has on file, &#9744; <b>HAS NOT</b> developed and does not have on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2);</p>
+        <p>
+            It
+            @if (@ViewBag.Checkbox52171_Yes != string.Empty && @ViewBag.Checkbox52171_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>HAS </b> developed and has on file,
+            @if (@ViewBag.Checkbox52171_No != string.Empty && @ViewBag.Checkbox52171_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            }<b> HAS NOT</b> developed and does not have on file, at each establishment, affirmative action programs required by the rules and regulations of the Secretary of Labor (41 CFR 60-1 and 60-2);
+        </p>
 
-        <p>&#9744; It has not previously had contracts subject to the written affirmative action programs requirement of the rules and regulations of the Secretary of Labor; or</p>
-
-        <p>&#9744; It is exempt (less than 50 employees and/or less than $50,000 in Government contracts during the prior 12-month period). </p>
+        <p>
+            @if (@ViewBag.Checkbox52172_Yes != string.Empty && @ViewBag.Checkbox52172_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } It has not previously had contracts subject to the written affirmative action programs requirement of the rules and regulations of the Secretary of Labor; or
+            it is exempt (less than 50 employees and/or less than $50,000 in Government contracts during the prior 12-month period).
+        </p>
 
         <!-- section 9 -->
         <h3><b> 9. Reporting Executive Compensation and First-Tier Subcontract Awards (FAR 52.204-10)</b></h3>
 
-        <p>The Offeror represents that:</p>
+        <p>The Offeror represents that:
 
         <p>If a Subcontractor Purchase Order award to Offeror has an expected value of $30,000 or more in support of a prime contract, Battelle must, subject to certain exceptions, gather and publicly report information regarding the award in accordance with FAR 52.204-10.</p>
 
         <p>Has Offeror had gross income under $300,000 in the previous tax year?
-        <p>&#9744; <b>YES</b> &#9744; <b>NO</b></p>
+        <p>
+            @if (@ViewBag.Checkbox52173_Yes != string.Empty && @ViewBag.Checkbox52173_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>YES</b>
+            @if (@ViewBag.Checkbox52173_No != string.Empty && @ViewBag.Checkbox52173_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>NO</b>
+        </p>
         <p>
             If YES, Offeror is not required to complete Section 10. If NO, Offeror must proceed to Section 10.
+        </p>
         </p>
         </p>
 
         <!-- Section 10 -->
         <h3><b>10. Total Compensation of Offeror&rsquo;s Executives </b> </h3>
-        <p>(a) Definitions.See 52.204-10 for a list of definitions as used in this provision.</p>
+        <p> (a) Definitions.See 52.204-10 for a list of definitions as used in this provision.</p>
 
         <p>
             (b) In Offeror's preceding fiscal year, did Offeror receive 80 percent or more of its annual gross revenues from Federal
             contracts (and subcontracts), loans, grants (and subgrants), cooperative agreements, and other forms of Federal financial assistance?
-        <p>&#9744;<b> YES</b> &#9744; <b>NO</b></p>
+        <p>
+            @if (@ViewBag.Checkbox52174_Yes != string.Empty && @ViewBag.Checkbox52174_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>YES</b>
+            @if (@ViewBag.Checkbox52174_No != string.Empty && @ViewBag.Checkbox52174_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>NO</b>
+        </p>
         <p>If YES, proceed to (c) below. If NO, Offeror is not required to complete the remainder of this Section 10.</p>
         </p>
 
         <p>
             (c) In Offeror's preceding fiscal year, did Offeror receive $25,000,000 or more in annual gross revenues from Federal
             contracts (and subcontracts), loans, grants (and subgrants), cooperative agreements, and other forms of Federal financial assistance?
-        <p>&#9744; <b>YES </b>&#9744;<b> NO</b></p>
+        <p>
+            @if (@ViewBag.Checkbox52175_Yes != string.Empty && @ViewBag.Checkbox52175_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>YES</b>
+            @if (@ViewBag.Checkbox52175_No != string.Empty && @ViewBag.Checkbox52175_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>NO</b>
+        </p>
 
         <p>
             If YES, proceed to (d) below. If NO, Offeror is not required to complete the remainder of this Section 10.
         </p>
         </p>
         <p>(d) Does the public have access to information about the compensation of the Executives through periodic reports filed under section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or section 6104 of the Internal Revenue Code of 1986? (To determine if the public has access to the compensation information, see the U.S. Securities and Exchange Commission Summary Compensation Table at http://www.sec.gov/answers/execomp.htm.)
-        <p>&#9744; YES &#9744; NO</p>
+        <p>
+            @if (@ViewBag.Checkbox52176_Yes != string.Empty && @ViewBag.Checkbox52176_Yes != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>YES</b>
+            @if (@ViewBag.Checkbox52176_No != string.Empty && @ViewBag.Checkbox52176_No != null)
+            {
+                <span>&#x2611;</span>
+            }
+            else
+            {
+                <span>&#x2610;</span>
+            } <b>NO</b>
+        </p>
         <p>
             If Yes, Offeror is not required to complete the remainder of this Section 10. If No, proceed to (e) below.
         </p>
@@ -1240,42 +1402,42 @@
                 </tr>
                 <tr>
                     <td>
-                        1. _______________________________________________
+                        1. <u> @ViewBag.Checkbox52177_Comment </u>
                     </td>
                     <td>
-                        _____________________________________________
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        2. _______________________________________________
-                    </td>
-                    <td>
-                        _____________________________________________
+                        <u> @ViewBag.Checkbox52178_Comment </u>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        3. _______________________________________________
+                        2. <u> @ViewBag.Checkbox52179_Comment </u>
                     </td>
                     <td>
-                        _____________________________________________
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        4. _______________________________________________
-                    </td>
-                    <td>
-                        _____________________________________________
+                        <u> @ViewBag.Checkbox52180_Comment </u>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        5. _______________________________________________
+                        3. <u> @ViewBag.Checkbox52181_Comment </u>
                     </td>
                     <td>
-                        _____________________________________________
+                        <u> @ViewBag.Checkbox52182_Comment </u>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        4. <u> @ViewBag.Checkbox52183_Comment </u>
+                    </td>
+                    <td>
+                        <u> @ViewBag.Checkbox52184_Comment </u>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        5. <u> @ViewBag.Checkbox52185_Comment </u>
+                    </td>
+                    <td>
+                        <u> @ViewBag.Checkbox52186_Comment </u>
                     </td>
                 </tr>
             </table>
@@ -1378,7 +1540,7 @@
 
                     <p><b>DFARS 252.204-7020:</b> NIST SP 800-171 DoD Assessment Requirements</p>
 
-                    <p><b>DFARS 252.204-7021: </b>Cybersecurity Maturity Model Certification Level Requirement</p>
+                    <p><b>DFARS 252.204-7021: </b>Cybersecurity Maturity Model Certification Requirement</p>
 
                     <p><b>DFARS 252.209-7002: </b>Disclosure of Ownership or Control by a Foreign Government</p>
 

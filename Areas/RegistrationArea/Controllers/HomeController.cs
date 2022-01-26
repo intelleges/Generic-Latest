@@ -15495,6 +15495,7 @@ Intelleges Team";
                         break;
                     case 52196:
                         ViewBag.Checkbox52196_86977 = item.response == 86977 ? _chacked : string.Empty;
+                        ViewBag.Checkbox52196_86978 = item.response == 86978 ? _chacked : string.Empty;
                         ViewBag.Checkbox52196_86979 = item.response == 86979 ? _chacked : string.Empty;
                         ViewBag.Checkbox52196_86980 = item.response == 86980 ? _chacked : string.Empty;
                         var resultContractAwarded = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
@@ -15515,6 +15516,7 @@ Intelleges Team";
                     case 52207:
                         ViewBag.Checkbox52207_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52207_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox52207_Comment = item.comment;
                         break;
                     case 52209:
                         ViewBag.Checkbox52209_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -15523,6 +15525,7 @@ Intelleges Team";
                     case 52212:
                         ViewBag.Checkbox52212_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52212_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox52212_Comment = item.comment;
                         break;
                     case 52213:
                         ViewBag.Checkbox52213_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -15531,6 +15534,7 @@ Intelleges Team";
                     case 52216:
                         ViewBag.Checkbox52216_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52216_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox52216_Comment = item.comment;
                         break;
                     case 52217:
                         ViewBag.Checkbox52217_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -15552,6 +15556,7 @@ Intelleges Team";
                     case 52223:
                         ViewBag.Checkbox52223_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52223_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox52223_Comment = item.comment;
                         break;
                     case 52224:
                         ViewBag.Checkbox52224_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -15568,10 +15573,12 @@ Intelleges Team";
                     case 52230:
                         ViewBag.Checkbox52230_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52230_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox52230_Comment = item.comment;
                         break;
                     case 52231:
                         ViewBag.Checkbox52231_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52231_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Checkbox52231_Comment = item.comment;
                         break;
                     case 52232:
                         ViewBag.Checkbox52232_Yes = item.response == _responseYES ? _chacked : string.Empty;
@@ -15585,13 +15592,14 @@ Intelleges Team";
                     case 52234:
                         ViewBag.Checkbox52234_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52234_No = item.response == _responseNO ? _chacked : string.Empty;
+                        ViewBag.Input52234 = item.comment;
                         break;
                     case 52235:
                         var resultFiscalYears = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
 
                         var reasondIds_52235 = item.comment.Split(",");
                         var selectedReason_52235 = resultFiscalYears.Where(w => reasondIds_52235.Contains(w.Last()) == true).Select(s => s[0]).ToList();
-                        ViewBag.Q52235_response = selectedReason_52235;
+                        ViewBag.Q52235_response = string.Join<string>(", " , selectedReason_52235);
 
                         break;
                     case 52236:
@@ -15599,7 +15607,7 @@ Intelleges Team";
 
                         var reasondIds_52236 = item.comment.Split(",");
                         var selectedReason_52236 = resultFiscalYears_52236.Where(w => reasondIds_52236.Contains(w.Last()) == true).Select(s => s[0]).ToList();
-                        ViewBag.Q52236_response = selectedReason_52236;
+                        ViewBag.Q52236_response = string.Join<string>(", ", selectedReason_52236);
 
                         break;
                     case 52237:
