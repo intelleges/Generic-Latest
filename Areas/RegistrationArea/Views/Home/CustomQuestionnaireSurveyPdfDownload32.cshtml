@@ -116,7 +116,7 @@
                     <p>Secondary NAICS (s) code* :</p>
                 </li>
                 <li>
-                    <p>Date Range : @(ViewBag.Q52158_Comment + " - " + @ViewBag.Q52159_Comment) </p>
+                    <p>Date Range : @(ViewBag.Q52158_Comment + @ViewBag.Q52159_Comment) </p>
                 </li>
             </ul>
             <p>*Reference http://www.census.gov/naics/ for NAICS codes. </p>
@@ -746,13 +746,13 @@
                 If YES, answer below:
                 <ul>
                     <li>
-            <p>Date of approval : @ViewBag.Checkbox52207_Comment .</p>
+            <p>Date of approval : @ViewBag.Checkbox52207_Comment </p>
             </li>
             <li>
                 <p>Government office granting approval (if different than above): @ViewBag.Checkbox52210_Comment .</p>
             </li>
             <li>
-                <p>Audit Report Number: @Html.Raw(ViewBag.Checkbox52211_Comment) .</p>
+                <p>Audit Report Number: @Html.Raw(ViewBag.Checkbox52211_Comment) </p>
             </li>
             <li>
                 <p>Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
@@ -789,7 +789,7 @@
                 <p>Government office granting approval (if different than above) : @ViewBag.Checkbox52214_Comment</p>
             </li>
             <li>
-                <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52215_Comment) .</p>
+                <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52215_Comment) </p>
             </li>
             <li>
                 <p>Upon Battelle&rsquo;s request, Offeror shall provide a copy of such approval letter.</p>
@@ -820,13 +820,13 @@
                 If YES, answer below:
                 <ul>
                     <li>
-            <p>Date of approval: @ViewBag.Checkbox52216_Comment .</p>
+            <p>Date of approval: @ViewBag.Checkbox52216_Comment </p>
             </li>
             <li>
-                <p>Government office granting approval (if different than above): @ViewBag.Checkbox52218_Comment .</p>
+                <p>Government office granting approval (if different than above): @ViewBag.Checkbox52218_Comment </p>
             </li>
             <li>
-                <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52219_Comment) .</p>
+                <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52219_Comment) </p>
             </li>
             <li>
                 <p>Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
@@ -919,10 +919,10 @@
             <p>Date of approval: @ViewBag.Checkbox52223_Comment </p>
             </li>
             <li>
-                <p>Government office granting approval (if different than above): @ViewBag.Checkbox52225_Comment .</p>
+                <p>Government office granting approval (if different than above): @Html.Raw(ViewBag.Checkbox52225_Comment)</p>
             </li>
             <li>
-                <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52226_Comment) .</p>
+                <p>Audit Report Number:  @Html.Raw(ViewBag.Checkbox52226_Comment) </p>
             </li>
             <li>
                 <p>Upon Battelle&rsquo;s request, the Offeror shall provide a copy of such approval letter.</p>
@@ -943,6 +943,7 @@
             <br />
             <p>
                 (11) Have the Offeror&rsquo;s provisional indirect billing/bidding rates been evaluated and approved by a government agency?
+            <p>
                 @if (@ViewBag.Checkbox52227_Yes != string.Empty && @ViewBag.Checkbox52227_Yes != null)
                 {
                     <span>&#x2611;</span>
@@ -959,6 +960,7 @@
                 {
                     <span>&#x2610;</span>
                 }<b>NO</b>
+            </p>
             <p>
                 If YES, answer below:
                 <ul>
@@ -995,10 +997,10 @@
                         Date of the last Incurred Cost Submission:  @ViewBag.Input52233
                     </li>
                     <li>
-                        Fiscal Period covered by the last Incurred Cost Submission: @ViewBag.Input52233 - @ViewBag.Input52234 .
+                        Fiscal Period covered by the last Incurred Cost Submission: @ViewBag.Input52233  @ViewBag.Input52234
                     </li>
                     <li>
-                        Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? @ViewBag.Q52235_response .
+                        Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? @ViewBag.Q52235_response 
                     </li>
                     <li>
                         Offeror has received final indirect rates for which fiscal years? @ViewBag.Q52236_response

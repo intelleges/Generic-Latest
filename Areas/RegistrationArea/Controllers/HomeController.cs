@@ -15386,6 +15386,10 @@ Intelleges Team";
                             if (DateTime.TryParse(item.comment, out dateFrom))
                             {
                                 ViewBag.Q52159_Comment = dateFrom.ToString("MMMM dd, yyyy");
+                                if (ViewBag.Q52159_Comment != null || ViewBag.Q52159_Comment != "")
+                                {
+                                    ViewBag.Q52159_Comment = " - " + ViewBag.Q52159_Comment;
+                                }
                             }
                         }
                         break;
@@ -15592,7 +15596,7 @@ Intelleges Team";
                     case 52234:
                         ViewBag.Checkbox52234_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox52234_No = item.response == _responseNO ? _chacked : string.Empty;
-                        ViewBag.Input52234 = item.comment;
+                        ViewBag.Input52234 = (item.comment != null && item.comment != "") ? (" - " + item.comment) : "";
                         break;
                     case 52235:
                         var resultFiscalYears = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
