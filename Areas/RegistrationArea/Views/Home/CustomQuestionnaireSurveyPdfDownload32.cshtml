@@ -554,7 +554,85 @@
             </p>
 
             <!-- Section 4 -->
-            <h3><b>4. Presence of Conflict Minerals In Products Supplied By Offeror</b></h3>
+            <h3>
+                <b>
+                    4. Requirements pertaining to Cybersecurity Maturity Model Certification (CMMC) are either anticipated or are now in place via a contract clause or RFP requirement. As per DFARS 252.204-7021, suppliers who are required to receive, generate, or store Controlled Unclassified Information (CUI) will need to achieve a CMMC Level 2 or higher certification before issuance of a PO. Does @(ViewBag.partner.name) receive, generate, or store Controlled Unclassified Information (CUI)?
+                </b>
+            </h3>
+            <p>
+                @if (@ViewBag.Checkbox52151_Yes != string.Empty && @ViewBag.Checkbox52151_Yes != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } <b>YES</b>, or @if (@ViewBag.Checkbox52151_No != string.Empty && @ViewBag.Checkbox52151_No != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } <b>NO</b>
+            </p>
+            <p>a. Has @(ViewBag.partner.name) been certified by an accredited 3rd party CMMC assessor(AA)
+            <p>
+                @if (@ViewBag.Checkbox52152_Yes != string.Empty && @ViewBag.Checkbox52152_Yes != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } <b>YES</b>, or @if (@ViewBag.Checkbox52152_No != string.Empty && @ViewBag.Checkbox52152_No != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } <b>NO</b>
+            </p>
+            </p>
+            <p>b. @(ViewBag.partner.name)  is CMMC certified at the following level:
+            <p>@ViewBag.Checkbox52153_85987</p>
+            <p>@ViewBag.Checkbox52153_85988</p>
+            <p>@ViewBag.Checkbox52153_85989</p>
+            <p>@ViewBag.Checkbox52153_85990</p>
+            <p>@ViewBag.Checkbox52153_85991</p>
+            <p>@ViewBag.Checkbox52153_85992</p>
+            </p>
+            <p>c. @(ViewBag.partner.name)  has not been certified but has begun the certification process, or intends to seek certification, by an accredited 3rd party CMMC assessor(AB);
+            <p>
+                @if (@ViewBag.Checkbox52154_Yes != string.Empty && @ViewBag.Checkbox52154_Yes != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } <b>YES</b>, or @if (@ViewBag.Checkbox52154_No != string.Empty && @ViewBag.Checkbox52154_No != null)
+                {
+                    <span>&#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } <b>NO</b>
+            </p>
+            </p>
+            <p>d. @(ViewBag.partner.name)  intends to be CMMC certified at the following level:
+            <p>@ViewBag.Checkbox52155_85993</p>
+            <p>@ViewBag.Checkbox52155_85994</p>
+            <p>@ViewBag.Checkbox52155_85995</p>
+            <p>@ViewBag.Checkbox52155_85996</p>
+            <p>@ViewBag.Checkbox52155_85997</p>
+            <p>@ViewBag.Checkbox52155_85998</p>
+            </p>
+
+            <!-- Section 5 -->
+            <h3><b>5. Presence of Conflict Minerals In Products Supplied By Offeror</b></h3>
             <p>
                 @if (@ViewBag.Checkbox52157_Yes != string.Empty && @ViewBag.Checkbox52157_Yes != null)
                 {
@@ -590,9 +668,9 @@
             </p>
             </p>
 
-            <!-- Section 5 -->
+            <!-- Section 6 -->
             <h3>
-                <b>5. Accounting and Business System Adequacy Representation</b>
+                <b>6. Accounting and Business System Adequacy Representation</b>
             </h3>
 
             <p>For Battelle to determine the adequacy of the Offeror&rsquo;s accounting and business systems to meet the cost accumulation and reporting requirements of Government contracts, the Offeror shall provide the following information: </p>
@@ -1000,7 +1078,7 @@
                         Fiscal Period covered by the last Incurred Cost Submission: @ViewBag.Input52233  @ViewBag.Input52234
                     </li>
                     <li>
-                        Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? @ViewBag.Q52235_response 
+                        Incurred Cost Submissions have been audited with an Audit Report issued through what fiscal year? @ViewBag.Q52235_response
                     </li>
                     <li>
                         Offeror has received final indirect rates for which fiscal years? @ViewBag.Q52236_response
@@ -1043,10 +1121,10 @@
             </p>
 
 
-            <!-- Section 6 -->
+            <!-- Section 7 -->
             <h3>
                 <b>
-                    6. Certification Regarding Responsibility Matters, Tax Liability and Felony Conviction (FAR 52.209-5, 52.209-11)
+                    7. Certification Regarding Responsibility Matters, Tax Liability and Felony Conviction (FAR 52.209-5, 52.209-11)
                 </b>
             </h3>
 
@@ -1185,10 +1263,10 @@
                 } <b>IS NOT</b> a corporation that was convicted of a felony criminal violation under a Federal law within the preceding 24 months.
             </p>
 
-            <!-- Section 7 -->
+            <!-- Section 8 -->
             <h3>
                 <b>
-                    7. Previous Contracts and Compliance Reports (FAR 52.222-22)
+                    8. Previous Contracts and Compliance Reports (FAR 52.222-22)
                 </b>
             </h3>
 
@@ -1244,8 +1322,8 @@
                 } It is exempt (less than 50 employees).
             </p>
 
-            <!-- Section 8 -->
-            <h3> <b>8. Affirmative Action Compliance (FAR 52.222-25)</b></h3>
+            <!-- Section 9 -->
+            <h3> <b>9. Affirmative Action Compliance (FAR 52.222-25)</b></h3>
 
             <p>The Offeror represents that:</p>
 
@@ -1281,8 +1359,8 @@
                 it is exempt (less than 50 employees and/or less than $50,000 in Government contracts during the prior 12-month period).
             </p>
 
-            <!-- section 9 -->
-            <h3><b> 9. Reporting Executive Compensation and First-Tier Subcontract Awards (FAR 52.204-10)</b></h3>
+            <!-- section 10 -->
+            <h3><b> 10. Reporting Executive Compensation and First-Tier Subcontract Awards (FAR 52.204-10)</b></h3>
 
             <p>The Offeror represents that:
 
@@ -1313,8 +1391,8 @@
             </p>
             </p>
 
-            <!-- Section 10 -->
-            <h3><b>10. Total Compensation of Offeror&rsquo;s Executives </b> </h3>
+            <!-- Section 11 -->
+            <h3><b>11. Total Compensation of Offeror&rsquo;s Executives </b> </h3>
             <p> (a) Definitions.See 52.204-10 for a list of definitions as used in this provision.</p>
 
             <p>
@@ -1448,8 +1526,8 @@
             <p>(f) &#9744; Offeror hereby acknowledges and agrees that Offeror shall, at the time of award that is subject to FAR 52.204-10, provide Battelle the Offeror's applicable and current information which Battelle is required by law to report to the US Government and which information will be made available to the public.</p>
 
 
-            <!-- Section 11 -->
-            <h3><b>11. Representation Regarding Certain Telecommunications and Video Surveillance Services or Equipment (FAR 52.204-24)</b></h3>
+            <!-- Section 12 -->
+            <h3><b>12. Representation Regarding Certain Telecommunications and Video Surveillance Services or Equipment (FAR 52.204-24)</b></h3>
             <ul>
                 <li><p>Definitions and Prohibitions. See 52.204-25 for a list of definitions and prohibitions as used in this provision.</p></li>
                 <li>
