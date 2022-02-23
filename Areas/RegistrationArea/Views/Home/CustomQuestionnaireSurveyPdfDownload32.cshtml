@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FORM-ICS Certificate Form 2020</title>
+    <title>Reps and Certs 2022</title>
     <style type="text/css">
         body {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -167,7 +167,7 @@
                 {
                     <span>&#x2611;</span>
                 } <b> Small Business</b>
-                <ul><li>To identify the appropriate small business size standard, visit gov/NAICS (https://eweb1.sba.gov/naics/dsp_naicssearch2.cfm) and enter Offeror&rsquo;s primary NAICS Code to determine small business status according to US Small Business Administration (SBA) guidelines found at www.sba.gov.</li></ul>
+                <ul><li>To identify the appropriate small business size standard, visit (https://eweb1.sba.gov/naics/dsp_naicssearch2.cfm) and enter Offeror&rsquo;s primary NAICS Code to determine small business status according to US Small Business Administration (SBA) guidelines found at www.sba.gov.</li></ul>
             </p>
             <p>
                 @if (@ViewBag.Checkbox52244_Yes != string.Empty && @ViewBag.Checkbox52244_Yes != null)
@@ -556,9 +556,11 @@
             <!-- Section 4 -->
             <h3>
                 <b>
-                    4. Requirements pertaining to Cybersecurity Maturity Model Certification (CMMC) are either anticipated or are now in place via a contract clause or RFP requirement. As per DFARS 252.204-7021, suppliers who are required to receive, generate, or store Controlled Unclassified Information (CUI) will need to achieve a CMMC Level 2 or higher certification before issuance of a PO. Does @(ViewBag.partner.name) receive, generate, or store Controlled Unclassified Information (CUI)?
+                    4. Requirements pertaining to Cybersecurity Maturity Model Certification (CMMC) are either anticipated or are now in place via a contract clause or RFP requirement. As per DFARS 252.204-7021, suppliers who are required to receive, generate, or store Controlled Unclassified Information (CUI) will need to achieve a CMMC Level 2 or higher certification before issuance of a PO.
                 </b>
             </h3>
+            <p>
+                a. Does @(ViewBag.partner.name) receive, generate, or store Controlled Unclassified Information (CUI)?
             <p>
                 @if (@ViewBag.Checkbox52151_Yes != string.Empty && @ViewBag.Checkbox52151_Yes != null)
                 {
@@ -576,7 +578,8 @@
                     <span>&#x2610;</span>
                 } <b>NO</b>
             </p>
-            <p>a. Has @(ViewBag.partner.name) been certified by an accredited 3rd party CMMC assessor(AA)
+            </p>
+            <p>b. Has @(ViewBag.partner.name) been certified by an accredited 3rd party CMMC assessor
             <p>
                 @if (@ViewBag.Checkbox52152_Yes != string.Empty && @ViewBag.Checkbox52152_Yes != null)
                 {
@@ -595,15 +598,70 @@
                 } <b>NO</b>
             </p>
             </p>
-            <p>b. @(ViewBag.partner.name)  is CMMC certified at the following level:
-            <p>@ViewBag.Checkbox52153_85987</p>
-            <p>@ViewBag.Checkbox52153_85988</p>
-            <p>@ViewBag.Checkbox52153_85989</p>
-            <p>@ViewBag.Checkbox52153_85990</p>
-            <p>@ViewBag.Checkbox52153_85991</p>
-            <p>@ViewBag.Checkbox52153_85992</p>
+            <p>c. @(ViewBag.partner.name)  is CMMC certified at the following level:
+                    <p>
+                        @if (@ViewBag.Checkbox52153_85987 != string.Empty && @ViewBag.Checkbox52153_85987 != null)
+                        {
+                            <span> &#x2611;</span>
+                        }
+                        else
+                        {
+                            <span>&#x2610;</span>
+                        } Level 1
+                    </p>
+
+                    <p>
+                        @if (@ViewBag.Checkbox52153_85988 != string.Empty && @ViewBag.Checkbox52153_85988 != null)
+                        {
+                            <span> &#x2611;</span>
+                        }
+                        else
+                        {
+                            <span>&#x2610;</span>
+                        } Level 2
+                    </p>
+                    <p>
+                        @if (@ViewBag.Checkbox52153_85989 != string.Empty && @ViewBag.Checkbox52153_85989 != null)
+                        {
+                            <span> &#x2611;</span>
+                        }
+                        else
+                        {
+                            <span>&#x2610;</span>
+                        } Level 3
+                    </p>
+                    <p>
+                        @if (@ViewBag.Checkbox52153_85990 != string.Empty && @ViewBag.Checkbox52153_85990 != null)
+                        {
+                            <span> &#x2611;</span>
+                        }
+                        else
+                        {
+                            <span>&#x2610;</span>
+                        } Level 4
+                    </p>
+                    <p>
+                        @if (@ViewBag.Checkbox52153_85991 != string.Empty && @ViewBag.Checkbox52153_85991 != null)
+                        {
+                            <span> &#x2611;</span>
+                        }
+                        else
+                        {
+                            <span>&#x2610;</span>
+                        } Level 5
+                    </p>
+                    <p>
+                        @if (@ViewBag.Checkbox52153_85992 != string.Empty && @ViewBag.Checkbox52153_85992 != null)
+                        {
+                            <span> &#x2611;</span>
+                        }
+                        else
+                        {
+                            <span>&#x2610;</span>
+                        } Not Sure
+                    </p>
             </p>
-            <p>c. @(ViewBag.partner.name)  has not been certified but has begun the certification process, or intends to seek certification, by an accredited 3rd party CMMC assessor(AB);
+            <p>d. @(ViewBag.partner.name)  has not been certified but has begun the certification process, or intends to seek certification, by an accredited 3rd party CMMC assessor
             <p>
                 @if (@ViewBag.Checkbox52154_Yes != string.Empty && @ViewBag.Checkbox52154_Yes != null)
                 {
@@ -622,13 +680,70 @@
                 } <b>NO</b>
             </p>
             </p>
-            <p>d. @(ViewBag.partner.name)  intends to be CMMC certified at the following level:
-            <p>@ViewBag.Checkbox52155_85993</p>
-            <p>@ViewBag.Checkbox52155_85994</p>
-            <p>@ViewBag.Checkbox52155_85995</p>
-            <p>@ViewBag.Checkbox52155_85996</p>
-            <p>@ViewBag.Checkbox52155_85997</p>
-            <p>@ViewBag.Checkbox52155_85998</p>
+            <p>
+                e. @(ViewBag.partner.name)  intends to be CMMC certified at the following level:
+            <p>
+                @if (@ViewBag.Checkbox52155_85993 != string.Empty && @ViewBag.Checkbox52155_85993 != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Level 1
+            </p>
+
+            <p>
+                @if (@ViewBag.Checkbox52155_85994 != string.Empty && @ViewBag.Checkbox52155_85994 != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Level 2
+            </p>
+            <p>
+                @if (@ViewBag.Checkbox52155_85995 != string.Empty && @ViewBag.Checkbox52155_85995 != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Level 3
+            </p>
+            <p>
+                @if (@ViewBag.Checkbox52155_85996 != string.Empty && @ViewBag.Checkbox52155_85996 != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Level 4
+            </p>
+            <p>
+                @if (@ViewBag.Checkbox52155_85997 != string.Empty && @ViewBag.Checkbox52155_85997 != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Level 5
+            </p>
+            <p>
+                @if (@ViewBag.Checkbox52155_85998 != string.Empty && @ViewBag.Checkbox52155_85998 != null)
+                {
+                    <span> &#x2611;</span>
+                }
+                else
+                {
+                    <span>&#x2610;</span>
+                } Not Sure
+            </p>
+
             </p>
 
             <!-- Section 5 -->
@@ -827,7 +942,7 @@
             <p>Date of approval : @ViewBag.Checkbox52207_Comment </p>
             </li>
             <li>
-                <p>Government office granting approval (if different than above): @ViewBag.Checkbox52210_Comment .</p>
+                <p>Government office granting approval (if different than above): @ViewBag.Checkbox52210_Comment</p>
             </li>
             <li>
                 <p>Audit Report Number: @Html.Raw(ViewBag.Checkbox52211_Comment) </p>
@@ -1364,7 +1479,7 @@
 
             <p>The Offeror represents that:
 
-            <p>If a Subcontractor Purchase Order award to Offeror has an expected value of $30,000 or more in support of a prime contract, Battelle must, subject to certain exceptions, gather and publicly report information regarding the award in accordance with FAR 52.204-10.</p>
+            <p>If a Subcontractor or Purchase Order award to Offeror has an expected value of $30,000 or more in support of a prime contract, Battelle must, subject to certain exceptions, gather and publicly report information regarding the award in accordance with FAR 52.204-10.</p>
 
             <p>Has Offeror had gross income under $300,000 in the previous tax year?
             <p>
