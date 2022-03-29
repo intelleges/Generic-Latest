@@ -19,6 +19,7 @@ using Generic.Helpers.Utility;
 using System.Text.RegularExpressions;
 using Generic.Helpers;
 using HtmlAgilityPack;
+using System.Xml.Linq;
 
 namespace Generic.DataLayer
 {
@@ -2250,31 +2251,33 @@ namespace Generic.DataLayer
                 switch (responseType)
                 {
                     case "textComment":
-                        textBox1 = new HtmlTextArea();
-                        controlId = textBox1.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
+                        textBox = new TextBox();
+                        controlId = textBox.ID = "question_" + questionId.ToString() + "_" + surveyId.ToString() + "_text";
                         // textBox.Width = 600;
                         if (question.required > 0)
                         {
-                            textBox1.Attributes["required"] = textBox.Attributes["data-val"] = "true";
-                            textBox1.Attributes["data-val-required"] = "Required";
+                            textBox.Attributes["required"] = textBox.Attributes["data-val"] = "true";
+                            textBox.Attributes["data-val-required"] = "Required";
                         }
                         if (pptqResponse != null)
                         {
                             //textBox.Text = response.description;
-                            textBox1.InnerText = convertLanguageApi(pptqResponse.comment);
+                            XDocument xDoc = XDocument.Parse(pptqResponse.comment);
+                            textBox.Text = convertLanguageApi((string)xDoc.Root);
                         }
 
                         //add empty cell
                         tableCell = new TableCell();
                         tableCell.Text = "&nbsp;";
-                        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(5);
+                        tableCell.Width = System.Web.UI.WebControls.Unit.Percentage(1);
                         tableCell.Style.Add("border-spacing", "0");
                         tableCell.Style.Add("padding-right", "5px");
                         tableRow.Controls.Add(tableCell);
 
                         tableCell = new TableCell();
                         tableCell.ColumnSpan = 2;
-                        tableCell.Controls.Add(textBox1);
+                        textBox.Width = 600;
+                        tableCell.Controls.Add(textBox);
                         tableRow.Controls.Add(tableCell);
                         break;
                     case "textInteger":
