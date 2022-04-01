@@ -2262,8 +2262,16 @@ namespace Generic.DataLayer
                         if (pptqResponse != null)
                         {
                             //textBox.Text = response.description;
-                            XDocument xDoc = XDocument.Parse(pptqResponse.comment);
-                            textBox.Text = convertLanguageApi((string)xDoc.Root);
+                            try
+                            {
+                                XDocument xDoc = XDocument.Parse(pptqResponse.comment);
+                                textBox.Text = convertLanguageApi((string)xDoc.Root);
+                            }
+                            catch (Exception ex)
+                            {
+                                textBox.Text = convertLanguageApi(pptqResponse.comment);
+                            }
+                            
                         }
 
                         //add empty cell
