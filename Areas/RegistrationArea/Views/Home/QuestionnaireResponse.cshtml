@@ -602,8 +602,12 @@
         if ($(sender).val().length === 6) {
             $.post('@Url.Action("validateNics", "home")', { q: questionId, val: $(sender).val() })
                 .done(function (data) {
-                    if (data.success === false)
-                     alertify.alert(data.message);
+                    if (data.success === false) {
+                        alertify.alert(data.message);
+                    }
+                    else if (data.success === true){
+                        alertify.alert(data.message);
+                    }
                 });
         }
     }

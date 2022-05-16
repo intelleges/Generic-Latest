@@ -1875,12 +1875,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
         public ActionResult validateNics(int q, int val)
         {
             var res = db.pr_getSbaSizingStandardNAICS(val).FirstOrDefault();
-            if (res == null) return Json(new { success = true });
+            string message = "Please be advised that [NAICS] is not valid and you should select LARGE BUSINESS in order to remain compliant.";
+
+            if (res == null) {
+                return Json(new { message = message.Replace("[NAICS]", val.ToString()), success = true });
+            }
             var question = db.pr_getQuestion(q).FirstOrDefault();
             if (question == null || string.IsNullOrEmpty(question.commentBoxTxt)) return Json(new { success = true });
 
             List<string> arr = question.commentBoxTxt.Split("\r\n").ToList();
-            string message = "";
             if (arr[0].Contains("<> 0") && res.revenue != 0)
                 message = arr[1];
             else message = arr[3];
@@ -4119,7 +4122,7 @@ Intelleges Team";
 
 
 
-        protected ActionResult ViewPdf(object model, int pptqID)
+        protected ActionResult ViewPdf(object model, int pptqID, string viewName = "QuestionnaireResponsePdfDownload")
         {
             // Create the iTextSharp document.
             Document pdfDoc = new Document();
@@ -4129,7 +4132,7 @@ Intelleges Team";
             writer.CloseStream = false;
             pdfDoc.Open();
 
-            string htmltext = this.RenderActionResultToString(this.View("QuestionnaireResponsePdfDownload", model));
+            string htmltext = this.RenderActionResultToString(this.View(viewName, model));
             EmailFormat formatter = new EmailFormat();
             var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
             var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
@@ -4233,6 +4236,16 @@ Intelleges Team";
             byte[] logoBytes = new byte[0];
             var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
             return File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, fname);
+        }
+
+        [AllowAnonymous]
+        public ActionResult LogoStandardPDF(int enterpriseID)
+        {
+            var enterprise = db.pr_getEnterprise(enterpriseID).ToList();
+            var enterpriseLogo = enterprise.FirstOrDefault();
+            byte[] logoBytes = new byte[0];
+            var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
+            return File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, enterpriseID.ToString() + ".png");
         }
 
         public ActionResult PDFConfirmation()
@@ -16124,6 +16137,18 @@ Intelleges Team";
                 ViewName = "CustomQuestionnaireSurveyPdfDownload33";
                 return ViewCustomizedPdf(pptqID, ViewName, "");
             }
+            else if (question != null && (question.footer == "34"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload34";
+                return ViewCustomizedStandardPDF(ViewName);
+            }
+            else if (question != null && (question.footer == "35"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload35";
+                return ViewCustomizedStandardPDF(ViewName);
+            }
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
             return ViewCustomPdf(pptqID);
@@ -20636,7 +20661,48 @@ Intelleges Team";
             }
             return new BinaryContentResult(null, "application/pdf");
         }
+        public ActionResult ViewCustomizedStandardPDF(string ViewName)
+        {
+            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> result =
+                db.pr_getPartnerQuestionResponseByAccessCode(accessCode).ToList();
 
+            var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.reslt2 = find;
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq =
+                db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode)
+                    .FirstOrDefault();
+            if (pptq != null)
+            {
+                var _partnerId = pptq.partner;
+                var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                ViewBag.partner = _partner;
+
+                if (_partner != null)
+                {
+                    var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
+                    ViewBag.country = _country != null ? _country.name : string.Empty;
+                }
+
+                if (_partner != null)
+                {
+                    var _state = db.pr_getState(_partner.state).FirstOrDefault();
+                    ViewBag.state = _state != null ? _state.stateCode : string.Empty;
+                }
+            }
+
+            //var enterpriseLogo = enterprise.FirstOrDefault();
+            //byte[] logoBytes = new byte[0];
+            //var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
+            //var file = File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, Generic.Helpers.CurrentInstance.EnterpriseID + ".png");
+            //ViewBag.logoSrc = file;
+
+            ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID ;
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+            if (pptq != null) return ViewPdf(result, pptq.id, ViewName);
+            else throw new Exception("Cannot find pptq");
+        }
         protected ActionResult ViewCustomPdf(int pptqID)
         {
             string htmltext = this.RenderActionResultToString(this.View("CustomQuestionnaireSurveyPdfDownload"));  //name of the view...
