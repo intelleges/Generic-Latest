@@ -69,17 +69,19 @@
 
         if (@ViewBag.logoSrc != null)
         {
-            <table>
+            @*<table>
                 <tr>
-                    <td>
-                        <img width="146" height="47" style="text-align:right;"  src="@ViewBag.logoSrc" />
-                    </td>
-                </tr>
-            </table>
+                    <td>*@
+            <div style="text-align:right;">
+                <img width="140" height="40" style="text-align:right;" src="@ViewBag.logoSrc" />
+            </div>
+            @*</td>
+                    </tr>
+                </table>*@
         }
         @*<div style="float:right;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/BATTELLE-BLUE.svg/1280px-BATTELLE-BLUE.svg.png" />
-        </div>*@
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/BATTELLE-BLUE.svg/1280px-BATTELLE-BLUE.svg.png" />
+            </div>*@
     }
     @foreach (var item in ViewBag.reslt2)
     {
@@ -239,14 +241,21 @@
                 </td>
             </tr>
             @*<tr>
-                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
-                    TITLE: @item.eSignature_Title
-                </td>
-            </tr>*@
+                    <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                        TITLE: @item.eSignature_Title
+                    </td>
+                </tr>*@
         </table>
     }
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <!-- FAR Details -->
-    <h3><b>The following FAR and DFARS provisions are incorporated by reference. They do not require the completion of any data. Offeror&rsquo;s signature on page One asserts that Offeror complies with each of these provisions.</b></h3>
+    <h3 style="color: blue; font-size: 14px !important;"><b>The following FAR and DFARS provisions are incorporated by reference. They do not require the completion of any data. Offeror&rsquo;s signature on page One asserts that Offeror complies with each of these provisions.</b></h3>
     <table>
         <tr>
             <td style="vertical-align:top;">
