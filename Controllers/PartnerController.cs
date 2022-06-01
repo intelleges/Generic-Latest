@@ -456,6 +456,13 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
+        public ActionResult GetPPTQIDByID(int? pptqId)
+        {
+            var v = db.pr_getPartnerByPPTQ(pptqId).FirstOrDefault();
+            return Json(new { message = v }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         [AllowAnonymous]
         public ActionResult ConfirmPreselectedQuestion(int prevPptq, int pptq, string accessCode)
         {
