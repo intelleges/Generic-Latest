@@ -135,6 +135,10 @@
                         <ul id="menu">
 
                             <li>@Html.ActionLink("Home", "Home", "Admin")</li>
+                            <li id="liAnnouncements" style="display:none;"><a href="@Url.Action("DownloadIteratePartnersExcel", "Partner")" target="_blank">Announcements</a></li>
+                            <li id="liEvents" style="display:none;"><a href="@Url.Action("DownloadIteratePartnersExcel", "Partner")" target="_blank">Events</a></li>
+                            <li id="liPOInvoice" style="display:none;"><a href="@Url.Action("DownloadIteratePartnersExcel", "Partner")" target="_blank">PO/Invoice</a></li>
+                            <li id="liDashboard" style="display:none;"><a href="@Url.Action("DownloadIteratePartnersExcel", "Partner")" target="_blank">Dashboard</a></li>
                             <li id="liAbout">@Html.ActionLink("About", "About", "Home")</li>
                             <li id="liContactUs"><a href="#" onclick="opennSubmitPopup();">Contact Us</a></li>
                             <li id="liDownloadExcel" style="display:none;"><a href="@Url.Action("DownloadIteratePartnersExcel", "Partner")" target="_blank">Download Excel</a></li>
