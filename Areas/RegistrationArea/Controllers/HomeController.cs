@@ -16277,7 +16277,7 @@ Intelleges Team";
             var _responseSplitter = "--";
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
-
+            ViewBag.Status = pptq.status;
             string executives = "";
             var test = _PPTQQuestionResponse.OrderBy(r => r.question).ToList().Select(s => s.question);
             foreach (var item in _PPTQQuestionResponse)

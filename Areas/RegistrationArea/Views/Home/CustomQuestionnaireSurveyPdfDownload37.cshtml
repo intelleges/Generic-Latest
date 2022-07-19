@@ -84,7 +84,7 @@
         <div>
             <ul class="ml25">
                 <li><i><input type="checkbox" /> Commercial Unique</i></li>
-                <li><i><input type="checkbox" checked="checked"/> Commercial FAR Part 12</i></li>
+                <li><i><input type="checkbox" checked="checked" /> Commercial FAR Part 12</i></li>
                 <li><i><input type="checkbox" /> Non-Commercial FAR Part 15</i></li>
             </ul>
         </div>
@@ -1433,8 +1433,16 @@
                 <b><i> For Celestica Internal Use Only</i></b><br> This online Supplier Certifications and Assessment submission has been reviewed and approved.
             </p>
             <ul class="ml75 hr">
-                <li><b><input type="checkbox" @ViewBag.Checkbox57265_Yes /> Yes </b></li>
-                <li><b><input type="checkbox" @ViewBag.Checkbox57265_No /> No </b></li>
+                @if (ViewBag.Status == 10)
+                {
+                    <li><b><input type="checkbox"/> Yes </b></li>
+                    <li><b><input type="checkbox" checked /> No </b></li>
+                }
+                else
+                {
+                    <li><b><input type="checkbox" @ViewBag.Checkbox57265_Yes /> Yes </b></li>
+                    <li><b><input type="checkbox" @ViewBag.Checkbox57265_No /> No </b></li>
+                }
             </ul>
             <p class="ml25">
                 @ViewBag.Cooment57265
@@ -1461,9 +1469,18 @@
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
                     SIGNATURE:  @(ViewBag.signature == null ? "" : ViewBag.signature.email)
                 </td>
-                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
-                    DATE: @ViewBag.completeDate
-                </td>
+                @if (ViewBag.status == 10)
+                {
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        Status = Pending
+                    </td>
+                }
+                else
+                {
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        DATE: @ViewBag.completeDate
+                    </td>
+                }
             </tr>
             <tr style="height:40px">
                 <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
