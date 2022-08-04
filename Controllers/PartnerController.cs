@@ -534,13 +534,24 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
         {
-            List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
-            string loadGroup = db.pr_getAccesscode().FirstOrDefault();
-            partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-            GenerateCreateDropDownLists();
-
             try
             {
+                List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
+                GenerateCreateDropDownLists();
+
+                int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
+                   .ToList().Where(x => x.touchpoint == touchpoint).First().id;
+                var dbRecord = db.pr_getPartnerByInternalIDAndPTQ(partner.internalID, objptqId).FirstOrDefault();
+                if(dbRecord?.email == partner.email || dbRecord?.zipcode == partner.zipcode)
+                {
+                    ViewBag.Message = "error";
+                    ViewBag.MessageDetail = $"Email or Zipcode for internal Id {partner.internalID} already exist!. Please choose another one.";
+                    return View(partner);
+                }
+
+                string loadGroup = db.pr_getAccesscode().FirstOrDefault();
+                partner.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
+
                 int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(partner.internalID, "", partner.dunsNumber, partner.name, partner.address1, partner.address2, partner.city, partner.state.ToString(), partner.zipcode, partner.country.ToString(), partner.firstName, partner.lastName, partner.title, partner.phone, partner.email, "", "", "", DateTime.Now, Generic.Helpers.CurrentInstance.EnterpriseID, partnertype, touchpoint, db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DueDate, group).ToList().FirstOrDefault();
                 uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                 Session["uploadedpartnerList"] = uploadedpartners;
@@ -2876,19 +2887,26 @@ namespace Generic.Controllers
                 });
                 message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
 
-                if (!string.IsNullOrEmpty(footer2))
+                if (!string.IsNullOrEmpty(footer2) && footer2.Contains(";"))
                 {
                     string[] array = footer2.Split(';');
-                    foreach (string item in array.Where(o => !string.IsNullOrEmpty(o)))
+                    if (array.Length > 0)
                     {
-                        string[] arr = item.Split(':');
-                        int pptqId = pptq.id;
-                        int questionId = Convert.ToInt32(arr[0]);
-                        int responseId = Convert.ToInt32(arr[1]);
-                        db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(pptqId, questionId, responseId);
+                        foreach (string item in array.Where(o => !string.IsNullOrEmpty(o)))
+                        {
+                            string[] arr = item.Split(':');
+                            int pptqId = pptq.id;
+                            int questionId = Convert.ToInt32(arr[0]);
+                            int responseId = Convert.ToInt32(arr[1]);
+                            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse2(pptqId, questionId, responseId);
+                        }
                     }
                 }
 
+                int enterpriseid =  Generic.Helpers.CurrentInstance.EnterpriseID;
+                var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
+                var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";
+                db.pr_addEventNotification(fromToEmail,DateTime.Now,string.Empty, string.Empty, string.Empty, "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind,autoMailId, enterpriseid, em.loadgroup);
             }
             catch (Exception exp)
             {
@@ -2959,6 +2977,11 @@ namespace Generic.Controllers
                 {
                     var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
                     SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id, accessCode, Request.Url.ToString(), new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName));
+
+                    int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
+                    var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";
+                    db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, Request.Url.ToString(), "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind, default(int?), enterpriseid, "");
                 }
                 else
                 {
