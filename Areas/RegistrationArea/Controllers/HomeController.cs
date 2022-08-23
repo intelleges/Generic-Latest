@@ -16337,12 +16337,14 @@ Intelleges Team";
                     case 57155:
                         ViewBag.Checkbox57155_124144 = item.response == 124144 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124145 = item.response == 124145 ? _chacked : string.Empty;
+                        ViewBag.Checkbox57155_124281 = item.response == 124281 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124146 = item.response == 124146 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124147 = item.response == 124147 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124148 = item.response == 124148 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124149 = item.response == 124149 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124150 = item.response == 124150 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124151 = item.response == 124151 ? _chacked : string.Empty;
+                        ViewBag.Checkbox57155_124282 = item.response == 124282 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_124152 = item.response == 124152 ? _chacked : string.Empty;
                         ViewBag.Checkbox57155_Comment = item.comment;
                         break;
@@ -17075,7 +17077,7 @@ Intelleges Team";
             {
                 //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload34";
-                return ViewCustomizedStandardPDF(ViewName);
+                return ViewCustomizedStandardPDF(ViewName, "34");
             }
             else if (question != null && (question.footer == "35"))
             {
@@ -21608,12 +21610,42 @@ Intelleges Team";
             }
             return new BinaryContentResult(null, "application/pdf");
         }
-        public ActionResult ViewCustomizedStandardPDF(string ViewName)
+        public ActionResult ViewCustomizedStandardPDF(string ViewName, string footer = "0")
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             List<pr_getPartnerQuestionResponseByAccessCode_Result> result =
                 db.pr_getPartnerQuestionResponseByAccessCode(accessCode).ToList();
 
+            if (footer == "34")
+            {
+                var tinEinNumber =  result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
+                if (tinEinNumber != null && tinEinNumber != "")
+                {
+                    string[] answerArray = tinEinNumber.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (answerArray.Length > 1)
+                    {
+                        ViewBag.TINEINNumber = answerArray[1];
+                    }
+                    else
+                    {
+                        ViewBag.TINEINNumber = "Not Available";
+                    }
+                }
+
+                var ueiNumber = result.Where(q => q.question.Contains("UEI Number")).Select(s => s.description).FirstOrDefault();
+                if (ueiNumber != null && ueiNumber != "")
+                {
+                    string[] answerArray = ueiNumber.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (answerArray.Length > 1)
+                    {
+                        ViewBag.UEINumber = answerArray[1];
+                    }
+                    else
+                    {
+                        ViewBag.UEINumber = "Not Available";
+                    }
+                }
+            }
             var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.reslt2 = find;
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();

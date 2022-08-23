@@ -98,7 +98,14 @@
                     INVITED DATE: @DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")
                 </td>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
-                    COMPLETED DATE: @DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")
+                    @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
+                    {
+                        <span> COMPLETED DATE: Pending</span>
+                    }
+                    else
+                    {
+                        <span> COMPLETED DATE: DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</span>
+                    }
                 </td>
             </tr>
             <tr>
@@ -176,8 +183,8 @@
                     @ViewBag.partner.internalID
                 </td>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
-                    SAP/LOCAL SUPPLIER #: <br />
-                    @ViewBag.partner.internalID
+                    TIN/EIN and UEI #:<br />
+                    @ViewBag.TINEINNumber / @ViewBag.UEINumber
                 </td>
             </tr>
         </table>
@@ -237,7 +244,14 @@
                     SIGNATURE: @item.eSignature_eMail
                 </td>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
-                    DATE: @item.Completed_Date
+                    @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
+                    {
+                        <span> DATE: Pending</span>
+                    }
+                    else
+                    {
+                        <span> DATE: DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</span>
+                    }
                 </td>
             </tr>
             @*<tr>
