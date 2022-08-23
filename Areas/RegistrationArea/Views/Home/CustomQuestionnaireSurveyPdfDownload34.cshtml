@@ -100,7 +100,7 @@
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
                     @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
                     {
-                        <span> COMPLETED DATE: Pending</span>
+                    <span> COMPLETED DATE: Pending Approval</span>
                     }
                     else
                     {
@@ -179,12 +179,12 @@
             </tr>
             <tr>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
-                    DUNS #: <br />
-                    @ViewBag.partner.internalID
+                    UEI # : <br />
+                    @ViewBag.UEINumber
                 </td>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
-                    TIN/EIN and UEI #:<br />
-                    @ViewBag.TINEINNumber / @ViewBag.UEINumber
+                    TIN/EIN :<br />
+                    @ViewBag.TINEINNumber
                 </td>
             </tr>
         </table>
@@ -246,7 +246,7 @@
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
                     @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
                     {
-                        <span> DATE: Pending</span>
+                        <span> DATE: Pending Approval</span>
                     }
                     else
                     {
