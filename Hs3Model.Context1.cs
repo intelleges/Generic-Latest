@@ -30898,5 +30898,10 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getSbaSizingStandardNAICS_Result>("pr_getSbaSizingStandardNAICS", naicsParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> xx_test()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("xx_test");
+        }
     }
 }

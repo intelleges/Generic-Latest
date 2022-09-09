@@ -4,7 +4,7 @@ using Generic.Helpers.Utility;
 using Generic.Models;
 using Generic.SessionClass;
 using Generic.ViewModel;
-using Sustainsys.Saml2.Mvc;
+//using Sustainsys.Saml2.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -59,6 +59,9 @@ namespace Generic.Controllers
                     string userName = "";
                     var claims = ((ClaimsIdentity)User.Identity).Claims.ToList();
                     userName = claims.Where(o => o.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").First().Value;
+
+                    ((ClaimsIdentity)User.Identity).AddClaim(new Claim(ClaimTypes.NameIdentifier, userName));
+                    ((ClaimsIdentity)User.Identity).AddClaim(new Claim(ClaimTypes.Name, userName));
 
                     FormsAuthentication.SetAuthCookie(userName, false);
                     person person = db.sp_getPersonforSAML(userName).FirstOrDefault();
@@ -646,6 +649,7 @@ namespace Generic.Controllers
                         {
                             var ip = Request.UserHostAddress;
                             var ipData = GetLocationByIp(ip);
+                            if ("::1" == ip) ipData = null;
                             var computerName = ipData?.country_name + "," + ipData?.region_name + "," + ipData?.city + "," + ipData?.zip + "," + ipData?.hostname;
                             //var countryCode = db.pr_getCountryByName("United States").FirstOrDefault();
                             int countryId = 1;
