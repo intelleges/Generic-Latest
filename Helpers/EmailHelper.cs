@@ -10,7 +10,7 @@ namespace Generic.Helpers
     public static class EmailHelper
     {
         public static void SendEmailAlertWhere(partner partner, partnerPartnertypeTouchpointQuestionnaire pptqObj, string accessCode, string emailTo, int ptqId, int questionId, string qnextId, string text, Uri baseUri,
-            UrlHelper urlHelper,string requestUrl)
+            UrlHelper urlHelper,string requestUrl, string ccEmail = "")
         {
             var db = new EntitiesDBContext();
             autoMailMessage objamm = new autoMailMessage
@@ -39,10 +39,18 @@ namespace Generic.Helpers
                  "<br/><br/>Thanks.<br/><br/>" + StringHelper.UppercaseFirst(person.firstName) + " " + StringHelper.UppercaseFirst(person.lastName) + "<br>";
 
             objamm.text = t;
+
+            string emailsTo = emailTo;
+
+            if (ccEmail != "")
+            {
+                emailsTo += ";" + ccEmail;
+            }
+
             Email mail = new Email(objamm)
             {
                 type = "emailAlert",
-                emailTo = emailTo,
+                emailTo = emailsTo,
                 url = requestUrl,
                 accesscode = accessCode,
                 category = SendGridCategory.SendEmailAlert

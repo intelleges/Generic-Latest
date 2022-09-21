@@ -3006,7 +3006,15 @@ namespace Generic.Controllers
                             return result;
                         var email = choices[0].Split(':')[1];
                         var qnextId = choices[1].Replace("[", "").Replace("]", "");
-                        EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString());
+
+                        enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                        string toEmail = string.Empty;
+                        if (objEnterpriseSystemInfo != null && objEnterpriseSystemInfo.coordinatorEmail != null)
+                        {
+                            toEmail = objEnterpriseSystemInfo.coordinatorEmail;
+                        }
+                        EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString(), toEmail);
+
                         return result;
                     }
                     result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
