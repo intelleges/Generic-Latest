@@ -21613,8 +21613,8 @@ Intelleges Team";
         public ActionResult ViewCustomizedStandardPDF(string ViewName, string footer = "0")
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            List<pr_getPartnerQuestionResponseByAccessCode_Result> result =
-                db.pr_getPartnerQuestionResponseByAccessCode(accessCode).ToList();
+            List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
+                db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
             if (footer == "34")
             {
@@ -21671,12 +21671,21 @@ Intelleges Team";
                 }
             }
 
+            var qids = result.Where(o => o.description.Contains("||")).Select(o => o.qid).ToList();
+            Dictionary<int, List<pr_getQuestionResponseByQuestion_Result>> dict = new Dictionary<int, List<pr_getQuestionResponseByQuestion_Result>>();
+            foreach (var item in qids)
+            {
+                List<pr_getQuestionResponseByQuestion_Result> list = db.pr_getQuestionResponseByQuestion(item).ToList();
+                dict.Add(item, list);
+            }
+
+
             //var enterpriseLogo = enterprise.FirstOrDefault();
             //byte[] logoBytes = new byte[0];
             //var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;
             //var file = File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, Generic.Helpers.CurrentInstance.EnterpriseID + ".png");
             //ViewBag.logoSrc = file;
-
+            ViewBag.ReponseList = dict;
             ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID ;
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
             if (pptq != null) return ViewPdf(result, pptq.id, ViewName);

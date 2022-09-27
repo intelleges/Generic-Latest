@@ -1,10 +1,12 @@
-﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.pr_getPartnerQuestionResponseByAccessCode_Result>>
+﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.pr_getPartnerQuestionResponseByAccessCode99_Result>>
 @using System.Web.Mvc.Html
 @using System.Web.Mvc
 @using Generic.Helpers
 
 @{
     Layout = null;
+    string pattern = @"(\([A-Z][A-Z]\))";
+    var dict = ViewBag.ReponseList as Dictionary<int, List<Generic.pr_getQuestionResponseByQuestion_Result>>;
 }
 
 <!DOCTYPE html>
@@ -208,22 +210,69 @@
             <tr>
                 @{
                     string[] resultArray = p.description.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
-                    <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
-                        <div style="word-wrap:break-word;">
-                            @if (resultArray.Count() > 0)
-                            {
-                                @Html.Raw(resultArray[0].Replace("????", ""))
-                            }
-                        </div>
-                    </td>
-                    <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
-                        <div style="word-wrap:break-word;">
-                            @if (resultArray.Count() > 1)
-                            {
-                                @Html.Raw(resultArray[1])
-                            }
-                        </div>
-                    </td>
+                    if (dict.ContainsKey(p.qid))
+                    {
+                        <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                            <div style="word-wrap:break-word;">
+                                @if (resultArray.Count() > 0)
+                                {
+                                    string res = System.Text.RegularExpressions.Regex.Replace(resultArray[0].Replace("????", ""), pattern, "");
+                                    @Html.Raw(res.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries)[0])
+                                }
+                            </div>
+                        </td>
+                        <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                            <div style="word-wrap:break-word;">
+                                @if (resultArray.Count() > 1)
+                                {
+                                    string res = System.Text.RegularExpressions.Regex.Replace(resultArray[1], pattern, "");
+                                    List<string> r = new List<string>();
+                                    var list = dict[p.qid];
+
+                                    if (res.Split(',').Length == 0)
+                                    {
+                                        @Html.Raw(res)
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in res.Split(','))
+                                        {
+                                            var ii = list.Where(o => o.response.Contains("||" + item)).FirstOrDefault();
+                                            if (ii != null)
+                                            {
+                                                r.Add(ii.response.Replace("||" + item, ""));
+                                            }
+                                        }
+
+                                        @Html.Raw(string.Join(",", r))
+                                    }
+                                }
+                            </div>
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                            <div style="word-wrap:break-word;">
+                                @if (resultArray.Count() > 0)
+                                {
+                                    string res = System.Text.RegularExpressions.Regex.Replace(resultArray[0].Replace("????", ""), pattern, "");
+                                    @Html.Raw(res)
+                                }
+                            </div>
+                        </td>
+                        <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                            <div style="word-wrap:break-word;">
+                                @if (resultArray.Count() > 1)
+                                {
+                                    string res = System.Text.RegularExpressions.Regex.Replace(resultArray[1], pattern, "");
+                                    @Html.Raw(resultArray[1])
+                                }
+                            </div>
+                        </td>
+
+                    }
                 }
             </tr>
 

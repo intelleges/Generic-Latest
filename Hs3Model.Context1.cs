@@ -30903,5 +30903,23 @@ namespace Generic
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("xx_test");
         }
+    
+        public virtual ObjectResult<pr_getPartnerQuestionResponseByAccessCode99_Result> pr_getPartnerQuestionResponseByAccessCode99(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCode99_Result>("pr_getPartnerQuestionResponseByAccessCode99", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionResponseByQuestion_Result> pr_getQuestionResponseByQuestion(Nullable<int> question)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseByQuestion_Result>("pr_getQuestionResponseByQuestion", questionParameter);
+        }
     }
 }
