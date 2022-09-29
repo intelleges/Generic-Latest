@@ -365,7 +365,7 @@
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Manual Upload")?"inherit":"none")'><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
 
-                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset PDF</a></li>
+                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Unlock</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("View Detail")?"inherit":"none")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -1210,7 +1210,7 @@
                     html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="3" >Approve this supplier<br/>';
                     html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="4" >Reject this supplier<br/>';
                 }
-               
+
 
                 html += '</div>';
                 alertify.confirm(html, function (e) {

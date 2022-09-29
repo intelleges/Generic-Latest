@@ -99,7 +99,7 @@
 
                 <li style='display:@(Generic.SessionClass.SessionSingleton.ShouldDisplayMenu?"none":"inherit")'><a href="javascript:checkToPrintPDF(@item.pptq, @item.statusID,@item.touchpointID)">Print PDF</a></li>
 
-                <li><a href="javascript:resetPdf('@item.AccessCode')">Reset PDF</a></li>
+                <li><a href="javascript:resetPdf('@item.AccessCode')">Unlock</a></li>
                 @if (Generic.SessionClass.SessionSingleton.ShouldDisplayMenu)
                 {
                     <li><a href="javascript:remind('@item.AccessCode')">Remind</a></li>
