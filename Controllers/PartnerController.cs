@@ -659,18 +659,12 @@ namespace Generic.Controllers
 
                 try
                 {
-                    var id = (int)Areas.RegistrationArea.Controllers.HomeController.FillPdfHtml(ViewBag, db, Session, Server);
-                    string htmltext = this.RenderActionResultToString(this.View("~/Areas/RegistrationArea/Views/Home/CustomizedQuestionnaireSurveyPdfDownload.cshtml"));
-                    var bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
-                    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
-
+                    db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(quest.id);
                 }
                 catch (Exception ex)
                 {
                 }
-                // }
                 return Json(new { success = true });
-
             }
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", partner.enterprise);
