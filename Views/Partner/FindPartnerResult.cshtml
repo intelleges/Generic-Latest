@@ -326,7 +326,15 @@
                                                                                     .Text("Remind")
                                                                                     .Action("FindRemind", "partner")
                                                                                 )
-                                                                                 .ToolBar(commands => commands
+
+                                                                                .ToolBar(commands => commands
+                                                                                    .Custom()
+                                                                                    .HtmlAttributes(new { id = "remind-all" })
+                                                                                    .Text("Remind All")
+                                                                      
+                                                                                    .HtmlAttributes(new { style=(ViewBag.IsSystemMaster == true?"":"display:none;"), id ="btnRemind", href="javascript:void(0);" })
+                                                                                )
+                                                                .ToolBar(commands => commands
                                                                                     .Custom()
                                                                                 .HtmlAttributes(new { id = "iterate" })
                                                                                 .Text("Iterate")
@@ -1281,7 +1289,33 @@
 	}
 
 	$(function () {
-		$(".t-widget.t-dropdown.t-header").css("width", "100%");
+        $(".t-widget.t-dropdown.t-header").css("width", "100%");
+
+         $('#btnRemind').click(function (e) {
+              	alertify.set({
+				labels: {
+					ok: "No",
+					cancel: "Yes"
+				},
+				buttonFocus: "cancel"
+			});
+                alertify.confirm("You are about to send out @ViewBag.CountPPtq, are you sure?", function (e) {
+				if (e) {
+					// Click no
+				} else {
+					 $.post('@Url.Action("SendRemindsAll", "Partner")', {
+						 touchpointId: "@ViewBag.TouchpointId",
+                         partnerTypeId: "@ViewBag.PartnerTypeId",
+                         statusId: "@ViewBag.StatusId"
+                                }).done(function (result) {
+
+                                });
+					// click yes
+
+				}
+			});
+
+            });
 	});
 	$("#changePtqBtn").click(function () {
 

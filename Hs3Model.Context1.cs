@@ -30921,5 +30921,59 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseByQuestion_Result>("pr_getQuestionResponseByQuestion", questionParameter);
         }
+    
+        public virtual ObjectResult<pr_getReminder_Result> pr_getReminder(Nullable<int> enterprise, Nullable<int> touchpoint, Nullable<int> patnertype, Nullable<int> statusid, Nullable<int> active, Nullable<int> pptq)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var patnertypeParameter = patnertype.HasValue ?
+                new ObjectParameter("patnertype", patnertype) :
+                new ObjectParameter("patnertype", typeof(int));
+    
+            var statusidParameter = statusid.HasValue ?
+                new ObjectParameter("statusid", statusid) :
+                new ObjectParameter("statusid", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminder_Result>("pr_getReminder", enterpriseParameter, touchpointParameter, patnertypeParameter, statusidParameter, activeParameter, pptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getReminderBatch_Result> pr_getReminderBatch(Nullable<int> enterprise, Nullable<int> touchpoint, Nullable<int> patnertype, Nullable<int> statusid, Nullable<int> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var patnertypeParameter = patnertype.HasValue ?
+                new ObjectParameter("patnertype", patnertype) :
+                new ObjectParameter("patnertype", typeof(int));
+    
+            var statusidParameter = statusid.HasValue ?
+                new ObjectParameter("statusid", statusid) :
+                new ObjectParameter("statusid", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderBatch_Result>("pr_getReminderBatch", enterpriseParameter, touchpointParameter, patnertypeParameter, statusidParameter, activeParameter);
+        }
     }
 }

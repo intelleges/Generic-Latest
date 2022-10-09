@@ -76,7 +76,8 @@ namespace Generic.Controllers
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             Session["partnersearch"] = arguments;
-
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
             return RedirectToAction("FindPartnerResult");
 
         }
@@ -2088,6 +2089,8 @@ namespace Generic.Controllers
             }
             else
             {
+                var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
                 return RedirectToAction("FindPartnerResult");
             }
         }
@@ -2181,6 +2184,38 @@ namespace Generic.Controllers
 
                 ViewBag.searchType = "";
 
+                var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
+
+                int? statusID = null;
+                int? touchpointID = null;
+                int? partnerTypeId = null;
+                int s = 0;
+                var parsedParams = ParseParams(arguments);
+                if (parsedParams.ContainsKey("StatusID"))
+                {
+                    int.TryParse(parsedParams["StatusID"], out s);
+                    statusID = s;
+                }
+
+                if (parsedParams.ContainsKey("touchpointID"))
+                {
+                    int.TryParse(parsedParams["touchpointID"], out s);
+                    touchpointID = s;
+                }
+
+                if (parsedParams.ContainsKey("partnertypeID"))
+                {
+                    int.TryParse(parsedParams["partnertypeID"], out s);
+                    partnerTypeId = s;
+                }
+
+                ViewBag.PartnerTypeId = partnerTypeId;
+                ViewBag.TouchpointId = touchpointID;
+                ViewBag.StatusId = statusID;
+
+                ViewBag.CountPPtq = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
+                   .Select(o => o.pptq).Count();
 
                 return View(abc);
             }
@@ -2389,6 +2424,8 @@ namespace Generic.Controllers
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
                 //Response.Redirect("~/Registration/Home/PDFConfirmation");
             }
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
             return RedirectToAction("FindPartnerResult");
 
         }
@@ -2401,6 +2438,8 @@ namespace Generic.Controllers
                 // return RedirectToAction("PDFConfirmation","Home",new  {area="Registration"});
                 return Redirect("~/Registration/Home/OrdersInHTML");
             }
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
             return RedirectToAction("FindPartnerResult");
 
         }
@@ -2450,7 +2489,7 @@ namespace Generic.Controllers
                 objPartnerViewModel.statusID = iview_PartnerData.statusID;
                 objPartnerViewModel.campaign = iview_PartnerData.campaign;
                 objPartnerViewModel.IsSelected = false;
-
+                objPartnerViewModel.pptq = iview_PartnerData.pptq;
                 objPartnerViewModelList.Add(objPartnerViewModel);
             }
             return objPartnerViewModelList;
@@ -2774,11 +2813,10 @@ namespace Generic.Controllers
             var touchpoint = (int)Session["automail_touchpoint"];
             return Json(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).FirstOrDefault(o => o.id == id), JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult FindRemind()
         {
             string arguments = Session["partnersearch"].ToString() + "active=1;";
-
-            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
             int partnerType = -1, touchpoint = -1;
 
             if (ShouldUseDropdownSubject(arguments, out partnerType, out touchpoint))
@@ -2787,11 +2825,191 @@ namespace Generic.Controllers
                 Session["automail_touchpoint"] = touchpoint;
                 ViewBag.DropDownSubjects = new SelectList(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).ToList(), "id", "subject").ToList();
             }
-            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+
+            int? statusID = null;
+            int? touchpointID = null;
+            int? partnerTypeId = null;
+            int s = 0;
+            var parsedParams = ParseParams(arguments);
+            if (parsedParams.ContainsKey("StatusID"))
+            {
+                int.TryParse(parsedParams["StatusID"], out s);
+                statusID = s;
+            }
+
+            if (parsedParams.ContainsKey("touchpointID"))
+            {
+                int.TryParse(parsedParams["touchpointID"], out s);
+                touchpointID = s;
+            }
+
+            if (parsedParams.ContainsKey("partnertypeID"))
+            {
+                int.TryParse(parsedParams["partnertypeID"], out s);
+                partnerTypeId = s;
+            }
+
+            ViewBag.PartnerTypeId = partnerTypeId;
+            ViewBag.TouchpointId = touchpointID;
+            ViewBag.StatusId = statusID;
+            ViewBag.IsShowRemindButtons = true;
+
+            var objPartnerDateList = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
+                .Select(o=>new view_PartnerData() {  AccessCode = o.AccessCode, active = o.active, address = o.address, campaign = o.campaign,
+                 city = o.city, Contact = o.Contact, ContactEmail = o.ContactEmail,
+                 ContactTitle = o.ContactTitle, Country = o.Country, countryID = o.countryID, dunsNumber = o.dunsNumber, enterprise =o.enterprise,
+                 Group = o.Group, Expr1 = o.Expr1, groupID = o.groupID, id =o.id, internalID =o.internalID, owner = o.owner,
+                 PartnerName = o.PartnerName, Partnertype = o.Partnertype, partnertypeID = o.partnertypeID, phone = o.phone, pptq = o.pptq,
+                 progress = o.progress, state = o.state, status = o.status, statusID = o.statusID, Touchpoint = o.Touchpoint,
+                 touchpointID = o.touchpointID, zipcode = o.zipcode});
+
+            if (parsedParams.ContainsKey("ContactEmail"))
+                objPartnerDateList = objPartnerDateList.Where(o => o.ContactEmail!= null && o.ContactEmail.ToLower().Contains(parsedParams["ContactEmail"].ToLower()??""));
+
+
+            if (parsedParams.ContainsKey("groupID"))
+            {
+                int.TryParse(parsedParams["groupID"], out s);
+                var groupID = s;
+                objPartnerDateList = objPartnerDateList.Where(o => o.groupID == groupID);
+            }
+
+            if (parsedParams.ContainsKey("countryID"))
+            {
+                int.TryParse(parsedParams["countryID"], out s);
+                var countryID = s;
+                objPartnerDateList = objPartnerDateList.Where(o => o.countryID == countryID);
+            }
+
+            if (parsedParams.ContainsKey("accesscode"))
+                objPartnerDateList = objPartnerDateList.Where(o => o.AccessCode != null && o.AccessCode.ToLower().Contains(parsedParams["accesscode"].ToLower() ?? ""));
+
+            if (parsedParams.ContainsKey("InternalId"))
+                objPartnerDateList = objPartnerDateList.Where(o => o.internalID != null && o.internalID.ToLower().Contains(parsedParams["InternalId"].ToLower() ?? ""));
+
+            if (parsedParams.ContainsKey("DunsNumber"))
+                objPartnerDateList = objPartnerDateList.Where(o => o.dunsNumber != null && o.dunsNumber.ToLower().Contains(parsedParams["DunsNumber"].ToLower() ?? ""));
+
+            if (parsedParams.ContainsKey("PartnerName"))
+                objPartnerDateList = objPartnerDateList.Where(o => o.PartnerName != null && o.PartnerName.ToLower().Contains(parsedParams["PartnerName"].ToLower() ?? ""));
+
+            List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList.ToList());
             ViewBag.searchType = "Remind";
             ViewBag.AccsessCodes = objPartnerViewModelList.Select(o => o.AccessCode).ToList();
-            return View(objPartnerViewModelList);
-            //return View();
+            return View("FindRemind", objPartnerViewModelList);
+        }
+
+        /* public ActionResult FindRemind()
+         {
+             string arguments = Session["partnersearch"].ToString() + "active=1;";
+
+             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+             int partnerType = -1, touchpoint = -1;
+
+             if (ShouldUseDropdownSubject(arguments, out partnerType, out touchpoint))
+             {
+                 Session["automail_partnerType"] = partnerType;
+                 Session["automail_touchpoint"] = touchpoint;
+                 ViewBag.DropDownSubjects = new SelectList(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).ToList(), "id", "subject").ToList();
+             }
+             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
+             ViewBag.searchType = "Remind";
+             ViewBag.AccsessCodes = objPartnerViewModelList.Select(o => o.AccessCode).ToList();
+             return View(objPartnerViewModelList);
+             //return View();
+         }*/
+
+        [HttpPost]
+        public ActionResult SendRemindsAll(int? statusId, int? touchpointId, int? partnerTypeId)
+        {
+            EmailFormat formatter = new EmailFormat();
+            var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+
+            List<int> pptqs = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1)
+               .Select(o => o.pptq).ToList();
+
+            foreach (var item in pptqs)
+            {
+                var reminder = db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, item).First();
+                string text = "";
+                string subject = "";
+                var autoemail = db.pr_getAutomailMessage(reminder.automailToSend).First();
+
+                text = autoemail.text ?? "";
+                subject = autoemail.subject ?? "";
+
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item).FirstOrDefault();
+                var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                    pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+                var em = new Email()
+                {
+                    accesscode = pptq.accesscode,
+                    emailTo = pptq.partner1.email,
+                    subject = subject,
+                    url = Request.Url.ToString(),
+                    body = resultBody,
+                    protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+                    category = SendGridCategory.FindRemind,
+                    reminderSource = (int)Reminders.InviteRemind
+                };
+
+                SchedulerServiceHelper.sendEmail(
+                    em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings()
+                    {
+                        enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                        partner = pptq.partner1,
+                        sender = null,
+                        ptq = pptq.partnerTypeTouchpointQuestionnaire1.id,
+                        touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1
+                    });
+            }
+
+            return Json(new { success = true });
+        }
+
+
+        [HttpPost]
+        public ActionResult SendReminds(List<int> pptqs, int? statusId, int? touchpointId, int? partnerTypeId) {
+
+            EmailFormat formatter = new EmailFormat();
+            var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+
+            foreach (var item in pptqs) {
+                var reminder =  db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, item).First();
+                string text = "";
+                string subject = "";
+                var autoemail = db.pr_getAutomailMessage(reminder.automailToSend).First();
+
+                text = autoemail.text ?? "";
+                subject = autoemail.subject ?? "";
+
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item).FirstOrDefault();
+                var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, 
+                    pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+                var em = new Email()
+                {
+                    accesscode = pptq.accesscode,
+                    emailTo = pptq.partner1.email,
+                    subject = subject,
+                    url = Request.Url.ToString(),
+                    body = resultBody,
+                    protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+                    category = SendGridCategory.FindRemind,
+                    reminderSource = (int)Reminders.InviteRemind
+                };
+
+                SchedulerServiceHelper.sendEmail(
+                    em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings()
+                    {
+                        enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                        partner = pptq.partner1,
+                        sender = null,
+                        ptq = pptq.partnerTypeTouchpointQuestionnaire1.id,
+                        touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1
+                    });
+            }
+
+            return Json(new { success = true });
         }
 
         [HttpPost, ValidateInput(false)]
