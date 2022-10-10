@@ -102,7 +102,7 @@
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
                     @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
                     {
-                    <span> COMPLETED DATE: Pending Approval</span>
+                        <span> COMPLETED DATE: Pending Approval</span>
                     }
                     else
                     {
@@ -267,7 +267,10 @@
                                 @if (resultArray.Count() > 1)
                                 {
                                     string res = System.Text.RegularExpressions.Regex.Replace(resultArray[1], pattern, "");
-                                    @Html.Raw(resultArray[1])
+                                    if (resultArray[1].Trim() != ",")
+                                    {
+                                        @Html.Raw(resultArray[1]);
+                                    }
                                 }
                             </div>
                         </td>
@@ -312,11 +315,11 @@
     }
     <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+    @*    <br />
+        <br />
+        <br />
+        <br />
+        <br />*@
     <!-- FAR Details -->
     <h3 style="color: blue; font-size: 14px !important;"><b>The following FAR and DFARS provisions are incorporated by reference. They do not require the completion of any data. Offeror&rsquo;s signature on page One asserts that Offeror complies with each of these provisions.</b></h3>
     <table>
