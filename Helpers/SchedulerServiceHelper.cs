@@ -387,7 +387,7 @@ namespace Generic.Helpers
                     smtp.Host = "smtp.gmail.com"; //for gmail host  
                     smtp.EnableSsl = true;
                     smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("battelle.admin@intelleges.com", "nPxjZ7XXF4F");
+                    smtp.Credentials = new NetworkCredential("battelle.admin@intelleges.com", "iqokmnoahqnspfzf");
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtp.Send(message);
                 }
