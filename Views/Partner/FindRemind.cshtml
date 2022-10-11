@@ -396,6 +396,13 @@
 				if (e) {
 					// Click no
 				} else {
+                    alertify.set({
+                        labels: {
+                            ok: "Ok",
+                            cancel: "Cancel"
+                        },
+                        buttonFocus: "ok"
+                    });
 					var pptqs = [];
                     $("input:checkbox[name$=chkSelect]:checked").each(function () {
                         pptqs.push($(this).parent().children("input:hidden[name$=pptq]").val());
@@ -407,7 +414,7 @@
                          partnerTypeId: "@ViewBag.PartnerTypeId",
                          statusId: "@ViewBag.StatusId"
                                 }).done(function (result) {
-
+                                    alertify.alert("Email reminders sent!");
                                 });
 					// click yes
 

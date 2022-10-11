@@ -1302,13 +1302,21 @@
                 alertify.confirm("You are about to send out @ViewBag.CountPPtq, are you sure?", function (e) {
 				if (e) {
 					// Click no
-				} else {
+                } else {
+                    alertify.set({
+                        labels: {
+                            ok: "Ok",
+                            cancel: "Cancel"
+                        },
+                        buttonFocus: "ok"
+                    });
+
 					 $.post('@Url.Action("SendRemindsAll", "Partner")', {
 						 touchpointId: "@ViewBag.TouchpointId",
                          partnerTypeId: "@ViewBag.PartnerTypeId",
                          statusId: "@ViewBag.StatusId"
                                 }).done(function (result) {
-
+                                    alertify.alert("Email reminders sent!");
                                 });
 					// click yes
 
