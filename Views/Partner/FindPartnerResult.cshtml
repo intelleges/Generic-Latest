@@ -3,9 +3,12 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @using Generic;
+@using Newtonsoft.Json;
 @{
     Layout = LayoutHelper.GetLayout();
     ViewBag.Title = "Partner";
+    var pptqInt = ViewBag.Pptqs as List<int>;
+    string pptqStr = JsonConvert.SerializeObject(pptqInt);
 }
 @section header{
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
@@ -1286,7 +1289,31 @@
 				alertify.alert('There is no response data available for shadows. Please access the REFERENCE and try again');
 			}
 		});
-	}
+    }
+
+        function sendEmailByPptq(nextIndex, progressbar, progressLabel, pptqs) {
+			$.post('@Url.Action("SendRemind", "Partner")', {
+                pptqId: pptqs[nextIndex],
+				touchpointId: "@ViewBag.TouchpointId",
+				partnerTypeId: "@ViewBag.PartnerTypeId",
+				statusId: "@ViewBag.StatusId"
+			}).done(function (result) {
+				var val = progressbar.progressbar("value") || 0;
+                var v = (nextIndex + 1) / pptqs.length * 100;
+				progressbar.progressbar("value", v);
+
+				$('.fancybox-inner #progress-note').html(result.message)
+
+                if (pptqs.length > nextIndex + 1) {
+                    sendEmailByPptq(nextIndex + 1, progressbar, progressLabel, pptqs);
+				}
+				else {
+					$.fancybox.close();
+					alertify.alert("You have sent out " + (nextIndex + 1) + " Messages");
+				}
+			});
+		}
+
 
 	$(function () {
         $(".t-widget.t-dropdown.t-header").css("width", "100%");
@@ -1310,14 +1337,31 @@
                         },
                         buttonFocus: "ok"
                     });
+                    var pptqs = JSON.parse('@Html.Raw(pptqStr)');
+                    $.fancybox({
+                        'content': $('#send-email-progress').html(),
+                        closeBtn: false,
+                        closeClick: false,
+                        modal: true,
+                        type: 'html',
+                        minWidth: 400,
+                        minHeight: 150
+                    });
 
-					 $.post('@Url.Action("SendRemindsAll", "Partner")', {
-						 touchpointId: "@ViewBag.TouchpointId",
-                         partnerTypeId: "@ViewBag.PartnerTypeId",
-                         statusId: "@ViewBag.StatusId"
-                                }).done(function (result) {
-                                    alertify.alert("Email reminders sent!");
-                                });
+                    var progressbar = $(".fancybox-inner #progressbar"),
+                        progressLabel = $(".fancybox-inner .progress-label");
+
+                    progressbar.progressbar({
+                        value: false,
+                        change: function () {
+                            progressLabel.text(Number(progressbar.progressbar("value")).toFixed(2) + "%");
+                        },
+                        complete: function () {
+                            progressLabel.text("Complete!");
+                        }
+                    });
+
+                    sendEmailByPptq(0, progressbar, progressLabel, pptqs);
 					// click yes
 
 				}
@@ -1358,6 +1402,15 @@
 </div><div>
     <a href="" id="yourLinkID" target="_blank"></a>
 </div>
+      <div id="send-email-progress" style="display:none;">
+          <div style="padding: 10px 20px;">
+              <div id="progressbar"><div class="progress-label">Loading...</div></div>
+              <p id="progress-note"></p>
+              <div class="tw-bs buttons">
+                  <button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
+              </div>
+          </div>
+      </div>
 @if (Session["ACNewEmail"] != null)
 {
     <script>

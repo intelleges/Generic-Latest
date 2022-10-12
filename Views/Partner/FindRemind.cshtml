@@ -392,35 +392,48 @@
 				buttonFocus: "cancel"
 			});
 			// button labels will be "Accept" and "Deny"
-                alertify.confirm("You are about to send out " + $('input:checkbox[name$=chkSelect]:checked').length+", are you sure?", function (e) {
-				if (e) {
-					// Click no
-				} else {
-                    alertify.set({
-                        labels: {
-                            ok: "Ok",
-                            cancel: "Cancel"
-                        },
-                        buttonFocus: "ok"
-                    });
-					var pptqs = [];
-                    $("input:checkbox[name$=chkSelect]:checked").each(function () {
-                        pptqs.push($(this).parent().children("input:hidden[name$=pptq]").val());
-					});
+				alertify.confirm("You are about to send out " + $('input:checkbox[name$=chkSelect]:checked').length + ", are you sure?", function (e) {
+					if (e) {
+						// Click no
+					} else {
+						alertify.set({
+							labels: {
+								ok: "Ok",
+								cancel: "Cancel"
+							},
+							buttonFocus: "ok"
+						});
+						var pptqs = [];
+						$("input:checkbox[name$=chkSelect]:checked").each(function () {
+							pptqs.push($(this).parent().children("input:hidden[name$=pptq]").val());
+						});
 
-					 $.post('@Url.Action("SendReminds", "Partner")', {
-                         pptqs: pptqs,
-						 touchpointId: "@ViewBag.TouchpointId",
-                         partnerTypeId: "@ViewBag.PartnerTypeId",
-                         statusId: "@ViewBag.StatusId"
-                                }).done(function (result) {
-                                    alertify.alert("Email reminders sent!");
-                                });
-					// click yes
+						$.fancybox({
+							'content': $('#send-email-progress').html(),
+							closeBtn: false,
+							closeClick: false,
+							modal: true,
+							type: 'html',
+							minWidth: 400,
+							minHeight: 150
+						});
 
-				}
-			});
+						var progressbar = $(".fancybox-inner #progressbar"),
+							progressLabel = $(".fancybox-inner .progress-label");
 
+						progressbar.progressbar({
+							value: false,
+							change: function () {
+								progressLabel.text(Number(progressbar.progressbar("value")).toFixed(2) + "%");
+							},
+							complete: function () {
+								progressLabel.text("Complete!");
+							}
+						});
+
+						sendEmailByPptq(0, progressbar, progressLabel, pptqs);
+					}
+				});
             });
 
 
@@ -436,6 +449,29 @@
 			});
 
 		});
+
+        function sendEmailByPptq(nextIndex, progressbar, progressLabel, pptqs) {
+			$.post('@Url.Action("SendRemind", "Partner")', {
+                pptqId: pptqs[nextIndex],
+				touchpointId: "@ViewBag.TouchpointId",
+				partnerTypeId: "@ViewBag.PartnerTypeId",
+				statusId: "@ViewBag.StatusId"
+			}).done(function (result) {
+				var val = progressbar.progressbar("value") || 0;
+                var v = (nextIndex + 1) / pptqs.length * 100;
+				progressbar.progressbar("value", v);
+
+				$('.fancybox-inner #progress-note').html(result.message)
+
+                if (pptqs.length > nextIndex + 1) {
+                    sendEmailByPptq(nextIndex + 1, progressbar, progressLabel, pptqs);
+				}
+				else {
+					$.fancybox.close();
+					alertify.alert("You have sent out " + (nextIndex + 1) + " Messages");
+				}
+			});
+		}
 
 		function sendEmailByAccessCode(nextIndex, progressbar, progressLabel)
 		{

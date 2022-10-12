@@ -2214,9 +2214,10 @@ namespace Generic.Controllers
                 ViewBag.TouchpointId = touchpointID;
                 ViewBag.StatusId = statusID;
 
-                ViewBag.CountPPtq = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
-                   .Select(o => o.pptq).Count();
-
+                var list = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
+                   .Select(o => o.pptq).ToList();
+                ViewBag.Pptqs = list;
+                ViewBag.CountPPtq = list.Count;
                 return View(abc);
             }
             catch (Exception ex)
@@ -2899,117 +2900,57 @@ namespace Generic.Controllers
             return View("FindRemind", objPartnerViewModelList);
         }
 
-        /* public ActionResult FindRemind()
-         {
-             string arguments = Session["partnersearch"].ToString() + "active=1;";
-
-             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
-             int partnerType = -1, touchpoint = -1;
-
-             if (ShouldUseDropdownSubject(arguments, out partnerType, out touchpoint))
-             {
-                 Session["automail_partnerType"] = partnerType;
-                 Session["automail_touchpoint"] = touchpoint;
-                 ViewBag.DropDownSubjects = new SelectList(db.pr_getAutoMailMessageByPartnerTypeAndTouchpoint(partnerType, touchpoint).ToList(), "id", "subject").ToList();
-             }
-             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
-             ViewBag.searchType = "Remind";
-             ViewBag.AccsessCodes = objPartnerViewModelList.Select(o => o.AccessCode).ToList();
-             return View(objPartnerViewModelList);
-             //return View();
-         }*/
-
         [HttpPost]
-        public ActionResult SendRemindsAll(int? statusId, int? touchpointId, int? partnerTypeId)
+        public ActionResult SendRemind(int pptqId, int? statusId, int? touchpointId, int? partnerTypeId)
         {
+
             EmailFormat formatter = new EmailFormat();
             var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
 
-            List<int> pptqs = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1)
-               .Select(o => o.pptq).ToList();
+            var reminder = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1).Where(o => o.pptq == pptqId).First();
+            //var reminder = db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, pptqId).First();
+            string text = "";
+            string subject = "";
+            var autoemail = db.pr_getAutomailMessage(reminder.automailToSend).First();
+            var autoMailId = reminder.automailToSend;
+            text = autoemail.text ?? "";
+            subject = autoemail.subject ?? "";
 
-            foreach (var item in pptqs)
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+            var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
+            var em = new Email()
             {
-                var reminder = db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, item).First();
-                string text = "";
-                string subject = "";
-                var autoemail = db.pr_getAutomailMessage(reminder.automailToSend).First();
+                accesscode = pptq.accesscode,
+                emailTo = pptq.partner1.email,
+                subject = subject,
+                url = Request.Url.ToString(),
+                body = resultBody,
+                protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
+                category = SendGridCategory.FindRemind,
+                reminderSource = (int)Reminders.InviteRemind
+            };
 
-                text = autoemail.text ?? "";
-                subject = autoemail.subject ?? "";
+            string email = currentPerson.email;
+            //if (email.ToLower().Contains("@battelle.org"))
+            //    email = "battelle.admin@intelleges.com";
 
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item).FirstOrDefault();
-                var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
-                    pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
-                var em = new Email()
-                {
-                    accesscode = pptq.accesscode,
-                    emailTo = pptq.partner1.email,
-                    subject = subject,
-                    url = Request.Url.ToString(),
-                    body = resultBody,
-                    protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
-                    category = SendGridCategory.FindRemind,
-                    reminderSource = (int)Reminders.InviteRemind
-                };
+            SchedulerServiceHelper.sendEmail(
+            em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings()
+            {
+                enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                partner = pptq.partner1,
+                sender = null,
+                ptq = pptq.partnerTypeTouchpointQuestionnaire1.id,
+                touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1
+            });
 
-                SchedulerServiceHelper.sendEmail(
-                    em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings()
-                    {
-                        enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
-                        partner = pptq.partner1,
-                        sender = null,
-                        ptq = pptq.partnerTypeTouchpointQuestionnaire1.id,
-                        touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1
-                    });
-            }
-
-            return Json(new { success = true });
-        }
-
-
-        [HttpPost]
-        public ActionResult SendReminds(List<int> pptqs, int? statusId, int? touchpointId, int? partnerTypeId) {
-
-            EmailFormat formatter = new EmailFormat();
-            var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-
-            foreach (var item in pptqs) {
-                var reminder =  db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, item).First();
-                string text = "";
-                string subject = "";
-                var autoemail = db.pr_getAutomailMessage(reminder.automailToSend).First();
-
-                text = autoemail.text ?? "";
-                subject = autoemail.subject ?? "";
-
-                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(item).FirstOrDefault();
-                var resultBody = formatter.sGetEmailBody(text, null, pptq.partner1, pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, 
-                    pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1, pptq.partnerTypeTouchpointQuestionnaire1.id);
-                var em = new Email()
-                {
-                    accesscode = pptq.accesscode,
-                    emailTo = pptq.partner1.email,
-                    subject = subject,
-                    url = Request.Url.ToString(),
-                    body = resultBody,
-                    protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
-                    category = SendGridCategory.FindRemind,
-                    reminderSource = (int)Reminders.InviteRemind
-                };
-
-                SchedulerServiceHelper.sendEmail(
-                    em, new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), false, Request.Files, new EmailFormatSettings()
-                    {
-                        enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
-                        partner = pptq.partner1,
-                        sender = null,
-                        ptq = pptq.partnerTypeTouchpointQuestionnaire1.id,
-                        touchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1
-                    });
-            }
-
-            return Json(new { success = true });
+            int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+            var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
+            var fromToEmail = $"{email} -> {pptq.partner1.email}";
+            string message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
+            db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, string.Empty, "13", pptq.accesscode, protocolTouchpoint, "MVCMT", statusId/* (int)Reminders.InviteRemind*/, autoMailId, enterpriseid, em.loadgroup);
+            return Json(new { success = true, message });
         }
 
         [HttpPost, ValidateInput(false)]

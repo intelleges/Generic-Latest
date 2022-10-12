@@ -378,7 +378,7 @@ namespace Generic.Helpers
                 {
                     MailMessage message = new MailMessage();
                     SmtpClient smtp = new SmtpClient();
-                    message.From = new MailAddress("battelle.admin@intelleges.comm");
+                    message.From = new MailAddress("battelle.admin@intelleges.com");
                     message.To.Add(new MailAddress(email.emailTo));
                     message.Subject = email.subject;
                     message.IsBodyHtml = true; //to make message body as html  
