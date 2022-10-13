@@ -963,19 +963,19 @@ namespace Generic.Controllers
                     //var dataToday = db.pr_getReminderSentCountDaily(DateTime.Now, "MVCMT - R", y.description, Generic.Helpers.CurrentInstance.EnterpriseID);
 
                     Dictionary<string, int?> dataAllDictionary = new Dictionary<string, int?>();
-                    dataAllDictionary.Add("bounce", 0);
+                    dataAllDictionary.Add("bounced", 0);
                     dataAllDictionary.Add("deferred", 0);
-                    dataAllDictionary.Add("click", 0);
+                    dataAllDictionary.Add("clicked", 0);
                     dataAllDictionary.Add("delivered", 0);
                     dataAllDictionary.Add("dropped", 0);
-                    dataAllDictionary.Add("open", 0);
+                    dataAllDictionary.Add("opened", 0);
                     dataAllDictionary.Add("processed", 0);
-
+      
                     foreach (var o in dataAll)
                     {
                         if (o.@event.Trim().ToLower() == "bounce")
                         {
-                            dataAllDictionary["bounce"] = o.total;
+                            dataAllDictionary["bounced"] = o.total;
                         }
                         else if (o.@event.Trim().ToLower() == "deferred")
                         {
@@ -983,7 +983,7 @@ namespace Generic.Controllers
                         }
                         else if (o.@event.Trim().ToLower() == "click")
                         {
-                            dataAllDictionary["click"] = o.total;
+                            dataAllDictionary["clicked"] = o.total;
                         }
                         else if (o.@event.Trim().ToLower() == "delivered")
                         {
@@ -995,7 +995,7 @@ namespace Generic.Controllers
                         }
                         else if (o.@event.Trim().ToLower() == "open")
                         {
-                            dataAllDictionary["open"] = o.total;
+                            dataAllDictionary["opened"] = o.total;
                         }
                         else if (o.@event.Trim().ToLower() == "processed")
                         {
@@ -1004,19 +1004,19 @@ namespace Generic.Controllers
                     }
 
                     Dictionary<string, int?> dataTodayDictionary = new Dictionary<string, int?>();
-                    dataTodayDictionary.Add("bounce", 0);
+                    dataTodayDictionary.Add("bounced", 0);
                     dataTodayDictionary.Add("deferred", 0);
-                    dataTodayDictionary.Add("click", 0);
+                    dataTodayDictionary.Add("clicked", 0);
                     dataTodayDictionary.Add("delivered", 0);
                     dataTodayDictionary.Add("dropped", 0);
-                    dataTodayDictionary.Add("open", 0);
+                    dataTodayDictionary.Add("opened", 0);
                     dataTodayDictionary.Add("processed", 0);
 
                     foreach (var t in dataToday)
                     {
                         if (t.@event.Trim().ToLower() == "bounce")
                         {
-                            dataTodayDictionary["bounce"] = t.total;
+                            dataTodayDictionary["bounced"] = t.total;
                         }
                         else if (t.@event.Trim().ToLower() == "deferred")
                         {
@@ -1024,7 +1024,7 @@ namespace Generic.Controllers
                         }
                         else if (t.@event.Trim().ToLower() == "click")
                         {
-                            dataTodayDictionary["click"] = t.total;
+                            dataTodayDictionary["clicked"] = t.total;
                         }
                         else if (t.@event.Trim().ToLower() == "delivered")
                         {
@@ -1036,7 +1036,7 @@ namespace Generic.Controllers
                         }
                         else if (t.@event.Trim().ToLower() == "open")
                         {
-                            dataTodayDictionary["open"] = t.total;
+                            dataTodayDictionary["opened"] = t.total;
                         }
                         else if (t.@event.Trim().ToLower() == "processed")
                         {

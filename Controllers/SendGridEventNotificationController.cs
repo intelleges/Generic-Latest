@@ -46,7 +46,10 @@ namespace Generic.Controllers
                             automailMessage = res;
 
 
-                        context.pr_addEventNotification(eventDetails.email, new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), eventDetails.@event, eventDetails.reason, eventDetails.url, eventDetails.category, eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, reminderSource, automailMessage, enterprise, eventDetails.loadgroup);
+                        context.pr_addEventNotification(eventDetails.email, 
+                            new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToInt32(eventDetails.timestamp)).AddHours(-4), 
+                            eventDetails.@event, eventDetails.reason, eventDetails.url, eventDetails.category, 
+                            eventDetails.accesscode, eventDetails.protocolTouchpoint, eventDetails.ApplicationName, reminderSource, automailMessage, enterprise, eventDetails.loadgroup);
 
                     }
                 }

@@ -2927,7 +2927,8 @@ namespace Generic.Controllers
                 body = resultBody,
                 protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
                 category = SendGridCategory.FindRemind,
-                reminderSource = (int)Reminders.InviteRemind
+                reminderSource = (int)Reminders.InviteRemind,
+                 automailMessage = (autoMailId == null? null : autoMailId.Value.ToString())
             };
 
             string email = currentPerson.email;
