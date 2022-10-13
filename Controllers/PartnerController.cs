@@ -2906,9 +2906,8 @@ namespace Generic.Controllers
 
             EmailFormat formatter = new EmailFormat();
             var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-
-            var reminder = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1).Where(o => o.pptq == pptqId).First();
-            //var reminder = db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, pptqId).First();
+            //var reminder = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1).Where(o => o.pptq == pptqId).First();
+            var reminder = db.pr_getReminder(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointId, partnerTypeId, statusId, 1, pptqId).First();
             string text = "";
             string subject = "";
             var autoemail = db.pr_getAutomailMessage(reminder.automailToSend).First();
@@ -3133,8 +3132,8 @@ namespace Generic.Controllers
 
                     int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
                     var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
-                    var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";
-                    db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, Request.Url.ToString(), "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind, default(int?), enterpriseid, "");
+                    var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";     
+                    db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, Request.Url.ToString(), "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind, message.id, enterpriseid, "");
                 }
                 else
                 {
