@@ -3116,7 +3116,7 @@ namespace Generic.Controllers
         {
 
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
-            var result = "Congratulations, you have just sent a reminder to " + pptq.partner1.name + " with access code " + accessCode;
+            var result = "";
             if (pptq != null)
             {
 
@@ -3126,10 +3126,23 @@ namespace Generic.Controllers
                 {
                     return "Sorry, there is NO AUTOMAIL AVAILABLE for this Touchpoint.";
                 }
+
+                enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                string toEmail = string.Empty;
+                if (objEnterpriseSystemInfo != null && objEnterpriseSystemInfo.coordinatorEmail != null)
+                {
+                    toEmail = objEnterpriseSystemInfo.coordinatorEmail;
+                }
+
+                var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                result = "Congratulations, you have just sent a reminder to " + currentPerson.email + ", " + toEmail + " with access code " + accessCode;
+
                 if (new int[] { 6, 7, 13 }.Contains(pptq.status))
                 {
-                    var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-                    SchedulerServiceHelper.SendFirstReminderByPptq(pptq.id, accessCode, Request.Url.ToString(), new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName));
+
+                    string str = SchedulerServiceHelper.SendFirstReminderByPptq2(pptq.id, accessCode, Request.Url.ToString(), 
+                        new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), new List<string>() { currentPerson.email , toEmail });
+                    result += "<br/><br/><div style='width: 100%;text-align: right;'><img onclick='copyHtmlContent();' style='cursor: pointer; width: 20px;' src='" + Url.Content("~/content/copy-paste.png") + "'/><br/></div><div id='print-content' style='text-align: left;'>" + str + "</div>";
 
                     int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
                     var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
@@ -3160,14 +3173,10 @@ namespace Generic.Controllers
                         var email = choices[0].Split(':')[1];
                         var qnextId = choices[1].Replace("[", "").Replace("]", "");
 
-                        enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                        string toEmail = string.Empty;
-                        if (objEnterpriseSystemInfo != null && objEnterpriseSystemInfo.coordinatorEmail != null)
-                        {
-                            toEmail = objEnterpriseSystemInfo.coordinatorEmail;
-                        }
-                        EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString(), toEmail);
-
+                      
+                        string str = EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, new List<string>() { currentPerson.email, toEmail }, pptq.id, 
+                            appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString(), currentPerson);
+                        result += "<br/><br/><div style='width: 100%;text-align: right;'><img onclick='copyHtmlContent();' style='cursor: pointer; width: 20px;' src='" + Url.Content("~/content/copy-paste.png") + "'/><br/></div><div  style='text-align: left;' id='print-content'>" + str + "</div>";
                         return result;
                     }
                     result = "The status for " + pptq.partner1.name + " with " + accessCode + " access code does not permit reminders at this time. Please contact your system adminitrator.";
@@ -5741,6 +5750,7 @@ namespace Generic.Controllers
                 }
             }
 
+           
             return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg = msg, items = items }, JsonRequestBehavior.AllowGet);
         }
 

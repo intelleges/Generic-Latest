@@ -182,10 +182,14 @@ namespace Generic.Helpers
             }
             else
             {
-
-                msg.AddTo(email.emailTo);
-                receiver = email.emailTo;
-
+                foreach (var s in email.emailTo.Split(','))
+                {
+                    if (!string.IsNullOrEmpty(s))
+                    {
+                        msg.AddTo(email.emailTo);
+                        receiver = email.emailTo;
+                    }
+                }
             }
 
             enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == enterpriseId).FirstOrDefault();
@@ -824,9 +828,70 @@ namespace Generic.Helpers
             }
         }
 
-        public static bool SendFirstReminderByPptq(int pptqId, string accesscode, string url, MailAddress sendFrom)
+        public static string SendFirstReminderByPptq2(int pptqId, string accesscode, string url, MailAddress sendFrom, List<string> sendTos)
         {
-            bool result = false;
+            string result = "";
+            using (EntitiesDBContext db = new EntitiesDBContext())
+            {
+
+                var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault();
+
+                var person = db.pr_getPersonByEmail(2, "john@intelleges.com").FirstOrDefault();
+                var objpartner = db.pr_getPartner(pptq.partner).FirstOrDefault();
+
+                var ptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                var message = db.pr_getAutoMailmessageByMailtypeandPTQ(4, ptq.id).FirstOrDefault();
+                //objpartner.enterprise
+                var objtouchpoint = db.pr_getTouchpoint(ptq.touchpoint).FirstOrDefault();
+                Email email = new Email(message);
+
+                email.accesscode = accesscode;
+                if (objtouchpoint != null)
+                    email.protocolTouchpoint = objtouchpoint.description;
+                if (message != null)
+                    email.automailMessage = message.id.ToString();
+                email.url = url;
+                email.category = SendGridCategory.SendFirstReminderByPptq;
+
+                EmailFormat emailFormat = new EmailFormat();
+                email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, ptq.id);
+                email.subject = emailFormat.sGetEmailBody(email.subject, person, objpartner, objtouchpoint, ptq.id);
+                email.emailTo = string.Join(",", sendTos); //objpartner.email;
+                email.reminderSource = (int)Reminders.PartnerFind;
+
+                result = email.body + "<br/><br/>EmailTo: " + email.emailTo + "<br/><br/>EmailFrom: " + sendFrom.Address;
+
+                try
+                {
+                    sendEmails(email, (int)objpartner.enterprise, sendFrom, new EmailFormatSettings()
+                    {
+                        sender = person,
+                        ptq = ptq.id,
+                        partner = objpartner,
+                        touchpoint = objtouchpoint
+                    }, db);
+                    db.pr_addPPTQautoMailMessageLog(pptqId, message.id);
+                }
+                catch (Exception ex)
+                {
+                    if (!EventLog.SourceExists(sSource))
+                    {
+                        EventLog.CreateEventSource(sSource, sLog);
+                    }
+
+                    sEvent = ex.StackTrace;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error, 6);
+
+                    string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
+                    System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
+                }
+            }
+            return result;
+        }
+
+        public static string SendFirstReminderByPptq(int pptqId, string accesscode, string url, MailAddress sendFrom)
+        {
+            string result = "";
             using (EntitiesDBContext db = new EntitiesDBContext())
             {
 
@@ -856,6 +921,8 @@ namespace Generic.Helpers
                 email.emailTo = objpartner.email;
                 email.reminderSource = (int)Reminders.PartnerFind;
 
+                result = email.body + "<br/><br/>EmailTo: " + objpartner.email + "<br/><br/>EmailFrom: " + sendFrom.Address;
+
                 try
                 {
                     sendEmails(email, (int)objpartner.enterprise, sendFrom, new EmailFormatSettings()
@@ -880,7 +947,6 @@ namespace Generic.Helpers
                     string text = "\r\n \r\n Error in First foreach loop : " + ex.StackTrace;
                     System.IO.File.AppendAllText(System.IO.Path.Combine(@"C:\reminder_Logs", "Logs.txt"), text);
                 }
-                result = true;
             }
             return result;
         }
