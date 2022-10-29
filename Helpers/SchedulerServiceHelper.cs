@@ -186,10 +186,11 @@ namespace Generic.Helpers
                 {
                     if (!string.IsNullOrEmpty(s))
                     {
-                        msg.AddTo(email.emailTo);
-                        receiver = email.emailTo;
+                        msg.AddTo(s);
                     }
                 }
+
+                receiver = email.emailTo;
             }
 
             enterpriseSystemInfo objEnterpriseSystemInfo = db.pr_getEnterpriseSystemInfoAll().Where(o => o.enterprise == enterpriseId).FirstOrDefault();
