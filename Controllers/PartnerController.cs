@@ -3135,13 +3135,13 @@ namespace Generic.Controllers
                 }
 
                 var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
-                result = "Congratulations, you have just sent a reminder to " + currentPerson.email + ", " + toEmail + " with access code " + accessCode;
+                result = "Congratulations, you have just sent a reminder to " + pptq.partner1.name + " with access code " + accessCode;
 
                 if (new int[] { 6, 7, 13 }.Contains(pptq.status))
                 {
 
                     string str = SchedulerServiceHelper.SendFirstReminderByPptq2(pptq.id, accessCode, Request.Url.ToString(), 
-                        new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), new List<string>() { currentPerson.email , toEmail });
+                        new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), new List<string>() { pptq.partner1.email });
                     result += "<br/><br/><div style='width: 100%;text-align: right;'><img onclick='copyHtmlContent();' style='cursor: pointer; width: 20px;' src='" + Url.Content("~/content/copy-paste.png") + "'/><br/></div><div id='print-content' style='text-align: left;'>" + str + "</div>";
 
                     int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
