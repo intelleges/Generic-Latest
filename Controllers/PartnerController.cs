@@ -3139,9 +3139,11 @@ namespace Generic.Controllers
 
                 if (new int[] { 6, 7, 13 }.Contains(pptq.status))
                 {
+                    var r = db.pr_getTouchpointAdminPersonByTouchpoint((int)Session["touchpoint"]).First();
+                    var mailAddress = new System.Net.Mail.MailAddress(r.email, string.Format("{0} {1}",r.firstName,r.lastName));
 
-                    string str = SchedulerServiceHelper.SendFirstReminderByPptq2(pptq.id, accessCode, Request.Url.ToString(), 
-                        new System.Net.Mail.MailAddress(currentPerson.email, currentPerson.FullName), new List<string>() { pptq.partner1.email });
+                    string str = SchedulerServiceHelper.SendFirstReminderByPptq2(pptq.id, accessCode, Request.Url.ToString(), mailAddress
+                        , new List<string>() { pptq.partner1.email });
                     result += "<br/><br/><div style='width: 100%;text-align: right;'><img onclick='copyHtmlContent();' style='cursor: pointer; width: 20px;' src='" + Url.Content("~/content/copy-paste.png") + "'/><br/></div><div id='print-content' style='text-align: left;'>" + str + "</div>";
 
                     int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
