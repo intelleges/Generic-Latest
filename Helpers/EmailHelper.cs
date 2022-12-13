@@ -11,7 +11,7 @@ namespace Generic.Helpers
     public static class EmailHelper
     {
         public static string SendEmailAlertWhere(partner partner, partnerPartnertypeTouchpointQuestionnaire pptqObj, string accessCode, List<string> emailTo, int ptqId, int questionId, string qnextId, string text, Uri baseUri,
-           UrlHelper urlHelper, string requestUrl, person person)
+           UrlHelper urlHelper, string requestUrl, person person, System.Net.Mail.MailAddress fromAddress)
         {
             string str = "";
             var db = new EntitiesDBContext();
@@ -41,7 +41,7 @@ namespace Generic.Helpers
 
             objamm.text = t;
 
-            string emailsTo = string.Join(",", emailTo);
+            string emailsTo = string.Join(";", emailTo);
             Email mail = new Email(objamm)
             {
                 type = "emailAlert",
@@ -62,7 +62,8 @@ namespace Generic.Helpers
 
             if (person != null)
             {
-                str = t + "<br/><br/>EmailTo: " + string.Join(",", emailTo) + "<br/><br/>EmailFrom: " + person.email;
+                //str = t + "<br/><br/>EmailTo: " + string.Join(",", emailTo) + "<br/><br/>EmailFrom: " + person.email;
+                str = t + "<br/><br/>EmailTo: " + string.Join(",", emailTo) + "<br/><br/>EmailFrom: " + fromAddress.Address;
                 SendEmail objSendEmail = new SendEmail();
                 objSendEmail.sendEmail(mail, new EmailFormatSettings()
                 {
@@ -71,7 +72,8 @@ namespace Generic.Helpers
                     partner = pptqObj.partner1,
                     ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                     touchpoint = null
-                }, sendFrom: new System.Net.Mail.MailAddress(person.email, StringHelper.UppercaseFirst(person.firstName) + " " + StringHelper.UppercaseFirst(person.lastName)));
+                }, sendFrom:fromAddress);
+                // new System.Net.Mail.MailAddress(person.email, StringHelper.UppercaseFirst(person.firstName) + " " + StringHelper.UppercaseFirst(person.lastName))
             }
             else
             {

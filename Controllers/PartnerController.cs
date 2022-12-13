@@ -3175,9 +3175,12 @@ namespace Generic.Controllers
                         var email = choices[0].Split(':')[1];
                         var qnextId = choices[1].Replace("[", "").Replace("]", "");
 
-                      
+
+                        var r = db.pr_getTouchpointAdminPersonByTouchpoint((int)Session["touchpoint"]).First();
+                        var mailAddress = new System.Net.Mail.MailAddress(r.email, string.Format("{0} {1}", StringHelper.UppercaseFirst(r.firstName), StringHelper.UppercaseFirst(r.lastName)));
+
                         string str = EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, new List<string>() { currentPerson.email, toEmail }, pptq.id, 
-                            appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString(), currentPerson);
+                            appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString(), currentPerson, mailAddress);
                         result += "<br/><br/><div style='width: 100%;text-align: right;'><img onclick='copyHtmlContent();' style='cursor: pointer; width: 20px;' src='" + Url.Content("~/content/copy-paste.png") + "'/><br/></div><div  style='text-align: left;' id='print-content'>" + str + "</div>";
                         return result;
                     }
