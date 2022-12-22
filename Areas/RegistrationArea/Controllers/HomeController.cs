@@ -1224,6 +1224,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
             if (person != null)
             {
+                var r = db.pr_getTouchpointAdminPersonByTouchpoint((int)Session["touchpoint"]).First();
+                var mailAddress = new System.Net.Mail.MailAddress(r.email, string.Format("{0} {1}", r.firstName, r.lastName));
                 SendEmail objSendEmail = new SendEmail();
                 objSendEmail.sendEmail(mail, new EmailFormatSettings()
                 {
@@ -1232,7 +1234,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     partner = pptqObj.partner1,
                     ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                     touchpoint = null
-                }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.firstName + " " + person.lastName));
+                }, sendFrom: mailAddress);
+                //objSendEmail.sendEmail(mail, new EmailFormatSettings()
+                //{
+                //    sender = null,
+                //    enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                //    partner = pptqObj.partner1,
+                //    ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                //    touchpoint = null
+                //}, sendFrom: new System.Net.Mail.MailAddress(person.email, person.firstName + " " + person.lastName));
             }
             else
             {
