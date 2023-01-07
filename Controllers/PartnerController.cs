@@ -2370,8 +2370,7 @@ namespace Generic.Controllers
                 var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 if (pptq1 != null)
                 {
-                    db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq1.id)
-                        ;
+                    db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(pptq1.id) ;
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
                 return Json(false, JsonRequestBehavior.AllowGet);
@@ -2379,7 +2378,7 @@ namespace Generic.Controllers
             else
             {
                 var id = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First().id;
-                db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(id);
+                db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(id);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
         }
