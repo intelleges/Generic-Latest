@@ -2383,6 +2383,53 @@ namespace Generic.Controllers
             }
         }
 
+        public ActionResult RefreshPdf(string accessCode, string internalID, int? touchpoint)
+        {
+            if (!string.IsNullOrEmpty(accessCode))
+            {
+                var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+                if (pptq1 != null)
+                {
+                    // PDF reset in table
+                    db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq1.id);
+                    // PDf reset in folder
+                    //Generic.Areas.RegistrationArea.Controllers.HomeController objHome = new Generic.Areas.RegistrationArea.Controllers.HomeController();
+                   // objHome.ReGenerateCustomPdf(pptq1.id);
+                    //string htmltext = this.RenderActionResultToString(this.View("~/Registration/Views/Home/CustomQuestionnaireSurveyPdfDownload.cshtml"));  //name of the view...
+                    ////string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+                    //string PDF_FileName = "HON_" + accessCode.Substring(1, 4) + ".pdf";
+
+                    //string dirname = "~/uploadedFiles/";
+                    //if (Directory.Exists(Server.MapPath(dirname)))
+                    //{
+                    //    var fileName = Server.MapPath(dirname) + PDF_FileName;
+                    //    if (System.IO.File.Exists(fileName))
+                    //    {
+                    //        try
+                    //        {
+                    //            System.IO.File.Delete(fileName);
+                    //        }
+                    //        catch { }
+                    //    }
+
+                    //    byte[] bytes = null;
+                    //    bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
+
+                    //    var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq1.id);
+                    //    db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
+                    //}
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var id = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First().id;
+                db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(id);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult PrintPDF(string accesscode)
         {
             if (!string.IsNullOrEmpty(accesscode))

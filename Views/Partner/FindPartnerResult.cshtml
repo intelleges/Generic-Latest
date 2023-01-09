@@ -377,6 +377,8 @@
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Manual Upload")?"inherit":"none")'><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Unlock</a></li>
+                                                                                                
+                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:refreshPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">PDF Refresh</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("View Detail")?"inherit":"none")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -1121,6 +1123,16 @@
 		});
     }
 
+     function refreshPdf(accessCode, internalID, touchpoint) {
+        $.get('@Url.Content("~/Registration/Home/RefreshPdf")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
+			if (data) {
+				alertify.alert("PDF document was reset");
+			} else {
+				alertify.alert("Something went wrong, please try again later");
+			}
+		});
+    }
+
     var itemsForPrint = [];
     function printNextPdf(item) {
         if (item.status == 6 || item.status == 7 || item.status == 13) {
@@ -1223,7 +1235,7 @@
                     html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="3" >Approve this supplier<br/>';
                     html += ' <input type="radio" style="width:30px;" id="choiseSelect" name="choiseSelect" value="4" >Reject this supplier<br/>';
                 }
-               
+
                 html += '</div>';
                 alertify.confirm(html, function (e) {
 				if (e) {
