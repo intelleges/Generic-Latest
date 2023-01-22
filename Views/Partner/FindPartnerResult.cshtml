@@ -1431,17 +1431,41 @@
       </div>
 @if (Session["ACNewEmail"] != null)
 {
-    <script>
-
+<script>
         jQuery(document).ready(function ($) {
-
-
-            alertify.alert("You have successfully changed the point-of-contact email address for <br/> Access Code: @Session["accessCode"].ToString() from @Session["ACEmail"].ToString() to @Session["ACNewEmail"].ToString()");
-
+            var alertMessage = "You have successfully changed the point-of-contact email address for <br/> Access Code: @Session["accessCode"].ToString() from @Session["ACEmail"].ToString() to @Session["ACNewEmail"].ToString()";
+            alertify.alert(alertMessage, function (isOk) {
+                var inviteMessage = "Would you like to send an invite to the new contact email address?";
+                alertify.set({
+                    labels: {
+                        ok: "Yes",
+                        cancel: "No"
+                    },
+                    buttonFocus: "ok"
+                });
+                alertify.confirm(inviteMessage, function (sendInvite) {
+                    if (sendInvite) {
+                        var urlAction = '@Url.Action("SendInviteToNewContactEmailAddress", "wrongcontact")';
+                        $.get(urlAction, function (isSucces) {
+                            console.log(isSucces);
+                            if (isSucces) {
+                                alertify.set({
+                                    labels: {
+                                        ok: "Ok",
+                                        cancel: "Cancel"
+                                    },
+                                    buttonFocus: "ok"
+                                });
+                                alertify.alert("Invite sent!.");
+                            }
+                        });
+                    }
+                })
+            });
 
         });
 
-    </script>
+</script>
 
     Session["ACNewEmail"] = null;
 }

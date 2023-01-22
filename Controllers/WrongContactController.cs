@@ -178,7 +178,7 @@ namespace Generic.Controllers
 
                 Generic.Helpers.CurrentInstance.EnterpriseID = (int)objpartner.enterprise;
 
-
+                /*
                 int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint((int)Session["partnerType"], (int)Session["touchpoint"]).FirstOrDefault().id;
                 var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(objpartner.id, ptq).FirstOrDefault();
 
@@ -210,7 +210,7 @@ namespace Generic.Controllers
                           touchpoint = objtouchpoint,
                           enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1
                  });
-				 
+				 */
 
                  if (listing!=null&&listing.Trim().ToLower().Equals("y"))
                     return RedirectToAction("../Partner/FindPartnerResult");
@@ -219,6 +219,69 @@ namespace Generic.Controllers
 
             }
             return View(partner);
+        }
+
+        private int GetPartnerId()
+        {
+            int partnerId;
+            int.TryParse(Session["partner"].ToString(), out partnerId);
+            if(partnerId == 0)
+            {
+                try
+                {
+                    List<view_PartnerData> abc = (List<view_PartnerData>)Session["partner"];
+                    if (abc.Any())
+                    {
+                        partnerId = abc.FirstOrDefault().id;
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return partnerId;
+        }
+
+        [HttpGet]
+        public JsonResult SendInviteToNewContactEmailAddress()
+        {
+            try
+            {
+                var partnerId = GetPartnerId();
+                partner objpartner = db.pr_getPartner(partnerId).FirstOrDefault();
+                int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint((int)Session["partnerType"], (int)Session["touchpoint"]).FirstOrDefault().id;
+                var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(objpartner.id, ptq).FirstOrDefault();
+
+                var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, ptq).FirstOrDefault();
+
+                var objtouchpoint = db.pr_getTouchpoint((int)Session["touchpoint"]).FirstOrDefault();
+                Email email = new Email(amm);
+                EmailFormat emailFormat = new EmailFormat();
+                person objperson = new person();
+
+                email.body = emailFormat.sGetEmailBody(email.body, objperson, objpartner, objtouchpoint, ptq);
+                email.emailTo = objpartner.email;
+                email.category = SendGridCategory.WrongContract;
+                email.url = Request.Url.ToString();
+                email.protocolTouchpoint = objtouchpoint.description;
+                email.automailMessage = amm.id.ToString();
+                email.accesscode = email.accesscode;
+
+                SendEmail objSendEmail = new SendEmail();
+                objSendEmail.sendEmail(email, new EmailFormatSettings()
+                {
+                    partner = objpartner,
+                    ptq = ptq,
+                    sender = objperson,
+                    touchpoint = objtouchpoint,
+                    enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1
+                });
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult RedirectConfirmation()
