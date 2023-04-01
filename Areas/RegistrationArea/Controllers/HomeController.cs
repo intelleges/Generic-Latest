@@ -4270,8 +4270,10 @@ Intelleges Team";
         public ActionResult PDFConfirmation()
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            List<pr_getPartnerQuestionResponseByAccessCodeList2List_Result> result =
-                db.pr_getPartnerQuestionResponseByAccessCodeList2List(accessCode).ToList();
+            //List<pr_getPartnerQuestionResponseByAccessCodeList2List_Result> result =
+            //    db.pr_getPartnerQuestionResponseByAccessCodeList2List(accessCode).ToList();
+            List<pr_getPartnerQuestionResponseByAccessCode_Result> result =
+               db.pr_getPartnerQuestionResponseByAccessCode(accessCode).ToList();
 
             var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.reslt2 = find;
@@ -16929,6 +16931,7 @@ Intelleges Team";
                 var key = $"Checkbox{item.question}_{rid}";
                 ViewData.Add(key, item.response == rid ? _checked : string.Empty);
             }
+            ViewData.Add($"Checkbox{item.question}_Comment", item.comment);
         }
 
         public int FillCustomPdfHtml38(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
