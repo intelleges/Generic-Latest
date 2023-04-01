@@ -2092,6 +2092,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         if (checkpsz.Count == 0)
                         {
                             var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId = db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, 74, responseComment, null, null, null, null, null, pptq).FirstOrDefault();
+
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
                         else
@@ -2185,6 +2186,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
                     }
+
                     #region other types
                     else
                     {
@@ -2287,7 +2289,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         {
                             //var test = db.
                             var partnerPartnertypeTouchpointQuestionnaireQuestionResponseId =
-                                db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
+                               db.pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5(questionId, responseId, responseComment, null, null, dueDate, null, null, pptq).FirstOrDefault();
 
                             //db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse((int)partnerPartnertypeTouchpointQuestionnaireQuestionResponseId);
                         }
@@ -4268,8 +4270,8 @@ Intelleges Team";
         public ActionResult PDFConfirmation()
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            List<pr_getPartnerQuestionResponseByAccessCode_Result> result =
-                db.pr_getPartnerQuestionResponseByAccessCode(accessCode).ToList();
+            List<pr_getPartnerQuestionResponseByAccessCodeList2List_Result> result =
+                db.pr_getPartnerQuestionResponseByAccessCodeList2List(accessCode).ToList();
 
             var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.reslt2 = find;
@@ -16298,7 +16300,7 @@ Intelleges Team";
                     case 57143:
                         ViewBag.Checkbox57143_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57143_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if(item.response == _responseNO)
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57143_Comment = item.comment;
                         break;
                     case 57144:
@@ -16522,7 +16524,7 @@ Intelleges Team";
 
                     case 57191:
                         ViewBag.Checkbox57191_124204 = item.response == 124204 ? _chacked : string.Empty;
-                        ViewBag.Checkbox57191_124205 = item.response == 124205 ? _chacked : string.Empty; 
+                        ViewBag.Checkbox57191_124205 = item.response == 124205 ? _chacked : string.Empty;
                         ViewBag.Checkbox57191_124206 = item.response == 124206 ? _chacked : string.Empty;
                         if (item.response == 124205)
                             ViewBag.Checkbox57191_Comment = item.comment;
@@ -16531,21 +16533,21 @@ Intelleges Team";
                     case 57193:
                         ViewBag.Checkbox57193_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57193_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57193_Comment = item.comment;
                         break;
 
                     case 57194:
                         ViewBag.Checkbox57194_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57194_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57194_Comment = item.comment;
                         break;
 
                     case 57195:
                         ViewBag.Checkbox57195_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57195_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57195_Comment = item.comment;
                         break;
 
@@ -16616,7 +16618,7 @@ Intelleges Team";
                         ViewBag.Checkbox57223_124215 = item.response == 124215 ? _chacked : string.Empty;
                         ViewBag.Checkbox57223_124216 = item.response == 124216 ? _chacked : string.Empty;
                         ViewBag.Checkbox57223_124217 = item.response == 124217 ? _chacked : string.Empty;
-                        if (item.response == 124216) 
+                        if (item.response == 124216)
                             ViewBag.Checkbox57223_Comment = item.comment;
                         break;
 
@@ -16655,7 +16657,7 @@ Intelleges Team";
                     case 57230:
                         ViewBag.Checkbox57230_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57230_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57230_Comment = item.comment;
                         break;
 
@@ -16670,7 +16672,7 @@ Intelleges Team";
                         ViewBag.Checkbox57232_124228 = item.response == 124228 ? _chacked : string.Empty;
                         ViewBag.Checkbox57232_124229 = item.response == 124229 ? _chacked : string.Empty;
                         ViewBag.Checkbox57232_124230 = item.response == 124230 ? _chacked : string.Empty;
-                        if (item.response == 124229) 
+                        if (item.response == 124229)
                             ViewBag.Checkbox57232_Comment = item.comment;
                         break;
 
@@ -16698,7 +16700,7 @@ Intelleges Team";
                         ViewBag.Checkbox57236_124237 = item.response == 124237 ? _chacked : string.Empty;
                         ViewBag.Checkbox57236_124238 = item.response == 124238 ? _chacked : string.Empty;
                         ViewBag.Checkbox57236_124239 = item.response == 124239 ? _chacked : string.Empty;
-                        if (item.response == 124238) 
+                        if (item.response == 124238)
                             ViewBag.Checkbox57236_Comment = item.comment;
                         break;
 
@@ -16714,14 +16716,14 @@ Intelleges Team";
                         ViewBag.Checkbox57238_124241 = item.response == 124241 ? _chacked : string.Empty;
                         ViewBag.Checkbox57238_124242 = item.response == 124242 ? _chacked : string.Empty;
                         ViewBag.Checkbox57238_124243 = item.response == 124243 ? _chacked : string.Empty;
-                        if (item.response == 124241) 
+                        if (item.response == 124241)
                             ViewBag.Checkbox57238_Comment = item.comment;
                         break;
 
                     case 57239:
                         ViewBag.Checkbox57239_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57239_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57239_Comment = item.comment;
                         break;
 
@@ -16735,14 +16737,14 @@ Intelleges Team";
                     case 57241:
                         ViewBag.Checkbox57241_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57241_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57241_Comment = item.comment;
                         break;
 
                     case 57243:
                         ViewBag.Checkbox57243_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57243_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57243_Comment = item.comment;
                         break;
 
@@ -16757,7 +16759,7 @@ Intelleges Team";
                     case 57246:
                         ViewBag.Checkbox57246_Yes = item.response == _responseYES ? _chacked : string.Empty;
                         ViewBag.Checkbox57246_No = item.response == _responseNO ? _chacked : string.Empty;
-                        if (item.response == _responseNO) 
+                        if (item.response == _responseNO)
                             ViewBag.Checkbox57246_Comment = item.comment;
                         break;
 
@@ -16782,7 +16784,7 @@ Intelleges Team";
                         ViewBag.Checkbox57249_74770 = item.response == 124252 ? _chacked : string.Empty;
                         ViewBag.Checkbox57249_74771 = item.response == 124253 ? _chacked : string.Empty;
                         ViewBag.Checkbox57249_74772 = item.response == 124254 ? _chacked : string.Empty;
-                        if (item.response == 124252) 
+                        if (item.response == 124252)
                             ViewBag.Checkbox57249_Comment = item.comment;
                         break;
 
@@ -16790,7 +16792,7 @@ Intelleges Team";
                         ViewBag.Checkbox57250_124255 = item.response == 124255 ? _chacked : string.Empty;
                         ViewBag.Checkbox57250_124256 = item.response == 124256 ? _chacked : string.Empty;
                         ViewBag.Checkbox57250_124257 = item.response == 124257 ? _chacked : string.Empty;
-                        if (item.response == 124256) 
+                        if (item.response == 124256)
                             ViewBag.Checkbox57250_Comment = item.comment;
                         break;
 
@@ -16799,7 +16801,7 @@ Intelleges Team";
                         ViewBag.Checkbox57251_124259 = item.response == 124259 ? _chacked : string.Empty;
                         ViewBag.Checkbox57251_124260 = item.response == 124260 ? _chacked : string.Empty;
                         ViewBag.Checkbox57251_124261 = item.response == 124261 ? _chacked : string.Empty;
-                        if (item.response == 124259) 
+                        if (item.response == 124259)
                             ViewBag.Checkbox57251_Comment = item.comment;
                         break;
 
@@ -16817,7 +16819,7 @@ Intelleges Team";
                         ViewBag.Checkbox57253_124267 = item.response == 124267 ? _chacked : string.Empty;
                         ViewBag.Checkbox57253_124268 = item.response == 124268 ? _chacked : string.Empty;
                         ViewBag.Checkbox57253_124269 = item.response == 124269 ? _chacked : string.Empty;
-                        if (item.response == 124268) 
+                        if (item.response == 124268)
                             ViewBag.Checkbox57253_Comment = item.comment;
                         break;
 
@@ -16900,7 +16902,340 @@ Intelleges Team";
             }
             return pptqID;
         }
-    
+
+        private void SetYesNoAndCommmentViewBagValues(partnerPartnertypeTouchpointQuestionnaireQuestionResponse item)
+        {
+            var _responseYES = 74;
+            var _responseNO = 75;
+            var _chacked = "checked";
+
+            var yesKey = $"Checkbox{item.question}_Yes";
+            var noKey = $"Checkbox{item.question}_No";
+            var commentKey = $"Checkbox{item.question}_Comment";
+
+            ViewData.Add(yesKey, item.response == _responseYES ? _chacked : string.Empty);
+            ViewData.Add(noKey, item.response == _responseNO ? _chacked : string.Empty);
+            if (item.response == _responseNO)
+            {
+                ViewData.Add(commentKey, item.comment);
+            }
+        }
+
+        private void SetViewBagValues(partnerPartnertypeTouchpointQuestionnaireQuestionResponse item, params int[] rids)
+        {
+            var _checked = "checked";
+            foreach (var rid in rids)
+            {
+                var key = $"Checkbox{item.question}_{rid}";
+                ViewData.Add(key, item.response == rid ? _checked : string.Empty);
+            }
+        }
+
+        public int FillCustomPdfHtml38(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+        {
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.partnerHeader = _partnerHeader;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+            var partnerId = pptq != null ? pptq.partner : -1;
+            var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+            eSignature _signature = sigs.FirstOrDefault();
+            var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            //_signature
+            ViewBag.signature = _signature;
+            ViewBag.personTitle = _partner != null ? _partner.title : "";
+            if (pptq != null)
+                ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+            var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+            if (question.footer == "4")
+            {
+                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+            }
+            else
+                if (enterprise != null && enterprise.Any())
+            {
+                var enterpriseLogo = enterprise.FirstOrDefault();
+                byte[] logoBytes = new byte[0];
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+                if (Directory.Exists(Server.MapPath(dirname)))
+                {
+                    var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                    var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                    if (!System.IO.File.Exists(physicalPath))
+                    {
+                        var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                }
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+            var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+            //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+            var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+
+
+            //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+            ViewBag.Status = pptq.status;
+            string executives = "";
+            var test = _PPTQQuestionResponse.OrderBy(r => r.question).ToList().Select(s => s.question);
+            foreach (var item in _PPTQQuestionResponse)
+            {
+                var comments = new string[10];
+                switch (item.question)
+                {
+                    case 59458:
+                    case 59459:
+                    case 59460:
+                    case 59461:
+                    case 59464:
+                    case 59465:
+                    case 59466:
+                    case 59467:
+                    case 59468:
+                    case 59469:
+                    case 59471:
+                    case 59480:
+                    case 59482:
+                    case 59483:
+                    case 59484:
+                    case 59485:
+                    case 59486:
+                    case 59491:
+                    case 59495:
+                    case 59508:
+                    case 59509:
+                    case 59510:
+                    case 59511:
+                    case 59530:
+                    case 59544:
+                    case 59545:
+                    case 59548:
+                    case 59552:
+                    case 59554:
+                    case 59555:
+                    case 59556:
+                    case 59558:
+                    case 59561:
+                    case 59562:
+                    case 59571:
+                    case 59574:
+                    case 59575:
+                    case 59576:
+                    case 59577:
+                    case 59578:
+                    case 59579:
+                    case 59580:
+                        SetYesNoAndCommmentViewBagValues(item);
+                        break;
+                    case 59462:
+                        SetViewBagValues(item, 126733, 126734,126735);
+                        break;
+
+                    case 59463:
+                        SetViewBagValues(item, 126736, 126737, 126738);
+                        break;
+
+                    case 59470:
+                        SetViewBagValues(item, 126739, 126740, 126741, 126742, 126743, 126744, 126745, 126746);
+                        break;
+
+                    case 59472:
+                        SetViewBagValues(item, 126747, 126748);
+                        break;
+
+                    case 59479:
+                        SetViewBagValues(item, 126749, 126750);
+                        break;
+
+                    case 59481:
+                        SetViewBagValues(item,126751, 126752, 126753, 126754, 126755, 126756, 126757, 126759, 126760, 126761);
+                        break;
+
+                    case 59487:
+                        SetViewBagValues(item,126762, 126763, 126764, 126765, 126766, 126767);
+                        break;
+
+                    case 59488:
+                        SetViewBagValues(item,126768, 126769);
+                        break;
+
+                    case 59489:
+                        SetViewBagValues(item, 126770, 126771);
+                        break;
+
+                    case 59490:
+                        SetViewBagValues(item, 126772, 126773);
+                        break;
+
+                    case 59492:
+                        SetViewBagValues(item, 126774, 126775, 126776);
+                        break;
+
+                    case 59493:
+                        SetViewBagValues(item, 126777, 126778, 126779);
+                        break;
+
+                    case 59494:
+                        SetViewBagValues(item, 126780, 126781, 126782);
+                        break;
+
+                    case 59496:
+                        SetViewBagValues(item, 126783, 126784, 126785);
+                        break;
+
+                    case 59498:
+                        SetViewBagValues(item, 126786, 126787, 126788);
+                        break;
+
+                    case 59500:
+                        SetViewBagValues(item, 126789, 126790, 126791);
+                        break;
+
+                    case 59502:
+                        SetViewBagValues(item, 126792, 126793, 126794);
+                        break;
+
+                    case 59504:
+                        SetViewBagValues(item, 126795, 126796, 126797);
+                        break;
+
+                    case 59506:
+                        SetViewBagValues(item, 126798, 126799, 126800);
+                        break;
+
+                    case 59512:
+                        SetViewBagValues(item, 126801, 126802);
+                        break;
+
+                    case 59513:
+                        SetViewBagValues(item, 126803, 126804);
+                        break;
+
+                    case 59529:
+                        SetViewBagValues(item, 126805, 126806);
+                        break;
+
+                    case 59537:
+                        SetViewBagValues(item, 126807, 126808);
+                        break;
+
+                    case 59538:
+                        SetViewBagValues(item, 126809, 126810, 126811);
+                        break;
+
+                    case 59539:
+                        SetViewBagValues(item,126812, 126813);
+                        break;
+
+                    case 59540:
+                        SetViewBagValues(item, 126814, 126815);
+                        break;
+
+                    case 59541:
+                        SetViewBagValues(item, 126816, 126817);
+                        break;
+
+                    case 59542:
+                        SetViewBagValues(item, 126818, 126819);
+                        break;
+
+                    case 59543:
+                        SetViewBagValues(item, 126820, 126821);
+                        break;
+
+                    case 59547:
+                        SetViewBagValues(item, 126822, 126823, 126824);
+                        break;
+
+                    case 59549:
+                        SetViewBagValues(item, 126825, 126826, 126827);
+                        break;
+
+                    case 59550:
+                        SetViewBagValues(item, 126828, 126829, 126830);
+                        break;
+
+                    case 59551:
+                        SetViewBagValues(item, 126831, 126832, 126833);
+                        break;
+
+                    case 59553:
+                        SetViewBagValues(item, 126834, 126835, 126836, 126837);
+                        break;
+
+                    case 59560:
+                        SetViewBagValues(item, 126838, 126839, 126840);
+                        break;
+
+                    case 59563:
+                        SetViewBagValues(item,126841, 126842, 126843, 126844);
+                        break;
+
+                    case 59564:
+                        SetViewBagValues(item, 126845, 126846, 126847, 126848);
+                        break;
+
+                    case 59565:
+                        SetViewBagValues(item, 126849, 126850, 126851);
+                        break;
+
+                    case 59566:
+                        SetViewBagValues(item, 126852, 126853, 126854, 126855);
+                        break;
+
+                    case 59567:
+                        SetViewBagValues(item, 126856, 126857, 126858, 126859, 126860);
+                        break;
+
+                    case 59568:
+                        SetViewBagValues(item, 126861, 126862, 126863);
+                        break;
+
+                    case 59569:
+                        SetViewBagValues(item, 126864, 126865);
+                        break;
+
+                    case 59570:
+                        SetViewBagValues(item, 126866, 126867, 126868);
+                        break;
+
+                    case 59572:
+                        SetViewBagValues(item, 126869, 126870, 126871);
+                        break;
+
+                    case 59573:
+                        SetViewBagValues(item,126872, 126873, 126874);
+                        break;
+
+                }
+                ViewBag.Executives = executives;
+            }
+            return pptqID;
+        }
 
 
         public ActionResult CustomizedPDFConfirmation()
@@ -17106,6 +17441,12 @@ Intelleges Team";
             {
                 pptqID = FillCustomPdfHtml37(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload37";
+                return ViewCustomizedPdf(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "38"))
+            {
+                pptqID = FillCustomPdfHtml38(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload38";
                 return ViewCustomizedPdf(pptqID, ViewName);
             }
             // else return PDFConfirmation();
@@ -21628,7 +21969,7 @@ Intelleges Team";
 
             if (footer == "34")
             {
-                var tinEinNumber =  result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
+                var tinEinNumber = result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
                 if (tinEinNumber != null && tinEinNumber != "")
                 {
                     string[] answerArray = tinEinNumber.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
@@ -21700,7 +22041,7 @@ Intelleges Team";
             //var file = File(logo, System.Net.Mime.MediaTypeNames.Image.Jpeg, Generic.Helpers.CurrentInstance.EnterpriseID + ".png");
             //ViewBag.logoSrc = file;
             ViewBag.ReponseList = dict;
-            ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID ;
+            ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID;
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
             if (pptq != null) return ViewPdf(result, pptq.id, ViewName);
             else throw new Exception("Cannot find pptq");
@@ -21735,7 +22076,7 @@ Intelleges Team";
         }
 
 
-        private void GenerateCustomizePdf(string viewName,string accessCode,int pptqID,string footer = "")
+        private void GenerateCustomizePdf(string viewName, string accessCode, int pptqID, string footer = "")
         {
             List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
@@ -22000,7 +22341,7 @@ Intelleges Team";
                 //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload34";
                 isCustomizedPdf = false;
-                GenerateCustomizePdf(ViewName,accessCode,pptqID,"34");
+                GenerateCustomizePdf(ViewName, accessCode, pptqID, "34");
                 //return ViewCustomizedStandardPDF(ViewName, "34");
             }
             else if (question != null && (question.footer == "35"))
@@ -22075,7 +22416,7 @@ Intelleges Team";
                     // PDF reset in table
                     db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq1.id);
                     // PDf reset in folder
-                     ReGenerateCustomPdf(pptq1.id);
+                    ReGenerateCustomPdf(pptq1.id);
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
                 return Json(false, JsonRequestBehavior.AllowGet);
