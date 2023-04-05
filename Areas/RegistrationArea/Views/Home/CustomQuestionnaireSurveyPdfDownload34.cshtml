@@ -16,54 +16,54 @@
     <meta name="viewport" content="width=device-width" />
     @*<title>Reps and Certs 2022</title>*@
     @*<style type="text/css">
-        body {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: 14px;
-        }
-
-        .notes {
-            background-attachment: local;
-            background-image: linear-gradient(to right, white 10px, transparent 10px), linear-gradient(to left, white 10px, transparent 10px), repeating-linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
-            line-height: 31px;
-            padding: 8px 10px;
-        }
-
-        div {
-            padding-right: 20px;
-            padding-left: 20px;
-        }
-
-        h1, h2 {
-            color: blue;
-            font-size: 18px !important;
-        }
-
-        h3 {
-            color: blue;
-            font-size: 14px !important;
-        }
-
-        img {
-            width: 25%;
-        }
-
-        .img-div {
-            text-align: right;
-        }
-
-        .table-data {
-            width: 80%;
-        }
-
-            .table-data td {
-                height: 24px;
+            body {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 14px;
             }
 
-                .table-data td:nth-child(odd) {
-                    width: 40%;
-                    text-align: left;
+            .notes {
+                background-attachment: local;
+                background-image: linear-gradient(to right, white 10px, transparent 10px), linear-gradient(to left, white 10px, transparent 10px), repeating-linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
+                line-height: 31px;
+                padding: 8px 10px;
+            }
+
+            div {
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+
+            h1, h2 {
+                color: blue;
+                font-size: 18px !important;
+            }
+
+            h3 {
+                color: blue;
+                font-size: 14px !important;
+            }
+
+            img {
+                width: 25%;
+            }
+
+            .img-div {
+                text-align: right;
+            }
+
+            .table-data {
+                width: 80%;
+            }
+
+                .table-data td {
+                    height: 24px;
                 }
-    </style>*@
+
+                    .table-data td:nth-child(odd) {
+                        width: 40%;
+                        text-align: left;
+                    }
+        </style>*@
 </head>
 <body>
 
@@ -198,7 +198,7 @@
     @*here we can run foreach loop to bind all questions and answers*@
 
     <table cellpadding="0" cellspacing="0" border="1" width="100%">
-        @foreach (var p in @Model)
+        @foreach (var p in @Model.Where(d => !string.IsNullOrEmpty(d.description)))
         {
             <tr>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">

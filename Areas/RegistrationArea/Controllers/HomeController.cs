@@ -22029,7 +22029,7 @@ Intelleges Team";
             foreach (var item in resRes)
                 item.description = item.description.Replace("--Automated", "");
 
-            var qids = result.Where(o => o.description.Contains("||")).Select(o => o.qid).ToList();
+            var qids = result.Where(o => !string.IsNullOrEmpty(o.description) && o.description.Contains("||")).Select(o => o.qid).ToList();
             Dictionary<int, List<pr_getQuestionResponseByQuestion_Result>> dict = new Dictionary<int, List<pr_getQuestionResponseByQuestion_Result>>();
             foreach (var item in qids)
             {
