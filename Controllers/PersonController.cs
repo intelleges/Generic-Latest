@@ -633,6 +633,16 @@ Thanks in advance.<br>
             return View();
         }
 
+        [HttpGet]
+        public string GetResetPassword(int id)
+        {
+            var person = db.pr_getPerson(id).FirstOrDefault();
+            var pwd = db.pr_resetPassword(id).FirstOrDefault();
+            //pr_resetPassword_Result result = pwd as pr_resetPassword_Result();
+            return "The password for account " + person.email + " has been reset to " + pwd.password;
+        }
+
+
         public ActionResult AssignGroup(int person = 0)
         {
             try

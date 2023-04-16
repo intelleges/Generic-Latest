@@ -76,6 +76,7 @@
                     <li><a href="javascript:openRemovePopup(@item.id,'@item.internalId','@item.firstName @item.lastName')">Remove</a></li>
                     <li><a href="javascript:openArchivePopup(@item.id,'@item.internalId','@item.firstName @item.lastName')">Archive</a></li>
                     <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
+                    <li><a href="javascript:openResetPassword(@item.id)">Reset Password</a></li>
                     @* <li><a href="@item.Expr1" target="_blank">Complete</a></li>*@
                 </ul>
             </div>
@@ -121,13 +122,13 @@
             {
                 visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
             }
-                   
+
                     <p title="@columnData">@visibleText</p>
-                 
-                }            
+
+                }
             </text>);
             columns.Bound(o => o.email).Title("Email").Width(200).Template(@<text>
-        
+
             @{
                 var columnData = item.email;
                   var width = 30;
@@ -138,8 +139,8 @@
             }
                 <p title="@columnData">@visibleText</p>
             }
-          
-      
+
+
             </text>);
             columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
 
@@ -339,6 +340,14 @@
         });
         $("#genericPopup").dialog({ height: 600, title: "Complete" });
         $("#genericPopup").dialog('open');
+    }
+
+    function openResetPassword(id) {
+        $.get("@Url.Content("~/Person/GetResetPassword/")" + id, function (data) {
+            alertify.alert(data).set('onok', function (closeEvent) {
+                alertify.success('Ok');
+            });
+        })
     }
 
 

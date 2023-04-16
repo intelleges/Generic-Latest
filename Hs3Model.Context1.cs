@@ -30975,5 +30975,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderBatch_Result>("pr_getReminderBatch", enterpriseParameter, touchpointParameter, patnertypeParameter, statusidParameter, activeParameter);
         }
+    
+        public virtual ObjectResult<pr_resetPassword_Result> pr_resetPassword(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_resetPassword_Result>("pr_resetPassword", personParameter);
+        }
     }
 }
