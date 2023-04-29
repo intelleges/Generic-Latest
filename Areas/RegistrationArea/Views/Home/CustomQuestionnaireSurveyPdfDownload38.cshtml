@@ -1,0 +1,1501 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style>
+        body {
+            font-family: "Calibri, serif";
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        h3 {
+            font-size: 17px;
+        }
+
+        h4 {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .ml25 {
+            margin-left: 25px;
+        }
+
+        .ml50 {
+            margin-left: 50px;
+        }
+
+        .ml75 {
+            margin-left: 75px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        ul.hr li {
+            display: inline;
+            margin-right: 5px;
+            padding: 3px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .mt20 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <FONT FACE="Calibri, serif">
+        <table width="100%">
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+                    {
+                        <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:300px; border:none" />
+                    }
+                </td>
+            </tr>
+        </table>
+        <div>
+            <ul class="ml25">
+                <li><i><input type="checkbox" /> Commercial Unique</i></li>
+                <li><i><input type="checkbox" checked="checked" /> Commercial FAR Part 12</i></li>
+                <li><i><input type="checkbox" /> Non-Commercial FAR Part 15</i></li>
+            </ul>
+        </div>
+        <table width="100%" style="margin-top:20px;">
+            <tr>
+                <td style="color: #081835" class="text-center">
+                    <h1>SUPPLIER CERTIFICATION and ASSESSMENT<br />CALENDAR YEAR 2023</h1>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <p>All current and prospective Celestica suppliers are required to complete the Annual Certification and Assessment each calendar year.  Suppliers are required to certify their compliance with the following FAR/DFARS requirements.</p>
+                </td>
+            </tr>
+        </table>
+        @foreach (var item in ViewBag.partnerHeader)
+        {
+            <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        ONESOURCE SUPPLIER ID# (DUNS#)  @ViewBag.partner.dunsNumber
+                    </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        Celestica SAP/LOCAL SUPPLIER #  @ViewBag.partner.federalID
+                    </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        PRIMARY NAICS CODE  @ViewBag.PrimaryNaicsCode
+                    </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                        SUPPLIER NAME: @ViewBag.partner.name
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                    SUPPLIER ADDRESS (Manufacturing address - no PO Box): @ViewBag.partner.address1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                    @ViewBag.partner.address2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    CITY/TOWN: @ViewBag.partner.city
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    STATE/PROVINCE/REGION: @ViewBag.state
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    ZIP CODE:
+                                    @if (ViewBag.partner.zipcode != null)
+                                    {
+                                        @MvcHtmlString.Create(ViewBag.partner.zipcode.ToString().Length > 5 ? ViewBag.partner.zipcode.ToString().Substring(0, 5) + "-" + ViewBag.partner.zipcode.ToString().Substring(5, ViewBag.partner.zipcode.ToString().Length - 5) : ViewBag.partner.zipcode);
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    COUNTRY: @ViewBag.country
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0" style="height:150px; border-collapse:collapse" border="1">
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                    CONTACT NAME: @ViewBag.partner.firstName @ViewBag.partner.lastName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                    CONTACT TELEPHONE#: @ViewBag.partner.phone
+                                </td>
+                                <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                    CONTACT FAX#: @ViewBag.partner.fax
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                    CONTACT EMAIL ADDRESS: @ViewBag.partner.email
+                                    <br />
+                                    <br />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        }
+
+        <br />
+        <div>
+            <h2><b>1.&nbsp;<i><u>Envronmental Policy:</u></i></b></h2>
+            <p class="ml25">
+                Does your [partner name] have an environmental policy?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox59458_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox59458_No /> No </b></li>
+                @*<li><b>If <i>No</i>, futher comment or explaination required:</b>&nbsp;&nbsp; @(ViewBag.Checkbox59458_Comment ?? String.Empty) </li>*@
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>2.&nbsp;<i><u>Do you know what your annual scope 1 emissions (globally) in mt CO2e was in 2022?</u></i></b></h2>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox59459_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox59459_No /> No </b></li>
+                @*<li><b>If Yes, CO2e emission in mt</b>&nbsp;&nbsp; @(ViewBag.Checkbox59459_Comment ?? String.Empty) </li>*@
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>3.&nbsp;<i><u>Do you know what your annual scope 2 emissions (globally) in mt CO2e was in 2022?</u></i></b></h2>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox59460_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox59460_No /> No </b></li>
+                @*<li><b>If Yes, CO2e emission in mt</b>&nbsp;&nbsp; @(ViewBag.Checkbox59460_Comment ?? String.Empty) </li>*@
+            </ul>
+        </div>
+        <div>
+            <h2><b>4.&nbsp;<i><u>Do you have a policy for diversity, discrimination, and harassment?</u></i></b></h2>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox59461_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox59461_No /> No </b></li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>5.&nbsp;<i><u>Cybersecurity Maturity Model Certification(CMMC):</u></i></b></h2>
+            <p class="ml25">
+                Requirements pertaining to CMMC are either anticipated or are now in place via a contract clause or RFP requirement. Suppliers must achieve CMMC certification at or above the required CMMC level before issuance of a Purchase Order (LSC). Suppliers who are required to receive, generate, or store Controlled Unclassified Information (CUI) must achieve a CMMC Level 3 or higher certification before issuance of a PO or LSC. Answer the question below based on your organization's current state regarding CMMC.<br>  Offeror represents that it (Select only ONE of the following):
+            </p>
+            <ul class="ml75">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57147_124136 /> Has been certified by an accredited 3rd party assessor(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57147_124137 /> Has not been certified but has begun the certification process, or intends to seek certification, by an accredited 3rd party CMMC assessor(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57147_124138 /> Does not intend to seek CMMC certification(AC) </b></li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>6.&nbsp;<i><u>Celestica Code of Business Conduct</u></i></b></h2>
+            <p class="ml25">It is the policy of Celestica to take reasonable steps to ensure that its suppliers and potential suppliers have the highest level of business ethics consistent with, or similar to Celestica's requirements for integrity and compliance and requires its suppliers to certify to the same. </p>
+            <h4 class="ml50"><b><i>Supplier acknowledges</i></b></h4>
+            <p class="ml50">
+                It has implemented the systems, procedures and processes consistent with, or similar to, the Celestica Inc and Celestica Supplier Code of Business Conduct located at http://Celestica.com/About/Pages/code-of-business-conduct.aspx.
+                <b><i><u>or will adhere to their own Code of Business Conduct, which supports the spirit of Celestica's requirements for integrity and compliance.</u></i></b>
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57151_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57151_No /> No </b></li>
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp; @(ViewBag.Checkbox57151_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>7.&nbsp;<i><u>Overall Supplier Capabilities</u></i></b></h2>
+            <p class="ml25">Supplier has adequate financial resources, technical equipment, facilities and the organizational experience, skills and controls available or has the ability to obtain them to perform awarded contracts.</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57152_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57152_No /> No </b></li>
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp; @(ViewBag.Checkbox57152_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+        <div>
+            <h2><b>8.&nbsp;<i><u>Certificate of Insurance</u></i></b></h2>
+            <p class="ml25">
+                Does your company have a
+                <hint text="The Certificate of Insurance (COI), is typically a copy of your company?s Certificate of Liability Insurance which you?ll have to obtain from your insurer.  Please reference Celestica's General Purchase Order Provisions available on Celestica's Supply Chain Collaboration Portal at https://scc.Celestica.com for further information on the Insurance requirement">Certificate of Insurance</hint>? <br>
+                <span style="color:Red;"><b><i>If a Certificate Holder is required for insurer to issue a Certificate of Insurance, please use:</i></b></span>
+                <br>    Celestica LLC<br>    11 Continental Blvd.<br>    Merrimack, NH  03054<br> <b><i>Notice:</i></b>  Hard copies of your Certificate of Insurance should be mailed to:<br>    Celestica LLC<br>    4163 Pea Ridge Rd<br>    Maryville, TN 37804<br>    Attn:  Edwin Bond<br> Or email to:  EBond@Celestica.com
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57153_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57153_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">Please select the principal Commodity Manager that you work with</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57154_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57154_No /> No </b></li>
+                @if (!string.IsNullOrEmpty(ViewBag.Checkbox57154_Yes))
+                {
+                    <br />
+                    <li><b>Provide full name of commodity Manager you are currenty working with : </b>&nbsp;&nbsp; @(ViewBag.Checkbox57154_Comment ?? String.Empty)</li>
+                }
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">Please select the main location that [partner name] supplies</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124144 /> Brockton(AH) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124145 /> Mable Grove, MN(AG) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124146 /> Mexicali, Baja California, Mexico(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124147 /> Mississauga, Ontario, Canada(AB) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124148 /> New Hope(AH) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124149 /> Newmarket, Ontario, Canada(AC) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124150 /> Rochester(AI) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124151 /> Tuscon, Arizona, USA(AD) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57155_124152 /> Other/None of the above(AF) </b></li>
+                <br />
+                <li><b>Please provide details about which location you work with that are not listed(AF) : </b>&nbsp;&nbsp; @(ViewBag.Checkbox57155_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">Do you know the name of the current Buyer/Supply Chain Manager (SCM) that you work with</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57156_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57156_No /> No </b></li>
+                <br />
+                <li><b>Please provide full name of buyers/suppply chain manager you work with : </b>&nbsp;&nbsp; @(ViewBag.Checkbox57156_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>9.&nbsp;<i><u>Disaster Recovery Emergency Contact</u></i></b></h2>
+            <p class="ml25">
+                Due to the unprecedented number of worldwide natural and man-made disaster events such as extreme hurricanes, typhoons, wildfires, mega-earthquakes and geo-political unrest.  Celestica takes supply chain crisis management and the welfare of our suppliers very seriously.  In an effort to quickly understand the impact to our suppliers, their shipments and recovery, we are implementing an advanced automated 2-way emergency notification system allowing a more effective management of these types of events.  In order to do this, we need your company's Emergency Contact details.  Communication is key and it is expected we hear from you within 24 hours after the disaster.  International cell phones can be unreliable, therefore we suggest you use LAN-lines or email.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57157_124153 /> Our Disaster Recovery Emergency Contact is the same person who's listed on the <b><i>Contact Info page</i></b>(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57157_124154 /> Our Disaster Recovery Emergency Contact is someone other than the person listed on the Contact Info page.(AB) </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>10.&nbsp;<i><u>North American Industrial Classification System (NAICS) Code</u></i></b></h2>
+            <p class="ml25">
+                Is your facility located in North America (United States, Canada, or Mexico)?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57164_124155 /> Yes(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57164_124156 /> N/A - Non-US supplier located outside of North America(AB) </b></li>
+                @if (!string.IsNullOrEmpty(ViewBag.Checkbox57164_124155))
+                {
+                    <br />
+                    <li>
+                        Please provide your <b><i>PRIMARY</i></b> 6-digit <a href="http://www.census.gov/eos/www/naics/" rel="nofollow me noopener noreferrer" target="_blank">
+                            NAICS Code
+                        </a> that best represents the material or service your firm supplies to Celestica-Aerospace:&nbsp; @(ViewBag.Checkbox57164_Comment ?? String.Empty)
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>10.&nbsp;<i><u>NAICS Code <u>(Secondary)</u></u></i></b></h2>
+            <p class="ml25">
+                Do you have additional NAICS Codes you would like to list?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57165_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57165_No /> No </b></li>
+                @if (!string.IsNullOrEmpty(ViewBag.Checkbox57165_Yes))
+                {
+                    <br />
+                    <li>
+                        Please provide any additional <a href="http://www.census.gov/eos/www/naics/" rel="nofollow me noopener noreferrer" target="_blank">NAICS Codes</a> that may apply &nbsp;&nbsp; @(ViewBag.Checkbox57165_Comment ?? String.Empty)
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>10.&nbsp;<i><u>Supplier Demographics</u></i></b></h2>
+            <p class="ml25">Is your company a</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124157 /> US Small Business(AB) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124158 /> US Large Business(AC) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124159 /> US Alaska Native Corps & Indian Tribes(AD) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124160 /> US Historically Black College or University or Minority Institution (HBCU/MI)(AE) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124161 /> US University or College(AF) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124162 /> US Non-Profit(AG) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124163 /> US Government Agency/Entity(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124164 /> Non-US Canadian Business(AH) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124165 /> Non-US Small Business (Less Than 500 Employees)(AI) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124166 /> Non-US Large Business (500 or More Employees)(AJ) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57166_124167 /> Non-US University or College(AK) </b></li>
+                <br />
+                <li> Please provide name of Government Agency/Entity:(AA) &nbsp;&nbsp; @(ViewBag.Checkbox57166_Comment ?? String.Empty) </li>
+            </ul>
+        </div>
+
+        <div>
+            <h2><b>10.&nbsp;<i><u>Notice of Penalty</u></i></b></h2>
+            <p class="ml25">
+                Supplier understands, under <a href="http://www.gpo.gov/fdsys/granule/USCODE-2011-title15/USCODE-2011-title15-chap14A-sec645" rel="nofollow me noopener noreferrer" target="_blank">15 U.S.C. 645(d)</a>, any person who misrepresents a firm's status as a small business concern, a qualified HUBZone small business concern, a small business concern owned and controlled by socially and economically disadvantaged individuals, or a small business concern owned and controlled by women in order to obtain for oneself or another any:<br> &nbsp;&nbsp;&nbsp;&nbsp; (a) prime contract to be awarded pursuant to Section 638, 644 or 657(a) of this title;<br> &nbsp;&nbsp;&nbsp;&nbsp; (b) subcontract to be awarded pursuant to Section 637(a) of this title;<br> &nbsp;&nbsp;&nbsp;&nbsp; (c) subcontract to be included as part or all of a goal contained in a subcontracting plan required pursuant to section 637(d) of this title; or<br> &nbsp;&nbsp;&nbsp;&nbsp; (d) prime or subcontract to be awarded as a result, or in furtherance, of any other provision of Federal law that speciifically references Section 637(d) of this title for a definition of program eligibility, shall be:<br> &nbsp;&nbsp;&nbsp;&nbsp; (a) punished by a fine of not more than $500,000 or by imprisonment for not more than 10 years, or both;<br> &nbsp;&nbsp;&nbsp;&nbsp; (b) subject to the administrative remedies prescribed by the Program Fraud Civil Remedies Action of 1986 (31 U.S.C. 3801-3812);<br> &nbsp;&nbsp;&nbsp;&nbsp; (c) subject to suspension and debarment as specified in subpart 9.4 of title 48, Code of Federal Regulations (or any successor regulation; and<br> &nbsp;&nbsp;&nbsp;&nbsp; (d) ineligible for participation in any program or activity conducted under the authority of this chapter or the Small Business Investment Act of 1958 (15 U.S.C. 661 et seq) for a period not to exceed 3 years.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57167_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57167_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">Is your company a veteran-owned business?</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57168_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57168_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">Is your company a service disabled veteran-owned business?</p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57169_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57169_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                Is your company a "qualified" HUBZone business?
+                <br> <span style="color:Red;">
+                    <b><i>May ONLY certify as a HUBZone supplier if your company is listed on the "Qualified HUBZone Small Business Concerns List" maintained by the Small Business Administration.</i></b>
+                </span>
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57170_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57170_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                Is your company a disadvantaged/minority-owned business?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57171_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57171_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Minority Ownership:</i></b>
+                <br>
+                Only if supplier has represented itself above as a Small Disadvantaged Business (SDB) or Women-Owned Small Disadvantaged Business (WOSDB), please check the appropriate category of ownership
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57172_124168 /> Black American(AB) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57172_124169 /> Hispanic American(AC) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57172_124170 /> Native American (American Indians, Eskimos, Aleuts, or Native Hawaiians)(AD) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57172_124171 /> Asian-Pacific American (persons with origins from Burma, Thailand, Malaysia, Indonesia, Singapore, Brunei, Japan, China, Taiwan, Laos, Cambodia (Kampuchea), Vietnam, Korea, The Philippines, Republic of Palau, Republic of the Marshall Islands, Federated States of Micronesia, the Commonwealth of the Northern Mariana Islands, Guam, Samoa, Macao, Hong Kong, Fiji, Tonga, Kiribati, Tuvalu, or Nauru)(AE) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57172_124172 />
+                        Subcontinent Asian (Asian-Indian) American (persons with origins from India, Pakistan, Bangladesh, Sri Lanka, Bhutan, the Maldives Islands, or Nepal)(AF)
+                    </b>
+                </li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57172_124173 /> Individual/concern, other than one of the preceding(AA) </b></li>
+                <br />
+                <li><b>Explain:(AA)</b>&nbsp;&nbsp; @(ViewBag.Checkbox57172_Comment ?? String.Empty) </li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                Is your company a women-owned business?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57173_124174 /> Yes(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57173_124175 /> No(AB) </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                Is your company an Alaska Native Corp or Indian Tribe that
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57174_124176 /> Has not been certified by the SBA as a Small Disadvantaged Business (ANC)(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57174_124177 /> Is not a Small Business (Large, ANC)(AB) </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                Please further define whether your company is a
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57175_124178 /> Historically Black College or University (HBCU)(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57175_124179 /> Minority Institution (MI)(AB) </b></li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                Is your company a Non-Profit organization with disabled persons?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57176_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57176_No /> No </b></li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                Based on award type, supplier is:<br>
+                <span style="color:Red;"><b><i><u>Notice:</u></i></b></span>
+                Award Type has been pre-selected by Celestica based on prior year PO history, please click <b><i>NEXT</i></b> to continue.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57177_124180 /> Commercial Unique(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57177_124181 /> FAR Part 12(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57177_124182 /> FAR Part 15(AC) </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acquisition.gov/far/52.215-12-0" rel="nofollow me noopener noreferrer" target=_blank">52.215-12</a>,
+                        Requirements for Certified Cost or Pricing Data and Data Other Than Certified Cost or Pricing Data (Oct 2010)
+                    </i>
+                </b><br>
+                Supplier is currently compliant with FAR 52.215-12 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57178_124183 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57178_124184 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57178_124185 /> N/A - Supplier only provides Commercial Items as defined by <a href="https://www.acquisition.gov/dfarspgi/pgi-212.102-applicability.?&searchTerms=commercial+items" rel="nofollow me noopener noreferrer" target=_blank">FAR 2.101</a>(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57178_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acq.osd.mil/dpap/dars/dfars/html/current/252223.htm" rel="nofollow me noopener noreferrer" target=_blank">252.223-7004</a>,
+                        Drug-Free Work Force (Sep 1988)
+                    </i>
+                </b><br>
+                Supplier is currently compliant with DFARS 252.223-7004 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57179_124186 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57179_124187 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57179_124187 /> N/A - The PO/Contract will be wholly or partially performed outside of the US or its outlying areas(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57179_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acquisition.gov/dfars/252.242-7005-contractor-business-systems.#DFARS-252.242-7005" rel="nofollow me noopener noreferrer" target=_blank">252.242-7005</a>,
+                        Contractor Business Systems (Feb 2012)
+                    </i>
+                </b><br> Has supplier received $50 million or more in net CAS-covered awards during its preceding cost accounting period?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57180_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57180_No /> No </b></li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Accounting System Administration, <a href="https://www.acquisition.gov/dfars/252.242-7006-accounting-system-administration.#DFARS-252.242-7006" rel="nofollow me noopener noreferrer" target=_blank">252.242-7006</a> (Feb 2012)</i></b><br> Has supplier's Accounting System been determined by DCAA to be acceptable?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57181_124189 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57181_124190 /> No(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57181_124191 /> N/A - Not subject to audit(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, please explain why your Accounting System was determined by DCAA to be unacceptable :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57181_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Cost Estimating System Requirements, <a href="https://www.acquisition.gov/dfars/252.215-7002-cost-estimating-system-requirements.#DFARS-252.215-7002" rel="nofollow me noopener noreferrer" target=_blank">252.215-7002</a> (Dec 2012)</i></b><br>
+                Has supplier's Cost Estimating System been determined by DCAA to be acceptable?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57183_124192 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57183_124193 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57183_124194 /> N/A - Not subject to audit(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, please explain why your Cost Estimating System was determined by DCAA to be unacceptable :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57183_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Contractor Purchasing System Administration, <a href="https://www.acquisition.gov/dfars/252.244-7001-contractor-purchasing-system-administration.#DFARS-252.244-7001" rel="nofollow me noopener noreferrer" target=_blank">252.244-7001</a> (May 2014)</i></b><br>
+                Has supplier's Purchasing System been determined by DCMA to be acceptable?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57185_124195 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57185_124196 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57185_124197 /> N/A - Not subject to audit(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, please explain why your Purchasing System was determined by DCMA to be unacceptable :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57185_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Earned Value Management System, <a href="https://www.acquisition.gov/dfars/252.234-7002-earned-value-management-system.#DFARS-252.234-7002" rel="nofollow me noopener noreferrer" target=_blank">252.234-7002</a> (May 2011)</i></b><br>
+                Has supplier's Earned Value Management System been determined by DCAA to be acceptable?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57187_124198 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57187_124199 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57187_124200 /> N/A - Not subject to audit(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, please explain why your Earned Value Management System was determined by DCAA to be unacceptable :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57187_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Contractor Property Management System Administration, <a href="https://www.acquisition.gov/dfars/part-252-solicitation-provisions-and-contract-clauses#DFARS-252.245-7003" rel="nofollow me noopener noreferrer" target=_blank">252.245-7003</a> (Apr 2012)</i></b><br> Has supplier's Contractor Property Management System been determined by DCMA to be acceptable?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57189_124201 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57189_124202 /> No(AA) </b></li>
+                <br />
+                <li><b>If <i>No</i>, please explain why your Contractor Property Management System was determined by DCMA to be unacceptable :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57189_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Material Management and Accounting System, <a href="https://www.acquisition.gov/dfars/part-252-solicitation-provisions-and-contract-clauses#DFARS-252.242-7004" rel="nofollow me noopener noreferrer" target=_blank">252.242-7004</a> (May 2011)</i></b><br> Has supplier's Material Management and Accounting System been determined by DCAA to be acceptable?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57191_124204 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57191_124205 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57191_124206 /> N/A - Not subject to audit(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, please explain why your Material Management and Accounting System was determined by DCAA to be unacceptable :</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57191_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/52.203-2" rel="nofollow me noopener noreferrer" target=_blank">52.203-2</a>, Certificate of Independent Price Determination (Apr 1985)</i></b><br>Supplier certifies that all offers made to Celestica related to subsequently awarded purchase orders or contracts with USG end use will comply with the requirements at FAR 52.203-2.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57193_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57193_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57193_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/52.203-12" rel="nofollow me noopener noreferrer" target=_blank">52.203-12</a>, Limitations on Payments to Influence Certain Federal Transactions (Oct 2010)</i></b><br> Supplier is currently compliant with FAR 52.203-12 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57194_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57194_No /> No </b></li>
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp; @(ViewBag.Checkbox57194_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/52.203-13" rel="nofollow me noopener noreferrer" target=_blank">52.203-13</a>, Contractor Code of Business Ethics and Conduct (Oct 2015)</i></b><br> Supplier is currently compliant with FAR 52.203-13 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57195_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57195_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>p&nbsp;&nbsp; @(ViewBag.Checkbox57195_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/52.203-19" rel="nofollow me noopener noreferrer" target=_blank">52.203-19</a>, Prohibition on Requiring Certain Internal Confidentiality Agreements or Statements (Jan 2017)</i></b><br>Supplier is currently compliant with FAR 52.203-19 or will be compliant if subsequently awarded a purchase order or contract with USG end use..
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57196_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57196_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp; @(ViewBag.Checkbox57196_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="hhttps://www.acquisition.gov/far/52.204-10" rel="nofollow me noopener noreferrer" target=_blank">52.204-10(d)(3)</a>, <hint text="Celestica is required to report executive compensation to the US Government which will be made public if: the public does not have access to information about the compensation of the executives through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 or under Section 6104 of the Internal Revenue Code AND supplier received 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance">Executive Compensation Reporting</hint> (Oct 2018)</i></b><br> Supplier certifies it:
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57197_124207 /> <b>HAS</b> derived at least 80% and at least $25 million of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year.(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57197_124208 /> Has <b><u>NOT</u></b> derived at least 80% and at least $25 million of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance in the preceding fiscal year.(AB </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/52.204-10" rel="nofollow me noopener noreferrer" target=_blank">52.204-10(d)(3)</a>, <hint text="Celestica is required to report executive compensation to the US Government which will be made public if: the public does not have access to information about the compensation of the executives through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 or under Section 6104 of the Internal Revenue Code AND supplier received 80% or more and $25,000,000 or more of its annual gross revenues from Federal contracts (and subcontracts), loans, grants (and sub-grants), cooperative agreements and other forms of Federal financial assistance">Executive Compensation Reporting</hint></i></b><br> Executive Compensation:
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57198_124209 /> <b>IS</b> available to the public through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or under <a href="http://www.taxalmanac.org/index.php/Internal_Revenue_Code_Sec._6104.html" rel="nofollow me noopener noreferrer" target="_blank">Section 6104 of the Internal Revenue Code</a> of 1986.(AB) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57198_124210 /> Is <b><u>NOT</u></b> available to the public through periodic reports filed under Section 13(a) or 15(d) of the Securities Exchange Act of 1934 (15 U.S.C. 78m(a), 78o(d)) or under <a href="http://www.taxalmanac.org/index.php/Internal_Revenue_Code_Sec._6104.html" rel="nofollow me noopener noreferrer" target="_blank">Section 6104 of the Internal Revenue Code</a> of 1986.(AA) </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/52.204-10" rel="nofollow me noopener noreferrer" target="_blank">52.204-10(d)(2)</a>, <hint text="If supplier had a gross income over $300,000 in the previous tax year, Celestica is required to report, to the US Government, any subcontract award(s) issued to supplier, valued at $30,000 or more, that peg to prime contracts containing FAR 52.204-10.  Information pertaining to the subcontract award(s), along with the physical place of performance will be made public.">First-Tier Subcontract Awards Reporting</hint> (Oct 2018)</i></b><br> Did supplier, in the previous tax year, have a <u>gross</u> income, from <b><u>all</u></b> sources, exceeding $300,000?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57214_124211 /> Yes(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57214_124212 /> No(AB) </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Place of Performance:</i></b><br> Is the place of performance different than the address listed on the <b><i>Company Information</i></b> page?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57215_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57215_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                Is physical place of performance located within the United States?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57222_124213 /> Yes(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57222_124214 /> N/A(AB) </b></li>
+                @if (!string.IsNullOrEmpty(ViewBag.Checkbox57222_124213))
+                {
+                    <br />
+                    <li>
+                        <b>
+                            Please provide the <b><i><a href="http://congressional-district.insidegov.com/" rel="nofollow me noopener noreferrer" target="_blank">Congressional District</a></i></b> of the physical place of performance:(AA)
+                        </b>&nbsp;&nbsp; @(ViewBag.Checkbox57222_Comment ?? String.Empty)
+                    </li>
+                }
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acquisition.gov/far/52.204-21-0" rel="nofollow me noopener noreferrer" target=_blank">52.204-21</a>,
+                        Basic Safeguarding of Covered Contractor Information Systems (Jun 2016), Other than Subcontracts for Commercially Available Off-The-Shelf (COTS) Items (Jun 2016)
+                    </i>
+                </b><br>
+                Supplier has implemented the controls required by FAR 52.204-21, <i>Basic Safeguarding of Covered Contractor Information Systems</i>.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57223_124215 /> Yes(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57223_124216 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57223_124217 /> N/A - Supplier only provides COTS (Commercially available Off-The-Shelf) parts as defined by <a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/02.htm#P11_640" rel="nofollow me noopener noreferrer" target=_blank">FAR 2.101</a>(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, provide the anticipated compliance date:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57223_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acquisition.gov/far/part-52#FAR_52_209_5" rel="nofollow me noopener noreferrer" target=_blank">52.209-5</a>,
+                        Certification Regarding Responsibility Matters (Oct 2015)
+                    </i>
+                </b><br> Supplier and/or any of its Principals--
+            </p>
+            <ul class="ml75 hr">
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57224_124218 />
+                        Are <b><u>NOT</u></b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency, or(AB)
+                    </b>
+                </li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57224_124219 />
+                        <b>Are</b> presently debarred, suspended, proposed for debarment, or declared ineligible for the award of contracts by any Federal agency, and(AA)
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acquisition.gov/far/part-52#FAR_52_209_5" rel="nofollow me noopener noreferrer" target=_blank">52.209-5</a>,
+                        Certification Regarding Responsibility Matters (Oct 2015)
+                    </i>
+                </b><br> Supplier and/or any of its Principals--
+            </p>
+            <ul class="ml75 hr">
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57225_124220 />
+                        Have <b><u>NOT</u></b>, within a three-year period preceding this offer, been convicted of or had a civil judgment rendered against them for: commission of fraud or a criminal offense in connection with obtaining, attempting to obtain, or performing a public (Federal, State or local) contract or subcontract, or violation of Federal or State antitrust statutes relating to the submission of offers, or commission of embezzlement, theft, forgery, bribery, falsification or destruction of records, making false statements, tax evasion, violating Federal criminal tax laws, or receiving stolen property (if Supplier checks "Have", the Supplier shall also see 52.209-7, if included in this solicitation, or(AB)
+                    </b>
+                </li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57225_124221 />
+                        <b>Have</b>, within a three-year period preceding this offer, been convicted of or had a civil judgment rendered against them for: commission of fraud or a criminal offense in connection with obtaining, attempting to obtain, or performing a public (Federal, State or local) contract or subcontract, or violation of Federal or State antitrust statutes relating to the submission of offers, or commission of embezzlement, theft, forgery, bribery, falsification or destruction of records, making false statements, tax evasion, violating Federal criminal tax laws, or receiving stolen property (if Supplier checks "Have", the Supplier shall also see 52.209-7, if included in this solicitation, and(AA)
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b>
+                    <i>
+                        <a href="https://www.acquisition.gov/far/part-52#FAR_52_209_5" rel="nofollow me noopener noreferrer" target=_blank">52.209-5</a>,
+                        Certification Regarding Responsibility Matters (Oct 2015)
+                    </i>
+                </b><br> Supplier and/or any of its Principals--
+            </p>
+            <ul class="ml75 hr">
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57226_124222 />
+                        Are <b><u>NOT</u></b> presently indicted for, or otherwise criminally or civilly charged by a governmental entity with, commission of any of the offenses enumerated in paragraph (a)(1)(i)(B) of this provision, or(AB)
+                    </b>
+                </li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57226_124223 />
+                        <b>Are</b> presently indicted for, or otherwise criminally or civilly charged by a governmental entity with, commission of any of the offenses enumerated in paragraph (a)(1)(i)(B) of this provision, and(AA)
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_209_5" rel="nofollow me noopener noreferrer" target=_blank">52.209-5</a>, Certification Regarding Responsibility Matters (Oct 2015)</i></b><br> Supplier and/or any of its Principals--
+            </p>
+            <ul class="ml75 hr">
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57227_124224 />
+                        Have <b><u>NOT</u></b>, within a three-year period preceding this offer, been notified of any delinquent Federal taxes in an amount that exceeds $3,500 for which the liability remains unsatisfied, or(AB)
+                    </b>
+                </li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57227_124225 />
+                        <b>Have</b>, within a three-year period preceding this offer, been notified of any delinquent Federal taxes in an amount that exceeds $3,500 for which the liability remains unsatisfied, and(AA)
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_209_5" rel="nofollow me noopener noreferrer" target=_blank">52.209-5</a>, Certification Regarding Responsibility Matters (Oct 2015)</i></b><br> Supplier and/or any of its Principals--
+            </p>
+            <ul class="ml75 hr">
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57228_124226 />
+                        Has <b><u>NOT</u></b>, within a three-year period preceding this offer, had one or more contracts terminated for default by any Federal agency, or(AB)
+                    </b>
+                </li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57228_124227 />
+                        <b>Has</b>, within a three-year period preceding this offer, had one or more contracts terminated for default by any Federal agency(AA))
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Statement to Prevent Transactions with Denied Persons/Debarred Parties/SDN:</i></b><br> All suppliers and their subcontractors shall not conduct any business transactions with the "Denied Persons List" published by the US Department of Commerce, the "Denied Parties List" published by the Department of State and the "Specially Designated Nationals List" published by the Department of Treasury, Foreign Assets Control.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57229_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57229_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57229_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_211_15" rel="nofollow me noopener noreferrer" target=_blank">52.211-15</a>, Defense Priority and Allocation Requirements (Apr 2008)</i></b><br> Supplier certifies it has policies and procedures in place to comply with the prioritization requirements of DPAS rated orders.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57230_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57230_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57230_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_219_8" rel="nofollow me noopener noreferrer" target=_blank">52.219-8</a>, Utilization of Small Business Concerns (Nov 2016)</i></b><br>As FAR 52.219-8 relates to supplier's use of sub-tier vendors, supplier is or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57232_124228 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57232_124229 /> No(AA) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57232_124230 />
+                        N/A - The PO/Contract, together with all of its subcontracts, will be performed entirely outside the United States and its outlying areas(AC)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57232_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_222_26" rel="nofollow me noopener noreferrer" target=_blank">52.222-26</a>, Equal Opportunity (Sep 2016) and <a href="https://www.dol.gov/agencies/ofccp/executive-order-11246/as-amended" rel="nofollow me noopener noreferrer" target=_blank">E.O. 11246</a></i></b><br>Supplier certifies it has read, understood and is compliant with FAR 52.222-26 <b><i>and</i></b> Executive Order 11246, or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57233_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57233_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_222_35" rel="nofollow me noopener noreferrer" target=_blank">52.222-35</a>, Equal Opportunity for Veterans (Oct 2015)</i></b><br>Supplier certifies it has read, understood and is compliant with FAR 52.222-35 <b><i>and</i></b> <a href="https://www.law.cornell.edu/cfr/text/41/part-61-300" rel="nofollow me noopener noreferrer" target=_blank">41 CFR 61-300</a>, or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57234_124231 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57234_124232 /> No(AA) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57234_124233 />
+                        N/A - Work will be performed outside the US by employees not recruited within the US, District of Columbia, Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island(AC)
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_222_36" rel="nofollow me noopener noreferrer" target=_blank">52.222-36</a>, Equal Opportunity for Workers with Disabilities (Jul 2014)</i></b><br>Supplier is currently compliant with FAR 52.222-36 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57235_124234 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57235_124235 /> No(AA) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57235_124236 />
+                        N/A - Work will be performed outside the US by employees not recruited within the US, District of Columbia, Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island(AC)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57235_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.acquisition.gov/far/part-52#FAR_52_222_40" rel="nofollow me noopener noreferrer" target=_blank">52.222-40</a>, Notification of Employee Rights Under the National Labor Relations Act (Dec 2010)</i></b><br>Supplier is currently compliant with FAR 52.222-40 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57236_124237 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57236_124238 /> No(AA) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57236_124239 />
+                        N/A - The PO/Contract will be performed exclusively outside the US(AC)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57236_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-50" rel="nofollow me noopener noreferrer" target=_blank">52.222-50</a>, Combating Trafficking in Persons (22 U.S.C. Chapter 78 and E.O. 13627) (Mar 2015)</i></b><br> Supplier is currently compliant with FAR 52.222-50 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57237_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57237_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57237_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/52_220.htm?zoom_highlight=52%2E222-54" rel="nofollow me noopener noreferrer" target=_blank">52.222-54</a>, Employment Eligibility Verification (Oct 2015)</i></b><br> Supplier is currently compliant with FAR 52.222-54 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57238_124240 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57238_124241 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57238_124242 /> N/A - Supplier only provides COTS (Commercially available Off-The-Shelf) parts as defined by <a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Far/02.htm#P11_640" rel="nofollow me noopener noreferrer" target=_blank">FAR 2.101</a>(AC) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57238_124243 /> N/A - As all work will be performed outside of the US, District of Columbia,  Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island(AD) </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57238_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_000.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.204-7000</a>, Disclosure of Unclassified Information (Oct 2016)</i></b><br> Supplier is currently compliant with DFARS 252.204-7000 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57239_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57239_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57239_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_000.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.204-7012</a>, Safeguarding Covered Defense Information and Cyber Incident Reporting (Oct 2016)</i></b><br> Supplier has implemented the requirements of DFARS 252.204-7012, "Safeguarding Covered Defense Information and Cyber Incident Reporting".<br> Additional information on Safeguarding Covered Defense Information and Cyber Incident Reporting is available at <a href="https://www.foxrothschild.com/content/uploads/2017/11/Federal-Cybersecurity-Presentation-AGC-Webinar-11-8-17-C2.pdf" rel="nofollow me noopener noreferrer" target="_blank">https://www.foxrothschild.com/content/uploads/2017/11/Federal-Cybersecurity-Presentation-AGC-Webinar-11-8-17-C2.pdf</a>.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57240_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57240_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_000.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.204-7012</a>, Safeguarding Covered Defense Information and Cyber Incident Reporting (Oct 2016)</i></b><br> Do you have a System Security Plan (SSP) in place?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57241_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57241_No /> No </b></li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_000.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.204-7012</a>, Safeguarding Covered Defense Information and Cyber Incident Reporting (Oct 2016)</i></b><br> Do you have a Plan of Actions and Milestones (POA&M) in place?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57243_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57243_No /> No </b></li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_220.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.223-7002</a>, Safety Precautions for Ammunition and Explosives (May 1994)</i></b><br> Supplier is currently compliant with DFARS 252.223-7002 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57245_124244 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57245_124245 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57245_124246 /> N/A - Supplier does not perform work that involves ammunitions or explosives(AC) </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57245_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_220.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.223-7003</a>, Change in Place of Performance -- Ammunition and Explosives (Dec 1991)</i></b><br> Supplier is currently compliant with DFARS 252.223-7003 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57246_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57246_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57246_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_220.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.223-7007</a>, Safeguarding Sensitive Conventional Arms, Ammunition and Explosives (Sep 1999)</i></b><br> Supplier is currently compliant with DFARS 252.223-7007 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57247_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57247_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57247_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_220.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.225-7009</a>, Restriction on Acquisition of Certain Articles Containing Specialty Metals (Oct 2014)</i></b><br> Supplier is currently compliant with DFARS 252.225-7009 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57248_124247 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57248_124248 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57248_124249 /> N/A - Supplier only provides electronic components(AC) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57248_124250 />
+                        N/A - Supplier only provides COTS (Commercially available Off-The-Shelf) items, other than those listed in 252.225-7009(c)(2)(i)(A-D)(AD)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57248_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Counterfeit Parts - Authorized Source Verification:</i></b><br> Supplier has verified, as well as retained as a quality record, that each transaction is authorized in accordance with
+                <document ="SI419-01">SI419-01</document>.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57249_124251 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57249_124252 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57249_124253 /> N/A - Supplier is Original Equipment/Component Manufacturer(AC)</b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57249_124254 />
+                        N/A - Supplier does not provide physical material(AD)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57249_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Counterfeit Parts Prevention Flow Down:</i></b><br> Supplier agrees, in accordance with Celestica Subcontracting Policy, to flow down the applicable CPP requirements if applicable as identified on PO), or its equivalent, to its sub-tier suppliers.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57250_124255 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57250_124256 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57250_124257 /> N/A - Sub-tier suppliers do not provide physical material(AC)</b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57250_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_246.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.246-7007</a>, Contractor Counterfeit Electronic Part Detection and Avoidance System (Aug 2016)</i></b><br> Supplier is currently compliant with DFARS 252.246-7007 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57251_124258 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57251_124259 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57251_124260 /> N/A - Supplier does not provide electronic parts, end items, components or assemblies containing electronic parts(AC)</b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57251_124261 />
+                        N/A - Supplier does not provide services where it will provide electronic parts or components, or parts or assemblies containing electronic parts as part of the service(AD)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57251_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_246.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.246-7007</a>, Contractor Counterfeit Electronic Part Detection and Avoidance System (Aug 2016)</i></b><br> Supplier is currently compliant with DFARS 252.246-7007 or will be compliant if subsequently awarded a purchase order or contract with USG end use.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57252_124262 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57252_124263 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57252_124264 /> N/A - Supplier is original manufacturer(AC)</b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57252_124265 />
+                        N/A - Supplier does not provide electronic parts end items, components or assemblies containing electronic parts(AD)
+                    </b>
+                </li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57252_124266 />
+                        N/A - Supplier does not provide services where it will provide electronic parts or components, or parts or assemblies containing electronic parts as part of the service(AE)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57252_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_246.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.246-7008</a>, Sources of Electronic Parts (Dec 2017)</i></b><br> If you purchase electronic parts from a <u>non</u>-authorized source, do you perform inspection, testing and authentication in accordance with established counterfeit prevention industry standards and processes?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57253_124267 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57253_124268 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57253_124269 /> N/A - Supplier obtains electronic parts from only OEM, Authorized Aftermarket Manufacturers or their authorized suppliers(AC)</b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57253_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://farsite.hill.af.mil/reghtml/Regs/far2afmcfars/fardfars/Dfars/Dfars252_246.htm#TopOfPage" rel="nofollow me noopener noreferrer" target=_blank">252.247-7022</a>, Representation of Extent of Transportation by Sea (Aug 1992)</i></b><br> Supplier represents it
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57254_124270 /> Does anticipate supplies will be transported by sea in the performance of any awarded PO/Contract(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57254_124271 /> Does <b><u>NOT</u></b> anticipate supplies will be transported by sea in the performance of any awarded PO/Contract (AB</b></li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22" rel="nofollow me noopener noreferrer" target="_blank">ITAR Part 130</a>, Certification Regarding Political Contributions, Fees, and Commissions </i></b><br> Supplier certifies it <b>SELLS</b> defense articles, technical data, and/or defense services to Celestica that are:  (i) controlled for export under the U.S. International Traffic in Arms Regulations (ITAR) (22 CFR Parts 120-130); <b>AND</b> (ii) <hint text="Sold $500,000 or more in ITAR controlled goods to Celestica">valued in an amount of $500,000 or more;</hint> <b>AND</b> (iii) for delivery (or incorporation into another product for delivery) to, or for the use of, the armed forces of an international organization or a country other than the United States.<br> Please note 22 CFR ? 130.12(b) requires Supplier to respond to this section <b><u>within 20 days</u></b>, unless supplier provides the information directly to the U.S. State Department in accordance with 22 CFR ? 130.12(c).  U.S. law requires Celestica to inform the Department of State if we have not received a response within 25 days of this request.  Additionally, 22 CFR ? 130.14 requires Supplier to maintain the records upon which the information above is based for a minimum of five (5) years from the date of the report.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57255_124272 /> Yes(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57255_124273 /> No(AB)</b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57255_124274 />
+                        N/A - Work will be performed outside the US by employees not recruited within the US, District of Columbia, Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island(AC)
+                    </b>
+                </li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22" rel="nofollow me noopener noreferrer" target="_blank">ITAR Part 130</a>, Certification Regarding Political Contributions, Fees, and Commissions Cont'd</i></b><br> Supplier certifies it has paid, offered to pay, or agreed to pay any "fees", "commissions", or "political contributions" as defined in <a href="http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22#22:1.0.1.13.67.0.32.5" rel="nofollow me noopener noreferrer" target="_blank">22 CFR ? 130.5</a> and <a href="http://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&SID=9f40509b0e3da13737d77a645b79f912&rgn=div5&view=text&node=22:1.0.1.13.67&idno=22#22:1.0.1.13.67.0.32.6" rel="nofollow me noopener noreferrer" target="_blank">22 CFR ? 130.6</a>, in connection with the sale of defense articles, technical data, and/or defense services to Celestica.<br> <b>NOTE:</b>  22 CFR ? 130.9(d) requires Supplier to inform Celestica as soon as possible if Supplier subsequently learns that it paid, offered to pay, or agreed to pay any fees, commissions, or political contributions in connection with the sale of defense articles, technical data, and/or defense services to Celestica.<br><br> <span style="color:Red;"><b><i>ADDITIONAL REQUIREMENT:</i></b></span>  If "<b>Yes</b>" selected, please complete <document ="Exhibit 1">Exhibit 1</document>, for <b><u>each</u></b> fee, commission and political contribution, using additional sheets as necessary, referencing the Sales Order/Contract Number at issue, and numbering each successive sheet X of X accordingly.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57256_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57256_No /> No </b></li>
+            </ul>
+        </div>
+
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="https://www.ecfr.gov/cgi-bin/text-idx?SID=deb9e8b54604fca65359b98927e2da5b&mc=true&tpl=/ecfrbrowse/Title22/22cfr122_main_02.tpl" rel="nofollow me noopener noreferrer" target="_blank">ITAR Part 122</a>, Registration of Manufacturers and Exporters</i></b><br> Under <a href="https://www.ecfr.gov/cgi-bin/text-idx?SID=06bc5afb8078cdaf5983f7e129c77dc3&mc=true&node=se22.1.122_11&rgn=div8" rel="nofollow me noopener noreferrer" target="_blank">22 CFR ? 122.1(a) </a> of the International Traffic in Arms Regulations (ITAR), all companies that engage in the business of manufacturing or exporting defense articles or furnishing defense services are required to register annually with the US Department of State, Directorate of Defense Trade Controls (DDTC).<br> The DDTC administers the ITAR and controls the export and re-export of defense articles and the provision of defense services involving all products listed on the US Munitions List <a href="https://www.ecfr.gov/cgi-bin/text-idx?SID=6555af482ca2be3f998c04b6efd1ca79&mc=true&node=se22.1.121_11&rgn=div8" rel="nofollow me noopener noreferrer" target="_blank">22 CFR ? 121.1</a>: Is your company registered with the DDTC to manufacture defense articles?<br> <span style="color:Red;"><b><i>PLEASE NOTE:</i></b></span>  If response is"<b><i>No</i></b>" and your company is selected to manufacture ITAR controlled items by Celestica Intl Inc, you will be required to register per <a href="https://www.ecfr.gov/cgi-bin/text-idx?SID=06bc5afb8078cdaf5983f7e129c77dc3&mc=true&node=se22.1.122_11&rgn=div8" rel="nofollow me noopener noreferrer" target="_blank">22 CFR ? 122.1(a)</a>.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57257_124275 /> Yes(AB) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57257_124276 /> No(AA) </b></li>
+                <br />
+                <li><b><input type="checkbox" @ViewBag.Checkbox57257_124277 /> N/A - Our company does not manufacture defense articles (i.e., ITAR-controlled items)(AC)) </b></li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i><a href="http://www.gpo.gov/fdsys/search/pagedetails.action?browsePath=Title+14%2FChapter+I%2FSubchapter+H%2FPart+145&granuleId=CFR-2011-title14-vol3-part145&packageId=CFR-2011-title14-vol3&collapse=true&fromBrowse=true&bread=true" rel="nofollow me noopener noreferrer" target="_blank">14 CFR 145, Subpart B</a>, Federal Aviation Administration (FAA) Anti-Drug and Alcohol Misuse Prevention Programs:</i></b><br> Is your company a FAA Approved Repair Station?  ()
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57258_124278 /> Yes(AA) </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57258_124279 /> No(AB) </b></li>
+                <br />
+                <li>
+                    <b>
+                        <input type="checkbox" @ViewBag.Checkbox57258_124280 />
+                        N/A - Work will be performed outside the US by employees not recruited within the US, District of Columbia, Puerto Rico, Northern Mariana Islands, American Samoa, Guam, US Virgin Islands and Wake Island(AC)
+                    </b>
+                </li>
+                <br />
+                <li><b>If <i>No</i>, please provide your FEDERAL REGISTRATION NUMBER:(AA)</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57258_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+
+        <div>
+            <p class="ml25">
+                <b><i>Anti-Drug Program:</i></b><br> Do you have a FAA approved Anti-Drug Program?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57259_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57259_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, please provide your ANTI-DRUG Program Plan Number:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57259_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Alcohol Misuse Prevention Program:</i></b><br> Do you have a FAA approved Alcohol Misuse Prevention Program?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57260_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57260_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, please provide your Alcohol Misuse Prevention  Program Plan Number:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Checkbox57259_Comment ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Additional Comments:</i></b><br> Do you have additional comments you'd like to include?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57261_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57261_No /> No </b></li>
+                <br />
+                <li><b>If <i>Yes</i>, Please provide your additional  comments:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Cooment57261 ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Additional Documents:</i></b><br> Do you have additional documentation you'd like to include?
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57262_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57262_No /> No </b></li>
+                <br />
+                <li><b>If <i>No</i>, further comment/explanation required:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @(ViewBag.Cooment57262 ?? String.Empty)</li>
+            </ul>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i>Overall Certification:</i></b><br> Supplier hereby certifies the information presented here is true and correct and meets the intent and spirit of the statements made above. This Certifications and Assessment shall apply to all solicitations, agreements, Purchase Orders, contracts, or subcontracts received from Celestica and shall be valid for the current calendar year.  If any changes to the above occur, Supplier will immediately notify their Celestica Sourcing or Procurement representative, in writing, regarding its change in status.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57263_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57263_No /> No </b></li>
+            </ul>
+            <p class="ml25">
+                @ViewBag.Cooment57263
+            </p>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i> Are You Ready to Submit Your Complete Certifications and Assessment for Celestica Review and Approval</i></b><br> Once this submission is made you will not be able to change your online Supplier Certifications and Assessment.
+            </p>
+            <ul class="ml75 hr">
+                <li><b><input type="checkbox" @ViewBag.Checkbox57264_Yes /> Yes </b></li>
+                <li><b><input type="checkbox" @ViewBag.Checkbox57264_No /> No </b></li>
+            </ul>
+            <p class="ml25">
+                @ViewBag.Cooment57264
+            </p>
+        </div>
+
+        <div>
+            <p class="ml25">
+                <b><i> For Celestica Internal Use Only</i></b><br> This online Supplier Certifications and Assessment submission has been reviewed and approved.
+            </p>
+            <ul class="ml75 hr">
+                @if (ViewBag.Status == 10)
+                {
+                    <li><b><input type="checkbox" /> Yes </b></li>
+                    <li><b><input type="checkbox" checked /> No </b></li>
+                }
+                else
+                {
+                    <li><b><input type="checkbox" @ViewBag.Checkbox57265_Yes /> Yes </b></li>
+                    <li><b><input type="checkbox" @ViewBag.Checkbox57265_No /> No </b></li>
+                }
+            </ul>
+            <p class="ml25">
+                @ViewBag.Cooment57265
+            </p>
+        </div>
+
+
+        @*<p style="text-align:center; font-size:21px"><i><u><b>Overall Certification</b></u></i></p>
+
+            <p>Supplier hereby certifies the information presented here is true and correct and meets the intent and spirit of the statements made above.  This Certifications and Assessment shall apply to all solicitations, agreements, Purchase Orders, contracts, or subcontracts received from Celestica-Aerospace, and shall be valid for the current calendar year.  If any changes to the above occur, supplier will immediately notify their Celestica-Aerospace Sourcing or Procurement representative, in writing, regarding its change in status.</p>
+            <p>
+                <ul class="ml75 hr">
+                    <li><b><input type="checkbox" @ViewBag.Checkbox49582_Yes /> Yes </b></li>
+                    <li><b><input type="checkbox" @ViewBag.Checkbox49582_No /> No </b></li>
+                    <li><b>If No, comment required: </b>@ViewBag.Checkbox49582_Comment</li>
+                </ul>
+            </p>*@
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr style="height:40px">
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    NAME: @(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName))
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SIGNATURE:  @(ViewBag.signature == null ? "" : ViewBag.signature.email)
+                </td>
+                @if (ViewBag.status == 10)
+                {
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        Status = Pending
+                    </td>
+                }
+                else
+                {
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        DATE: @ViewBag.completeDate
+                    </td>
+                }
+            </tr>
+            <tr style="height:40px">
+                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                    TITLE: @ViewBag.personTitle
+                </td>
+            </tr>
+        </table>
+    </FONT>
+</body>
+</html>
+
+
+
+
+
+
+
+            

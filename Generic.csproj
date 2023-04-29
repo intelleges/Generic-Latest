@@ -276,6 +276,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Sustainsys.Saml2.dll</HintPath>
     </Reference>
+    <Reference Include="Sustainsys.Saml2.Mvc, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Sustainsys.Saml2.Mvc\bin\Debug\Sustainsys.Saml2.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.5.3\lib\net40\Swashbuckle.Core.dll</HintPath>
       <Private>True</Private>
@@ -2318,6 +2322,15 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerQuestionResponseByAccessCode99_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerQuestionResponseByAccessCodeList2List_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerQuestionResponseByAccessCodeValidationList2List_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getPartnerQuestionResponseByAccessCodeXXX_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="pr_getPartnerQuestionResponseByAccessCode_Result.cs">
@@ -4981,7 +4994,9 @@
     <Content Include="Scripts\dhtmlxScheduler\sources\ext\dhtmlxscheduler_agenda_view.js.map" />
     <Content Include="Scripts\dhtmlxScheduler\sources\ext\dhtmlxscheduler_active_links.js.map" />
     <Content Include="Scripts\dhtmlxScheduler\sources\dhtmlxscheduler.js.map" />
-    <Content Include="DTD\xhtml-lat1.ent" />
+    <Content Include="DTD\xhtml-lat1.ent">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="DTD\xhtml-symbol.ent" />
     <Content Include="DTD\xhtml-special.ent" />
     <Content Include="Content\kendo\2015.2.624\images\kendoui.woff" />
@@ -7174,12 +7189,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Person\UploadPerson.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sustainsys.Saml2.Mvc\Sustainsys.Saml2.Mvc.csproj">
-      <Project>{7d32f0a3-cec8-4dc6-a096-5905ea9c3770}</Project>
-      <Name>Sustainsys.Saml2.Mvc</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
