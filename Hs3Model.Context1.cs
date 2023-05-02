@@ -30951,7 +30951,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminder_Result>("pr_getReminder", enterpriseParameter, touchpointParameter, patnertypeParameter, statusidParameter, activeParameter, pptqParameter);
         }
     
-        public virtual ObjectResult<pr_getReminderBatch_Result> pr_getReminderBatch(Nullable<int> enterprise, Nullable<int> touchpoint, Nullable<int> patnertype, Nullable<int> statusid, Nullable<int> active)
+        public virtual ObjectResult<pr_getReminderBatch_Result> pr_getReminderBatch(Nullable<int> enterprise, Nullable<int> touchpoint, Nullable<int> partnertype, Nullable<int> statusid, Nullable<int> active)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
@@ -30961,9 +30961,9 @@ namespace Generic
                 new ObjectParameter("touchpoint", touchpoint) :
                 new ObjectParameter("touchpoint", typeof(int));
     
-            var patnertypeParameter = patnertype.HasValue ?
-                new ObjectParameter("patnertype", patnertype) :
-                new ObjectParameter("patnertype", typeof(int));
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
     
             var statusidParameter = statusid.HasValue ?
                 new ObjectParameter("statusid", statusid) :
@@ -30973,7 +30973,7 @@ namespace Generic
                 new ObjectParameter("active", active) :
                 new ObjectParameter("active", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderBatch_Result>("pr_getReminderBatch", enterpriseParameter, touchpointParameter, patnertypeParameter, statusidParameter, activeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderBatch_Result>("pr_getReminderBatch", enterpriseParameter, touchpointParameter, partnertypeParameter, statusidParameter, activeParameter);
         }
     
         public virtual ObjectResult<pr_resetPassword_Result> pr_resetPassword(Nullable<int> person)
@@ -30983,6 +30983,115 @@ namespace Generic
                 new ObjectParameter("person", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_resetPassword_Result>("pr_resetPassword", personParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponseXXX(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<double> value, Nullable<double> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var uploadedFileParameter = uploadedFile != null ?
+                new ObjectParameter("uploadedFile", uploadedFile) :
+                new ObjectParameter("uploadedFile", typeof(byte[]));
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            var actionDateParameter = actionDate.HasValue ?
+                new ObjectParameter("actionDate", actionDate) :
+                new ObjectParameter("actionDate", typeof(System.DateTime));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(double));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(double));
+    
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponseXXX", questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, actionDateParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5XXX(Nullable<int> question, Nullable<int> response, string comment, byte[] uploadedFile, string uploadedFileType, Nullable<System.DateTime> actionDate, Nullable<double> value, Nullable<double> score, Nullable<int> partnerPartnerTypeTouchpointQuestionnaire)
+        {
+            var questionParameter = question.HasValue ?
+                new ObjectParameter("question", question) :
+                new ObjectParameter("question", typeof(int));
+    
+            var responseParameter = response.HasValue ?
+                new ObjectParameter("response", response) :
+                new ObjectParameter("response", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var uploadedFileParameter = uploadedFile != null ?
+                new ObjectParameter("uploadedFile", uploadedFile) :
+                new ObjectParameter("uploadedFile", typeof(byte[]));
+    
+            var uploadedFileTypeParameter = uploadedFileType != null ?
+                new ObjectParameter("uploadedFileType", uploadedFileType) :
+                new ObjectParameter("uploadedFileType", typeof(string));
+    
+            var actionDateParameter = actionDate.HasValue ?
+                new ObjectParameter("actionDate", actionDate) :
+                new ObjectParameter("actionDate", typeof(System.DateTime));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("value", value) :
+                new ObjectParameter("value", typeof(double));
+    
+            var scoreParameter = score.HasValue ?
+                new ObjectParameter("score", score) :
+                new ObjectParameter("score", typeof(double));
+    
+            var partnerPartnerTypeTouchpointQuestionnaireParameter = partnerPartnerTypeTouchpointQuestionnaire.HasValue ?
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", partnerPartnerTypeTouchpointQuestionnaire) :
+                new ObjectParameter("partnerPartnerTypeTouchpointQuestionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPartnerPartnertypeTouchpointQuestionnaireQuestionResponse5XXX", questionParameter, responseParameter, commentParameter, uploadedFileParameter, uploadedFileTypeParameter, actionDateParameter, valueParameter, scoreParameter, partnerPartnerTypeTouchpointQuestionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerQuestionResponseByAccessCodeXXX_Result> pr_getPartnerQuestionResponseByAccessCodeXXX(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCodeXXX_Result>("pr_getPartnerQuestionResponseByAccessCodeXXX", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerQuestionResponseByAccessCodeValidationList2List_Result> pr_getPartnerQuestionResponseByAccessCodeValidationList2List(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCodeValidationList2List_Result>("pr_getPartnerQuestionResponseByAccessCodeValidationList2List", accesscodeParameter);
+        }
+    
+        public virtual ObjectResult<pr_getPartnerQuestionResponseByAccessCodeList2List_Result> pr_getPartnerQuestionResponseByAccessCodeList2List(string accesscode)
+        {
+            var accesscodeParameter = accesscode != null ?
+                new ObjectParameter("accesscode", accesscode) :
+                new ObjectParameter("accesscode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerQuestionResponseByAccessCodeList2List_Result>("pr_getPartnerQuestionResponseByAccessCodeList2List", accesscodeParameter);
         }
     }
 }
