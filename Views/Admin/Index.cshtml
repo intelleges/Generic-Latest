@@ -124,79 +124,96 @@
                     <div id="login-wrapper" class="container vertical-middle divcenter clearfix">
                         <div class="panel panel-default divcenter noradius noborder login">
                             <div class="panel-body">
-                                @using (Html.BeginForm("index", "admin", FormMethod.Post, new { id = "login-form", name = "login-form", @class="nobottommargin"}))
+                                @using (Html.BeginForm("index", "admin", FormMethod.Post, new { id = "login-form", name = "login-form", @class = "nobottommargin" }))
                                 {
-                                        @Html.AntiForgeryToken()
-                                        <div class="login-logo">
-                                            <a href="http://www.intelleges.com/"> <img src="~/Content/login/images/intelleges/intelleges-logo.png" alt="logo"></a>
-                                        </div>
-                                        <div class="form-cell">
-                                            <label for="login-form-email">Enter your email:</label>
-                                            <input type="email" id="login-form-email" name="username" value="" class="form-control not-dark" />
-                                        </div>
-                                        <div class="form-cell">
-                                            <label for="login-form-password">Enter your password:</label>
-                                            <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
-                                        </div>
-
-                                        if (ViewBag.useReCaptcha != null && (bool)ViewBag.useReCaptcha)
-                                        {
-                                            <div class="form-cell">
-                                                <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
-                                            </div>
-                                        }
-                                        <div id="loginerrordiv" style="color: red">
-                                            @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
+                                    @Html.AntiForgeryToken()
+                               
+                                <div class="login-logo">
+                                    <a href="http://www.intelleges.com/"> <img src="~/Content/login/images/intelleges/refinedLogo.png" alt="logo"></a>
+                                    <span class="tooltiptext">To find out more click <a href="https://intelleges.webflow.io">here</a></span>
+                                </div>
+                                
+                                    <div class="form-cell">
+                                        <label for="login-form-email">Enter your email:</label>
+                                        <input type="email" id="login-form-email" name="username" value="" class="form-control not-dark" />
+                                    </div>
+                                    <div class="form-cell">
+                                        <label for="login-form-password">Enter your password:</label>
+                                        <input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" />
+                                    </div>
+                                    <div class="help-links">
+                                        <div class="captcha-container">
+                                            @if (ViewBag.useReCaptcha != null && (bool)ViewBag.useReCaptcha)
                                             {
-                                                foreach (System.Web.Mvc.ModelError error in modelState.Errors)
-                                                {
-                                                    if (error != null)
-                                                    {
 
-                                                        <span>Your Intelleges ID or password was entered incorrectly.</span>
+                                                <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["recaptchaPublicKey"]" data-callback="recaptcha_callback"></div>
 
-                                                    }
-
-                                                }
                                             }
                                         </div>
-                                        <div class="help-links">
-
-                                            <div class="remember-me-container">
-                                                <input id="remember-me" class="checkbox-style" name="checkbox-1" type="checkbox" checked>
-                                                <label for="remember-me" class="checkbox-style-1-label checkbox-small">Remember me</label>
-                                            </div>
                                             <div class="forgot-pw-container">
                                                 <a href="#" id="forgotPasswordLinq">Forgot Password?</a>
                                             </div>
                                         </div>
-                                        <div class="submit-container">
-                                            @if (ViewBag.REDIRECT_BY_EMAIL == 1)
+                                   
+                                    <div id="loginerrordiv" style="color: red">
+                                        @foreach (System.Web.Mvc.ModelState modelState in ViewData.ModelState.Values)
+                                        {
+                                            foreach (System.Web.Mvc.ModelError error in modelState.Errors)
                                             {
-                                                <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" @*disabled*@>Submit</button>
-                                                //onclick="$('#login-form').submit();"
-                                            }
-                                            else if (ViewBag.useReCaptcha != null && (bool)ViewBag.useReCaptcha)
-                                            {
-                                                <button id="login_submit_button" style="display:none;" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Log In</button>
-                                            }
-                                            else
-                                            {
-                                                <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate">Log In</button>
-                                                //
-                                            }
-                                        </div>
-                                    
-                                }
+                                                if (error != null)
+                                                {
 
-                                    <div class="need-help-wrapper">
-                                        <h3>To find out more click <a href="https://intelleges.webflow.io">here</a></h3>
-                                        <p>
-                                            or email us at <a href="mailto:help@intelleges.com"> help@intelleges.com</a><br>
-                                            <a target="_blank" href="/Content/login/privacy_notice_2022.pdf"> Privacy Notice @DateTime.Now.Year</a>
-                                        </p>
+                                                    <span>Your Intelleges ID or password was entered incorrectly.</span>
+
+                                                }
+
+                                            }
+                                        }
                                     </div>
+                                    <div class="help-links">
+
+                                        <div class="remember-me-container">
+                                            <input id="remember-me" class="checkbox-style" name="checkbox-1" type="checkbox" checked>
+                                            <label for="remember-me" class="checkbox-style-1-label checkbox-small">Remember me</label>
+                                        </div>
+                                        @*<div class="forgot-pw-container">
+                                            <a href="#" id="forgotPasswordLinq">Forgot Password?</a>
+                                        </div>*@
+                                    </div>
+                                    <div class="submit-container">
+                                        @if (ViewBag.REDIRECT_BY_EMAIL == 1)
+                                        {
+                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate" @*disabled*@>Submit</button>
+                                            //onclick="$('#login-form').submit();"
+                                        }
+                                        else if (ViewBag.useReCaptcha != null && (bool)ViewBag.useReCaptcha)
+                                        {
+                                            <button id="login_submit_button" style="display:none;" class="button button-3d nomargin fright" value="login" onclick="validate" disabled>Log In</button>
+                                        }
+                                        else
+                                        {
+                                            <button id="login_submit_button" class="button button-3d nomargin fright" value="login" onclick="validate">Log In</button>
+                                            //
+                                        }
+
+                                    </div>
+
+                                }
+                                <div class="iso-contaier">
+                                    <img src="~/Content/login/images/ISO-27001.png" class="iso-icon" />
                                 </div>
+                            <div class="help-links">
+                                <a href="mailto:help@intelleges.com" class="help-text"> help@intelleges.com</a>
+                                <a target="_blank" href="/Content/login/privacy_notice_2022.pdf" class="privacy-text"> Privacy Notice @DateTime.Now.Year</a>
+                            </div>
+                                @*<div class="need-help-wrapper">
+                                    <h3>To find out more click <a href="https://intelleges.webflow.io">here</a></h3>
+                                    <p>
+                                        or email us at <br>
+                                        
+                                    </p>
+                                </div>*@
+                            </div>
                         </div>
                         <div class="row center dark"><small>Copyrights &copy; All Rights Reserved by Intelleges.</small></div>
                     </div>

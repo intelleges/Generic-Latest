@@ -13532,6 +13532,7 @@ ul.no-styled-list > li {
 }
 .panel.login {
   max-width: 600px;
+  top:25px;
 }
 .panel.login .panel-body {
   padding: 40px;
@@ -13590,7 +13591,8 @@ ul.no-styled-list > li {
   }
 }
 .forgot-pw-container {
-  float: right;
+    float: right;
+    margin-top: 5%;
 }
 @media only screen and (max-width: 480px) {
   .forgot-pw-container {
@@ -14019,3 +14021,71 @@ ul.no-styled-list > li {
 .need-help-wrapper p a {
   color: #61a043;
 }
+
+/*Harjeet's Changes*/
+.login-logo{
+    position:relative;
+}
+    .login-logo .tooltiptext {
+        visibility: hidden;
+        width: 217px;
+        background-color: #fff;
+        color: #555;
+        text-align: left;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 101;
+        bottom: 44%;
+        /* left: 50%;
+    margin-left: -60px;*/
+        opacity: 0;
+        transition: opacity 1s;
+        border: 3px solid #1a73e8;
+        font-weight: bold;
+        padding-left: 17px;
+        font-size: 15px;
+    }
+
+        .login-logo .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent #1a73e8 transparent transparent;
+        }
+
+    .login-logo:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+.captcha-container {
+    width: 53%;
+    float: left;
+    margin-top: 5px
+}
+.help-text {
+    float: left;
+    font-size: 14px;
+    font-family: 'AvenirLTStd-Heavy';
+    color: #61a043;
+}
+.privacy-text {
+    float: right;
+    font-size: 14px;
+    font-family: 'AvenirLTStd-Heavy';
+    color: #61a043;
+}
+.iso-contaier {
+    width: 100%;
+    text-align: center;
+}
+.iso-icon {
+    width: 35%;
+    height: 35%;
+   /* padding-bottom: 19px;*/
+}
+

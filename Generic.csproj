@@ -4372,6 +4372,7 @@
     <Content Include="Content\login\images\intelleges\products\7.png" />
     <Content Include="Content\login\images\intelleges\products\8.png" />
     <Content Include="Content\login\images\intelleges\products\9.png" />
+    <Content Include="Content\login\images\intelleges\refinedLogo.png" />
     <Content Include="Content\login\images\intelleges\slider1.png" />
     <Content Include="Content\login\images\intelleges\slider2.png" />
     <Content Include="Content\login\images\intelleges\slider3.png" />
@@ -4415,6 +4416,7 @@
     <Content Include="Content\login\images\intelleges\wrap-around\7.PNG" />
     <Content Include="Content\login\images\intelleges\wrap-around\8.PNG" />
     <Content Include="Content\login\images\intelleges\wrap-around\9.PNG" />
+    <Content Include="Content\login\images\ISO-27001.png" />
     <Content Include="Content\login\images\preloader.gif" />
     <Content Include="Content\login\js\app.js" />
     <Content Include="Content\login\js\bootstrap-modal-carousel.min.js" />
