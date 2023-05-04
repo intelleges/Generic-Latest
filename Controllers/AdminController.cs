@@ -2169,8 +2169,8 @@ namespace Generic.Controllers
             objamm.text += "Email Address: "+objmodel.emailAddress + "<br/>";
             objamm.text += "Phone: "+objmodel.PhoneNumber+"<br/>";
             objamm.text += "Company: "+objmodel.Company+"<br/>";
-            objamm.text += "Industry: "+ db.pr_getIndustry(objmodel.industryId).FirstOrDefault().description;
-            objamm.text += "Area of Interest: "+ db.pr_getProductDetail(objmodel.productId).FirstOrDefault().description;
+            objamm.text += "Industry: "+ db.pr_getIndustry(objmodel.industryId).FirstOrDefault().description + "<br/>";
+            objamm.text += "Area of Interest: "+ db.pr_getProductDetail(objmodel.productId).FirstOrDefault().description + "<br/>";
             //objamm.subject = "Invitation to Experience Supply Chain Compliance/Resilience Free Trial";
             //objamm.text = "Dear " + addr.User + ",<br/>";
             //objamm.text += "We are excited to invite you to experience the power and capabilities of Intelleges, a global supply chain compliance";
