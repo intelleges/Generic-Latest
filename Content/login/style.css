@@ -14088,4 +14088,19 @@ ul.no-styled-list > li {
     height: 35%;
    /* padding-bottom: 19px;*/
 }
-
+.freetrial-text {
+    float: right;
+    font-size: 14px;
+    font-family: 'AvenirLTStd-Heavy';
+    color: #61a043;
+}
+.trialdiv{
+    padding:10px;
+    text-align:center;
+}
+.trialText {
+    font-size: 17px;
+    font-family: 'AvenirLTStd-Heavy';
+    color: #61a043;
+    font-weight:bold;
+}

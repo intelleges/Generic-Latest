@@ -29,8 +29,8 @@ namespace Generic.Helpers.Utility
         {
             EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
-            string receiver = "";
-
+            string receiver = ""; 
+           
             key objSendGridPassword = db.pr_getKeyAll(settings.enterprise.id).ToList().Where(x => x.@object == "sendgrid").FirstOrDefault();
             var msg = new SendGridMessage();
             List<SendGrid.Helpers.Mail.Attachment> attachments2 = new List<SendGrid.Helpers.Mail.Attachment>();

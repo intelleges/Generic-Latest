@@ -1256,6 +1256,9 @@
     <Compile Include="product.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="productDetail.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="protocol.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2783,6 +2786,12 @@
     <Compile Include="pr_getProductAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getProductDetailAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getProductDetail_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getProduct_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -3705,6 +3714,7 @@
     <Compile Include="ViewModel\ClauseViewModel.cs" />
     <Compile Include="ViewModel\CreateGigfestModel.cs" />
     <Compile Include="ViewModel\FindAndRedirectToLinkedInProfileModel.cs" />
+    <Compile Include="ViewModel\FreeTrialViewModel.cs" />
     <Compile Include="ViewModel\InvalidZCodeViewModel.cs" />
     <Compile Include="Models\jsTree3Node.cs" />
     <Compile Include="Models\MenuModel.cs" />
@@ -6786,6 +6796,7 @@
     <EmbeddedResource Include="Views\Shared\_AdminFullScreenLayout.cshtml" />
     <Content Include="Views\Partner\Referral.cshtml" />
     <Content Include="Views\Partner\FindPartner2.cshtml" />
+    <Content Include="Views\Admin\FreeTrial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

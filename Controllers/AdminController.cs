@@ -4,6 +4,8 @@ using Generic.Helpers.Utility;
 using Generic.Models;
 using Generic.SessionClass;
 using Generic.ViewModel;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 //using Sustainsys.Saml2.Mvc;
 using System;
 using System.Collections.Generic;
@@ -2110,6 +2112,97 @@ namespace Generic.Controllers
         {
             var touchpoint = db.pr_getTouchpoint(touchPointId).FirstOrDefault();
             return Json(new { touchpoint.description }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult FreeTrial()
+        {
+            FreeTrialViewModel objmodel = new FreeTrialViewModel();
+            var products = db.pr_getProductDetailAll().ToList();
+            objmodel.products = new List<SelectListItem>();
+            objmodel.products.Add(new SelectListItem
+            {
+                Value = "0",
+                Text = "--Select--"
+            });
+            if (products != null)
+            {
+                foreach (var item in products)
+                {
+                    objmodel.products.Add(new SelectListItem
+                    {
+                        Value = item.id.ToString(),
+                        Text = item.description
+                    });
+                }
+            }
+            objmodel.productId = 0;
+            var industry = db.pr_getIndustryAll().ToList();
+            objmodel.industries = new List<SelectListItem>();
+            objmodel.industries.Add(new SelectListItem
+            {
+                Value = "0",
+                Text = "--Select--"
+            });
+            if (industry != null)
+            {
+                foreach (var item in industry)
+                {
+                    objmodel.industries.Add(new SelectListItem
+                    {
+                        Value = item.id.ToString(),
+                        Text = item.description
+                    });
+                }
+            }
+            objmodel.industryId = 0;
+            ViewBag.useReCaptcha = !Request?.Url?.Host?.ToLower()?.StartsWith("localhost");
+            return View(objmodel);
+        }
+
+        [HttpPost]
+        public ActionResult FreeTrial(FreeTrialViewModel objmodel)
+        {
+           // System.Net.Mail.MailAddress addr = new System.Net.Mail.MailAddress(objmodel.emailAddress);
+            autoMailMessage objamm = new autoMailMessage();
+            objamm.subject = "Intelleges: Free Trial Form Details";
+            objamm.text = "Dear Dana Klein, <br/> Here are teh details of Free Trial Form: <br/><br/>";
+            objamm.text += "Name: " + objmodel.FirstName + " " + objmodel.LastName + "<br/>";
+            objamm.text += "Email Address: "+objmodel.emailAddress + "<br/>";
+            objamm.text += "Phone: "+objmodel.PhoneNumber+"<br/>";
+            objamm.text += "Company: "+objmodel.Company+"<br/>";
+            objamm.text += "Industry: "+ db.pr_getIndustry(objmodel.industryId).FirstOrDefault().description;
+            objamm.text += "Area of Interest: "+ db.pr_getProductDetail(objmodel.productId).FirstOrDefault().description;
+            //objamm.subject = "Invitation to Experience Supply Chain Compliance/Resilience Free Trial";
+            //objamm.text = "Dear " + addr.User + ",<br/>";
+            //objamm.text += "We are excited to invite you to experience the power and capabilities of Intelleges, a global supply chain compliance";
+            //objamm.text += " and risk management solution. As a valued vistor to our website, we would like to offer you a 15-day free trial of our cloud-based product.";
+            //objamm.text += "<br/> Here's how you get started: <br/>";
+            //var url = "https://www.intelleges.com/mvcmt/Generic/Admin/FreeTrialForm?email=" + objmodel.emailAddress + "&product=" + objmodel.productId;
+            //objamm.text += "Simply click on this <a href='" + url + "'>link</a> to access our user-friendly free trial form. <br/>";
+            //objamm.text += "In the free trial form, you will be prompted to provide additional information such as your name, company name, and phone number, which we require for enterprise purposes. <br/>";
+            //objamm.text += "Once you have completed and submitted the free trial form, our system will verify the information provided and create a limited access account tailored specifically for you.  <br/>";
+            //objamm.text += "You can then log in to the system using your email address and the temporary password provided. <br/>";
+            //objamm.text += "Congratulations! You will now enjoy limited access to our robust system for the duration of the free trial period, as specified in the license agreement. <br/>";
+            //objamm.text += "Throughout the trial period, you will have the opportunity to explore the extensive features and functionalities of Intelleges, gaining invaluable insights into global supply chain compliance and risk management. We are confident that our product will help streamline your operations and mitigate potential risks effectively. <br/>";
+            //objamm.text += "In the meanwhile, our dedicated support team will contact you to complete the setup. <br/>";
+            //objamm.text += "Feel free to reach out to us at help@intelleges.combefore then if you have any questions. <br/>";
+            //objamm.text += "At the conclusion of the free trial period, you will have the option to choose a suitable license to continue harnessing the full potential of Intelleges, or your access to the system will be automatically revoked. <br/>";
+            //objamm.text += "Please note that Intelleges is an ISO 27001 certified trusted service provider, additionally, we have implemented stringent security measures to safeguard your data and ensure a smooth user experience. <br/>";
+            //objamm.text += "Thank you for considering Intelleges as your partner in global supply chain compliance and risk management. We look forward to providing you with an exceptional trial experience and assisting you in making informed decisions for your organization's success. <br/>";
+            //objamm.text += "Best regards, <br/> Dana Klein";
+            Email mail = new Email(objamm);
+            mail.type = "emailAlert";
+            mail.emailTo = "dana.klein@intelleges.com";
+            mail.url = Request.Url.ToString();
+            mail.category = SendGridCategory.SendEmailAlert;
+            SendEmail objSendEmail = new SendEmail();
+            var enterprise = db.pr_getEnterpriseAll().FirstOrDefault();
+            objSendEmail.sendEmail(mail, new EmailFormatSettings()
+            {
+                sender = null,
+                touchpoint = null,
+                enterprise= enterprise
+            });
+            return RedirectToAction("Index", "Admin");
         }
     }
 

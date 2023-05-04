@@ -408,6 +408,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_person" />
         <AssociationConnector Association="hs3MVCMTQa2Model.FK_personLoginAudit_personLoginAuditEvent" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.partnerPartnertypeTouchpointQuestionnairePersonApproval" Width="1.5" PointX="23.375" PointY="39.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.productDetail" Width="1.5" PointX="25.375" PointY="39.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
