@@ -1289,6 +1289,9 @@
     <Compile Include="pr_addQuestionnaireQuestionnaireCMS_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_addQuestionnaireUpload_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_addReminderScheduledTaskHeartBeat_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -2981,6 +2984,9 @@
     <Compile Include="pr_getQuestionnaireTagComment_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getQuestionnaireUploadAll_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getQuestionnaire_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -3519,6 +3525,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="questionnaireTagComment.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="questionnaireUpload.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="questionResponse.cs">
@@ -6797,6 +6806,7 @@
     <Content Include="Views\Partner\Referral.cshtml" />
     <Content Include="Views\Partner\FindPartner2.cshtml" />
     <Content Include="Views\Admin\FreeTrial.cshtml" />
+    <Content Include="Views\Admin\ScheduleMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

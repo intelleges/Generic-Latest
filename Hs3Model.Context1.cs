@@ -301,6 +301,7 @@ namespace Generic
         public virtual DbSet<personLoginAudit> personLoginAudit { get; set; }
         public virtual DbSet<partnerPartnertypeTouchpointQuestionnairePersonApproval> partnerPartnertypeTouchpointQuestionnairePersonApproval { get; set; }
         public virtual DbSet<productDetail> productDetail { get; set; }
+        public virtual DbSet<questionnaireUpload> questionnaireUpload { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -1329,7 +1330,7 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPartnertypeTouchpointQuestionnaire", partnerTypeParameter, touchpointParameter, questionnaireParameter, sortOrderParameter, activeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> pr_addPerson(Nullable<int> enterprise, Nullable<int> manager, Nullable<int> personStatus, Nullable<int> riskType, Nullable<int> loadHistory, Nullable<int> campaign, string internalId, string nmNumber, string socialSecurity, string firstName, string lastName, string title, string suffix, string nickName, string passWord, string email, string address1, string address2, string city, Nullable<int> state, string zipcode, Nullable<int> country, string phone, string fax, Nullable<int> active, Nullable<int> ismanager, Nullable<int> partnerPerPage, Nullable<System.DateTime> resetDate, Nullable<bool> isArchived, Nullable<System.DateTime> archivedDate)
+        public virtual ObjectResult<Nullable<int>> pr_addPerson(Nullable<int> enterprise, Nullable<int> manager, Nullable<int> personStatus, Nullable<int> riskType, Nullable<int> loadHistory, Nullable<int> campaign, string internalId, string nmNumber, string socialSecurity, string firstName, string lastName, string title, string suffix, string nickName, string passWord, string email, string address1, string address2, string city, Nullable<int> state, string zipcode, Nullable<int> country, string phone, string fax, Nullable<int> active, Nullable<int> ismanager, Nullable<int> partnerPerPage, Nullable<System.DateTime> resetDate, Nullable<bool> isArchived, Nullable<System.DateTime> archivedDate)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
@@ -1451,7 +1452,7 @@ namespace Generic
                 new ObjectParameter("archivedDate", archivedDate) :
                 new ObjectParameter("archivedDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addPerson", enterpriseParameter, managerParameter, personStatusParameter, riskTypeParameter, loadHistoryParameter, campaignParameter, internalIdParameter, nmNumberParameter, socialSecurityParameter, firstNameParameter, lastNameParameter, titleParameter, suffixParameter, nickNameParameter, passWordParameter, emailParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, activeParameter, ismanagerParameter, partnerPerPageParameter, resetDateParameter, isArchivedParameter, archivedDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_addPerson", enterpriseParameter, managerParameter, personStatusParameter, riskTypeParameter, loadHistoryParameter, campaignParameter, internalIdParameter, nmNumberParameter, socialSecurityParameter, firstNameParameter, lastNameParameter, titleParameter, suffixParameter, nickNameParameter, passWordParameter, emailParameter, address1Parameter, address2Parameter, cityParameter, stateParameter, zipcodeParameter, countryParameter, phoneParameter, faxParameter, activeParameter, ismanagerParameter, partnerPerPageParameter, resetDateParameter, isArchivedParameter, archivedDateParameter);
         }
     
         public virtual int pr_addPersonGroup(Nullable<int> person, Nullable<int> group)
@@ -31172,6 +31173,265 @@ namespace Generic
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchiveProductDetail", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_addQuestionnaireUpload_Result> pr_addQuestionnaireUpload(Nullable<int> qID, Nullable<int> page, string surveyset, string survey, string question, string response, string comment, string title, Nullable<int> required, Nullable<int> length, Nullable<int> titleLength, Nullable<int> yValue, Nullable<int> nValue, Nullable<int> naValue, Nullable<int> otherValue, Nullable<int> qWeight, string skipLogic, string skipLogicAnswer, string subCheckBoxChoice, string calendarMessageText, string skipLogicJump, string commentBoxMessageText, string uploadMessageText, string commentType, Nullable<int> snipOffQuestionnaire, Nullable<int> spinoffid, Nullable<int> emailalert, string emailalertlist, Nullable<int> accessLevel, Nullable<int> questionnaire)
+        {
+            var qIDParameter = qID.HasValue ?
+                new ObjectParameter("QID", qID) :
+                new ObjectParameter("QID", typeof(int));
+    
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("Page", page) :
+                new ObjectParameter("Page", typeof(int));
+    
+            var surveysetParameter = surveyset != null ?
+                new ObjectParameter("Surveyset", surveyset) :
+                new ObjectParameter("Surveyset", typeof(string));
+    
+            var surveyParameter = survey != null ?
+                new ObjectParameter("Survey", survey) :
+                new ObjectParameter("Survey", typeof(string));
+    
+            var questionParameter = question != null ?
+                new ObjectParameter("Question", question) :
+                new ObjectParameter("Question", typeof(string));
+    
+            var responseParameter = response != null ?
+                new ObjectParameter("Response", response) :
+                new ObjectParameter("Response", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var requiredParameter = required.HasValue ?
+                new ObjectParameter("Required", required) :
+                new ObjectParameter("Required", typeof(int));
+    
+            var lengthParameter = length.HasValue ?
+                new ObjectParameter("Length", length) :
+                new ObjectParameter("Length", typeof(int));
+    
+            var titleLengthParameter = titleLength.HasValue ?
+                new ObjectParameter("titleLength", titleLength) :
+                new ObjectParameter("titleLength", typeof(int));
+    
+            var yValueParameter = yValue.HasValue ?
+                new ObjectParameter("yValue", yValue) :
+                new ObjectParameter("yValue", typeof(int));
+    
+            var nValueParameter = nValue.HasValue ?
+                new ObjectParameter("nValue", nValue) :
+                new ObjectParameter("nValue", typeof(int));
+    
+            var naValueParameter = naValue.HasValue ?
+                new ObjectParameter("naValue", naValue) :
+                new ObjectParameter("naValue", typeof(int));
+    
+            var otherValueParameter = otherValue.HasValue ?
+                new ObjectParameter("otherValue", otherValue) :
+                new ObjectParameter("otherValue", typeof(int));
+    
+            var qWeightParameter = qWeight.HasValue ?
+                new ObjectParameter("qWeight", qWeight) :
+                new ObjectParameter("qWeight", typeof(int));
+    
+            var skipLogicParameter = skipLogic != null ?
+                new ObjectParameter("skipLogic", skipLogic) :
+                new ObjectParameter("skipLogic", typeof(string));
+    
+            var skipLogicAnswerParameter = skipLogicAnswer != null ?
+                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
+                new ObjectParameter("skipLogicAnswer", typeof(string));
+    
+            var subCheckBoxChoiceParameter = subCheckBoxChoice != null ?
+                new ObjectParameter("subCheckBoxChoice", subCheckBoxChoice) :
+                new ObjectParameter("subCheckBoxChoice", typeof(string));
+    
+            var calendarMessageTextParameter = calendarMessageText != null ?
+                new ObjectParameter("CalendarMessageText", calendarMessageText) :
+                new ObjectParameter("CalendarMessageText", typeof(string));
+    
+            var skipLogicJumpParameter = skipLogicJump != null ?
+                new ObjectParameter("skipLogicJump", skipLogicJump) :
+                new ObjectParameter("skipLogicJump", typeof(string));
+    
+            var commentBoxMessageTextParameter = commentBoxMessageText != null ?
+                new ObjectParameter("CommentBoxMessageText", commentBoxMessageText) :
+                new ObjectParameter("CommentBoxMessageText", typeof(string));
+    
+            var uploadMessageTextParameter = uploadMessageText != null ?
+                new ObjectParameter("UploadMessageText", uploadMessageText) :
+                new ObjectParameter("UploadMessageText", typeof(string));
+    
+            var commentTypeParameter = commentType != null ?
+                new ObjectParameter("CommentType", commentType) :
+                new ObjectParameter("CommentType", typeof(string));
+    
+            var snipOffQuestionnaireParameter = snipOffQuestionnaire.HasValue ?
+                new ObjectParameter("snipOffQuestionnaire", snipOffQuestionnaire) :
+                new ObjectParameter("snipOffQuestionnaire", typeof(int));
+    
+            var spinoffidParameter = spinoffid.HasValue ?
+                new ObjectParameter("spinoffid", spinoffid) :
+                new ObjectParameter("spinoffid", typeof(int));
+    
+            var emailalertParameter = emailalert.HasValue ?
+                new ObjectParameter("emailalert", emailalert) :
+                new ObjectParameter("emailalert", typeof(int));
+    
+            var emailalertlistParameter = emailalertlist != null ?
+                new ObjectParameter("emailalertlist", emailalertlist) :
+                new ObjectParameter("emailalertlist", typeof(string));
+    
+            var accessLevelParameter = accessLevel.HasValue ?
+                new ObjectParameter("accessLevel", accessLevel) :
+                new ObjectParameter("accessLevel", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_addQuestionnaireUpload_Result>("pr_addQuestionnaireUpload", qIDParameter, pageParameter, surveysetParameter, surveyParameter, questionParameter, responseParameter, commentParameter, titleParameter, requiredParameter, lengthParameter, titleLengthParameter, yValueParameter, nValueParameter, naValueParameter, otherValueParameter, qWeightParameter, skipLogicParameter, skipLogicAnswerParameter, subCheckBoxChoiceParameter, calendarMessageTextParameter, skipLogicJumpParameter, commentBoxMessageTextParameter, uploadMessageTextParameter, commentTypeParameter, snipOffQuestionnaireParameter, spinoffidParameter, emailalertParameter, emailalertlistParameter, accessLevelParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireUploadAll_Result> pr_getQuestionnaireUploadAll(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireUploadAll_Result>("pr_getQuestionnaireUploadAll", questionnaireParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireUpload(Nullable<int> qID, Nullable<int> page, string surveyset, string survey, string question, string response, string comment, string title, Nullable<int> required, Nullable<int> length, Nullable<int> titleLength, Nullable<int> yValue, Nullable<int> nValue, Nullable<int> naValue, Nullable<int> otherValue, Nullable<int> qWeight, string skipLogic, string skipLogicAnswer, string subCheckBoxChoice, string calendarMessageText, string skipLogicJump, string commentBoxMessageText, string uploadMessageText, string commentType, Nullable<int> snipOffQuestionnaire, Nullable<int> spinoffid, Nullable<int> emailalert, string emailalertlist, Nullable<int> accessLevel, Nullable<int> questionnaire)
+        {
+            var qIDParameter = qID.HasValue ?
+                new ObjectParameter("QID", qID) :
+                new ObjectParameter("QID", typeof(int));
+    
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("Page", page) :
+                new ObjectParameter("Page", typeof(int));
+    
+            var surveysetParameter = surveyset != null ?
+                new ObjectParameter("Surveyset", surveyset) :
+                new ObjectParameter("Surveyset", typeof(string));
+    
+            var surveyParameter = survey != null ?
+                new ObjectParameter("Survey", survey) :
+                new ObjectParameter("Survey", typeof(string));
+    
+            var questionParameter = question != null ?
+                new ObjectParameter("Question", question) :
+                new ObjectParameter("Question", typeof(string));
+    
+            var responseParameter = response != null ?
+                new ObjectParameter("Response", response) :
+                new ObjectParameter("Response", typeof(string));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("Comment", comment) :
+                new ObjectParameter("Comment", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var requiredParameter = required.HasValue ?
+                new ObjectParameter("Required", required) :
+                new ObjectParameter("Required", typeof(int));
+    
+            var lengthParameter = length.HasValue ?
+                new ObjectParameter("Length", length) :
+                new ObjectParameter("Length", typeof(int));
+    
+            var titleLengthParameter = titleLength.HasValue ?
+                new ObjectParameter("titleLength", titleLength) :
+                new ObjectParameter("titleLength", typeof(int));
+    
+            var yValueParameter = yValue.HasValue ?
+                new ObjectParameter("yValue", yValue) :
+                new ObjectParameter("yValue", typeof(int));
+    
+            var nValueParameter = nValue.HasValue ?
+                new ObjectParameter("nValue", nValue) :
+                new ObjectParameter("nValue", typeof(int));
+    
+            var naValueParameter = naValue.HasValue ?
+                new ObjectParameter("naValue", naValue) :
+                new ObjectParameter("naValue", typeof(int));
+    
+            var otherValueParameter = otherValue.HasValue ?
+                new ObjectParameter("otherValue", otherValue) :
+                new ObjectParameter("otherValue", typeof(int));
+    
+            var qWeightParameter = qWeight.HasValue ?
+                new ObjectParameter("qWeight", qWeight) :
+                new ObjectParameter("qWeight", typeof(int));
+    
+            var skipLogicParameter = skipLogic != null ?
+                new ObjectParameter("skipLogic", skipLogic) :
+                new ObjectParameter("skipLogic", typeof(string));
+    
+            var skipLogicAnswerParameter = skipLogicAnswer != null ?
+                new ObjectParameter("skipLogicAnswer", skipLogicAnswer) :
+                new ObjectParameter("skipLogicAnswer", typeof(string));
+    
+            var subCheckBoxChoiceParameter = subCheckBoxChoice != null ?
+                new ObjectParameter("subCheckBoxChoice", subCheckBoxChoice) :
+                new ObjectParameter("subCheckBoxChoice", typeof(string));
+    
+            var calendarMessageTextParameter = calendarMessageText != null ?
+                new ObjectParameter("CalendarMessageText", calendarMessageText) :
+                new ObjectParameter("CalendarMessageText", typeof(string));
+    
+            var skipLogicJumpParameter = skipLogicJump != null ?
+                new ObjectParameter("skipLogicJump", skipLogicJump) :
+                new ObjectParameter("skipLogicJump", typeof(string));
+    
+            var commentBoxMessageTextParameter = commentBoxMessageText != null ?
+                new ObjectParameter("CommentBoxMessageText", commentBoxMessageText) :
+                new ObjectParameter("CommentBoxMessageText", typeof(string));
+    
+            var uploadMessageTextParameter = uploadMessageText != null ?
+                new ObjectParameter("UploadMessageText", uploadMessageText) :
+                new ObjectParameter("UploadMessageText", typeof(string));
+    
+            var commentTypeParameter = commentType != null ?
+                new ObjectParameter("CommentType", commentType) :
+                new ObjectParameter("CommentType", typeof(string));
+    
+            var snipOffQuestionnaireParameter = snipOffQuestionnaire.HasValue ?
+                new ObjectParameter("snipOffQuestionnaire", snipOffQuestionnaire) :
+                new ObjectParameter("snipOffQuestionnaire", typeof(int));
+    
+            var spinoffidParameter = spinoffid.HasValue ?
+                new ObjectParameter("spinoffid", spinoffid) :
+                new ObjectParameter("spinoffid", typeof(int));
+    
+            var emailalertParameter = emailalert.HasValue ?
+                new ObjectParameter("emailalert", emailalert) :
+                new ObjectParameter("emailalert", typeof(int));
+    
+            var emailalertlistParameter = emailalertlist != null ?
+                new ObjectParameter("emailalertlist", emailalertlist) :
+                new ObjectParameter("emailalertlist", typeof(string));
+    
+            var accessLevelParameter = accessLevel.HasValue ?
+                new ObjectParameter("accessLevel", accessLevel) :
+                new ObjectParameter("accessLevel", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireUpload", qIDParameter, pageParameter, surveysetParameter, surveyParameter, questionParameter, responseParameter, commentParameter, titleParameter, requiredParameter, lengthParameter, titleLengthParameter, yValueParameter, nValueParameter, naValueParameter, otherValueParameter, qWeightParameter, skipLogicParameter, skipLogicAnswerParameter, subCheckBoxChoiceParameter, calendarMessageTextParameter, skipLogicJumpParameter, commentBoxMessageTextParameter, uploadMessageTextParameter, commentTypeParameter, snipOffQuestionnaireParameter, spinoffidParameter, emailalertParameter, emailalertlistParameter, accessLevelParameter, questionnaireParameter);
         }
     }
 }

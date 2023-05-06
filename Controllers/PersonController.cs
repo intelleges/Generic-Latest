@@ -284,14 +284,19 @@ namespace Generic.Controllers
                     person.partnerPerPage = 500;
                     person.riskType = 0;
                     person.loadHistory = 0;
-                    person.passWord = db.pr_getAccesscode().FirstOrDefault();
+                    person.passWord = "bAYh10$4EvAh"; //db.pr_getAccesscode().FirstOrDefault();
 
                     person.enterprise = interpriseId;
 
                     using (var context = new EntitiesDBContext())
                     {
-                        context.person.Add(person);
-                        context.SaveChanges();
+                     var id=   context.pr_addPerson(interpriseId, person.manager, person.personStatus, 0, 0, person.campaign, person.internalId,
+                            person.nmNumber, person.socialSecurity, person.firstName, person.lastName, person.title, person.suffix, person.nickName, person.passWord,
+                            person.email, person.address1, person.address2, person.city, person.state, person.zipcode, person.country, person.phone,
+                            person.fax, 1, person.ismanager, 500, person.resetDate, false, null).FirstOrDefault();
+                        person.id = id.Value;
+                        //context.person.Add(person);
+                        //context.SaveChanges();
                     }
                     if (person.id == 0) throw new Exception("System unable to add additional users. You have reached the maximum limit of user accounts for this enterprise. Please contact your system administrator. Thank you.");
                     SessionSingleton.PersonId = person.id;
@@ -330,6 +335,7 @@ namespace Generic.Controllers
 
                         // Email Invite
                         var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+                        objSystemMaster.passWord = person.passWord;
 
                         enterprise objEnterprise = db.pr_getEnterprise(interpriseId).FirstOrDefault();
 

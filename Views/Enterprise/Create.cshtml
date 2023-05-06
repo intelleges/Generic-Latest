@@ -160,173 +160,239 @@
 {
   //  @Html.ValidationSummary(true)
 
-    <fieldset>
+<fieldset>
 
-        <legend>enterprise</legend>
-        <div class="threecol">
-            <div class="editor-label">
-                <label for="companyName">Company name</label>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.companyName)
-                @Html.ValidationMessageFor(model => model.companyName)
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.logo)
-            </div>
-            <div class="editor-field">
-
-                @(Html.Telerik().Upload()
-        .Name("uploadlogo")
-        .Multiple(false).HtmlAttributes(new { title = "Max file size allowed is 10 Mb" })
-
-)
-
-
-
-
-                @Html.ValidationMessageFor(model => model.logo)
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.description)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.description)
-                @Html.ValidationMessageFor(model => model.description)
-            </div>
+    <legend>enterprise</legend>
+        <div class="form-group">
+            @Html.LabelFor(model => model.description)
+            @Html.TextBoxFor(model => model.description, new { @class = "form-control" })
         </div>
-        <div class="threecol">
-            <div class="editor-label">
-                <label for="userMax">Users Max.</label>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.userMax)
-                @Html.ValidationMessageFor(model => model.userMax)
-            </div>
-            <div class="editor-label">
-                <label for="partnerMax">Partners Max.</label>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.partnerMax)
-                @Html.ValidationMessageFor(model => model.partnerMax)
-            </div>
-            <div class="editor-label">
-                <label for="partnumberMax">Part numbers Max.</label>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.partnumberMax)
-                @Html.ValidationMessageFor(model => model.partnumberMax)
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.sortOrder)
+            @Html.TextBoxFor(model => model.sortOrder, new { @class = "form-control" })
         </div>
-        <div class="twocol">
-            <div class="editor-label">
-                <label for="product">Product</label>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("product",String.Empty)
-                @Html.ValidationMessageFor(model => model.product)
-            </div>
-            <div class="editor-label">
-                <label for="subscriptionType">Subscription type</label>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("subscriptionType",String.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionType)
-            </div>
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.active)
+            @Html.CheckBoxFor(model => (bool)model.active, new { @class = "form-control" })
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.logo)
+            @Html.TextBoxFor(model => model.logo, new { type = "file", @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.applicationPath)
+            @Html.TextBoxFor(model => model.applicationPath, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.companyName)
+            @Html.TextBoxFor(model => model.companyName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.instanceName)
+            @Html.TextBoxFor(model => model.instanceName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.userMax)
+            @Html.TextBoxFor(model => model.userMax, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.partnerMax)
+            @Html.TextBoxFor(model => model.partnerMax, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.partnumberMax)
+            @Html.TextBoxFor(model => model.partnumberMax, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.product)
+            @Html.TextBoxFor(model => model.product, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.subscriptionType)
+            @Html.TextBoxFor(model => model.subscriptionType, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.freeTrialStartDate)
+            @Html.TextBoxFor(model => model.freeTrialStartDate, new { @class = "form-control", type = "date" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.freeTrialEndDate)
+            @Html.TextBoxFor(model => model.freeTrialEndDate, new { @class = "form-control", type = "date" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.licenseStartDate)
+            @Html.TextBoxFor(model => model.licenseStartDate, new { @class = "form-control", type = "date" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.licenseEndDate)
+            @Html.TextBoxFor(model => model.licenseEndDate, new  {  @class = "form-control", type = "date" })        </div>
 
-        </div>
-        <div class="twocol">
-            <div class="editor-label">
-                <label for="freeTrialStartDate">Free Trial Start Date</label>
+@*<div class="threecol">
+                <div class="editor-label">
+                    <label for="companyName">Company name</label>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.companyName)
+                    @Html.ValidationMessageFor(model => model.companyName)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.logo)
+                </div>
+                <div class="editor-field">
+
+                    @(Html.Telerik().Upload()
+            .Name("uploadlogo")
+            .Multiple(false).HtmlAttributes(new { title = "Max file size allowed is 10 Mb" })
+
+    )
+
+
+
+
+                    @Html.ValidationMessageFor(model => model.logo)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.description)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.description)
+                    @Html.ValidationMessageFor(model => model.description)
+                </div>
             </div>
-            <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.freeTrialStartDate)
-                @Html.ValidationMessageFor(model => model.freeTrialStartDate)
+            <div class="threecol">
+                <div class="editor-label">
+                    <label for="userMax">Users Max.</label>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.userMax)
+                    @Html.ValidationMessageFor(model => model.userMax)
+                </div>
+                <div class="editor-label">
+                    <label for="partnerMax">Partners Max.</label>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.partnerMax)
+                    @Html.ValidationMessageFor(model => model.partnerMax)
+                </div>
+                <div class="editor-label">
+                    <label for="partnumberMax">Part numbers Max.</label>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.partnumberMax)
+                    @Html.ValidationMessageFor(model => model.partnumberMax)
+                </div>
             </div>
-            <div class="editor-label">
-                <label for="freeTrialEndDate">Free Trial End Date</label>
+            <div class="twocol">
+                <div class="editor-label">
+                    <label for="product">Product</label>
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("product",String.Empty)
+                    @Html.ValidationMessageFor(model => model.product)
+                </div>
+                <div class="editor-label">
+                    <label for="subscriptionType">Subscription type</label>
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("subscriptionType",String.Empty)
+                    @Html.ValidationMessageFor(model => model.subscriptionType)
+                </div>
+
             </div>
-            <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.freeTrialEndDate)
-                @Html.ValidationMessageFor(model => model.freeTrialEndDate)
-            </div>           
-        </div>
-         <div class="twocol">
-            <div class="editor-label">
-                <label for="licenseStartDate">License Start Date</label>
+            <div class="twocol">
+                <div class="editor-label">
+                    <label for="freeTrialStartDate">Free Trial Start Date</label>
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePickerFor(model => model.freeTrialStartDate)
+                    @Html.ValidationMessageFor(model => model.freeTrialStartDate)
+                </div>
+                <div class="editor-label">
+                    <label for="freeTrialEndDate">Free Trial End Date</label>
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePickerFor(model => model.freeTrialEndDate)
+                    @Html.ValidationMessageFor(model => model.freeTrialEndDate)
+                </div>
             </div>
-            <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.licenseStartDate)
-                .Value(DateTime.Today)
-                @Html.ValidationMessageFor(model => model.licenseStartDate)
+             <div class="twocol">
+                <div class="editor-label">
+                    <label for="licenseStartDate">License Start Date</label>
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePickerFor(model => model.licenseStartDate)
+                    .Value(DateTime.Today)
+                    @Html.ValidationMessageFor(model => model.licenseStartDate)
+                </div>
+                <div class="editor-label">
+                    <label for="licenseEndDate">License End Date</label>
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePickerFor(model => model.licenseEndDate)
+                    @Html.ValidationMessageFor(model => model.licenseEndDate)
+                </div>
             </div>
-            <div class="editor-label">
-                <label for="licenseEndDate">License End Date</label>
+            <div class="threecol">
+                <div class="editor-label">
+                    <label for="monthlyFee">Monthly fee</label>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.monthlyFee)
+                    @Html.ValidationMessageFor(model => model.monthlyFee)
+                </div>
+                <div class="editor-label">
+                    <label for="subscriptionStatus">Subscription status</label>
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("subscriptionStatus",string.Empty)
+                    @Html.ValidationMessageFor(model => model.subscriptionStatus)
+                </div>
+                <div class="editor-label">
+                    <label for="multiTenantProjectType">Multitenant Project Type</label>
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("multiTenantProjectType",string.Empty)
+                    @Html.ValidationMessageFor(model => model.multiTenantProjectType)
+                </div>
             </div>
-            <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.licenseEndDate)
-                @Html.ValidationMessageFor(model => model.licenseEndDate)
-            </div>           
-        </div>
-        <div class="threecol">
-            <div class="editor-label">
-                <label for="monthlyFee">Monthly fee</label>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.monthlyFee)
-                @Html.ValidationMessageFor(model => model.monthlyFee)
-            </div>
-            <div class="editor-label">
-                <label for="subscriptionStatus">Subscription status</label>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("subscriptionStatus",string.Empty)
-                @Html.ValidationMessageFor(model => model.subscriptionStatus)
-            </div>
-            <div class="editor-label">
-                <label for="multiTenantProjectType">Multitenant Project Type</label>
-            </div>
-            <div class="editor-field">
-                @Html.DropDownList("multiTenantProjectType",string.Empty)
-                @Html.ValidationMessageFor(model => model.multiTenantProjectType)
-            </div>
-        </div>
-        <div class="threecol">
-            <div class="editor-label">
-                <label for="systemExpiry">System Expiry</label>
-            </div>
-            <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.systemExpiry)
-                
-                @Html.ValidationMessageFor(model => model.systemExpiry)
-            </div>
-            <div class="editor-label">
-                <label for="licenseLimit">License Limit</label>
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.licenseLimit)
-                @Html.ValidationMessageFor(model => model.licenseLimit)
-            </div>
-            <div class="editor-label">
-                <label for="companyWebSite">Company Web Site</label>
-            </div>
-            <div class="editor-field">
-               @Html.EditorFor(model => model.companyWebSite)
-                @Html.ValidationMessageFor(model => model.companyWebSite)
-            </div>
-        </div>
-       
-        <p style="float: right; width: 20%;">
-            <input type="submit" value="Save" class="btn" />
-            <input type="button" value="Clear" class="btn" id="btnClear" />
-        </p>
-    </fieldset>
+            <div class="threecol">
+                <div class="editor-label">
+                    <label for="systemExpiry">System Expiry</label>
+                </div>
+                <div class="editor-field">
+                    @Html.Telerik().DatePickerFor(model => model.systemExpiry)
+
+                    @Html.ValidationMessageFor(model => model.systemExpiry)
+                </div>
+                <div class="editor-label">
+                    <label for="licenseLimit">License Limit</label>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.licenseLimit)
+                    @Html.ValidationMessageFor(model => model.licenseLimit)
+                </div>
+                <div class="editor-label">
+                    <label for="companyWebSite">Company Web Site</label>
+                </div>
+                <div class="editor-field">
+                   @Html.EditorFor(model => model.companyWebSite)
+                    @Html.ValidationMessageFor(model => model.companyWebSite)
+                </div>
+            </div>*@
+
+    <p style = "float: right; width: 20%;" >
+
+    <input type = "submit" value = "Save" class="btn" />
+        <input type = "button" value="Clear" class="btn" id="btnClear" />
+    </p>
+</fieldset>
 }
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
-@section Scripts {
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+@section Scripts
+{
+@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 }
