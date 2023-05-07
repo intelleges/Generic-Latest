@@ -232,12 +232,12 @@
                                                     </td>
                                                 </tr>
                                                 @*<tr>
-                                                    <td class="tLeftColumn">Country</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style = "width:210px;" })
-                                                    </td>
-                                                </tr>*@
+                                                        <td class="tLeftColumn">Country</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style = "width:210px;" })
+                                                        </td>
+                                                    </tr>*@
 
                                             </tbody>
                                         </table>
@@ -334,7 +334,7 @@
                                                                                     .Custom()
                                                                                     .HtmlAttributes(new { id = "remind-all" })
                                                                                     .Text("Remind All")
-                                                                      
+
                                                                                     .HtmlAttributes(new { style=(ViewBag.IsSystemMaster == true?"":"display:none;"), id ="btnRemind", href="javascript:void(0);" })
                                                                                 )
                                                                 .ToolBar(commands => commands
@@ -377,8 +377,9 @@
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Manual Upload")?"inherit":"none")'><a href="javascript:ManualUpload('@item.AccessCode',@item.pptq)">Manual Upload</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Unlock</a></li>
-                                                                                                
+
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:refreshPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">PDF Refresh</a></li>
+                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Summarize")?"inherit":"none")'><a href="javascript:summarize('@item.AccessCode','@item.internalID', @item.touchpointID)">Summarize</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("View Detail")?"inherit":"none")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -1132,6 +1133,15 @@
 			}
 		});
     }
+    function summarize(accessCode, internalID, touchpoint) {
+        @*$.get('@Url.Content("~/Registration/Home/RefreshPdf")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
+			if (data) {
+				alertify.alert("PDF document was reset");
+			} else {
+				alertify.alert("Something went wrong, please try again later");
+			}
+		});*@
+    }
 
     var itemsForPrint = [];
     function printNextPdf(item) {
@@ -1420,18 +1430,18 @@
 </div><div>
     <a href="" id="yourLinkID" target="_blank"></a>
 </div>
-      <div id="send-email-progress" style="display:none;">
-          <div style="padding: 10px 20px;">
-              <div id="progressbar"><div class="progress-label">Loading...</div></div>
-              <p id="progress-note"></p>
-              <div class="tw-bs buttons">
-                  <button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
-              </div>
-          </div>
-      </div>
+<div id="send-email-progress" style="display:none;">
+    <div style="padding: 10px 20px;">
+        <div id="progressbar"><div class="progress-label">Loading...</div></div>
+        <p id="progress-note"></p>
+        <div class="tw-bs buttons">
+            <button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
+        </div>
+    </div>
+</div>
 @if (Session["ACNewEmail"] != null)
 {
-<script>
+    <script>
         jQuery(document).ready(function ($) {
             var alertMessage = "You have successfully changed the point-of-contact email address for <br/> Access Code: @Session["accessCode"].ToString() from @Session["ACEmail"].ToString() to @Session["ACNewEmail"].ToString()";
             alertify.alert(alertMessage, function (isOk) {
@@ -1465,7 +1475,7 @@
 
         });
 
-</script>
+    </script>
 
     Session["ACNewEmail"] = null;
 }
