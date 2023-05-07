@@ -302,6 +302,7 @@ namespace Generic
         public virtual DbSet<partnerPartnertypeTouchpointQuestionnairePersonApproval> partnerPartnertypeTouchpointQuestionnairePersonApproval { get; set; }
         public virtual DbSet<productDetail> productDetail { get; set; }
         public virtual DbSet<questionnaireUpload> questionnaireUpload { get; set; }
+        public virtual DbSet<questionnaireClause> questionnaireClause { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -31432,6 +31433,93 @@ namespace Generic
                 new ObjectParameter("questionnaire", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireUpload", qIDParameter, pageParameter, surveysetParameter, surveyParameter, questionParameter, responseParameter, commentParameter, titleParameter, requiredParameter, lengthParameter, titleLengthParameter, yValueParameter, nValueParameter, naValueParameter, otherValueParameter, qWeightParameter, skipLogicParameter, skipLogicAnswerParameter, subCheckBoxChoiceParameter, calendarMessageTextParameter, skipLogicJumpParameter, commentBoxMessageTextParameter, uploadMessageTextParameter, commentTypeParameter, snipOffQuestionnaireParameter, spinoffidParameter, emailalertParameter, emailalertlistParameter, accessLevelParameter, questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> pr_addQuestionnaireClause(Nullable<int> questionnaire, string description, Nullable<int> sortOrder)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("pr_addQuestionnaireClause", questionnaireParameter, descriptionParameter, sortOrderParameter);
+        }
+    
+        public virtual int pr_archiveQuestionnaireClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archiveQuestionnaireClause", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireClause_Result> pr_getQuestionnaireClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireClause_Result>("pr_getQuestionnaireClause", idParameter);
+        }
+    
+        public virtual ObjectResult<pr_getQuestionnaireClauseAllByQuestionnaire_Result> pr_getQuestionnaireClauseAllByQuestionnaire(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionnaireClauseAllByQuestionnaire_Result>("pr_getQuestionnaireClauseAllByQuestionnaire", questionnaireParameter);
+        }
+    
+        public virtual ObjectResult<pr_getRoleAvailableByPerson_Result> pr_getRoleAvailableByPerson(Nullable<int> person)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getRoleAvailableByPerson_Result>("pr_getRoleAvailableByPerson", personParameter);
+        }
+    
+        public virtual int pr_modifyQuestionnaireClause(Nullable<int> id, Nullable<int> questionnaire, string description, Nullable<int> sortOrder, Nullable<bool> active)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var sortOrderParameter = sortOrder.HasValue ?
+                new ObjectParameter("sortOrder", sortOrder) :
+                new ObjectParameter("sortOrder", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyQuestionnaireClause", idParameter, questionnaireParameter, descriptionParameter, sortOrderParameter, activeParameter);
+        }
+    
+        public virtual int pr_unarchiveQuestionnaireClause(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unarchiveQuestionnaireClause", idParameter);
         }
     }
 }

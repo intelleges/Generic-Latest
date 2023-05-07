@@ -25,6 +25,7 @@ namespace Generic
             this.page = new HashSet<page>();
             this.touchpoint = new HashSet<touchpoint>();
             this.questionnaireUpload = new HashSet<questionnaireUpload>();
+            this.questionnaireClause = new HashSet<questionnaireClause>();
         }
     
         public int id { get; set; }
@@ -58,5 +59,7 @@ namespace Generic
         public virtual ICollection<touchpoint> touchpoint { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<questionnaireUpload> questionnaireUpload { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<questionnaireClause> questionnaireClause { get; set; }
     }
 }
