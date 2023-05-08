@@ -1,0 +1,79 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.AddRoleModel>
+@{
+    Layout = null;
+}
+
+    @*<meta name="viewport" content="width=device-width" />
+    <title>AddRoles</title>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>*@
+    <script type="text/javascript">
+        function MoveListBoxItem(fromId, toId) {
+            $("#" + fromId + " option:selected").remove().appendTo("#" + toId);
+        }
+        $(document).ready(function () {
+            $('#btnSubmit').click(function () {
+
+            var val = $('#SelectedRoleIds').val();
+            var personId = $('#PersonId').val();
+            $.post("AddRoles", { roleIds: val, personId: personId }).done(function (data) {
+                $("#genericPopup").dialog('close');
+            });
+
+            });
+          
+        });
+        //$(document).ready(function () {
+        //    //$(".ul_avbl, .ul_slct").sortable({
+        //    //    connectWith: ".connected-sortable",
+        //    //    stack: ".connected-sortable ul"
+        //    //}).disableSelection();
+        //    $('#btnshiftRight, #btnshiftLeft').click(function (event) {
+        //        debugger;
+        //        var id = $(event.target).attr('id');
+        //        var chooseFrom = id == "btnshiftRight" ? "chooseLeft" : "chooseRight";
+        //        var moveTo = id == "btnshiftRight" ? "chooseRight" : "chooseLeft";
+        //        var selectedData = $(chooseFrom + ":selected").toArray();
+        //        $(moveTo).append(selectedData);
+        //        selectedData.remove;
+        //    });
+        //});
+    </script>
+    <style type="text/css">
+        .lst_avbl, .lst_slct {
+            height: 450px;
+        }
+        .dvbtn {
+            margin-top: 23%;
+        }
+        .ui-dialog {
+            width: 75% !important;
+            left: 10% !important;
+        }
+        .dvBox{
+            left:10%;
+        }
+    </style>
+
+    @using (Html.BeginForm()) { 
+        @Html.HiddenFor(x=>x.PersonId)
+    <div class="dvBox col-md-12">
+        <div class="col-md-5">
+            @Html.ListBox("AvailableRoles", new SelectList(Model.AvailableRoleList, "RoleId", "Description"), new { @class = "lst_avbl" })
+        </div>
+        <div class="col-md-2 dvbtn">
+            <input type="button" value=">" id="btnshiftRight" class="shiftright" onclick="javascript:MoveListBoxItem('AvailableRoles','SelectedRoleIds')" />
+            <br />
+            <input type="button" value="<" id="btnshiftLeft" class="shiftleft"  onclick="javascript:MoveListBoxItem('SelectedRoleIds','AvailableRoles')" />
+        </div>
+        <div class="col-md-5">
+            @Html.ListBoxFor(x=>x.SelectedRoleIds, new SelectList(Model.SelectedRoleList, "RoleId", "Description"), new { @class = "lst_slct" })
+        </div>
+
+    </div>
+    <div class="dvBox col-md-12 dvbtn">
+        <input type="button" id="btnSubmit" value="Submit" /> <br />
+          <input type="button" onclick="CloseMe()" value="Cancel" />
+    </div>
+    }
+

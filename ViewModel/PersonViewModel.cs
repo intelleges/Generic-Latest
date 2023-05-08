@@ -13,4 +13,16 @@ namespace Generic.ViewModel
 
         
     }
+    public class AddRoleModel
+    {
+        public List<RolesListModel> AvailableRoleList { get; set; }
+        public List<RolesListModel> SelectedRoleList { get; set; }
+        public int[] SelectedRoleIds { get; set; }
+        public int PersonId { get; set; }
+    }
+    public class RolesListModel
+    {
+        public int RoleId { get; set; }
+        public string Description { get; set; }
+    }
 }

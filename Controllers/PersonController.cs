@@ -1136,5 +1136,76 @@ Thanks in advance.<br>
             return objPersonViewModelList;
 
         }
+        public ActionResult AddRoles(int id)
+        {
+            AddRoleModel objmodel = new AddRoleModel();
+            var availableList = db.pr_getRoleAvailableByPerson(id).ToList();
+            var selectedList = db.pr_getRoleByPerson(id).ToList();
+            objmodel.PersonId = id;
+            objmodel.AvailableRoleList = new List<RolesListModel>();
+            if (availableList != null)
+            {
+                foreach (var item in availableList)
+                {
+                    objmodel.AvailableRoleList.Add(new RolesListModel
+                    {
+                        Description=item.description,
+                        RoleId= item.id
+                    });
+                }
+            }
+            objmodel.SelectedRoleList = new List<RolesListModel>();
+            if (selectedList != null)
+            {
+                foreach (var item in selectedList)
+                {
+                    objmodel.SelectedRoleList.Add(new RolesListModel
+                    {
+                        Description = item.description,
+                        RoleId = item.id
+                    });
+                }
+            }
+            objmodel.SelectedRoleIds = selectedList.Select(x => x.id).ToArray();
+            return View(objmodel);
+        }
+        [HttpPost]
+        public ActionResult AddRoles(int[] roleIds,int personId)
+        {
+            if (roleIds != null)
+            {
+                foreach (var item in roleIds)
+                {
+                    db.pr_addPersonRole(personId, item);
+                }
+            }
+            //var availableList = db.pr_getRoleAvailableByPerson(objmodel.PersonId).ToList();
+            //var selectedList = db.pr_getRoleByPerson(objmodel.PersonId).ToList();
+            //objmodel.AvailableRoleList = new List<RolesListModel>();
+            //if (availableList != null)
+            //{
+            //    foreach (var item in availableList)
+            //    {
+            //        objmodel.AvailableRoleList.Add(new RolesListModel
+            //        {
+            //            Description = item.description,
+            //            RoleId = item.id
+            //        });
+            //    }
+            //}
+            //objmodel.SelectedRoleList = new List<RolesListModel>();
+            //if (selectedList != null)
+            //{
+            //    foreach (var item in selectedList)
+            //    {
+            //        objmodel.SelectedRoleList.Add(new RolesListModel
+            //        {
+            //            Description = item.description,
+            //            RoleId = item.id
+            //        });
+            //    }
+            //}
+            return Json(new { status = true });
+        }
     }
 }
