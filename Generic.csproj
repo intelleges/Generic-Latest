@@ -6819,6 +6819,7 @@
     <Content Include="Views\Partner\FindPartner2.cshtml" />
     <Content Include="Views\Admin\FreeTrial.cshtml" />
     <Content Include="Views\Admin\ScheduleMeeting.cshtml" />
+    <Content Include="Views\Person\AddRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

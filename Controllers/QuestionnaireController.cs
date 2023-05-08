@@ -1523,8 +1523,8 @@ namespace Generic.Controllers
                                 }
 
 
-                                question objQuestion = new question();
 
+                                  question   objQuestion = new question();
                                 objQuestion.Question = excelQuestionnaire.Question;
                                 objQuestion.name = excelQuestionnaire.Question;
                                 objQuestion.title = excelQuestionnaire.Title;
@@ -1666,13 +1666,13 @@ namespace Generic.Controllers
 
                                 try
                                 {
-                                    objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
+                                    objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire==null?string.Empty: excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
                                 }
                                 catch { }
                                 objQuestion.spinOffQID = excelQuestionnaire.spinoffid;
                                 try
                                 {
-                                    objQuestion.emailAlert = excelQuestionnaire.emailalert.Substring(0, 1);
+                                    objQuestion.emailAlert = excelQuestionnaire.emailalert==null?string.Empty: excelQuestionnaire.emailalert.Substring(0, 1);
                                 }
                                 catch { }
 
@@ -1681,7 +1681,7 @@ namespace Generic.Controllers
                                 objQuestion.active = true;
                                 objQuestion.enterprise = EnterpriseID;
                                 objQuestion.accessLevel = excelQuestionnaire.accessLevel;
-                                db.questions.Add(objQuestion);
+                                    db.questions.Add(objQuestion);
                                 db.SaveChanges();
                                 questionSet.Add(objQuestion.id);
                                 excelQuestionnaire.CommentBoxMessageText = excelQuestionnaire.CommentBoxMessageText ?? "";
@@ -1752,7 +1752,7 @@ namespace Generic.Controllers
                                         db.pr_addQuestionResponse(questionId, responsesId);
                                     }
                                 }
-
+                                
                                 try
                                 {
 
