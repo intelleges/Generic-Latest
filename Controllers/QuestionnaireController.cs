@@ -1253,7 +1253,14 @@ namespace Generic.Controllers
                         List<ExcelQuestionnaire> questionnaireinExcel = null;
                         try
                         {
-                            questionnaireinExcel = ExcelMapper.GetRows<ExcelQuestionnaire>(Convert.ToString(physicalPath), sheetname).Where(o => !string.IsNullOrEmpty(o.Response) && !string.IsNullOrEmpty(o.Question)).ToList();
+                            if (!string.IsNullOrWhiteSpace(Convert.ToString(physicalPath)))
+                            {
+                                string path = Convert.ToString(physicalPath).Replace("/", @"\");
+                                questionnaireinExcel = ExcelMapper.GetRows<ExcelQuestionnaire>(Convert.ToString(physicalPath), sheetname).Where(o => !string.IsNullOrEmpty(o.Response) && !string.IsNullOrEmpty(o.Question)).ToList();
+                            }
+                            else
+                                throw new Exception("Invalid path please try again.");
+
                             //questionnaireinExcel = (from a in excelRead.Worksheet<ExcelQuestionnaire>(sheetname) select a).ToList().Where(o=>!string.IsNullOrEmpty(o.Response)&&!string.IsNullOrEmpty(o.Question)).ToList();
                         }
                         catch (NullReferenceException ex)
