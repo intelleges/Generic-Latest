@@ -1427,6 +1427,12 @@
     <Compile Include="pr_getAutoMailType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getBounceSiteByPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pr_getBounceSiteCountByPTQ_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getBulkContentAll_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

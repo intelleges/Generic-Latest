@@ -37,6 +37,11 @@
 <link href="//fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        $("#btnlogin").on("click", function () {
+            return validate()
+        });
+    });
     function recaptcha_callback() {
         //alert("callback working");
         $('.form-inline #btnlogin').prop("disabled", false);

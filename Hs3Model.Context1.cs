@@ -31530,5 +31530,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireUpload", questionnaireParameter);
         }
+    
+        public virtual ObjectResult<pr_getBounceSiteByPTQ_Result> pr_getBounceSiteByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getBounceSiteByPTQ_Result>("pr_getBounceSiteByPTQ", ptqParameter);
+        }
+    
+        public virtual ObjectResult<pr_getBounceSiteCountByPTQ_Result> pr_getBounceSiteCountByPTQ(Nullable<int> ptq)
+        {
+            var ptqParameter = ptq.HasValue ?
+                new ObjectParameter("ptq", ptq) :
+                new ObjectParameter("ptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getBounceSiteCountByPTQ_Result>("pr_getBounceSiteCountByPTQ", ptqParameter);
+        }
     }
 }
