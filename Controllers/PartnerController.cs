@@ -5859,6 +5859,62 @@ namespace Generic.Controllers
 
             return File(stream, "application/vnd.ms-excel", "Response.xls");
         }
+
+        public ActionResult DownloadBounceBySiteReport(int? id)
+        {
+            int _touchpoint = 0;
+            if (id == null || id == 0)
+                _touchpoint = SessionSingleton.Touchpoint;
+            else
+                _touchpoint = (int)id;
+
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
+            ViewBag.TouchPointId = _touchpoint;
+            List<pr_getBounceSiteByPTQ_Result> objBounceSite = new List<pr_getBounceSiteByPTQ_Result>();
+            foreach (var ptqItem in ptq)
+            {
+                objBounceSite = db.pr_getBounceSiteByPTQ(ptqItem.id).ToList();
+            }
+            // client.Calls
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getBounceSiteByPTQ_Result>));
+
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objBounceSite);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "BounceBySite.xls");
+        }
+
+        public ActionResult DownloadBounceBySiteCountReport(int? id)
+        {
+            int _touchpoint = 0;
+            if (id == null || id == 0)
+                _touchpoint = SessionSingleton.Touchpoint;
+            else
+                _touchpoint = (int)id;
+
+            var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).ToList();
+            ViewBag.TouchPointId = _touchpoint;
+            List<pr_getBounceSiteCountByPTQ_Result> objBounceSite = new List<pr_getBounceSiteCountByPTQ_Result>();
+            foreach (var ptqItem in ptq)
+            {
+                objBounceSite = db.pr_getBounceSiteCountByPTQ(ptqItem.id).ToList();
+            }
+            // client.Calls
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getBounceSiteCountByPTQ_Result>));
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, objBounceSite);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "BounceBySiteCount.xls");
+        }
+
     }
 
 }
