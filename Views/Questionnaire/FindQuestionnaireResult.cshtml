@@ -44,7 +44,9 @@
         <li><a href="~/Questionnaire/QuestionnaireQuestionnaireCMS/@item.id">Edit/Upload CMS</a></li>
         <li><a href="~/Questionnaire/QuestionnaireQuestionnaireAutoMail/@item.id">Edit/Upload AutoMail</a></li>
         <li><a href="~/Questionnaire/QuestionnaireQuestionnaireTestAutomailAll/@item.id">Test Automail All</a></li>
-
+        @*<li><a href="#" class="rowDataDownload" id="@item.id">Raw Data Download</a></li>*@
+        <li><a href="@Url.Action("DownloadQuestionnarieUploadData", "Questionnaire", new { questionnarieId = item.id})">Raw Data Download</a></li>
+        <li><a href="#" class="rawDataRemove" id="@item.id">Raw Data Remove</a></li>
     </ul>
 </div>
 </text>);
@@ -55,11 +57,11 @@
             columns.Bound(o => o.Reminders).Title("Remind").Width(65);
             columns.Bound(o => o.Author).Title("Author").Width(100);
             columns.Bound(o => o.No_Response).Title("N/R").Width(30);
-            columns.Bound(o => o.Incomplete).Title("R/I").Width(30);         
-           
-            columns.Bound(o => o.Completed).Title("R/C").Width(30);           
-            
-            
+            columns.Bound(o => o.Incomplete).Title("R/I").Width(30);
+
+            columns.Bound(o => o.Completed).Title("R/C").Width(30);
+
+
 
         })
         .DataKeys(keys => keys.Add(o => o.id))
@@ -110,7 +112,7 @@
 <script src="~/Scripts/jquery-1.8.2.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
 <script type="text/javascript">
-    $(function () {        
+    $(function () {
         jQuery.noConflict();
         $("#EmailDialog").dialog({
             autoOpen: false
@@ -123,6 +125,27 @@
                 $(this).text($(this).text().substr(0, 50) + "...");
             }
         });
+        $('.rawDataRemove').click(function () {
+            var qId = $(this).attr('id');
+            $.post("DeleteRawQuestionnarieUploadData", { questionnarieId: qId }, function (data) {
+                if (data.Status == false) {
+                    alertify.alert("There is an error occurred while delete Raw Data");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            });
+        });
+        //$('.rowDataDownload').click(function () {
+        //    var qId = $(this).attr('id');
+        //    $.get("DownloadQuestionnarieUploadData", { questionnarieId: qId }, function (data) {
+        //        if (data.Status == false) {
+        //            alertify.alert("There is an error occurred while delete Raw Data");
+        //            return false;
+        //        }
+        //    });
+        //});
     });
 
     function CloseMe() {

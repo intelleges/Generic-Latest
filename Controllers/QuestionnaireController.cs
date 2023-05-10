@@ -1924,6 +1924,22 @@ namespace Generic.Controllers
                         }
                         scope.Commit();
                         splitterResult = db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId).FirstOrDefault();
+                       
+                        //Upload Excel data into database
+                        if (questionnaireinExcel != null)
+                        {
+                            foreach (var item in questionnaireinExcel)
+                            {
+                                int emailAlert = !string.IsNullOrWhiteSpace(item.emailalert) ? (item.emailalert.ToLower() == "y" ? 1 : 0) : 0;
+                                int required = !string.IsNullOrWhiteSpace(item.Required) ? Convert.ToInt32(item.Required) : 0;
+                                int snipQuest = !string.IsNullOrWhiteSpace(item.snipOffQuestionnaire) ? (item.snipOffQuestionnaire.ToLower() == "y" ? 1 : 0) : 0;
+                                db.pr_addQuestionnaireUpload(item.QID, item.Page, item.Surveyset, item.Survey, item.Question,
+                                   item.Response, item.Comment, item.Title, required, item.Length, item.titleLength, item.yValue, item.nValue,
+                                   item.naValue, item.otherValue,item.qWeight,item.skipLogic,item.skipLogicAnswer,item.SubCheckBoxChoice,
+                                   item.CalendarMessageText,item.skipLogicJump, item.CommentBoxMessageText,item.UploadMessageText, item.CommentType,
+                                   snipQuest,item.spinoffid,emailAlert,item.emailalertlist,item.accessLevel, questionnaireId);
+                            }
+                        }
 
                         return RedirectToAction("UploadCMS");
                     }
@@ -2454,7 +2470,7 @@ namespace Generic.Controllers
             try
             {
                 //List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
-                string arguments = Session["questionnairesearch"].ToString() + "active=1;";
+                string arguments = Session["questionnairesearch"]!=null?Session["questionnairesearch"].ToString():"" + "active=1;";
                 Session["questionnaire"] = db.Database.SqlQuery<view_QuestionnaireData>("EXEC pr_dynamicFiltersQuestionnaire  'view_QuestionnaireData' , '" + arguments + "'").ToList();
                 List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
 
@@ -2651,6 +2667,37 @@ namespace Generic.Controllers
                 return File(questObj.doc, questObj.uploadedFileType);
             }
             return Json("No uploaded document", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteRawQuestionnarieUploadData(int questionnarieId)
+        {
+            try
+            {
+                var questdelete = db.pr_removeQuestionnaireUpload(questionnarieId);
+                if (questdelete >0)
+                    return Json(new { Status = true });
+                else
+                    return Json(new { Status = false });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false });
+            }
+        }
+        
+        [HttpGet]
+        public virtual ActionResult DownloadQuestionnarieUploadData(int questionnarieId)
+        {
+                var data = db.pr_getQuestionnaireUploadAll(questionnarieId).ToList();
+                var stream = new MemoryStream();
+                var serializer = new XmlSerializer(typeof(List<pr_getQuestionnaireUploadAll_Result>));
+
+                //We turn it into an XML and save it in the memory
+                serializer.Serialize(stream, data);
+                stream.Position = 0;
+
+                //We return the XML from the memory as a .xls file
+                return File(stream, "application/vnd.ms-excel", "QuestionnaireUploadRawData.xls");
         }
     }
 }

@@ -31521,5 +31521,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unarchiveQuestionnaireClause", idParameter);
         }
+    
+        public virtual int pr_removeQuestionnaireUpload(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeQuestionnaireUpload", questionnaireParameter);
+        }
     }
 }
