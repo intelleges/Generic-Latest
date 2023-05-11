@@ -476,14 +476,14 @@
 
                                                                                                             </text>);
 
-                                                                                                                    columns.Bound(o => o.dunsNumber).Title("DUNS#").Width(150).Encoded(false);
 
 
-                                                                                                                    columns.Bound(o => o.Contact).Title("Contact").Width(150).Template(@<text>
+
+                                                                                                                    columns.Bound(o => o.Contact).Title("Contact").Width(180).Template(@<text>
 
                                                                                                                         @{
                                                                                                                                         var columnData = item.Contact;
-                                                                                                                                        var width = 30;
+                                                                                                                                        var width = 25;
                                                                                                                                         var visibleText = string.Empty;
                                                                                                                                         if (columnData != null)
                                                                                                                                         {
@@ -510,7 +510,7 @@
 
 
                                                                                                                             </text>);
-
+                                                                                                                                    columns.Bound(o => o.dunsNumber).Title("DUNS#").Width(120).Encoded(false);
                                                                                                                                     columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
 
                                                                                                                                         @{
@@ -526,7 +526,21 @@
 
 
                                                                                                                                     </text>);
-                                                                                                                                            columns.Bound(o => o.phone).Title("Phone #").Width(100);
+                                                                                                                                            columns.Bound(o => o.phone).Title("Phone #").Width(100).Template(@<text>
+
+                                                                                                                                        @{
+                                                                                                                                                        var columnData = item.phone;
+                                                                                                                                                        var width = 12;
+                                                                                                                                                        var visibleText = string.Empty;
+                                                                                                                                                        if (columnData != null)
+                                                                                                                                                        {
+                                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                        }
+                                                                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                                                                        }
+
+
+                                                                                                                                    </text>);
                                                                                                                                             columns.Bound(o => o.address).Title("Address").Width(150).Template(@<text>
 
                                                                                                                                                 @{
@@ -561,7 +575,7 @@
 
                                                                                                                                                                 @{
                                                                                                                                                                                 var columnData = item.state;
-                                                                                                                                                                                var width = 5;
+                                                                                                                                                                                var width = 3;
                                                                                                                                                                                 var visibleText = string.Empty;
                                                                                                                                                                                 if (columnData != null)
                                                                                                                                                                                 {
@@ -677,7 +691,28 @@
                                                                                                                                                                                                                             <div style="text-align: center;">@item.progress</div>
                                                                                                                                                                                                                         }
                                                                                                                                                                                                                     </text>);
-                                                                                                                                                                                                                            columns.Bound(o => o.Expr1).Title("Expr1").Width(90);
+                                                                                                                                                                                                                            columns.Bound(o => o.Expr1).Title("Expr1").Width(90).Template(@<text>
+
+                                                                                                                                                                                                                @{
+                                                                                                                                                                                                                                var columnData = item.Expr1;
+                                                                                                                                                                                                                                var width = 30;
+                                                                                                                                                                                                                                var visibleText = string.Empty;
+                                                                                                                                                                                                                                if (columnData != null)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                    <a href='#' id='@item.Expr1' class="menu_block" title="@columnData">@visibleText</a>
+
+                                                                                                                if (!string.IsNullOrEmpty(visibleText))
+                                                                                                                {
+                                                                                                        <div class="display_menu" style="display: none;">
+                                                                                                            <ul>
+                                                                                                                <li style='display: inherit'><a href="javascript: copyToClipBoard('@item.Expr1')">Copy to Clipboard</a></li>
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                                }
+                                                                                                }
+                                                                                            </text>);
 
 
 
@@ -1102,6 +1137,10 @@
 		});
 		$("#genericPopup").dialog({ height: 600, title: "Complete" });
 		$("#genericPopup").dialog('open');*@
+    }
+    function copyToClipBoard(linkText) {
+        navigator.clipboard.writeText(linkText);
+        alertify.alert("Link is copied to clipboard");
     }
 
     function resetStatus(accessCode, internalID, touchpoint) {
