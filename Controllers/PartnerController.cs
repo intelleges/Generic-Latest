@@ -55,6 +55,10 @@ using System.Net;
 using Google.Apis.Calendar.v3.Data;
 using System.Data.Entity.Core.EntityClient;
 using Google.Apis.Urlshortener.v1;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Dynamic;
 #endregion
 
 namespace Generic.Controllers
@@ -5914,7 +5918,73 @@ namespace Generic.Controllers
             //We return the XML from the memory as a .xls file
             return File(stream, "application/vnd.ms-excel", "BounceBySiteCount.xls");
         }
-
+        public async Task<ActionResult> SummarizeAsync(string accessCode, string internalID, int? touchpoint, string partner)
+        {
+            int pptqId = 0;
+            if (!string.IsNullOrEmpty(accessCode))
+            {
+                Session["accessCode"] = accessCode;
+                var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+                if (pptq1 != null)
+                {
+                    pptqId = pptq1.id;
+                }
+            }
+            else
+            {
+                pptqId = db.pr_getReferenceByShadowInternalIDandTouchpoint(internalID, touchpoint).First().id;
+            }
+            StringBuilder sb = new StringBuilder();
+            var QRdata = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqId).Where(x => x.response != null).Take(35).ToList();
+            var payloadList = new List<dynamic>();
+            
+            var dictionary = new Dictionary<string, string>();
+            dictionary["role"] = "system";
+            dictionary["content"] = "Based on the following questions and responses from our supplier " + partner + " please provide a detailed summary of capbilities using a narrative format.";
+            payloadList.Add(dictionary);
+            dictionary = new Dictionary<string, string>();
+            dictionary["role"] = "system";
+            dictionary["content"] = "and this data";
+            payloadList.Add(dictionary);
+            dictionary = new Dictionary<string, string>();
+            dictionary["role"] = "system";
+            dictionary["content"] = "qid question rid description";
+            payloadList.Add(dictionary);
+            if (QRdata != null)
+            {
+                foreach (var item in QRdata)
+                {
+                     dictionary = new Dictionary<string, string>();
+                    var question = db.questions.Where(x => x.id == item.question).Select(x => x.Question).FirstOrDefault();
+                    var response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
+                    dictionary["role"] = "system";
+                    dictionary["content"]=item.question+" "+ question+" "+item.response+" "+response+"--";
+                    payloadList.Add(dictionary);
+                }
+            }
+           
+            var serializeObject = JsonConvert.SerializeObject(payloadList);
+          //  sb.AppendLine("Based on the above questions and responses for " + partner + ", Please provide detailed summary of the " + partner);
+            string apiKey = "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";
+             // string apiKey = "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";
+            string apiUrl = "https://api.openai.com/v1/chat/completions";
+            string message = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api.openai.com/v1/chat/completions"))
+                {
+                    request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey}");
+                    request.Content = new StringContent("{\n    \"model\": \"gpt-3.5-turbo\",\n    \"messages\": " + serializeObject + "\n  }");
+                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Headers.Add("User-Agent", "GSS/OpenAI_GPT3");
+                    var response = await httpClient.SendAsync(request,HttpCompletionOption.ResponseHeadersRead);
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                    message = responseData.choices[0].message.content;
+                }
+            }
+            return Json(new { data = message }, JsonRequestBehavior.AllowGet);
+        }
     }
 
 }

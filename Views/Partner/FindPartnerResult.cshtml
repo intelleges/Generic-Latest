@@ -379,7 +379,7 @@
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:resetPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">Unlock</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset PDF")?"inherit":"none")'><a href="javascript:refreshPdf('@item.AccessCode','@item.internalID', @item.touchpointID)">PDF Refresh</a></li>
-                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Summarize")?"inherit":"none")'><a href="javascript:summarize('@item.AccessCode','@item.internalID', @item.touchpointID)">Summarize</a></li>
+                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Summarize")?"inherit":"none")'><a href="javascript:summarize('@item.AccessCode','@item.internalID', @item.touchpointID,'@item.PartnerName')">Summarize</a></li>
 
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Reset Status")?"inherit":"none")'><a href="javascript:resetStatus('@item.AccessCode','@item.internalID', @item.touchpointID)">Reset Status</a></li>
                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("View Detail")?"inherit":"none")'><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
@@ -1172,14 +1172,18 @@
 			}
 		});
     }
-    function summarize(accessCode, internalID, touchpoint) {
-        @*$.get('@Url.Content("~/Registration/Home/RefreshPdf")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' +touchpoint, function (data) {
-			if (data) {
-				alertify.alert("PDF document was reset");
+    function summarize(accessCode, internalID, touchpoint, partnerName) {
+        $("#genericPopup").html("<p>Loading Data...</p>");
+         $.get('@Url.Content("~/Partner/SummarizeAsync")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' + touchpoint + '&partner=' + partnerName, function (data) {
+             if (data) {
+                $("#genericPopup").html(data.data);
 			} else {
 				alertify.alert("Something went wrong, please try again later");
 			}
-		});*@
+		});
+		$("#genericPopup").dialog({ height: 600, title: "Summarize" });
+		$("#genericPopup").dialog('open');
+
     }
 
     var itemsForPrint = [];
