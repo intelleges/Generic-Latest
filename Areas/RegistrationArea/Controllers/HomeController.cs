@@ -17240,6 +17240,250 @@ Intelleges Team";
             return pptqID;
         }
 
+        public static int FillCustomPdfHtml39(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+        {
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.partnerHeader = _partnerHeader;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+            var partnerId = pptq != null ? pptq.partner : -1;
+            var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+            eSignature _signature = sigs.FirstOrDefault();
+            var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            //_signature
+            ViewBag.signature = _signature;
+            ViewBag.personTitle = _partner != null ? _partner.title : "";
+            if (pptq != null)
+                ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+            var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+            if (question.footer == "4")
+            {
+                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+            }
+            else
+                if (enterprise != null && enterprise.Any())
+            {
+                var enterpriseLogo = enterprise.FirstOrDefault();
+                byte[] logoBytes = new byte[0];
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+                if (Directory.Exists(Server.MapPath(dirname)))
+                {
+                    var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                    var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                    if (!System.IO.File.Exists(physicalPath))
+                    {
+                        var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                }
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+            var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+            //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+            var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+
+
+            var _responseYES = 74;
+            var _responseNO = 75;
+            var _chacked = "checked";
+            var _responseSplitter = "--";
+            Regex codeRegex = new Regex("\\([A-Z][A-Z]\\)");
+            //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+
+            string executives = "";
+            var test = _PPTQQuestionResponse.OrderBy(r => r.question).ToList().Select(s => s.question);
+            foreach (var item in _PPTQQuestionResponse)
+            {
+                var comments = new string[10];
+                switch (item.question)
+                {
+                    case 61814:
+                        ViewBag.Checkbox61814_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox61814_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseYES) ViewBag.Q61814_Comment = item.comment;
+                        if (ViewBag.Checkbox61814_Yes == string.Empty && ViewBag.Checkbox61814_No == string.Empty)
+                        {
+                            ViewBag.Checkbox61814_No = _chacked;
+                        }
+                        break;
+                    case 61815:
+                        ViewBag.Checkbox61815_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox61815_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 61816:
+                        ViewBag.Checkbox61816_Yes = item.response == 148721 ? _chacked : string.Empty;
+                        ViewBag.Checkbox61816_No = item.response == 148722 ? _chacked : string.Empty;
+                        break;
+                    case 61817:
+                        ViewBag.Checkbox61817_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox61817_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseYES) ViewBag.Q61817_Comment = item.comment;
+                        break;
+                    case 61818:
+                        var resultReasons = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+                        var selectedReasonIds = item.comment.Split(",");
+                        var selectedReason = resultReasons.Where(w => selectedReasonIds.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q61818_Response = selectedReason;
+                        break;
+                    //case 51317:
+                    //    ViewBag.Checkbox51317_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51317_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    if (item.response == _responseYES) ViewBag.Q51317_Response = item.comment;
+                    //    break;
+                    case 61820:
+                        ViewBag.Checkbox61820_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox61820_No = item.response == _responseNO ? _chacked : string.Empty;
+                        if (item.response == _responseYES) ViewBag.Q61820_Comment = item.comment;
+                        break;
+                    case 61821:
+                        ViewBag.Checkbox61821_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        ViewBag.Checkbox61821_No = item.response == _responseNO ? _chacked : string.Empty;
+                        break;
+                    case 61822:
+                        var resultFiscalYear = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+
+                        var selectedYearIds = item.comment.Split(",");
+                        var selectedYears = resultFiscalYear.Where(w => selectedYearIds.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q61822_response = selectedYears;
+
+                        break;
+                    case 61823:
+                        var resultReasonsNotSubmitted = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+
+                        var reasondIds_61823 = item.comment.Split(",");
+                        var selectedReason_61823 = resultReasonsNotSubmitted.Where(w => reasondIds_61823.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q61823_response = selectedReason_61823;
+
+                        break;
+                    case 61824:
+                        var resultFiscalYearAudit = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+
+                        var selectedYearIds_61824 = item.comment.Split(",");
+                        var selectedYears_61824 = resultFiscalYearAudit.Where(w => selectedYearIds_61824.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q61824_response = selectedYears_61824;
+
+                        break;
+                    //case 51323:
+                    //    ViewBag.Checkbox51323_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51323_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    if (item.response == _responseYES)
+                    //    {
+                    //        DateTime dateFrom;
+                    //        if (DateTime.TryParse(item.comment, out dateFrom))
+                    //        {
+                    //            ViewBag.Q51323_Comment = dateFrom.ToString("MMMM dd, yyyy");
+                    //        }
+                    //    }
+                    //    break;
+                    //case 51324:
+                    //    ViewBag.Checkbox51324_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51324_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    if (item.response == _responseYES)
+                    //    {
+                    //        DateTime dateTo;
+                    //        if (DateTime.TryParse(item.comment, out dateTo))
+                    //        {
+                    //            ViewBag.Q51324_Comment = dateTo.ToString("MMMM dd, yyyy");
+                    //        }
+                    //    }
+                    //    break;
+                    //case 51325:
+                    //    ViewBag.Checkbox51325_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51325_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    break;
+                    case 61828:
+                        ViewBag.Input61828 = item.comment;
+                        break;
+                    case 61829:
+                        ViewBag.Input61829 = item.comment;
+                        break;
+                    case 61830:
+                        ViewBag.Input61830 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
+                        break;
+                    case 61831:
+                        ViewBag.Q61831_response = "";
+                        if (item.response1.description != null)
+                        {
+                            var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
+                            ViewBag.Q61831_response = resultAdminsState == null ? string.Empty : resultAdminsState.description;
+                        }
+                        break;
+                    case 61832:
+                        ViewBag.Input61832 = item.comment;
+                        break;
+                    case 61833:
+                        ViewBag.Input61833 = item.comment;
+                        break;
+                    //case 51332:
+                    //    ViewBag.Checkbox51332_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51332_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    break;
+                    case 61835:
+                        ViewBag.Input61835 = item.comment;
+                        break;
+                    case 61836:
+                        ViewBag.Input61836 = item.comment;
+                        break;
+                    case 61837:
+                        ViewBag.Input61837 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
+                        break;
+                    case 61838:
+                        ViewBag.Q61838_response = "";
+                        if (item.response1.description != null)
+                        {
+                            var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
+                            ViewBag.Q61838_response = resultAuditState == null ? string.Empty : resultAuditState.description;
+                        }
+                        break;
+                    case 61839:
+                        ViewBag.Input61839 = item.comment;
+                        break;
+                    case 61840:
+                        ViewBag.Input61840 = item.comment;
+                        break;
+                    //case 51339:
+                    //    ViewBag.Checkbox51339_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51339_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    break;
+                    //case 51340:
+                    //    ViewBag.Checkbox51340_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51340_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    break;
+                    //case 51341:
+                    //    ViewBag.Checkbox51341_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                    //    ViewBag.Checkbox51341_No = item.response == _responseNO ? _chacked : string.Empty;
+                    //    break;
+                }
+
+                ViewBag.Executives = executives;
+            }
+            return pptqID;
+        }
+
 
         public ActionResult CustomizedPDFConfirmation()
         {
@@ -17451,6 +17695,12 @@ Intelleges Team";
                 pptqID = FillCustomPdfHtml38(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload38";
                 return ViewCustomizedPdf(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "39"))
+            {
+                pptqID = FillCustomPdfHtml39(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload39";
+                return ViewCustomizedPdf(pptqID, ViewName, "");
             }
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
@@ -22364,6 +22614,11 @@ Intelleges Team";
             {
                 pptqID = FillCustomPdfHtml37(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload37";
+            }
+            else if (question != null && (question.footer == "39"))
+            {
+                pptqID = FillCustomPdfHtml39(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload39";
             }
             // else return PDFConfirmation();
             //pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
