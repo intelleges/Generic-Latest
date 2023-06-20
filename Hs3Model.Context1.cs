@@ -31548,5 +31548,35 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getBounceSiteCountByPTQ_Result>("pr_getBounceSiteCountByPTQ", ptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getQuestionResponseByQuestionnaireWithTitle_Result> pr_getQuestionResponseByQuestionnaireWithTitle(Nullable<int> questionnaire)
+        {
+            var questionnaireParameter = questionnaire.HasValue ?
+                new ObjectParameter("questionnaire", questionnaire) :
+                new ObjectParameter("questionnaire", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getQuestionResponseByQuestionnaireWithTitle_Result>("pr_getQuestionResponseByQuestionnaireWithTitle", questionnaireParameter);
+        }
+    
+        public virtual int pr_addHardCoded(Nullable<int> previousQuestion, Nullable<int> previousResponse, Nullable<int> currentQuestion, Nullable<int> currentResponse)
+        {
+            var previousQuestionParameter = previousQuestion.HasValue ?
+                new ObjectParameter("previousQuestion", previousQuestion) :
+                new ObjectParameter("previousQuestion", typeof(int));
+    
+            var previousResponseParameter = previousResponse.HasValue ?
+                new ObjectParameter("previousResponse", previousResponse) :
+                new ObjectParameter("previousResponse", typeof(int));
+    
+            var currentQuestionParameter = currentQuestion.HasValue ?
+                new ObjectParameter("currentQuestion", currentQuestion) :
+                new ObjectParameter("currentQuestion", typeof(int));
+    
+            var currentResponseParameter = currentResponse.HasValue ?
+                new ObjectParameter("currentResponse", currentResponse) :
+                new ObjectParameter("currentResponse", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addHardCoded", previousQuestionParameter, previousResponseParameter, currentQuestionParameter, currentResponseParameter);
+        }
     }
 }

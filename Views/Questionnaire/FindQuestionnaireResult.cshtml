@@ -47,6 +47,7 @@
         @*<li><a href="#" class="rowDataDownload" id="@item.id">Raw Data Download</a></li>*@
         <li><a href="@Url.Action("DownloadQuestionnarieUploadData", "Questionnaire", new { questionnarieId = item.id})">Raw Data Download</a></li>
         <li><a href="#" class="rawDataRemove" id="@item.id">Raw Data Remove</a></li>
+        <li><a href="#" class="aMapping" id="@item.id" name="@item.name">Mapping</a></li>
     </ul>
 </div>
 </text>);
@@ -136,6 +137,56 @@
                     return true;
                 }
             });
+        });
+        $('.aMapping').click(function () {
+            var qId = $(this).attr('id');
+            $.post("MappedwQuestionnarie", { questionnarieId: qId }, function (data) {
+                if (data.Status == false && data.isMapped == true) {
+                    alertify.alert("Sorry, but this Questionnaire has already been mapped!!!");
+                    return false;
+                }
+                else if (data.Status == false && data.isMapped == false) {
+                    alertify.alert("There is an error occurred while mapping!!!");
+                    return false;
+                }
+                else {
+                    var list = data.MappedList;
+                    var htmlData = "<table>";
+                    for (var i = 0; i < list.length; i++) {
+                        htmlData += "<tr><td> <input type='checkbox' id='" + list[i].QuestId + "' class='aSelectedQuest' name='quest' /></td>";
+                        htmlData += "<td> <span>" + list[i].QuestTitle + "</span> </td></tr>";
+                    }
+                    htmlData += "</table>";
+                    htmlData += "<input type='button' id='btnMapped' class='btn btn-primary' value='Submit' />";
+                    htmlData += "<input type='hidden' id='hdnQuest'  value='" + qId+"' />";
+
+                    $("#genericPopup").html(htmlData);
+                    $("#genericPopup").dialog({ height: 400, title: "Questionnaire Mapping : "+ $(this).attr('name') });
+                    $("#genericPopup").dialog('open');
+                }
+            });
+        });
+
+        $(document).on('change', 'input.aSelectedQuest', function () { 
+        //$('input.aSelectedQuest').on('change', function () {
+            $('input.aSelectedQuest').not(this).prop('checked', false);
+        });
+
+        $(document).on('click', '#btnMapped', function () {
+            var value = $('input.aSelectedQuest').attr('id');
+            var current = $('#hdnQuest').val();
+            $.post("AddMappingQuestionnaire", { selectedQuestionnarieId: value, currentQuestionnaireId: current  }, function (data) {
+                if (data.Status == false ) {
+                    alertify.alert("There is an error occurred while adding mapping!!!");
+                    return false;
+                }
+                else {
+                    alertify.alert("Mapped Successfullly!!!");
+                    CloseMe();
+                }
+
+            });
+
         });
         //$('.rowDataDownload').click(function () {
         //    var qId = $(this).attr('id');

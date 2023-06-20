@@ -26,6 +26,7 @@ namespace Generic.Controllers
     public class QuestionnaireController : Controller
     {
         private EntitiesDBContext db = new EntitiesDBContext();
+        private EntitiesDBContext dbupdate = new EntitiesDBContext();
 
         //
         // GET: /Questionnaire/
@@ -263,7 +264,8 @@ namespace Generic.Controllers
                     EntitiesDBContext db1 = new EntitiesDBContext();
                     var p = db1.partnerPartnertypeTouchpointQuestionnaire.Where(o => o.id == pptqId).First();
                     if (responseId == 75) p.status = 12;
-                    else {
+                    else
+                    {
                         p.status = 8;
                         p.completedDate = DateTime.Now;
                         try
@@ -321,10 +323,10 @@ namespace Generic.Controllers
         [AllowAnonymous]
         public ActionResult QuestionnaireDetailQuestion_Puru(int id, int? pptqId, int? questionId, int? partnerId, int responseId, string email)
         {
-            if(null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
+            if (null == Session["REDIRECT_BY_EMAIL"] || Convert.ToInt16(Session["REDIRECT_BY_EMAIL"]) == -1)
             {
                 Session["REDIRECT_BY_EMAIL"] = -1;
-                Session["REDIRECT_BY_EMAIL_Query"] = new { id= id, pptqId= pptqId, questionId= questionId, partnerId= partnerId, responseId = responseId, email = email };
+                Session["REDIRECT_BY_EMAIL_Query"] = new { id = id, pptqId = pptqId, questionId = questionId, partnerId = partnerId, responseId = responseId, email = email };
                 return RedirectToAction("Index", "Admin");
             }
 
@@ -1531,7 +1533,7 @@ namespace Generic.Controllers
 
 
 
-                                  question   objQuestion = new question();
+                                question objQuestion = new question();
                                 objQuestion.Question = excelQuestionnaire.Question;
                                 objQuestion.name = excelQuestionnaire.Question;
                                 objQuestion.title = excelQuestionnaire.Title;
@@ -1673,13 +1675,13 @@ namespace Generic.Controllers
 
                                 try
                                 {
-                                    objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire==null?string.Empty: excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
+                                    objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire == null ? string.Empty : excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
                                 }
                                 catch { }
                                 objQuestion.spinOffQID = excelQuestionnaire.spinoffid;
                                 try
                                 {
-                                    objQuestion.emailAlert = excelQuestionnaire.emailalert==null?string.Empty: excelQuestionnaire.emailalert.Substring(0, 1);
+                                    objQuestion.emailAlert = excelQuestionnaire.emailalert == null ? string.Empty : excelQuestionnaire.emailalert.Substring(0, 1);
                                 }
                                 catch { }
 
@@ -1688,7 +1690,7 @@ namespace Generic.Controllers
                                 objQuestion.active = true;
                                 objQuestion.enterprise = EnterpriseID;
                                 objQuestion.accessLevel = excelQuestionnaire.accessLevel;
-                                    db.questions.Add(objQuestion);
+                                db.questions.Add(objQuestion);
                                 db.SaveChanges();
                                 questionSet.Add(objQuestion.id);
                                 excelQuestionnaire.CommentBoxMessageText = excelQuestionnaire.CommentBoxMessageText ?? "";
@@ -1759,7 +1761,7 @@ namespace Generic.Controllers
                                         db.pr_addQuestionResponse(questionId, responsesId);
                                     }
                                 }
-                                
+
                                 try
                                 {
 
@@ -1924,7 +1926,7 @@ namespace Generic.Controllers
                         }
                         scope.Commit();
                         splitterResult = db.pr_modifyQuestionnaireLetterForSplitter(questionnaireId, splitterId).FirstOrDefault();
-                       
+
                         //Upload Excel data into database
                         if (questionnaireinExcel != null)
                         {
@@ -1935,9 +1937,9 @@ namespace Generic.Controllers
                                 int snipQuest = !string.IsNullOrWhiteSpace(item.snipOffQuestionnaire) ? (item.snipOffQuestionnaire.ToLower() == "y" ? 1 : 0) : 0;
                                 db.pr_addQuestionnaireUpload(item.QID, item.Page, item.Surveyset, item.Survey, item.Question,
                                    item.Response, item.Comment, item.Title, required, item.Length, item.titleLength, item.yValue, item.nValue,
-                                   item.naValue, item.otherValue,item.qWeight,item.skipLogic,item.skipLogicAnswer,item.SubCheckBoxChoice,
-                                   item.CalendarMessageText,item.skipLogicJump, item.CommentBoxMessageText,item.UploadMessageText, item.CommentType,
-                                   snipQuest,item.spinoffid,emailAlert,item.emailalertlist,item.accessLevel, questionnaireId);
+                                   item.naValue, item.otherValue, item.qWeight, item.skipLogic, item.skipLogicAnswer, item.SubCheckBoxChoice,
+                                   item.CalendarMessageText, item.skipLogicJump, item.CommentBoxMessageText, item.UploadMessageText, item.CommentType,
+                                   snipQuest, item.spinoffid, emailAlert, item.emailalertlist, item.accessLevel, questionnaireId);
                             }
                         }
 
@@ -1970,7 +1972,8 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult FileTagUpload(FileTagUploadViewModel model)
         {
-            if (model.TagFile != null) {
+            if (model.TagFile != null)
+            {
                 byte[] data;
                 using (Stream inputStream = model.TagFile.InputStream)
                 {
@@ -2470,7 +2473,7 @@ namespace Generic.Controllers
             try
             {
                 //List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
-                string arguments = Session["questionnairesearch"]!=null?Session["questionnairesearch"].ToString():"" + "active=1;";
+                string arguments = Session["questionnairesearch"] != null ? Session["questionnairesearch"].ToString() : "" + "active=1;";
                 Session["questionnaire"] = db.Database.SqlQuery<view_QuestionnaireData>("EXEC pr_dynamicFiltersQuestionnaire  'view_QuestionnaireData' , '" + arguments + "'").ToList();
                 List<view_QuestionnaireData> abc = (List<view_QuestionnaireData>)Session["questionnaire"];
 
@@ -2674,7 +2677,7 @@ namespace Generic.Controllers
             try
             {
                 var questdelete = db.pr_removeQuestionnaireUpload(questionnarieId);
-                if (questdelete >0)
+                if (questdelete > 0)
                     return Json(new { Status = true });
                 else
                     return Json(new { Status = false });
@@ -2684,20 +2687,91 @@ namespace Generic.Controllers
                 return Json(new { Status = false });
             }
         }
-        
+
+        [HttpPost]
+        public ActionResult MappedwQuestionnarie(int questionnarieId)
+        {
+            try
+            {
+                var questCorrespondent = db.pr_getCorrespondentQuestionnaireByCurrentQuestionnaire(questionnarieId).ToList();
+                if (questCorrespondent.Count > 0)
+                {
+                    return Json(new { Status = false, isMapped = true });
+                }
+                else
+                {
+                    var enterpriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    var questList = db.pr_getQuestionnaireAll(enterpriseId).Where(x => x.id != questionnarieId).ToList();
+                    List<MappedQuestionnaireList> mappedQuestList = new List<MappedQuestionnaireList>();
+                    if (questList != null)
+                    {
+                        if (questList.Count > 0)
+                        {
+                            foreach (var item in questList)
+                            {
+                                mappedQuestList.Add(new MappedQuestionnaireList
+                                {
+                                    QuestId = item.id,
+                                    QuestTitle = item.title
+                                });
+                            }
+                        }
+                    }
+                    return Json(new { Status = true, MappedList = mappedQuestList });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false, isMapped = false });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddMappingQuestionnaire(int selectedQuestionnarieId, int currentQuestionnaireId)
+        {
+            try
+            {
+                var result = db.pr_addCorrespondentQuestionnaire(currentQuestionnaireId, selectedQuestionnarieId, 1, true);
+               // var currentQuestList = db.pr_getQuestionResponseByQuestionnaireWithTitle(currentQuestionnaireId).ToList();
+              //  var previousQuestList = db.pr_getQuestionResponseByQuestionnaireWithTitle(selectedQuestionnarieId).ToList();
+
+                IList<pr_getQuestionResponseByQuestionnaireWithTitle_Result> currentQuestList = db.pr_getQuestionResponseByQuestionnaireWithTitle(currentQuestionnaireId).ToList();
+                IList<pr_getQuestionResponseByQuestionnaireWithTitle_Result> previousQuestList = db.pr_getQuestionResponseByQuestionnaireWithTitle(selectedQuestionnarieId).ToList();
+
+                IList<HardCodedModel> FinalList = new List<HardCodedModel>();
+                //var unmatchedRows = previousQuestList.Where(x => currentQuestList.All(y => !x.title.Equals(y.title) || !x.response.Equals(y.response))).ToList();
+                foreach (pr_getQuestionResponseByQuestionnaireWithTitle_Result item in previousQuestList )
+                {
+                    var currentQuest = currentQuestList.Where(x => x.title == item.title && x.response == item.response).FirstOrDefault();
+                    if (currentQuest == null)
+                    {
+                        continue;
+                    }
+                        var harcoderesult = dbupdate.pr_addHardCoded(item.qid, item.rid, currentQuest.qid, currentQuest.rid);
+                }
+
+                return Json(new { Status = true, FinalList= FinalList });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false });
+            }
+        }
+
         [HttpGet]
         public virtual ActionResult DownloadQuestionnarieUploadData(int questionnarieId)
         {
-                var data = db.pr_getQuestionnaireUploadAll(questionnarieId).ToList();
-                var stream = new MemoryStream();
-                var serializer = new XmlSerializer(typeof(List<pr_getQuestionnaireUploadAll_Result>));
+            var data = db.pr_getQuestionnaireUploadAll(questionnarieId).ToList();
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<pr_getQuestionnaireUploadAll_Result>));
 
-                //We turn it into an XML and save it in the memory
-                serializer.Serialize(stream, data);
-                stream.Position = 0;
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, data);
+            stream.Position = 0;
 
-                //We return the XML from the memory as a .xls file
-                return File(stream, "application/vnd.ms-excel", "QuestionnaireUploadRawData.xls");
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "QuestionnaireUploadRawData.xls");
         }
     }
 }
