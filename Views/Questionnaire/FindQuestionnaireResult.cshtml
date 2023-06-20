@@ -20,9 +20,34 @@
         width: 99% !important;
         left: 0;
     }
+
+    .loader {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        z-index: 50000;
+        background-color: #ddd;
+        opacity: 0.5;
+        padding:25% ;
+    }
+
+        .loader img {
+            float: left;
+            top: 50%;
+            left: 50%;
+        }
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
 </style>
 
-
+<div class="loader hide">
+    <img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
+</div>
 @( Html.Telerik().Grid(Model).Name("QuestionnaireGrid")
 .ToolBar(commands => commands
                 .Custom()
@@ -113,6 +138,12 @@
 <script src="~/Scripts/jquery-1.8.2.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
 <script type="text/javascript">
+    function ShowPartnerFindLoader() {
+        $(".loader").show();
+    }
+    function HidePartnerFindLoader() {
+        $(".loader").hide();
+    }
     $(function () {
         jQuery.noConflict();
         $("#EmailDialog").dialog({
@@ -142,7 +173,35 @@
             var qId = $(this).attr('id');
             $.post("MappedwQuestionnarie", { questionnarieId: qId }, function (data) {
                 if (data.Status == false && data.isMapped == true) {
-                    alertify.alert("Sorry, but this Questionnaire has already been mapped!!!");
+                    alertify.set({
+                        labels: {
+                            ok: "Yes",
+                            cancel: "No"
+                        },
+                        buttonFocus: "ok"
+                    });
+                    alertify.confirm("This Questionnaire has already been mapped. Would you like to remove the current mapping?", function (e) {
+                        if (e) {
+                            ShowPartnerFindLoader();
+                            $.post("RemoveCurrentQuestionnaireMapping", { questionnarieId: qId }, function (data) {
+                                HidePartnerFindLoader();
+                                alertify.set({
+                                    labels: {
+                                        ok: "OK",
+                                    },
+                                    buttonFocus: "ok"
+                                });
+                                if (data.Status == false) {
+                                    alertify.alert("There is an error occurred while adding mapping!!!");
+                                    return false;
+                                }
+                                else {
+                                    alertify.alert("Mapping removed Successfullly!!!");
+                                    return true;
+                                }
+                            });
+                        }
+                    });
                     return false;
                 }
                 else if (data.Status == false && data.isMapped == false) {
@@ -150,6 +209,7 @@
                     return false;
                 }
                 else {
+                    ShowPartnerFindLoader();
                     var list = data.MappedList;
                     var htmlData = "<table>";
                     for (var i = 0; i < list.length; i++) {
@@ -161,13 +221,14 @@
                     htmlData += "<input type='hidden' id='hdnQuest'  value='" + qId+"' />";
 
                     $("#genericPopup").html(htmlData);
-                    $("#genericPopup").dialog({ height: 400, title: "Questionnaire Mapping : "+ $(this).attr('name') });
+                    $("#genericPopup").dialog({ width: 300, height: 400, title: "Questionnaire Mapping " });
                     $("#genericPopup").dialog('open');
+                    HidePartnerFindLoader();
                 }
             });
         });
 
-        $(document).on('change', 'input.aSelectedQuest', function () { 
+        $(document).on('change', 'input.aSelectedQuest', function () {
         //$('input.aSelectedQuest').on('change', function () {
             $('input.aSelectedQuest').not(this).prop('checked', false);
         });
@@ -175,8 +236,10 @@
         $(document).on('click', '#btnMapped', function () {
             var value = $('input.aSelectedQuest').attr('id');
             var current = $('#hdnQuest').val();
-            $.post("AddMappingQuestionnaire", { selectedQuestionnarieId: value, currentQuestionnaireId: current  }, function (data) {
-                if (data.Status == false ) {
+            ShowPartnerFindLoader();
+            $.post("AddMappingQuestionnaire", { selectedQuestionnarieId: value, currentQuestionnaireId: current }, function (data) {
+                HidePartnerFindLoader();
+                if (data.Status == false) {
                     alertify.alert("There is an error occurred while adding mapping!!!");
                     return false;
                 }

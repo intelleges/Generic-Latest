@@ -2732,7 +2732,7 @@ namespace Generic.Controllers
         {
             try
             {
-                var result = db.pr_addCorrespondentQuestionnaire(currentQuestionnaireId, selectedQuestionnarieId, 1, true);
+                var result = db.pr_addCorrespondentQuestionnaire(selectedQuestionnarieId , currentQuestionnaireId , 1, true);
                // var currentQuestList = db.pr_getQuestionResponseByQuestionnaireWithTitle(currentQuestionnaireId).ToList();
               //  var previousQuestList = db.pr_getQuestionResponseByQuestionnaireWithTitle(selectedQuestionnarieId).ToList();
 
@@ -2773,5 +2773,32 @@ namespace Generic.Controllers
             //We return the XML from the memory as a .xls file
             return File(stream, "application/vnd.ms-excel", "QuestionnaireUploadRawData.xls");
         }
+        [HttpPost]
+        public ActionResult RemoveCurrentQuestionnaireMapping(int questionnarieId)
+        {
+            try
+            {
+                var questdelete = db.pr_removeCorrespondentQuestionnaireMapping(questionnarieId);
+                if (questdelete > 0)
+                {
+                    var questIds = db.pr_getQuestionResponseByQuestionnaireWithTitle(questionnarieId).Select(x => x.qid).ToArray();
+                    if(questIds !=null && questIds.Length  > 0)
+                    {
+                        foreach (var item in questIds)
+                        {
+                            var questHDelete = dbupdate.pr_removeHardcodedQuestionResponseMapping(item);
+                        }
+                    }
+                    return Json(new { Status = true });
+                }
+                else
+                    return Json(new { Status = false });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false });
+            }
+        }
+
     }
 }

@@ -31578,5 +31578,23 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_addHardCoded", previousQuestionParameter, previousResponseParameter, currentQuestionParameter, currentResponseParameter);
         }
+    
+        public virtual int pr_removeHardcodedQuestionResponseMapping(Nullable<int> questionId)
+        {
+            var questionIdParameter = questionId.HasValue ?
+                new ObjectParameter("questionId", questionId) :
+                new ObjectParameter("questionId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeHardcodedQuestionResponseMapping", questionIdParameter);
+        }
+    
+        public virtual int pr_removeCorrespondentQuestionnaireMapping(Nullable<int> questionnaireId)
+        {
+            var questionnaireIdParameter = questionnaireId.HasValue ?
+                new ObjectParameter("questionnaireId", questionnaireId) :
+                new ObjectParameter("questionnaireId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCorrespondentQuestionnaireMapping", questionnaireIdParameter);
+        }
     }
 }

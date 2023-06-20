@@ -29,7 +29,7 @@
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.languageInfo" PointX="3" PointY="71.5" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.letter" PointX="4.625" PointY="6.625" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.letterSeed" PointX="7.375" PointY="6.75" Width="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="hs3MVCMTQa2Model.loadHistory" PointX="8.75" PointY="0.75" Width="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.loadHistory" PointX="7.5" PointY="1.875" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.menu" PointX="3" PointY="74.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.menuAccessLevel" PointX="8.75" PointY="3.75" Width="1.5" IsExpanded="false" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.menuGroup" PointX="8.75" PointY="6.75" Width="1.5" IsExpanded="false" />
