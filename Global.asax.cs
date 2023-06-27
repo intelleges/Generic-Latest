@@ -1,6 +1,7 @@
 ﻿using Elmah;
 using Generic.Helpers;
 using Google.Apis.Services;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -39,6 +40,25 @@ namespace Generic
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 			GlobalConfiguration.Configuration.EnsureInitialized();
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+            
+        }
+        protected void ApplicationBeginrequest(object sender, ErrorMailEventArgs e)
+        {
+            HttpApplication application = sender as HttpApplication;
+            if (application != null)
+            {
+                application.Response.AddOnSendingHeaders(context =>
+                {
+                    var cookies = context.Response.Cookies;
+                    for (int i = 0; i < cookies.Count; i++)
+                    {
+                        var sameSiteValue = "None";
+                        var cookie = $"{cookies[i].Name}={cookies[i].Value};SameSite={sameSiteValue};Path=/; Secure";
+                        cookie += $"; Expires={cookies[i].Expires}";
+                        Response.Headers.Add("Set-Cookie", cookie);
+                    }
+                });
+            }
         }
 
         public static void RegisterRoutes(RouteCollection routes)
