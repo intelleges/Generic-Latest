@@ -997,6 +997,7 @@ Thanks in advance.<br>
             ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 
             ViewBag.searchType = searchType;
+           // ViewBag.lastLogin = new SelectList(db.GenerateLast12Months(), "MonthYear", "MonthYear");
             return View();
         }
 

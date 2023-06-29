@@ -1050,6 +1050,20 @@ namespace Generic.Controllers
 
                     ViewBag.dataAll = dataAllDictionary;
                     ViewBag.dataToday = dataTodayDictionary;
+                    var enterpriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    var param = new System.Data.SqlClient.SqlParameter("@enterprise", enterpriseId);
+                    var result = db.Database.SqlQuery<LastLoginCountDetail>("EXEC pr_getLastLoginCount @enterprise",param).ToList();
+                    List<KeyValuePair<string, int>> list = new List<KeyValuePair<string, int>>();
+                    if (result != null)
+                    {
+                        foreach (var item in result)
+                        {
+                            var monthyear = item.MonthYear.Split('-');
+                            list.Add(new KeyValuePair<string, int>(Convert.ToString(monthyear[1]), item.LastLoginCount));
+                        }
+                    }
+                    KeyValuePair<string, int>[] lastLoginarray = list.ToArray();
+                    ViewBag.LastLoginCount = lastLoginarray;
                 }
                 catch { }
 

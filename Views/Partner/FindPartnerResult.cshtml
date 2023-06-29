@@ -345,7 +345,21 @@
                                                                                 )
                                                                                 .Columns(columns =>
                                                                                 {
-                                                                                columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false);
+                                                                                columns.Bound(o => o.internalID).Title("Internal ID").Width(150).Encoded(false).Template(@<text>
+
+                                                                                                        @{
+                                                                                                                        var columnData = item.internalID;
+                                                                                                                        var width = 20;
+                                                                                                                        var visibleText = string.Empty;
+                                                                                                                        if (columnData != null)
+                                                                                                                        {
+                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                        }
+                                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                                        }
+
+
+                                                                                                    </text>);
                                                                                 columns.Bound(o => o.PartnerName).Title("Partner Name").Width(250).Template(@<text>
                                                                                         @{
 

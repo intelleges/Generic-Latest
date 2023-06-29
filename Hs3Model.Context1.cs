@@ -31596,5 +31596,28 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_removeCorrespondentQuestionnaireMapping", questionnaireIdParameter);
         }
+    
+        public virtual int GenerateLast12Months()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GenerateLast12Months");
+        }
+    
+        public virtual int pr_getLastLoginCountByEnteprise(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getLastLoginCountByEnteprise", enterpriseParameter);
+        }
+    
+        public virtual int pr_getLastLoginCount(Nullable<int> enterprise)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getLastLoginCount", enterpriseParameter);
+        }
     }
 }

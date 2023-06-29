@@ -40,7 +40,7 @@
 
         //});
         
-        var data = google.visualization.arrayToDataTable([
+        @*var data = google.visualization.arrayToDataTable([
                      ['Group', 'Bounced', 'Clicked', 'Deferred', 'Delivered', 'Dropped', 'Opened', 'Processed'],
                      //['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
                      //['Iterate', 1170, 460, 250, 1170, 460, 250, 1170],
@@ -81,7 +81,27 @@
         var chartdaily = new google.visualization.BarChart(document.getElementById('columnchart_material_daily'));
 
         chartdaily.draw(datadaily, optionsdaily);
-        $("#columnchart_material_daily").hide();
+        $("#columnchart_material_daily").hide();*@
+
+
+        /// Bar  chart for Last Login Count
+        var dataTableLastLogin = new google.visualization.DataTable();
+        dataTableLastLogin.addColumn("string", "Year-Month");
+        dataTableLastLogin.addColumn("number", "LastLoginCount");
+        var dataLastLogin = [];
+        @foreach (var item in (KeyValuePair<string, int>[])ViewBag.LastLoginCount)
+        {
+            <text>dataLastLogin.push(['@item.Key',  @item.Value]);</text>
+        }
+        console.log(dataLastLogin);
+        dataTableLastLogin.addRows(dataLastLogin);
+        var option = {
+            chart: {
+                title:"Last Login Count"
+            }
+        };
+        var chartlogin = new google.charts.Bar(document.getElementById("columnchart_lastlogin"));
+        chartlogin.draw(dataTableLastLogin, new google.charts.Bar.convertOptions(option));
     }
     jQuery(document).ready(function ($) {
         $("#Menu").css("z-index", 101);
@@ -152,8 +172,9 @@
     <div id="btnStatusPanel" class="absolutStatusPanel">
         <input type="button" class="circleButton" id="statusButton" title="Reminders was sent (click to toggle daily/all chart)" />
     </div>
-    <div id="columnchart_material" class="page" style="width:50%;"></div>
-    <div id="columnchart_material_daily" class="page" style="width:50%;"></div>
+    <div id="columnchart_lastlogin"  class="page" style="width:50%;"></div>
+    <div id="columnchart_material" class="page" style="width:50%; display:none;"></div>
+    <div id="columnchart_material_daily" class="page" style="width:50%; display:none;"></div>
     <div class='pageHolder-footer'></div>
     @*<div id="EventNotificationsGridPanel">
         @Html.Telerik().Grid(new List<Generic.pr_getEventNotificationByTouchpointAndEvent_Result>()).Name("EventNotifications").DataBinding(binding => binding.Ajax().Select("AjaxIteratePartners", "Admin", new { touchpoint = selectedToucId })).Editable(o => o.Enabled(true)).DataKeys(o => o.Add(p => p.internalid)).Pageable(o => o.PageSize(50)).Selectable(o => o.Enabled(true)).Sortable().HtmlAttributes(new { style = "font-size:10px;" })
