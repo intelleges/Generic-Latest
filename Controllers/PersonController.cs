@@ -1098,6 +1098,11 @@ Thanks in advance.<br>
         {
             try
             {
+                if (Session["personsearch"]==null)
+                {
+                    string argument = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
+                    Session["personsearch"] = argument;
+                }
                 string arguments = Session["personsearch"].ToString() + "active=1;";// D1 Uncommented active=1
                 Session["person"] = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
                 List<view_PersonData> abc = (List<view_PersonData>)Session["person"];

@@ -39,7 +39,7 @@
         /* */
 
         //});
-        
+
         @*var data = google.visualization.arrayToDataTable([
                      ['Group', 'Bounced', 'Clicked', 'Deferred', 'Delivered', 'Dropped', 'Opened', 'Processed'],
                      //['Invite', 1000, 400, 200, 1000, 400, 200, 1000],
@@ -105,11 +105,11 @@
             if (selectedItem) {
                 var category = dataTableLastLogin.getValue(selectedItem.row, 0);
                 var value = dataTableLastLogin.getValue(selectedItem.row, 1);
-                window.location.href = "../Person/FindPersonResult";
+                window.location.href ="@Url.Action("FindPersonResult", "Person")"; //"../Person/FindPersonResult";
             }
         });
         chartlogin.draw(dataTableLastLogin, new google.charts.Bar.convertOptions(option));
-       
+
     }
     jQuery(document).ready(function ($) {
         $("#Menu").css("z-index", 101);
