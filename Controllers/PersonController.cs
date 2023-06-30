@@ -997,7 +997,24 @@ Thanks in advance.<br>
             ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 
             ViewBag.searchType = searchType;
-           // ViewBag.lastLogin = new SelectList(db.GenerateLast12Months(), "MonthYear", "MonthYear");
+            
+            var enterpriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
+            var param = new System.Data.SqlClient.SqlParameter("@enterprise", enterpriseId);
+            var result = db.Database.SqlQuery<LastLoginCountDetail>("EXEC pr_getLastLoginCount @enterprise", param).ToList();
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (result != null)
+            {
+                foreach (var item in result)
+                {
+                    list.Add(new SelectListItem
+                    {
+                        Text= item.MonthYear,
+                        Value= item.MonthYear
+                    });
+                }
+            }
+
+            ViewBag.lastLogin = list;
             return View();
         }
 

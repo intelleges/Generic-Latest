@@ -93,7 +93,6 @@
         {
             <text>dataLastLogin.push(['@item.Key',  @item.Value]);</text>
         }
-        console.log(dataLastLogin);
         dataTableLastLogin.addRows(dataLastLogin);
         var option = {
             chart: {
@@ -101,7 +100,16 @@
             }
         };
         var chartlogin = new google.charts.Bar(document.getElementById("columnchart_lastlogin"));
+        google.visualization.events.addListener(chartlogin, 'select', function (e) {
+            var selectedItem = chartlogin.getSelection()[0];
+            if (selectedItem) {
+                var category = dataTableLastLogin.getValue(selectedItem.row, 0);
+                var value = dataTableLastLogin.getValue(selectedItem.row, 1);
+                window.location.href = "../Person/FindPersonResult";
+            }
+        });
         chartlogin.draw(dataTableLastLogin, new google.charts.Bar.convertOptions(option));
+       
     }
     jQuery(document).ready(function ($) {
         $("#Menu").css("z-index", 101);
