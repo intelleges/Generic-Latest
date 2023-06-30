@@ -1021,7 +1021,7 @@ Thanks in advance.<br>
 
 
         [HttpPost]
-        public ActionResult FindPerson(int? touchpoint, string InternalId, string Title, string FirstName, string Email, string LastName, string Phone, string searchType)
+        public ActionResult FindPerson(int? touchpoint, string InternalId, string Title, string FirstName, string Email, string LastName, string Phone, string searchType, string lastLogin)
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
 
@@ -1055,6 +1055,9 @@ Thanks in advance.<br>
 
             if (!string.IsNullOrEmpty(Phone))
                 arguments += "Phone=" + Phone + ";";
+
+            //if (!string.IsNullOrWhiteSpace(lastLogin))
+            //    Session["LastLogin"] = lastLogin;
             //if (!string.IsNullOrEmpty(txtHROEmailFind))
             //    arguments += "HROEmail=" + txtHROEmailFind + ";";
             //if (!string.IsNullOrEmpty(txtScoreFromFind ))
@@ -1090,11 +1093,11 @@ Thanks in advance.<br>
             }
             else
             {
-                return RedirectToAction("FindPersonResult");
+                return RedirectToAction("FindPersonResult", new { lastLogin= lastLogin });
             }
         }
 
-        public ActionResult FindPersonResult()
+        public ActionResult FindPersonResult(string lastLogin)
         {
             try
             {
@@ -1106,11 +1109,22 @@ Thanks in advance.<br>
                 string arguments = Session["personsearch"].ToString() + "active=1;";// D1 Uncommented active=1
                 Session["person"] = db.Database.SqlQuery<view_PersonData>("EXEC pr_dynamicFiltersPerson  'view_PersonData' , '" + arguments + "'").ToList();
                 List<view_PersonData> abc = (List<view_PersonData>)Session["person"];
+                if (!string.IsNullOrWhiteSpace(lastLogin))
+                {
+                    var ids = db.pr_getLastLoginPersonIdsBasedonMonthYear(Generic.Helpers.CurrentInstance.EnterpriseID, lastLogin);
+                    if (ids != null)
+                    {
+                        var persoIds = ids.ToList();
+                        abc = abc.Where(x => persoIds.Contains(x.id)).ToList();
+                        Session["person"] = abc;
+                    }
+                }
+
                 // List<view_PersonData> objPartnerViewModelList = ConvertToPartnerViewModel(abc);
 
                 return View(abc);
             }
-            catch
+            catch(Exception ex)
             {
                 return RedirectToAction("FindPerson");
 

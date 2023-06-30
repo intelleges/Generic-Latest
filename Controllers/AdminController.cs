@@ -1058,8 +1058,8 @@ namespace Generic.Controllers
                     {
                         foreach (var item in result)
                         {
-                            var monthyear = item.MonthYear.Split('-');
-                            list.Add(new KeyValuePair<string, int>(Convert.ToString(monthyear[1]), item.LastLoginCount));
+                           // var monthyear = item.MonthYear.Split('-');
+                            list.Add(new KeyValuePair<string, int>(Convert.ToString(item.MonthYear), item.LastLoginCount));
                         }
                     }
                     KeyValuePair<string, int>[] lastLoginarray = list.ToArray();
@@ -2216,7 +2216,11 @@ namespace Generic.Controllers
                 touchpoint = null,
                 enterprise= enterprise
             });
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("ScheduleMeeting", "Admin");
+        }
+        public ActionResult ScheduleMeeting()
+        {
+            return View();
         }
     }
 

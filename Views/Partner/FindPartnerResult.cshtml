@@ -465,26 +465,18 @@
 
 
                                                                                                     </text>);
-                                                                                                            columns.Bound(o => o.touchpointID).Title("Completed As").Width(150).Template(@<text>
+                                                                                                            columns.Bound(o => o.touchpointID).Title("Completed Date").Width(110).Template(@<text>
 
                                                                                                                 @{
-                                                                                                                                var columnData = string.Empty;
-                                                                                                                                List<pr_getSpecialDesignation_Result> touchpointdat = ViewBag.TouchPointDetails;
-                                                                                                                                if (null != touchpointdat)
-                                                                                                                                {
-                                                                                                                                    var touchpointdata = touchpointdat.Where(t => t.id == item.pptq).FirstOrDefault();
-                                                                                                                                    if (null != touchpointdata)
-                                                                                                                                    {
-                                                                                                                                        columnData = touchpointdata.title;
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                                var width = 20;
-                                                                                                                                var visibleText = string.Empty;
-                                                                                                                                if (columnData != null)
-                                                                                                                                {
-                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                }
-                                                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                                                    DateTime completeDate = Convert.ToDateTime(item.completedDate);
+                                                                                                                    var columnData = completeDate.ToShortDateString();
+                                                                                                                    var width = 20;
+                                                                                                                    var visibleText = string.Empty;
+                                                                                                                    if (item.statusID == 8)
+                                                                                                                    {
+                                                                                                                        visibleText = completeDate.ToShortDateString();
+                                                                                                                    }
+                                                                                                                    <p title="@columnData" style="text-align:right;">@visibleText</p>
                                                                                                                 }
 
 

@@ -31619,5 +31619,18 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getLastLoginCount", enterpriseParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> pr_getLastLoginPersonIdsBasedonMonthYear(Nullable<int> enterprise, string lastLogin)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var lastLoginParameter = lastLogin != null ?
+                new ObjectParameter("lastLogin", lastLogin) :
+                new ObjectParameter("lastLogin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getLastLoginPersonIdsBasedonMonthYear", enterpriseParameter, lastLoginParameter);
+        }
     }
 }

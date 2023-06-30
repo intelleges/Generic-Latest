@@ -88,12 +88,21 @@
         var dataTableLastLogin = new google.visualization.DataTable();
         dataTableLastLogin.addColumn("string", "Year-Month");
         dataTableLastLogin.addColumn("number", "LastLoginCount");
+        var dataTableSelectLastLogin = new google.visualization.DataTable();
+        dataTableSelectLastLogin.addColumn("string", "Year-Month");
+        dataTableSelectLastLogin.addColumn("number", "LastLoginCount");
         var dataLastLogin = [];
+        var dataSelectLastLogin = [];
         @foreach (var item in (KeyValuePair<string, int>[])ViewBag.LastLoginCount)
         {
-            <text>dataLastLogin.push(['@item.Key',  @item.Value]);</text>
+            var key = item.Key;
+            var loginkey = key.Split('-');
+
+            <text>dataLastLogin.push(['@loginkey[1]',  @item.Value]);</text>
+            <text>dataSelectLastLogin.push(['@item.Key',  @item.Value]);</text>
         }
         dataTableLastLogin.addRows(dataLastLogin);
+        dataTableSelectLastLogin.addRows(dataSelectLastLogin);
         var option = {
             chart: {
                 title:"Last Login Count"
@@ -103,9 +112,9 @@
         google.visualization.events.addListener(chartlogin, 'select', function (e) {
             var selectedItem = chartlogin.getSelection()[0];
             if (selectedItem) {
-                var category = dataTableLastLogin.getValue(selectedItem.row, 0);
-                var value = dataTableLastLogin.getValue(selectedItem.row, 1);
-                window.location.href ="@Url.Action("FindPersonResult", "Person")"; //"../Person/FindPersonResult";
+                var categoryLogin = dataTableSelectLastLogin.getValue(selectedItem.row, 0);
+                var value = dataTableSelectLastLogin.getValue(selectedItem.row, 1);
+                window.location.href = "../Person/FindPersonResult?lastLogin=" + categoryLogin;
             }
         });
         chartlogin.draw(dataTableLastLogin, new google.charts.Bar.convertOptions(option));
