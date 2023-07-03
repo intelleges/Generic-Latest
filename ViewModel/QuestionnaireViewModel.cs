@@ -25,4 +25,14 @@ namespace Generic.ViewModel
         public int CurrentQuestion { get; set; }
         public int CurrentResponse { get; set; }
     }
+    public class QuestionnaireCMSModel
+    {
+        public int? questionnaireId { get; set; }
+        public int? questionnaireCMSId { get; set; }
+        [AllowHtml]
+        public string cmsText { get; set; }
+        public string link { get; set; }
+        public byte[] doc { get; set; }
+        public string uploadedFileType { get; set; }
+    }
 }

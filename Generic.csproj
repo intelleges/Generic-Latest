@@ -6860,6 +6860,7 @@
     <Content Include="Views\Admin\FreeTrial.cshtml" />
     <Content Include="Views\Admin\ScheduleMeeting.cshtml" />
     <Content Include="Views\Person\AddRoles.cshtml" />
+    <Content Include="Views\Questionnaire\EditQuestionCMSDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

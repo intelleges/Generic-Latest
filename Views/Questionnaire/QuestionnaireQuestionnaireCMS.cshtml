@@ -53,7 +53,7 @@ font-size: 100% !important;
             columns.Bound(o => o.questionnaireCMS).Title("CMS").Width(50).Template(@<text><a href='#' id='@item.questionnaireCMS' class="menu_block">@item.questionnaireCMS</a>
 <div class="display_menu" style="display: none;">
     <ul>
-        <li><a href="javascript:openEditPopup(@ViewBag.questionnaire)">Edit/Correct</a></li>
+        <li><a href="javascript:openEditPopup(@ViewBag.questionnaire,@item.questionnaireCMS)">Edit/Correct</a></li>
         <li><a href="javascript:openRemovePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Remove</a></li>
         <li><a href="javascript:openArchivePopup(@ViewBag.questionnaire,'@item.questionnaireCMS')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@ViewBag.questionnaire)">View Detail</a></li>
@@ -208,8 +208,8 @@ font-size: 100% !important;
 
     });
 
-    function openEditPopup(id) {
-        $.get("@Url.Content("~/Questionnaire/EditQuestionCMSDetail/")" + id, function (data) {
+    function openEditPopup(id, cmsId) {
+        $.get("@Url.Content("~/Questionnaire/EditQuestionCMSDetail/")", { id: id, cmsId: cmsId }, function (data) {
             $("#genericPopup").html(data);
         });
 

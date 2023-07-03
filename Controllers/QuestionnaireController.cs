@@ -2799,6 +2799,39 @@ namespace Generic.Controllers
                 return Json(new { Status = false });
             }
         }
+        public ActionResult EditQuestionCMSDetail(int? id, int? cmsId)
+        {
+            QuestionnaireCMSModel model = new QuestionnaireCMSModel();
+            try
+            {
+                var text = string.Empty;
+                var cms = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(id).ToList().Where(x => x.questionnaireCMS == cmsId).FirstOrDefault();
+                model.questionnaireCMSId = cmsId;
+                model.questionnaireId = id;
+                if (cms != null)
+                {
+                    model.cmsText = cms.text;
+                    model.link = cms.link;
+                    model.uploadedFileType = cms.uploadedFileType;
+                    model.doc = cms.doc;
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
 
+            }
+            return View(model);
+        }
+        [HttpPost, ValidateInput(false)]
+        public ActionResult EditQuestionCMSDetail(int questId, int cmsId,string text)
+        {
+            var cms = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(questId).ToList().Where(x => x.questionnaireCMS == cmsId).FirstOrDefault();
+            if (cms != null)
+            {
+                var result = db.pr_modifyQuestionnaireQuestionnaireCMS(questId, cmsId,text, cms.link, cms.doc, cms.uploadedFileType);
+            }
+            return Json(new { Status = true });
+        }
     }
 }
