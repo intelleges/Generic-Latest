@@ -78,6 +78,7 @@ namespace Generic.Areas.RegistrationArea.Models
 
 
 		public bool IsPODS { get; set; }
+        public string Clauses { get; set; }
     }
 
    

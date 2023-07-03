@@ -509,6 +509,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 string pagePanelTwo = string.Empty;
                 string pagePreviousText = string.Empty;
                 string pageNextText = string.Empty;
+                string clauses = string.Empty;
                 switch (pageName)
                 {
                     case "CompanyInformation":
@@ -551,6 +552,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         pagePanelTwo = CMS.ESIGNATURE_PAGE_PANEL_TWO;
                         pagePreviousText = CMS.ESIGNATURE_PAGE_PREVIOUS_TEXT;
                         pageNextText = CMS.ESIGNATURE_PAGE_NEXT_TEXT;
+                        clauses = CMS.CLAUSES;
                         break;
                     case "Finish":
                         pageTitle = CMS.CONFIRMATION_PAGE_TITLE;
@@ -670,6 +672,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     {
                         objViewBagModel.QUESTIONNAIRE_DOC_OTHER_2 = questionnaireDocOther2.ApplyTags(tags);
                     }
+
+                    cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.CLAUSES);
+                    cms_id = cms != null ? cms.id : 0;
+                    var clausText = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
+                    objViewBagModel.Clauses  =  clausText.ApplyTags(tags);
+
                 }
                 if (pageName == "Finish")
                 {
@@ -3378,7 +3386,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
                             objViewBag.ESIGNATURE_PAGE_TEXT = model.ESIGNATURE_PAGE_TEXT;
                         if (model.QUESTIONNAIRE_DOC_OTHER_2 != null)
                             objViewBag.QUESTIONNAIRE_DOC_OTHER_2 = model.QUESTIONNAIRE_DOC_OTHER_2;
-
+                        if (model.Clauses != null)
+                            objViewBag.Clauses = model.Clauses;
                         objViewBag = QuestionnaireMenuLinks(cms, questionnairCmsAll, questionnaire, objViewBag);
                     }
                 }

@@ -2,6 +2,7 @@
 @using System.Web.Mvc.Html
 @using Generic.Areas.RegistrationArea.Models
 @using System.Web.Optimization;
+@using System.Text.RegularExpressions;
 @{
     //Layout = Generic.Helpers.LayoutHelper.GetRegistrationLayout();
     //ViewBag.Title = "CompanyInfomation";
@@ -264,10 +265,45 @@
 <section class="page-inner">
     <div class="small-container">
         @Html.Partial("_TopSection")
+        @if (formData.Clauses != null)
+        {
+            var preamableText = string.Empty;
+            string pattern = @"<Preamble>(.*?)</Preamble>";
+            Match match = Regex.Match(formData.Clauses, pattern, RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                preamableText = match.Groups[1].Value;
+            }
+            var clauseText = string.Empty;
+            pattern = @"<Clause>(.*?)</Clause>";
+            match = Regex.Match(formData.Clauses, pattern, RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                clauseText = match.Groups[1].Value;
+            }
+            var clasueArray = clauseText.Split(new string[] { "||" }, StringSplitOptions.None);
+            <div class="sub-box">
+                <div class="shadow-box padding-none full-width">
+                    <div class="black-box-hd text-center" style="padding:15px 70px;">@Html.Raw(preamableText ?? "")</div>
+                    <div class="row main-content clausesBox">
+                        <ul class="ul-clause">
+                            @if (clasueArray != null)
+                            {
+                                foreach (var item in clasueArray)
+                                {
+                                    <li class="li-clause">@item</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        }
 
         <div class="sub-box">
             <div class="shadow-box padding-none full-width">
-                <div class="black-box-hd text-center" style="padding:15px 70px;">@Html.Raw(formData.ESIGNATURE_PAGE_TEXT??"")</div>
+                <div class="black-box-hd text-center" style="padding:15px 70px;">@Html.Raw(formData.ESIGNATURE_PAGE_TEXT ?? "")</div>
                 <div class="row main-content" id="ctl00_contentQuestionnaireBody_pnlAddEsignature">
                     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formSign" }))
                     {

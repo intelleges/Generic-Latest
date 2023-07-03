@@ -198,6 +198,7 @@ namespace Generic.Helpers.Questionnaire
         public const string SAVE_FOR_LATER_TEXT_NOTICE = "SAVE_FOR_LATER_TEXT_NOTICE";
         public const string QUESTIONNAIRE_DOC_OTHER_2 = "QUESTIONNAIRE_DOC_OTHER_2";
         public const string SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT = "SAVE_FOR_LATER_TEXT_PAGE_NEXT_TEXT";
+        public const string CLAUSES = "CLAUSES";
 
 
     }
