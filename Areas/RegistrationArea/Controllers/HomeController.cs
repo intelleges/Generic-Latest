@@ -15292,7 +15292,14 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            var cms = db.pr_getQuestionnaireCMSAll().ToList().Where(x => x.description == "CLAUSES").FirstOrDefault();
+            if (cms != null)
+            {
+                var clause = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(question.id).ToList().Where(x => x.questionnaireCMS == cms.id).FirstOrDefault();
+                if (clause != null)
+                    ViewBag.Clauses = clause.text;
+            }
+               
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -22305,6 +22312,14 @@ Intelleges Team";
             ViewBag.ReponseList = dict;
             ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID;
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var cms = db.pr_getQuestionnaireCMSAll().ToList().Where(x => x.description == "CLAUSES").FirstOrDefault();
+            if (cms != null)
+            {
+                var clause = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(question.id).ToList().Where(x => x.questionnaireCMS == cms.id).FirstOrDefault();
+                if (clause != null)
+                    ViewBag.Clauses = clause.text;
+            }
             if (pptq != null) return ViewPdf(result, pptq.id, ViewName);
             else throw new Exception("Cannot find pptq");
         }
@@ -22413,7 +22428,14 @@ Intelleges Team";
             ViewBag.ReponseList = dict;
             ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID;
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
-
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var cms = db.pr_getQuestionnaireCMSAll().ToList().Where(x => x.description == "CLAUSES").FirstOrDefault();
+            if (cms != null)
+            {
+                var clause = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(question.id).ToList().Where(x => x.questionnaireCMS == cms.id).FirstOrDefault();
+                if (clause != null)
+                    ViewBag.Clauses = clause.text;
+            }
             // Create the iTextSharp document.
             Document pdfDoc = new Document();
 

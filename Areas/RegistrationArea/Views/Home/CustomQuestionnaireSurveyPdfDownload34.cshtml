@@ -2,6 +2,7 @@
 @using System.Web.Mvc.Html
 @using System.Web.Mvc
 @using Generic.Helpers
+@using System.Text.RegularExpressions
 
 @{
     Layout = null;
@@ -320,71 +321,53 @@
         <br />
         <br />
         <br />*@
+
+    @if (ViewBag.Clauses != null)
+    {
+        var preamableText = string.Empty;
+        pattern = @"<Preamble>(.*?)</Preamble>";
+        Match match = Regex.Match(ViewBag.Clauses, pattern, RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            preamableText = match.Groups[1].Value;
+        }
+        var clauseText = string.Empty;
+        pattern = @"<Clause>(.*?)</Clause>";
+        match = Regex.Match(ViewBag.Clauses, pattern, RegexOptions.IgnoreCase);
+        if (match.Success)
+        {
+            clauseText = match.Groups[1].Value;
+        }
+        var clasueArray = clauseText.Split(new string[] { "||" }, StringSplitOptions.None);
+        string[] farArray = clasueArray.Where(x => x.Contains("FAR") && !x.Contains("DFARS") ).ToArray();
+        string[] dfarsArray = clasueArray.Where(x => x.Contains("DFARS")).ToArray();
+
+        <h3><b>@preamableText </b></h3><table>
+            <tr>
+                <td style="vertical-align:top;">
+                    @if (farArray != null)
+                    {
+                        foreach (var item in farArray)
+                        {
+                            var bText = item.Split(':');
+                            <p><b>@bText[0]:</b>@bText[1]</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @if (dfarsArray != null)
+                    {
+                        foreach (var item in dfarsArray)
+                        {
+                            var bText = item.Split(':');
+                            <p><b>@bText[0]:</b>@bText[1]</p>
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+    }
     <!-- FAR Details -->
-    <h3 style="color: blue; font-size: 14px !important;"><b>The following FAR and DFARS provisions are incorporated by reference. They do not require the completion of any data. Offeror&rsquo;s signature on page One asserts that Offeror complies with each of these provisions.</b></h3>
-    <table>
-        <tr>
-            <td style="vertical-align:top;">
-                <p><b>FAR 52.203-2:</b> Certificate of Independent Price Determination</p>
-
-                <p><b>FAR 52.203-11:</b> Certification and Disclosure Regarding Payments to Influence Certain Federal Transactions</p>
-
-                <p><b>FAR 52.203-18: </b>Prohibition on Contracting with Entities that Require Certain Internal Confidentiality Agreements or Statements &ndash; Representation</p>
-
-                <p><b>FAR 52.204-25:</b> Prohibition of Contracting for Certain Telecommunications and Video Surveillance Services or Equipment</p>
-
-                <p><b>FAR 52.209-2, 52.209-10:</b> Prohibition on Contracting with Inverted Domestic Corporations</p>
-
-                <p><b>FAR 52.212-5: </b>Contract Terms and Conditions Required to Implement Statutes or Executive Orders-Commercial Items</p>
-
-                <p><b>FAR 52.222-38:</b> Compliance with Veterans&rsquo; Employment Reporting Requirements</p>
-
-                <p><b>FAR 52.222-50, 52.222-56:</b> Combating Trafficking in Persons</p>
-
-                <p><b>FAR 52.223-22: </b>Public Disclosure of Greenhouse Gas Emissions and Reduction Goals - Representation.</p>
-
-                <p><b>FAR 52.225-20: </b>Prohibition on Conducting Restricted Business Operations in Sudan - Certification</p>
-
-                <p><b>FAR 52.225-25:</b> Prohibition on Contracting with Entities Engaging in Certain Activities or Transactions Relating to Iran &ndash; Representation and Certifications</p>
-
-                <p><b>FAR 52.227-6: </b>Royalty Information</p>
-            </td>
-            <td>
-                <p><b>DFARS 252.204-7008:</b> Compliance with Safeguarding Covered Defense Information Controls</p>
-
-                <p><b>DFARS 252.204-7012: </b>Safeguarding Covered Defense Information and Cyber Incident Reporting</p>
-
-                <p><b>DFARS 252.204-7019:</b> Notice of NIST SP 800-171 DoD Assessment Requirements</p>
-
-                <p><b>DFARS 252.204-7020:</b> NIST SP 800-171 DoD Assessment Requirements</p>
-
-                <p><b>DFARS 252.204-7021: </b>Cybersecurity Maturity Model Certification Requirement</p>
-
-                <p><b>DFARS 252.209-7002: </b>Disclosure of Ownership or Control by a Foreign Government</p>
-
-                <p><b>DFARS 252.216-7008:</b> Economic Price Adjustment - Wage Rates or Material Prices Controlled by a Foreign Government - Representation.</p>
-
-                <p><b>DFARS 252.225-7000:</b> Buy American - Balance of Payments Program Certificate</p>
-
-                <p><b>DFARS 252.225-7003:</b> Report of Intended Performance Outside the United States and Canada-Submission with Offer</p>
-
-                <p><b>DFARS 252.225-7031:</b> Secondary Arab Boycott of Israel</p>
-
-                <p><b>DFARS 252.225-7042:</b> Authorization to Perform</p>
-
-                <p><b>DFARS 252.225-7049: </b>Prohibition on Acquisition of Certain Foreign Commercial Satellite Services - Representations</p>
-
-                <p><b>DFARS 252.225-7050:</b> Disclosure of Ownership or Control by the Government of a country that is a State Sponsor of Terrorism (Is Not)</p>
-
-                <p><b>DFARS 252.229-7012:</b> Tax Exemptions (Italy) - Representation</p>
-
-                <p><b>DFARS 252.229-7013:</b> Tax Exemptions (Spain) - Representation</p>
-
-                <p><b>DFARS 252.239-7011:</b> Special Construction and Equipment Charges</p>
-
-                <p><b>DFARS 252.247-7023:</b> Transportation of Supplies by Sea (Alternate I, II)</p>
-            </td>
-        </tr>
-    </table>
+   
 </body>
 </html>
