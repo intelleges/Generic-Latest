@@ -5985,6 +5985,87 @@ namespace Generic.Controllers
             }
             return Json(new { data = message }, JsonRequestBehavior.AllowGet);
         }
+       [HttpPost]
+        public ActionResult GetAutomailMessageDetail(int automailMessageId)
+        {
+            try
+            {
+                var detail = db.pr_getAutomailMessage(automailMessageId).FirstOrDefault();
+                return Json(new { Status = true , AutoMailMessage= detail.text, AutomailSubject= detail.subject });
+               
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false });
+            }
+        }
+        [HttpPost ]
+        public async  Task<ActionResult> GetSuggestionForAutomail(string autoMailSubject)
+        {
+            List<string> suggestion = new List<string>();
+            try
+            {
+                var payloadList = new List<dynamic>();
+
+                var dictionary = new Dictionary<string, string>();
+                dictionary["role"] = "system";
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.Append("Now I need the supplier to respond to this [third reminder] email request and complete the " + autoMailSubject);
+                stringBuilder.Append(". Please provide three suggestions based on the following text that can increase the response rate to my email.");
+                dictionary["content"] = stringBuilder.ToString() ;
+
+                payloadList.Add(dictionary);
+                var serializeObject = JsonConvert.SerializeObject(payloadList);
+                //string apiKey = "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";
+                string apiKey = "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";
+                string apiUrl = "https://api.openai.com/v1/chat/completions";
+                string message = string.Empty;
+                using (var httpClient = new HttpClient())
+                {
+                    using (var request = new HttpRequestMessage(new HttpMethod("POST"), apiUrl ))
+                    {
+                        request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey}");
+                        request.Content = new StringContent("{\n    \"model\": \"gpt-3.5-turbo\",\n    \"messages\": " + serializeObject + "\n  }");
+                        request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                        request.Headers.Add("User-Agent", "GSS/OpenAI_GPT3");
+                        var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                        message = responseData.choices[0].message.content;
+                    }
+                }
+                //if (!string.IsNullOrWhiteSpace(message))
+                //{
+                //    string[] arr= message
+                //}
+                return Json(new { Status = true, AutoMailMessageSuggestion = message });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false });
+            }
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public ActionResult UpdateAutoMailMessage(int automailMessageId,string MailMessage)
+        {
+            try
+            {
+                var detail = db.pr_getAutomailMessage(automailMessageId).FirstOrDefault();
+                if(detail!=null)
+                {
+                    var result = db.pr_modifyAutomailMessage(automailMessageId, detail.subject, MailMessage, detail.footer1, detail.footer2, detail.sendDateCalcFactor, detail.sendDateSet, detail.mailType, detail.partnerTypeTouchpointQuestionnaire);
+                }
+
+                return Json(new { Status = true});
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = false });
+            }
+        }
     }
 
 }

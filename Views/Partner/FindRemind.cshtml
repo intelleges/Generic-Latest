@@ -3,108 +3,129 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 @{
-	Layout = LayoutHelper.GetLayout();
-	ViewBag.Title = "Partner";
+    Layout = LayoutHelper.GetLayout();
+    ViewBag.Title = "Partner";
 }
 
 <style>
-	div#PartnerGrid {
-		font-size: 11px;
-	}
+    div#PartnerGrid {
+        font-size: 11px;
+    }
 
-	#modal {
-		height: 489px;
-	}
+    #modal {
+        height: 489px;
+    }
 
-	.ui-dialog {
-		width: 99% !important;
-		left: 0;
-	}
+    .ui-dialog {
+        width: 99% !important;
+        left: 0;
+    }
 
-	.ui-progressbar {
-    position: relative;
-  }
-  .progress-label {
-    position: absolute;
+    .ui-progressbar {
+        position: relative;
+    }
+    .btndialogs {
+        margin-right: 12px !important;
+    }
+    .clsSuggest {
+        overflow: scroll;
+        max-height: 324px;
+        float: left;
+        overflow-x: hidden;
+        margin-bottom: 15px;
+    }
+
+    .aSuggestion {
+        float: left;
+        width: 31px;
+    }
+
+    .progress-label {
+        position: absolute;
         width: 100%;
-    text-align: center;
-    top: 4px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #fff;
-  }
-	.fancybox-inner .buttons {
-		float: right!important;
-	}
+        text-align: center;
+        top: 4px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #fff;
+    }
 
-	.fancybox-inner .buttons .btn {
-		width: 100px;
-	}
+    .fancybox-inner .buttons {
+        float: right !important;
+    }
 
-	.fancybox-inner p {
-		min-height:40px;
-	}
+        .fancybox-inner .buttons .btn {
+            width: 100px;
+        }
+
+    .fancybox-inner p {
+        min-height: 40px;
+    }
 </style>
 
 
 
 
 <div class="tw-bs">
-	<div class="container">
-		<div class="modal fade" id="emailDialog" role="dialog" aria-hidden="true">
-			<div class="modal-dialog" style="z-index:1041">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span><span class="sr-only"></span>
-						</button>
-						<h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
-					</div>
-					<div class="modal-body">
-						<form id="madalEmailForm">
-							@if (ViewBag.DropDownSubjects != null)
-							{
-								<div class="form-group">
+    <div class="container">
+        <div class="modal fade" id="emailDialog" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="z-index:1041">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">E-Mail to partner</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="madalEmailForm">
+                            @if (ViewBag.DropDownSubjects != null)
+                            {
+                                <div class="form-group">
 
-									<label class="control-label" for="emailSubject">Automail</label>
+                                    <label class="control-label" for="emailSubject">Automail</label>
 
-									@Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
+                                    @Html.DropDownList("DropDownSubjects", (IEnumerable<SelectListItem>)ViewBag.DropDownSubjects, "Please select automail", htmlAttributes: new { @class = "form-control", onchange = "dropDownSubjectsChanged()" })
 
-								</div>
-							}
-							<div class="form-group">
+                                </div>
+                            }
+                            <div class="form-group">
 
-								<label class="control-label" for="emailSubject">Subject</label>
+                                <label class="control-label" for="emailSubject">Subject</label>
 
-								<input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
-								<span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
+                                <input id="emailSubject" name="emailSubject" class="form-control" type="text" placeholder="Please Enter subject" data-val-required="*" data-val="true" />
+                                <span data-valmsg-replace="true" data-valmsg-for="emailSubject" class="field-validation-valid help-inline" />
 
 
-							</div>
-							<div class="form-group">
-								<label class="control-label" for="emailText">Text</label>
-								<input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
-								<textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
-								<span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
-								<script>
-									// Replace the <textarea id="editor1"> with a CKEditor
-									// instance, using default configuration.
-                                    CKEDITOR.replace('emailText',{
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="emailText">Text</label>
+                                <input type="button" class="circleButton" id="btnTips" title="toogle email tips" style="margin-left:500px;padding-bottom: 3px;" />
+                                <textarea id="emailText" name="emailText" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                                <span data-valmsg-replace="true" data-valmsg-for="emailText" class="field-validation-valid help-inline" />
+                                <script>
+                                    // Replace the <textarea id="editor1"> with a CKEditor
+                                    // instance, using default configuration.
+                                    CKEDITOR.replace('emailText', {
                                         extraAllowedContent: 'p{*}(tip)'
                                     });
-								</script>
-							</div>
-							<div class="form-group">
-								<label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
-								<input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
-							</div>
-							<div class="form-group">
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="EmailAttachmentUpload">Attachment (optional)</label>
+                                <input class="form-control" id="EmailAttachmentUpload" type="file" name="EmailAttachmentUpload" multiply />
+                            </div>
+                            <div class="form-group">
                                 <div class="row" style="height:34px;">
                                     <div class="col-xs-6">
-                                        <button type="submit" class="btn btn-primary" name="submit">Send</button>
+                                        <button type="submit" class="btn btn-primary btndialogs" name="submit">Send</button>
+                                   
+                                        <button type="button" class="btn btn-primary btndialogs" id="btnEdit" name="edit">Edit</button>
+                                   
+                                        <button type="button" class="btn btn-primary btndialogs" name="submit">Save</button>
                                     </div>
                                     <div class="col-xs-3">
                                         <div class="checkbox">
-                                            <label style="font-size: 14px;"><input type="checkbox" id="reset" name="reset"/>Reset</label>
+                                            <label style="font-size: 14px;"><input type="checkbox" id="reset" name="reset" />Reset</label>
                                         </div>
                                     </div>
                                     <div class="col-xs-3">
@@ -113,26 +134,26 @@
                                         </div>
                                     </div>
                                 </div>
-							</div>
+                            </div>
 
 
-						</form>
+                        </form>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="send-email-progress" style="display:none;">
-	<div style="padding: 10px 20px;">
-		<div id="progressbar"><div class="progress-label">Loading...</div></div>
-		<p id="progress-note"></p>
-		<div class="tw-bs buttons">
-			<button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
-		</div>
-	</div>
+    <div style="padding: 10px 20px;">
+        <div id="progressbar"><div class="progress-label">Loading...</div></div>
+        <p id="progress-note"></p>
+        <div class="tw-bs buttons">
+            <button type="button" class="btn btn-primary" onclick="$.fancybox.close();">Close</button>
+        </div>
+    </div>
 </div>
 
 <form method="post" id="gridForm">
@@ -263,44 +284,132 @@
 
 	)
 </form>
+
+<div class="tw-bs">
+    <div class="container">
+        <div class="modal fade" id="mailDialog" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="z-index:1041">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Automail Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="madalEmailForm">
+
+                            <div class="form-group">
+                                <input type="hidden" id="txtSubject" />
+                                <label class="control-label" for="txtMessage">Automail Message</label>
+                                <textarea id="txtMessage" name="txtMessage" class="form-control" placeholder="Please Enter Text" data-val-required="*" data-val="true"></textarea>
+                                <span data-valmsg-replace="true" data-valmsg-for="txtMessage" class="field-validation-valid help-inline" />
+                                <script>
+                                    // Replace the <textarea id="editor1"> with a CKEditor
+                                    // instance, using default configuration.
+                                    CKEDITOR.replace('txtMessage', {
+                                        extraAllowedContent: 'p{*}(tip)'
+                                    });
+                                </script>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row" style="height: 34px;">
+                                    <div class="col-xs-6">
+                                        <button type="button" id="btnOK" class="btn btn-primary btndialogs" name="btnOK">OK</button>
+                                    
+                                        <button type="button" id="btnSuggest" class="btn btn-primary btndialogs" name="btnSuggest">Suggest</button>
+                                   
+                                        <button type="button" id="btnCancel" class="btn btn-primary btndialogs" name="btnCancel">Cancel</button>
+                                    </div>
+                                    <div class="col-xs-6"></div>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tw-bs">
+    <div class="container">
+        <div class="modal fade" id="suggestionDialog" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="z-index:1041">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                        </button>
+                        <h4 class="modal-title" id="gpsLabel">Automail Message Suggestion</h4>
+                    </div>
+                    <div class="modal-body" style=" height:420px !important;">
+
+                        <div id="dvSuggestion" class="form-group">
+                            <div class="row">
+                                @*<div class="col-md-2"> <input type="radio" class="aSuggestion" name="quest" value="1"></div>*@
+                                <div class="col-md-12">
+                                    <div class="clsSuggest" id="dvSuggestContent"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row" style="height: 34px;">
+                                <div class="col-xs-6">
+                                    <button type="button" id="btnSubmit" class="btn btn-primary btndialogs" name="btnSubmit">Submit</button>
+                                    <button type="button" id="btnTryAgain" class="btn btn-primary btndialogs" name="btnTryAgain">Try Again</button>
+                                    <button type="button" id="btnSuggestCancel" class="btn btn-primary btndialogs" name="btnCancel">Cancel</button>
+                                </div>
+                                <div class="col-xs-6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="genericPopup" title=""></div>
 <style>
-	.t-grid-content tr > td:hover .menu_block + .display_menu {
-		display: block !important;
-	}
+    .t-grid-content tr > td:hover .menu_block + .display_menu {
+        display: block !important;
+    }
 
-	.display_menu {
-		left: 65px;
-		overflow: visible;
-		position: absolute;
-		top: -5px;
-		background: #fff;
-		border: 1px solid #ddd;
-		z-index: 100;
-	}
+    .display_menu {
+        left: 65px;
+        overflow: visible;
+        position: absolute;
+        top: -5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        z-index: 100;
+    }
 
-	.t-grid-content tr > td {
-		overflow: visible !important;
-		position: relative;
-	}
+    .t-grid-content tr > td {
+        overflow: visible !important;
+        position: relative;
+    }
 
-	.display_menu > ul {
-		padding: 0 16px;
-	}
+    .display_menu > ul {
+        padding: 0 16px;
+    }
 
-	.display_menu li {
-		list-style: none outside none;
-		width: 143px;
-	}
-
-	  
+    .display_menu li {
+        list-style: none outside none;
+        width: 143px;
+    }
 </style>
 
 @section scripts{
-	@System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-	@*<script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>
-		<script src="~/Scripts/bootstrap.js"></script>*@
-	<script src="~/Scripts/validator.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+    @*<script src="~/Scripts/jquery-ui-1.9.2.min.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>*@
+    <script src="~/Scripts/validator.js"></script>
 
     <script type="text/javascript">
         var footer2 = null;
@@ -326,7 +435,7 @@
 		$(function () {
 
 			//$("#innerEmailDialog").dialog({
-			//    autoOpen: false
+			//    autoOpen: false+
 			//});
 			$("#emailDialog").submit(function (e) {
 
@@ -448,6 +557,78 @@
 				}
 			});
 
+			$("#btnEdit").click(function () {
+				var val = $("#DropDownSubjects").val();
+				if (val == "") {
+					alertify.alert("Please select an Automail message");
+					return false;
+				}
+				else {
+                    $.post("GetAutomailMessageDetail", { automailMessageId: val }, function (data) {
+
+                        if (data.Status == false) {
+                            alertify.alert("There is an error occurred while getting AutoMail Message!!!");
+                            return false;
+                        }
+						else {
+                            var detail = data.AutoMailMessage;
+							var subject = data.AutomailSubject;
+							$("#txtSubject").val(subject);
+                            CKEDITOR.instances["txtMessage"].setData(detail);
+							$("#mailDialog").modal("toggle");
+                        }
+                    });
+                }
+			});
+			$("#btnCancel").click(function () {
+                $("#mailDialog").modal("toggle");
+			});
+			$("#btnOK").click(function () {
+				var autoMessageId = $("#DropDownSubjects").val();
+				var message = CKEDITOR.instances["txtMessage"].getData();
+				$.post("UpdateAutoMailMessage", { automailMessageId: autoMessageId, MailMessage: message }, function (data) {
+                    if (data.Status == false) {
+                        alertify.alert("There is an error occurred while Updating AutoMail Message!!!");
+                        return false;
+                    }
+					else {
+						alertify.alert("AutoMail Message is updated successfully !!!");
+						$("#mailDialog").modal("toggle");
+						dropDownSubjectsChanged();
+						return true;
+                    }
+                });
+			});
+			$("#btnSuggest").click(function () {
+				var subject = $("#txtSubject").val();
+                $.post("GetSuggestionForAutomail", { autoMailSubject: subject }, function (data) {
+                    if (data.Status == false) {
+                        alertify.alert("There is an error occurred while getting Suggestions!!!");
+                        return false;
+                    }
+                    else {
+						$('#dvSuggestContent').html(data.AutoMailMessageSuggestion.replace(/\n/g,'<br>'));
+                        $("#suggestionDialog").modal("toggle");
+                    }
+                });
+			});
+			$('#btnTryAgain').click(function () {
+                $("#suggestionDialog").modal("toggle");
+                var subject = $("#txtSubject").val();
+                $.post("GetSuggestionForAutomail", { autoMailSubject: subject }, function (data) {
+                    if (data.Status == false) {
+                        alertify.alert("There is an error occurred while getting Suggestions!!!");
+                        return false;
+                    }
+                    else {
+                        $('#dvSuggestContent').html(data.AutoMailMessageSuggestion.replace(/\n/g, '<br>'));
+                        $("#suggestionDialog").modal("toggle");
+                    }
+                });
+			});
+            $("#btnSuggestCancel").click(function () {
+				$("#suggestionDialog").modal("toggle");
+			});
 		});
 
         function sendEmailByPptq(nextIndex, progressbar, progressLabel, pptqs) {
@@ -706,8 +887,8 @@
 }
 
 @section header{
-	<script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
-	<link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
+    <script src="//cdn.ckeditor.com/4.4.7/basic/ckeditor.js"></script>
+    <link href="http://lab.jakiestfu.com/contextjs/context.bootstrap.css" rel="stylesheet" />
 }
 
 
