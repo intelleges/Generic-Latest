@@ -245,6 +245,8 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
 
                 var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
+                if (ppptq_cms != null && (ppptq_cms.pdf != null && ppptq_cms.status == 8))
+                    return RedirectToAction("PDFCustomizedConfirmation", new { accessCode= accessCode });
                 ViewBag.EmailVerification = false;
                 Session["CheckEmailAccessCode"] = true;
                 var cmsId = 0;
@@ -22719,9 +22721,12 @@ Intelleges Team";
         }
 
 
-        public ActionResult PDFCustomizedConfirmation(string filename = null)
+        public ActionResult PDFCustomizedConfirmation(string filename = null,string accessCode=null)
         {
-            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            if (string.IsNullOrWhiteSpace(accessCode))
+                accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            else
+                Session["accessCode"] = accessCode;
             if (!String.IsNullOrEmpty(accessCode))
             {
                 var _pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
