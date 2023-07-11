@@ -160,6 +160,9 @@
                     alertify.alert(data.Data.message);
                 }
             });
+            if ($("#internalID").val() != "") {
+                changeInrenalId();
+            }
         });
 
         var formData = {};
