@@ -3866,7 +3866,7 @@ Intelleges Team";
 
                             var pptqID = objPartner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
                             var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
-                            if (pdf == null)
+                            if (pdf == null || pdf.Length==0)
                             {
                                 pdf = GetCustomizedPDFConfirmationFile();
                             }
