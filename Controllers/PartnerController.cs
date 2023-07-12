@@ -2365,7 +2365,7 @@ namespace Generic.Controllers
                         partner = pptqObj.partner1,
                         ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                         touchpoint = objtouchpoint
-                    }, new System.Net.Mail.MailAddress(person.email, person.FullName));
+                    }, new System.Net.Mail.MailAddress(person.email, person.FullName),null,pdfFileData);
                     var admin = db.pr_getPerson(objtouchpoint.admin).FirstOrDefault();
                     if (admin != null)
                     {
