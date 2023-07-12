@@ -3864,10 +3864,24 @@ Intelleges Team";
                             email.accesscode = accessCode;
                             email.protocolTouchpoint = objtouchpoint.description;
 
+                            var pptqID = objPartner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                            var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
+                            if (pdf == null)
+                            {
+                                pdf = GetCustomizedPDFConfirmationFile();
+                            }
                             SendEmail objSendEmail = new SendEmail();
                             try
                             {
-                                objSendEmail.sendEmail(email, new EmailFormatSettings() { enterprise = _enterprise, partner = objPartner, ptq = ptq.id, sender = person, touchpoint = objtouchpoint });
+                                objSendEmail.sendEmail(email, new EmailFormatSettings() { enterprise = _enterprise, partner = objPartner, ptq = ptq.id, sender = person, touchpoint = objtouchpoint }, null, null, pdf);
+                                var admin = db.pr_getPerson(objtouchpoint.admin).FirstOrDefault();
+                                if (admin != null)
+                                {
+                                    email.subject = "Manual Upload -- " + email.subject;
+                                    email.emailTo = admin.email;
+                                    objSendEmail = new SendEmail();
+                                    objSendEmail.sendEmail(email, new EmailFormatSettings() { enterprise = _enterprise, partner = objPartner, ptq = ptq.id, sender = admin, touchpoint = objtouchpoint }, null, null, pdf);
+                                }
                             }
                             catch (FormatException ex)
                             {
@@ -22167,6 +22181,37 @@ Intelleges Team";
             return View("MoogCustomizedQuestionnaireSurveyPdfDownload6");
         }
 
+        public byte[] GetCustomizedPdfFile(int pptqID, string ViewName, string header = "")
+        {
+            string htmltext = this.RenderActionResultToString(this.View(ViewName));  //name of the view...
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            if (question != null && question.footer == "4")
+            {
+                htmltext = htmltext.Replace("Honeywell", "Moog").Replace("honeywell", "moog").Replace("HONEYWELL", "MOOG");
+            }
+            string PDF_FileName = "HON_" + accessCode.Substring(1, 4) + ".pdf";
+            byte[] bytes = null;
+            string dirname = "~/uploadedFiles/";
+            if (Directory.Exists(Server.MapPath(dirname)))
+            {
+                var fileName = Server.MapPath(dirname) + PDF_FileName;
+                if (System.IO.File.Exists(fileName))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(fileName);
+                    }
+                    catch { }
+                }
+                var pdfCreator = new NReco.PdfGenerator.HtmlToPdfConverter();
+                pdfCreator.PageHeaderHtml = header;
+                bytes = (pdfCreator).GeneratePdf(htmltext);
+               
+            }
+            return bytes;
+        }
+
         protected ActionResult ViewCustomizedPdf(int pptqID, string ViewName, string header = "")
         {
             string htmltext = this.RenderActionResultToString(this.View(ViewName));  //name of the view...
@@ -22768,6 +22813,350 @@ Intelleges Team";
             return Json(db.pr_getQuestionResponseNarrativeSelectionListByQuestion(question).ToList(), JsonRequestBehavior.AllowGet);
 
         }
+
+        public byte[] GetCustomizedPDFConfirmationFile()
+        {
+            string ViewName = string.Empty;
+            int pptqID = 0;
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            if (question != null && (question.footer == "3"))
+            {
+                pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "2"))
+            {
+                pptqID = FillPdfHtml(ViewBag, db, Session, Server);
+                ViewName = "CustomizedQuestionnaireSurveyPdfDownload";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "4"))
+            {
+
+            }
+            else if (question != null && (question.footer == "5"))
+            {
+                pptqID = FillMOOGPdfHtml(ViewBag, db, Session, Server);
+                ViewName = "MoogCustomizedQuestionnaireSurveyPdfDownload";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "6"))
+            {
+                pptqID = FillMOOGPdfHtml6(ViewBag, db, Session, Server);
+                ViewName = "MoogCustomizedQuestionnaireSurveyPdfDownload6";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && question.footer == "7")
+            {
+                pptqID = FillPODPdfHtml(ViewBag, db, Session, Server);
+                ViewName = "PODQuestionnaireSurveyPdfDownload";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && question.footer == "8")
+            {
+                pptqID = FillPODPdfHtml8(ViewBag, db, Session, Server);
+                ViewName = "PODQuestionnaireSurveyPdfDownload8";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && question.footer == "9")
+            {
+                pptqID = FillPODPdfHtml9(ViewBag, db, Session, Server);
+                ViewName = "PODQuestionnaireSurveyPdfDownload9";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "10"))
+            {
+                pptqID = FillCustomPdfHtml10(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload10";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "11"))
+            {
+                pptqID = FillCustomPdfHtml11(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload10";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && question.footer == "12")
+            {
+                pptqID = FillPODPdfHtml12(ViewBag, db, Session, Server);
+                ViewName = "PODQuestionnaireSurveyPdfDownload12";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && question.footer == "22")
+            {
+                pptqID = FillPODPdfHtml22(ViewBag, db, Session, Server);
+                ViewName = "PODQuestionnaireSurveyPdfDownload22";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "14"))
+            {
+                pptqID = FillCustomPdfHtml14(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload14";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "23"))
+            {
+                pptqID = FillCustomPdfHtml23(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload23";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "25"))
+            {
+                pptqID = FillCustomPdfHtml25(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload25";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "27"))
+            {
+                pptqID = FillCustomPdfHtml27(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload27";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "28"))
+            {
+                pptqID = FillCustomPdfHtml28(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload28";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "29"))
+            {
+                pptqID = FillCustomPdfHtml29(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload29";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "26"))
+            {
+                pptqID = FillCustomPdfHtml26(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload26";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "16"))
+            {
+                pptqID = FillCustomPdfHtml16(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload16";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "17"))
+            {
+                pptqID = FillCustomPdfHtml17(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload17";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "18"))
+            {
+                pptqID = FillCustomPdfHtml18(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload18";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "19"))
+            {
+                pptqID = FillCustomPdfHtml19(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload19";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "20"))
+            {
+                pptqID = FillCustomPdfHtml20(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload20";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "21"))
+            {
+                pptqID = FillCustomPdfHtml21(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload21";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "30"))
+            {
+                pptqID = FillCustomPdfHtml30(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload30";
+                //Headre -<div style='padding-top:10px; padding-bottom:10px;' ><img height='30' width='180' src='" + Server.MapPath("~/Contents/Images/Battelle.png") + "' align='right' /></div>
+                return GetCustomizedPdfFile(pptqID, ViewName, "");
+            }
+            else if (question != null && (question.footer == "31"))
+            {
+                pptqID = FillCustomPdfHtml31(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload31";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "32"))
+            {
+                pptqID = FillCustomPdfHtml32(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload32";
+                //Headre -<div style='padding-top:10px; padding-bottom:10px;' ><img height='30' width='180' src='" + Server.MapPath("~/Contents/Images/Battelle.png") + "' align='right' /></div>
+                return GetCustomizedPdfFile(pptqID, ViewName, "");
+            }
+            else if (question != null && (question.footer == "33"))
+            {
+                pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload33";
+                return GetCustomizedPdfFile(pptqID, ViewName, "");
+            }
+            else if (question != null && (question.footer == "34"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload34";
+                return GetCustomizedStandardPDF(ViewName, "34");
+            }
+            else if (question != null && (question.footer == "35"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload35";
+                return GetCustomizedStandardPDF(ViewName);
+            }
+            else if (question != null && (question.footer == "36"))
+            {
+                pptqID = FillCustomPdfHtml36(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload36";
+                //Headre -<div style='padding-top:10px; padding-bottom:10px;' ><img height='30' width='180' src='" + Server.MapPath("~/Contents/Images/Battelle.png") + "' align='right' /></div>
+                return GetCustomizedPdfFile(pptqID, ViewName, "");
+            }
+            else if (question != null && (question.footer == "37"))
+            {
+                pptqID = FillCustomPdfHtml37(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload37";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "38"))
+            {
+                pptqID = FillCustomPdfHtml38(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload38";
+                return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "39"))
+            {
+                pptqID = FillCustomPdfHtml39(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload39";
+                return GetCustomizedPdfFile(pptqID, ViewName, "");
+            }
+            // else return PDFConfirmation();
+            pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
+            ViewName = "CustomQuestionnaireSurveyPdfDownload";
+            return GetCustomizedPdfFile(pptqID, ViewName, "");
+        }
+        public byte[] GetCustomizedStandardPDF(string ViewName, string footer = "0")
+        {
+            var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
+                db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
+
+            if (footer == "34")
+            {
+                var tinEinNumber = result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
+                if (tinEinNumber != null && tinEinNumber != "")
+                {
+                    string[] answerArray = tinEinNumber.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (answerArray.Length > 1)
+                    {
+                        ViewBag.TINEINNumber = answerArray[1];
+                    }
+                    else
+                    {
+                        ViewBag.TINEINNumber = "Not Available";
+                    }
+                }
+
+                var ueiNumber = result.Where(q => q.question.Contains("UEI Number")).Select(s => s.description).FirstOrDefault();
+                if (ueiNumber != null && ueiNumber != "")
+                {
+                    string[] answerArray = ueiNumber.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                    if (answerArray.Length > 1)
+                    {
+                        ViewBag.UEINumber = answerArray[1];
+                    }
+                    else
+                    {
+                        ViewBag.UEINumber = "Not Available";
+                    }
+                }
+            }
+            var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.reslt2 = find;
+            var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq =
+                db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode)
+                    .FirstOrDefault();
+            if (pptq != null)
+            {
+                var _partnerId = pptq.partner;
+                var _partner = db.pr_getPartner(_partnerId).FirstOrDefault();
+                ViewBag.partner = _partner;
+
+                if (_partner != null)
+                {
+                    var _country = db.pr_getCountry(_partner.country).FirstOrDefault();
+                    ViewBag.country = _country != null ? _country.name : string.Empty;
+                }
+
+                if (_partner != null)
+                {
+                    var _state = db.pr_getState(_partner.state).FirstOrDefault();
+                    ViewBag.state = _state != null ? _state.stateCode : string.Empty;
+                }
+            }
+
+            var resRes = result.Where(o => (o.description ?? "").EndsWith("--Automated")).ToList();
+            foreach (var item in resRes)
+                item.description = item.description.Replace("--Automated", "");
+
+            var qids = result.Where(o => !string.IsNullOrEmpty(o.description) && o.description.Contains("||")).Select(o => o.qid).ToList();
+            Dictionary<int, List<pr_getQuestionResponseByQuestion_Result>> dict = new Dictionary<int, List<pr_getQuestionResponseByQuestion_Result>>();
+            foreach (var item in qids)
+            {
+                List<pr_getQuestionResponseByQuestion_Result> list = db.pr_getQuestionResponseByQuestion(item).ToList();
+                dict.Add(item, list);
+            }
+
+            ViewBag.ReponseList = dict;
+            ViewBag.logoSrc = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Action("LogoStandardPDF", "home") + "?enterpriseID=" + Generic.Helpers.CurrentInstance.EnterpriseID;
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var cms = db.pr_getQuestionnaireCMSAll().ToList().Where(x => x.description == "CLAUSES").FirstOrDefault();
+            if (cms != null)
+            {
+                var clause = db.pr_getQuestionnaireQuestionnaireCMSByQuestionnaire(question.id).ToList().Where(x => x.questionnaireCMS == cms.id).FirstOrDefault();
+                if (clause != null)
+                    ViewBag.Clauses = clause.text;
+            }
+            if (pptq != null) return GetStandardPdf(result, pptq.id, ViewName);
+            else throw new Exception("Cannot find pptq");
+        }
+        protected byte[] GetStandardPdf(object model, int pptqID, string viewName = "QuestionnaireResponsePdfDownload")
+        {
+            // Create the iTextSharp document.
+            Document pdfDoc = new Document();
+
+            MemoryStream memStream = new MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
+            writer.CloseStream = false;
+            pdfDoc.Open();
+
+            string htmltext = this.RenderActionResultToString(this.View(viewName, model));
+            EmailFormat formatter = new EmailFormat();
+            var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
+            var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
+            htmltext = formatter.sGetEmailBody(htmltext, null, partner, quest.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
+            //name of the view...
+            var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
+
+            //Get each array values from parsed elements and add to the PDF document
+            foreach (var htmlElement in parsedHtmlElements)
+                pdfDoc.Add(htmlElement as IElement);
+
+            //Close your PDF
+            pdfDoc.Close();
+
+            // Close and get the resulted binary data.
+            pdfDoc.Close();
+            byte[] buf = new byte[memStream.Position];
+            memStream.Position = 0;
+            memStream.Read(buf, 0, buf.Length);
+
+            return buf;   
+        }
+
     }
 
     public class Tags
