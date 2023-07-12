@@ -2323,14 +2323,16 @@ namespace Generic.Controllers
                     int? personId = SessionSingleton.LoggedInUserId;
                     db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(pptq, pdfFileData, person.id, "manual");
                     db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq, status);
-                    SendManualUploadEmail(accessCode, person, pptq);
+                   
+                    SendManualUploadEmail(accessCode, person, pptq, pdfFileData);
+
                     return Json(new { data = true }, JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new { data = false }, JsonRequestBehavior.AllowGet);
         }
 
-        private void SendManualUploadEmail(string accessCode, person person, int? pptq)
+        private void SendManualUploadEmail(string accessCode, person person, int? pptq, byte[] pdfFileData = null)
         {
             var pptqObj = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
             if (null != pptqObj)
@@ -2353,6 +2355,7 @@ namespace Generic.Controllers
                     email.category = SendGridCategory.CompleteConfirmation;
                     email.automailMessage = response.id.ToString();
                     email.type = "emailAlert";
+                    
 
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email, new EmailFormatSettings()
@@ -2363,6 +2366,21 @@ namespace Generic.Controllers
                         ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                         touchpoint = objtouchpoint
                     }, new System.Net.Mail.MailAddress(person.email, person.FullName));
+                    var admin = db.pr_getPerson(objtouchpoint.admin).FirstOrDefault();
+                    if (admin != null)
+                    {
+                        email.subject = "Manual Upload -- " + email.subject;
+                        email.emailTo = admin.email;
+                        objSendEmail = new SendEmail();
+                        objSendEmail.sendEmail(email, new EmailFormatSettings()
+                        {
+                            sender = admin,
+                            enterprise = pptqObj.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1,
+                            partner = pptqObj.partner1,
+                            ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
+                            touchpoint = objtouchpoint
+                        }, new System.Net.Mail.MailAddress(admin.email, admin.FullName),null, pdfFileData);
+                    }
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace Generic.Helpers.Utility
             //
         }
        
-        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null, List<AttachmentInfo> attachments = null)
+        public string sendEmail(Email email, EmailFormatSettings settings, MailAddress sendFrom = null, List<AttachmentInfo> attachments = null, byte[] pdfBytes=null)
         {
             EntitiesDBContext db = new EntitiesDBContext();
             string returnValue = "";
@@ -221,10 +221,23 @@ namespace Generic.Helpers.Utility
                     });
                 }
             }
+            if (pdfBytes != null)
+            {
+                string attachmentBase64 = Convert.ToBase64String(pdfBytes);
+                attachments2.Add(new SendGrid.Helpers.Mail.Attachment()
+                {
+                    Content = attachmentBase64,
+                    Disposition = "attachment",
+                    Type = "application/pdf",
+                    Filename = settings.touchpoint.title + "_" + email.accesscode + ".pdf"
+                });
+            }
 
             if (attachments2.Count > 0)
                 msg.AddAttachments(attachments2);
+
             additionalArguments.Add("tags", tags);
+
             string html = email.body.Replace("\n", "<br />").Replace("\t", "&nbsp&nbsp&nbsp&nbsp&nbsp");
 
             if (sendFrom == null)
