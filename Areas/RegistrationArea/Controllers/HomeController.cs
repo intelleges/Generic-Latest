@@ -3687,7 +3687,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             ViewBagModel objViewBag = new ViewBagModel();
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
-
+            var pptqID = 0;
             if (ppptq_cms != null)
             {
                 _translator.PPTQ = ppptq_cms;
@@ -3704,6 +3704,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var result1 = db.pr_checkForInvalidZcode(ppptq_cms.id, ppptq_cms.zcode);
 
                 var zCodeActionType = result1.FirstOrDefault();
+                 pptqID = objPartner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
 
                 //if (isCompletedSurvey && TempData["IncorrectZipCode"] == null)
                 if (isCompletedSurvey)
@@ -3864,7 +3865,7 @@ Intelleges Team";
                             email.accesscode = accessCode;
                             email.protocolTouchpoint = objtouchpoint.description;
 
-                            var pptqID = objPartner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                         
                             var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
                             if (pdf == null || pdf.Length==0)
                             {
@@ -3982,8 +3983,9 @@ Intelleges Team";
                 objViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT = !string.IsNullOrEmpty(model.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT) ? model.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT : objViewBag.CONFIRMATION_PAGE_SIGNOFF_INCOMPLETE_STATEMENT;
 
             }
+            eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptqID).FirstOrDefault();
             ViewBag.FormData = objViewBag;
-            return View();
+            return View(_signature);
         }
 
         private ViewBagModel QuestionnaireMenuLinks(List<questionnaireQuestionnaireCMS> cms, List<pr_getQuestionnaireCMSAll_Result> questionnairCmsAll, int ptqId, ViewBagModel objViewBagModel)
@@ -22998,13 +23000,15 @@ Intelleges Team";
             {
                 //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload34";
-                return GetCustomizedStandardPDF(ViewName, "34");
+                var array= GetCustomizedStandardPDF(ViewName, "34");
+                return array;
             }
             else if (question != null && (question.footer == "35"))
             {
                 //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload35";
-                return GetCustomizedStandardPDF(ViewName);
+                var array= GetCustomizedStandardPDF(ViewName);
+                return array;
             }
             else if (question != null && (question.footer == "36"))
             {
@@ -23039,7 +23043,7 @@ Intelleges Team";
         public byte[] GetCustomizedStandardPDF(string ViewName, string footer = "0")
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
-            List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
+            var result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
             if (footer == "34")
@@ -23120,43 +23124,40 @@ Intelleges Team";
                 if (clause != null)
                     ViewBag.Clauses = clause.text;
             }
-            if (pptq != null) return GetStandardPdf(result, pptq.id, ViewName);
+            byte[] buf = null;
+            if (pptq != null)
+            {
+                Document pdfDoc = new Document();
+
+                MemoryStream memStream = new MemoryStream();
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
+                writer.CloseStream = false;
+                pdfDoc.Open();
+
+                string htmltext = this.RenderActionResultToString(this.View(ViewName, result));
+                EmailFormat formatter = new EmailFormat();
+                var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
+                var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
+                htmltext = formatter.sGetEmailBody(htmltext, null, partner, quest.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
+                //name of the view...
+                var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
+
+                //Get each array values from parsed elements and add to the PDF document
+                foreach (var htmlElement in parsedHtmlElements)
+                    pdfDoc.Add(htmlElement as IElement);
+
+                //Close your PDF
+                pdfDoc.Close();
+
+                // Close and get the resulted binary data.
+                pdfDoc.Close();
+                buf = new byte[memStream.Position];
+                memStream.Position = 0;
+                memStream.Read(buf, 0, buf.Length);
+            }
             else throw new Exception("Cannot find pptq");
+            return buf;
         }
-        protected byte[] GetStandardPdf(object model, int pptqID, string viewName = "QuestionnaireResponsePdfDownload")
-        {
-            // Create the iTextSharp document.
-            Document pdfDoc = new Document();
-
-            MemoryStream memStream = new MemoryStream();
-            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
-            writer.CloseStream = false;
-            pdfDoc.Open();
-
-            string htmltext = this.RenderActionResultToString(this.View(viewName, model));
-            EmailFormat formatter = new EmailFormat();
-            var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
-            var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
-            htmltext = formatter.sGetEmailBody(htmltext, null, partner, quest.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
-            //name of the view...
-            var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
-
-            //Get each array values from parsed elements and add to the PDF document
-            foreach (var htmlElement in parsedHtmlElements)
-                pdfDoc.Add(htmlElement as IElement);
-
-            //Close your PDF
-            pdfDoc.Close();
-
-            // Close and get the resulted binary data.
-            pdfDoc.Close();
-            byte[] buf = new byte[memStream.Position];
-            memStream.Position = 0;
-            memStream.Read(buf, 0, buf.Length);
-
-            return buf;   
-        }
-
     }
 
     public class Tags
