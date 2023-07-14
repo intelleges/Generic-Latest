@@ -40,6 +40,7 @@
 </style>
 @*<form action="@Url.Content("~/Partner/ConfirmPartner")" method="post">*@
   @*<input id="SelectedRecord" type="hidden" value="@ViewBag.SelectedRecord" name="SelectedRecord">*@
+<div style="margin-top:10px;">
     @( Html.Telerik().Grid(Model).Name("ConfirmPartnerGrid")
     .ToolBar(commands =>
          {
@@ -102,9 +103,9 @@
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
 )
-@*</form>*@
+    @*</form>*@
 
-
+</div>
 <style>
     .t-grid-content tr > td:hover .menu_block + .display_menu {
         display: block !important;
@@ -118,6 +119,10 @@
         background: #fff;
         border: 1px solid #ddd;
         z-index: 100;
+    }
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
     }
 
     .t-grid-content tr > td {

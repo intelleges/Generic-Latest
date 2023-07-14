@@ -29,12 +29,15 @@
     .t-grid-content tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu {
         left: 65px;
         overflow: visible;
         position: absolute;
-        margin-top: -45px;
+        margin-top: -26px;
         background: #fff;
         border: 1px solid #ddd;
         z-index: 100;
@@ -49,8 +52,8 @@
             width: 143px;
         }
 </style>
-
-@( Html.Telerik().Grid(Model).Name("PersonGrid")
+<div style="margin-top:10px;">
+    @( Html.Telerik().Grid(Model).Name("PersonGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -203,7 +206,7 @@
 
 
 )
-
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>

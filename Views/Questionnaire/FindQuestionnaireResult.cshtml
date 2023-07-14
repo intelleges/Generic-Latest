@@ -45,11 +45,11 @@
         display: block;
     }
 </style>
-
-<div class="loader hide">
-    <img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
-</div>
-@( Html.Telerik().Grid(Model).Name("QuestionnaireGrid")
+<div style="margin-top:10px;">
+    <div class="loader hide">
+        <img src="../../Images/WallImages/imagepath/ajax-loader.gif" alt="" />
+    </div>
+    @( Html.Telerik().Grid(Model).Name("QuestionnaireGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -103,6 +103,7 @@
 
 
 )
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -121,7 +122,10 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .t-grid-content tr > td {
         overflow: visible !important;
         position: relative;

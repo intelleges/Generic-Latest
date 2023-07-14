@@ -187,46 +187,31 @@
     }
     .dvGroup {
         float: right;
-        margin-top: -10px;
+        margin-top: -3px;
+        margin-right: 6px;
+    }
+    #maintouchpoint {
+        height: 25px;
+        width: 200px !important;
+    }
+    #groupList {
+        height: 25px;
     }
 </style>
-<div>
-    @{
-        var touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
-        string selectedToucId = "0";
-        if (touchpoints != null && touchpoints.Any(o => o.Selected))
-        {
-            selectedToucId = touchpoints.FirstOrDefault(o => o.Selected).Value;
-        }
-    }
 
-    @using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
-    {
-        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>) touchpoints, "Select Touchpoint", new {@class = "form-control", onchange = "Update_Dashboard_Values()"})
-    }
-
+@*<div style="float: left; margin-left: -14px; margin-top: -2px;">
+  
 
 </div>
 <div class="dvGroup">
-    @{
-        var groups = ViewBag.Groups as IEnumerable<SelectListItem>;
-        string selectedGroupId = "0";
-        if (groups != null && groups.Any(o => o.Selected))
-        {
-            selectedGroupId = groups.FirstOrDefault(o => o.Selected).Value;
-        }
-    }
-
    
-        @Html.DropDownList("groupList", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control ", onchange = "Update_Dashboard_Value()" })
-
-</div>
+</div>*@
 <div class="pageHolder">
-    <div id="donutchart" class="page" style="width:50%;"></div>
-    <div id="btnStatusPanel" class="absolutStatusPanel">
-        <input type="button" class="circleButton" id="statusButton" title="Reminders was sent (click to toggle daily/all chart)" />
+    <div id="donutchart" class="page" style="width:50%; margin-top:25px;"></div>
+    <div id="btnStatusPanel" class="absolutStatusPanel" >
+        <input type="button" class="circleButton" id="statusButton" title="Reminders was sent (click to toggle daily/all chart)" style=" margin-top: 35px;" />
     </div>
-    <div id="columnchart_lastlogin"  class="page" style="width:50%;"></div>
+    <div id="columnchart_lastlogin"  class="page" style="width: 50%; margin-top: 25px;"></div>
     <div id="columnchart_material" class="page" style="width:50%; display:none;"></div>
     <div id="columnchart_material_daily" class="page" style="width:50%; display:none;"></div>
     <div class='pageHolder-footer'></div>

@@ -12,7 +12,7 @@
 }
 @section header{
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 }
 <style>
@@ -32,7 +32,7 @@
     .modal-dialog {
         z-index: 1050;
     }
-
+  
     #partnersDocGrid {
         font-size: 11px;
     }
@@ -79,244 +79,245 @@
 <script>
 
 </script>
-<input type="hidden" id="hdfPartnerSearchCriteria" value="@ViewBag.PartnerSearch" />
-<div class="tw-bs">
-    <div class="container">
-        <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
-                        </button>
-                        <h4 class="modal-title" id="gpsLabel">Print existing documents</h4>
-                    </div>
-                    <div class="modal-body">
-                        @*<button class="buttons glyphicon glyphicon-plus float-right" title="Add new document"></button>*@
-                        @*<form>
-                                <div class="form-group">
-                                    <label for="uploadedFile">Upload  file</label>
-                                    <input type="file" class="form-control" id="uploadedFile" />
-                                </div>
-                            </form>*@
+<div style="margin-top:10px">
+    <input type="hidden" id="hdfPartnerSearchCriteria" value="@ViewBag.PartnerSearch" />
+    <div class="tw-bs">
+        <div class="container">
+            <div class="modal fade" id="emailDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                            </button>
+                            <h4 class="modal-title" id="gpsLabel">Print existing documents</h4>
+                        </div>
+                        <div class="modal-body">
+                            @*<button class="buttons glyphicon glyphicon-plus float-right" title="Add new document"></button>*@
+                            @*<form>
+                                    <div class="form-group">
+                                        <label for="uploadedFile">Upload  file</label>
+                                        <input type="file" class="form-control" id="uploadedFile" />
+                                    </div>
+                                </form>*@
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="editLCE" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
-                        </button>
-                        <h4 class="modal-title" id="gpsLabel">Edit LC&amp;E Checklist Form</h4>
-                    </div>
-                    <div class="modal-body">
-
-
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="modal fade" id="editLCE" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                            </button>
+                            <h4 class="modal-title" id="gpsLabel">Edit LC&amp;E Checklist Form</h4>
+                        </div>
+                        <div class="modal-body">
 
-        <div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
 
-                <input id="id" name="id" class="form-control" type="hidden" />
-                <input id="pptq" name="pptq" class="form-control" type="hidden" />
-                <div class="modal-content" style="height:600px;">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
-                        </button>
-                        <h4 class="modal-title" id="gpsLabel">Find Partner</h4>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                @using (Ajax.BeginForm("FindPartner2", new AjaxOptions { UpdateTargetId = "panelFind" }))
-                                {
-                                    <div id="panelFind">
+                </div>
+            </div>
 
-                                        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+            <div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
 
-                                        <table width="70%;" id="inputTable" style="float:left" border="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="tLeftColumn">Touchpoint </td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        @Html.DropDownList("touchpoint", String.Empty)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Type</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        @Html.DropDownList("partnertype", String.Empty)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Status</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        @Html.DropDownList("partnerStatus", String.Empty)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">
-                                                        <span id="lblGroupFind">Group</span>
-                                                    </td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        @Html.DropDownList("group", String.Empty)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Name</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtNameFind" class="txtBox1" type="text" name="txtNameFind">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Internal ID (EID)</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtInternalIdFind" class="txtBox1" type="text" name="txtInternalIdFind">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Access Code</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="accesscode" class="txtBox1" type="text" name="accesscode">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Contact Email</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtContactEmailFind" class="txtBox1" type="text" name="txtContactEmailFind">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">HRO Email</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtHROEmailFind" class="txtBox1" type="text" name="txtHROEmailFind">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">DUNS Number</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtDunsNumberFind" class="txtBox1" type="text" name="txtDunsNumberFind">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="tLeftColumn">Federal ID</td>
-                                                    <td class="tCenterColumn"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtFederalIdFind" class="txtBox1" type="text" name="txtFederalIdFind">
-                                                    </td>
-                                                </tr>
+                    <input id="id" name="id" class="form-control" type="hidden" />
+                    <input id="pptq" name="pptq" class="form-control" type="hidden" />
+                    <div class="modal-content" style="height:600px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                            </button>
+                            <h4 class="modal-title" id="gpsLabel">Find Partner</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    @using (Ajax.BeginForm("FindPartner2", new AjaxOptions { UpdateTargetId = "panelFind" }))
+                                    {
+                                        <div id="panelFind">
 
-                                                <tr>
-                                                    <td class="tLeftColumn">Zip Code</td>
-                                                    <td width="5%"></td>
-                                                    <td class="tRightColumn">
-                                                        <input id="txtZipCodeFind" class="txtBox1" type="text" name="txtZipCodeFind">
-                                                    </td>
-                                                </tr>
-                                                @*<tr>
-                                                        <td class="tLeftColumn">Country</td>
+                                            <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+
+                                            <table width="70%;" id="inputTable" style="float:left" border="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Touchpoint </td>
                                                         <td class="tCenterColumn"></td>
                                                         <td class="tRightColumn">
-                                                            @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style = "width:210px;" })
+                                                            @Html.DropDownList("touchpoint", String.Empty)
                                                         </td>
-                                                    </tr>*@
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Type</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            @Html.DropDownList("partnertype", String.Empty)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Status</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            @Html.DropDownList("partnerStatus", String.Empty)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">
+                                                            <span id="lblGroupFind">Group</span>
+                                                        </td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            @Html.DropDownList("group", String.Empty)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Name</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtNameFind" class="txtBox1" type="text" name="txtNameFind">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Internal ID (EID)</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtInternalIdFind" class="txtBox1" type="text" name="txtInternalIdFind">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Access Code</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="accesscode" class="txtBox1" type="text" name="accesscode">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Contact Email</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtContactEmailFind" class="txtBox1" type="text" name="txtContactEmailFind">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">HRO Email</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtHROEmailFind" class="txtBox1" type="text" name="txtHROEmailFind">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">DUNS Number</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtDunsNumberFind" class="txtBox1" type="text" name="txtDunsNumberFind">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Federal ID</td>
+                                                        <td class="tCenterColumn"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtFederalIdFind" class="txtBox1" type="text" name="txtFederalIdFind">
+                                                        </td>
+                                                    </tr>
 
-                                            </tbody>
-                                        </table>
+                                                    <tr>
+                                                        <td class="tLeftColumn">Zip Code</td>
+                                                        <td width="5%"></td>
+                                                        <td class="tRightColumn">
+                                                            <input id="txtZipCodeFind" class="txtBox1" type="text" name="txtZipCodeFind">
+                                                        </td>
+                                                    </tr>
+                                                    @*<tr>
+                                                            <td class="tLeftColumn">Country</td>
+                                                            <td class="tCenterColumn"></td>
+                                                            <td class="tRightColumn">
+                                                                @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style = "width:210px;" })
+                                                            </td>
+                                                        </tr>*@
 
-                                        <table style="float:left">
-                                            <tr>
-                                                <td></td>
-                                                <td>
+                                                </tbody>
+                                            </table>
 
-                                                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height:28px" name="btnFind">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <input id="btnCancel" onclick='$("#updateDialog").modal("toggle");' class="txtBox1" value="Cancel" type="button" style="width: 100px; height:28px" name="btnCancel">
+                                            <table style="float:left">
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
 
-
-
-                                                </td>
-                                            </tr>
-
-                                        </table>
-
-                                    </div>
+                                                        <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height:28px" name="btnFind">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input id="btnCancel" onclick='$("#updateDialog").modal("toggle");' class="txtBox1" value="Cancel" type="button" style="width: 100px; height:28px" name="btnCancel">
 
 
-                                }
+
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+
+
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        @*Manual Upload dialog*@
-        <div class="modal fade" id="manual_upload_dialog" role="dialog" aria-labelledby="manual_uploadLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span><span class="sr-only"></span>
-                        </button>
-                        <h4 class="modal-title" id="gpsLabel">Add a document</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="model-upload-manual">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4" for="manualuploadfile">Choose a file</label>
-                                <div class="clear-fix"></div>
-                                <input type="file" class="form-control" id="manualuploadfile" name="manualuploadfile" accept="application/pdf" data-val-required="*" data-val="true" />
-                                <label>Upload PDF only(less than 2MB)</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-manual-upload-comment" class="control-label col-sm-4">Add a comment</label>
-                                <div class="clear-fix"></div>
-                                <textarea class="form-control" rows="8" id="txt-manual-upload-comment" style="height: auto;"></textarea>
-                                <input type="hidden" id="manual-upload-accesscode" />
-                                <input type="hidden" id="manual-upload-pptq" />
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-8">Set status for access code <span id="spnAccessCode"></span> </label>
-                                <div class="clear-fix"></div>
-                                <span class="control-label col-sm-6">
-                                    <input type="radio" class="col-sm-2" id="rdoRespondedComplete" name="statusAccessCode" value="8" /> Responded Complete
-                                </span>
-                                <span class="control-label col-sm-6">
-                                    <input type="radio" class="col-sm-2" id="rdoPendingApproval" checked="checked" name="statusAccessCode" value="10" /> Pending Approval
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnUploadManual">Ok</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            @*Manual Upload dialog*@
+            <div class="modal fade" id="manual_upload_dialog" role="dialog" aria-labelledby="manual_uploadLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                            </button>
+                            <h4 class="modal-title" id="gpsLabel">Add a document</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="model-upload-manual">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="manualuploadfile">Choose a file</label>
+                                    <div class="clear-fix"></div>
+                                    <input type="file" class="form-control" id="manualuploadfile" name="manualuploadfile" accept="application/pdf" data-val-required="*" data-val="true" />
+                                    <label>Upload PDF only(less than 2MB)</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-manual-upload-comment" class="control-label col-sm-4">Add a comment</label>
+                                    <div class="clear-fix"></div>
+                                    <textarea class="form-control" rows="8" id="txt-manual-upload-comment" style="height: auto;"></textarea>
+                                    <input type="hidden" id="manual-upload-accesscode" />
+                                    <input type="hidden" id="manual-upload-pptq" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-8">Set status for access code <span id="spnAccessCode"></span> </label>
+                                    <div class="clear-fix"></div>
+                                    <span class="control-label col-sm-6">
+                                        <input type="radio" class="col-sm-2" id="rdoRespondedComplete" name="statusAccessCode" value="8" /> Responded Complete
+                                    </span>
+                                    <span class="control-label col-sm-6">
+                                        <input type="radio" class="col-sm-2" id="rdoPendingApproval" checked="checked" name="statusAccessCode" value="10" /> Pending Approval
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnUploadManual">Ok</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            @*End of Manual Upload dialog*@
         </div>
-        @*End of Manual Upload dialog*@
     </div>
-</div>
-@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+    @( Html.Telerik().Grid(Model).Name("PartnerGrid")
                                                                                     .ToolBar(commands => commands
                                                                                     .Custom()
                                                                                     .HtmlAttributes(new { id = "export" })
@@ -741,7 +742,7 @@
 
 
 )
-
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -778,7 +779,10 @@
         list-style: none outside none;
         width: 143px;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     #madalEmailForm .table td[colspan='5'] {
         text-align: center;
     }

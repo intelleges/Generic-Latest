@@ -21,8 +21,8 @@
         left: 0;
     }
 </style>
-
-@( Html.Telerik().Grid(Model).Name("TouchpointGrid")
+<div style="margin-top:10px;">
+    @( Html.Telerik().Grid(Model).Name("TouchpointGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -70,6 +70,7 @@
 
 
 )
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -93,7 +94,10 @@
         overflow: visible !important;
         position: relative;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu > ul {
         padding: 0 16px;
     }

@@ -908,6 +908,7 @@ namespace Generic.Controllers
         [Authorize]
         public virtual ActionResult Home()
         {
+            ViewBag.IsHomePage = true;
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o => new SelectListItem()
             {

@@ -30,12 +30,15 @@
     .t-grid-content tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu {
         left: 65px;
         overflow: visible;
         position: absolute;
-        margin-top: -45px;
+        margin-top: -26px;
         background: #fff;
         border: 1px solid #ddd;
         z-index: 100;
@@ -50,8 +53,8 @@
             width: 143px;
         }
 </style>
-
-@( Html.Telerik().Grid(Model).Name("ZcodeGrid").ToolBar(commands => commands
+<div style="margin-top:10px;">
+    @( Html.Telerik().Grid(Model).Name("ZcodeGrid").ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
                     .Text("Export to Excel")
@@ -92,7 +95,7 @@
            .Enabled(true)
            .Height("auto"))
 )
-
+</div>
 <script src="~/Scripts/jquery-1.8.2.js"></script>
 <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
 <script type="text/javascript">

@@ -59,7 +59,9 @@
     @Styles.Render("~/Content/site.css?v=3")
     @Styles.Render("~/Content/themes/base/css")
     <link href="@Url.Content("~/Content/jquery.fancybox.css")" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     @*@Scripts.Render("~/bundles/jquery")*@
+
     <script src="~/Scripts/kendo/2015.2.624/jquery.min.js"></script>
     <script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
     <script src="~/Scripts/alertify.js"></script>
@@ -90,7 +92,10 @@
         }
 
         #reports {
-            margin: 10px 10px 10px 10px !important;
+            height: 25px;
+            width: 153px !important;
+            margin-left: -11px;
+            padding: 0px !important;
         }
 
         select#templates {
@@ -246,95 +251,152 @@
     <section class="content-wrapper main-content clear-fix">
 
 
-        <div style="margin-top: -20px;" id="sub-menu">
-
-            @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
-                  {
-                <div id="rootMenu" style="float:left;">
-                    @*<a href="#">Welcome</a>
-                        <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
-                        <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
-                        <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
-                        <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>*@
-                    @*<a href="@Url.Content("~/Admin/View1")">View 1</a>
-                        <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                        <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
-                    @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
-                    <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
-
-
-                    <a href="@Url.Content("~/Admin/Icons")">Icons</a>
+        <div style=" margin-top: -13px; " id="sub-menu" class="row">
+            <div class="col-md-12">
+                @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1"))
+                      {
+                    <div id="rootMenu" style="float: left; padding: 0px !important; width: 18% !important;" class="col-md-2">
+                        @*<a href="#">Welcome</a>
+                <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
+                <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
+                <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
+                <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>*@
+                        @*<a href="@Url.Content("~/Admin/View1")">View 1</a>
+                <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
+                        @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
+                        <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
 
 
+                        <a href="@Url.Content("~/Admin/Icons")">Icons</a>
 
 
 
 
-                    @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
-                    <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
 
+
+                        @* <a href="@Url.Content("~/Admin/Home")">Home Page</a>*@
+                        <a href="@Url.Content("~/Partner/Iterate")">Iterate</a>
+
+                    </div>
+                      }
+                      else
+                      {
+                    //touchpoints = objAdminController.GetAllTouchPoints();
+                    touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+                          groups = ViewBag.Groups as IEnumerable<SelectListItem>;
+
+                    <div style="float:left;" id="type" class=" col-md-7">
+                        @*<b>Select Touchpoint</b>*@
+                        <div class="col-md-6">
+                            @if (touchpoints != null)
+                                  {
+                                @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "select", onchange = "Update_Dashboard_Values()" })
+                                  }
+                                  else
+                                  {
+                                <select id="maintouchpoint" name="Touchpoint">
+                                    <option value="">Select Touchpoint</option>
+                                </select>
+                                  }
+                        </div>
+                        <div class="col-md-6">
+                            @if (groups != null)
+                                  {
+                                @Html.DropDownList("Group", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "select", onchange = "Update_Dashboard_Values()" })
+                                  }
+                                  else
+                                  {
+                                <select id="Group" name="group">
+                                    <option value="">Select Group</option>
+                                </select>
+                                  }
+                            </div>
+                        </div>
+                      }
+                @*</div>
+
+        <div class="col-md-12" style="float: left; margin-left: -35px; margin-top: -1px;">*@
+                <div class="col-md-2">
+                    <select id="reports" name="reports" class="select">
+                        <option value="">Select Report</option>
+
+                        @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
+                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
+
+                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
+                        <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
+                        <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
+                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
+                        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
+                        <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
+                        <option value="@Url.Content("~/Partner/GetTwillioCallsHistory")">Calls Report</option>
+                        <option value="@Url.Content("~/Partner/DownloadDashboard")">Dashboard Report</option>
+                        <option value="@Url.Content("~/Partner/DownloadBounceBySiteReport")">Bounce By Site</option>
+                        <option value="@Url.Content("~/Partner/DownloadBounceBySiteCountReport")">Bounce By Site Count</option>
+                    </select>
                 </div>
-                  }
-                  else
-                  {
-                //touchpoints = objAdminController.GetAllTouchPoints();
-                touchpoints = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
-                      groups = ViewBag.Groups as IEnumerable<SelectListItem>;
 
-                <div style="float:left;" id="type">
-                    @*<b>Select Touchpoint</b>*@
-                    @if (touchpoints != null)
-                          {
-                        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpoints, "Select Touchpoint", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
-                          }
-                          else
-                          {
-                        <select id="maintouchpoint" name="Touchpoint">
-                            <option value="">Select Touchpoint</option>
-                        </select>
-                          }
-                    @if (groups != null)
-                          {
-                        @Html.DropDownList("Group", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control", onchange = "Update_Dashboard_Values()" })
-                          }
-                          else
-                          {
-                        <select id="Group" name="group">
-                            <option value="">Select Group</option>
-                        </select>
-                          }
+                <div class="col-md-3" style=" margin-left: 0px;">
+                    @Html.Action("downloadTemplate", "Admin")
                 </div>
-                  }
-            <div>
-                <select id="reports" name="reports" style="margin: 10px 10px 10px 1px;">
-                    <option value="">Select Report</option>
-
-                    @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
-        <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
-
-                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
-                    <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
-                    <option value="@Url.Content("~/Partner/ResponsesByProtocolTouchpointGroupPartnertype2Download")">Response Detail</option>
-                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForAgingReport")">Aging Report</option>
-                    <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForMailDeliveredReport")">Mail Delivered</option>
-                    <option value="@Url.Content("~/Partner/RailReport")">RAIL Report</option>
-                    <option value="@Url.Content("~/Partner/GetTwillioCallsHistory")">Calls Report</option>
-                    <option value="@Url.Content("~/Partner/DownloadDashboard")">Dashboard Report</option>
-                    <option value="@Url.Content("~/Partner/DownloadBounceBySiteReport")">Bounce By Site</option>
-                    <option value="@Url.Content("~/Partner/DownloadBounceBySiteCountReport")">Bounce By Site Count</option>
-                </select>
-
-
-
-                @Html.Action("downloadTemplate", "Admin")
+                @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage!=null))
+                {
+            <div class="col-md-3" style="padding: 0px !important; width: 23% !important;">
+                @{
+                          var touchpointss = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+                          string selectedToucId = "0";
+                          if (touchpointss != null && touchpointss.Any(o => o.Selected))
+                          {
+                              selectedToucId = touchpointss.FirstOrDefault(o => o.Selected).Value;
+                          }
+                }
+                @if (touchpointss != null)
+                      {
+                          using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
+                          {
+                        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpointss, "Select Touchpoint", new { @class = "select", onchange = "Update_Dashboard_Values()", @height = "25px" })
+                          }
+                      }
+                      else
+                      {
+                    <select id="maintouchpoint" name="Touchpoint">
+                        <option value="">Select Touchpoint</option>
+                    </select>
+                      }
             </div>
-
+            <div class="col-md-2" style=" margin-left: -19px;">
+                @{
+                          var groupss = ViewBag.Groups as IEnumerable<SelectListItem>;
+                          string selectedGroupId = "0";
+                          if (groupss != null && groupss.Any(o => o.Selected))
+                          {
+                              selectedGroupId = groupss.FirstOrDefault(o => o.Selected).Value;
+                          }
+                }
+                @if (groupss != null)
+                      {
+                    @Html.DropDownList("groupList", (IEnumerable<SelectListItem>)groupss, "Select Group", new { @class = "select ", onchange = "Update_Dashboard_Value()", @height = "25px" })
+                      }
+                      else
+                      {
+                    <select id="groupList" name="group">
+                        <option value="">Select Group</option>
+                    </select>
+                      }
+            </div>
+                    }
+                    else if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage == null))
+                    {
+        <div class="col-md-5"></div>
+    }
+                </div>
         </div>
-
-
-
-        @RenderBody()
-
+        <div class="row">
+            <div class="col-md-12" style="width:100%;">
+                @RenderBody()
+            </div>
+        </div>
     </section>
 </div>);
 
