@@ -145,6 +145,25 @@
             }
         });
     });
+    function Update_Dashboard_Value() {
+        var groupId = $("#groupList").val() == "" ? 0 : parseInt($("#groupList").val());
+        ChangeGroup(groupId);
+        location.reload();
+    }
+    function ChangeGroup(groupId) {
+        $.ajax({
+            url: '../Admin/ChangeGroup?groupId=' + groupId,
+            type: 'GET',
+            data: groupId,
+            processData: false,
+            contentType: false,
+            cache: false
+        }).done(function (data) {
+            if (data) {
+                //  $('#TouchPointDescription').html(data.description);
+            }
+        });
+    }
 </script>
 
 @*<h2>Hello, @ViewBag.enterpriseName, Admin</h2>*@
@@ -166,6 +185,10 @@
         clear: left;
         height: 0;
     }
+    .dvGroup {
+        float: right;
+        margin-top: -10px;
+    }
 </style>
 <div>
     @{
@@ -182,6 +205,20 @@
         @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>) touchpoints, "Select Touchpoint", new {@class = "form-control", onchange = "Update_Dashboard_Values()"})
     }
 
+
+</div>
+<div class="dvGroup">
+    @{
+        var groups = ViewBag.Groups as IEnumerable<SelectListItem>;
+        string selectedGroupId = "0";
+        if (groups != null && groups.Any(o => o.Selected))
+        {
+            selectedGroupId = groups.FirstOrDefault(o => o.Selected).Value;
+        }
+    }
+
+   
+        @Html.DropDownList("groupList", (IEnumerable<SelectListItem>)groups, "Select Group", new { @class = "form-control ", onchange = "Update_Dashboard_Value()" })
 
 </div>
 <div class="pageHolder">

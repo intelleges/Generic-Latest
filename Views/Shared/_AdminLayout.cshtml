@@ -675,6 +675,20 @@
                 }
             });
         }
+        function ChangeGroup(groupId) {
+            $.ajax({
+                url: '../Admin/ChangeGroup?groupId=' + groupId,
+                type: 'GET',
+                data: groupId,
+                processData: false,
+                contentType: false,
+                cache: false
+            }).done(function (data) {
+                if (data) {
+                    //  $('#TouchPointDescription').html(data.description);
+                }
+            });
+        }
         jQuery(document).ready(function ($) {
 
 
@@ -740,6 +754,8 @@
             function Update_Dashboard_Values() {
                 var touchPointId = $("#maintouchpoint").val() == "" ? 0 : parseInt($("#maintouchpoint").val());
                 ChangeTouchpoint(touchPointId);
+                var groupId = $("#groupList").val() == "" ? 0 : parseInt($("#groupList").val());
+                ChangeGroup(groupId);
                 location.reload();
             }
         </script>

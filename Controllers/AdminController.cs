@@ -917,12 +917,40 @@ namespace Generic.Controllers
             }).ToList();
             var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).ToList();
             var PTQ = "";
+            int groupId = 0;
             //DataTable dt;
             try
             {
                 //PTQ = (db.pr_getGroupByPTQ2(Convert.ToInt32(Session["PTQ"]))).ToString();
                 //dt = db.pr_getGroupByPTQ2(2);
                 ViewBag.abc = db.pr_getGroupByPTQ2(2);
+              
+                if (Session["group"] != null)
+                {
+                    groupId = Convert.ToInt32(Session["group"]);
+                }
+                var groups = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+                List<SelectListItem> groupList = new List<SelectListItem>();
+                groupList.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "0",
+                    Selected = groupId == 0 ? true : false
+                });
+                if (groups != null)
+                {
+                    foreach (var item in groups)
+                    {
+                        groupList.Add(new SelectListItem
+                        {
+                            Text = item.name,
+                            Value = item.id.ToString(),
+                            Selected = groupId == 0 ? false : item.id == groupId
+                        });
+                    }
+                }
+
+                ViewBag.Groups = groupList.ToList();
             }
             catch (Exception ex)
             {
@@ -1051,8 +1079,15 @@ namespace Generic.Controllers
                     ViewBag.dataAll = dataAllDictionary;
                     ViewBag.dataToday = dataTodayDictionary;
                     var enterpriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
-                    var param = new System.Data.SqlClient.SqlParameter("@enterprise", enterpriseId);
-                    var result = db.Database.SqlQuery<LastLoginCountDetail>("EXEC pr_getLastLoginCount @enterprise",param).ToList();
+                    var sqlQuery = "EXEC pr_getLastLoginCount @enterprise, @groupId";
+                    var parameters = new[]
+                    {
+                        new System.Data.SqlClient.SqlParameter("enterprise", enterpriseId),
+                        new System.Data.SqlClient.SqlParameter("groupId", groupId==0? int.Parse("0"):groupId)
+                    };
+                    //var param = new System.Data.SqlClient.SqlParameter("@enterprise", enterpriseId);
+                    //var param1 = new System.Data.SqlClient.SqlParameter("@groupId", 0);
+                    var result = db.Database.SqlQuery<LastLoginCountDetail>(sqlQuery, parameters).ToList();
                     List<KeyValuePair<string, int>> list = new List<KeyValuePair<string, int>>();
                     if (result != null)
                     {
@@ -1065,8 +1100,7 @@ namespace Generic.Controllers
                     KeyValuePair<string, int>[] lastLoginarray = list.ToArray();
                     ViewBag.LastLoginCount = lastLoginarray;
                 }
-                catch { }
-
+                catch(Exception ex) { }
             }
             if (PTQ != null)
                 ViewBag.PTQ = PTQ;
@@ -1075,7 +1109,7 @@ namespace Generic.Controllers
 
         [Authorize]
         [HttpPost]
-        public virtual ActionResult Home(int? touchpoint)
+        public virtual ActionResult Home(int? touchpoint, int? groupId)
         {
             var enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
             ViewBag.TouchPoints = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).Select(o => new SelectListItem()
@@ -1092,6 +1126,28 @@ namespace Generic.Controllers
                 //PTQ = (db.pr_getGroupByPTQ2(Convert.ToInt32(Session["PTQ"]))).ToString();
                 //dt = db.pr_getGroupByPTQ2(2);
                 ViewBag.abc = db.pr_getGroupByPTQ2(2);
+                var groups = db.pr_getGroupAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+                List<SelectListItem> groupList = new List<SelectListItem>();
+                groupList.Add(new SelectListItem
+                {
+                    Text = "All",
+                    Value = "0",
+                    Selected = (groupId == null || groupId == 0) ? true : false
+                });
+                if (groups != null)
+                {
+                    foreach (var item in groups)
+                    {
+                        groupList.Add(new SelectListItem
+                        {
+                            Text = item.name,
+                            Value = item.id.ToString(),
+                            Selected= item.id==groupId
+                        });
+                    }
+                }
+
+                ViewBag.Groups = groupList.ToList();
             }
             catch (Exception ex)
             {
@@ -1213,6 +1269,22 @@ namespace Generic.Controllers
 
                     ViewBag.dataAll = dataAllDictionary;
                     ViewBag.dataToday = dataTodayDictionary;
+
+                    var enterpriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
+                    var param = new System.Data.SqlClient.SqlParameter("@enterprise", enterpriseId);
+                    var param1 = new System.Data.SqlClient.SqlParameter("@groupId", groupId);
+                    var result = db.Database.SqlQuery<LastLoginCountDetail>("EXEC pr_getLastLoginCount @enterprise,@groupId", param, param1).ToList();
+                    List<KeyValuePair<string, int>> list = new List<KeyValuePair<string, int>>();
+                    if (result != null)
+                    {
+                        foreach (var item in result)
+                        {
+                            // var monthyear = item.MonthYear.Split('-');
+                            list.Add(new KeyValuePair<string, int>(Convert.ToString(item.MonthYear), item.LastLoginCount));
+                        }
+                    }
+                    KeyValuePair<string, int>[] lastLoginarray = list.ToArray();
+                    ViewBag.LastLoginCount = lastLoginarray;
                 }
                 catch { }
 
@@ -2002,6 +2074,18 @@ namespace Generic.Controllers
                 Session["touchpoint"] = touchPointId;
                 var touchpoint = db.pr_getTouchpoint(touchPointId).FirstOrDefault();
                 return Json(new { touchpoint.description }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult ChangeGroup(int groupId)
+        {
+            try
+            {
+                Session["group"] = groupId;
+                return Json(new { status=true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
