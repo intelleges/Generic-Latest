@@ -85,7 +85,8 @@ top: 2px;
         </div>
     </div>
 </div>
-@(Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
+<div style="margin-top:10px;">
+    @(Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
 {
     //commands.Template("<form method='post' enctype='multipart/form-data' action='/Questionnaire/UploadAutoMailExcelData/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='/Questionnaire/ExportExcelAutoMailDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input style='display: none' type='file' id='file' name='file' accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /><a class='t-button' id='btn-upload' href='#'>Upload</a><input type='submit' class='btnprocess t-button' value='Process File'></input></form>");
@@ -96,7 +97,7 @@ top: 2px;
             columns.Bound(o => o.subject).Title("Subject").Width(80);
             columns.Bound(o => o.text).Title("Text AutoMail").Width(170).Template(@<text><span title="@item.text">
     @item.ShortText
-    
+
     </span></text>);
             columns.Bound(o => o.mailType).Title("Mail Type").Width(50).Template(
                 @<text><a href='#' id='@item.mailType' class="menu_block">@item.mailType</a><div class="display_menu" style="display: none;"><ul><li><a>Test</a></li><li><a>Edit/Remove</a></li><li><a href="javascript:addViewDoc(@item.id)">View/Add Doc</a></li><li><a>Add Next/Last</a></li></ul></div>
@@ -120,6 +121,7 @@ top: 2px;
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
 )
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -128,7 +130,10 @@ top: 2px;
     .t-grid-content tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu {
         left: -50px;
         overflow: visible;

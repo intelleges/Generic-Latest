@@ -21,9 +21,9 @@
         left: 0;
     }
 </style>
+<div style="margin-top:10%;">
 
-
-@( Html.Telerik().Grid(Model).Name("ProtocolGrid")
+    @( Html.Telerik().Grid(Model).Name("ProtocolGrid")
 .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "export" })
@@ -61,6 +61,7 @@
            .Height(380))
            .HtmlAttributes(new { @class = "ra" })
 )
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -79,7 +80,10 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .t-grid-content tr > td {
         overflow: visible !important;
         position: relative;

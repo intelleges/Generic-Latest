@@ -25,21 +25,22 @@
         left: 0;
     }
 </style>
-<form action="@Url.Content("~/Person/RemovePerson")" method="post">
-    <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+<div style="margin-top:10px;">
+    <form action="@Url.Content("~/Person/RemovePerson")" method="post">
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
-    @( Html.Telerik().Grid(Model).Name("PersonGrid")
+        @( Html.Telerik().Grid(Model).Name("PersonGrid")
             //.ToolBar(commands =>
             //{
             //    commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
             //})
-            
+
             .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "go" })
                     .Text("Go")
                     .Action("Go", "Person"))
-       
+
 
             .Columns(columns =>
         {
@@ -53,8 +54,8 @@
             columns.Bound(o => o.lastname).Title("Lastname").Width(1 - 0);
             columns.Bound(o => o.email).Title("Email").Width(200);
                // .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
-               
-              
+
+
 
             columns.Bound(o => o.State).Title("State").Width(100);
 
@@ -75,7 +76,8 @@
 
 
 )
-</form>
+    </form>
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -96,7 +98,10 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .t-grid-content tr > td
     {
         overflow: visible !important;

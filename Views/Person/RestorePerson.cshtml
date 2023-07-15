@@ -9,7 +9,7 @@
 
 @section header{
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 }
 <style>
@@ -26,10 +26,11 @@
         left: 0;
     }
 </style>
-<form action="@Url.Content("~/Person/RemovePerson")" method="post">
-    <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+<div style="margin-top:10px;">
+    <form action="@Url.Content("~/Person/RemovePerson")" method="post">
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
-    @( Html.Telerik().Grid(Model).Name("PersonGrid")
+        @( Html.Telerik().Grid(Model).Name("PersonGrid")
                             .Columns(columns =>
                         {
                             columns.Bound(o => o.internalId).Title("Internal ID").Width(100).Encoded(false).Template(@<text>
@@ -69,7 +70,8 @@
 
 
     )
-</form>
+    </form>
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -92,7 +94,10 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .t-grid-content tr > td {
         overflow: visible !important;
         position: relative;

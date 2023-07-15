@@ -85,7 +85,7 @@
                 </ul>
             </div>
             </text>);
-            columns.Bound(o => o.firstName).Title("firstName").Width(100).Template(@<text>
+            columns.Bound(o => o.firstName).Title("First Name").Width(100).Template(@<text>
         @{
             var columnData = item.firstName;
                var width = 12;
@@ -99,7 +99,7 @@
 
         }
             </text>);
-            columns.Bound(o => o.lastName).Title("lastName").Width(100).Template(@<text>
+            columns.Bound(o => o.lastName).Title("Last Name").Width(100).Template(@<text>
         @{
             var columnData = item.lastName;
               var width = 12;

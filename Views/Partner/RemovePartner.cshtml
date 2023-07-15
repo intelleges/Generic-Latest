@@ -68,25 +68,25 @@
     });
 </script>
 
+<div style="margin-top:10px;">
+    <form action="@Url.Content("~/Partner/RemovePartner")" method="post">
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
-<form action="@Url.Content("~/Partner/RemovePartner")" method="post">
-    <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+        @if (ViewBag.searchType == "Invite")
+        {
+            @Html.Raw("Due Date :");
+            @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
+        }
 
-    @if (ViewBag.searchType == "Invite")
-    {
-        @Html.Raw("Due Date :");
-        @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
-    }
-
-     @*.ToolBar(commands => commands
-               .Custom()
-                   .HtmlAttributes(new { id = "go" })
-                   .Text("Go")
-                   .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+        @*.ToolBar(commands => commands
+            .Custom()
+                .HtmlAttributes(new { id = "go" })
+                .Text("Go")
+                .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
 
 
-    @( Html.Telerik().Grid(Model).Name("PartnerGrid")
-         
+        @( Html.Telerik().Grid(Model).Name("PartnerGrid")
+
 
  .ToolBar(commands =>
             {
@@ -176,7 +176,8 @@
 
 
 )
-</form>
+    </form>
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -185,7 +186,10 @@
     .t-grid-content tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu {
         left: 65px;
         overflow: visible;

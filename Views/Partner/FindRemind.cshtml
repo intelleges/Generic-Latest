@@ -155,25 +155,25 @@
         </div>
     </div>
 </div>
-
-<form method="post" id="gridForm">
-    <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
-
-
-    @*@if (ViewBag.searchType == "Invite")
-        {
-            @Html.Raw("Due Date :");
-            @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
-        }*@
-
-    @*.ToolBar(commands => commands
-        .Custom()
-            .HtmlAttributes(new { id = "go" })
-            .Text("Go")
-            .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+<div style="margin-top:10px;">
+    <form method="post" id="gridForm">
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
 
-    @( Html.Telerik().Grid(Model).Name("PartnerGrid")
+        @*@if (ViewBag.searchType == "Invite")
+            {
+                @Html.Raw("Due Date :");
+                @Html.Telerik().DatePicker().Name("DueDate").HtmlAttributes(new { @style = "width:100px;" })
+            }*@
+
+        @*.ToolBar(commands => commands
+            .Custom()
+                .HtmlAttributes(new { id = "go" })
+                .Text("Go")
+                .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+
+
+        @( Html.Telerik().Grid(Model).Name("PartnerGrid")
 
 
 .ToolBar(commands =>
@@ -283,8 +283,8 @@
 
 
 	)
-</form>
-
+    </form>
+</div>
 <div class="tw-bs">
     <div class="container">
         <div class="modal fade" id="mailDialog" role="dialog" aria-hidden="true">
@@ -389,7 +389,10 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .t-grid-content tr > td {
         overflow: visible !important;
         position: relative;

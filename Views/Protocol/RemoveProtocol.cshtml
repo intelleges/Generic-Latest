@@ -24,16 +24,17 @@
         left: 0;
     }
 </style>
-<form action="@Url.Content("~/Protocol/RemoveProtocol")" method="post">
- <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+<div style="margin-top:10px;">
+    <form action="@Url.Content("~/Protocol/RemoveProtocol")" method="post">
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
-@( Html.Telerik().Grid(Model).Name("ProtocolGrid")
+        @( Html.Telerik().Grid(Model).Name("ProtocolGrid")
    .ToolBar(commands => commands
                 .Custom()
                     .HtmlAttributes(new { id = "go" })
                     .Text("Go")
                     .Action("Go", "Protocol"))
-    
+
         .Columns(columns =>
         {
 
@@ -45,7 +46,7 @@
                    .HtmlAttributes(new { style = "text-align:center" });
 
 
-           
+
             columns.Bound(o => o.name).Title("Protocol Name").Width(400).Template(@<text><a href='#' id='@item.name' class="menu_block">@item.name</a>
 <div class="display_menu" style="display: none;">
     <ul>
@@ -53,7 +54,7 @@
         <li><a href="javascript:openRemovePopup(@item.id,'@item.name')">Remove</a></li>
         <li><a href="javascript:openArchivePopup(@item.id,'@item.name')">Archive</a></li>
         <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
-      
+
     </ul>
 </div>
 </text>);
@@ -65,12 +66,12 @@
 
             columns.Bound(o => o.Partner_Count).Title("Partner_Count").Width(100);
             columns.Bound(o => o.Group_Count).Title("Group_Count").Width(100);
-           
-           
+
+
 
 
         })
-       
+
          //.ClientEvents(events => events.OnDataBound("onDataBound"))
         .DataKeys(keys => keys.Add(o => o.id))
         .Pageable(pager => pager.PageSize(13).Total(200).Enabled(false))
@@ -84,7 +85,8 @@
 
 
 )
-</form>
+    </form>
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -94,7 +96,10 @@
     {
         display: block !important;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu
     {
         left: 65px;

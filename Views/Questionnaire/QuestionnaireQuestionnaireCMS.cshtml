@@ -39,9 +39,9 @@ font-size: 100% !important;
         .HtmlAttributes(new { id = "export" })
         .Text("Export to Excel")
         .Action("ExportExcelQuestionnaireDetail", "Questionnaire");*@
+<div style="margin-top:10px;">
 
-
-@( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
+    @( Html.Telerik().Grid(Model).Name("QuestionnaireDetailViewGrid")
 .ToolBar(commands =>
 {
     //commands.Template("<form method='post' enctype='multipart/form-data' action='/Questionnaire/UploadExcelData/" + this.ViewContext.RouteData.Values["id"] + "'><a class='t-button' href='~/Questionnaire/ExportExcelQuestionnaireDetail/" + this.ViewContext.RouteData.Values["id"] + "' id='export'>Export to Excel</a><input style='display: none' type='file' id='file' name='file' accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' /><a class='t-button' id='btn-upload' href='#'>Upload</a><input type='submit' class='btnprocess t-button' value='Process File'></input></form>");
@@ -72,7 +72,7 @@ font-size: 100% !important;
             </text>);
             columns.Bound(o => o.link).Title("Link").Width(100).Filterable(false);
             columns.Bound(o => o.doc).Title("Download").Width(50).Template(@<text><a href='#'>Download</a></text>).Filterable(false);
-            
+
 
 
         })
@@ -88,6 +88,7 @@ font-size: 100% !important;
 
 
 )
+</div>
 <form id="hiddenUploaderForm" enctype="multipart/form-data"  >
     <input type="file" id="hiddenUploaderInput" style="display:none;" />
 </form>
@@ -99,7 +100,10 @@ font-size: 100% !important;
     .t-grid-content tr > td:hover .menu_block + .display_menu {
         display: block !important;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu {
         left: 65px;
         overflow: visible;

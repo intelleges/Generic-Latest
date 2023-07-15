@@ -25,31 +25,32 @@
         left: 0;
     }
 </style>
-<form action="@Url.Content("~/Group/RemoveGroup")" method="post">
-    <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+<div style="margin-top:10px;">
+    <form action="@Url.Content("~/Group/RemoveGroup")" method="post">
+        <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
-    @( Html.Telerik().Grid(Model).Name("GroupGrid")
+        @( Html.Telerik().Grid(Model).Name("GroupGrid")
       .ToolBar(commands=>{
                 commands.Template("<input style='width: 50px;' type='button' value='Go' id='go'/>");
             }
                     )
-            
-            
+
+
         .Columns(columns =>
         {
             columns.Bound(o => o.IsSelected)
                  .Title("<input type='checkbox' onchange='Selectall();' id='chkSelectAll' style='margin-left: 11px;' name='checkedRecords' value='<#= IsSelected #>' />")
                  .Template(@<text><input type='checkbox' id='chkMessage' name='chkSelect' value='@item.id' /></text>)
                  .Width(50)
-                 .HtmlAttributes(new { style = "text-align:center" });           
+                 .HtmlAttributes(new { style = "text-align:center" });
             columns.Bound(o => o.name).Title("Name").Width(200);
-            columns.Bound(o => o.Owner).Title("Owner").Width(100); 
+            columns.Bound(o => o.Owner).Title("Owner").Width(100);
             columns.Bound(o => o.description).Title("Description").Width(200);
             columns.Bound(o => o.PartnerCount).Title("Partner Count").Width(100);
               //  .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
             columns.Bound(o => o.ShadowCount).Title("Shadow Count").Width(100);
             columns.Bound(o => o.CampaignCount).Title("Campaign Count").Width(100);
-            columns.Bound(o => o.UserCount).Title("Country").Width(100);         
+            columns.Bound(o => o.UserCount).Title("Country").Width(100);
 
         })
         .DataKeys(keys => keys.Add(o => o.id))
@@ -62,7 +63,8 @@
 
 
 )
-</form>
+    </form>
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -83,7 +85,10 @@
         border: 1px solid #ddd;
         z-index: 100;
     }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .t-grid-content tr > td
     {
         overflow: visible !important;

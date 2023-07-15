@@ -12,6 +12,10 @@
     #IndustryFocusDetails{
         font-size:10px;
     }
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
 </style>
 <script>
     function radioCHanged(radio) {
@@ -22,23 +26,25 @@
         alertify.alert("You selected: [" + text + "]");
     }
 </script>
-<form>
-    @Html.Telerik().Grid(Model).Name("IndustryFocusDetails").ToolBar(commands =>
-            {
-                commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
-            }).Columns(columns =>
-{
-    columns.Template(
+<div style="margin-top:10px;">
+    <form>
+        @Html.Telerik().Grid(Model).Name("IndustryFocusDetails").ToolBar(commands =>
+                {
+                    commands.Template("<input style='width: 50px;' type='submit' value='Go' />");
+                }).Columns(columns =>
+    {
+        columns.Template(
 
-        @<text>
-            <input type="radio" name="industry" style="width:20px; margin-left:10px;" onchange="radioCHanged(this)"/>
-            <input type="hidden" id="indId" value="@item.industry @item.focus @item.partnertypetouchpointquestionnaire" />
-        </text>
-    ).Width(5);
-    columns.Bound(o => o.industryDescription).Title("Industry").Width(150);
-    columns.Bound(o => o.focusDescription).Title("Focus").Width(250);
-    columns.Bound(o => o.author).Title("Author").Width(100);
-    columns.Bound(o => o.description).Title("Description").Filterable(false).Width(250);
-    columns.Bound(o => o.questionnaireTitle).Title("Questionnaire");
-}).Filterable(o => o.Enabled(true)).Pageable(o => o.Enabled(true)).Resizable(o=>o.Columns(true));
-</form>
+                @<text>
+                    <input type="radio" name="industry" style="width:20px; margin-left:10px;" onchange="radioCHanged(this)" />
+                    <input type="hidden" id="indId" value="@item.industry @item.focus @item.partnertypetouchpointquestionnaire" />
+                </text>
+     ).Width(5);
+     columns.Bound(o => o.industryDescription).Title("Industry").Width(150);
+     columns.Bound(o => o.focusDescription).Title("Focus").Width(250);
+     columns.Bound(o => o.author).Title("Author").Width(100);
+     columns.Bound(o => o.description).Title("Description").Filterable(false).Width(250);
+     columns.Bound(o => o.questionnaireTitle).Title("Questionnaire");
+ }).Filterable(o => o.Enabled(true)).Pageable(o => o.Enabled(true)).Resizable(o => o.Columns(true));
+    </form>
+</div>

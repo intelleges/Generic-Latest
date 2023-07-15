@@ -8,7 +8,7 @@
 }
 @section header{
     <script src="//cdn.ckeditor.com/4.7.2/standard/ckeditor.js"></script>
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
 }
 <style>
@@ -119,7 +119,8 @@
         @*End of Manual Upload dialog*@
     </div>
 </div>
-@( Html.Telerik().Grid(Model).Name("PartnerGrid")
+<div style="margin-top:10px;">
+    @( Html.Telerik().Grid(Model).Name("PartnerGrid")
                 .ToolBar(commands => commands
                 .Custom()
                 .HtmlAttributes(new { id = "export" })
@@ -430,7 +431,7 @@
 
 
 )
-
+</div>
 <div id="EmailDialog" title="Questionnaire Routing Form">
     <p>Email dialog</p>
 </div>
@@ -443,7 +444,10 @@
         .t-grid-content tr > td:hover .menu_block + .display_menu {
             display: block !important;
         }
-
+    .t-grid-header .t-header {
+        padding-top: 3px !important;
+        padding-bottom: 13px !important;
+    }
     .display_menu {
         left: 65px;
         overflow: visible;
