@@ -127,6 +127,52 @@
                  });
 
             });
+        $('#txtInternalIdFind').change(function () {
+            $.post("@Url.Action("ValidatePartner", "Partner")", {
+                internalID: $("#txtInternalIdFind").val(),
+                acccessCode: $('#accesscode').val()
+            }).done(function (response) {
+                if (response.message != "") {
+                    alertify.set({
+                        labels: {
+                            ok: "Yes", cancel: "No"
+                        }
+                    });
+                    alertify.confirm(response.message, function (result) {
+                        if (result) {
+                            $.post("@Url.Action("ActivatePartner", "Partner")", {
+                                internalID: $("#internalID").val(),
+                                acccessCode: $('#accesscode').val()
+                            }).done(function (resp) {
+                            });
+                        }
+                    });
+                }
+                });
+        });
+        $('#accesscode').change(function () {
+            $.post("@Url.Action("ValidatePartner", "Partner")", {
+                internalID: $("#txtInternalIdFind").val(),
+                acccessCode: $('#accesscode').val()
+            }).done(function (response) {
+                if (response.message != "") {
+                    alertify.set({
+                        labels: {
+                            ok: "Yes", cancel: "No"
+                        }
+                    });
+                    alertify.confirm(response.message, function (result) {
+                        if (result) {
+                            $.post("@Url.Action("ActivatePartner", "Partner")", {
+                                internalID: $("#internalID").val(),
+                                acccessCode: $('#accesscode').val()
+                            }).done(function (resp) {
+                            });
+                        }
+                    });
+                }
+            });
+        });
         });
 
 </script>

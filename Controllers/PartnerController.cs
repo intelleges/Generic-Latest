@@ -469,25 +469,56 @@ namespace Generic.Controllers
             return Json(new { message = msg }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult ValidatePartner(string internalID)
+        public ActionResult ValidatePartner(string internalID, string acccessCode)
         {
             var msg = "";
-            var partner = db.partner.Where(x => x.internalID == internalID).FirstOrDefault();
-            if (partner != null && (partner.active == false || partner.active == null))
+            if (!string.IsNullOrWhiteSpace(internalID))
             {
-                msg = "This PARTNER is NOT ACTIVE. Would you like to make it ACTIVE?";
+                var partner = db.partner.Where(x => x.internalID == internalID).FirstOrDefault();
+                if (partner != null && (partner.active == false || partner.active == null))
+                {
+                    msg = "This PARTNER is NOT ACTIVE. Would you like to make it ACTIVE?";
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(acccessCode))
+            {
+                var partner = (from o in db.partnerPartnertypeTouchpointQuestionnaire
+                               join p in db.partner on o.partner equals p.id
+                               where o.accesscode == acccessCode
+                               select p
+                              ).FirstOrDefault();
+                if (partner != null && (partner.active == false || partner.active == null))
+                {
+                    msg = "This PARTNER is NOT ACTIVE. Would you like to make it ACTIVE?";
+                }
             }
             return Json(new { message = msg }, JsonRequestBehavior.AllowGet);
 
         }
         [HttpPost]
-        public ActionResult ActivatePartner(string internalID)
+        public ActionResult ActivatePartner(string internalID, string acccessCode)
         {
-            var partner = db.partner.Where(x => x.internalID == internalID).FirstOrDefault();
-            if (partner != null)
+            if (!string.IsNullOrWhiteSpace(internalID))
             {
-                partner.active = true;
-                db.SaveChanges();
+                var partner = db.partner.Where(x => x.internalID == internalID).FirstOrDefault();
+                if (partner != null)
+                {
+                    partner.active = true;
+                    db.SaveChanges();
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(acccessCode))
+            {
+                var partner = (from o in db.partnerPartnertypeTouchpointQuestionnaire
+                               join p in db.partner on o.partner equals p.id
+                               where o.accesscode == acccessCode
+                               select p
+                             ).FirstOrDefault();
+                if (partner != null)
+                {
+                    partner.active = true;
+                    db.SaveChanges();
+                }
             }
             return Json(new { message = "Partner Activated Successfully" }, JsonRequestBehavior.AllowGet);
         }
