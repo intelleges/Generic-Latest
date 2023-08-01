@@ -141,7 +141,7 @@
                     alertify.confirm(response.message, function (result) {
                         if (result) {
                             $.post("@Url.Action("ActivatePartner", "Partner")", {
-                                internalID: $("#internalID").val(),
+                                internalID: $("#txtInternalIdFind").val(),
                                 acccessCode: $('#accesscode').val()
                             }).done(function (resp) {
                             });
@@ -164,7 +164,7 @@
                     alertify.confirm(response.message, function (result) {
                         if (result) {
                             $.post("@Url.Action("ActivatePartner", "Partner")", {
-                                internalID: $("#internalID").val(),
+                                internalID: $("#txtInternalIdFind").val(),
                                 acccessCode: $('#accesscode').val()
                             }).done(function (resp) {
                             });
