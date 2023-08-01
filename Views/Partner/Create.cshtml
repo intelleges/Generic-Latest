@@ -955,9 +955,18 @@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
+<script type="text/javascript">
         function changeInrenalId() {
-            $.post("@Url.Action("ValidateInternalID", "Partner")", {
+
+            $.post("@Url.Action("ValidatePartner", "Partner")", {
+                internalID: $("#internalID").val()
+            }).done(function (response) {
+                if (response.message != "") {
+                    alertify.confirm(response.message, function () {
+                        $.post("@Url.Action("ActivatePartner", "Partner")", {
+                            internalID: $("#internalID").val()
+                        }).done(function (resp) {
+                              $.post("@Url.Action("ValidateInternalID", "Partner")", {
                 partnertype: $('#partnertype').val(),
                 touchpoint: $('#touchpoint').val(),
                 internalID: $("#internalID").val()
@@ -1017,6 +1026,75 @@
                         }
                     }
                 });
+
+                        });
+                    });
+                }
+                else {
+                      $.post("@Url.Action("ValidateInternalID", "Partner")", {
+                partnertype: $('#partnertype').val(),
+                touchpoint: $('#touchpoint').val(),
+                internalID: $("#internalID").val()
+            })
+                .done(function (data) {
+                    if (data.message !== null && data.message.length > 0 && data.message.split(';').length > 0) {
+                        if (data.message.split(';')[0] == "1") {
+                            alertify.alert(data.message.split(';')[2]);
+                            $("#internalID").val('');
+                        }
+                        else if (data.message.split(';')[0] == "2") {
+                            alertify.set({
+                                labels: {
+                                    ok: "Yes", cancel: "No"
+                                }
+                            });
+                            //alertify.confirm("Would you like to logout and go to the <a href='https://intelleges.com'> Intelleges.com </a> website?", function (result) {
+                            //    if (result) {
+                            //        window.location.replace("https://intelleges.com");
+                            //    }
+                            //});
+                            alertify.confirm(
+                                data.message.split(';')[2],
+                                function () {
+                                    //alertify.alert('test');
+                                    $.post("@Url.Action("GetPPTQIDByID", "Partner")", {
+                                        pptqId: data.message.split(';')[1]
+                                    })
+                                        .done(function (data) {
+                                            if (data.message !== null) {
+                                                $("#name").val(data.message.name);
+                                                $("#address1").val(data.message.address1);
+                                                $("#address2").val(data.message.address2);
+                                                $("#city").val(data.message.city);
+                                                $("#state").val(data.message.state); //ddl
+                                                $("#province").val(data.message.province);
+                                                $("#zipcode").val(data.message.zipcode);
+                                                $("#country").val(data.message.country); //ddl
+                                                $("#phone").val(data.message.phone);
+                                                $("#fax").val(data.message.fax);
+                                                $("#firstName").val(data.message.firstName);
+                                                $("#lastName").val(data.message.lastName);
+                                                $("#title").val(data.message.title);
+                                                $("#email").val(data.message.email);
+                                                $("#dunsNumber").val(data.message.dunsNumber);
+                                                $("#federalID").val(data.message.federalID);
+                                                //$("#group").val(data.message.group); //ddl
+                                                //$("#owner").val(data.message.owner); //ddl
+                                                //$("#DueDate").val(data.message.dateApproved);
+                                            }
+                                        });
+                                },
+                                function () {
+                                    $("#internalID").val('');
+                                }
+                            );
+                        }
+                    }
+                });
+
+                }
+
+                });
         }
-    </script>
+</script>
 }

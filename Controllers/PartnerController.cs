@@ -461,10 +461,35 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult ValidateInternalID(int? partnertype, int? touchpoint, string internalID)
         {
-            int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
-               .ToList().Where(x => x.touchpoint == touchpoint).First().id;
-            var v = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(internalID, objptqId).FirstOrDefault();
-            return Json(new { message = v }, JsonRequestBehavior.AllowGet);
+            var msg = "";
+            
+                int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
+                   .ToList().Where(x => x.touchpoint == touchpoint).First().id;
+                msg= db.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(internalID, objptqId).FirstOrDefault();
+            return Json(new { message = msg }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ValidatePartner(string internalID)
+        {
+            var msg = "";
+            var partner = db.partner.Where(x => x.internalID == internalID).FirstOrDefault();
+            if (partner != null && (partner.active == false || partner.active == null))
+            {
+                msg = "This PARTNER is NOT ACTIVE. Would you like to make it ACTIVE?";
+            }
+            return Json(new { message = msg }, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpPost]
+        public ActionResult ActivatePartner(string internalID)
+        {
+            var partner = db.partner.Where(x => x.internalID == internalID).FirstOrDefault();
+            if (partner != null)
+            {
+                partner.active = true;
+                db.SaveChanges();
+            }
+            return Json(new { message = "Partner Activated Successfully" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
