@@ -79,10 +79,10 @@
         }
 
         @*.ToolBar(commands => commands
-            .Custom()
-                .HtmlAttributes(new { id = "go" })
-                .Text("Go")
-                .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
+        .Custom()
+            .HtmlAttributes(new { id = "go" })
+            .Text("Go")
+            .Action("Go", "Partner").HtmlAttributes(new { onclick = "resotreMultiple(event)" }))*@
 
 
         @( Html.Telerik().Grid(Model).Name("PartnerGrid")
@@ -121,9 +121,10 @@
             columns.Bound(o => o.PartnerName).Title("Partner Name").Width(400).Template(@<text><a href='#' id='@item.PartnerName' class="menu_block">@item.PartnerName</a>
     <div class="display_menu" style="display: none;">
         <ul>
-            <li><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
+            <li style='display:@(ViewBag.searchType.Contains("Archive") ? "none":"inherit")'><a href="javascript:openEditPopup(@item.id)">Edit/Correct</a></li>
             <li><a href="javascript:openRemovePopup(@item.id,'@item.internalID','@item.PartnerName')">Remove</a></li>
-            <li><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+            <li style='display:@(ViewBag.searchType.Contains("Archive") ? "none":"inherit")'><a href="javascript:openArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Archive</a></li>
+            <li style='display:@(ViewBag.searchType.Contains("Archive") ? "inherit":"none")'><a href="javascript:openUnArchivePopup(@item.id,'@item.internalID','@item.PartnerName')">Un-Archive</a></li>
             <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
             <li><a href="javascript:openCompletePopup()">Complete</a></li>
         </ul>
@@ -338,6 +339,35 @@
                 // click yes
 
                 $.get("@Url.Content("~/Partner/Archive/")" + id, function (data) {
+                    // $(".t-icon .t-refresh").trigger('click');
+                    window.location.replace(window.location.href);
+                });
+
+            }
+        });
+
+
+    }
+
+     function openUnArchivePopup(id, internalid, name) {
+
+
+
+        alertify.set({
+            labels: {
+                ok: "No",
+                cancel: "Yes"
+            },
+            buttonFocus: "cancel"
+        });
+        // button labels will be "Accept" and "Deny"
+        alertify.confirm("You are about to Un-Archive " + internalid + " : " + name + ". Are you sure you want to do this?", function (e) {
+            if (e) {
+                // Click no
+            } else {
+                // click yes
+
+                $.get("@Url.Content("~/Partner/UnArchive/")" + id, function (data) {
                     // $(".t-icon .t-refresh").trigger('click');
                     window.location.replace(window.location.href);
                 });

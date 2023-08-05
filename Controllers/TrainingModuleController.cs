@@ -439,7 +439,7 @@ namespace Generic.Controllers
 
         public ActionResult Archive(int id)
         {
-            db.pr_archivePartner(id);
+            db.pr_archivePartner(id, SessionSingleton.LoggedInUserId);
             //if (ModelState.IsValid)
             //{
             //    //db.Entry(partner).State = EntityState.Modified;
@@ -1593,7 +1593,7 @@ namespace Generic.Controllers
             {
                 foreach (int partnerID in chkSelect)
                 {
-                    db.pr_archivePartner(partnerID);
+                    db.pr_archivePartner(partnerID, SessionSingleton.LoggedInUserId);
                 }
                 ViewBag.searchType = "Archive";
                 return RedirectToAction("ArchivePartner");
@@ -1602,7 +1602,7 @@ namespace Generic.Controllers
             {
                 foreach (int partnerID in chkSelect)
                 {
-                    db.pr_unArchivePartner(partnerID);
+                    db.pr_unArchivePartner(partnerID, SessionSingleton.LoggedInUserId);
                 }
                 ViewBag.searchType = "Restore";
                 return RedirectToAction("RestorePartner");
@@ -1713,7 +1713,7 @@ namespace Generic.Controllers
         {
             foreach (var item in items)
             {
-                db.pr_unArchivePartner(item);
+                db.pr_unArchivePartner(item, SessionSingleton.LoggedInUserId);
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);

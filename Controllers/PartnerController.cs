@@ -671,7 +671,7 @@ namespace Generic.Controllers
 
         public ActionResult Archive(int id)
         {
-            db.pr_archivePartner(id);
+            db.pr_archivePartner(id, SessionSingleton.LoggedInUserId);
             //if (ModelState.IsValid)
             //{
             //    //db.Entry(partner).State = EntityState.Modified;
@@ -685,6 +685,13 @@ namespace Generic.Controllers
             //ViewBag.id = new SelectList(db.partnerRemitAddress, "partner", "remitAddress1", partner.id);
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult UnArchive(int id)
+        {
+            db.pr_unArchivePartner(id, SessionSingleton.LoggedInUserId);
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // GET: /Partner/Edit/5
 
@@ -1847,8 +1854,8 @@ namespace Generic.Controllers
 
         public ActionResult ArchivePartner()
         {
-            string arguments = Session["partnersearch"].ToString() + "active=1";
-            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            string arguments = Session["partnersearch"].ToString() + "active=0";
+            List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData2' , '" + arguments + "'").ToList();
             Session["partner"] = objPartnerDateList;
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
             ViewBag.searchType = "Archive";
@@ -1895,7 +1902,7 @@ namespace Generic.Controllers
             {
                 foreach (int partnerID in chkSelect)
                 {
-                    db.pr_archivePartner(partnerID);
+                    db.pr_archivePartner(partnerID, SessionSingleton.LoggedInUserId);
                 }
                 ViewBag.searchType = "Archive";
                 return RedirectToAction("ArchivePartner");
@@ -1904,7 +1911,7 @@ namespace Generic.Controllers
             {
                 foreach (int partnerID in chkSelect)
                 {
-                    db.pr_unArchivePartner(partnerID);
+                    db.pr_unArchivePartner(partnerID, SessionSingleton.LoggedInUserId);
                 }
                 ViewBag.searchType = "Restore";
                 return RedirectToAction("RestorePartner");
@@ -2025,7 +2032,7 @@ namespace Generic.Controllers
         {
             foreach (var item in items)
             {
-                db.pr_unArchivePartner(item);
+                db.pr_unArchivePartner(item, SessionSingleton.LoggedInUserId);
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);

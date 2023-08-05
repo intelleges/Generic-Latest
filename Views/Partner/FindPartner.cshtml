@@ -128,57 +128,61 @@
 
             });
         $('#txtInternalIdFind').change(function () {
-            $.post("@Url.Action("ValidatePartner", "Partner")", {
-                internalID: $("#txtInternalIdFind").val(),
-                acccessCode: $('#accesscode').val()
-            }).done(function (response) {
-                if (response.message != "") {
-                    alertify.set({
-                        labels: {
-                            ok: "Yes", cancel: "No"
-                        }
-                    });
-                    alertify.confirm(response.message, function (result) {
-                        if (result) {
-                            $.post("@Url.Action("ActivatePartner", "Partner")", {
-                                internalID: $("#txtInternalIdFind").val(),
-                                acccessCode: $('#accesscode').val()
-                            }).done(function (resp) {
-                            });
-                        }
-                    });
-                }
+            if ($('#hdnSearch').val() == "") {
+                $.post("@Url.Action("ValidatePartner", "Partner")", {
+                    internalID: $("#txtInternalIdFind").val(),
+                    acccessCode: $('#accesscode').val()
+                }).done(function (response) {
+                    if (response.message != "") {
+                        alertify.set({
+                            labels: {
+                                ok: "Yes", cancel: "No"
+                            }
+                        });
+                        alertify.confirm(response.message, function (result) {
+                            if (result) {
+                                $.post("@Url.Action("ActivatePartner", "Partner")", {
+                                    internalID: $("#txtInternalIdFind").val(),
+                                    acccessCode: $('#accesscode').val()
+                                }).done(function (resp) {
+                                });
+                            }
+                        });
+                    }
                 });
-        });
-        $('#accesscode').change(function () {
-            $.post("@Url.Action("ValidatePartner", "Partner")", {
-                internalID: $("#txtInternalIdFind").val(),
-                acccessCode: $('#accesscode').val()
-            }).done(function (response) {
-                if (response.message != "") {
-                    alertify.set({
-                        labels: {
-                            ok: "Yes", cancel: "No"
-                        }
-                    });
-                    alertify.confirm(response.message, function (result) {
-                        if (result) {
-                            $.post("@Url.Action("ActivatePartner", "Partner")", {
-                                internalID: $("#txtInternalIdFind").val(),
-                                acccessCode: $('#accesscode').val()
-                            }).done(function (resp) {
-                            });
-                        }
-                    });
-                }
+            }
             });
+        $('#accesscode').change(function () {
+            if ($('#hdnSearch').val() == "") {
+                $.post("@Url.Action("ValidatePartner", "Partner")", {
+                    internalID: $("#txtInternalIdFind").val(),
+                    acccessCode: $('#accesscode').val()
+                }).done(function (response) {
+                    if (response.message != "") {
+                        alertify.set({
+                            labels: {
+                                ok: "Yes", cancel: "No"
+                            }
+                        });
+                        alertify.confirm(response.message, function (result) {
+                            if (result) {
+                                $.post("@Url.Action("ActivatePartner", "Partner")", {
+                                    internalID: $("#txtInternalIdFind").val(),
+                                    acccessCode: $('#accesscode').val()
+                                }).done(function (resp) {
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         });
         });
 
 </script>
 
 <form id="FindpartnerForm" method="post" enctype="multipart/form-data">
-
+    <input type="hidden" id="hdnSearch" value="@ViewBag.searchType" />
     <div id="panelFind">
 
         <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">

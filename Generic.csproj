@@ -1106,6 +1106,9 @@
     <Compile Include="partnerAddress.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="PartnerArchiveLog.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="partnerClass.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -3839,6 +3842,9 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="view_PartnerData.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="view_PartnerData2.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="view_PartnerDuplicates.cs">

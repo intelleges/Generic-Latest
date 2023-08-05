@@ -303,6 +303,8 @@ namespace Generic
         public virtual DbSet<productDetail> productDetail { get; set; }
         public virtual DbSet<questionnaireUpload> questionnaireUpload { get; set; }
         public virtual DbSet<questionnaireClause> questionnaireClause { get; set; }
+        public virtual DbSet<PartnerArchiveLog> PartnerArchiveLogs { get; set; }
+        public virtual DbSet<view_PartnerData2> view_PartnerData2 { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -2248,13 +2250,17 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePage", idParameter);
         }
     
-        public virtual int pr_archivePartner(Nullable<int> id)
+        public virtual int pr_archivePartner(Nullable<int> id, Nullable<int> person)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePartner", idParameter);
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_archivePartner", idParameter, personParameter);
         }
     
         public virtual int pr_archivePartnerType(Nullable<int> id)
@@ -7785,13 +7791,17 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePage", idParameter);
         }
     
-        public virtual int pr_unArchivePartner(Nullable<int> id)
+        public virtual int pr_unArchivePartner(Nullable<int> id, Nullable<int> person)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("id", id) :
                 new ObjectParameter("id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePartner", idParameter);
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_unArchivePartner", idParameter, personParameter);
         }
     
         public virtual int pr_unArchivePartnerType(Nullable<int> id)
@@ -31611,13 +31621,17 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getLastLoginCountByEnteprise", enterpriseParameter);
         }
     
-        public virtual int pr_getLastLoginCount(Nullable<int> enterprise)
+        public virtual int pr_getLastLoginCount(Nullable<int> enterprise, Nullable<int> groupId)
         {
             var enterpriseParameter = enterprise.HasValue ?
                 new ObjectParameter("enterprise", enterprise) :
                 new ObjectParameter("enterprise", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getLastLoginCount", enterpriseParameter);
+            var groupIdParameter = groupId.HasValue ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_getLastLoginCount", enterpriseParameter, groupIdParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> pr_getLastLoginPersonIdsBasedonMonthYear(Nullable<int> enterprise, string lastLogin)

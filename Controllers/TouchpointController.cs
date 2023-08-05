@@ -293,7 +293,7 @@ namespace Generic.Controllers
             {
                 foreach (int touchpointID in chkSelect)
                 {
-                    db.pr_archivePartner(touchpointID);
+                    db.pr_archivePartner(touchpointID, SessionSingleton.LoggedInUserId);
                 }
                 ViewBag.searchType = "Archive";
                 return RedirectToAction("ArchiveTouchpoint");
