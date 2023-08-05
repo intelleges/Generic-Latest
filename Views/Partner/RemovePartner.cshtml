@@ -280,6 +280,7 @@
     });
 
     function openEditPopup(id) {
+        $("#genericPopup").html('');
         $.get("@Url.Content("~/Partner/Edit/")" + id, function (data) {
             $("#genericPopup").html(data);
         });

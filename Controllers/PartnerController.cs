@@ -1849,6 +1849,7 @@ namespace Generic.Controllers
         {
             string arguments = Session["partnersearch"].ToString() + "active=1";
             List<view_PartnerData> objPartnerDateList = db.Database.SqlQuery<view_PartnerData>("EXEC pr_dynamicFiltersPartner  'view_PartnerData' , '" + arguments + "'").ToList();
+            Session["partner"] = objPartnerDateList;
             List<PartnerViewModel> objPartnerViewModelList = ConvertToPartnerViewModel(objPartnerDateList);
             ViewBag.searchType = "Archive";
             return View("RemovePartner", objPartnerViewModelList);
