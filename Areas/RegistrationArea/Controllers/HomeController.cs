@@ -246,7 +246,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 var ppptq_cms = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accessCode).FirstOrDefault();
                 if (ppptq_cms != null && (ppptq_cms.pdf != null && ppptq_cms.status == 8))
-                    return RedirectToAction("PDFCustomizedConfirmation", new { accessCode= accessCode });
+                    return RedirectToAction("PDFCustomizedConfirmation", new { accessCode = accessCode });
                 ViewBag.EmailVerification = false;
                 Session["CheckEmailAccessCode"] = true;
                 var cmsId = 0;
@@ -678,7 +678,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                     cms = questionnairCmsAll.FirstOrDefault(q => q.description == CMS.CLAUSES);
                     cms_id = cms != null ? cms.id : 0;
                     var clausText = _translator.Translate(qusetionnarie, TranslationType.CMS, CurrentLanguage, cms_id);
-                    objViewBagModel.Clauses  =  clausText.ApplyTags(tags);
+                    objViewBagModel.Clauses = clausText.ApplyTags(tags);
 
                 }
                 if (pageName == "Finish")
@@ -3704,7 +3704,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 var result1 = db.pr_checkForInvalidZcode(ppptq_cms.id, ppptq_cms.zcode);
 
                 var zCodeActionType = result1.FirstOrDefault();
-                 pptqID = objPartner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
+                pptqID = objPartner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
 
                 //if (isCompletedSurvey && TempData["IncorrectZipCode"] == null)
                 if (isCompletedSurvey)
@@ -3865,9 +3865,9 @@ Intelleges Team";
                             email.accesscode = accessCode;
                             email.protocolTouchpoint = objtouchpoint.description;
 
-                         
+
                             var pdf = db.pr_getPPTQpdf(pptqID).FirstOrDefault();
-                            if (pdf == null || pdf.Length==0)
+                            if (pdf == null || pdf.Length == 0)
                             {
                                 pdf = GetCustomizedPDFConfirmationFile();
                             }
@@ -4448,7 +4448,26 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var pptqID = _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault().id;
             var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID);
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.qid && x.ridNEW == itemNew.rid).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.qid = data.qidOLD;
+                            itemNew.rid = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -5213,8 +5232,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -6213,7 +6250,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -7037,6 +7093,26 @@ Intelleges Team";
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
 
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -7864,7 +7940,26 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
             var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -8229,7 +8324,26 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
             var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -8594,7 +8708,26 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
             var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -8961,7 +9094,26 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
             var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -9327,7 +9479,26 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
             var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -9672,7 +9843,26 @@ Intelleges Team";
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
             var partnerType = db.pr_getPartnertypeByPPTQ(pptqID).FirstOrDefault();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -10047,7 +10237,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -10882,7 +11091,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -11752,7 +11980,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -12464,7 +12711,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -13129,6 +13395,27 @@ Intelleges Team";
 
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
+
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -13379,7 +13666,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -13882,6 +14188,7 @@ Intelleges Team";
 
         public static int FillCustomPdfHtml29(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
         {
+
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
@@ -13945,8 +14252,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -14511,7 +14836,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -14750,7 +15094,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -15317,7 +15680,7 @@ Intelleges Team";
                 if (clause != null)
                     ViewBag.Clauses = clause.text;
             }
-               
+
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -15369,7 +15732,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -15941,7 +16323,26 @@ Intelleges Team";
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
 
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -16077,7 +16478,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -16317,7 +16737,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -17033,7 +17472,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
             ViewBag.Status = pptq.status;
@@ -17089,7 +17547,7 @@ Intelleges Team";
                         SetYesNoAndCommmentViewBagValues(item);
                         break;
                     case 59462:
-                        SetViewBagValues(item, 126733, 126734,126735);
+                        SetViewBagValues(item, 126733, 126734, 126735);
                         break;
 
                     case 59463:
@@ -17109,15 +17567,15 @@ Intelleges Team";
                         break;
 
                     case 59481:
-                        SetViewBagValues(item,126751, 126752, 126753, 126754, 126755, 126756, 126757, 126759, 126760, 126761);
+                        SetViewBagValues(item, 126751, 126752, 126753, 126754, 126755, 126756, 126757, 126759, 126760, 126761);
                         break;
 
                     case 59487:
-                        SetViewBagValues(item,126762, 126763, 126764, 126765, 126766, 126767);
+                        SetViewBagValues(item, 126762, 126763, 126764, 126765, 126766, 126767);
                         break;
 
                     case 59488:
-                        SetViewBagValues(item,126768, 126769);
+                        SetViewBagValues(item, 126768, 126769);
                         break;
 
                     case 59489:
@@ -17185,7 +17643,7 @@ Intelleges Team";
                         break;
 
                     case 59539:
-                        SetViewBagValues(item,126812, 126813);
+                        SetViewBagValues(item, 126812, 126813);
                         break;
 
                     case 59540:
@@ -17229,7 +17687,7 @@ Intelleges Team";
                         break;
 
                     case 59563:
-                        SetViewBagValues(item,126841, 126842, 126843, 126844);
+                        SetViewBagValues(item, 126841, 126842, 126843, 126844);
                         break;
 
                     case 59564:
@@ -17265,7 +17723,7 @@ Intelleges Team";
                         break;
 
                     case 59573:
-                        SetViewBagValues(item,126872, 126873, 126874);
+                        SetViewBagValues(item, 126872, 126873, 126874);
                         break;
 
                 }
@@ -17339,7 +17797,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
-
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
 
             var _responseYES = 74;
             var _responseNO = 75;
@@ -17499,18 +17976,18 @@ Intelleges Team";
                     case 61840:
                         ViewBag.Input61840 = item.comment;
                         break;
-                    //case 51339:
-                    //    ViewBag.Checkbox51339_Yes = item.response == _responseYES ? _chacked : string.Empty;
-                    //    ViewBag.Checkbox51339_No = item.response == _responseNO ? _chacked : string.Empty;
-                    //    break;
-                    //case 51340:
-                    //    ViewBag.Checkbox51340_Yes = item.response == _responseYES ? _chacked : string.Empty;
-                    //    ViewBag.Checkbox51340_No = item.response == _responseNO ? _chacked : string.Empty;
-                    //    break;
-                    //case 51341:
-                    //    ViewBag.Checkbox51341_Yes = item.response == _responseYES ? _chacked : string.Empty;
-                    //    ViewBag.Checkbox51341_No = item.response == _responseNO ? _chacked : string.Empty;
-                    //    break;
+                        //case 51339:
+                        //    ViewBag.Checkbox51339_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        //    ViewBag.Checkbox51339_No = item.response == _responseNO ? _chacked : string.Empty;
+                        //    break;
+                        //case 51340:
+                        //    ViewBag.Checkbox51340_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        //    ViewBag.Checkbox51340_No = item.response == _responseNO ? _chacked : string.Empty;
+                        //    break;
+                        //case 51341:
+                        //    ViewBag.Checkbox51341_Yes = item.response == _responseYES ? _chacked : string.Empty;
+                        //    ViewBag.Checkbox51341_No = item.response == _responseNO ? _chacked : string.Empty;
+                        //    break;
                 }
 
                 ViewBag.Executives = executives;
@@ -17794,6 +18271,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -18463,6 +18960,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -19246,6 +19763,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -20121,6 +20658,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -20751,6 +21308,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -21695,6 +22272,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -21938,6 +22535,26 @@ Intelleges Team";
             //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
 
             var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            #region"to repalce New questionIds and responseIds with Old one "
+            var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            if (oldquestionnaire != null)
+            {
+                var oldQuestId = oldquestionnaire.id;
+                var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+                if (mappedList != null)
+                {
+                    foreach (var itemNew in _PPTQQuestionResponse)
+                    {
+                        var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+                        if (data != null)
+                        {
+                            itemNew.question = data.qidOLD;
+                            itemNew.response = data.ridOLD;
+                        }
+                    }
+                }
+            }
+            #endregion
             var _responseYES = 74;
             var _responseNO = 75;
             var _chacked = "checked";
@@ -22209,7 +22826,7 @@ Intelleges Team";
                 var pdfCreator = new NReco.PdfGenerator.HtmlToPdfConverter();
                 pdfCreator.PageHeaderHtml = header;
                 bytes = (pdfCreator).GeneratePdf(htmltext);
-               
+
             }
             return bytes;
         }
@@ -22768,7 +23385,7 @@ Intelleges Team";
         }
 
 
-        public ActionResult PDFCustomizedConfirmation(string filename = null,string accessCode=null)
+        public ActionResult PDFCustomizedConfirmation(string filename = null, string accessCode = null)
         {
             if (string.IsNullOrWhiteSpace(accessCode))
                 accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
@@ -23000,14 +23617,14 @@ Intelleges Team";
             {
                 //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload34";
-                var array= GetCustomizedStandardPDF(ViewName, "34");
+                var array = GetCustomizedStandardPDF(ViewName, "34");
                 return array;
             }
             else if (question != null && (question.footer == "35"))
             {
                 //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload35";
-                var array= GetCustomizedStandardPDF(ViewName);
+                var array = GetCustomizedStandardPDF(ViewName);
                 return array;
             }
             else if (question != null && (question.footer == "36"))
