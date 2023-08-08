@@ -2437,7 +2437,9 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         touchpoint = objtouchpoint
                     });
                 }
-                return Redirect(exitLinkIsOk ? exitLink : "www.intelleges.com");
+                var url = exitLinkIsOk ? exitLink : "https://www.intelleges.com";
+                return Redirect(url);
+               // return Redirect(exitLinkIsOk ? exitLink : "www.intelleges.com");
                 //#region 20130222 new code
                 //SaveLater(questionnaire, question);
                 //#endregion
