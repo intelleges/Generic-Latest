@@ -6148,6 +6148,20 @@ namespace Generic.Controllers
                 return Json(new { Status = false });
             }
         }
+        [HttpPost]
+        public ActionResult GetQueryData(int? partnertype, int? touchpoint, int? group)
+        {
+            DateTime? proactiveDate = null;
+            var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proactiveDate, 6).ToList();
+            //return Json(new { success = true, queryData= data });
+            return PartialView("_PartnerQueryData", data);
+        }
+        public ActionResult PartnerQueryData(int? partnertype, int? touchpoint, int? group)
+        {
+            DateTime? proactiveDate = null;
+            var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proactiveDate, 6).ToList();
+            return PartialView(data);
+        }
     }
 
 }

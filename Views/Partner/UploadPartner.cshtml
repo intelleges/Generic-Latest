@@ -14,8 +14,15 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryui")
-
-
+<style type="text/css">
+    #btnQuery {
+        float: left;
+        margin-top: -28px;
+        margin-left: 24%;
+        width: 100px;
+    }
+</style>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <script>
     //jQuery.noConflict();
     jQuery(document).ready(function () {
@@ -57,7 +64,9 @@
             }
     });
 
-
+        $('.close').click(function () {
+            $('#queryForm').css('display', 'none');
+        });
     $('#touchpoint').change(function () {
         $('#partnertypeDiv').show();
 
@@ -116,7 +125,7 @@
         alert ("Confirm now Button Clicked");
     });
 
-    // Confirm Later button 
+    // Confirm Later button
     $('#btnConfirmlater').click(function (e) {
         alert ("Confirm later Button Clicked");
     });
@@ -202,6 +211,30 @@
     });
     });
 
+        $('#btnQuery').click(function () {
+            var touchpoint = $("#touchpoint").val();
+            var partnertype = $("#partnertype").val();
+            var group = $('#group').val();
+            //$('#hdntouchpoint').val(touchpoint);
+            //$('#hdnpartnertype').val(partnertype);
+            //$('#hdngroup').val(group);
+            //$('#queryForm').css('display', 'block');
+            var formData = { touchpoint, partnertype, group };
+             $.ajax({
+                    url: "@Url.Content("~/Partner/GetQueryData")",
+                    type: "post",
+                    data: formData,
+                 success: function (data) {
+                     $('#queryContent').html(data);
+                     //$("#queryForm").modal("toggle");
+                     $('#queryForm').addClass('in');
+                        $('#queryForm').css('display', 'block');
+                    },
+                    error: function (data) {
+
+                    }
+                });
+        });
     //$('#UploadAutoMailMessageForm').submit(function (e) {
     //    e.preventDefault();
     //    var objProtocolID = $('#protocol').val();
@@ -230,13 +263,12 @@
     });
 </script>
 
-
 <h2>Upload Partner</h2>
 
 
 <form id="UploadpartnerForm" method="post" enctype="multipart/form-data">
     @Html.ValidationSummary(true)
-    @Html.Hidden("isR",false)
+    @Html.Hidden("isR", false)
 
 
     <div class="editor-label">
@@ -250,11 +282,12 @@
             2. Please select a touchpoint
         </div>
         <div class="editor-field">
-            <select id="touchpoint" name="touchpoint" >
-                @if(!string.IsNullOrEmpty(ViewBag.defaultTouchpoint)) {
-               
-                <option value="@ViewBag.defaultTouchpointValue" selected>@ViewBag.defaultTouchpointName</option>
-                
+            <select id="touchpoint" name="touchpoint">
+                @if (!string.IsNullOrEmpty(ViewBag.defaultTouchpoint))
+                {
+
+                    <option value="@ViewBag.defaultTouchpointValue" selected>@ViewBag.defaultTouchpointName</option>
+
                 }
             </select>
 
@@ -289,12 +322,13 @@
             5. Please select an Excel file containing the partner information.
         </div>
         <div class="editor-field">
-            @(Html.Telerik().Upload()
+            <p>
+                @(Html.Telerik().Upload()
                     .Name("uploadPartner")
                     .Multiple(false)
             )
-
-            <p class="note">
+                <input type="button" id="btnQuery" class="btn btn-default" value="Query" />
+            </p><p class="note">
                 Maximum allowed file size: 10 MB
             </p>
             <p> <a target="_blank" href="https://intelleges.com/MVCMT/Generic/UploadTemplates/addPartnerTemplate.xls">Click here to download partner upload template</a> </p>
@@ -321,3 +355,18 @@
     </div>
 
 </form>
+
+
+<div class="modal fade" id="queryForm" role="dialog" aria-hidden="true" style="display:none;opacity:1;">
+    <div class="modal-dialog" style="z-index:1041">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                </button>
+            </div>
+            <div id="queryContent" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>

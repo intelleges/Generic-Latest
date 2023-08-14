@@ -166,38 +166,38 @@
     }
 
     @{Html.Telerik().Splitter().Name("Splitter1")
-                              .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
-                              .Orientation(SplitterOrientation.Vertical)
-                              .Panes(vPanes =>
-                              {
-                                  vPanes.Add()
-                                  .Size("70%")
-                                  //.MaxSize("50%")
-                                  .Collapsible(true)
-                                  .Collapsed(true)
-                                  .Resizable(false)
-                                  .Content(gridHtml);
-
-                                  vPanes.Add()
-                                  .Scrollable(false)
-                                  .Size("100%")
-                                  .Content(Html.Telerik().Splitter().Name("Splitter2")
-                                  .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; " })
-                                  .Orientation(SplitterOrientation.Horizontal)
-                                  .ClientEvents(events => events.OnLoad("onSplitter2Load"))
-                                  .Panes(hPanes =>
+                                  .HtmlAttributes(new { style = "height: 100%;width: 100%;" })
+                                  .Orientation(SplitterOrientation.Vertical)
+                                  .Panes(vPanes =>
                                   {
-                                      hPanes.Add()
-                    .Size("35%")
-                    .Collapsible(true).Collapsed(true)
-                    .Content(@<div>
+                                      vPanes.Add()
+                                      .Size("70%")
+                                      //.MaxSize("50%")
+                                      .Collapsible(true)
+                                      .Collapsed(true)
+                                      .Resizable(false)
+                                      .Content(gridHtml);
+
+                                      vPanes.Add()
+                                      .Scrollable(false)
+                                      .Size("100%")
+                                      .Content(Html.Telerik().Splitter().Name("Splitter2")
+                                      .HtmlAttributes(new { style = "height: 100%; width: 100%; border: 0; " })
+                                      .Orientation(SplitterOrientation.Horizontal)
+                                      .ClientEvents(events => events.OnLoad("onSplitter2Load"))
+                                      .Panes(hPanes =>
+                                      {
+                                          hPanes.Add()
+                        .Size("35%")
+                        .Collapsible(true).Collapsed(true)
+                        .Content(@<div>
     @RenderSection("leftSplitter", false)
 
 </div>
 );
 
-                                    hPanes.Add()
-                        .Content(@<div id="body">
+                                        hPanes.Add()
+                .Content(@<div id="body">
     @RenderSection("featured", required: false)
     <header>
         <div class="content-wrapper main-content clear-fix">
@@ -257,13 +257,13 @@
                       {
                     <div id="rootMenu" style="float: left; padding: 0px !important; width: 18% !important;" class="col-md-2">
                         @*<a href="#">Welcome</a>
-                <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
-                <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
-                <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
-                <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>*@
+                            <a href="@Url.Content("~/Admin/ChangePassword")">Change Password</a>
+                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 1</a>
+                            <a href="@Url.Content("~/Admin/Dashboard2_1")">Dashboard 2</a>
+                            <a href="@Url.Content("~/Admin/Dashbord1")">Dashboard 3</a>*@
                         @*<a href="@Url.Content("~/Admin/View1")">View 1</a>
-                <a href="@Url.Content("~/Admin/View2")">View 2</a>
-                <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
+                            <a href="@Url.Content("~/Admin/View2")">View 2</a>
+                            <a href="@Url.Content("~/Admin/View3")">View 3</a>*@
                         @* <a href="@Url.Content("~/Admin/View4")">View 4</a>*@
                         <a href="@Url.Content("~/Campaign/Index")">Campaigns</a>
 
@@ -311,18 +311,18 @@
                                     <option value="">Select Group</option>
                                 </select>
                                   }
-                            </div>
                         </div>
+                    </div>
                       }
                 @*</div>
 
-        <div class="col-md-12" style="float: left; margin-left: -35px; margin-top: -1px;">*@
+                    <div class="col-md-12" style="float: left; margin-left: -35px; margin-top: -1px;">*@
                 <div class="col-md-2">
                     <select id="reports" name="reports" class="select">
                         <option value="">Select Report</option>
 
                         @* <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownload")">Report 1</option>
-                <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
+                            <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForSecondReport")">Report 2</option>*@
 
                         <option value="@Url.Content("~/Partner/PartnumberSpreadsheetDataLoadReportDownloadForReport3")">Report 3</option>
                         <option value="@Url.Content("~/Partner/EventNotificationBounceReportDownload")">Bounce Report</option>
@@ -340,57 +340,57 @@
                 <div class="col-md-3" style=" margin-left: 0px;">
                     @Html.Action("downloadTemplate", "Admin")
                 </div>
-                @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage!=null))
-                {
-            <div class="col-md-3" style="padding: 0px !important; width: 23% !important;">
-                @{
-                          var touchpointss = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
-                          string selectedToucId = "0";
-                          if (touchpointss != null && touchpointss.Any(o => o.Selected))
-                          {
-                              selectedToucId = touchpointss.FirstOrDefault(o => o.Selected).Value;
-                          }
-                }
-                @if (touchpointss != null)
+                @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage != null))
                       {
-                          using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
-                          {
-                        @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpointss, "Select Touchpoint", new { @class = "select", onchange = "Update_Dashboard_Values()", @height = "25px" })
-                          }
+                    <div class="col-md-3" style="padding: 0px !important; width: 23% !important;">
+                        @{
+                                  var touchpointss = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
+                                  string selectedToucId = "0";
+                                  if (touchpointss != null && touchpointss.Any(o => o.Selected))
+                                  {
+                                      selectedToucId = touchpointss.FirstOrDefault(o => o.Selected).Value;
+                                  }
+                        }
+                        @if (touchpointss != null)
+                              {
+                                  using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
+                                  {
+                                @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpointss, "Select Touchpoint", new { @class = "select", onchange = "Update_Dashboard_Values()", @height = "25px" })
+                                  }
+                              }
+                              else
+                              {
+                            <select id="maintouchpoint" name="Touchpoint">
+                                <option value="">Select Touchpoint</option>
+                            </select>
+                              }
+                    </div>
+                    <div class="col-md-2" style=" margin-left: -19px;">
+                        @{
+                                  var groupss = ViewBag.Groups as IEnumerable<SelectListItem>;
+                                  string selectedGroupId = "0";
+                                  if (groupss != null && groupss.Any(o => o.Selected))
+                                  {
+                                      selectedGroupId = groupss.FirstOrDefault(o => o.Selected).Value;
+                                  }
+                        }
+                        @if (groupss != null)
+                              {
+                            @Html.DropDownList("groupList", (IEnumerable<SelectListItem>)groupss, "Select Group", new { @class = "select ", onchange = "Update_Dashboard_Value()", @height = "25px" })
+                              }
+                              else
+                              {
+                            <select id="groupList" name="group">
+                                <option value="">Select Group</option>
+                            </select>
+                              }
+                    </div>
                       }
-                      else
+                      else if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage == null))
                       {
-                    <select id="maintouchpoint" name="Touchpoint">
-                        <option value="">Select Touchpoint</option>
-                    </select>
+                    <div class="col-md-5"></div>
                       }
             </div>
-            <div class="col-md-2" style=" margin-left: -19px;">
-                @{
-                          var groupss = ViewBag.Groups as IEnumerable<SelectListItem>;
-                          string selectedGroupId = "0";
-                          if (groupss != null && groupss.Any(o => o.Selected))
-                          {
-                              selectedGroupId = groupss.FirstOrDefault(o => o.Selected).Value;
-                          }
-                }
-                @if (groupss != null)
-                      {
-                    @Html.DropDownList("groupList", (IEnumerable<SelectListItem>)groupss, "Select Group", new { @class = "select ", onchange = "Update_Dashboard_Value()", @height = "25px" })
-                      }
-                      else
-                      {
-                    <select id="groupList" name="group">
-                        <option value="">Select Group</option>
-                    </select>
-                      }
-            </div>
-                    }
-                    else if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage == null))
-                    {
-        <div class="col-md-5"></div>
-    }
-                </div>
         </div>
         <div class="row">
             <div class="col-md-12" style="width:100%;">
@@ -401,12 +401,12 @@
 </div>);
 
 
-                              }).ToString());
+                                  }).ToString());
 
-                              vPanes.Add()
-                  .Size("35%")
-                  .Collapsible(true).Collapsed(true)
-                  .Content(@<footer>
+                                  vPanes.Add()
+          .Size("35%")
+          .Collapsible(true).Collapsed(true)
+          .Content(@<footer>
     @RenderSection("bottomSplitter", required: false)
     <div class="content-wrapper">
 
@@ -430,7 +430,7 @@
         </div>
     </div>
 </footer>);
-                   })
+                         })
 .Render();
     }
 
@@ -485,8 +485,10 @@
         </div>
     </div>
     <div id="popup" style="display:none;">
-        <iframe id="modal" style="height: 550px; border: none; width: 100%"></iframe>
+        <iframe id="modal" style="height: 600px; border: none; width: 100%"></iframe>
+
     </div>
+  
     @Html.Hidden("hdfIsSystemMaster", (object)ViewBag.IsSystemMaster)
     @* @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jqueryui")*@

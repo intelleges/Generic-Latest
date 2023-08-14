@@ -31646,5 +31646,30 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("pr_getLastLoginPersonIdsBasedonMonthYear", enterpriseParameter, lastLoginParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerDataForBatchUpload_Result> pr_getPartnerDataForBatchUpload(Nullable<int> touchpoint, Nullable<int> partnertype, Nullable<int> group, Nullable<System.DateTime> proactiveInvitationDate, Nullable<int> status)
+        {
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var groupParameter = group.HasValue ?
+                new ObjectParameter("group", group) :
+                new ObjectParameter("group", typeof(int));
+    
+            var proactiveInvitationDateParameter = proactiveInvitationDate.HasValue ?
+                new ObjectParameter("proactiveInvitationDate", proactiveInvitationDate) :
+                new ObjectParameter("proactiveInvitationDate", typeof(System.DateTime));
+    
+            var statusParameter = status.HasValue ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerDataForBatchUpload_Result>("pr_getPartnerDataForBatchUpload", touchpointParameter, partnertypeParameter, groupParameter, proactiveInvitationDateParameter, statusParameter);
+        }
     }
 }

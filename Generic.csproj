@@ -2279,6 +2279,9 @@
     <Compile Include="pr_getPartnerCorpInfo_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerDataForBatchUpload_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerDocs_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -6867,6 +6870,7 @@
     <Content Include="Views\Admin\ScheduleMeeting.cshtml" />
     <Content Include="Views\Person\AddRoles.cshtml" />
     <Content Include="Views\Questionnaire\EditQuestionCMSDetail.cshtml" />
+    <Content Include="Views\Partner\_PartnerQueryData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />
