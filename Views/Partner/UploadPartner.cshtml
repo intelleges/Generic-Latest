@@ -15,14 +15,41 @@
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jqueryui")
 <style type="text/css">
+    .t-upload{
+        width:41% !important;
+    }
     #btnQuery {
-        float: left;
+        float: right;
         margin-top: -28px;
-        margin-left: 24%;
+        margin-right: 46%;
         width: 100px;
     }
+    #query-modal-content {
+        width: 830px;
+        left: -20%;
+    }
+    #paramContent {
+        height: 280px;
+        line-height: 35px;
+    }
+    .spanhead {
+        float: left;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .closeparam {
+        float: right;
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        border: none;
+        background: #fff;
+    }
 </style>
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
 <script>
     //jQuery.noConflict();
     jQuery(document).ready(function () {
@@ -66,6 +93,9 @@
 
         $('.close').click(function () {
             $('#queryForm').css('display', 'none');
+        });
+        $('.closeparam').click(function () {
+            $('#paramForm').css('display', 'none');
         });
     $('#touchpoint').change(function () {
         $('#partnertypeDiv').show();
@@ -212,7 +242,19 @@
     });
 
         $('#btnQuery').click(function () {
-            var touchpoint = $("#touchpoint").val();
+           // $('#genericPopupparam')
+             $.get("@Url.Content("~/Partner/paramQuery")", function (data) {
+                 $('#paramContent').html(data);
+                 $('#paramForm').addClass('in');
+                 $('#paramForm').css('display', 'block');
+                 //$("#genericPopupparam").html(data);
+                 //$("#genericPopupparam").dialog({ height: 600, title: "Query Parameters" });
+                 //$("#genericPopupparam").dialog('open');
+		});
+            //$('#paramForm').addClass('in');
+            //$('#paramForm').css('display', 'block');
+
+            @*var touchpoint = $("#touchpoint").val();
             var partnertype = $("#partnertype").val();
             var group = $('#group').val();
             //$('#hdntouchpoint').val(touchpoint);
@@ -233,7 +275,7 @@
                     error: function (data) {
 
                     }
-                });
+                });*@
         });
     //$('#UploadAutoMailMessageForm').submit(function (e) {
     //    e.preventDefault();
@@ -357,15 +399,32 @@
 </form>
 
 
-<div class="modal fade" id="queryForm" role="dialog" aria-hidden="true" style="display:none;opacity:1;">
+
+<div class="modal fade" id="paramForm" role="dialog" aria-hidden="true" style="display:none;opacity:1;">
     <div class="modal-dialog" style="z-index:1041">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="height:66px;">
+                <span class="spanhead">Query Parameters</span>
+                <button type="button" class="closeparam" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                </button>
+            </div>
+            <div id="paramContent" class="modal-body" >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="queryForm" role="dialog" aria-hidden="true" style="display:none;opacity:1;">
+    <div class="modal-dialog" style="z-index:1042">
+        <div class="modal-content" id="query-modal-content">
+            <div class="modal-header" style="height:66px;">
+                <span class="spanhead">Query Data Result</span>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span><span class="sr-only"></span>
                 </button>
             </div>
-            <div id="queryContent" class="modal-body">
+            <div id="queryContent" class="modal-body" >
             </div>
         </div>
     </div>

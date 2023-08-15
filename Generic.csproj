@@ -6871,6 +6871,7 @@
     <Content Include="Views\Person\AddRoles.cshtml" />
     <Content Include="Views\Questionnaire\EditQuestionCMSDetail.cshtml" />
     <Content Include="Views\Partner\_PartnerQueryData.cshtml" />
+    <Content Include="Views\Partner\_paramQuery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

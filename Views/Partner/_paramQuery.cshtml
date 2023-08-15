@@ -1,0 +1,75 @@
+﻿
+<table width="100%;" id="inputTable" style="float:left" border="0">
+    <tbody>
+        <tr>
+            <td class="tLeftColumn">Touchpoint </td>
+            <td class="tCenterColumn"></td>
+            <td class="tRightColumn">
+                @Html.DropDownList("touchpoint1",string.Empty )
+            </td>
+        </tr>
+        <tr>
+            <td class="tLeftColumn">Type</td>
+            <td class="tCenterColumn"></td>
+            <td class="tRightColumn">
+                @Html.DropDownList("partnertype1", String.Empty)
+            </td>
+        </tr>
+        <tr>
+            <td class="tLeftColumn">Status</td>
+            <td class="tCenterColumn"></td>
+            <td class="tRightColumn">
+                @Html.DropDownList("partnerStatus1", String.Empty)
+            </td>
+        </tr>
+        <tr>
+            <td class="tLeftColumn">
+                <span id="lblGroupFind">Group</span>
+            </td>
+            <td class="tCenterColumn"></td>
+            <td class="tRightColumn">
+                @Html.DropDownList("group1", String.Empty)
+            </td>
+        </tr>
+        <tr>
+            <td class="tLeftColumn">Proactivation Date</td>
+            <td class="tCenterColumn"></td>
+            <td class="tRightColumn">
+                <input id="txtProactiveDate" class="txtBox1" type="date" name="txtProactiveDate">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="button" id="btnResult" value="Show Result" class="btn btn-default" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+    $('#btnResult').click(function () {
+         var touchpoint = $("#touchpoint1").val();
+            var partnertype = $("#partnertype1").val();
+        var group = $('#group1').val();
+        var status = $('#partnerStatus1').val();
+        var proDate  = $('#txtProactiveDate').val();
+        var formData = { touchpoint, partnertype, group, status, proDate };
+             $.ajax({
+                    url: "@Url.Content("~/Partner/GetQueryData")",
+                    type: "post",
+                    data: formData,
+                 success: function (data) {
+
+                     $('#queryContent').html('');
+                     $('#queryContent').html(data);
+                     //$("#queryForm").modal("toggle");
+                     $('#queryForm').addClass('in');
+                        $('#queryForm').css('display', 'block');
+                    },
+                    error: function (data) {
+
+                    }
+                });
+    });
+    });
+</script>

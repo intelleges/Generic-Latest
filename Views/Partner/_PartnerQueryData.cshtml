@@ -51,7 +51,12 @@
         border: 0;
     }
 </style>
-@( Html.Telerik().Grid(Model).Name("PartnerQueryGrid")
+@( Html.Telerik().Grid(Model).Name("PartnerQueryGrid").ToolBar(commands => commands
+                                                                                  .Custom()
+                                                                                  .HtmlAttributes(new { id = "export" })
+                                                                                  .Text("Export to Excel")
+                                                                                  .Action("ExportExcelQueryData", "partner")
+                                                                                )
      .Columns(columns =>
      {
      columns.Bound(o => o.PARTNER_INTERNAL_ID).Title("PARTNER_INTERNAL_ID").Width(200).Encoded(false).Template(@<text>
@@ -375,8 +380,9 @@ columns.Bound(o => o.PARTNER_ADDRESS_ONE).Title("PARTNER_ADDRESS_ONE").Width(250
                                                                                                             columns.Bound(o => o.DUE_DATE).Title("DUE_DATE").Width(150).Encoded(false).Template(@<text>
 
                                                                                                         @{
-                                                                                                            var columnData = item.DUE_DATE;
-                                                                                                            <p title="@columnData">@columnData</p>
+                                                                                                            DateTime dueDate = Convert.ToDateTime(item.DUE_DATE);
+                                                                                                            var columnData = dueDate.ToShortDateString();
+                                                                                                            <p title="@columnData" style="text-align:right;">@columnData</p>
                                                                                                         }
 
 

@@ -925,6 +925,13 @@ namespace Generic.Controllers
             //int i = 1;
 
             //List<int> uploadedpartners = new List<int>();
+            #region "Update Tuchpoint based on Protocol"
+            var protocolname = db.protocol.Where(x => x.id == protocol).Select(x => x.name).FirstOrDefault();
+            if(protocolname!=null && (protocolname=="Reps and Certs" || protocolname== "Certs and Reps"))
+            {
+                touchpoint = db.touchpoint.Where(x => (x.title == "Reps and Certs 2023" || x.title== "2023 Reps & Certs")&& x.protocol==protocol).Select(x => x.id).FirstOrDefault();
+            }
+            #endregion
             List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
 
 
@@ -2054,6 +2061,7 @@ namespace Generic.Controllers
 
             return View();
         }
+       
 
         [HttpPost]
         public ActionResult SearchAlternative(string email, string name, string lastname)
@@ -6149,19 +6157,83 @@ namespace Generic.Controllers
             }
         }
         [HttpPost]
-        public ActionResult GetQueryData(int? partnertype, int? touchpoint, int? group)
+        public ActionResult GetQueryData(int? partnertype, int? touchpoint, int? group, int? status, DateTime? proDate)
         {
-            DateTime? proactiveDate = null;
-            var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proactiveDate, 6).ToList();
+            TempData["partnertype"] = partnertype;
+            TempData["touchpoint"] = touchpoint;
+            TempData["group"] = group;
+            TempData["status"] = status;
+            TempData["proDate"] = proDate;
+
+            var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proDate, status).ToList();
             //return Json(new { success = true, queryData= data });
             return PartialView("_PartnerQueryData", data);
         }
-        public ActionResult PartnerQueryData(int? partnertype, int? touchpoint, int? group)
+        public ActionResult PartnerQueryData(int? partnertype, int? touchpoint, int? group, int? status, DateTime? proDate)
         {
-            DateTime? proactiveDate = null;
-            var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proactiveDate, 6).ToList();
+            var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proDate, status).ToList();
             return PartialView(data);
         }
+        public ActionResult paramQuery()
+        {
+            ViewBag.touchpoint1 = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+            ViewBag.group1 = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId), "id", "name");
+
+            ViewBag.partnertype1 = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.partnerStatus1 = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+            return PartialView("_paramQuery");
+        }
+        public ActionResult ExportExcelQueryData()
+        {
+           
+            var data = db.pr_getPartnerDataForBatchUpload(Convert.ToInt32(TempData["touchpoint"]), Convert.ToInt32(TempData["partnertype"]), Convert.ToInt32(TempData["group"]), Convert.ToDateTime(TempData["proDate"]), Convert.ToInt32(TempData["status"])).ToList();
+
+
+            var excelData = data.Select(i => new ExcelQueryData
+            {
+                PARTNER_INTERNAL_ID = i.PARTNER_INTERNAL_ID,
+                PARTNER_NAME = i.PARTNER_NAME,
+                PARTNER_DUNS = i.PARTNER_DUNS,
+                PARTNER_SAP_ID = i.PARTNER_SAP_ID,
+                PARTNER_POC_FIRST_NAME = i.PARTNER_POC_FIRST_NAME,
+                PARTNER_POC_LAST_NAME = i.PARTNER_POC_LAST_NAME,
+                PARTNER_POC_TITLE = i.PARTNER_POC_TITLE,
+                PARTNER_POC_PHONE_NUMBER = i.PARTNER_POC_PHONE_NUMBER,
+                PARTNER_POC_EMAIL_ADDRESS = i.PARTNER_POC_EMAIL_ADDRESS,
+                PARTNER_ADDRESS_ONE = i.PARTNER_ADDRESS_ONE,
+                PARTNER_ADDRESS_TWO = i.PARTNER_ADDRESS_TWO,
+                PARTNER_CITY = i.PARTNER_CITY,
+                PARTNER_STATE = i.PARTNER_STATE,
+                PARTNER_ZIPCODE = i.PARTNER_ZIPCODE,
+                PARTNER_COUNTRY = i.PARTNER_COUNTRY,
+                PARTNER_CONTACT_FAX = i.PARTNER_CONTACT_FAX,
+                PARTNER_PROVINCE = i.PARTNER_PROVINCE,
+                RO_FIRST_NAME = i.RO_FIRST_NAME,
+                RO_LAST_NAME = i.RO_LAST_NAME,
+                RO_EMAIL = i.RO_EMAIL,
+                DUE_DATE = i.DUE_DATE,
+                PRESELECTED = i.PRESELECTED
+            }).ToList();
+           
+            var stream = new MemoryStream();
+            var serializer = new XmlSerializer(typeof(List<ExcelQueryData>));
+
+            //We turn it into an XML and save it in the memory
+            serializer.Serialize(stream, excelData);
+            stream.Position = 0;
+
+            //We return the XML from the memory as a .xls file
+            return File(stream, "application/vnd.ms-excel", "QueryData.xls");
+
+
+        }
+        public class ExcelQueryData : pr_getPartnerDataForBatchUpload_Result
+        {
+        }
+
     }
 
 }
