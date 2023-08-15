@@ -59,6 +59,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Dynamic;
+using CsvHelper;
 #endregion
 
 namespace Generic.Controllers
@@ -916,7 +917,18 @@ namespace Generic.Controllers
             //map.Add("PARTNER_POC_TITLE", "title");
             //map.Add("PARTNER_DUNS", "dunsNumber");
             //   var columnnames = excelRead.GetColumnNames(sheetname);
-            var partnerinExcel = ExcelMapper.GetRows<ExcelPartner>(physicalPath, sheetname, map);
+            IEnumerable<ExcelPartner> partnerinExcel = null;
+            string extension = Path.GetExtension(physicalPath);
+            if (extension.ToLower() == ".csv")
+            {
+                var reader = new StreamReader(file.InputStream);
+                var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
+                partnerinExcel = csv.GetRecords<ExcelPartner>();
+             }
+            else
+            {
+                partnerinExcel = ExcelMapper.GetRows<ExcelPartner>(physicalPath, sheetname, map);
+            }
             //   var columnnames = excelRead.GetColumnNames(sheetname);
             //var partnerinExcel = from a in excelRead.Worksheet<ExcelPartner>(sheetname) select a;
 
