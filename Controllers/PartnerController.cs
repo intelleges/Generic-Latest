@@ -60,6 +60,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Dynamic;
 using CsvHelper;
+using CsvHelper.Configuration;
 #endregion
 
 namespace Generic.Controllers
@@ -917,17 +918,46 @@ namespace Generic.Controllers
             //map.Add("PARTNER_POC_TITLE", "title");
             //map.Add("PARTNER_DUNS", "dunsNumber");
             //   var columnnames = excelRead.GetColumnNames(sheetname);
-            IEnumerable<ExcelPartner> partnerinExcel = null;
+            List<ExcelPartner> partnerinExcel = new List<ExcelPartner>();
             string extension = Path.GetExtension(physicalPath);
             if (extension.ToLower() == ".csv")
             {
                 var reader = new StreamReader(file.InputStream);
-                var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
-                partnerinExcel = csv.GetRecords<ExcelPartner>();
+                var csv = new CsvReader(reader, new CsvConfiguration( System.Globalization.CultureInfo.InvariantCulture));
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    ExcelPartner excelPartner = new ExcelPartner();
+                    excelPartner.internalID = csv.GetField<string>("PARTNER_INTERNAL_ID");
+                    excelPartner.address1 = csv.GetField<string>("PARTNER_ADDRESS_ONE");
+                    excelPartner.address2 = csv.GetField<string>("PARTNER_ADDRESS_TWO");
+                    excelPartner.city = csv.GetField<string>("PARTNER_CITY");
+                    excelPartner.CountryName = csv.GetField<string>("PARTNER_COUNTRY");
+                    excelPartner.DUE_DATE = csv.GetField<DateTime?>("DUE_DATE");
+                    excelPartner.dunsNumber = csv.GetField<string>("PARTNER_DUNS");
+                    excelPartner.email = csv.GetField<string>("PARTNER_POC_EMAIL_ADDRESS");
+                    excelPartner.fax = csv.GetField<string>("PARTNER_CONTACT_FAX");
+                    excelPartner.firstName = csv.GetField<string>("PARTNER_POC_FIRST_NAME");
+                    excelPartner.lastName = csv.GetField<string>("PARTNER_POC_LAST_NAME");
+                    excelPartner.PARTNER_SAP_ID = csv.GetField<string>("PARTNER_SAP_ID");
+                    excelPartner.phone = csv.GetField<string>("PARTNER_POC_PHONE_NUMBER");
+                    excelPartner.preselected = csv.GetField<string>("PRESELECTED");
+                    excelPartner.province = csv.GetField<string>("PARTNER_PROVINCE");
+                    excelPartner.StateName = csv.GetField<string>("PARTNER_STATE");
+                    excelPartner.zipcode = csv.GetField<string>("PARTNER_ZIPCODE");
+                    excelPartner.RO_EMAIL = csv.GetField<string>("RO_EMAIL");
+                    excelPartner.RO_FIRST_NAME = csv.GetField<string>("RO_FIRST_NAME");
+                    excelPartner.RO_LAST_NAME = csv.GetField<string>("RO_LAST_NAME");
+                    excelPartner.name = csv.GetField<string>("PARTNER_NAME");
+                    excelPartner.title = csv.GetField<string>("PARTNER_POC_TITLE");
+                    partnerinExcel.Add(excelPartner);
+                }
+
              }
             else
             {
-                partnerinExcel = ExcelMapper.GetRows<ExcelPartner>(physicalPath, sheetname, map);
+                partnerinExcel = ExcelMapper.GetRows<ExcelPartner>(physicalPath, sheetname, map).ToList();
             }
             //   var columnnames = excelRead.GetColumnNames(sheetname);
             //var partnerinExcel = from a in excelRead.Worksheet<ExcelPartner>(sheetname) select a;
