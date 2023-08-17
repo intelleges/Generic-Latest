@@ -6875,6 +6875,7 @@
     <Content Include="Views\Questionnaire\EditQuestionCMSDetail.cshtml" />
     <Content Include="Views\Partner\_PartnerQueryData.cshtml" />
     <Content Include="Views\Partner\_paramQuery.cshtml" />
+    <Content Include="Views\Partner\_ConfirmFormat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

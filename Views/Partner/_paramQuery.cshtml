@@ -47,7 +47,7 @@
 </table>
 <script type="text/javascript">
     $(document).ready(function () {
-    $('#btnResult').click(function () {
+        $('#btnResult').click(function () {
          var touchpoint = $("#touchpoint1").val();
             var partnertype = $("#partnertype1").val();
         var group = $('#group1').val();
@@ -55,8 +55,8 @@
         var proDate  = $('#txtProactiveDate').val();
         var formData = { touchpoint, partnertype, group, status, proDate };
              $.ajax({
-                    url: "@Url.Content("~/Partner/GetQueryData")",
-                    type: "post",
+                    url: "@Url.Content("~/Partner/PartnerQueryData")",
+                    type: "get",
                     data: formData,
                  success: function (data) {
 
@@ -64,7 +64,8 @@
                      $('#queryContent').html(data);
                      //$("#queryForm").modal("toggle");
                      $('#queryForm').addClass('in');
-                        $('#queryForm').css('display', 'block');
+                     $('#queryForm').css('display', 'block');
+                     event.preventDefault();
                     },
                     error: function (data) {
 

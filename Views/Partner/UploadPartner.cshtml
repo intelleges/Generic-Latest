@@ -242,40 +242,12 @@
     });
 
         $('#btnQuery').click(function () {
-           // $('#genericPopupparam')
              $.get("@Url.Content("~/Partner/paramQuery")", function (data) {
                  $('#paramContent').html(data);
                  $('#paramForm').addClass('in');
                  $('#paramForm').css('display', 'block');
-                 //$("#genericPopupparam").html(data);
-                 //$("#genericPopupparam").dialog({ height: 600, title: "Query Parameters" });
-                 //$("#genericPopupparam").dialog('open');
-		});
-            //$('#paramForm').addClass('in');
-            //$('#paramForm').css('display', 'block');
-
-            @*var touchpoint = $("#touchpoint").val();
-            var partnertype = $("#partnertype").val();
-            var group = $('#group').val();
-            //$('#hdntouchpoint').val(touchpoint);
-            //$('#hdnpartnertype').val(partnertype);
-            //$('#hdngroup').val(group);
-            //$('#queryForm').css('display', 'block');
-            var formData = { touchpoint, partnertype, group };
-             $.ajax({
-                    url: "@Url.Content("~/Partner/GetQueryData")",
-                    type: "post",
-                    data: formData,
-                 success: function (data) {
-                     $('#queryContent').html(data);
-                     //$("#queryForm").modal("toggle");
-                     $('#queryForm').addClass('in');
-                        $('#queryForm').css('display', 'block');
-                    },
-                    error: function (data) {
-
-                    }
-                });*@
+             });
+            
         });
     //$('#UploadAutoMailMessageForm').submit(function (e) {
     //    e.preventDefault();

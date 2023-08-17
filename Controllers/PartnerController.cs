@@ -6201,11 +6201,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult GetQueryData(int? partnertype, int? touchpoint, int? group, int? status, DateTime? proDate)
         {
-            TempData["partnertype"] = partnertype;
-            TempData["touchpoint"] = touchpoint;
-            TempData["group"] = group;
-            TempData["status"] = status;
-            TempData["proDate"] = proDate;
+            
 
             var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proDate, status).ToList();
             //return Json(new { success = true, queryData= data });
@@ -6214,7 +6210,12 @@ namespace Generic.Controllers
         public ActionResult PartnerQueryData(int? partnertype, int? touchpoint, int? group, int? status, DateTime? proDate)
         {
             var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proDate, status).ToList();
-            return PartialView(data);
+            Session["partnertype"] = partnertype;
+            Session["touchpoint"] = touchpoint;
+            Session["group"] = group;
+            Session["status"] = status;
+            Session ["proDate"] = proDate;
+            return PartialView("_PartnerQueryData",data);
         }
         public ActionResult paramQuery()
         {
@@ -6228,54 +6229,79 @@ namespace Generic.Controllers
 
             return PartialView("_paramQuery");
         }
-        public ActionResult ExportExcelQueryData()
+        public FileResult  ExportExcelQueryData()
         {
-           
-            var data = db.pr_getPartnerDataForBatchUpload(Convert.ToInt32(TempData["touchpoint"]), Convert.ToInt32(TempData["partnertype"]), Convert.ToInt32(TempData["group"]), Convert.ToDateTime(TempData["proDate"]), Convert.ToInt32(TempData["status"])).ToList();
+            string format =Convert.ToString( Session["format"]);
+            var data = db.pr_getPartnerDataForBatchUpload(Convert.ToInt32(Session["touchpoint"]), Convert.ToInt32(Session["partnertype"]), Convert.ToInt32(Session["group"]), Convert.ToDateTime(Session["proDate"]), Convert.ToInt32(Session["status"])).ToList();
 
-
-            var excelData = data.Select(i => new ExcelQueryData
+            if (format.ToLower() == "excel")
             {
-                PARTNER_INTERNAL_ID = i.PARTNER_INTERNAL_ID,
-                PARTNER_NAME = i.PARTNER_NAME,
-                PARTNER_DUNS = i.PARTNER_DUNS,
-                PARTNER_SAP_ID = i.PARTNER_SAP_ID,
-                PARTNER_POC_FIRST_NAME = i.PARTNER_POC_FIRST_NAME,
-                PARTNER_POC_LAST_NAME = i.PARTNER_POC_LAST_NAME,
-                PARTNER_POC_TITLE = i.PARTNER_POC_TITLE,
-                PARTNER_POC_PHONE_NUMBER = i.PARTNER_POC_PHONE_NUMBER,
-                PARTNER_POC_EMAIL_ADDRESS = i.PARTNER_POC_EMAIL_ADDRESS,
-                PARTNER_ADDRESS_ONE = i.PARTNER_ADDRESS_ONE,
-                PARTNER_ADDRESS_TWO = i.PARTNER_ADDRESS_TWO,
-                PARTNER_CITY = i.PARTNER_CITY,
-                PARTNER_STATE = i.PARTNER_STATE,
-                PARTNER_ZIPCODE = i.PARTNER_ZIPCODE,
-                PARTNER_COUNTRY = i.PARTNER_COUNTRY,
-                PARTNER_CONTACT_FAX = i.PARTNER_CONTACT_FAX,
-                PARTNER_PROVINCE = i.PARTNER_PROVINCE,
-                RO_FIRST_NAME = i.RO_FIRST_NAME,
-                RO_LAST_NAME = i.RO_LAST_NAME,
-                RO_EMAIL = i.RO_EMAIL,
-                DUE_DATE = i.DUE_DATE,
-                PRESELECTED = i.PRESELECTED
-            }).ToList();
-           
-            var stream = new MemoryStream();
-            var serializer = new XmlSerializer(typeof(List<ExcelQueryData>));
+                var excelData = data.Select(i => new ExcelQueryData
+                {
+                    PARTNER_INTERNAL_ID = i.PARTNER_INTERNAL_ID,
+                    PARTNER_NAME = i.PARTNER_NAME,
+                    PARTNER_DUNS = i.PARTNER_DUNS,
+                    PARTNER_SAP_ID = i.PARTNER_SAP_ID,
+                    PARTNER_POC_FIRST_NAME = i.PARTNER_POC_FIRST_NAME,
+                    PARTNER_POC_LAST_NAME = i.PARTNER_POC_LAST_NAME,
+                    PARTNER_POC_TITLE = i.PARTNER_POC_TITLE,
+                    PARTNER_POC_PHONE_NUMBER = i.PARTNER_POC_PHONE_NUMBER,
+                    PARTNER_POC_EMAIL_ADDRESS = i.PARTNER_POC_EMAIL_ADDRESS,
+                    PARTNER_ADDRESS_ONE = i.PARTNER_ADDRESS_ONE,
+                    PARTNER_ADDRESS_TWO = i.PARTNER_ADDRESS_TWO,
+                    PARTNER_CITY = i.PARTNER_CITY,
+                    PARTNER_STATE = i.PARTNER_STATE,
+                    PARTNER_ZIPCODE = i.PARTNER_ZIPCODE,
+                    PARTNER_COUNTRY = i.PARTNER_COUNTRY,
+                    PARTNER_CONTACT_FAX = i.PARTNER_CONTACT_FAX,
+                    PARTNER_PROVINCE = i.PARTNER_PROVINCE,
+                    RO_FIRST_NAME = i.RO_FIRST_NAME,
+                    RO_LAST_NAME = i.RO_LAST_NAME,
+                    RO_EMAIL = i.RO_EMAIL,
+                    DUE_DATE = i.DUE_DATE,
+                    PRESELECTED = i.PRESELECTED
+                }).ToList();
+                var stream = new MemoryStream();
+                var serializer = new XmlSerializer(typeof(List<ExcelQueryData>));
 
-            //We turn it into an XML and save it in the memory
-            serializer.Serialize(stream, excelData);
-            stream.Position = 0;
+                //We turn it into an XML and save it in the memory
+                serializer.Serialize(stream, excelData);
+                stream.Position = 0;
 
-            //We return the XML from the memory as a .xls file
-            return File(stream, "application/vnd.ms-excel", "QueryData.xls");
-
-
-        }
-        public class ExcelQueryData : pr_getPartnerDataForBatchUpload_Result
+                //We return the XML from the memory as a .xls file
+                return File(stream, "application/vnd.ms-excel", "QueryData.xls");
+            }
+            else 
+            {
+                var csvContent = new StringBuilder();
+                csvContent.AppendLine("PARTNER_INTERNAL_ID,PARTNER_NAME,PARTNER_DUNS,PARTNER_SAP_ID,PARTNER_POC_FIRST_NAMEPARTNER_POC_LAST_NAME,PARTNER_POC_TITLE" +
+                    ",PARTNER_POC_PHONE_NUMBER,PARTNER_POC_EMAIL_ADDRESS,PARTNER_ADDRESS_ONE,PARTNER_ADDRESS_TWO,PARTNER_CITY,PARTNER_STATE,PARTNER_ZIPCODE" +
+                    ",PARTNER_COUNTRY,PARTNER_CONTACT_FAX,PARTNER_PROVINCE,RO_FIRST_NAME,RO_LAST_NAME,RO_EMAIL,DUE_DATE,PRESELECTED");
+                foreach (var item in data)
+                {
+                    csvContent.AppendLine($"{item.PARTNER_INTERNAL_ID},{item.PARTNER_NAME},{item.PARTNER_DUNS},{item.PARTNER_SAP_ID},{item.PARTNER_POC_FIRST_NAME},{item.PARTNER_POC_LAST_NAME}," +
+                        $"{item.PARTNER_POC_TITLE},{item.PARTNER_POC_PHONE_NUMBER},{item.PARTNER_POC_EMAIL_ADDRESS},{item.PARTNER_ADDRESS_ONE},{item.PARTNER_ADDRESS_TWO},{item.PARTNER_CITY},{item.PARTNER_STATE}," +
+                        $"{item.PARTNER_ZIPCODE},{item.PARTNER_COUNTRY},{item.PARTNER_CONTACT_FAX},{item.PARTNER_PROVINCE},{item.RO_FIRST_NAME},{item.RO_LAST_NAME},{item.RO_EMAIL},{item.DUE_DATE},{item.PRESELECTED}");
+                }
+                //Response.ContentType = "text/csv";
+                //Response.AddHeader("Content-Disposition", "attachment; filename=QueryData.csv");
+                //Response.Write(csvContent.ToString());
+                //Response.End();
+                var filename = "QueryData.csv";
+                var filebytes = Encoding.UTF8.GetBytes(csvContent.ToString());
+                return File(filebytes, "text/csv", filename);
+            }
+        }                        
+        public class ExcelQueryData :pr_getPartnerDataForBatchUpload_Result
+        {                             
+        }                             
+          public ActionResult selectFormat(string format)
         {
+            Session["format"] = format;
+            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
-
-    }
-
-}
+    }                                 
+                                      
+}                                     
+                                      
+                                      
