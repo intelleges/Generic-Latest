@@ -65,7 +65,8 @@
             }
         });
         $('#exportExcel').click(function () {
-            alertify.confirm('<p style="text-align: center;"> Select File Format for Export</p> <p style="padding-left: 11% !important;float: left;"> <div><input type="radio" id="rdExcel" name="export" style=" float:left !important; width: 28% !important;" value="Excel"/><label for="Excel" style="float:left;">Excel</label></div>  <div><input type="radio" id="rdCsv" name="export" style=" float:left !important; width: 28% !important;"  value="CSV"/><label for="CSV" style="float:left;">CSV</label></div></p>', function (e) {
+          //  alertify.confirm('<p style="text-align: center;"> Select File Format for Export</p> <p style="padding-left: 11% !important;float: left;"> <div><input type="radio" id="rdExcel" name="export" style=" float:left !important; width: 28% !important;" value="Excel"/><label for="Excel" style="float:left;">Excel</label></div>  <div><input type="radio" id="rdCsv" name="export" style=" float:left !important; width: 28% !important;"  value="CSV"/><label for="CSV" style="float:left;">CSV</label></div></p>', function (e) {
+            alertify.confirm('<p style="text-align: center;"> Select File Format for Export</p> <p style="padding-left: 33% !important;float: left;    padding-right: 25% !important;"> <label class="radio-inline" style="padding-left: 28px !important;"><input type="radio" id="rdExcel" name="export" style=" float:left !important; width: 3% !important;" value="Excel"/>Excel</label> <label class="radio-inline" style="padding-left: 28px !important;"><input type="radio" id="rdCsv" name="export" style=" float:left !important; width: 3% !important;"  value="CSV"/>CSV</label></p>', function (e) {
                 if (e) {
                     var format = $('input[name="export"]:checked').val();
                     var formData = { format };
