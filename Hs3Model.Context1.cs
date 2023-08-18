@@ -12009,13 +12009,17 @@ namespace Generic
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<xx_getQuestionByQuestionnaire1_Result>("xx_getQuestionByQuestionnaire1", questionnaireParameter);
         }
     
-        public virtual ObjectResult<pr_getDashboardCountForReferenceByPTQ_Result> pr_getDashboardCountForReferenceByPTQ(Nullable<int> ptq)
+        public virtual ObjectResult<pr_getDashboardCountForReferenceByPTQ_Result> pr_getDashboardCountForReferenceByPTQ(Nullable<int> ptq, Nullable<int> enterprise)
         {
             var ptqParameter = ptq.HasValue ?
                 new ObjectParameter("ptq", ptq) :
                 new ObjectParameter("ptq", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForReferenceByPTQ_Result>("pr_getDashboardCountForReferenceByPTQ", ptqParameter);
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getDashboardCountForReferenceByPTQ_Result>("pr_getDashboardCountForReferenceByPTQ", ptqParameter, enterpriseParameter);
         }
     
         public virtual ObjectResult<partner> pr_getPartnerByPTQGroupStatus(Nullable<int> ptq, Nullable<int> group, Nullable<int> status)

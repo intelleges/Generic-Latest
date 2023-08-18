@@ -1388,7 +1388,7 @@ namespace Generic.Controllers
             foreach (var ptqItem in ptq)
             {
 
-                var objDashboard = db.pr_getDashboardCountForReferenceByPTQ(ptqItem.id).ToList();
+                var objDashboard = db.pr_getDashboardCountForReferenceByPTQ(ptqItem.id, Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
 
 
                 //  db.pr_getPartnerByPTQGroupStatus(
