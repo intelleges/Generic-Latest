@@ -239,7 +239,7 @@
         });
 
         $(document).on('click', '#btnMapped', function () {
-            var value = $('input.aSelectedQuest').attr('id');
+            var value = $('.aSelectedQuest:checkbox:checked').attr('id');
             var current = $('#hdnQuest').val();
             ShowPartnerFindLoader();
             $.post("AddMappingQuestionnaire", { selectedQuestionnarieId: value, currentQuestionnaireId: current }, function (data) {
