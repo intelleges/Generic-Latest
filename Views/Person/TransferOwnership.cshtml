@@ -1,0 +1,129 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.TransferModel>
+@{
+    Layout = null;
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript">
+    function MoveListBoxItem(fromId, toId) {
+        //if (fromId == "CurrentOwners") {
+        //    var val = $("#" + toId).val();
+        //   if(val!=null && val.length >= 1) {
+        //        alert("Only  one Owner allowed is allowed");
+        //        $("#" + toId).val(val[0]);
+        //        return false;
+        //    }
+        //}
+        $("#" + fromId + " option:selected").remove().appendTo("#" + toId);
+    }
+    $(document).ready(function () {
+        $('#btnSubmit').click(function () {
+           
+            var val = $('#SelectedOwnerIds').val();
+            var personId = $('#drpNewOwner').val();
+            $.post("UpdateOwner", { ownerId: val, personId: personId }).done(function (data) {
+                $("#genericPopup").dialog('close');
+            });
+
+        });
+        $('#drpTouchPoint').change(function () {
+            var personId = $('#PersonId').val();
+            var touchpoint = $(this).val();
+            $.get("@Url.Content("~/Person/FillCurrentOwnerList")", { pId: personId, tId: touchpoint }, function (data) {
+                if (data.Status == true) {
+                    var list = data.OwnerList;
+                    for (var i = 0; i < list.length; i++) {
+                        $('#CurrentOwners').append($('<option>', {
+                            value: list[i].id,
+                            text: list[i].accesscode+' - '+list[i].name
+                        }));
+                    }
+                }
+            });
+        });
+        //$('#CurrentOwners').click(function () {
+        //    var selectedval = $(this).val();
+        //    if (selectedval.length > 1) {
+        //        $(this).val(selectedval[0]);
+        //    }
+        //});
+    });
+
+</script>
+<style type="text/css">
+    .lst_avbl, .lst_slct {
+        height: 200px !important;
+        width:90%;
+        margin-top:5%;
+    }
+
+    .dvbtn {
+        margin-top: 13%;
+    }
+    .dvbtn1 {
+        margin-top: 3%;
+        margin-left: 2%;
+    }
+    .ui-dialog {
+        width: 75% !important;
+        left: 10% !important;
+    }
+    #drpTouchPoint, #drpNewOwner{
+        width:90%;
+    }
+    .lbownerName {
+        background: #dddd;
+        margin-top: 15px;
+        margin-bottom: 0;
+        padding: 15px;
+        padding-right: 142px;
+    }
+    .lbowner {
+        background: #dddd;
+        margin-top: 15px;
+        margin-bottom: 0;
+        padding: 15px;
+        padding-right: 249px;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="dvBox col-md-12">
+            <div class="col-md-5">
+                @Html.HiddenFor(x => x.PersonId)
+                @Html.DropDownList("drpTouchPoint", Model.TouchPointList, new { @id = "drpTouchPoint", @class = "form-control" })
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                @Html.DropDownList("drpNewOwner", Model.NewOwnerDrptList, new { @id = "drpNewOwner", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="dvBox col-md-12">
+            <div class="col-md-5">
+                <label class="lbownerName">@Model.SelectedPersonName</label>
+                @Html.ListBox("CurrentOwners", new SelectList(Model.CurrentOwnerList, "OwnerId", "OwnerName"), new { @id = "CurrentOwners", @class = "lst_avbl" })
+            </div>
+            <div class="col-md-2 dvbtn">
+                <input type="button" value=">" id="btnshiftRight" class="shiftright" onclick="javascript:MoveListBoxItem('CurrentOwners','SelectedOwnerIds')" />
+                <br />
+                <input type="button" value="<" id="btnshiftLeft" class="shiftleft" onclick="javascript:MoveListBoxItem('SelectedOwnerIds','CurrentOwners')" />
+            </div>
+            <div class="col-md-5">
+                <label class="lbowner">New Owner</label>
+                @Html.ListBoxFor(x => x.SelectedOwnerIds, new SelectList(Model.NewOwnerList, "OwnerId", "OwnerName"), new { @id = "SelectedOwnerIds", @class = "lst_slct" })
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="dvBox col-md-12 dvbtn1">
+            <input type="button" id="btnSubmit" value="OK" />
+            <input type="button" onclick="CloseMe()" value="Cancel" />
+        </div>
+    </div>
+}
