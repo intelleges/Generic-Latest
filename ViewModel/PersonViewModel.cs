@@ -25,4 +25,20 @@ namespace Generic.ViewModel
         public int RoleId { get; set; }
         public string Description { get; set; }
     }
+    public class TransferModel
+    {
+        public List<OwnerModel> CurrentOwnerList { get; set; }
+        public List<OwnerModel> NewOwnerList { get; set; }
+        public int[] SelectedOwnerIds { get; set; }
+        public int PersonId { get; set; }
+        public List<SelectListItem> TouchPointList { get; set; }
+        public List<SelectListItem> NewOwnerDrptList { get; set; }
+        public string SelectedPersonName { get; set; }
+    }
+
+    public class OwnerModel
+    {
+        public int OwnerId { get; set; }
+        public string OwnerName { get; set; }
+    }
 }

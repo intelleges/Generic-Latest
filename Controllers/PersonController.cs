@@ -1216,32 +1216,75 @@ Thanks in advance.<br>
                     db.pr_addPersonRole(personId, item);
                 }
             }
-            //var availableList = db.pr_getRoleAvailableByPerson(objmodel.PersonId).ToList();
-            //var selectedList = db.pr_getRoleByPerson(objmodel.PersonId).ToList();
-            //objmodel.AvailableRoleList = new List<RolesListModel>();
-            //if (availableList != null)
-            //{
-            //    foreach (var item in availableList)
-            //    {
-            //        objmodel.AvailableRoleList.Add(new RolesListModel
-            //        {
-            //            Description = item.description,
-            //            RoleId = item.id
-            //        });
-            //    }
-            //}
-            //objmodel.SelectedRoleList = new List<RolesListModel>();
-            //if (selectedList != null)
-            //{
-            //    foreach (var item in selectedList)
-            //    {
-            //        objmodel.SelectedRoleList.Add(new RolesListModel
-            //        {
-            //            Description = item.description,
-            //            RoleId = item.id
-            //        });
-            //    }
-            //}
+            return Json(new { status = true });
+        }
+        public ActionResult TransferOwnership(int id)
+        {
+            TransferModel objmodel = new TransferModel();
+           objmodel.PersonId = id;
+            var person = db.person.Where(x => x.id == id).FirstOrDefault();
+            if (person != null)
+                objmodel.SelectedPersonName = person.firstName + " " + person.lastName;
+            int enterpriseId = Generic.Helpers.CurrentInstance.EnterpriseID;
+            objmodel.NewOwnerDrptList = new List<SelectListItem>();
+            var newList = db.pr_getPersonAll(enterpriseId).Where(x => x.id != id).ToList();
+            objmodel.NewOwnerDrptList.Add(new SelectListItem
+            {
+                Text = "Select New Owner",
+                Value = "0"
+            });
+            if (newList != null)
+            {
+                foreach (var item in newList)
+                {
+                    objmodel.NewOwnerDrptList.Add(new SelectListItem
+                    {
+                        Text = item.firstName + " " + item.lastName,
+                        Value = item.id.ToString()
+                    });
+                }
+            }
+            objmodel.TouchPointList = new List<SelectListItem>();
+            var list = db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            objmodel.TouchPointList.Add(new SelectListItem
+            {
+                Text = "Select Touchpoint",
+                Value = "0"
+            });
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    objmodel.TouchPointList.Add(new SelectListItem
+                    {
+                        Text = item.title,
+                        Value = item.id.ToString()
+                    });
+                }
+            }
+            objmodel.CurrentOwnerList = new List<OwnerModel>();
+            
+            objmodel.NewOwnerList = new List<OwnerModel>();
+           
+          
+            return View(objmodel);
+        }
+        public ActionResult FillCurrentOwnerList(int? pId, int? tId)
+        {
+            var list = db.pr_getPartnerByOwnerAndTouchpoint(pId, tId).ToList();
+            return Json(new { Status = true, OwnerList = list }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult UpdateOwner(int[] ownerId, int personId)
+        {
+            if (ownerId != null)
+            {
+                foreach (var item in ownerId)
+                {
+                    db.pr_modifyPartnerOwner(item, personId);
+                }
+            }
+
             return Json(new { status = true });
         }
     }

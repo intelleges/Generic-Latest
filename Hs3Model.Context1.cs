@@ -31675,5 +31675,31 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerDataForBatchUpload_Result>("pr_getPartnerDataForBatchUpload", touchpointParameter, partnertypeParameter, groupParameter, proactiveInvitationDateParameter, statusParameter);
         }
+    
+        public virtual ObjectResult<pr_getPartnerByOwnerAndTouchpoint_Result> pr_getPartnerByOwnerAndTouchpoint(Nullable<int> person, Nullable<int> touchpoint)
+        {
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getPartnerByOwnerAndTouchpoint_Result>("pr_getPartnerByOwnerAndTouchpoint", personParameter, touchpointParameter);
+        }
+    
+        public virtual int pr_modifyPartnerOwner(Nullable<int> partner, Nullable<int> person)
+        {
+            var partnerParameter = partner.HasValue ?
+                new ObjectParameter("partner", partner) :
+                new ObjectParameter("partner", typeof(int));
+    
+            var personParameter = person.HasValue ?
+                new ObjectParameter("person", person) :
+                new ObjectParameter("person", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerOwner", partnerParameter, personParameter);
+        }
     }
 }

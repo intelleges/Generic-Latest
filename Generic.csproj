@@ -2252,6 +2252,9 @@
     <Compile Include="pr_getPartnerByInternalIDAndPTQ_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getPartnerByOwnerAndTouchpoint_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getPartnerByPartnerType_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -6876,6 +6879,7 @@
     <Content Include="Views\Partner\_PartnerQueryData.cshtml" />
     <Content Include="Views\Partner\_paramQuery.cshtml" />
     <Content Include="Views\Partner\_ConfirmFormat.cshtml" />
+    <Content Include="Views\Person\TransferOwnership.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

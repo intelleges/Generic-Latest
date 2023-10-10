@@ -81,6 +81,7 @@
                     <li><a href="javascript:openViewDetailPopup(@item.id)">View Detail</a></li>
                     <li><a href="javascript:openResetPassword(@item.id)">Reset Password</a></li>
                     <li><a href="javascript:openAddRole(@item.id)">Add Role</a></li>
+                    <li><a href="javascript:openTransferowner(@item.id)">Transfer Owner</a></li>
                     @* <li><a href="@item.Expr1" target="_blank">Complete</a></li>*@
                 </ul>
             </div>
@@ -361,6 +362,14 @@
         $("#genericPopup").dialog({ autoOpen:false, height: 550, width: 300, title: "Add Role" });
         $("#genericPopup").dialog('open');
     }
-    
+
+    function openTransferowner(id) {
+        $.get("@Url.Content("~/Person/TransferOwnership/")" + id, function (data) {
+            $("#genericPopup").html(data);
+        });
+        $("#genericPopup").dialog({ autoOpen:false, height: 550, width: 300, title: "Transfer Ownership" });
+        $("#genericPopup").dialog('open');
+    }
+
 </script>
 
