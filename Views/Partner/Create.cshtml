@@ -3,6 +3,7 @@
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
 
+
 @{
     #region My
     Layout = LayoutHelper.GetLayout();
@@ -567,6 +568,15 @@
         width: 25px;
     }
 
+    .btndialogs {
+        margin-right: 12px !important;
+        border-radius: 6px !important;
+        margin-top: 12px;
+        border: none !important;
+        font-size: 20px !important;
+        font-weight: 600;
+    }
+
     #sub-menu {
         display: none;
     }
@@ -620,6 +630,11 @@
         height: 18px;
     }
 
+    .clsSuggest {
+        font-size: 18px;
+        float: left;
+        overflow: hidden;
+    }
 
     .btn {
         background: #3498db;
@@ -647,15 +662,22 @@
             background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
             text-decoration: none;
         }
+
+    #btnSuggestCancel {
+        background: #f93013 !important;
+    }
+
+    #btnalertSubmit {
+        background: #5da71c !important;
+    }
 </style>
 <div class="addPartnerDiv">
     <h2>Create Partner</h2>
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Partner", FormMethod.Post, new { @id = "frmCreate" }))
 {
     @Html.ValidationSummary(true)
-
     <fieldset>
         <legend>partner</legend>
         <input type="hidden" value="@ViewBag.LoggedInOwner" id="hdfLoginEMail" />
@@ -938,7 +960,6 @@
 
         </div>
     </fieldset>
-
     <div id="dvInvite" style="display:none">
         <input type="submit" name="button" id="btnInvite" value="Send invites now" />
         <input type="submit" name="button" id="btnInvitelater" value="Invite Later" />
@@ -950,8 +971,178 @@
         <input type="button" name="button" id="btnConfirm" value="Confirm Now" />
         <input type="button" name="button" id="btnConfirmlater" value="Confirm Later" />
     </div>
-
 }
+<div class="modal fade" id="alertdialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="z-index:1041">
+        <div class="modal-content">
+            <div class="modal-body" style=" height: 200px !important; border: 5px solid #74737C !important;">
+                <div id="dvSuggestion" class="form-group">
+                    <div class="row">
+                        @*<div class="col-md-2"> <input type="radio" class="aSuggestion" name="quest" value="1"></div>*@
+                        <div class="col-md-12">
+                            <input type="hidden" id="hdnpptq" />
+                            <input type="hidden" id="hdnAccessCode" />
+                            <div class="clsSuggest" id="dvSuggestContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row" style="height: 34px; text-align: center !important;">
+                        <div class="col-xs-12">
+                            <button type="button" id="btnalertSubmit" class="btn btn-primary btndialogs" name="btnalertSubmit">Shadow</button>
+                            <button type="button" id="btnSuggestCancel" class="btn btn-primary btndialogs" name="btnCancel">Cancel</button>
+                            <button type="button" id="btnoverride" class="btn btn-primary btndialogs" name="btnoverride">Override</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+
+        <input id="id" name="id" class="form-control" type="hidden" />
+        <input id="pptq" name="pptq" class="form-control" type="hidden" />
+        <div class="modal-content" style="height:600px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only"></span>
+                </button>
+                <h4 class="modal-title" id="gpsLabel">Find Partner</h4>
+            </div>
+            <div id="dvupdatebody" class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        @using (Ajax.BeginForm("FindPartner2", "Partner", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "panelFind", OnBegin = "disableClientValidation" }))
+                        {
+                            <div id="panelFind">
+
+                                <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+
+                                <table width="70%;" id="inputTable" style="float:left" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="tLeftColumn">Touchpoint </td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                @Html.DropDownList("touchpoint", String.Empty)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Type</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                @Html.DropDownList("partnertype", String.Empty)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Status</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                @Html.DropDownList("partnerStatus", String.Empty)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">
+                                                <span id="lblGroupFind">Group</span>
+                                            </td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                @Html.DropDownList("group", String.Empty)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Name</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtNameFind" class="txtBox1" type="text" name="txtNameFind">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Internal ID (EID)</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtInternalIdFind" class="txtBox1" type="text" name="txtInternalIdFind">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Access Code</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="accesscode" class="txtBox1" type="text" name="accesscode">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Contact Email</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtContactEmailFind" class="txtBox1" type="text" name="txtContactEmailFind">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">HRO Email</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtHROEmailFind" class="txtBox1" type="text" name="txtHROEmailFind">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">DUNS Number</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtDunsNumberFind" class="txtBox1" type="text" name="txtDunsNumberFind">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tLeftColumn">Federal ID</td>
+                                            <td class="tCenterColumn"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtFederalIdFind" class="txtBox1" type="text" name="txtFederalIdFind">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="tLeftColumn">Zip Code</td>
+                                            <td width="5%"></td>
+                                            <td class="tRightColumn">
+                                                <input id="txtZipCodeFind" class="txtBox1" type="text" name="txtZipCodeFind">
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                                <table style="float:left">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+
+                                            <input id="btnFind" class="txtBox1" value="Find" type="button" style="width: 100px; height:28px" name="btnFind">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input id="btnCancel" onclick='$("#updateDialog").modal("toggle");' class="txtBox1" value="Cancel" type="button" style="width: 100px; height:28px" name="btnCancel">
+
+
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
@@ -963,7 +1154,8 @@
                 touchpoint: $('#touchpoint').val(),
                 internalID: $("#internalID").val()
             })
-                .done(function (data) {
+                                  .done(function (data) {
+
                     if (data.message !== null && data.message.length > 0 && data.message.split(';').length > 0) {
                         if (data.message.split(';')[0] == "1") {
                             alertify.alert(data.message.split(';')[2]);
@@ -1016,9 +1208,108 @@
                                 }
                             );
                         }
+                        else if (data.message.split(';')[0] == "3") {
+                            $('#hdnpptq').val(data.message.split(';')[1].split('-')[1]);
+                            $('#hdnAccessCode').val(data.message.split(';')[1].split('-')[0]);
+
+                            $("#dvSuggestContent").html(data.message.split(';')[2]);
+                            $("#alertdialog").modal("toggle");
+                        }
                     }
                 });
 
         }
+        var shadowAcceCode = null;
+        var shadowPptq = null;
+        function shadow(accessCode, pptq) {
+            shadowAcceCode = accessCode;
+            shadowPptq = pptq;
+            $.post("shadow", { accessCode: accessCode, pptq: pptq }).done(function (result) {
+                if (result.status === "") {
+
+                    $("#updateDialog").modal("toggle");
+                }
+                else if (result.status === 'shadow') {
+                    alertify.alert('This access code is already a SHADOW.');
+                }
+                else if (result.status === "reference") {
+                    alertify.set({
+                        labels: {
+                            ok: "No",
+                            cancel: "Yes"
+                        },
+                        buttonFocus: "cancel"
+                    });
+                    // button labels will be "Accept" and "Deny"
+                    alertify.confirm("The REFERENCE already has SHADOWS. Do you still want to make this REFERENCE a SHADOW?", function (e) {
+                        if (e) {
+                            // Click no
+                        } else {
+                            // click yes
+                            //  $.post("shadowconfirm", { accessCode: accessCode, pptq: pptq }).done(function (result) { });
+                            $("#updateDialog").modal("toggle");
+                        }
+                    });
+                }
+            });
+    }
+    function confirmShadow(accesscode, pptq2) {
+        $.post("shadowconfirm", { accessCode: accesscode, pptq: pptq2, shadowaccessCode: shadowAcceCode, shadowpptq: shadowPptq }).done(function (result) {
+            alertify.set({
+                labels: {
+                    ok: "Ok",
+                    cancel: "Cancel"
+                },
+                buttonFocus: "ok"
+            });
+            alertify.confirm(result.message, function (e) {
+                if (e) {
+                    $.post("shadowconfirm2", { accessCode: accesscode, pptq: pptq2, shadowaccessCode: shadowAcceCode, shadowpptq: shadowPptq }).done(function (result) { window.location.reload(); });
+                } else {
+                    // window.location.reload();
+                }
+            });
+
+        });
+    }
+        $(document).ready(function () {
+            $('#btnSuggestCancel').click(function () {
+                $("#internalID").val('');
+                $("#alertdialog").modal("toggle");
+            });
+            $('#btnalertSubmit').click(function () {
+                var accessCode = $('#hdnAccessCode').val();
+                var pptq = $('#hdnpptq').val();
+               
+                shadow(accessCode, pptq);
+            });
+            $('#btnoverride').click(function () {
+                $("#alertdialog").modal("toggle");
+            });
+         
+            $('#btnFind').click(function (e) {
+
+               $.post("@Url.Action("FindPartner2", "Partner")", {
+                    touchpoint: $('#touchpoint').val(),
+                    group: $('#group').val(),
+                   // country: $("#internalID").val(),
+                    partnertype: $("#partnertype").val(),
+                    partnerStatus: $("#partnerStatus").val(),
+                    txtInternalIdFind: $("#txtInternalIdFind").val(),
+                    txtDunsNumberFind: $("#txtDunsNumberFind").val(),
+                    txtNameFind: $("#txtNameFind").val(),
+                    txtFederalIdFind: $("#txtFederalIdFind").val(),
+                    txtContactEmailFind: $("#txtContactEmailFind").val() ,
+                    txtHROEmailFind: $("#txtHROEmailFind").val(),
+                    txtZipCodeFind: $("#txtZipCodeFind").val(),
+                    accesscode: $("#accesscode").val(),
+                   searchType: $("#searchType").val(),
+                })
+                    .done(function (data) {
+                        $('#panelFind').html(data);
+                    });
+
+            });
+        });
     </script>
 }

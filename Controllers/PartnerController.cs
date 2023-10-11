@@ -430,6 +430,16 @@ namespace Generic.Controllers
         public ActionResult Create()
         {
             GenerateCreateDropDownLists();
+            ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+            ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+            ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+            ViewBag.searchType = "";
+
+            var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+            ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
             return View();
         }
 
@@ -468,7 +478,7 @@ namespace Generic.Controllers
                 int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
                    .ToList().Where(x => x.touchpoint == touchpoint).First().id;
                 msg= db.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(internalID, objptqId).FirstOrDefault();
-            return Json(new { message = msg }, JsonRequestBehavior.AllowGet);
+            return Json(new { message = msg, pptqId= objptqId }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ValidatePartner(string internalID, string acccessCode)
