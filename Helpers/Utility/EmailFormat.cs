@@ -349,25 +349,25 @@ namespace Generic.Helpers.Utility
                     case "[partner contact fax]":
                         sValue = this.sGetpartnerContactFax(partner);
                         break;
-                    case "[partner hro full name]":
+                    case "[partner ro full name]":
                         sValue = this.sGetpartnerHROFullName(partner);
                         break;
-                    case "[partner hro first name]":
+                    case "[partner ro first name]":
                         sValue = this.sGetpartnerHROFirstName(partner);
                         break;
-                    case "[partner hro last name]":
+                    case "[partner ro last name]":
                         sValue = this.sGetpartnerHROLastName(partner);
                         break;
-                    case "[partner hro email]":
+                    case "[partner ro email]":
                         sValue = this.sGetpartnerHROEmail(partner);
                         break;
-                    case "[partner hro phone]":
+                    case "[partner ro phone]":
                         sValue = this.sGetpartnerContactPhone(partner);
                         break;
-                    case "[partner hro title]":
+                    case "[partner ro title]":
                         sValue = this.sGetpartnerHROTitle(partner);
                         break;
-                    case "[partner hro fax]":
+                    case "[partner ro fax]":
                         sValue = this.sGetpartnerHROFax(partner);
                         break;
                     case "[partner access code]":
@@ -465,7 +465,7 @@ namespace Generic.Helpers.Utility
                     case "[system master fullname]":
                         sValue = systemmaster.FullName;
                         break;
-                    case "[hon internal id]":
+                    case "[internal id]":
                         sValue = partner.name;
                         break;
                     case "[partnumber]":
