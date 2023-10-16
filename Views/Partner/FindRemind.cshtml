@@ -121,7 +121,7 @@
                                    
                                         <button type="button" class="btn btn-primary btndialogs" id="btnEdit" name="edit">Edit</button>
                                    
-                                        <button type="button" class="btn btn-primary btndialogs" name="submit">Save</button>
+                                        <button type="button" class="btn btn-primary btndialogs" id="btnSave" name="submit">Save</button>
                                     </div>
                                     <div class="col-xs-3">
                                         <div class="checkbox">
@@ -586,9 +586,15 @@
 			$("#btnCancel").click(function () {
                 $("#mailDialog").modal("toggle");
 			});
-			$("#btnOK").click(function () {
+			$('#btnOK').click(function () {
+                var message = CKEDITOR.instances["txtMessage"].getData();
+                CKEDITOR.instances["emailText"].setData(message);
+                $("#mailDialog").modal("toggle");
+			});
+
+			$("#btnSave").click(function () {
 				var autoMessageId = $("#DropDownSubjects").val();
-				var message = CKEDITOR.instances["txtMessage"].getData();
+                var message = CKEDITOR.instances["emailText"].getData();
 				$.post("UpdateAutoMailMessage", { automailMessageId: autoMessageId, MailMessage: message }, function (data) {
                     if (data.Status == false) {
                         alertify.alert("There is an error occurred while Updating AutoMail Message!!!");
@@ -596,8 +602,8 @@
                     }
 					else {
 						alertify.alert("AutoMail Message is updated successfully !!!");
-						$("#mailDialog").modal("toggle");
-						dropDownSubjectsChanged();
+                        $("#emailDialog").modal("toggle");
+						//dropDownSubjectsChanged();
 						return true;
                     }
                 });
