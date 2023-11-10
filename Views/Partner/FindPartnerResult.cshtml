@@ -1186,7 +1186,13 @@
         $("#genericPopup").html("<p>Loading Data...</p>");
          $.get('@Url.Content("~/Partner/SummarizeAsync")' + '?accesscode=' + accessCode + '&internalID=' + internalID + '&touchpoint=' + touchpoint + '&partner=' + partnerName, function (data) {
              if (data) {
-                $("#genericPopup").html(data.data);
+                 if (data.status == true) {
+                     $("#genericPopup").html(data.data);
+                 }
+                 else {
+                     alertify.alert(data.data);
+                     $("#genericPopup").html("");
+                 }
 			} else {
 				alertify.alert("Something went wrong, please try again later");
 			}

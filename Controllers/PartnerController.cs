@@ -2111,6 +2111,8 @@ namespace Generic.Controllers
 
             ViewBag.searchType = searchType;
 
+            ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "FullName");
+
             return View();
         }
        
@@ -2123,7 +2125,7 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string accesscode, string searchType)
+        public ActionResult FindPartner(int? touchpoint, int? group, int? country, int? partnertype, int? partnerStatus, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtHROEmailFind, string txtZipCodeFind, string accesscode, string searchType, int? owner)
         {
             db.xx_removePDFFrom5346();
             //dbo.pr_dynamicFilters 'partner', ' Campaign=1009; Group=20;Country=2; Type=4'
@@ -2146,10 +2148,31 @@ namespace Generic.Controllers
                     ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 
                     ViewBag.searchType = searchType;
+                    ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "FullName");
+
                     ViewBag.Error = "Iterate requires you to select Touchpoint, Parthertype, Status and Group as part of your Partner Find criteria.";
                     return View();
                 }
             }
+            if( owner!=null && touchpoint == null)
+            {
+                ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+                ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId), "id", "name");
+
+                ViewBag.country = new SelectList(db.pr_getCountryAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+                ViewBag.searchType = searchType;
+                ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "FullName");
+
+                ViewBag.Error = "Iterate requires you to select Touchpoint as part of your Partner Find criteria.";
+                return View();
+            }
+
 
             if (touchpoint != null)
                 arguments += "touchpointID=" + touchpoint + ";";
@@ -2159,6 +2182,8 @@ namespace Generic.Controllers
                 arguments += "countryID=" + country + ";";
             if (partnertype != null)
                 arguments += "partnertypeID=" + partnertype + ";";
+            if (owner != null)
+                arguments += "ownerID=" + owner + ";";
 
             if (partnerStatus != null)
                 arguments += "StatusID=" + partnerStatus + ";";
@@ -2166,6 +2191,7 @@ namespace Generic.Controllers
 
             if (txtInternalIdFind != "")
                 arguments += "InternalId=" + txtInternalIdFind + ";";
+
 
 
             //string , string , string , string , string , string )
@@ -6107,7 +6133,8 @@ namespace Generic.Controllers
            
             var serializeObject = JsonConvert.SerializeObject(payloadList);
           //  sb.AppendLine("Based on the above questions and responses for " + partner + ", Please provide detailed summary of the " + partner);
-            string apiKey = "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";
+           //string apiKey = "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";
+            string apiKey = "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";
              // string apiKey = "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";
             string apiUrl = "https://api.openai.com/v1/chat/completions";
             string message = string.Empty;
@@ -6122,10 +6149,18 @@ namespace Generic.Controllers
                     var response = await httpClient.SendAsync(request,HttpCompletionOption.ResponseHeadersRead);
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
-                    message = responseData.choices[0].message.content;
+                    if (jsonResponse.Contains("error"))
+                    {
+                        message = responseData.error.message;
+                        return Json(new { data = message, status=false }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        message = responseData.choices[0].message.content;
+                    }
                 }
             }
-            return Json(new { data = message }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = message, status = true }, JsonRequestBehavior.AllowGet);
         }
        [HttpPost]
         public ActionResult GetAutomailMessageDetail(int automailMessageId)
