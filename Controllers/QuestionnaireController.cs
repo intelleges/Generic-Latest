@@ -1768,15 +1768,15 @@ namespace Generic.Controllers
                                     }
                                 }
 
-                                try
-                                {
+                                //try
+                                //{
 
                                     db.pr_addSurveyQuestion(surveyId, questionId);
-                                }
-                                catch (Exception e)
-                                {
-                                    e.Message.ToString();
-                                }
+                                //}
+                                //catch (Exception e)
+                                //{
+                                //    e.Message.ToString();
+                                //}
 
                                 if (excelQuestionnaire.skipLogicAnswer == "NULL")
                                 {
@@ -1827,18 +1827,18 @@ namespace Generic.Controllers
                                     //}
                                     //else 
 
-                                    try
-                                    {
+                                    //try
+                                    //{
                                         jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
-                                    }
-                                    catch (WrongSkipLogicJumpColumn ex)
-                                    {
-                                        throw ex;
-                                    }
-                                    catch (Exception exp)
-                                    {
-                                        throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
-                                    }
+                                    //}
+                                    //catch (WrongSkipLogicJumpColumn ex)
+                                    //{
+                                    //    throw ex;
+                                    //}
+                                    //catch (Exception exp)
+                                    //{
+                                    //    throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
+                                    //}
 
                                     if (jumpToQIDstr.Length > 0)
                                     {
