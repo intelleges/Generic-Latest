@@ -119,6 +119,7 @@
                     url: '@Url.Action("UploadQuestionnaire","Questionnaire")',
                     type: "POST",
                     data: formData,
+                    timeout: 180000,
                     success: function (data) {
                         if (data.error) {
                             alertify.alert(data.error);
@@ -128,7 +129,6 @@
                     },
                     error: function (data) {
                         console.log(data.statusText);
-                        console.log(data.error);
                         alertify.alert('Sorry, that questionnaire does not meet data and formatting requirements: '+ data.statusText);
                     }
                 });
