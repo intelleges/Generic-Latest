@@ -19,6 +19,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Generic.Helpers.Exceptions;
 using System.Collections;
+using System.Text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Generic.Controllers
 {
@@ -1235,8 +1241,8 @@ namespace Generic.Controllers
             {
                 using (var scope = db.Database.BeginTransaction())
                 {
-                    try
-                    {
+                    //try
+                    //{
                         #region part1
                         person objPerson = db.pr_getPersonByEmail(EnterpriseID, User.Identity.Name).FirstOrDefault();
 
@@ -1944,24 +1950,24 @@ namespace Generic.Controllers
                         }
 
                         return RedirectToAction("UploadCMS");
-                    }
-                    catch (Exception ex)
-                    {
-                        if (ex.InnerException != null)
-                        {
-                            ViewBag.Error = ex.InnerException.Message;
-                        }
-                        else
-                        {
-                            ViewBag.Error = ex.Message;
-                        }
-                        ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
-                        ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
-                        ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    if (ex.InnerException != null)
+                    //    {
+                    //        ViewBag.Error = ex.InnerException.Message;
+                    //    }
+                    //    else
+                    //    {
+                    //        ViewBag.Error = ex.Message;
+                    //    }
+                    //    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
+                    //    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
+                    //    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
 
-                        ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
-                        return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) + " On row:" + rowNumber });
-                    }
+                    //    ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
+                    //    return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) + " On row:" + rowNumber });
+                    //}
 
                 }
                 //var fileFolderName = ViewData["FileFolderName"];
@@ -2833,5 +2839,71 @@ namespace Generic.Controllers
             }
             return Json(new { Status = true });
         }
+
+        public ActionResult UploadIdentifyRequirements()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadIdentifyRequirements( HttpPostedFileBase uploadIdentifyRequirements)
+        {
+           StringBuilder strtext = new StringBuilder();
+            // The Name of the Upload component is "attachments" 
+            var file = uploadIdentifyRequirements;
+            if (file != null && file.ContentLength > 0)
+            {
+                BinaryReader bReader = new BinaryReader(file.InputStream);
+                byte[] pdfbytes = bReader.ReadBytes((int)file.ContentLength);
+                PdfReader reader = new PdfReader(pdfbytes);
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    strtext.Append(PdfTextExtractor.GetTextFromPage(reader, i));
+                }
+            }
+            var text = strtext.ToString();
+            var payloadList = new List<dynamic>();
+
+            var dictionary = new Dictionary<string, string>();
+            
+            dictionary["role"] = "system";
+            dictionary["content"] = text;
+            payloadList.Add(dictionary);
+            dictionary["role"] = "system";
+            dictionary["content"] = "Based on this requirement create a 100 question questionnaire of Yes/No questions only that serves to evaluate prospective suppliers for this requirement";
+            payloadList.Add(dictionary);
+            var serializeObject = JsonConvert.SerializeObject(payloadList);
+            string apiKey = "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";
+            string apiUrl = "https://api.openai.com/v1/chat/completions";
+            string message = string.Empty;
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://api.openai.com/v1/chat/completions"))
+                {
+                    request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey}");
+                    request.Content = new StringContent("{\n    \"model\": \"gpt-3.5-turbo\",\n    \"messages\": " + serializeObject + "\n  }");
+                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Headers.Add("User-Agent", "GSS/OpenAI_GPT3");
+                    var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                    message = responseData.choices[0].message.content;
+                    var strArray = message.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                    List<string> list = strArray.ToList();
+                    var stream = new MemoryStream();
+                    var serializer = new XmlSerializer(typeof(List<string>));
+
+                    //We turn it into an XML and save it in the memory
+                    serializer.Serialize(stream, list);
+                    stream.Position = 0;
+
+                    //We return the XML from the memory as a .xls file
+                    return File(stream, "application/vnd.ms-excel", "IdentifyRequirement.xls");
+                }
+            }
+
+            return View();
+        }
+        
+
     }
 }
