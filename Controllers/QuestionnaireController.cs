@@ -1241,8 +1241,8 @@ namespace Generic.Controllers
             {
                 using (var scope = db.Database.BeginTransaction())
                 {
-                    //try
-                    //{
+                    try
+                    {
                         #region part1
                         person objPerson = db.pr_getPersonByEmail(EnterpriseID, User.Identity.Name).FirstOrDefault();
 
@@ -1768,17 +1768,17 @@ namespace Generic.Controllers
                                     }
                                 }
 
-                                //try
-                                //{
+                            try
+                            {
 
-                                    db.pr_addSurveyQuestion(surveyId, questionId);
-                                //}
-                                //catch (Exception e)
-                                //{
-                                //    e.Message.ToString();
-                                //}
+                                db.pr_addSurveyQuestion(surveyId, questionId);
+                            }
+                            catch (Exception e)
+                            {
+                                e.Message.ToString();
+                            }
 
-                                if (excelQuestionnaire.skipLogicAnswer == "NULL")
+                            if (excelQuestionnaire.skipLogicAnswer == "NULL")
                                 {
                                     excelQuestionnaire.skipLogicAnswer = null;
                                 }
@@ -1817,30 +1817,30 @@ namespace Generic.Controllers
                                             landingPages.Add(Convert.ToInt32(split[1]));
                                         }
                                     }
-                                    //landingPages.AddRange(allAnswers.Select(o => o.Split(":".ToCharArray()).Length > 1 ? Convert.ToInt32(o.Split(":".ToCharArray())[1]) : 0).ToList().Distinct());
+                                //landingPages.AddRange(allAnswers.Select(o => o.Split(":".ToCharArray()).Length > 1 ? Convert.ToInt32(o.Split(":".ToCharArray())[1]) : 0).ToList().Distinct());
 
-                                    //try getting skipLogicJump Qid                                
-                                    //if (excelQuestionnaire.skipLogicAnswer == "D")
-                                    //{
-                                    //    //lets use answer's codes mapping for multiply answers skip logic
-                                    //    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
-                                    //}
-                                    //else 
+                                //try getting skipLogicJump Qid                                
+                                //if (excelQuestionnaire.skipLogicAnswer == "D")
+                                //{
+                                //    //lets use answer's codes mapping for multiply answers skip logic
+                                //    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questionId, excelQuestionnaire.QID, excelQuestionnaire.skipLogic, excelQuestionnaire.skipLogicJump, GetCodeMapping(db.pr_getResponseByQuestion(questionId).ToList(), responses));
+                                //}
+                                //else 
 
-                                    //try
-                                    //{
-                                        jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
-                                    //}
-                                    //catch (WrongSkipLogicJumpColumn ex)
-                                    //{
-                                    //    throw ex;
-                                    //}
-                                    //catch (Exception exp)
-                                    //{
-                                    //    throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
-                                    //}
+                                try
+                                {
+                                    jumpToQIDstr = getskipLogicJumpQuestionIdLogic(questions, excelQuestionnaire.skipLogicJump);
+                                }
+                                catch (WrongSkipLogicJumpColumn ex)
+                                {
+                                    throw ex;
+                                }
+                                catch (Exception exp)
+                                {
+                                    throw new Exception("Invalid skip logic jump value: " + excelQuestionnaire.skipLogicJump);
+                                }
 
-                                    if (jumpToQIDstr.Length > 0)
+                                if (jumpToQIDstr.Length > 0)
                                     {
                                         hasSkipLogicQuestionId = questionId;
 
@@ -1950,26 +1950,26 @@ namespace Generic.Controllers
                         }
 
                         return RedirectToAction("UploadCMS");
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    if (ex.InnerException != null)
-                    //    {
-                    //        ViewBag.Error = ex.InnerException.Message;
-                    //    }
-                    //    else
-                    //    {
-                    //        ViewBag.Error = ex.Message;
-                    //    }
-                    //    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
-                    //    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
-                    //    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
-
-                    //    ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
-                    //    return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) + " On row:" + rowNumber });
-                    //}
-
                 }
+                    catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        ViewBag.Error = ex.InnerException.Message;
+                    }
+                    else
+                    {
+                        ViewBag.Error = ex.Message;
+                    }
+                    ViewBag.protocol = new SelectList(db.pr_getProtocolAll(EnterpriseID), "id", "name");
+                    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAll(), "id", "description");
+                    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(EnterpriseID), "id", "name");
+
+                    ViewBag.level = new SelectList(GetLevelTypes(), "id", "description");
+                    return Json(new { error = (ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message) + " On row:" + rowNumber });
+                }
+
+            }
                 //var fileFolderName = ViewData["FileFolderName"];
             }
             return View(); // this will never executed
