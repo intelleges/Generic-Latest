@@ -660,6 +660,9 @@ namespace Generic.Controllers
                 }
 
                 Session["preSelected"] = null;
+                ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+                ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+                ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
 
                 return View();
             }
