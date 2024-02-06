@@ -5244,6 +5244,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload37.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload38.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload39.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload41.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -6880,6 +6881,7 @@
     <Content Include="Views\Partner\_paramQuery.cshtml" />
     <Content Include="Views\Partner\_ConfirmFormat.cshtml" />
     <Content Include="Views\Person\TransferOwnership.cshtml" />
+    <Content Include="Views\Questionnaire\UploadIdentifyRequirements.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\MyGoogleStorage\" />

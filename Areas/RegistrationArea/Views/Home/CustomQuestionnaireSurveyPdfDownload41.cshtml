@@ -1,0 +1,781 @@
+﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.pr_getPartnerQuestionResponseByAccessCode_Result>>
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+</head>
+<body>
+
+    <table width="100%">
+        <tr>
+            <td>
+
+                @{
+
+                    if (@ViewBag.logoSrc != null)
+                    {
+                        <img src="@ViewBag.logoSrc" width="300" height="50" style="height:50px; width:300px; border:none" />
+
+                    }
+                }
+            </td>
+        </tr>
+    </table>
+
+   
+        <table width="100%">
+            <tr>
+                <td style="font-size: 15px; color: #081835">
+                    @Html.Raw(ViewBag.QuestionnaireTitle ?? "") - @ViewBag.accessCode
+                </td>
+            </tr>
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
+                    INVITED DATE: @ViewBag.InvitedDate.ToString()
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
+                    COMPLETED DATE: @ViewBag.completeDate.ToString()
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                    SUPPLIER NAME: @ViewBag.partner.name
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                SUPPLIER ADDRESS #1: @ViewBag.partner.address1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                SUPPLIER ADDRESS #2: @ViewBag.partner.address2
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                CITY/TOWN: @ViewBag.partner.city
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                STATE/PROVINCE/REGION: @ViewBag.state
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                ZIP CODE:
+                                @if (ViewBag.partner.zipcode != null)
+                                {
+                                    @MvcHtmlString.Create(ViewBag.partner.zipcode.ToString().Length > 5 ? ViewBag.partner.zipcode.ToString().Substring(0, 5) + "-" + ViewBag.partner.zipcode.ToString().Substring(5, ViewBag.partner.zipcode.ToString().Length - 5) : ViewBag.partner.zipcode);
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                COUNTRY: @ViewBag.country
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                CONTACT NAME: @ViewBag.partner.firstName @ViewBag.partner.lastName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit">
+                                CONTACT TELEPHONE#: @ViewBag.partner.phone
+                            </td>
+                            <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit">
+                                CONTACT FAX#: @ViewBag.partner.fax
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                CONTACT EMAIL ADDRESS: @ViewBag.partner.email
+                                <br />
+                                <br />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    DUNS #: <br />
+                    @ViewBag.partner.internalID
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SAP/LOCAL SUPPLIER #: <br />
+                    @ViewBag.partner.internalID
+                </td>
+            </tr>
+        </table>
+
+    <br />
+    <br />
+   
+
+    <table cellpadding="0" cellspacing="0" border="1" width="100%">
+        <tr>
+            <td colspan="3">Legal Name of Organization:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62925) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Division Name or DBA:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62926) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Address 1:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62927) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Address 2:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62928) </td>
+        </tr>
+        <tr>
+            <td colspan="3">City:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62929) </td>
+        </tr>
+        <tr>
+            <td colspan="3">State:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Q62930_Response) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Country:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Q62931_Response) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Zip Code/Postal Code:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62932) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Point of Contact First Name:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62933) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Point of Contact Last Name:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62934) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Point of Contact Title:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62935) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Point of Contact Email:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62936) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Point of Contact Phone Number:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62937) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Fax No.:</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62938) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the type of entity?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Q62939_Response) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Entity/Business Size?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62940_Large != string.Empty && @ViewBag.Checkbox62940_Large != null)
+                {
+                    <span>&#x2611;  Large</span> <span>&#x2610;  Small</span>
+                }
+                @if (@ViewBag.Checkbox62940_Small != string.Empty && @ViewBag.Checkbox62940_Small != null)
+                {
+                    <span>&#x2610;  Large</span> <span>&#x2611;  Small</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Federal Small Business Certifications (Select all that apply):</td>
+            <td colspan="5">
+                <ul>
+                    @if (@ViewBag.Q62941_Response != null)
+                    {
+                        foreach (var item in @ViewBag.Q62941_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">State/Local Certifications (Select all that apply):</td>
+            <td colspan="5">
+                <ul>
+                    @if (@ViewBag.Q62942_Response != null)
+                    {
+                        foreach (var item in @ViewBag.Q62942_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">MBE Minority Business Enterprise Ethnicity or Other Certifications:</td>
+            <td colspan="5">
+                <ul>
+                    @if (@ViewBag.Q62943_Response != null)
+                    {
+                        foreach (var item in @ViewBag.Q62943_Response)
+                        {
+                            <li>@item</li>
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Do you have a primary NAICS Code?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62944_Yes != string.Empty && @ViewBag.Checkbox62944_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62944_Comment)
+                }
+                @if (@ViewBag.Checkbox62944_No != string.Empty && @ViewBag.Checkbox62944_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Do you have a secondarry NAICS Code?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62945_Yes != string.Empty && @ViewBag.Checkbox62945_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62945_Comment)
+                }
+                @if (@ViewBag.Checkbox62945_No != string.Empty && @ViewBag.Checkbox62945_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Do you have a UEI Number?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62946_Yes != string.Empty && @ViewBag.Checkbox62946_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62946_Comment)
+                }
+                @if (@ViewBag.Checkbox62946_No != string.Empty && @ViewBag.Checkbox62946_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Do you have a DUNS Number?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62947_Yes != string.Empty && @ViewBag.Checkbox62947_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62947_Comment)
+                }
+                @if (@ViewBag.Checkbox62947_No != string.Empty && @ViewBag.Checkbox62947_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the First Name of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62948) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Last Name of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62949) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Phone Number of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62950) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Email address of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62951) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit To Recipient Name for Mailing purposes?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62952) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit To Country?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Q62953_Response) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit To Street Number and Street Name?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62954) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Is there a Unit/Suite/Apt #?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62955_Yes != string.Empty && @ViewBag.Checkbox62955_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62955_Comment)
+                }
+                @if (@ViewBag.Checkbox62955_No != string.Empty && @ViewBag.Checkbox62955_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit To City name?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62956) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit To State/Province/Region?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Q62957_Response) </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit To ZIP code or Postal code?</td>
+            <td colspan="5"> @Html.Raw(ViewBag.Input62958) </td>
+        </tr>
+        <tr>
+            <td colspan="3">Is an IRS 1099 Form (such as 1099-NEC, 1099-INT, 1099-MISC) required?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62959_Yes != string.Empty && @ViewBag.Checkbox62959_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62959_Comment)
+                }
+                @if (@ViewBag.Checkbox62959_No != string.Empty && @ViewBag.Checkbox62959_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">If you are a foreign entity, has Battelle requested IRS Tax form W-8 or E?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62960_Yes != string.Empty && @ViewBag.Checkbox62960_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62960_Comment)
+                }
+                @if (@ViewBag.Checkbox62960_No != string.Empty && @ViewBag.Checkbox62960_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Has Battelle requested a W-9 from your entity?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62961_Yes != string.Empty && @ViewBag.Checkbox62961_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62961_Comment)
+                }
+                @if (@ViewBag.Checkbox62961_No != string.Empty && @ViewBag.Checkbox62961_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Has Battelle requested Insurance Certification?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62962_Yes != string.Empty && @ViewBag.Checkbox62962_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62962_Comment)
+                }
+                @if (@ViewBag.Checkbox62962_No != string.Empty && @ViewBag.Checkbox62962_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Will any work be performed in the state of California (USA)?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62963_Yes != string.Empty && @ViewBag.Checkbox62963_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                }
+                @if (@ViewBag.Checkbox62963_No != string.Empty && @ViewBag.Checkbox62963_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Has Battelle requested a CA 587 Tax Form?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62964_Yes != string.Empty && @ViewBag.Checkbox62964_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62964_Comment)
+                }
+                @if (@ViewBag.Checkbox62964_No != string.Empty && @ViewBag.Checkbox62964_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Has Battelle requested a CA 590 Tax Form?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62965_Yes != string.Empty && @ViewBag.Checkbox62965_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q62965_Comment)
+                }
+                @if (@ViewBag.Checkbox62965_No != string.Empty && @ViewBag.Checkbox62965_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">To provide more timely and convenient payment methods to our Vendors, Battelle offers two methods of payment options: Automated Clearing House (ACH) or Single Use Account (SUA). Please select the payment method that your company/entity has chosen.</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62966_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Name for International payments?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62967)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Street Address Number and Street Name for International payments?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62968)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank City?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62969)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Province?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62970)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Country?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62971_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Code (SWIFT Code) for International payments?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62972)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary Name according to the Bank record for International ACH?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62973)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary Address for International ACH?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62974)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary Country?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62975_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary City?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62976)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary State/Province/Region?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62977)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Account Type (IBAN/Other) for International ACH?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62978)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Account Number for International ACH?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62979)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is your 9-digit Federal ID/EIN Number? (Please do not include the hyphen)</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62980)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Financial Institution Name?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62981)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Financial Institution Street Address Number and Street Address Name?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62982)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Financial Institution City Name?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62983)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Financial Institution State/Province/Region?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62984_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Financial Institution ZIP code or Postal code?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62985)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">In what Country is the Financial Institution located?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62986_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Name on the Bank account?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62987)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the 9-digit ABA Routing Number?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62988)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Account Type?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox62989_Checkings != string.Empty && @ViewBag.Checkbox62989_Checkings != null)
+                {
+                    <span>&#x2611; Checking(AA)</span> <span>&#x2610; Savings(AB)</span>
+                }
+                @if (@ViewBag.Checkbox62989_Savings != string.Empty && @ViewBag.Checkbox62989_Savings != null)
+                {
+                    <span>&#x2610; Checking(AA)</span> <span>&#x2611; Savings(AB)</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Account Number?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62990)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">In what country is the Financial Institution located?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62991_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Bank Name for International check payments?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62992)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the SWIFT Code for International check payments?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62993)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary Name according to the bank record for International checks?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62994)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary Address?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62995)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary Country?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q62996_Response)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary City?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62997)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Beneficiary State/Province/Region?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62998)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Account Number for International checks?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input62999)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Company Name for Mailing purposes?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63000)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What this the First Name of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63001)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Last Name of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63002)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Title of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63003)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Phone number of the Accounts Receivable Point of Contact?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63004)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the PAYMENT NOTIFICATION Email address?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63005)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit to Street Number and Street Name?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63006)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Is there a Unit/Suite/Apt #?</td>
+            <td colspan="5">
+                @if (@ViewBag.Checkbox63007_Yes != string.Empty && @ViewBag.Checkbox63007_Yes != null)
+                {
+                    <span>&#x2611; Yes</span> <span>&#x2610; No</span>
+                    <br />
+                    @Html.Raw(ViewBag.Q63007_Comment)
+                }
+                @if (@ViewBag.Checkbox63007_No != string.Empty && @ViewBag.Checkbox63007_No != null)
+                {
+                    <span>&#x2610; Yes</span> <span>&#x2611; No</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit to City name?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63008)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit to State/Province/Region?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Input63010)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">What is the Remit to Country?</td>
+            <td colspan="5">
+                @Html.Raw(ViewBag.Q63011_Response)
+            </td>
+        </tr>
+        <tr><td colspan="2"><br /></td></tr>
+    </table>
+    <br />
+
+   
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    NAME: @ViewBag.signature.lastName @ViewBag.signature.firstName
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SIGNATURE: @ViewBag.signature.email
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    DATE: @ViewBag.completeDate
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                    TITLE: @ViewBag.signature.title
+                </td>
+            </tr>
+        </table>
+</body>
+</html>
