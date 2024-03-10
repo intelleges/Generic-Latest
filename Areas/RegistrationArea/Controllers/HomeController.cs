@@ -18641,7 +18641,12 @@ Intelleges Team";
                 ViewName = "CustomQuestionnaireSurveyPdfDownload41";
                 return ViewCustomizedPdf(pptqID, ViewName, "");
             }
-
+            else if (question != null && (question.footer == "40"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload40";
+                return ViewCustomizedStandardPDF(ViewName, "40");
+            }
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
             return ViewCustomPdf(pptqID);
@@ -23331,7 +23336,7 @@ Intelleges Team";
             List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
-            if (footer == "34")
+            if (footer == "34" || footer == "40")
             {
                 var tinEinNumber = result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
                 if (tinEinNumber != null && tinEinNumber != "")
@@ -23453,7 +23458,7 @@ Intelleges Team";
             List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
-            if (footer == "34")
+            if (footer == "34" || footer == "40")
             {
                 var tinEinNumber = result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
                 if (tinEinNumber != null && tinEinNumber != "")
@@ -23750,6 +23755,14 @@ Intelleges Team";
             {
                 pptqID = FillCustomPdfHtml41(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload41";
+            }
+            else if (question != null && (question.footer == "40"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload40";
+                isCustomizedPdf = false;
+                GenerateCustomizePdf(ViewName, accessCode, pptqID, "40");
+                //return ViewCustomizedStandardPDF(ViewName, "34");
             }
             // else return PDFConfirmation();
             //pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
@@ -24092,6 +24105,13 @@ Intelleges Team";
                 ViewName = "CustomQuestionnaireSurveyPdfDownload41";
                 return GetCustomizedPdfFile(pptqID, ViewName, "");
             }
+            else if (question != null && (question.footer == "40"))
+            {
+                //pptqID = FillCustomPdfHtml33(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload40";
+                var array = GetCustomizedStandardPDF(ViewName, "40");
+                return array;
+            }
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
             ViewName = "CustomQuestionnaireSurveyPdfDownload";
@@ -24103,7 +24123,7 @@ Intelleges Team";
             var result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
-            if (footer == "34")
+            if (footer == "34" || footer == "40")
             {
                 var tinEinNumber = result.Where(q => q.question.Contains("TIN/EIN Number")).Select(s => s.description).FirstOrDefault();
                 if (tinEinNumber != null && tinEinNumber != "")
