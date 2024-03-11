@@ -1,0 +1,302 @@
+﻿@inherits System.Web.Mvc.WebViewPage<List<Generic.pr_getPartnerQuestionResponseByAccessCode99_Result>>
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+@using System.Text.RegularExpressions
+
+@{
+    Layout = null;
+    string pattern = @"(\([A-Z][A-Z]\))";
+    var dict = ViewBag.ReponseList as Dictionary<int, List<Generic.pr_getQuestionResponseByQuestion_Result>>;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+</head>
+<body>
+        <table width="100%">
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+                    {
+                        <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:300px; border:none" />
+                    }
+                </td>
+            </tr>
+        </table>
+        <div>
+            <ul style=" margin-left: 25px;">
+                <li><i><input type="checkbox" /> Commercial Unique</i></li>
+                <li><i><input type="checkbox" checked="checked" /> Commercial FAR Part 12</i></li>
+                <li><i><input type="checkbox" /> Non-Commercial FAR Part 15</i></li>
+            </ul>
+        </div>
+        <table width="100%" style="margin-top:20px;">
+            <tr>
+                <td style="color: #081835; font-weight: bold; font-size: 2em; text-align: center;">
+                    SUPPLIER CERTIFICATION and ASSESSMENT<br />CALENDAR YEAR 2024
+                </td>
+            </tr>
+            <tr>
+                <td style=" text-align: center;">
+                    <p>All current and prospective Celestica suppliers are required to complete the Annual Certification and Assessment each calendar year.  Suppliers are required to certify their compliance with the following FAR/DFARS requirements.</p>
+                </td>
+            </tr>
+        </table>
+        @foreach (var item in ViewBag.reslt2)
+        {
+            <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        ONESOURCE SUPPLIER ID# (DUNS#)  @ViewBag.partner.dunsNumber
+                    </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        Celestica SAP/LOCAL SUPPLIER #  @ViewBag.partner.federalID
+                    </td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        PRIMARY NAICS CODE  @ViewBag.PrimaryNaicsCode
+                    </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                        SUPPLIER NAME: @ViewBag.partner.name
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                    SUPPLIER ADDRESS (Manufacturing address - no PO Box): @ViewBag.partner.address1
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; word-wrap:break-word; padding-left: 5px; padding-bottom:5px;">
+                                    @ViewBag.partner.address2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    CITY/TOWN: @ViewBag.partner.city
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    STATE/PROVINCE/REGION: @ViewBag.state
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    ZIP CODE:
+                                    @if (ViewBag.partner.zipcode != null)
+                                    {
+                                        @MvcHtmlString.Create(ViewBag.partner.zipcode.ToString().Length > 5 ? ViewBag.partner.zipcode.ToString().Substring(0, 5) + "-" + ViewBag.partner.zipcode.ToString().Substring(5, ViewBag.partner.zipcode.ToString().Length - 5) : ViewBag.partner.zipcode);
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                                    COUNTRY: @ViewBag.country
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" cellpadding="0" cellspacing="0" style="height:150px; border-collapse:collapse" border="1">
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                    CONTACT NAME: @ViewBag.partner.firstName @ViewBag.partner.lastName
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                    CONTACT TELEPHONE#: @ViewBag.partner.phone
+                                </td>
+                                <td width="30%" style="font-size: 11px; padding-left: 5px; padding-bottom:5px; width:inherit;">
+                                    CONTACT FAX#: @ViewBag.partner.fax
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                                    CONTACT EMAIL ADDRESS: @ViewBag.partner.email
+                                    <br />
+                                    <br />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        }
+        @{int i = 1;}
+        <table cellpadding="0" cellspacing="0" border="1" width="100%">
+            @foreach (var p in @Model.Where(d => !string.IsNullOrEmpty(d.description)))
+            {
+                <tr>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;" colspan="2">
+                        <div style="word-wrap:break-word;">
+                            @i.  @Html.Raw(p.question)
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    @{
+                        string[] resultArray = p.description.Split(new string[] { "--" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (dict.ContainsKey(p.qid))
+                        {
+                            <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                                <div style="word-wrap:break-word;">
+                                    @if (resultArray.Count() > 0)
+                                    {
+                                        string res = System.Text.RegularExpressions.Regex.Replace(resultArray[0].Replace("????", ""), pattern, "");
+                                        @Html.Raw(res.Split(new string[] { "||" }, StringSplitOptions.RemoveEmptyEntries)[0])
+                                    }
+                                </div>
+                            </td>
+                            <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                                <div style="word-wrap:break-word;">
+                                    @if (resultArray.Count() > 1)
+                                    {
+                                        string res = System.Text.RegularExpressions.Regex.Replace(resultArray[1], pattern, "");
+                                        List<string> r = new List<string>();
+                                        var list = dict[p.qid];
+
+                                        if (res.Split(',').Length == 0)
+                                        {
+                                            @Html.Raw(res)
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in res.Split(','))
+                                            {
+                                                var ii = list.Where(o => o.response.Contains("||" + item)).FirstOrDefault();
+                                                if (ii != null)
+                                                {
+                                                    r.Add(ii.response.Replace("||" + item, ""));
+                                                }
+                                            }
+
+                                            @Html.Raw(string.Join(",", r))
+                                        }
+                                    }
+                                </div>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                                <div style="word-wrap:break-word;">
+                                    @if (resultArray.Count() > 0)
+                                    {
+                                        string res = System.Text.RegularExpressions.Regex.Replace(resultArray[0].Replace("????", ""), pattern, "");
+                                        @Html.Raw(res)
+                                    }
+                                </div>
+                            </td>
+                            <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;">
+                                <div style="word-wrap:break-word;">
+                                    @if (resultArray.Count() > 1)
+                                    {
+                                        string res = System.Text.RegularExpressions.Regex.Replace(resultArray[1], pattern, "");
+                                        if (resultArray[1].Trim() != ",")
+                                        {
+                                            @Html.Raw(resultArray[1]);
+                                        }
+                                    }
+                                </div>
+                            </td>
+
+                        }
+                    }
+                </tr>
+
+                <tr><td colspan="2"><br /></td></tr>
+                i++;
+            }
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0" border="1">
+            <tr style="height:40px">
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    NAME: @(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName))
+                </td>
+                <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                    SIGNATURE:  @(ViewBag.signature == null ? "" : ViewBag.signature.email)
+                </td>
+                @if (ViewBag.status == 10)
+                {
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        Status = Pending
+                    </td>
+                }
+                else
+                {
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
+                        DATE: @ViewBag.completeDate
+                    </td>
+                }
+            </tr>
+            <tr style="height:40px">
+                <td style="font-size: 11px; text-align: left; padding-left: 5px; padding-bottom:5px;" colspan="3">
+                    TITLE: @ViewBag.personTitle
+                </td>
+            </tr>
+        </table>
+
+        @if (ViewBag.Clauses != null)
+        {
+            var preamableText = string.Empty;
+            pattern = @"<Preamble>(.*?)</Preamble>";
+            Match match = Regex.Match(ViewBag.Clauses, pattern, RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                preamableText = match.Groups[1].Value;
+            }
+            var clauseText = string.Empty;
+            pattern = @"<Clause>(.*?)</Clause>";
+            match = Regex.Match(ViewBag.Clauses, pattern, RegexOptions.IgnoreCase);
+            if (match.Success)
+            {
+                clauseText = match.Groups[1].Value;
+            }
+            var clasueArray = clauseText.Split(new string[] { "||" }, StringSplitOptions.None);
+            string[] farArray = clasueArray.Where(x => x.Contains("FAR") && !x.Contains("DFARS")).ToArray();
+            string[] dfarsArray = clasueArray.Where(x => x.Contains("DFARS")).ToArray();
+
+            <h3><b>@preamableText </b></h3><table>
+                <tr>
+                    <td style="vertical-align:top;">
+                        @if (farArray != null)
+                        {
+                            foreach (var item in farArray)
+                            {
+                                var bText = item.Split(':');
+                                <p><b>@bText[0]:</b>@bText[1]</p>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (dfarsArray != null)
+                        {
+                            foreach (var item in dfarsArray)
+                            {
+                                var bText = item.Split(':');
+                                <p><b>@bText[0]:</b>@bText[1]</p>
+                            }
+                        }
+                    </td>
+                </tr>
+            </table>
+        }
+</body>
+</html>
+
+
+
+
+
+
+

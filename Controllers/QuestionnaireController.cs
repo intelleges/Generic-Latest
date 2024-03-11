@@ -106,8 +106,8 @@ namespace Generic.Controllers
             var file = uploadCMSFile;
 
             // Some browsers send file names with full path. This needs to be stripped.
-            var fileName = Path.GetFileName(file.FileName);
-            var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/uploadCMS"), fileName);
+            var fileName = System.IO.Path.GetFileName(file.FileName);
+            var physicalPath = System.IO.Path.Combine(Server.MapPath("~/uploadedFiles/uploadCMS"), fileName);
 
             // The files are not actually saved in this demo
             file.SaveAs(physicalPath);
@@ -2399,8 +2399,8 @@ namespace Generic.Controllers
             var file = attachments;
 
             // Some browsers send file names with full path. This needs to be stripped.
-            var fileName = Path.GetFileName(file.FileName);
-            var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
+            var fileName = System.IO.Path.GetFileName(file.FileName);
+            var physicalPath = System.IO.Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
 
             TempData["fileName"] = fileName;
             TempData["physicalPath"] = physicalPath;
@@ -2415,8 +2415,8 @@ namespace Generic.Controllers
             // The parameter of the Remove action must be called "fileNames"
             foreach (var fullName in fileNames)
             {
-                var fileName = Path.GetFileName(fullName);
-                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
+                var fileName = System.IO.Path.GetFileName(fullName);
+                var physicalPath = System.IO.Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
 
                 // TODO: Verify user permissions
                 if (System.IO.File.Exists(physicalPath))
@@ -2514,8 +2514,8 @@ namespace Generic.Controllers
                 // The Name of the Upload component is "attachments" 
                 var file = excelFile;
                 // Some browsers send file names with full path. This needs to be stripped.
-                var fileName = Path.GetFileName(file.FileName);
-                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
+                var fileName = System.IO.Path.GetFileName(file.FileName);
+                var physicalPath = System.IO.Path.Combine(Server.MapPath("~/uploadedFiles/Questionnaire"), fileName);
 
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
@@ -2581,8 +2581,8 @@ namespace Generic.Controllers
                 // The Name of the Upload component is "attachments" 
                 var file = excelFile;
                 // Some browsers send file names with full path. This needs to be stripped.
-                var fileName = Path.GetFileName(file.FileName);
-                var physicalPath = Path.Combine(Server.MapPath("~/uploadedFiles/AutoMailQuestionnaire"), fileName);
+                var fileName = System.IO.Path.GetFileName(file.FileName);
+                var physicalPath = System.IO.Path.Combine(Server.MapPath("~/uploadedFiles/AutoMailQuestionnaire"), fileName);
 
                 // The files are not actually saved in this demo
                 file.SaveAs(physicalPath);
