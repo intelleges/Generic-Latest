@@ -24576,33 +24576,34 @@ Intelleges Team";
             byte[] buf = null;
             if (pptq != null)
             {
-                Document pdfDoc = new Document();
+                //Document pdfDoc = new Document();
 
-                MemoryStream memStream = new MemoryStream();
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
-                writer.CloseStream = false;
-                pdfDoc.Open();
+                //MemoryStream memStream = new MemoryStream();
+                //PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
+                //writer.CloseStream = false;
+                //pdfDoc.Open();
 
                 string htmltext = this.RenderActionResultToString(this.View(ViewName, result));
                 EmailFormat formatter = new EmailFormat();
                 var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptq.id);
                 var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
                 htmltext = formatter.sGetEmailBody(htmltext, null, partner, quest.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
-                //name of the view...
-                var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
+                buf = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
+                ////name of the view...
+                //var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
 
-                //Get each array values from parsed elements and add to the PDF document
-                foreach (var htmlElement in parsedHtmlElements)
-                    pdfDoc.Add(htmlElement as IElement);
+                ////Get each array values from parsed elements and add to the PDF document
+                //foreach (var htmlElement in parsedHtmlElements)
+                //    pdfDoc.Add(htmlElement as IElement);
 
-                //Close your PDF
-                pdfDoc.Close();
+                ////Close your PDF
+                //pdfDoc.Close();
 
-                // Close and get the resulted binary data.
-                pdfDoc.Close();
-                buf = new byte[memStream.Position];
-                memStream.Position = 0;
-                memStream.Read(buf, 0, buf.Length);
+                //// Close and get the resulted binary data.
+                //pdfDoc.Close();
+                //buf = new byte[memStream.Position];
+                //memStream.Position = 0;
+                //memStream.Read(buf, 0, buf.Length);
             }
             else throw new Exception("Cannot find pptq");
             return buf;
