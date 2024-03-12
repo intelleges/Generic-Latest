@@ -432,13 +432,13 @@
                                                                                                                 {
                                                                                                         <div class="display_menu" style="display: none;">
                                                                                                             <ul>
-                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind") ? "inherit":"none")'>
-                                                                                                                    <a href="javascript:remind('@item.AccessCode')">
-                                                                                                                        Remind
+                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Confirm") ? "inherit":"none")'>
+                                                                                                                    <a href="javascript:confirm('@item.pptq')">
+                                                                                                                        Confirm
                                                                                                                     </a>
                                                                                                                 </li>
-                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite") ? "inherit":"none")'><a href="#">Re-Invite (intelleges.com)</a></li>
-                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Re-Invite (racix.net)") ? "inherit":"none")'><a href="#">Re-Invite (racix.net)</a></li>
+                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite") ? "inherit":"none")'><a href="javascript:invite('@item.pptq')">Invite (intelleges.com)</a></li>
+                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite (racix.net)") ? "inherit":"none")'><a href="#">Invite (racix.net)</a></li>
 
                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Shadow") ? "inherit":"none")'><a href="javascript:shadow('@item.AccessCode','@item.pptq')">Shadow</a></li>
                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Rescind") ? "inherit":"none")'><a href="#">Rescind</a></li>
@@ -955,7 +955,25 @@
 				alertify.alert(result);
 			}
 		});
-	}
+    }
+
+    function confirm( pptq) {
+        $.post("Confirm", { pptqId: pptq }).done(function (result) {
+
+            if (result) {
+                alertify.alert(result);
+            }
+        });
+    }
+
+    function invite(pptq) {
+        $.post("Invite", { pptqId: pptq }).done(function (result) {
+
+            if (result) {
+                alertify.alert(result);
+            }
+        });
+    }
 
 	function sms(accessCode) {
 		$.post("SendRemindSms", { accessCode: accessCode }).done(function (result) {

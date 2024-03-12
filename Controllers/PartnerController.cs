@@ -474,11 +474,11 @@ namespace Generic.Controllers
         public ActionResult ValidateInternalID(int? partnertype, int? touchpoint, string internalID)
         {
             var msg = "";
-            
-                int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
-                   .ToList().Where(x => x.touchpoint == touchpoint).First().id;
-                msg= db.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(internalID, objptqId).FirstOrDefault();
-            return Json(new { message = msg, pptqId= objptqId }, JsonRequestBehavior.AllowGet);
+
+            int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
+               .ToList().Where(x => x.touchpoint == touchpoint).First().id;
+            msg = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByInternalIDAndPTQ(internalID, objptqId).FirstOrDefault();
+            return Json(new { message = msg, pptqId = objptqId }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult ValidatePartner(string internalID, string acccessCode)
@@ -615,7 +615,7 @@ namespace Generic.Controllers
                 int objptqId = db.pr_getPartnertypeTouchpointQuestionnaireByPartnerType(partnertype)
                    .ToList().Where(x => x.touchpoint == touchpoint).First().id;
                 var dbRecord = db.pr_getPartnerByInternalIDAndPTQ(partner.internalID, objptqId).FirstOrDefault();
-                if(dbRecord?.email == partner.email || dbRecord?.zipcode == partner.zipcode)
+                if (dbRecord?.email == partner.email || dbRecord?.zipcode == partner.zipcode)
                 {
                     ViewBag.Message = "error";
                     ViewBag.MessageDetail = $"Email or Zipcode for internal Id {partner.internalID} already exist!. Please choose another one.";
@@ -936,7 +936,7 @@ namespace Generic.Controllers
             if (extension.ToLower() == ".csv")
             {
                 var reader = new StreamReader(file.InputStream);
-                var csv = new CsvReader(reader, new CsvConfiguration( System.Globalization.CultureInfo.InvariantCulture));
+                var csv = new CsvReader(reader, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture));
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
@@ -967,7 +967,7 @@ namespace Generic.Controllers
                     partnerinExcel.Add(excelPartner);
                 }
 
-             }
+            }
             else
             {
                 partnerinExcel = ExcelMapper.GetRows<ExcelPartner>(physicalPath, sheetname, map).ToList();
@@ -982,9 +982,9 @@ namespace Generic.Controllers
             //List<int> uploadedpartners = new List<int>();
             #region "Update Tuchpoint based on Protocol"
             var protocolname = db.protocol.Where(x => x.id == protocol).Select(x => x.name).FirstOrDefault();
-            if(protocolname!=null && (protocolname=="Reps and Certs" || protocolname== "Certs and Reps"))
+            if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
             {
-                touchpoint = db.touchpoint.Where(x => (x.title == "Reps and Certs 2023" || x.title== "2023 Reps & Certs")&& x.protocol==protocol).Select(x => x.id).FirstOrDefault();
+                touchpoint = db.touchpoint.Where(x => (x.title == "Reps and Certs 2023" || x.title == "2023 Reps & Certs") && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
             }
             #endregion
             List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
@@ -2066,8 +2066,9 @@ namespace Generic.Controllers
                         }
                         index++;
                     }
-                    catch (Exception) { 
-                    //Wrong format email
+                    catch (Exception)
+                    {
+                        //Wrong format email
                     }
 
                 }
@@ -2118,7 +2119,7 @@ namespace Generic.Controllers
 
             return View();
         }
-       
+
 
         [HttpPost]
         public ActionResult SearchAlternative(string email, string name, string lastname)
@@ -2157,7 +2158,7 @@ namespace Generic.Controllers
                     return View();
                 }
             }
-            if( owner!=null && touchpoint == null)
+            if (owner != null && touchpoint == null)
             {
                 ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
 
@@ -2476,7 +2477,7 @@ namespace Generic.Controllers
                     int? personId = SessionSingleton.LoggedInUserId;
                     db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireManualPDFUpload(pptq, pdfFileData, person.id, "manual");
                     db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq, status);
-                   
+
                     SendManualUploadEmail(accessCode, person, pptq, pdfFileData);
 
                     return Json(new { data = true }, JsonRequestBehavior.AllowGet);
@@ -2508,7 +2509,7 @@ namespace Generic.Controllers
                     email.category = SendGridCategory.CompleteConfirmation;
                     email.automailMessage = response.id.ToString();
                     email.type = "emailAlert";
-                    
+
 
                     SendEmail objSendEmail = new SendEmail();
                     objSendEmail.sendEmail(email, new EmailFormatSettings()
@@ -2518,7 +2519,7 @@ namespace Generic.Controllers
                         partner = pptqObj.partner1,
                         ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                         touchpoint = objtouchpoint
-                    }, new System.Net.Mail.MailAddress(person.email, person.FullName),null,pdfFileData);
+                    }, new System.Net.Mail.MailAddress(person.email, person.FullName), null, pdfFileData);
                     var admin = db.pr_getPerson(objtouchpoint.admin).FirstOrDefault();
                     if (admin != null)
                     {
@@ -2532,7 +2533,7 @@ namespace Generic.Controllers
                             partner = pptqObj.partner1,
                             ptq = pptqObj.partnerTypeTouchpointQuestionnaire,
                             touchpoint = objtouchpoint
-                        }, new System.Net.Mail.MailAddress(admin.email, admin.FullName),null, pdfFileData);
+                        }, new System.Net.Mail.MailAddress(admin.email, admin.FullName), null, pdfFileData);
                     }
                 }
             }
@@ -2545,7 +2546,7 @@ namespace Generic.Controllers
                 var pptq1 = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
                 if (pptq1 != null)
                 {
-                    db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(pptq1.id) ;
+                    db.pr_resetPartnerPartnertypeTouchpointQuestionnaireStatusToIncomplete(pptq1.id);
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
                 return Json(false, JsonRequestBehavior.AllowGet);
@@ -2569,7 +2570,7 @@ namespace Generic.Controllers
                     db.pr_resetPartnerPartnertypeTouchpointQuestionnairePDF(pptq1.id);
                     // PDf reset in folder
                     //Generic.Areas.RegistrationArea.Controllers.HomeController objHome = new Generic.Areas.RegistrationArea.Controllers.HomeController();
-                   // objHome.ReGenerateCustomPdf(pptq1.id);
+                    // objHome.ReGenerateCustomPdf(pptq1.id);
                     //string htmltext = this.RenderActionResultToString(this.View("~/Registration/Views/Home/CustomQuestionnaireSurveyPdfDownload.cshtml"));  //name of the view...
                     ////string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
                     //string PDF_FileName = "HON_" + accessCode.Substring(1, 4) + ".pdf";
@@ -3077,16 +3078,42 @@ namespace Generic.Controllers
             ViewBag.IsShowRemindButtons = true;
 
             var objPartnerDateList = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
-                .Select(o=>new view_PartnerData() {  AccessCode = o.AccessCode, active = o.active, address = o.address, campaign = o.campaign,
-                 city = o.city, Contact = o.Contact, ContactEmail = o.ContactEmail,
-                 ContactTitle = o.ContactTitle, Country = o.Country, countryID = o.countryID, dunsNumber = o.dunsNumber, enterprise =o.enterprise,
-                 Group = o.Group, Expr1 = o.Expr1, groupID = o.groupID, id =o.id, internalID =o.internalID, owner = o.owner,
-                 PartnerName = o.PartnerName, Partnertype = o.Partnertype, partnertypeID = o.partnertypeID, phone = o.phone, pptq = o.pptq,
-                 progress = o.progress, state = o.state, status = o.status, statusID = o.statusID, Touchpoint = o.Touchpoint,
-                 touchpointID = o.touchpointID, zipcode = o.zipcode});
+                .Select(o => new view_PartnerData()
+                {
+                    AccessCode = o.AccessCode,
+                    active = o.active,
+                    address = o.address,
+                    campaign = o.campaign,
+                    city = o.city,
+                    Contact = o.Contact,
+                    ContactEmail = o.ContactEmail,
+                    ContactTitle = o.ContactTitle,
+                    Country = o.Country,
+                    countryID = o.countryID,
+                    dunsNumber = o.dunsNumber,
+                    enterprise = o.enterprise,
+                    Group = o.Group,
+                    Expr1 = o.Expr1,
+                    groupID = o.groupID,
+                    id = o.id,
+                    internalID = o.internalID,
+                    owner = o.owner,
+                    PartnerName = o.PartnerName,
+                    Partnertype = o.Partnertype,
+                    partnertypeID = o.partnertypeID,
+                    phone = o.phone,
+                    pptq = o.pptq,
+                    progress = o.progress,
+                    state = o.state,
+                    status = o.status,
+                    statusID = o.statusID,
+                    Touchpoint = o.Touchpoint,
+                    touchpointID = o.touchpointID,
+                    zipcode = o.zipcode
+                });
 
             if (parsedParams.ContainsKey("ContactEmail"))
-                objPartnerDateList = objPartnerDateList.Where(o => o.ContactEmail!= null && o.ContactEmail.ToLower().Contains(parsedParams["ContactEmail"].ToLower()??""));
+                objPartnerDateList = objPartnerDateList.Where(o => o.ContactEmail != null && o.ContactEmail.ToLower().Contains(parsedParams["ContactEmail"].ToLower() ?? ""));
 
 
             if (parsedParams.ContainsKey("groupID"))
@@ -3149,7 +3176,7 @@ namespace Generic.Controllers
                 protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1.touchpoint1.description,
                 category = SendGridCategory.FindRemind,
                 reminderSource = (int)Reminders.InviteRemind,
-                 automailMessage = (autoMailId == null? null : autoMailId.Value.ToString())
+                automailMessage = (autoMailId == null ? null : autoMailId.Value.ToString())
             };
 
             string email = currentPerson.email;
@@ -3277,10 +3304,10 @@ namespace Generic.Controllers
                     }
                 }
 
-                int enterpriseid =  Generic.Helpers.CurrentInstance.EnterpriseID;
+                int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
                 var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";
-                db.pr_addEventNotification(fromToEmail,DateTime.Now,string.Empty, string.Empty, string.Empty, "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind,autoMailId, enterpriseid, em.loadgroup);
+                db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, string.Empty, "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind, autoMailId, enterpriseid, em.loadgroup);
             }
             catch (Exception exp)
             {
@@ -3361,7 +3388,7 @@ namespace Generic.Controllers
                 if (new int[] { 6, 7, 13 }.Contains(pptq.status))
                 {
                     var r = db.pr_getTouchpointAdminPersonByTouchpoint((int)Session["touchpoint"]).First();
-                    var mailAddress = new System.Net.Mail.MailAddress(r.email, string.Format("{0} {1}",r.firstName,r.lastName));
+                    var mailAddress = new System.Net.Mail.MailAddress(r.email, string.Format("{0} {1}", r.firstName, r.lastName));
 
                     string str = SchedulerServiceHelper.SendFirstReminderByPptq2(pptq.id, accessCode, Request.Url.ToString(), mailAddress
                         , new List<string>() { pptq.partner1.email });
@@ -3369,7 +3396,7 @@ namespace Generic.Controllers
 
                     int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
                     var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
-                    var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";     
+                    var fromToEmail = $"{currentPerson.email} -> {pptq.partner1.email}";
                     db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, Request.Url.ToString(), "13", accessCode, protocolTouchpoint, "MVCMT", (int)Reminders.InviteRemind, message.id, enterpriseid, "");
                 }
                 else
@@ -3400,7 +3427,7 @@ namespace Generic.Controllers
                         var r = db.pr_getTouchpointAdminPersonByTouchpoint((int)Session["touchpoint"]).First();
                         var mailAddress = new System.Net.Mail.MailAddress(r.email, string.Format("{0} {1}", StringHelper.UppercaseFirst(r.firstName), StringHelper.UppercaseFirst(r.lastName)));
 
-                        string str = EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, new List<string>() { currentPerson.email, toEmail }, pptq.id, 
+                        string str = EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, new List<string>() { currentPerson.email, toEmail }, pptq.id,
                             appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString(), currentPerson, mailAddress);
                         result += "<br/><br/><div style='width: 100%;text-align: right;'><img onclick='copyHtmlContent();' style='cursor: pointer; width: 20px;' src='" + Url.Content("~/content/copy-paste.png") + "'/><br/></div><div  style='text-align: left;' id='print-content'>" + str + "</div>";
                         return result;
@@ -3411,6 +3438,70 @@ namespace Generic.Controllers
             }
             return result;
         }
+
+        [HttpPost]
+        public string Confirm(int pptqId)
+        {
+            var result = "";
+            if (pptqId != 0)
+            {
+                var updateResult = db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptqId, (int)PartnerStatus.Confirmed);
+                result = "Confirmed Successfully!";
+            }
+            return result;
+        }
+
+        [HttpPost]
+        public string Invite(int pptqId)
+        {
+            var result = "";
+            try
+            {
+
+            if (pptqId != 0)
+            {
+                var pptq = db.partnerPartnertypeTouchpointQuestionnaire.Where(x => x.id == pptqId).FirstOrDefault();
+                if (pptq != null)
+                {
+                    var objptq = db.pr_getPartnertypeTouchpointQuestionnaire(pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+                    var objpartner = db.partner.Where(x => x.id == pptq.partner).FirstOrDefault();
+
+                    var objtouchpoint = db.pr_getTouchpoint(objptq.touchpoint).FirstOrDefault();
+                    var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
+                        var objenterprise = db.enterprise.Where(x => x.id == CurrentInstance.EnterpriseID).FirstOrDefault();
+                    var updateResult = db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(pptqId, pptq.partner, pptq.partnerTypeTouchpointQuestionnaire,
+                        pptq.accesscode, SessionSingleton.LoggedInUserId, DateTime.Now, null, (int)PartnerStatus.Invited_NoResponse, 0, pptq.zcode, null, pptq.docFolderAddress,
+                        pptq.score, pptq.loadGroup);
+
+                    var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
+
+                  
+                    Email email = new Email(amm);
+                    EmailFormat emailFormat = new EmailFormat();
+                    email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, pptq.partnerTypeTouchpointQuestionnaire);
+                    email.emailTo = objpartner.email;
+                    email.url = Request.Url.ToString();
+                    email.automailMessage = amm.id.ToString();
+                    email.protocolTouchpoint = objtouchpoint.description;
+                    email.accesscode = email.accesscode;
+                    email.category = SendGridCategory.Invite;
+                    email.automailMessage = amm.id.ToString();
+
+                    SendEmail objSendEmail = new SendEmail();
+                    objSendEmail.sendEmail(email, new EmailFormatSettings() { partner = objpartner, ptq = pptq.partnerTypeTouchpointQuestionnaire, sender = person, touchpoint = objtouchpoint, enterprise= objenterprise }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.FullName));
+
+                    result = "Invite Sent!";
+                }
+
+                }
+            }
+            catch (Exception)
+            {
+                result = "Error Occurred while sending invite";
+            }
+            return result;
+        }
+
 
         [HttpPost]
         public dynamic shadow(string accessCode, int pptq)
@@ -5872,7 +5963,7 @@ namespace Generic.Controllers
             List<pr_getDashboardCountForReferenceByPTQforReport_Result> objDashboard = new List<pr_getDashboardCountForReferenceByPTQforReport_Result>();
             foreach (var ptqItem in ptq)
             {
-                 objDashboard = db.pr_getDashboardCountForReferenceByPTQforReport(ptqItem.id).ToList();
+                objDashboard = db.pr_getDashboardCountForReferenceByPTQforReport(ptqItem.id).ToList();
             }
             // client.Calls
             var stream = new MemoryStream();
@@ -5976,7 +6067,7 @@ namespace Generic.Controllers
                 }
             }
 
-           
+
             return Json(new { accessCode = accessCode, message = message, iscanprintPdf = iscanprintPdf, msg = msg, items = items }, JsonRequestBehavior.AllowGet);
         }
 
@@ -6108,7 +6199,7 @@ namespace Generic.Controllers
             StringBuilder sb = new StringBuilder();
             var QRdata = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqId).Where(x => x.response != null).Take(35).ToList();
             var payloadList = new List<dynamic>();
-            
+
             var dictionary = new Dictionary<string, string>();
             dictionary["role"] = "system";
             dictionary["content"] = "Based on the following questions and responses from our supplier " + partner + " please provide a detailed summary of capbilities using a narrative format.";
@@ -6125,20 +6216,20 @@ namespace Generic.Controllers
             {
                 foreach (var item in QRdata)
                 {
-                     dictionary = new Dictionary<string, string>();
+                    dictionary = new Dictionary<string, string>();
                     var question = db.questions.Where(x => x.id == item.question).Select(x => x.Question).FirstOrDefault();
                     var response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
                     dictionary["role"] = "system";
-                    dictionary["content"]=item.question+" "+ question+" "+item.response+" "+response+"--";
+                    dictionary["content"] = item.question + " " + question + " " + item.response + " " + response + "--";
                     payloadList.Add(dictionary);
                 }
             }
-           
+
             var serializeObject = JsonConvert.SerializeObject(payloadList);
-          //  sb.AppendLine("Based on the above questions and responses for " + partner + ", Please provide detailed summary of the " + partner);
-           //string apiKey = "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";
+            //  sb.AppendLine("Based on the above questions and responses for " + partner + ", Please provide detailed summary of the " + partner);
+            //string apiKey = "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";
             string apiKey = "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";
-             // string apiKey = "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";
+            // string apiKey = "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";
             string apiUrl = "https://api.openai.com/v1/chat/completions";
             string message = string.Empty;
             using (var httpClient = new HttpClient())
@@ -6149,13 +6240,13 @@ namespace Generic.Controllers
                     request.Content = new StringContent("{\n    \"model\": \"gpt-3.5-turbo\",\n    \"messages\": " + serializeObject + "\n  }");
                     request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request.Headers.Add("User-Agent", "GSS/OpenAI_GPT3");
-                    var response = await httpClient.SendAsync(request,HttpCompletionOption.ResponseHeadersRead);
+                    var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
                     var jsonResponse = await response.Content.ReadAsStringAsync();
                     var responseData = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
                     if (jsonResponse.Contains("error"))
                     {
                         message = responseData.error.message;
-                        return Json(new { data = message, status=false }, JsonRequestBehavior.AllowGet);
+                        return Json(new { data = message, status = false }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
@@ -6165,22 +6256,22 @@ namespace Generic.Controllers
             }
             return Json(new { data = message, status = true }, JsonRequestBehavior.AllowGet);
         }
-       [HttpPost]
+        [HttpPost]
         public ActionResult GetAutomailMessageDetail(int automailMessageId)
         {
             try
             {
                 var detail = db.pr_getAutomailMessage(automailMessageId).FirstOrDefault();
-                return Json(new { Status = true , AutoMailMessage= detail.text, AutomailSubject= detail.subject });
-               
+                return Json(new { Status = true, AutoMailMessage = detail.text, AutomailSubject = detail.subject });
+
             }
             catch (Exception ex)
             {
                 return Json(new { Status = false });
             }
         }
-        [HttpPost ]
-        public async  Task<ActionResult> GetSuggestionForAutomail(string autoMailSubject)
+        [HttpPost]
+        public async Task<ActionResult> GetSuggestionForAutomail(string autoMailSubject)
         {
             List<string> suggestion = new List<string>();
             try
@@ -6192,7 +6283,7 @@ namespace Generic.Controllers
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.Append("Now I need the supplier to respond to this [third reminder] email request and complete the " + autoMailSubject);
                 stringBuilder.Append(". Please provide three suggestions based on the following text that can increase the response rate to my email.");
-                dictionary["content"] = stringBuilder.ToString() ;
+                dictionary["content"] = stringBuilder.ToString();
 
                 payloadList.Add(dictionary);
                 var serializeObject = JsonConvert.SerializeObject(payloadList);
@@ -6202,7 +6293,7 @@ namespace Generic.Controllers
                 string message = string.Empty;
                 using (var httpClient = new HttpClient())
                 {
-                    using (var request = new HttpRequestMessage(new HttpMethod("POST"), apiUrl ))
+                    using (var request = new HttpRequestMessage(new HttpMethod("POST"), apiUrl))
                     {
                         request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {apiKey}");
                         request.Content = new StringContent("{\n    \"model\": \"gpt-3.5-turbo\",\n    \"messages\": " + serializeObject + "\n  }");
@@ -6228,17 +6319,17 @@ namespace Generic.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult UpdateAutoMailMessage(int automailMessageId,string MailMessage)
+        public ActionResult UpdateAutoMailMessage(int automailMessageId, string MailMessage)
         {
             try
             {
                 var detail = db.pr_getAutomailMessage(automailMessageId).FirstOrDefault();
-                if(detail!=null)
+                if (detail != null)
                 {
                     var result = db.pr_modifyAutomailMessage(automailMessageId, detail.subject, MailMessage, detail.footer1, detail.footer2, detail.sendDateCalcFactor, detail.sendDateSet, detail.mailType, detail.partnerTypeTouchpointQuestionnaire);
                 }
 
-                return Json(new { Status = true});
+                return Json(new { Status = true });
 
             }
             catch (Exception ex)
@@ -6249,7 +6340,7 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult GetQueryData(int? partnertype, int? touchpoint, int? group, int? status, DateTime? proDate)
         {
-            
+
 
             var data = db.pr_getPartnerDataForBatchUpload(touchpoint, partnertype, group, proDate, status).ToList();
             //return Json(new { success = true, queryData= data });
@@ -6262,8 +6353,8 @@ namespace Generic.Controllers
             Session["touchpoint"] = touchpoint;
             Session["group"] = group;
             Session["status"] = status;
-            Session ["proDate"] = proDate;
-            return PartialView("_PartnerQueryData",data);
+            Session["proDate"] = proDate;
+            return PartialView("_PartnerQueryData", data);
         }
         public ActionResult paramQuery()
         {
@@ -6277,9 +6368,9 @@ namespace Generic.Controllers
 
             return PartialView("_paramQuery");
         }
-        public FileResult  ExportExcelQueryData()
+        public FileResult ExportExcelQueryData()
         {
-            string format =Convert.ToString( Session["format"]);
+            string format = Convert.ToString(Session["format"]);
             var data = db.pr_getPartnerDataForBatchUpload(Convert.ToInt32(Session["touchpoint"]), Convert.ToInt32(Session["partnertype"]), Convert.ToInt32(Session["group"]), Convert.ToDateTime(Session["proDate"]), Convert.ToInt32(Session["status"])).ToList();
 
             if (format.ToLower() == "excel")
@@ -6319,7 +6410,7 @@ namespace Generic.Controllers
                 //We return the XML from the memory as a .xls file
                 return File(stream, "application/vnd.ms-excel", "QueryData.xls");
             }
-            else 
+            else
             {
                 var csvContent = new StringBuilder();
                 csvContent.AppendLine("PARTNER_INTERNAL_ID,PARTNER_NAME,PARTNER_DUNS,PARTNER_SAP_ID,PARTNER_POC_FIRST_NAMEPARTNER_POC_LAST_NAME,PARTNER_POC_TITLE" +
@@ -6339,17 +6430,16 @@ namespace Generic.Controllers
                 var filebytes = Encoding.UTF8.GetBytes(csvContent.ToString());
                 return File(filebytes, "text/csv", filename);
             }
-        }                        
-        public class ExcelQueryData :pr_getPartnerDataForBatchUpload_Result
-        {                             
-        }                             
-          public ActionResult selectFormat(string format)
+        }
+        public class ExcelQueryData : pr_getPartnerDataForBatchUpload_Result
+        {
+        }
+        public ActionResult selectFormat(string format)
         {
             Session["format"] = format;
             return Json(new { status = true }, JsonRequestBehavior.AllowGet);
         }
-    }                                 
-                                      
-}                                     
-                                      
-                                      
+    }
+
+}
+
