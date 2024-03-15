@@ -23868,6 +23868,18 @@ Intelleges Team";
                     var _state = db.pr_getState(_partner.state).FirstOrDefault();
                     ViewBag.state = _state != null ? _state.stateCode : string.Empty;
                 }
+                if (footer == "42")
+                {
+                    var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+                    eSignature _signature = sigs.FirstOrDefault();
+
+                    ViewBag.signature = _signature;
+
+                    ViewBag.personTitle = _partner != null ? _partner.title : "";
+                    if (pptq != null)
+                        ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+                    ViewBag.Status = pptq.status;
+                }
             }
 
             var resRes = result.Where(o => (o.description ?? "").EndsWith("--Automated")).ToList();
@@ -23894,35 +23906,43 @@ Intelleges Team";
                     ViewBag.Clauses = clause.text;
             }
             // Create the iTextSharp document.
-            Document pdfDoc = new Document();
+            //Document pdfDoc = new Document();
 
-            MemoryStream memStream = new MemoryStream();
-            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
-            writer.CloseStream = false;
-            pdfDoc.Open();
+            //MemoryStream memStream = new MemoryStream();
+            //PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memStream);
+            //writer.CloseStream = false;
+            //pdfDoc.Open();
 
             string htmltext = this.RenderActionResultToString(this.View(viewName, result));
             EmailFormat formatter = new EmailFormat();
             var quest = db.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault(o => o.id == pptqID);
             var partner = db.pr_getPartner(quest.partner).FirstOrDefault();
             htmltext = formatter.sGetEmailBody(htmltext, null, partner, quest.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, quest.partnerTypeTouchpointQuestionnaire1.touchpoint1, quest.partnerTypeTouchpointQuestionnaire);
-            //name of the view...
-            var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
+            try
+            {
+                byte[] bytes = null;
+                bytes = (new NReco.PdfGenerator.HtmlToPdfConverter()).GeneratePdf(htmltext);
+            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, bytes, quest.docFolderAddress, quest.score, quest.loadGroup);
+               // return new BinaryContentResult(bytes, "application/pdf", quest.partnerTypeTouchpointQuestionnaire1.touchpoint1.title + "_" + quest.accesscode + ".pdf");
+            }
+            catch (Exception ex) { }
 
-            //Get each array values from parsed elements and add to the PDF document
-            foreach (var htmlElement in parsedHtmlElements)
-                pdfDoc.Add(htmlElement as IElement);
+            ////name of the view...
+            //var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(htmltext), null);
 
-            //Close your PDF
-            pdfDoc.Close();
+            ////Get each array values from parsed elements and add to the PDF document
+            //foreach (var htmlElement in parsedHtmlElements)
+            //    pdfDoc.Add(htmlElement as IElement);
 
-            // Close and get the resulted binary data.
-            pdfDoc.Close();
-            byte[] buf = new byte[memStream.Position];
-            memStream.Position = 0;
-            memStream.Read(buf, 0, buf.Length);
+            ////Close your PDF
+            //pdfDoc.Close();
 
-            db.pr_modifyPartnerPartnertypeTouchpointQuestionnaire(quest.id, quest.partner, quest.partnerTypeTouchpointQuestionnaire, quest.accesscode, quest.invitedBy, quest.invitedDate, quest.completedDate, quest.status, 100, quest.zcode, buf, quest.docFolderAddress, quest.score, quest.loadGroup);
+            //// Close and get the resulted binary data.
+            //pdfDoc.Close();
+            //byte[] buf = new byte[memStream.Position];
+            //memStream.Position = 0;
+            //memStream.Read(buf, 0, buf.Length);
+
         }
 
         public void ReGenerateCustomPdf(int pptqID)
@@ -24547,6 +24567,18 @@ Intelleges Team";
                 {
                     var _state = db.pr_getState(_partner.state).FirstOrDefault();
                     ViewBag.state = _state != null ? _state.stateCode : string.Empty;
+                }
+                if (footer == "42")
+                {
+                    var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+                    eSignature _signature = sigs.FirstOrDefault();
+
+                    ViewBag.signature = _signature;
+
+                    ViewBag.personTitle = _partner != null ? _partner.title : "";
+                    if (pptq != null)
+                        ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+                    ViewBag.Status = pptq.status;
                 }
             }
 
