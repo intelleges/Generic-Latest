@@ -10,18 +10,14 @@
 }
 <style>
     #panelFind select {
-        width: 300px;
+        width: 350px;
+    }
+    #panelFind input {
+        width: 350px;
     }
 
-    .txtBox1 {
-        width: 205px;
-        border-style: inset;
-        border-left-width: 2px;
-        border-top-width: 2px;
-        height: 15px;
-        border-bottom: none;
-        border-right: none;
-        margin: 0 0 0 0;
+    .form-control {
+        margin:5px;
     }
 
     .txtBox {
@@ -40,6 +36,15 @@
 
     #panelFind td {
         padding: 0 0 0 0;
+    }
+    
+    #panelFind [type="button"] {
+        width: 110px;
+        margin: 5px;
+    }
+    #panelFind [type="submit"] {
+        width: 110px;
+        margin: 5px;
     }
 </style>
 <h2>Find Partner</h2>
@@ -183,139 +188,144 @@
 
 <form id="FindpartnerForm" method="post" enctype="multipart/form-data">
     <input type="hidden" id="hdnSearch" value="@ViewBag.searchType" />
-    <div id="panelFind">
+    <div id="panelFind" class="row">
 
         <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+        <div class="col-lg-8">
+            <table width="70%;" id="inputTable" style="float:left" border="0">
+                <tbody>
+                    <tr>
+                        <td class="tLeftColumn form-label">Touchpoint </td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("touchpoint", null, String.Empty, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Type</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("partnertype", null, String.Empty, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Status</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("partnerStatus", null, String.Empty, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">
+                            <span id="lblGroupFind">Group</span>
+                        </td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("group", null, String.Empty, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Name</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtNameFind" class="form-control" type="text" name="txtNameFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Internal ID (EID)</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtInternalIdFind" class="form-control" type="text" name="txtInternalIdFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Access Code</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="accesscode" class="form-control" type="text" name="accesscode">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Contact Email</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtContactEmailFind" class="form-control" type="text" name="txtContactEmailFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">HRO Email</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtHROEmailFind" class="form-control" type="text" name="txtHROEmailFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">DUNS Number</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtDunsNumberFind" class="form-control" type="text" name="txtDunsNumberFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Federal ID</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtFederalIdFind" class="form-control" type="text" name="txtFederalIdFind">
+                        </td>
+                    </tr>
 
-        <table width="70%;" id="inputTable" style="float:left" border="0">
-            <tbody>
+                    <tr>
+                        <td class="tLeftColumn form-label">Zip Code</td>
+                        <td width="5%"></td>
+                        <td class="tRightColumn">
+                            <input id="txtZipCodeFind" class="form-control" type="text" name="txtZipCodeFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn">Country</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">Owner</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("owner", null, string.Empty, htmlAttributes: new { @class = "form-control" })
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table style="float:left">
                 <tr>
-                    <td class="tLeftColumn">Touchpoint </td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("touchpoint", String.Empty)
+                    <td></td>
+                    <td>
+
+                        <input id="btnFind" class="btn btn-default" value="Find" type="submit" name="btnFind">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="btn btn-default" value="Cancel" type="button" name="btnCancel">
                     </td>
                 </tr>
                 <tr>
-                    <td class="tLeftColumn">Type</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("partnertype", String.Empty)
+                    <td></td>
+                    <td>
+                        <input type="button" value="Clear" onclick="clearInputs()" class="btn btn-default">
                     </td>
                 </tr>
                 <tr>
-                    <td class="tLeftColumn">Status</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("partnerStatus", String.Empty)
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">
-                        <span id="lblGroupFind">Group</span>
-                    </td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("group", String.Empty)
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">Name</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtNameFind" class="txtBox1" type="text" name="txtNameFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">Internal ID (EID)</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtInternalIdFind" class="txtBox1" type="text" name="txtInternalIdFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">Access Code</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="accesscode" class="txtBox1" type="text" name="accesscode">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">Contact Email</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtContactEmailFind" class="txtBox1" type="text" name="txtContactEmailFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">HRO Email</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtHROEmailFind" class="txtBox1" type="text" name="txtHROEmailFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">DUNS Number</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtDunsNumberFind" class="txtBox1" type="text" name="txtDunsNumberFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">Federal ID</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtFederalIdFind" class="txtBox1" type="text" name="txtFederalIdFind">
+                    <td></td>
+                    <td>
+                        <input type="button" value="Upload" class="btn btn-default">
+                        &nbsp;&nbsp;&nbsp;&nbsp;  <a href="#">Download Template</a>
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="tLeftColumn">Zip Code</td>
-                    <td width="5%"></td>
-                    <td class="tRightColumn">
-                        <input id="txtZipCodeFind" class="txtBox1" type="text" name="txtZipCodeFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">Country</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("country", null, string.Empty, htmlAttributes: new { style = "width:210px;" })
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-
-        <table style="float:left">
-            <tr>
-                <td></td>
-                <td>
-
-                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height:28px" name="btnFind">
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height:28px" name="btnCancel">
-
-
-
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="button" value="Clear" onclick="clearInputs()" style="width: 100px; height:28px">
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="button" value="Upload" style="width: 100px; height:28px">
-                    <a href="#">Download Template</a>
-                </td>
-            </tr>
-
-        </table>
-
+            </table>
+        </div>
     </div>
 
 </form>
