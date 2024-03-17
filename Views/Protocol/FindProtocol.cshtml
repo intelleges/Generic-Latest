@@ -11,7 +11,25 @@
 
 <style>
     #panelFind select {
-        width: 210px;       
+        width: 350px;
+    }
+
+    #panelFind input {
+        width: 350px;
+    }
+
+    .form-control {
+        margin: 5px;
+    }
+
+    #panelFind [type="button"] {
+        width: 110px;
+        margin: 5px;
+    }
+
+    #panelFind [type="submit"] {
+        width: 110px;
+        margin: 5px;
     }
    .txtBox {
         width: 205px;  
@@ -43,347 +61,351 @@
 
 <h2>Find Protocol</h2>
 <form id="FindprotocolForm" method="post" enctype="multipart/form-data">
-    <div id="panelFind">
-         <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
+    <div id="panelFind" class="row">
+        <div class="col-lg-8">
+            <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
 
-         <table width="70%; " style="float:left" border="0">
-            <tbody>
+            <table width="70%; " style="float:left" border="0">
+                <tbody>
+                    <tr>
+                        <td class="tLeftColumn form-label">NAME</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtNameFind" class="form-control" type="text" name="txtNameFind">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">CAMPAIGN</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <select id="ctl00_contentMain_ddlCampaignFind" class="form-control" name="ctl00$contentMain$ddlCampaignFind">
+                                <option value=""></option>
+                                <option value="27">2013 C-TPAT</option>
+                                <option value="28">2013 Foreign MFG</option>
+                                <option value="26">2013 PIP</option>
+                                <option value="29">Foreign Manufacturer A</option>
+                                <option value="24">Honeywell Site 2013</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">AGENCY</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <select id="ctl00_contentMain_ddlAgencyFind" class="form-control" name="ctl00$contentMain$ddlAgencyFind">
+                                <option value=""></option>
+                                <option value="1">World Customs Organization</option>
+                                <option value="2">United States Postal Service</option>
+                                <option value="3">Department of Homeland Security: Customs Border Patrol (CBP)</option>
+                                <option value="4">U.S. Department of Health and Human Services</option>
+                                <option value="5">International Standards Organization and International Trade Center</option>
+                                <option value="6">U.S. Department of Treasury</option>
+                                <option value="7">Canada Border Services Agency</option>
+                                <option value="8">United States Federal Government</option>
+                                <option value="9">Department of Homeland Security</option>
+                                <option value="10">Securities and Exchange Commission</option>
+                                <option value="11">SAP AG</option>
+                                <option value="12">Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">PARTNER TYPE</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <select id="ctl00_contentMain_ddlProviderTypeFind" class="form-control" name="ctl00$contentMain$ddlProviderTypeFind">
+                                <option value=""></option>
+                                <option value="1">Customer</option>
+                                <option value="2">Site</option>
+                                <option value="3">Supplier</option>
+                                <option value="4">Transport</option>
+                                <option value="5">Warehouse</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">PROTOCOL ADMIN</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <select id="ctl00_contentMain_ddlAdminFind" class="form-control" name="ctl00$contentMain$ddlAdminFind">
+                                <option value=""></option>
+                                <option value="4">Dawn Dupon</option>
+                                <option value="5">Carrie Wayne</option>
+                                <option value="7">Paul Behan</option>
+                                <option value="8">Jack Blumenstock</option>
+                                <option value="9">Art Clark</option>
+                                <option value="10">William Gibson</option>
+                                <option value="11">Martin Reffner</option>
+                                <option value="13">Jim Sonntag</option>
+                                <option value="106">Loretta Blankley</option>
+                                <option value="109">Eric Emmerick</option>
+                                <option value="111">David Gutierrez</option>
+                                <option value="114">Karyn Klos</option>
+                                <option value="115">Janet Mathias</option>
+                                <option value="119">Linda McKee</option>
+                                <option value="124">Alan Rittel</option>
+                                <option value="127">Douglas Seaton</option>
+                                <option value="129">Scott Stieferman</option>
+                                <option value="134">Carrie Ott</option>
+                                <option value="135">Kyle Olexa</option>
+                                <option value="136">Scott Derr</option>
+                                <option value="137">Eric Benson</option>
+                                <option value="138">Kevin Catallo</option>
+                                <option value="139">Brian Sweet</option>
+                                <option value="140">Matt Weber</option>
+                                <option value="141">Gili Carranza</option>
+                                <option value="142">Gerald Biegler</option>
+                                <option value="143">David Graham</option>
+                                <option value="145">Bill Awad</option>
+                                <option value="147">Debbie Scimeca</option>
+                                <option value="153">Alvin McLean</option>
+                                <option value="154">Ashley Canchola</option>
+                                <option value="155">Bob Stewart</option>
+                                <option value="156">Dennis Morgan</option>
+                                <option value="157">Diane Wilshere</option>
+                                <option value="158">Eddie Fletcher</option>
+                                <option value="159">Ken Antos</option>
+                                <option value="160">Marisa Petrosa</option>
+                                <option value="161">Nathan Hatheway</option>
+                                <option value="162">Sam Ayyash</option>
+                                <option value="163">Scott Daley</option>
+                                <option value="165">ZDawn ZDupon</option>
+                                <option value="166">Brian Lee</option>
+                                <option value="167">Tony Cabral</option>
+                                <option value="168">Jill Rodeghier</option>
+                                <option value="169">Seth Foote</option>
+                                <option value="170">Maryann Lanese</option>
+                                <option value="171">Brittany Vicory</option>
+                                <option value="172">Sergio Almaguer</option>
+                                <option value="173">Keith Tribou</option>
+                                <option value="174">Sean McNeela</option>
+                                <option value="175">Ora Britt</option>
+                                <option value="176">Susan Case</option>
+                                <option value="177">Annette Grigg</option>
+                                <option value="178">Emerson Carnavale</option>
+                                <option value="179">Nancy Detrolio</option>
+                                <option value="180">System Master</option>
+                                <option value="181">Amy Trainor</option>
+                                <option value="182">Camilo Sandino</option>
+                                <option value="183">Francisco Alonso</option>
+                                <option value="184">Brian Storhaug</option>
+                                <option value="185">Jia Cui</option>
+                                <option value="186">Kelly Lee</option>
+                                <option value="187">Brian Hughan</option>
+                                <option value="188">Austin Onwualu</option>
+                                <option value="189">Bogar Almanza</option>
+                                <option value="190">Julio Carreon</option>
+                                <option value="191">Marco Garcia</option>
+                                <option value="192">Roberto Verdugo</option>
+                                <option value="193">Jose Macias</option>
+                                <option value="194">Alfredo Tirado</option>
+                                <option value="195">Jesus Renteria</option>
+                                <option value="196">Luis Martinez</option>
+                                <option value="197">Joel Armenta</option>
+                                <option value="198">Orlanda Munoz</option>
+                                <option value="199">Salvador Monreal</option>
+                                <option value="200">Carmen Montoya</option>
+                                <option value="201">Cristina Valenzuela</option>
+                                <option value="202">Guillermo Gonzalez</option>
+                                <option value="203">Roberto Betancourt</option>
+                                <option value="204">Hugo Sotelo</option>
+                                <option value="205">Rene Ramirez</option>
+                                <option value="207">Sandra Quiroz</option>
+                                <option value="208">Margarita Aguilar</option>
+                                <option value="209">Jesus Orozco</option>
+                                <option value="210">Jose Villegas</option>
+                                <option value="211">Victor Israel Garcia</option>
+                                <option value="212">ALEJANDRO VARGAS</option>
+                                <option value="213">Alejandro Parra</option>
+                                <option value="214">Catarino Belmares</option>
+                                <option value="215">Joaquin Lazos</option>
+                                <option value="216">Roberto Ortiz</option>
+                                <option value="217">Charlie Nova</option>
+                                <option value="218">Rafael Salinas</option>
+                                <option value="219">Jacqueline Aldrete</option>
+                                <option value="220">Annabell Johnson</option>
+                                <option value="221">Joel Real</option>
+                                <option value="222">Harshit Jayaswal</option>
+                                <option value="223">Tom Barr</option>
+                                <option value="226">test1 testee</option>
+                                <option value="227">test1 testee</option>
+                                <option value="228">Aditya Gupta</option>
+                                <option value="229">Brian Winburn</option>
+                                <option value="230">Sheetal Dhamanekar</option>
+                                <option value="232">Deborah Ellis Canatella</option>
+                                <option value="236">Karthikeyan Ramamoorthy</option>
+                                <option value="237">Joseph Winters</option>
+                                <option value="1237">LGR Systems Honeywell Supply Chain</option>
+                                <option value="1240">j b</option>
+                                <option value="2239">Wasim Y</option>
+                                <option value="2240">Ron Reighter</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">PROTOCOL SPONSOR</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <select id="ctl00_contentMain_ddlSponsorFind" class="form-control" name="ctl00$contentMain$ddlSponsorFind">
+                                <option value=""></option>
+                                <option value="4">Dawn Dupon</option>
+                                <option value="5">Carrie Wayne</option>
+                                <option value="7">Paul Behan</option>
+                                <option value="8">Jack Blumenstock</option>
+                                <option value="9">Art Clark</option>
+                                <option value="10">William Gibson</option>
+                                <option value="11">Martin Reffner</option>
+                                <option value="13">Jim Sonntag</option>
+                                <option value="106">Loretta Blankley</option>
+                                <option value="109">Eric Emmerick</option>
+                                <option value="111">David Gutierrez</option>
+                                <option value="114">Karyn Klos</option>
+                                <option value="115">Janet Mathias</option>
+                                <option value="119">Linda McKee</option>
+                                <option value="124">Alan Rittel</option>
+                                <option value="127">Douglas Seaton</option>
+                                <option value="129">Scott Stieferman</option>
+                                <option value="134">Carrie Ott</option>
+                                <option value="135">Kyle Olexa</option>
+                                <option value="136">Scott Derr</option>
+                                <option value="137">Eric Benson</option>
+                                <option value="138">Kevin Catallo</option>
+                                <option value="139">Brian Sweet</option>
+                                <option value="140">Matt Weber</option>
+                                <option value="141">Gili Carranza</option>
+                                <option value="142">Gerald Biegler</option>
+                                <option value="143">David Graham</option>
+                                <option value="145">Bill Awad</option>
+                                <option value="147">Debbie Scimeca</option>
+                                <option value="153">Alvin McLean</option>
+                                <option value="154">Ashley Canchola</option>
+                                <option value="155">Bob Stewart</option>
+                                <option value="156">Dennis Morgan</option>
+                                <option value="157">Diane Wilshere</option>
+                                <option value="158">Eddie Fletcher</option>
+                                <option value="159">Ken Antos</option>
+                                <option value="160">Marisa Petrosa</option>
+                                <option value="161">Nathan Hatheway</option>
+                                <option value="162">Sam Ayyash</option>
+                                <option value="163">Scott Daley</option>
+                                <option value="165">ZDawn ZDupon</option>
+                                <option value="166">Brian Lee</option>
+                                <option value="167">Tony Cabral</option>
+                                <option value="168">Jill Rodeghier</option>
+                                <option value="169">Seth Foote</option>
+                                <option value="170">Maryann Lanese</option>
+                                <option value="171">Brittany Vicory</option>
+                                <option value="172">Sergio Almaguer</option>
+                                <option value="173">Keith Tribou</option>
+                                <option value="174">Sean McNeela</option>
+                                <option value="175">Ora Britt</option>
+                                <option value="176">Susan Case</option>
+                                <option value="177">Annette Grigg</option>
+                                <option value="178">Emerson Carnavale</option>
+                                <option value="179">Nancy Detrolio</option>
+                                <option value="180">System Master</option>
+                                <option value="181">Amy Trainor</option>
+                                <option value="182">Camilo Sandino</option>
+                                <option value="183">Francisco Alonso</option>
+                                <option value="184">Brian Storhaug</option>
+                                <option value="185">Jia Cui</option>
+                                <option value="186">Kelly Lee</option>
+                                <option value="187">Brian Hughan</option>
+                                <option value="188">Austin Onwualu</option>
+                                <option value="189">Bogar Almanza</option>
+                                <option value="190">Julio Carreon</option>
+                                <option value="191">Marco Garcia</option>
+                                <option value="192">Roberto Verdugo</option>
+                                <option value="193">Jose Macias</option>
+                                <option value="194">Alfredo Tirado</option>
+                                <option value="195">Jesus Renteria</option>
+                                <option value="196">Luis Martinez</option>
+                                <option value="197">Joel Armenta</option>
+                                <option value="198">Orlanda Munoz</option>
+                                <option value="199">Salvador Monreal</option>
+                                <option value="200">Carmen Montoya</option>
+                                <option value="201">Cristina Valenzuela</option>
+                                <option value="202">Guillermo Gonzalez</option>
+                                <option value="203">Roberto Betancourt</option>
+                                <option value="204">Hugo Sotelo</option>
+                                <option value="205">Rene Ramirez</option>
+                                <option value="207">Sandra Quiroz</option>
+                                <option value="208">Margarita Aguilar</option>
+                                <option value="209">Jesus Orozco</option>
+                                <option value="210">Jose Villegas</option>
+                                <option value="211">Victor Israel Garcia</option>
+                                <option value="212">ALEJANDRO VARGAS</option>
+                                <option value="213">Alejandro Parra</option>
+                                <option value="214">Catarino Belmares</option>
+                                <option value="215">Joaquin Lazos</option>
+                                <option value="216">Roberto Ortiz</option>
+                                <option value="217">Charlie Nova</option>
+                                <option value="218">Rafael Salinas</option>
+                                <option value="219">Jacqueline Aldrete</option>
+                                <option value="220">Annabell Johnson</option>
+                                <option value="221">Joel Real</option>
+                                <option value="222">Harshit Jayaswal</option>
+                                <option value="223">Tom Barr</option>
+                                <option value="226">test1 testee</option>
+                                <option value="227">test1 testee</option>
+                                <option value="228">Aditya Gupta</option>
+                                <option value="229">Brian Winburn</option>
+                                <option value="230">Sheetal Dhamanekar</option>
+                                <option value="232">Deborah Ellis Canatella</option>
+                                <option value="236">Karthikeyan Ramamoorthy</option>
+                                <option value="237">Joseph Winters</option>
+                                <option value="1237">LGR Systems Honeywell Supply Chain</option>
+                                <option value="1240">j b</option>
+                                <option value="2239">Wasim Y</option>
+                                <option value="2240">Ron Reighter</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">DOMAIN/SCOPE</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <select id="ctl00_contentMain_ddlDomainFind" class="form-control" name="ctl00$contentMain$ddlDomainFind">
+                                <option value=""></option>
+                                <option value="1">Enterprise Resource Planning</option>
+                                <option value="2">Pharmaceuticals/ U.S.</option>
+                                <option value="3">Global Supply Chain Security public-private joint objective</option>
+                                <option value="4">Global Supply Chain Security public-private joint initiative</option>
+                                <option value="5">International</option>
+                                <option value="6">United States</option>
+                                <option value="7">Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">FULL TEXT SEARCH </td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtFullTextSearch" class="form-control" type="text" name="txtFullTextSearch">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="advancedSearch" colspan="3">
+                            <a id="linkAdvanceSearch" style="color: Black;" href="#">ADVANCED SEARCH</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table style="float: left">
                 <tr>
-                    <td class="tLeftColumn">NAME</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtNameFind" class="txtBox" type="text" name="txtNameFind">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">CAMPAIGN</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <select id="ctl00_contentMain_ddlCampaignFind" class="dropDown" name="ctl00$contentMain$ddlCampaignFind">
-                            <option value=""></option>
-                            <option value="27">2013 C-TPAT</option>
-                            <option value="28">2013 Foreign MFG</option>
-                            <option value="26">2013 PIP</option>
-                            <option value="29">Foreign Manufacturer A</option>
-                            <option value="24">Honeywell Site 2013</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">AGENCY</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <select id="ctl00_contentMain_ddlAgencyFind" class="dropDown" name="ctl00$contentMain$ddlAgencyFind">
-                            <option value=""></option>
-                            <option value="1">World Customs Organization</option>
-                            <option value="2">United States Postal Service</option>
-                            <option value="3">Department of Homeland Security: Customs Border Patrol (CBP)</option>
-                            <option value="4">U.S. Department of Health and Human Services</option>
-                            <option value="5">International Standards Organization and International Trade Center</option>
-                            <option value="6">U.S. Department of Treasury</option>
-                            <option value="7">Canada Border Services Agency</option>
-                            <option value="8">United States Federal Government</option>
-                            <option value="9">Department of Homeland Security</option>
-                            <option value="10">Securities and Exchange Commission</option>
-                            <option value="11">SAP AG</option>
-                            <option value="12">Other</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">PARTNER TYPE</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <select id="ctl00_contentMain_ddlProviderTypeFind" class="dropDown" name="ctl00$contentMain$ddlProviderTypeFind">
-                            <option value=""></option>
-                            <option value="1">Customer</option>
-                            <option value="2">Site</option>
-                            <option value="3">Supplier</option>
-                            <option value="4">Transport</option>
-                            <option value="5">Warehouse</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">PROTOCOL ADMIN</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <select id="ctl00_contentMain_ddlAdminFind" class="dropDown" name="ctl00$contentMain$ddlAdminFind">
-                            <option value=""></option>
-                            <option value="4">Dawn Dupon</option>
-                            <option value="5">Carrie Wayne</option>
-                            <option value="7">Paul Behan</option>
-                            <option value="8">Jack Blumenstock</option>
-                            <option value="9">Art Clark</option>
-                            <option value="10">William Gibson</option>
-                            <option value="11">Martin Reffner</option>
-                            <option value="13">Jim Sonntag</option>
-                            <option value="106">Loretta Blankley</option>
-                            <option value="109">Eric Emmerick</option>
-                            <option value="111">David Gutierrez</option>
-                            <option value="114">Karyn Klos</option>
-                            <option value="115">Janet Mathias</option>
-                            <option value="119">Linda McKee</option>
-                            <option value="124">Alan Rittel</option>
-                            <option value="127">Douglas Seaton</option>
-                            <option value="129">Scott Stieferman</option>
-                            <option value="134">Carrie Ott</option>
-                            <option value="135">Kyle Olexa</option>
-                            <option value="136">Scott Derr</option>
-                            <option value="137">Eric Benson</option>
-                            <option value="138">Kevin Catallo</option>
-                            <option value="139">Brian Sweet</option>
-                            <option value="140">Matt Weber</option>
-                            <option value="141">Gili Carranza</option>
-                            <option value="142">Gerald Biegler</option>
-                            <option value="143">David Graham</option>
-                            <option value="145">Bill Awad</option>
-                            <option value="147">Debbie Scimeca</option>
-                            <option value="153">Alvin McLean</option>
-                            <option value="154">Ashley Canchola</option>
-                            <option value="155">Bob Stewart</option>
-                            <option value="156">Dennis Morgan</option>
-                            <option value="157">Diane Wilshere</option>
-                            <option value="158">Eddie Fletcher</option>
-                            <option value="159">Ken Antos</option>
-                            <option value="160">Marisa Petrosa</option>
-                            <option value="161">Nathan Hatheway</option>
-                            <option value="162">Sam Ayyash</option>
-                            <option value="163">Scott Daley</option>
-                            <option value="165">ZDawn ZDupon</option>
-                            <option value="166">Brian Lee</option>
-                            <option value="167">Tony Cabral</option>
-                            <option value="168">Jill Rodeghier</option>
-                            <option value="169">Seth Foote</option>
-                            <option value="170">Maryann Lanese</option>
-                            <option value="171">Brittany Vicory</option>
-                            <option value="172">Sergio Almaguer</option>
-                            <option value="173">Keith Tribou</option>
-                            <option value="174">Sean McNeela</option>
-                            <option value="175">Ora Britt</option>
-                            <option value="176">Susan Case</option>
-                            <option value="177">Annette Grigg</option>
-                            <option value="178">Emerson Carnavale</option>
-                            <option value="179">Nancy Detrolio</option>
-                            <option value="180">System Master</option>
-                            <option value="181">Amy Trainor</option>
-                            <option value="182">Camilo Sandino</option>
-                            <option value="183">Francisco Alonso</option>
-                            <option value="184">Brian Storhaug</option>
-                            <option value="185">Jia Cui</option>
-                            <option value="186">Kelly Lee</option>
-                            <option value="187">Brian Hughan</option>
-                            <option value="188">Austin Onwualu</option>
-                            <option value="189">Bogar Almanza</option>
-                            <option value="190">Julio Carreon</option>
-                            <option value="191">Marco Garcia</option>
-                            <option value="192">Roberto Verdugo</option>
-                            <option value="193">Jose Macias</option>
-                            <option value="194">Alfredo Tirado</option>
-                            <option value="195">Jesus Renteria</option>
-                            <option value="196">Luis Martinez</option>
-                            <option value="197">Joel Armenta</option>
-                            <option value="198">Orlanda Munoz</option>
-                            <option value="199">Salvador Monreal</option>
-                            <option value="200">Carmen Montoya</option>
-                            <option value="201">Cristina Valenzuela</option>
-                            <option value="202">Guillermo Gonzalez</option>
-                            <option value="203">Roberto Betancourt</option>
-                            <option value="204">Hugo Sotelo</option>
-                            <option value="205">Rene Ramirez</option>
-                            <option value="207">Sandra Quiroz</option>
-                            <option value="208">Margarita Aguilar</option>
-                            <option value="209">Jesus Orozco</option>
-                            <option value="210">Jose Villegas</option>
-                            <option value="211">Victor Israel Garcia</option>
-                            <option value="212">ALEJANDRO VARGAS</option>
-                            <option value="213">Alejandro Parra</option>
-                            <option value="214">Catarino Belmares</option>
-                            <option value="215">Joaquin Lazos</option>
-                            <option value="216">Roberto Ortiz</option>
-                            <option value="217">Charlie Nova</option>
-                            <option value="218">Rafael Salinas</option>
-                            <option value="219">Jacqueline Aldrete</option>
-                            <option value="220">Annabell Johnson</option>
-                            <option value="221">Joel Real</option>
-                            <option value="222">Harshit Jayaswal</option>
-                            <option value="223">Tom Barr</option>
-                            <option value="226">test1 testee</option>
-                            <option value="227">test1 testee</option>
-                            <option value="228">Aditya Gupta</option>
-                            <option value="229">Brian Winburn</option>
-                            <option value="230">Sheetal Dhamanekar</option>
-                            <option value="232">Deborah Ellis Canatella</option>
-                            <option value="236">Karthikeyan Ramamoorthy</option>
-                            <option value="237">Joseph Winters</option>
-                            <option value="1237">LGR Systems Honeywell Supply Chain</option>
-                            <option value="1240">j b</option>
-                            <option value="2239">Wasim Y</option>
-                            <option value="2240">Ron Reighter</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">PROTOCOL SPONSOR</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <select id="ctl00_contentMain_ddlSponsorFind" class="dropDown" name="ctl00$contentMain$ddlSponsorFind">
-                            <option value=""></option>
-                            <option value="4">Dawn Dupon</option>
-                            <option value="5">Carrie Wayne</option>
-                            <option value="7">Paul Behan</option>
-                            <option value="8">Jack Blumenstock</option>
-                            <option value="9">Art Clark</option>
-                            <option value="10">William Gibson</option>
-                            <option value="11">Martin Reffner</option>
-                            <option value="13">Jim Sonntag</option>
-                            <option value="106">Loretta Blankley</option>
-                            <option value="109">Eric Emmerick</option>
-                            <option value="111">David Gutierrez</option>
-                            <option value="114">Karyn Klos</option>
-                            <option value="115">Janet Mathias</option>
-                            <option value="119">Linda McKee</option>
-                            <option value="124">Alan Rittel</option>
-                            <option value="127">Douglas Seaton</option>
-                            <option value="129">Scott Stieferman</option>
-                            <option value="134">Carrie Ott</option>
-                            <option value="135">Kyle Olexa</option>
-                            <option value="136">Scott Derr</option>
-                            <option value="137">Eric Benson</option>
-                            <option value="138">Kevin Catallo</option>
-                            <option value="139">Brian Sweet</option>
-                            <option value="140">Matt Weber</option>
-                            <option value="141">Gili Carranza</option>
-                            <option value="142">Gerald Biegler</option>
-                            <option value="143">David Graham</option>
-                            <option value="145">Bill Awad</option>
-                            <option value="147">Debbie Scimeca</option>
-                            <option value="153">Alvin McLean</option>
-                            <option value="154">Ashley Canchola</option>
-                            <option value="155">Bob Stewart</option>
-                            <option value="156">Dennis Morgan</option>
-                            <option value="157">Diane Wilshere</option>
-                            <option value="158">Eddie Fletcher</option>
-                            <option value="159">Ken Antos</option>
-                            <option value="160">Marisa Petrosa</option>
-                            <option value="161">Nathan Hatheway</option>
-                            <option value="162">Sam Ayyash</option>
-                            <option value="163">Scott Daley</option>
-                            <option value="165">ZDawn ZDupon</option>
-                            <option value="166">Brian Lee</option>
-                            <option value="167">Tony Cabral</option>
-                            <option value="168">Jill Rodeghier</option>
-                            <option value="169">Seth Foote</option>
-                            <option value="170">Maryann Lanese</option>
-                            <option value="171">Brittany Vicory</option>
-                            <option value="172">Sergio Almaguer</option>
-                            <option value="173">Keith Tribou</option>
-                            <option value="174">Sean McNeela</option>
-                            <option value="175">Ora Britt</option>
-                            <option value="176">Susan Case</option>
-                            <option value="177">Annette Grigg</option>
-                            <option value="178">Emerson Carnavale</option>
-                            <option value="179">Nancy Detrolio</option>
-                            <option value="180">System Master</option>
-                            <option value="181">Amy Trainor</option>
-                            <option value="182">Camilo Sandino</option>
-                            <option value="183">Francisco Alonso</option>
-                            <option value="184">Brian Storhaug</option>
-                            <option value="185">Jia Cui</option>
-                            <option value="186">Kelly Lee</option>
-                            <option value="187">Brian Hughan</option>
-                            <option value="188">Austin Onwualu</option>
-                            <option value="189">Bogar Almanza</option>
-                            <option value="190">Julio Carreon</option>
-                            <option value="191">Marco Garcia</option>
-                            <option value="192">Roberto Verdugo</option>
-                            <option value="193">Jose Macias</option>
-                            <option value="194">Alfredo Tirado</option>
-                            <option value="195">Jesus Renteria</option>
-                            <option value="196">Luis Martinez</option>
-                            <option value="197">Joel Armenta</option>
-                            <option value="198">Orlanda Munoz</option>
-                            <option value="199">Salvador Monreal</option>
-                            <option value="200">Carmen Montoya</option>
-                            <option value="201">Cristina Valenzuela</option>
-                            <option value="202">Guillermo Gonzalez</option>
-                            <option value="203">Roberto Betancourt</option>
-                            <option value="204">Hugo Sotelo</option>
-                            <option value="205">Rene Ramirez</option>
-                            <option value="207">Sandra Quiroz</option>
-                            <option value="208">Margarita Aguilar</option>
-                            <option value="209">Jesus Orozco</option>
-                            <option value="210">Jose Villegas</option>
-                            <option value="211">Victor Israel Garcia</option>
-                            <option value="212">ALEJANDRO VARGAS</option>
-                            <option value="213">Alejandro Parra</option>
-                            <option value="214">Catarino Belmares</option>
-                            <option value="215">Joaquin Lazos</option>
-                            <option value="216">Roberto Ortiz</option>
-                            <option value="217">Charlie Nova</option>
-                            <option value="218">Rafael Salinas</option>
-                            <option value="219">Jacqueline Aldrete</option>
-                            <option value="220">Annabell Johnson</option>
-                            <option value="221">Joel Real</option>
-                            <option value="222">Harshit Jayaswal</option>
-                            <option value="223">Tom Barr</option>
-                            <option value="226">test1 testee</option>
-                            <option value="227">test1 testee</option>
-                            <option value="228">Aditya Gupta</option>
-                            <option value="229">Brian Winburn</option>
-                            <option value="230">Sheetal Dhamanekar</option>
-                            <option value="232">Deborah Ellis Canatella</option>
-                            <option value="236">Karthikeyan Ramamoorthy</option>
-                            <option value="237">Joseph Winters</option>
-                            <option value="1237">LGR Systems Honeywell Supply Chain</option>
-                            <option value="1240">j b</option>
-                            <option value="2239">Wasim Y</option>
-                            <option value="2240">Ron Reighter</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">DOMAIN/SCOPE</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <select id="ctl00_contentMain_ddlDomainFind" class="dropDown" name="ctl00$contentMain$ddlDomainFind">
-                            <option value=""></option>
-                            <option value="1">Enterprise Resource Planning</option>
-                            <option value="2">Pharmaceuticals/ U.S.</option>
-                            <option value="3">Global Supply Chain Security public-private joint objective</option>
-                            <option value="4">Global Supply Chain Security public-private joint initiative</option>
-                            <option value="5">International</option>
-                            <option value="6">United States</option>
-                            <option value="7">Other</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">FULL TEXT SEARCH </td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtFullTextSearch" class="txtBox" type="text" style="width: 250px;" name="txtFullTextSearch">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="advancedSearch" colspan="3">
-                        <a id="linkAdvanceSearch"  style="color: Black;" href="#">ADVANCED SEARCH</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table style="float: left">
-            <tr>
-                <td></td>
-                <td>
+                    <td></td>
+                    <td>
 
-                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
-                </td>
-            </tr>
+                        <input id="btnFind" class="btn btn-default" value="Find" type="submit" name="btnFind">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="btn btn-default" value="Cancel" type="button" name="btnCancel">
+                    </td>
+                </tr>
 
-        </table>
+            </table>
+        </div>
     </div>
 </form>
 

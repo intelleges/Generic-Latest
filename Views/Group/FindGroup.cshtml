@@ -10,8 +10,25 @@
 }
 
 <style>
-     #panelFind select {
-        width: 210px;       
+    #panelFind select {
+        width: 350px;
+    }
+
+    #panelFind input {
+        width: 350px;
+    }
+
+    .form-control {
+        margin: 5px;
+    }
+    #panelFind [type="button"] {
+        width: 110px;
+        margin: 5px;
+    }
+
+    #panelFind [type="submit"] {
+        width: 110px;
+        margin: 5px;
     }
    .txtBox {
         width: 205px;  
@@ -77,55 +94,58 @@
 <h2>Find Group</h2>
 
 <form id="FindpersonForm" method="post" enctype="multipart/form-data">
-<div id="panelFind">
-     <table width="70%; " style="float:left" border="0">
-        <tbody>
-            <tr id="ctl00_contentMain_rowName">
-                <td class="tLeftColumn">NAME</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="txtNameFind" class="txtBox" type="text" name="txtNameFind">
-                </td>
-            </tr>
-          
-            <tr>
-                <td class="tLeftColumn">Campaign </td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                     @Html.DropDownList("touchpoint", String.Empty)
-                </td>
-            </tr>
-            <tr id="ctl00_contentMain_rowBy1">
-                <td class="tLeftColumn">Owner </td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="txtProviderFind" class="txtBox" type="text" name="txtProviderFind">
-                </td>
-            </tr>
-         
-            <tr id="ctl00_contentMain_rowDescription">
-                <td class="tLeftColumn">DESCRIPTION</td>
-                <td class="tCenterColumn"></td>
-                <td class="tRightColumn">
-                    <input id="ctl00_contentMain_txtDescriptionFind" class="txtBox" type="text" name="ctl00$contentMain$txtDescriptionFind">
-                </td>
-            </tr>
-          
-        </tbody>
-    </table>
+<div id="panelFind" class="row">
+    <div class="col-lg-8">
+        <table width="70%; " style="float:left" border="0">
+            <tbody>
+                <tr id="ctl00_contentMain_rowName">
+                    <td class="tLeftColumn form-label">NAME</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtNameFind" class="form-control" type="text" name="txtNameFind">
+                    </td>
+                </tr>
 
-      <table style="float: left">
+                <tr>
+                    <td class="tLeftColumn form-label">Campaign </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        @Html.DropDownList("touchpoint", null,String.Empty,new { @class="form-control"})
+                    </td>
+                </tr>
+                <tr id="ctl00_contentMain_rowBy1">
+                    <td class="tLeftColumn form-label">Owner </td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="txtProviderFind" class="form-control" type="text" name="txtProviderFind">
+                    </td>
+                </tr>
+
+                <tr id="ctl00_contentMain_rowDescription">
+                    <td class="tLeftColumn form-label">DESCRIPTION</td>
+                    <td class="tCenterColumn"></td>
+                    <td class="tRightColumn">
+                        <input id="ctl00_contentMain_txtDescriptionFind" class="form-control" type="text" name="ctl00$contentMain$txtDescriptionFind">
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-4">
+        <table style="float: left">
             <tr>
                 <td></td>
                 <td>
 
-                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
+                    <input id="btnFind" class="btn btn-default" value="Find" type="submit"  name="btnFind">
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
+                    <input id="btnCancel" class="btn btn-default" value="Cancel" type="button"  name="btnCancel">
                 </td>
             </tr>
 
         </table>
+    </div>
     </div>
 </form>
 

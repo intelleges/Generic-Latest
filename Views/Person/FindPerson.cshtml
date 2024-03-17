@@ -10,9 +10,16 @@
 }
 
 <style>
-    #panelFind select
-    {
-        width: 210px;
+    #panelFind select {
+        width: 350px;
+    }
+
+    #panelFind input {
+        width: 350px;
+    }
+
+    .form-control {
+        margin: 5px;
     }
 
     .txtBox
@@ -47,86 +54,99 @@
     {
         padding: 0 0 0 0;
     }
+    #panelFind [type="button"] {
+        width: 110px;
+        margin: 5px;
+    }
+
+    #panelFind [type="submit"] {
+        width: 110px;
+        margin: 5px;
+    }
 </style>
 
 <h2>Find Person</h2>
 
 <form id="FindpersonForm" method="post" enctype="multipart/form-data">
-    <div id="panelFind">
-        <input id="searchType"  type="hidden" value="@ViewBag.searchType" name="searchType">
-        <table width="70%; " style="float: left" border="0">
-            <tbody>
+    <div id="panelFind" class="row">
+        <div class="col-lg-8">
+            <input id="searchType" type="hidden" value="@ViewBag.searchType" name="searchType">
+            <table width="70%; " style="float: left" border="0">
+                <tbody>
+                    <tr>
+                        <td class="tLeftColumn form-label">INTERNAL ID</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="txtInternalId" class="form-control" type="text" name="InternalId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">TITLE</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="Title" class="form-control" type="text" name="Title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">FIRST NAME</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="FirstName" class="form-control" type="text" name="FirstName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">EMAIL</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="Email" class="form-control" type="text" name="Email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">LAST NAME</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="LastName" class="form-control" type="text" name="LastName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">PHONE</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            <input id="Phone" class="form-control" type="text" name="Phone">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="tLeftColumn form-label">TOUCHPOINT</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("touchpoint",null, String.Empty,new {@class="form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tLeftColumn form-label">LAST LOGIN</td>
+                        <td class="tCenterColumn"></td>
+                        <td class="tRightColumn">
+                            @Html.DropDownList("lastLogin",null, String.Empty,new {@class="form-control" })
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <table style="float: left">
                 <tr>
-                    <td class="tLeftColumn">INTERNAL ID</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="txtInternalId" class="txtBox" type="text" name="InternalId">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">TITLE</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="Title" class="txtBox" type="text" name="Title">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">FIRST NAME</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="FirstName" class="txtBox" type="text" name="FirstName">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">EMAIL</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="Email" class="txtBox" type="text" name="Email">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">LAST NAME</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="LastName" class="txtBox" type="text" name="LastName">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">PHONE</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        <input id="Phone" class="txtBox" type="text" name="Phone">
+                    <td></td>
+                    <td>
+
+                        <input id="btnFind" class="btn btn-default" value="Find" type="submit"  name="btnFind">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="btnCancel" class="btn btn-default" value="Cancel" type="button"  name="btnCancel">
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="tLeftColumn">TOUCHPOINT</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("touchpoint", String.Empty)
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tLeftColumn">LAST LOGIN</td>
-                    <td class="tCenterColumn"></td>
-                    <td class="tRightColumn">
-                        @Html.DropDownList("lastLogin", String.Empty)
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        <table style="float: left">
-            <tr>
-                <td></td>
-                <td>
-
-                    <input id="btnFind" class="txtBox1" value="Find" type="submit" style="width: 100px; height: 28px" name="btnFind">
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input id="btnCancel" class="txtBox1" value="Cancel" type="button" style="width: 100px; height: 28px" name="btnCancel">
-                </td>
-            </tr>
-
-        </table>
+            </table>
+        </div>
     </div>
 </form>
