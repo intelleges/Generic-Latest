@@ -23734,6 +23734,8 @@ Intelleges Team";
                     var _state = db.pr_getState(_partner.state).FirstOrDefault();
                     ViewBag.state = _state != null ? _state.stateCode : string.Empty;
                 }
+                if (pptq != null)
+                    ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
                 if (footer == "42")
                 {
                     var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
@@ -23742,8 +23744,7 @@ Intelleges Team";
                     ViewBag.signature = _signature;
 
                     ViewBag.personTitle = _partner != null ? _partner.title : "";
-                    if (pptq != null)
-                        ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+                    
                     ViewBag.Status = pptq.status;
                 }
             }
@@ -23868,6 +23869,8 @@ Intelleges Team";
                     var _state = db.pr_getState(_partner.state).FirstOrDefault();
                     ViewBag.state = _state != null ? _state.stateCode : string.Empty;
                 }
+                if (pptq != null)
+                    ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
                 if (footer == "42")
                 {
                     var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
@@ -23876,8 +23879,7 @@ Intelleges Team";
                     ViewBag.signature = _signature;
 
                     ViewBag.personTitle = _partner != null ? _partner.title : "";
-                    if (pptq != null)
-                        ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+                    
                     ViewBag.Status = pptq.status;
                 }
             }
@@ -24568,6 +24570,8 @@ Intelleges Team";
                     var _state = db.pr_getState(_partner.state).FirstOrDefault();
                     ViewBag.state = _state != null ? _state.stateCode : string.Empty;
                 }
+                if (pptq != null)
+                    ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
                 if (footer == "42")
                 {
                     var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
@@ -24576,8 +24580,7 @@ Intelleges Team";
                     ViewBag.signature = _signature;
 
                     ViewBag.personTitle = _partner != null ? _partner.title : "";
-                    if (pptq != null)
-                        ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+                   
                     ViewBag.Status = pptq.status;
                 }
             }

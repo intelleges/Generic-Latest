@@ -101,7 +101,9 @@
                     INVITED DATE: @DateTime.Parse(item.Invited_Date.ToString()).ToString("MM/dd/yyyy")
                 </td>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:15px;">
-                    @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
+                    @if (item.Completed_Date != null)
+                    {
+                    if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
                     {
                         <span> COMPLETED DATE: Pending Approval</span>
                     }
@@ -109,6 +111,11 @@
                     {
                         <span> COMPLETED DATE: @DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</span>
                     }
+                    }
+                else
+                {
+                <span> COMPLETED DATE: Pending Approval</span>
+                }
                 </td>
             </tr>
             <tr>
@@ -297,7 +304,9 @@
                     SIGNATURE: @item.eSignature_eMail
                 </td>
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
-                    @if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
+                    @if (item.Completed_Date != null)
+                    {
+                    if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
                     {
                         <span> DATE: Pending Approval</span>
                     }
@@ -305,6 +314,11 @@
                     {
                         <span> DATE: @DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</span>
                     }
+                    }
+                else
+                {
+                <span> DATE: Pending Approval</span>
+                }
                 </td>
             </tr>
             @*<tr>
