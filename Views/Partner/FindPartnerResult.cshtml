@@ -789,6 +789,7 @@
 </style>
 @*<script src="~/Scripts/jquery-1.8.2.js"></script>
     <script src="~/Scripts/jquery-ui-1.9.2.js"></script>*@
+
 <script type="text/javascript">
     $("#PartnerGrid").on("click", "#remind", function (e) {
         e.preventDefault();
@@ -1267,7 +1268,7 @@
         $.getJSON('@Url.Content("~/Partner/PartnertypeTouchpointQuestionnaireCampaignStatus3")', { pptqId: pptqId, status: status, touchpoint: touchpoint }, function (data) {
             if (status === 14) {
                 alertify.alert(data.message, function () {
-                      checkToPrintPDF(data.pptqId, data.status, data.touchpoint);
+                    checkToPrintPDF(data.pptqId, data.status, data.touchpoint, internalID);
     		    });
             }
             else if (data.items.length > 1) {
@@ -1333,7 +1334,9 @@
                         window.location.href = "@Url.Content("~/Partner/PrintPDF/?accesscode=")" + data.accessCode;
                     }
                     else if (val === '3') {
-                        $.post("Approve", { accessCode: data.accessCode }).done(function (result) { });
+                        $.post("Approve", { accessCode: data.accessCode }).done(function (result) {
+
+                        });
                     }
                     else if (val === '4') {
                         $.post("Reject", { accessCode: data.accessCode }).done(function (result) { });

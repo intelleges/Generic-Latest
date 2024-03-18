@@ -105,7 +105,7 @@
                     {
                     if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
                     {
-                        <span> COMPLETED DATE: Pending Approval</span>
+                        <span>STATUS: Pending Approval</span><br/><span> COMPLETED DATE: </span>
                     }
                     else
                     {
@@ -306,19 +306,19 @@
                 <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">
                     @if (item.Completed_Date != null)
                     {
-                    if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
-                    {
-                        <span> DATE: Pending Approval</span>
+                        if (item.Completed_Date.ToString("MM/dd/yyyy") == "01/01/1900")
+                        {
+                           <span> DATE: </span>
+                        }
+                        else
+                        {
+                            <span> DATE: @DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</span>
+                        }
                     }
                     else
                     {
-                        <span> DATE: @DateTime.Parse(item.Completed_Date.ToString()).ToString("MM/dd/yyyy")</span>
+                        <span> DATE: Pending Approval</span>
                     }
-                    }
-                else
-                {
-                <span> DATE: Pending Approval</span>
-                }
                 </td>
             </tr>
             @*<tr>

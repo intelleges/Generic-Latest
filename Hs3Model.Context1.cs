@@ -31701,5 +31701,14 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pr_modifyPartnerOwner", partnerParameter, personParameter);
         }
+    
+        public virtual int Sp_setPDFtoNULLbyPPTQ(Nullable<int> pptqId)
+        {
+            var pptqIdParameter = pptqId.HasValue ?
+                new ObjectParameter("pptqId", pptqId) :
+                new ObjectParameter("pptqId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sp_setPDFtoNULLbyPPTQ", pptqIdParameter);
+        }
     }
 }

@@ -3326,6 +3326,7 @@ namespace Generic.Controllers
             var baseUri = new Uri(Request.Url.GetLeftPart(UriPartial.Authority));
             var questionnaire = db.pr_getQuestionnaireByPPTQ(pptq.id).FirstOrDefault();
             var appQuestion = db.pr_getApprovalRequestQuestionByQuestionnaire(questionnaire.id).FirstOrDefault();
+            db.Sp_setPDFtoNULLbyPPTQ(pptq.id);
             db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq.id, (int)PartnerStatus.Responded_Complete);
             db.pr_addPartnerPartnertypeTouchpointQuestionnairePersonApproval(pptq.id, SessionSingleton.LoggedInUserId, (int)PartnerStatus.Approved_By_Manager, null, DateTime.Now);
             var list = db.pr_validateEmailAlertListQuestionResponseByPPTQ(pptq.id, appQuestion.emailAlertList.Split(new string[] { "where:" }, StringSplitOptions.RemoveEmptyEntries)[1].Replace(";", "").Trim() + ";").ToList();
@@ -3336,6 +3337,7 @@ namespace Generic.Controllers
             var email = choices[0].Split(':')[1];
             var qnextId = choices[1].Replace("[", "").Replace("]", "");
             EmailHelper.SendEmailAlertWhere(pptq.partner1, pptq, pptq.accesscode, email, pptq.id, appQuestion.id, qnextId, qsss, baseUri, Url, Request.Url.ToString());
+           
             return "success";
         }
 
