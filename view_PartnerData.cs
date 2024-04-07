@@ -45,5 +45,8 @@ namespace Generic
         public Nullable<bool> active { get; set; }
         public Nullable<int> progress { get; set; }
         public Nullable<System.DateTime> completedDate { get; set; }
+        public System.DateTime invitedDate { get; set; }
+        public string LatestEvent { get; set; }
+        public Nullable<System.DateTime> LatestEventTimestamp { get; set; }
     }
 }
