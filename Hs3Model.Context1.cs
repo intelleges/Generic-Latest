@@ -305,6 +305,7 @@ namespace Generic
         public virtual DbSet<questionnaireClause> questionnaireClause { get; set; }
         public virtual DbSet<PartnerArchiveLog> PartnerArchiveLogs { get; set; }
         public virtual DbSet<view_PartnerData2> view_PartnerData2 { get; set; }
+        public virtual DbSet<view_PartnerData4> view_PartnerData4 { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {

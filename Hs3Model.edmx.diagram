@@ -415,6 +415,7 @@
         <AssociationConnector Association="hs3MVCMTQa2Model.FK__questionn__quest__0A4A26CE" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.PartnerArchiveLog" Width="1.5" PointX="40.375" PointY="26.75" />
         <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData2" Width="1.5" PointX="40.375" PointY="29.75" />
+        <EntityTypeShape EntityType="hs3MVCMTQa2Model.view_PartnerData4" Width="1.5" PointX="5.375" PointY="41.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

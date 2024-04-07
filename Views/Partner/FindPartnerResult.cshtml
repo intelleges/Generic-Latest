@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_PartnerData>>
+﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<Generic.view_PartnerData4>>
 @using System.Web.Mvc.Html
 @using Generic.Helpers
 @using Telerik.Web.Mvc.UI;
@@ -415,7 +415,7 @@
                                                                                             </ul>
                                                                                         </div>
                                                                                     </text>);
-                                                                                            columns.Bound(o => o.AccessCode).Title("AccessCode").Width(90).Template(@<text>
+                                                                                            columns.Bound(o => o.AccessCode).Title("Access Code").Width(90).Template(@<text>
 
                                                                                                 @{
                                                                                                                 var columnData = item.AccessCode;
@@ -466,7 +466,31 @@
 
 
                                                                                                     </text>);
-                                                                                                            columns.Bound(o => o.touchpointID).Title("Completed Date").Width(110).Template(@<text>
+                                                                                                            columns.Bound(o => o.invitedDate).Title("Invited").Width(110).Template(@<text>
+
+                                                                                                                @{
+                                                                                                                    DateTime inviteDate = Convert.ToDateTime(item.invitedDate);
+                                                                                                                    var columnData = inviteDate.ToShortDateString();
+                                                                                                                    var width = 20;
+
+                                                                                                                    <p title="@columnData" >@columnData</p>
+                                                                                                                }
+
+
+                                                                                                            </text>);
+                                                                                                            columns.Bound(o => o.LatestEventTimestamp).Title("Contacted").Width(110).Template(@<text>
+
+                                                                                                                @{
+                                                                                                                    DateTime eventDate = Convert.ToDateTime(item.LatestEventTimestamp);
+                                                                                                                    var columnData = eventDate.ToShortDateString();
+                                                                                                                    var width = 20;
+
+                                                                                                                    <p title="@columnData" >@columnData</p>
+                                                                                                                }
+
+
+                                                                                                            </text>);
+                                                                                                            columns.Bound(o => o.completedDate).Title("Completed").Width(110).Template(@<text>
 
                                                                                                                 @{
                                                                                                                     DateTime completeDate = Convert.ToDateTime(item.completedDate);
@@ -477,7 +501,7 @@
                                                                                                                     {
                                                                                                                         visibleText = completeDate.ToShortDateString();
                                                                                                                     }
-                                                                                                                    <p title="@columnData" style="text-align:right;">@visibleText</p>
+                                                                                                                    <p title="@columnData" >@visibleText</p>
                                                                                                                 }
 
 
@@ -502,7 +526,7 @@
 
                                                                                                                     </text>);
 
-                                                                                                                            columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text>
+                                                                                                                            columns.Bound(o => o.ContactEmail).Title("Email").Width(200).Template(@<text>
 
                                                                                                                                 @{
                                                                                                                                                 var columnData = item.ContactEmail;
@@ -517,8 +541,7 @@
 
 
                                                                                                                             </text>);
-                                                                                                                                    columns.Bound(o => o.dunsNumber).Title("DUNS#").Width(120).Encoded(false);
-                                                                                                                                    columns.Bound(o => o.ContactTitle).Title("Contact Title").Width(100).Template(@<text>
+                                                                                                                                    columns.Bound(o => o.ContactTitle).Title("Title").Width(100).Template(@<text>
 
                                                                                                                                         @{
                                                                                                                                                         var columnData = item.ContactTitle;
@@ -533,7 +556,7 @@
 
 
                                                                                                                                     </text>);
-                                                                                                                                            columns.Bound(o => o.phone).Title("Phone #").Width(100).Template(@<text>
+                                                                                                                                            columns.Bound(o => o.phone).Title("Phone").Width(100).Template(@<text>
 
                                                                                                                                         @{
                                                                                                                                                         var columnData = item.phone;
@@ -548,6 +571,38 @@
 
 
                                                                                                                                     </text>);
+                                                                                                                                      columns.Bound(o => o.Group).Title("Group").Width(70).Template(@<text>
+
+                                                                                                                                                                                                        @{
+                                                                                                                                                                                                                        var columnData = item.Group;
+                                                                                                                                                                                                                        var width = 7;
+                                                                                                                                                                                                                        var visibleText = string.Empty;
+                                                                                                                                                                                                                        if (columnData != null)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                            <p title="@columnData">@visibleText</p>
+                                                                                                                                                                                                        }
+
+
+                                                                                                                                                                                                    </text>);
+
+
+                                                                                                                                                                                                            columns.Bound(o => o.owner).Title("Owner").Width(100).Template(@<text>
+
+                                                                                                                                                                                                                @{
+                                                                                                                                                                                                                                var columnData = item.owner;
+                                                                                                                                                                                                                                var width = 14;
+                                                                                                                                                                                                                                var visibleText = string.Empty;
+                                                                                                                                                                                                                                if (columnData != null)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                    <p title="@columnData">@visibleText</p>
+                                                                                                                                                                                                                }
+
+
+                                                                                                                                                                                                            </text>);
                                                                                                                                             columns.Bound(o => o.address).Title("Address").Width(150).Template(@<text>
 
                                                                                                                                                 @{
@@ -581,35 +636,18 @@
                                                                                                                                                             columns.Bound(o => o.state).Title("State").Width(50).Template(@<text>
 
                                                                                                                                                                 @{
-                                                                                                                                                                                var columnData = item.state;
-                                                                                                                                                                                var width = 3;
-                                                                                                                                                                                var visibleText = string.Empty;
-                                                                                                                                                                                if (columnData != null)
-                                                                                                                                                                                {
-                                                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                }
+                                                                                                                                                                    var columnData = item.state;
+                                                                                                                                                                    var width = 3;
+                                                                                                                                                                    var visibleText = string.Empty;
+                                                                                                                                                                    if (columnData != null)
+                                                                                                                                                                    {
+                                                                                                                                                                        visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
+                                                                                                                                                                    }
                                                                                                                                                                     <p title="@columnData">@visibleText</p>
                                                                                                                                                                 }
 
 
                                                                                                                                                             </text>);
-
-
-                                                                                                                                                                    columns.Bound(o => o.zipcode).Title("Zipcode").Width(80).Template(@<text>
-
-                                                                                                                                                                        @{
-                                                                                                                                                                                        var columnData = item.zipcode;
-                                                                                                                                                                                        var width = 10;
-                                                                                                                                                                                        var visibleText = string.Empty;
-                                                                                                                                                                                        if (columnData != null)
-                                                                                                                                                                                        {
-                                                                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                        }
-                                                                                                                                                                            <p title="@columnData">@visibleText</p>
-                                                                                                                                                                        }
-
-
-                                                                                                                                                                    </text>);
                                                                                                                                                                             columns.Bound(o => o.Country).Title("Country").Width(100).Template(@<text>
 
                                                                                                                                                                                 @{
@@ -626,79 +664,7 @@
 
                                                                                                                                                                             </text>);
 
-                                                                                                                                                                                    columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150).Template(@<text>
-
-                                                                                                                                                                                        @{
-                                                                                                                                                                                                        var columnData = item.Touchpoint;
-                                                                                                                                                                                                        var width = 25;
-                                                                                                                                                                                                        var visibleText = string.Empty;
-                                                                                                                                                                                                        if (columnData != null)
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                                        }
-                                                                                                                                                                                            <p title="@columnData">@visibleText</p>
-                                                                                                                                                                                        }
-
-
-                                                                                                                                                                                    </text>);
-                                                                                                                                                                                            columns.Bound(o => o.Partnertype).Title("Partnertype").Width(120).Template(@<text>
-
-                                                                                                                                                                                                @{
-                                                                                                                                                                                                                var columnData = item.Partnertype;
-                                                                                                                                                                                                                var width = 20;
-                                                                                                                                                                                                                var visibleText = string.Empty;
-                                                                                                                                                                                                                if (columnData != null)
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                                                }
-                                                                                                                                                                                                    <p title="@columnData">@visibleText</p>
-                                                                                                                                                                                                }
-
-
-                                                                                                                                                                                            </text>);
-                                                                                                                                                                                                    columns.Bound(o => o.Group).Title("Group").Width(70).Template(@<text>
-
-                                                                                                                                                                                                        @{
-                                                                                                                                                                                                                        var columnData = item.Group;
-                                                                                                                                                                                                                        var width = 7;
-                                                                                                                                                                                                                        var visibleText = string.Empty;
-                                                                                                                                                                                                                        if (columnData != null)
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                            visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                            <p title="@columnData">@visibleText</p>
-                                                                                                                                                                                                        }
-
-
-                                                                                                                                                                                                    </text>);
-
-
-
-                                                                                                                                                                                                            columns.Bound(o => o.owner).Title("Owner").Width(100).Template(@<text>
-
-                                                                                                                                                                                                                @{
-                                                                                                                                                                                                                                var columnData = item.owner;
-                                                                                                                                                                                                                                var width = 14;
-                                                                                                                                                                                                                                var visibleText = string.Empty;
-                                                                                                                                                                                                                                if (columnData != null)
-                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                    visibleText = columnData.Length > width ? @columnData.Substring(0, width) + "..." : columnData;
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                    <p title="@columnData">@visibleText</p>
-                                                                                                                                                                                                                }
-
-
-                                                                                                                                                                                                            </text>);
-
-
-
-
-                                                                                                                                                                                                                    columns.Bound(o => o.progress).Title("Cert Progress %").Width(120).Template(@<text>
-                                                                                                                                                                                                                        @{
-                                                                                                                                                                                                                            <div style="text-align: center;">@item.progress</div>
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                    </text>);
-                                                                                                                                                                                                                            columns.Bound(o => o.Expr1).Title("Expr1").Width(90).Template(@<text>
+                                                                                                                                                                                                                            columns.Bound(o => o.Expr1).Title("Expr1").Width(150).Template(@<text>
 
                                                                                                                                                                                                                 @{
                                                                                                                                                                                                                                 var columnData = item.Expr1;
@@ -720,9 +686,6 @@
                                                                                                                 }
                                                                                                 }
                                                                                             </text>);
-
-
-
 
 
 

@@ -89,6 +89,8 @@ namespace Generic.Helpers
         private static IEnumerable<T> GetNewVersionRows<T>(string filePath, string sheetName, Dictionary<string, string> mapping)
         {
             List<T> result = new List<T>();
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage pck = new ExcelPackage(new FileInfo(filePath)))
             {
                 var ws = pck.Workbook.Worksheets[sheetName];
