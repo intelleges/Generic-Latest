@@ -1342,6 +1342,9 @@
     <Compile Include="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>

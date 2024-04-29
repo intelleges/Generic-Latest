@@ -6004,7 +6004,7 @@ namespace Generic.Controllers
             db.pr_addPersonPrintPDF(SessionSingleton.LoggedInUserId, pptqId, current_person.address2, DateTime.Now, 0, true);
 
             var accessCode = db.pr_getPartnerPartnertypeTouchpointQuestionnaire(pptqId).FirstOrDefault().accesscode;
-            var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus2(pptqId).FirstOrDefault();
+            var message = db.pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4(pptqId).FirstOrDefault();
             string msg = null;
             bool iscanprintPdf = false;
             List<dynamic> items = new List<dynamic>();

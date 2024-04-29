@@ -305,7 +305,6 @@ namespace Generic
         public virtual DbSet<questionnaireClause> questionnaireClause { get; set; }
         public virtual DbSet<PartnerArchiveLog> PartnerArchiveLogs { get; set; }
         public virtual DbSet<view_PartnerData2> view_PartnerData2 { get; set; }
-        public virtual DbSet<view_PartnerData4> view_PartnerData4 { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -31710,6 +31709,15 @@ namespace Generic
                 new ObjectParameter("pptqId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sp_setPDFtoNULLbyPPTQ", pptqIdParameter);
+        }
+    
+        public virtual ObjectResult<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4_Result> pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4(Nullable<int> pptq)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4_Result>("pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4", pptqParameter);
         }
     }
 }
