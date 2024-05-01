@@ -1130,12 +1130,6 @@ namespace Generic.Controllers
             }
             Session["uploadedpartnerList"] = uploadedpartners;
             Session["partnertype"] = partnertype;
-            if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
-            {
-                string title = "Reps and Certs " + DateTime.Now.Year.ToString();
-                string title1 = DateTime.Now.Year.ToString() + " Reps & Certs";
-                touchpoint = db.touchpoint.Where(x => (x.title == title || x.title == title1) && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
-            }
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
             //ViewBag.Message = "1";
