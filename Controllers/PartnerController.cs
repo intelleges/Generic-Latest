@@ -984,7 +984,9 @@ namespace Generic.Controllers
             var protocolname = db.protocol.Where(x => x.id == protocol).Select(x => x.name).FirstOrDefault();
             if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
             {
-                touchpoint = db.touchpoint.Where(x => (x.title == "Reps and Certs 2023" || x.title == "2023 Reps & Certs") && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
+                string title = "Reps and Certs 2023";
+                string title1 ="2023 Reps & Certs";
+                touchpoint = db.touchpoint.Where(x => (x.title == title || x.title ==title1) && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
             }
             #endregion
             List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
@@ -1069,7 +1071,7 @@ namespace Generic.Controllers
 
                             uploadedpartners.Add(new Tuple<int, string>(int.Parse(PartnerId.ToString()), ""));
                         }
-                        catch
+                        catch(Exception ex)
                         {
                         }
 
@@ -1128,6 +1130,12 @@ namespace Generic.Controllers
             }
             Session["uploadedpartnerList"] = uploadedpartners;
             Session["partnertype"] = partnertype;
+            if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
+            {
+                string title = "Reps and Certs " + DateTime.Now.Year.ToString();
+                string title1 = DateTime.Now.Year.ToString() + " Reps & Certs";
+                touchpoint = db.touchpoint.Where(x => (x.title == title || x.title == title1) && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
+            }
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
             //ViewBag.Message = "1";
