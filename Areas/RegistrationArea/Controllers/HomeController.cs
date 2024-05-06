@@ -463,8 +463,11 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 else
                 {
-                    ViewBag.message = "wrongstatus";
+                    var status = db.pr_getPartnerStatus(ppptq.status).FirstOrDefault().description;
+                    string message = string.Format("Please contact your administrator, the current status of {0} is {1}", ppptq.accesscode, status.ToUpper());
+                    ViewBag.message = "otherStatusMessage";
                     ViewBag.pptqaccesscode = ppptq.accesscode;
+                    ViewBag.messageDetail = message;
                 }
             }
             else
