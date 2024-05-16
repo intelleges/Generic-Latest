@@ -437,14 +437,19 @@
                                                                                                                         Confirm
                                                                                                                     </a>
                                                                                                                 </li>
-                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite") ? "inherit":"none")'><a href="javascript:invite('@item.pptq')">Invite</a></li>
+                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remind") ? "inherit":"none")'>
+                                                                                                                    <a href="javascript:remind('@item.AccessCode')">
+                                                                                                                        Remind
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                                @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite") ? "inherit":"none")'><a href="javascript:invite('@item.pptq')">Invite</a></li>*@
                                                                                                                @* <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite (racix.net)") ? "inherit":"none")'><a href="#">Invite (racix.net)</a></li>*@
 
-                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Shadow") ? "inherit":"none")'><a href="javascript:shadow('@item.AccessCode','@item.pptq')">Shadow</a></li>
+                                                                                                                @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Shadow") ? "inherit":"none")'><a href="javascript:shadow('@item.AccessCode','@item.pptq')">Shadow</a></li>
                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Rescind") ? "inherit":"none")'><a href="#">Rescind</a></li>
                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Remove") ? "inherit":"none")'><a href="#">Remove</a></li>
                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Retrieve") ?"inherit":"none")'><a href="#">Retrieve</a></li>
-                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("SMS") ? "inherit":"none")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>
+                                                                                                                <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("SMS") ? "inherit":"none")'><a href="javascript:sms('@item.AccessCode')">SMS</a></li>*@
                                                                                                             </ul>
                                                                                                         </div>
                                                                                                                 }
