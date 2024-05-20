@@ -442,8 +442,11 @@
                                                                                                                         Remind
                                                                                                                     </a>
                                                                                                                 </li>
-                                                                                                                @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite") ? "inherit":"none")'><a href="javascript:invite('@item.pptq')">Invite</a></li>*@
-                                                                                                               @* <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite (racix.net)") ? "inherit":"none")'><a href="#">Invite (racix.net)</a></li>*@
+                                                                                                                @if (item.status == "Confirmed")
+                                                                                                                {
+                                                                                                               <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite") ? "inherit" : "none")'><a href="javascript:invite('@item.pptq')">Invite</a></li>
+                                                                                                                }
+                                                                                                                @* <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Invite (racix.net)") ? "inherit":"none")'><a href="#">Invite (racix.net)</a></li>*@
 
                                                                                                                 @*<li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Shadow") ? "inherit":"none")'><a href="javascript:shadow('@item.AccessCode','@item.pptq')">Shadow</a></li>
                                                                                                                 <li style='display:@(Generic.SessionClass.SessionSingleton.GridLevelMenuItems.Contains("Rescind") ? "inherit":"none")'><a href="#">Rescind</a></li>

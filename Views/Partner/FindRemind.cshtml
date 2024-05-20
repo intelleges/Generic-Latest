@@ -233,7 +233,7 @@
 				</ul>
 			</div>
 			</text>);
-			columns.Bound(o => o.Contact).Title("Contact").Width(100);
+			columns.Bound(o => o.Contact).Title("Contact").Width(400);
 			columns.Bound(o => o.phone).Title("Phone").Width(100);
 			columns.Bound(o => o.ContactEmail).Title("Contact Email").Width(200).Template(@<text><a href="javascript://" onclick="OpenManualAddModal('../WrongContact/Index?accesscode=@item.AccessCode');">@item.ContactEmail</a></text>);
 			// .FooterTemplate(@<text><input style="width: 80px;" type="submit" value="Go" /></text>);
@@ -248,7 +248,7 @@
 			columns.Bound(o => o.address).Title("Address").Width(200);
 			columns.Bound(o => o.zipcode).Title("Zipcode").Width(100);
 
-			columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(100);
+			columns.Bound(o => o.Touchpoint).Title("Touchpoint").Width(150);
 			columns.Bound(o => o.Partnertype).Title("Partnertype").Width(100);
 			columns.Bound(o => o.Group).Title("Group").Width(100);
 			columns.Bound(o => o.AccessCode).Title("AccessCode").Width(100).Template(@<text><a href='#' id='@item.AccessCode' class="menu_block">@item.AccessCode</a><div class="display_menu" style="display: none;">
