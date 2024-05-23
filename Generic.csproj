@@ -3858,9 +3858,6 @@
     <Compile Include="view_PartnerData2.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="view_PartnerData4.cs">
-      <DependentUpon>Hs3Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="view_PartnerDuplicates.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
