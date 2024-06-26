@@ -17397,6 +17397,247 @@ Intelleges Team";
             return pptqID;
         }
 
+        public static int FillCustomPdfHtml43(dynamic ViewBag, EntitiesDBContext db, HttpSessionStateBase Session, HttpServerUtilityBase Server)
+        {
+            string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            var question = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
+            ViewBag.partnerHeader = _partnerHeader;
+            List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
+            var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
+            var partnerId = pptq != null ? pptq.partner : -1;
+            var sigs = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).ToList();
+            eSignature _signature = sigs.FirstOrDefault();
+            var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
+            ViewBag.partner = _partner;
+
+            //_signature
+            ViewBag.signature = _signature;
+            ViewBag.personTitle = _partner != null ? _partner.title : "";
+            if (pptq != null)
+                ViewBag.completeDate = pptq.completedDate != null ? pptq.completedDate.Value.ToString("MM/dd/yyyy") : "";
+            var _country = db.pr_getCountry(_partner != null ? _partner.country : -1).FirstOrDefault();
+            if (_country != null)
+                ViewBag.country = _country.name;
+            else
+                ViewBag.country = string.Empty;
+
+            var _state = db.pr_getState(_partner != null ? _partner.state : -1).FirstOrDefault();
+            if (_state != null)
+                ViewBag.state = _state.stateCode;
+            else
+                ViewBag.state = string.Empty;
+            if (question.footer == "4")
+            {
+                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+            }
+            else
+                if (enterprise != null && enterprise.Any())
+            {
+                var enterpriseLogo = enterprise.FirstOrDefault();
+                byte[] logoBytes = new byte[0];
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                string dirname = "~/uploadedFiles/EnterpriseLogo/";
+
+                if (Directory.Exists(Server.MapPath(dirname)))
+                {
+                    var fileName = enterpriseLogo != null ? enterpriseLogo.id + "Logo.png" : "Logo.png";
+                    var physicalPath = Path.Combine(Server.MapPath(dirname), fileName);
+                    if (!System.IO.File.Exists(physicalPath))
+                    {
+                        var fs = new BinaryWriter(new FileStream(physicalPath, FileMode.Append, FileAccess.Write));
+                        fs.Write(logo);
+                        fs.Close();
+                    }
+                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                }
+            }
+
+            ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
+
+            var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
+            var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
+            var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+
+            //  var _PPTQQuestionResponse = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList();
+
+            var _PPTQQuestionResponse = db.pr_getPartnerPartnertypeTouchpointQuestionnaireQuestionResponseByPPTQ(pptqID).ToList();
+            //#region"to repalce New questionIds and responseIds with Old one "
+            //var oldquestionnaire = db.questionnaire.Where(x => x.enterprise == _questionnaire.enterprise && x.person == _questionnaire.person && x.partnerType == _questionnaire.partnerType && x.id != _questionnaire.id).FirstOrDefault();
+            //if (oldquestionnaire != null)
+            //{
+            //    var oldQuestId = oldquestionnaire.id;
+            //    var mappedList = db.pr_getQuestionResponseByQuestionnaire_OLD_AND_NEW(oldQuestId, _questionnaire.id).ToList();
+            //    if (mappedList != null)
+            //    {
+            //        foreach (var itemNew in _PPTQQuestionResponse)
+            //        {
+            //            var data = mappedList.Where(x => x.qidNEW == itemNew.question && x.ridNEW == itemNew.response).FirstOrDefault();
+            //            if (data != null)
+            //            {
+            //                itemNew.question = data.qidOLD;
+            //                itemNew.response = data.ridOLD;
+            //            }
+            //        }
+            //    }
+            //}
+            //#endregion
+
+            var _responseYES = 74;
+            var _responseNO = 75;
+            var _checked = "checked";
+            var _responseSplitter = "--";
+            Regex codeRegex = new Regex("\\([A-Z][A-Z]\\)");
+            //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
+            ViewBag.Status = pptq.status;
+            string executives = "";
+            var test = _PPTQQuestionResponse.OrderBy(r => r.question).ToList().Select(s => s.question);
+            foreach (var item in _PPTQQuestionResponse)
+            {
+                var comments = new string[10];
+                switch (item.question)
+                {
+                    case 65616:
+                        ViewBag.Checkbox65616_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65616_No = item.response == _responseNO ? _checked : string.Empty;
+                        if (item.response == _responseNO)
+                            ViewBag.Checkbox65616_Comment = item.comment;
+                        break;
+                    case 65617:
+                        ViewBag.Checkbox65617_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65617_No = item.response == _responseNO ? _checked : string.Empty;
+                        if (item.response == _responseYES)
+                            ViewBag.Checkbox65617_Comment = item.comment;
+                        break;
+                    case 65618:
+                        ViewBag.Checkbox65618_205639 = item.response == 205639 ? _checked : string.Empty;
+                        ViewBag.Checkbox65618_205640 = item.response == 205640 ? _checked : string.Empty;
+                        break;
+                    case 65619:
+                        ViewBag.Checkbox65619_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65619_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65620:
+                        var resultReasons = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+                        var selectedReasonIds = item.comment.Split(",");
+                        var selectedReason = resultReasons.Where(w => selectedReasonIds.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q65620_Response = selectedReason;
+                        break;
+                    case 65621:
+                        ViewBag.Checkbox65621_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65621_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65622:
+                        ViewBag.Checkbox65622_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65622_No = item.response == _responseNO ? _checked : string.Empty;
+                        if (item.response == _responseNO)
+                            ViewBag.Checkbox65622_Comment = item.comment;
+                        break;
+                    case 65623:
+                        ViewBag.Checkbox65623_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65623_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65624:
+                        var resultFiscalYear = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+
+                        var selectedYearIds = item.comment.Split(",");
+                        var selectedYears = resultFiscalYear.Where(w => selectedYearIds.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q65624_response = selectedYears;
+
+                        break;
+                    case 65625:
+                        var resultReasonsNotSubmitted = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+
+                        var reasondIds_65625 = item.comment.Split(",");
+                        var selectedReason_65625 = resultReasonsNotSubmitted.Where(w => reasondIds_65625.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q65625_response = selectedReason_65625;
+
+                        break;
+                    case 65626:
+                        var resultFiscalYearAudit = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
+
+                        var selectedYearIds_65626 = item.comment.Split(",");
+                        var selectedYears_65626 = resultFiscalYearAudit.Where(w => selectedYearIds_65626.Contains(w.Last()) == true).Select(s => s[0]).ToList();
+                        ViewBag.Q61824_response = selectedYears_65626;
+
+                        break;
+                    case 65627:
+                        ViewBag.Checkbox65627_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65627_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65628:
+                        ViewBag.Checkbox65628_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65628_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65629:
+                        ViewBag.Checkbox65629_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65629_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65636:
+                        ViewBag.Checkbox65636_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65636_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65643:
+                        ViewBag.Checkbox65643_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65643_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65644:
+                        ViewBag.Checkbox65644_Yes = item.response == _responseYES ? _checked : string.Empty;
+                        ViewBag.Checkbox65644_No = item.response == _responseNO ? _checked : string.Empty;
+                        break;
+                    case 65630:
+                        ViewBag.Input65630 = item.comment;
+                        break;
+                    case 65631:
+                        ViewBag.Input65631 = item.comment;
+                        break;
+                    case 65632:
+                        ViewBag.Input65632 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
+                        break;
+                    case 65633:
+                        ViewBag.Q65633_response = "";
+                        if (item.response1.description != null)
+                        {
+                            var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
+                            ViewBag.Q65633_response = resultAdminsState == null ? string.Empty : resultAdminsState.description;
+                        }
+                        break;
+                    case 65634:
+                        ViewBag.Input65634 = item.comment;
+                        break;
+                    case 65635:
+                        ViewBag.Input65635 = item.comment;
+                        break;
+
+                    case 65637:
+                        ViewBag.Input65637 = item.comment;
+                        break;
+                    case 65638:
+                        ViewBag.Input65637 = item.comment;
+                        break;
+                    case 65639:
+                        ViewBag.Input65639 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
+                        break;
+                    case 65640:
+                        ViewBag.Q65640_response = "";
+                        if (item.response1.description != null)
+                        {
+                            var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
+                            ViewBag.Q65640_response = resultAuditState == null ? string.Empty : resultAuditState.description;
+                        }
+                        break;
+                    case 65641:
+                        ViewBag.Input65641 = item.comment;
+                        break;
+                    case 65642:
+                        ViewBag.Input65642 = item.comment;
+                        break;
+                }
+                ViewBag.Executives = executives;
+            }
+            return pptqID;
+        }
+
         private void SetYesNoAndCommmentViewBagValues(partnerPartnertypeTouchpointQuestionnaireQuestionResponse item)
         {
             var _responseYES = 74;
@@ -18997,6 +19238,12 @@ Intelleges Team";
                // pptqID = FillCustomPdfHtml42(ViewBag, db, Session, Server);
                 ViewName = "CustomQuestionnaireSurveyPdfDownload42";
                 return ViewCustomizedStandardPDF(ViewName, "42");
+            }
+            else if (question != null && (question.footer == "43"))
+            {
+                pptqID = FillCustomPdfHtml43(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload43";
+                return ViewCustomizedPdf(pptqID, ViewName);
             }
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
@@ -24153,6 +24400,11 @@ Intelleges Team";
                 isCustomizedPdf = false;
                 GenerateCustomizePdf(ViewName, accessCode, pptqID, "42");
             }
+            else if (question != null && (question.footer == "43"))
+            {
+                pptqID = FillCustomPdfHtml43(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload43";
+            }
             // else return PDFConfirmation();
             //pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
             //return ViewCustomPdf(pptqID);
@@ -24508,6 +24760,12 @@ Intelleges Team";
                 var array = GetCustomizedStandardPDF(ViewName, "42");
                 return array;
                 // return GetCustomizedPdfFile(pptqID, ViewName);
+            }
+            else if (question != null && (question.footer == "43"))
+            {
+                pptqID = FillCustomPdfHtml43(ViewBag, db, Session, Server);
+                ViewName = "CustomQuestionnaireSurveyPdfDownload43";
+                return GetCustomizedPdfFile(pptqID, ViewName);
             }
             // else return PDFConfirmation();
             pptqID = FillCustomPdfHtml(ViewBag, db, Session, Server);
