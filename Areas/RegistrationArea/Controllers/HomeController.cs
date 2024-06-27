@@ -1092,6 +1092,10 @@ namespace Generic.Areas.RegistrationArea.Controllers
             var qresponse = pptq.partnerPartnertypeTouchpointQuestionnaireQuestionResponse.FirstOrDefault(o => o.question == questionId);
             if (question != null && !string.IsNullOrEmpty(question.emailAlertList) && question.emailAlertList.ToLower() != "none" && question.emailAlertList.ToUpper() != "N" && pptq != null)
             {
+                if (question.emailAlert.ToUpper() == "Y")
+                {
+                   text = text.Replace("(AA)", "");
+                }
                 if (answer != null)
                 {
                     if ((question.emailAlertList ?? "").ToLower().Contains("where:"))
@@ -1118,7 +1122,6 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                                 if (question.emailAlert != "A")
                                     answerId = -1;
-
                                 SendEmailAlert(pptq.partner1, answer.description, question.Question, pptq.accesscode, text,
                                    keyPair[1].Replace(";", ""), ptq.questionnaire, question.id, answerId, qnextId);
                             }
@@ -1127,6 +1130,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 }
                 else
                 {
+                  
                     SendEmailAlert(pptq.partner1, text, question.Question, pptq.accesscode, text, question.emailAlertList, ptq.questionnaire, question.id);
                 }
             }
@@ -2159,7 +2163,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id, questionId, responseId, responseComment, null, null, null, null, null, pptq);
                                 // db.pr_lockPartnerPartnertypeTouchpointQuestionnaireQuestionResponse(checkpsz.First().id);
                             }
-
+                           
                             ResolveAndSendEmailAlert(questionId, pptq, answerId: responseId.HasValue ? responseId.Value : -1, text: responseComment);
                             ZcodeModify(questionnaireId, questionId, responseId);
                         }
@@ -17584,7 +17588,7 @@ Intelleges Team";
                         if (item.response == _responseYES)
                         {
                             DateTime dateTo;
-                            var cultureInfo = new CultureInfo("en-US");
+                             var cultureInfo = new CultureInfo("en-US"); 
                             if (DateTime.TryParse(item.comment, cultureInfo, DateTimeStyles.None, out dateTo))
                             {
                                 ViewBag.Checkbox65628_Comment = dateTo.ToString("MMMM dd, yyyy");
