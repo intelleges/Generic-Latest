@@ -31719,5 +31719,30 @@ namespace Generic
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4_Result>("pr_evaluatePartnerPartnertypeTouchpointQuestionnaireCampaignStatus4", pptqParameter);
         }
+    
+        public virtual ObjectResult<pr_getReminderBatch_1_Result> pr_getReminderBatch_1(Nullable<int> enterprise, Nullable<int> touchpoint, Nullable<int> partnertype, Nullable<int> statusid, Nullable<int> active)
+        {
+            var enterpriseParameter = enterprise.HasValue ?
+                new ObjectParameter("enterprise", enterprise) :
+                new ObjectParameter("enterprise", typeof(int));
+    
+            var touchpointParameter = touchpoint.HasValue ?
+                new ObjectParameter("touchpoint", touchpoint) :
+                new ObjectParameter("touchpoint", typeof(int));
+    
+            var partnertypeParameter = partnertype.HasValue ?
+                new ObjectParameter("partnertype", partnertype) :
+                new ObjectParameter("partnertype", typeof(int));
+    
+            var statusidParameter = statusid.HasValue ?
+                new ObjectParameter("statusid", statusid) :
+                new ObjectParameter("statusid", typeof(int));
+    
+            var activeParameter = active.HasValue ?
+                new ObjectParameter("active", active) :
+                new ObjectParameter("active", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderBatch_1_Result>("pr_getReminderBatch_1", enterpriseParameter, touchpointParameter, partnertypeParameter, statusidParameter, activeParameter);
+        }
     }
 }

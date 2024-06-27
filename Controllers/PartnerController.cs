@@ -1129,6 +1129,14 @@ namespace Generic.Controllers
                 }
             }
             Session["uploadedpartnerList"] = uploadedpartners;
+            #region "Update Tuchpoint based on Protocol"
+            if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
+            {
+                string title = "Reps and Certs " + DateTime.Now.Year.ToString();
+                string title1 = DateTime.Now.Year.ToString() + " Reps & Certs";
+                touchpoint = db.touchpoint.Where(x => (x.title == title || x.title == title1) && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
+            }
+            #endregion
             Session["partnertype"] = partnertype;
             Session["touchpoint"] = touchpoint;
             Session["loadGroup"] = loadGroup;
@@ -2379,7 +2387,7 @@ namespace Generic.Controllers
                 ViewBag.TouchpointId = touchpointID;
                 ViewBag.StatusId = statusID;
 
-                var list = db.pr_getReminderBatch(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
+                var list = db.pr_getReminderBatch_1(Generic.Helpers.CurrentInstance.EnterpriseID, touchpointID, partnerTypeId, statusID, 1)
                    .Select(o => o.pptq).ToList();
                 ViewBag.Pptqs = list;
                 ViewBag.CountPPtq = list.Count;

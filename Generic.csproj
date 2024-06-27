@@ -3118,6 +3118,9 @@
     <Compile Include="pr_getRelationshipownerByPartner_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pr_getReminderBatch_1_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="pr_getReminderBatch_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
