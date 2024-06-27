@@ -26,6 +26,8 @@ using System.Configuration;
 using System.Text.RegularExpressions;
 using Generic.Areas.RegistrationArea.Models;
 using Generic.Areas.RegistrationArea.Services;
+using System.Globalization;
+
 namespace Generic.Areas.RegistrationArea.Controllers
 {
     public class HomeController : Controller
@@ -17516,12 +17518,14 @@ Intelleges Team";
                     case 65619:
                         ViewBag.Checkbox65619_Yes = item.response == _responseYES ? _checked : string.Empty;
                         ViewBag.Checkbox65619_No = item.response == _responseNO ? _checked : string.Empty;
+                        if (item.response == _responseYES)
+                            ViewBag.Checkbox65619_Comment = item.comment;
                         break;
                     case 65620:
                         var resultReasons = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
                         var selectedReasonIds = item.comment.Split(",");
                         var selectedReason = resultReasons.Where(w => selectedReasonIds.Contains(w.Last()) == true).Select(s => s[0]).ToList();
-                        ViewBag.Q65620_Response = selectedReason;
+                        ViewBag.Q65620_response = selectedReason;
                         break;
                     case 65621:
                         ViewBag.Checkbox65621_Yes = item.response == _responseYES ? _checked : string.Empty;
@@ -17558,16 +17562,34 @@ Intelleges Team";
 
                         var selectedYearIds_65626 = item.comment.Split(",");
                         var selectedYears_65626 = resultFiscalYearAudit.Where(w => selectedYearIds_65626.Contains(w.Last()) == true).Select(s => s[0]).ToList();
-                        ViewBag.Q61824_response = selectedYears_65626;
+                        ViewBag.Q65626_response = selectedYears_65626;
 
                         break;
                     case 65627:
                         ViewBag.Checkbox65627_Yes = item.response == _responseYES ? _checked : string.Empty;
                         ViewBag.Checkbox65627_No = item.response == _responseNO ? _checked : string.Empty;
+                        if (item.response == _responseYES)
+                        {
+                            DateTime dateFrom;
+                            var cultureInfo = new CultureInfo("en-US");
+                            if (DateTime.TryParse(item.comment, cultureInfo, DateTimeStyles.None, out dateFrom))
+                            {
+                                ViewBag.Checkbox65627_Comment = dateFrom.ToString("MMMM dd, yyyy");
+                            }
+                        }
                         break;
                     case 65628:
                         ViewBag.Checkbox65628_Yes = item.response == _responseYES ? _checked : string.Empty;
                         ViewBag.Checkbox65628_No = item.response == _responseNO ? _checked : string.Empty;
+                        if (item.response == _responseYES)
+                        {
+                            DateTime dateTo;
+                            var cultureInfo = new CultureInfo("en-US");
+                            if (DateTime.TryParse(item.comment, cultureInfo, DateTimeStyles.None, out dateTo))
+                            {
+                                ViewBag.Checkbox65628_Comment = dateTo.ToString("MMMM dd, yyyy");
+                            }
+                        }
                         break;
                     case 65629:
                         ViewBag.Checkbox65629_Yes = item.response == _responseYES ? _checked : string.Empty;

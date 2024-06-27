@@ -95,7 +95,7 @@
             </tr>
             <tr>
                 <td>Fiscal Year 2023 Date Range:</td>
-                <td>@(ViewBag.Q51323_Comment + " - " + @ViewBag.Q51324_Comment)  </td>
+                <td>@(ViewBag.Checkbox65627_Comment + " - " + @ViewBag.Checkbox65628_Comment)  </td>
             </tr>
         </table>
         <br><br>
@@ -128,7 +128,7 @@
                 {
                     <span>&#x2610;</span>
                 }
-                We have not submitted our annual incurred cost proposal for fiscal year 2023 on @ViewBag.Q65616_Comment
+                We have not submitted our annual incurred cost proposal for fiscal year 2023 on @ViewBag.Checkbox65616_Comment
                 <ul type="circle">
                     <li>
                         We
@@ -169,7 +169,7 @@
                 {
                     <span> &#x2610;</span>
                 }
-                The cognizant Federal official has granted an extension and our annual incurred cost proposal for the fiscal year 2023 will be submitted no later than @ViewBag.Q65619_Comment
+                The cognizant Federal official has granted an extension and our annual incurred cost proposal for the fiscal year 2023 will be submitted no later than @ViewBag.Checkbox65619_Comment
             </li>
             <br>
 
@@ -183,12 +183,12 @@
                     <span>&#x2610;</span>
                 }
                 We are an educational institution subject to the cost principles in Subpart E of the Uniform Guidance (2 CFR 200) and bill negotiated predetermined or fixed indirect rates. Therefore, final annual incurred cost proposals are not required.<u><b> Please provide the redacted Negotiated Indirect Cost Rate Agreement (NICRA) as evidence. </b></u>
-                @ViewBag.Q65622_Comment
+                @ViewBag.Checkbox65622_Comment
             </li>
             <br>
 
             <li>
-                @if (@ViewBag.Q65620_Response != null)
+                @if (@ViewBag.Q65620_response != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -198,21 +198,21 @@
                 }
                 We have not submitted our annual incurred cost proposal for the fiscal year 2023.<b> Please explain why: </b><br><br>
                 <ul>
-                    @if (@ViewBag.Q65620_Response != null)
+                    @if (@ViewBag.Q65620_response != null)
                     {
-                        foreach (var item in @ViewBag.Q65620_Response)
+                        foreach (var item in @ViewBag.Q65620_response)
                         {
                             <li>@item</li>
                         }
                     }
                 </ul>
-                @*@if (ViewBag.Q51317_Response != null)
+                @*@if (ViewBag.Q51317_response != null)
                     {
                         if (@ViewBag.Checkbox51317_Yes != string.Empty && @ViewBag.Checkbox51317_Yes != null)
                         {
                             <p>You have selected Other as reason.<b> Please explain why: </b></p>
                             <ul>
-                                <li>@ViewBag.Q51317_Response</li>
+                                <li>@ViewBag.Q51317_response</li>
                             </ul>
                         }
                     }*@
@@ -231,9 +231,9 @@
 
                 We have not submitted an annual incurred cost proposal for one or more years prior to fiscal year 2023.<b> Please explain which fiscal years have not been submitted and the reasons why:  </b><br><br>
                 <ul>
-                    @if (@ViewBag.Q65624_Response != null)
+                    @if (@ViewBag.Q65624_response != null)
                     {
-                        foreach (var item in @ViewBag.Q65624_Response)
+                        foreach (var item in @ViewBag.Q65624_response)
                         {
                             <li>@item</li>
                         }
@@ -241,9 +241,9 @@
 
                 </ul>
                 <ul>
-                    @if (@ViewBag.Q65625_Response != null)
+                    @if (@ViewBag.Q65625_response != null)
                     {
-                        foreach (var item in @ViewBag.Q65625_Response)
+                        foreach (var item in @ViewBag.Q65625_response)
                         {
                             <li>@item</li>
                         }
@@ -254,7 +254,7 @@
             <br>
 
             <li>
-                @if (@ViewBag.Q65626_Response != null)
+                @if (@ViewBag.Q65626_response != null)
                 {
                     <span>&#x2611;</span>
                 }
@@ -264,10 +264,10 @@
                 }
                 During 2023 we received final audited indirect rates for the following fiscal years:<br><br>
                 <ul>
-                    @if (@ViewBag.Q65626_Response != null)
+                    @if (@ViewBag.Q65626_response != null)
                     {
 
-                        foreach (var item in @ViewBag.Q65626_Response)
+                        foreach (var item in @ViewBag.Q65626_response)
                         {
                             <li>@item</li>
                         }
@@ -352,7 +352,7 @@
 
             <li>Where the Subcontractor has fixed indirect rates or other set billing ceiling rates identified in its subcontract, the Subcontractor shall not submit upward rate adjustments. </li>
 
-        </ul><br><br><br><br><br><br><br><br><br><br>
+        </ul><br><br><br><br>
 
         <table cellspacing="0">
             <tr>
@@ -364,7 +364,7 @@
                 <td style="border: none;">Date</td>
             </tr>
         </table>
-        <br><br><br><br>
+        <br><br>
 
         <table cellspacing="0">
             <tr>
