@@ -1,0 +1,142 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+@using Generic.Helpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.QuestionnaireTitle</title>
+   <style type="text/css">
+        body {
+           color: #000;
+        }
+    </style>
+</head>
+<body>
+    @{ var data = ViewBag.QuestionnaireData as List<Generic.ViewModel.QuestionnairePDFViewModel>;
+        var i = 0;
+        }
+
+    <br><br>
+        <div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(ViewBag.logoSrc))
+                        {
+                            <img src="@ViewBag.logoSrc" runat="server" style="height:50px; width:300px; border:none" />
+                        }
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" style="margin-top:10px;">
+                <tr>
+                    @foreach (var item in ViewBag.partnerHeader)
+                    {
+                        <td style="font-size: 25px; text-align:center; color: #081835">
+
+                            @item.Touchpoint.ToString()
+                           
+                        </td> }
+                    </tr>
+            </table>
+            <br>
+            <table width="100%" cellpadding="0" cellspacing="0" border="1">
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">Subcontract Number(s)</td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">@(ViewBag.partner.internalID) </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">Subcontractor's Legal Name and any DBAs:</td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">@(ViewBag.partner.name)   </td>
+                </tr>
+
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">Street Address:</td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">@(ViewBag.partner.address1)  </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">City, State Zip:</td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">@(ViewBag.partner.city + " "+ ViewBag.state + " " + ViewBag.partner.zipcode) </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">Phone Number:</td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">@(ViewBag.partner.phone)  </td>
+                </tr>
+                <tr style="height:40px">
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">Email Address:</td>
+                    <td style="font-size: 11px; padding-left: 5px; padding-bottom:5px;">@(ViewBag.signature == null ? "" : ViewBag.signature.email)  </td>
+                </tr>
+            </table>
+            <br><br><br />
+
+                    <div>
+                        @foreach (var item in data)
+                        {
+                            i = i + 1;
+                            <p style="height:3px;">
+                                <b>@i.ToString()</b><b>.</b> &nbsp;
+                                @if (item.isCheckBox)
+                                {
+                                    if (item.response == "Yes")
+                                    {
+                                        <input type="checkbox" checked="checked" id="chk_@i.ToString()" />
+                                    }
+                                    else
+                                    {
+                                        <span> &#x2610;</span>
+                                    }
+                                }
+                                @item.Question
+                            </p>
+                            <p style="height:3px;">
+                                @if (!item.isCheckBox)
+                                {
+                                    @item.response
+                                }
+                            </p>
+                            <p style="height:3px;">
+                                @if (item.comments != null)
+                                {
+                                    var comments = item.comments;
+                                    <ul>
+                                        @foreach (var comment in comments)
+                                        {
+                                            <li>@comment</li>
+                                        }
+                                    </ul>}
+                            </p>
+                                }
+                        </div>
+
+           
+            <table cellspacing="0">
+                <tr>
+                    <td style="border: 1px solid black;" width="900" height="30">&nbsp; @(ViewBag.signature == null ? "" : ViewBag.signature.email) </td>
+                    <td style="border: 1px solid black;" width="300">&nbsp;@ViewBag.completeDate </td>
+                </tr>
+                <tr>
+                    <td style="border: none;">Subcontractor Representative's Signature</td>
+                    <td style="border: none;">Date</td>
+                </tr>
+            </table>
+            <br><br>
+
+            <table cellspacing="0">
+                <tr>
+                    <td style="border: 1px solid black;" width="900" height="30">&nbsp;@(ViewBag.signature == null ? "" : (ViewBag.signature.firstName + " " + ViewBag.signature.lastName)) </td>
+                    <td style="border: 1px solid black;" width="300">&nbsp;@ViewBag.personTitle </td>
+                </tr>
+                <tr>
+                    <td style="border: none;">Print Name</td>
+                    <td style="border: none;">Title</td>
+                </tr>
+            </table>
+        </div>
+</body>
+</html>

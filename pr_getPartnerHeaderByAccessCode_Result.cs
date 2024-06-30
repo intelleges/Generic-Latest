@@ -26,5 +26,6 @@ namespace Generic
         public string eSignature_Last_Name { get; set; }
         public string eSignature_eMail { get; set; }
         public string eSignature_Title { get; set; }
+        public string Touchpoint { get; set; }
     }
 }

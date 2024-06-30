@@ -3837,6 +3837,7 @@
     <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_response.cs" />
     <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_Survey.cs" />
     <Compile Include="ViewModel\QuestionnaireByAccessCodeModel_SurveySet.cs" />
+    <Compile Include="ViewModel\QuestionnairePDFViewModel.cs" />
     <Compile Include="ViewModel\QuestionnaireViewModel.cs" />
     <Compile Include="ViewModel\TouchpointViewModel.cs" />
     <Compile Include="ViewModel\ZcodeGridItem.cs" />
@@ -5253,6 +5254,7 @@
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload40.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload42.cshtml" />
     <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownload43.cshtml" />
+    <Content Include="Areas\RegistrationArea\Views\Home\CustomQuestionnaireSurveyPdfDownloadWF.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
