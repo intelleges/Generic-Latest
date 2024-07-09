@@ -1314,7 +1314,10 @@ namespace Generic.Controllers
                 campaign = i.campaign,
                 active = i.active,
                 progress = i.progress,
-                CompletedAs = string.Empty
+                CompletedAs = string.Empty,
+                invitedDate= i.invitedDate,
+                completedDate= i.completedDate,
+                LatestEventTimestamp= i.LatestEventTimestamp
             }).ToList();
             if (null != Session["Partner_Find_Touchpoint"])
             {
