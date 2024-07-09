@@ -1094,7 +1094,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
             {
                 if (question.emailAlert.ToUpper() == "Y")
                 {
-                   text = text.Replace("(AA)", "");
+                   text =!string.IsNullOrWhiteSpace(text)? text.Replace("(AA)", ""):"";
                 }
                 if (answer != null)
                 {
@@ -2277,7 +2277,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         var strDueDate = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_duedate"];
                         if (!string.IsNullOrEmpty(strDueDate))
                         {
-                            dueDate = !string.IsNullOrEmpty(strDueDate) ? DateTime.Parse(strDueDate) : (DateTime?)null;
+                            DateTime parsedDate = DateTime.Now;
+                            // Specify the expected format
+                            string format = "MM/dd/yyyy";
+                            if (!string.IsNullOrEmpty(strDueDate))
+                                DateTime.TryParseExact(strDueDate, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate);
+                            dueDate = !string.IsNullOrEmpty(strDueDate) ? parsedDate : (DateTime?)null;
                             responseComment = strDueDate;
                         }
 
