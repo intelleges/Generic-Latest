@@ -1433,7 +1433,7 @@ namespace Generic.Controllers
                                 {
                                     responseType = excelQuestionnaire.Response.ToLower();
                                 }
-                                else if (excelQuestionnaire.Response.ToLower().StartsWith("list2list:"))
+                                else if (excelQuestionnaire.Response.ToLower().StartsWith("list2list:")|| excelQuestionnaire.Response.ToLower().Contains("list2list:"))
                                 {
                                     responseType = "list2list";
                                     responses = excelQuestionnaire.Response.Substring(10, excelQuestionnaire.Response.Length - 10).Trim();
@@ -1496,15 +1496,15 @@ namespace Generic.Controllers
                                             if (responseTypeItm != null)
                                                 responseTypeId = responseTypeItm.id;
                                         }
-                                        else if (responseType.ToLower().Substring(0, 4) == "list")
+                                        else if (!string.IsNullOrWhiteSpace(responseType) && responseType.ToLower().Substring(0, 4) == "list")
                                         {
                                             responseTypeId = 11;
                                         }
-                                        else if (responseType.ToLower().Substring(0, 8) == "dropdown")
+                                        else if (!string.IsNullOrWhiteSpace(responseType) && responseType.ToLower().Substring(0, 8) == "dropdown")
                                         {
                                             responseTypeId = 10;
                                         }
-                                        else if (responseType.ToLower().Substring(0, 8) == "checkbox")
+                                        else if (!string.IsNullOrWhiteSpace(responseType) && responseType.ToLower().Substring(0, 8) == "checkbox")
                                         {
                                             responseTypeId = 12;
                                         }
