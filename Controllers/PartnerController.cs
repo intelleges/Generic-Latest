@@ -2541,7 +2541,7 @@ namespace Generic.Controllers
                     var admin = db.pr_getPerson(objtouchpoint.admin).FirstOrDefault();
                     if (admin != null)
                     {
-                        email.subject = "Manual Upload -- " + email.subject;
+                        email.subject = email.subject; //"Manual Upload -- " + email.subject;
                         email.emailTo = admin.email;
                         objSendEmail = new SendEmail();
                         objSendEmail.sendEmail(email, new EmailFormatSettings()

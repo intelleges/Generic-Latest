@@ -3894,7 +3894,7 @@ Intelleges Team";
                                 var admin = db.pr_getPerson(objtouchpoint.admin).FirstOrDefault();
                                 if (admin != null)
                                 {
-                                    email.subject = "Manual Upload -- " + email.subject;
+                                    email.subject = email.subject;// "Manual Upload -- " + email.subject;
                                     email.emailTo = admin.email;
                                     objSendEmail = new SendEmail();
                                     objSendEmail.sendEmail(email, new EmailFormatSettings() { enterprise = _enterprise, partner = objPartner, ptq = ptq.id, sender = admin, touchpoint = objtouchpoint }, null, null, pdf);
@@ -6289,23 +6289,34 @@ Intelleges Team";
             var _responseSplitter = "--";
 
             //Generic.pr_getPPTQQuestionResponseByQuestionnaire_Result[] lstItem = db.pr_getPPTQQuestionResponseByQuestionnaire(pptqID).ToList().ToArray();
-
+            Regex reg = new Regex("\\([A-Z][A-Z]\\)");
             var list = new List<ViewModel.QuestionnairePDFViewModel>();
             foreach (var item in _PPTQQuestionResponse)
             {
 
                 var comments = new string[10];
-
+                bool notAddtoPDF = false;
                 ViewModel.QuestionnairePDFViewModel model = new ViewModel.QuestionnairePDFViewModel();
                 model.qId = item.question;
                 model.rId = item.response;
                 model.Question = db.questions.Where(x => x.id == item.question).Select(x => x.Question).FirstOrDefault();
+                
+                var match = reg.Match(model.Question);
+                if(match.Success)
+                {
+                    notAddtoPDF = true;
+                }
                 if (!string.IsNullOrWhiteSpace(item.comment))
                 {
                     var result = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
                     var selectedComments = item.comment.Split(",");
                     var selectedresponse = result.Where(w => selectedComments.Contains(w.Last()) == true).Select(s => s[0]).ToList();
                     model.comments = selectedresponse;
+                    match = reg.Match(item.comment);
+                    if (match.Success)
+                    {
+                        notAddtoPDF = true;
+                    }
                 }
                 if(item.response==_responseYES || item.response == _responseNO)
                 {
@@ -6319,8 +6330,14 @@ Intelleges Team";
                 {
                     model.isCheckBox = false;
                     model.response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
+                    match = reg.Match(model.response);
+                    if (match.Success)
+                    {
+                        notAddtoPDF = true;
+                    }
                 }
-                list.Add(model);
+                if (!notAddtoPDF)
+                    list.Add(model);
             }
             ViewBag.QuestionnaireData = list;
             return pptqID;
