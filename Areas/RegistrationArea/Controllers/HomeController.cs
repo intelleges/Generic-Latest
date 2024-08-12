@@ -17773,14 +17773,18 @@ Intelleges Team";
                         ViewBag.Input65637 = item.comment;
                         break;
                     case 65638:
-                        ViewBag.Input65637 = item.comment;
+                        ViewBag.Input65638 = item.comment;
                         break;
                     case 65639:
                         ViewBag.Input65639 = item.comment.Replace("<p>", "").Replace("\r", "").Replace("\n", "").Replace("</p>", "");
                         break;
                     case 65640:
                         ViewBag.Q65640_response = "";
-                        if (item.response1!=null && item.response1.description != null)
+                        if (!string.IsNullOrWhiteSpace(item.comment))
+                        {
+                            ViewBag.Q65640_response = item.comment;
+                        }
+                        else if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q65640_response = resultAuditState == null ? string.Empty : resultAuditState.description;
