@@ -17780,7 +17780,7 @@ Intelleges Team";
                         break;
                     case 65640:
                         ViewBag.Q65640_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q65640_response = resultAuditState == null ? string.Empty : resultAuditState.description;
@@ -25108,13 +25108,16 @@ Intelleges Team";
 
         private static string TagReplace(string obj, string tagValue, string tagName)
         {
-            while (obj.ToLower().Contains(tagName.ToLower()))
+            if (obj != null)
             {
-                var startIndex = obj.ToLower().IndexOf(tagName.ToLower());
-                var len = tagName.ToLower().Length;
-                string val = tagValue;
-                obj = obj.Remove(startIndex, len).Insert(startIndex, val);
+                while (obj.ToLower().Contains(tagName.ToLower()))
+                {
+                    var startIndex = obj.ToLower().IndexOf(tagName.ToLower());
+                    var len = tagName.ToLower().Length;
+                    string val = tagValue;
+                    obj = obj.Remove(startIndex, len).Insert(startIndex, val);
 
+                }
             }
             return obj;
         }
