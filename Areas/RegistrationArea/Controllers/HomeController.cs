@@ -6329,11 +6329,14 @@ Intelleges Team";
                 else
                 {
                     model.isCheckBox = false;
-                    model.response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
-                    match = reg.Match(model.response);
-                    if (match.Success)
+                    if (item.response != null)
                     {
-                        notAddtoPDF = true;
+                        model.response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
+                        match = reg.Match(model.response);
+                        if (match.Success)
+                        {
+                            notAddtoPDF = true;
+                        }
                     }
                 }
                 if (!notAddtoPDF)
