@@ -601,6 +601,9 @@ namespace Generic.Helpers.Utility
                     case "[personfullname]":
                         sValue = partner.firstName + " " + partner.lastName;
                         break;
+                    case "[Company Name]":
+                        sValue = this.sGetResultCompanyProfileDataLoad(partner.id).companyName.ToString();
+                        break;
 
                     //case "[partner_state]":
                     //    sValue = db.pr_getStateByID(partner.state).FirstOrDefault().name;

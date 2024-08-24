@@ -222,7 +222,7 @@ namespace Generic.Helpers.Questionnaire
         public const int CHECKBOX = 12;
         public const int UPLOAD = 13;
         public const int TEXT_UPLOAD = 14;
-
+        public const int URL = 15;
 
     }
 
