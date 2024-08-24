@@ -127,6 +127,7 @@ namespace Generic.Helpers
             {
                 text = text.Replace(match.Value, "<span class=\"notranslate\">"+match.Value+"</span>");
             }
+            //usleep(rand(1000000, 2000000));
             var response = _gService.Translations.List(text, lang).Execute();
             return response.Translations.FirstOrDefault().TranslatedText;
         }

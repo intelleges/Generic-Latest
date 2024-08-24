@@ -1207,7 +1207,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 objamm.subject = "Approval Needed for " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition " + accessCode;
 
-                objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please select “No” below and reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the “Yes” button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
+                objamm.text = "Please review and approve " + survey + " for " + partnerName.name + " which is a " + pt.name + " transition from " + partnerName.firstName + " to " + partnerName.lastName + ". The link to review your section is [https://login.intelleges.com/Registration?Accesscode=" + accessCode + "].<br/><br/>If you have questions or need to have the checklist revised, please select “No” below and reach out to me.<br/><br/>If you do not require any changes, please provide your approval using the “Yes” button below.<br/>" + "<a href='" + url1 + "'>Yes</a><br/><a href='" + url2 + "'>No</a>" +
                      "<br/><br/>Thanks.<br/><br/>" +
                      person.firstName + " " + person.lastName + "<br>";
                 //}
@@ -3806,7 +3806,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                             objamm.subject = "Intelleges Account Created";
 
-                            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+                            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://login.intelleges.com/'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
 
                             objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
 Congratulations. We have created your Intelleges Account.<br><br>
@@ -4456,7 +4456,7 @@ Intelleges Team";
             }
             else
             {
-                var logo = enterprise.FirstOrDefault().logo;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterprise.FirstOrDefault().logo;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -4469,7 +4469,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -5229,14 +5229,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -5249,7 +5249,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -6247,14 +6247,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -6267,7 +6267,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -6379,14 +6379,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -6399,7 +6399,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -7221,14 +7221,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -7241,7 +7241,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -8071,14 +8071,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -8091,7 +8091,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -8455,14 +8455,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -8475,7 +8475,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -8839,14 +8839,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -8859,7 +8859,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -9225,14 +9225,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -9245,7 +9245,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -9610,14 +9610,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -9630,7 +9630,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -9996,7 +9996,7 @@ Intelleges Team";
             else
                 ViewBag.state = string.Empty;
 
-            ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/Supplier_Responsibility_Assessment_AF-0901.png";
+            ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/Supplier_Responsibility_Assessment_AF-0901.png";
 
             ViewBag.QuestionnaireTitle = Session["QuestionnaireTitle"];
 
@@ -10366,14 +10366,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -10386,7 +10386,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -11220,14 +11220,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -11240,7 +11240,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -12109,14 +12109,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -12129,7 +12129,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -12840,14 +12840,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -12860,7 +12860,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -13525,14 +13525,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -13545,7 +13545,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -13795,14 +13795,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -13815,7 +13815,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -14381,14 +14381,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -14401,7 +14401,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -14965,14 +14965,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -14985,7 +14985,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -15223,14 +15223,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -15243,7 +15243,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -15861,14 +15861,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -15881,7 +15881,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -16451,14 +16451,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -16471,7 +16471,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -16607,14 +16607,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -16627,7 +16627,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -16866,14 +16866,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -16886,7 +16886,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -17572,14 +17572,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -17592,7 +17592,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -17866,14 +17866,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -17886,7 +17886,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -18191,14 +18191,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -18211,7 +18211,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -18457,14 +18457,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -18477,7 +18477,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 
@@ -18874,14 +18874,14 @@ Intelleges Team";
                 ViewBag.state = string.Empty;
             if (question.footer == "4")
             {
-                ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/Contents/images/MOOG_Logo.png";
+                ViewBag.logoSrc = "https://login.intelleges.com/Contents/images/MOOG_Logo.png";
             }
             else
                 if (enterprise != null && enterprise.Any())
             {
                 var enterpriseLogo = enterprise.FirstOrDefault();
                 byte[] logoBytes = new byte[0];
-                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/
+                var logo = enterpriseLogo != null ? enterpriseLogo.logo : logoBytes;//https://login.intelleges.com/uploadedFiles/EnterpriseLogo/
                 string dirname = "~/uploadedFiles/EnterpriseLogo/";
 
                 if (Directory.Exists(Server.MapPath(dirname)))
@@ -18894,7 +18894,7 @@ Intelleges Team";
                         fs.Write(logo);
                         fs.Close();
                     }
-                    ViewBag.logoSrc = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                    ViewBag.logoSrc = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 }
             }
 

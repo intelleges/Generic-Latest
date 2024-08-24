@@ -271,118 +271,122 @@ namespace Generic.Controllers
 
             ViewBag.RoleId = new SelectList(db.pr_getRoleByEnterprise(interpriseId), "id", "description");
             ViewBag.GroupId = new SelectList(db.pr_getGroupByEnterprise(interpriseId), "id", "name");
-
-            if (ModelState.IsValid)
-            {
-                int flag = 0;
-                try
-                {
-
-                    person.personStatus = (int)PersonHelper.PersonStatus.Invited;
-                    person.active = 1;
-                    person.ismanager = isInside ? 1 : 0;
-                    person.partnerPerPage = 500;
-                    person.riskType = 0;
-                    person.loadHistory = 0;
-                    person.passWord = "bAYh10$4EvAh"; //db.pr_getAccesscode().FirstOrDefault();
-
-                    person.enterprise = interpriseId;
-
-                    using (var context = new EntitiesDBContext())
-                    {
-                     var id=   context.pr_addPerson(interpriseId, person.manager, person.personStatus, 0, 0, person.campaign, person.internalId,
-                            person.nmNumber, person.socialSecurity, person.firstName, person.lastName, person.title, person.suffix, person.nickName, person.passWord,
-                            person.email, person.address1, person.address2, person.city, person.state, person.zipcode, person.country, person.phone,
-                            person.fax, 1, person.ismanager, 500, person.resetDate, false, null).FirstOrDefault();
-                        person.id = id.Value;
-                        //context.person.Add(person);
-                        //context.SaveChanges();
-                    }
-                    if (person.id == 0) throw new Exception("System unable to add additional users. You have reached the maximum limit of user accounts for this enterprise. Please contact your system administrator. Thank you.");
-                    SessionSingleton.PersonId = person.id;
-                    using (var context = new EntitiesDBContext())
-                    {
-                        context.pr_addPersonRole(person.id, person.RoleId);
-
-                        if (isInside)
-                        {
-                            var menuCount = context.pr_bootstrapSystemMasterMenu(person.RoleId).FirstOrDefault();
-                            var protocol = context.pr_bootstrapProtocol(person.enterprise, person.id, int.Parse(Session["pr_bootstrapAgencyId"].ToString())).FirstOrDefault();
-                            var touchpoint = context.pr_bootstrapTouchpoint(int.Parse(protocol.ToString()), person.id).FirstOrDefault();
-                            var group = context.pr_bootstrapGroup(person.enterprise, person.id).FirstOrDefault();
-                            context.pr_modifyPersonTouchpoint(person.id, int.Parse(touchpoint.ToString()));
-                            context.pr_addPersonGroup(int.Parse(group.ToString()), person.id);
-                            var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o => o.enterprise == person.enterprise);
-                            context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise, sysinfo.credit, sysinfo.sortOrder, sysinfo.active);
-                        }
-                        else context.pr_addPersonGroup(person.id, person.GroupId);
-                    }
-                    //if (!isInside)
-                    //{
-                    person objdefaultSystemMaster = isInside ? person : db.pr_getPerson(person.manager).FirstOrDefault();
-                    // db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
-                    if (objdefaultSystemMaster == null)
-                    {
-                        ViewBag.message = "System manager is required";
-                        flag = 1;
-                    }
-
-                    if (flag == 0)
-                    {
-                        int? PersonId = person.id;
-
-
-
-                        // Email Invite
-                        var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
-                        objSystemMaster.passWord = person.passWord;
-
-                        enterprise objEnterprise = db.pr_getEnterprise(interpriseId).FirstOrDefault();
-
-                        SendCreatePersonEmail(isInside, objdefaultSystemMaster, objSystemMaster, objEnterprise);
-
-                        //return RedirectToAction("AssignGroup", "Person");
-                        ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
-                        ViewBag.success = 1;
-
-                        return View();
-                    }
-                    //}
-                    //else
-                    //{
-                    //    ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
-                    //    ViewBag.success = 1;
-                    //    return View();
-                    //}
-
-                }
-                catch (Exception exp)
-                {
-
-                    string errors = "";
-                    errors = exp.Message;
-                    if (exp.InnerException != null)
-                        errors += " ; " + exp.InnerException.Message;
-
-                    ViewBag.message = errors;
-                    return View(person);
-                }
-            }
+            var max = db.pr_getUserMaxTotalActiveUsers(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+            if (max.total_active_users >= max.enterprise_usermax)
+                ViewBag.MaxDone = true;
             else
             {
-                string errors = "";
-                foreach (ModelState modelState in ViewData.ModelState.Values)
+                if (ModelState.IsValid)
                 {
-                    foreach (ModelError error in modelState.Errors)
+                    int flag = 0;
+                    try
                     {
-                        errors += error.ErrorMessage + " ; ";
+
+                        person.personStatus = (int)PersonHelper.PersonStatus.Invited;
+                        person.active = 1;
+                        person.ismanager = isInside ? 1 : 0;
+                        person.partnerPerPage = 500;
+                        person.riskType = 0;
+                        person.loadHistory = 0;
+                        person.passWord = "bAYh10$4EvAh"; //db.pr_getAccesscode().FirstOrDefault();
+
+                        person.enterprise = interpriseId;
+
+                        using (var context = new EntitiesDBContext())
+                        {
+                            var id = context.pr_addPerson(interpriseId, person.manager, person.personStatus, 0, 0, person.campaign, person.internalId,
+                                   person.nmNumber, person.socialSecurity, person.firstName, person.lastName, person.title, person.suffix, person.nickName, person.passWord,
+                                   person.email, person.address1, person.address2, person.city, person.state, person.zipcode, person.country, person.phone,
+                                   person.fax, 1, person.ismanager, 500, person.resetDate, false, null).FirstOrDefault();
+                            person.id = id.Value;
+                            //context.person.Add(person);
+                            //context.SaveChanges();
+                        }
+                        if (person.id == 0) throw new Exception("System unable to add additional users. You have reached the maximum limit of user accounts for this enterprise. Please contact your system administrator. Thank you.");
+                        SessionSingleton.PersonId = person.id;
+                        using (var context = new EntitiesDBContext())
+                        {
+                            context.pr_addPersonRole(person.id, person.RoleId);
+
+                            if (isInside)
+                            {
+                                var menuCount = context.pr_bootstrapSystemMasterMenu(person.RoleId).FirstOrDefault();
+                                var protocol = context.pr_bootstrapProtocol(person.enterprise, person.id, int.Parse(Session["pr_bootstrapAgencyId"].ToString())).FirstOrDefault();
+                                var touchpoint = context.pr_bootstrapTouchpoint(int.Parse(protocol.ToString()), person.id).FirstOrDefault();
+                                var group = context.pr_bootstrapGroup(person.enterprise, person.id).FirstOrDefault();
+                                context.pr_modifyPersonTouchpoint(person.id, int.Parse(touchpoint.ToString()));
+                                context.pr_addPersonGroup(int.Parse(group.ToString()), person.id);
+                                var sysinfo = context.enterpriseSystemInfo.FirstOrDefault(o => o.enterprise == person.enterprise);
+                                context.pr_modifyEnterpriseSystemInfo(sysinfo.id, sysinfo.systemExpiry, sysinfo.licenseLimit, sysinfo.companyName, person.FullName, sysinfo.companyWebSite, person.email, sysinfo.isCurrentDataBase, sysinfo.logoImage, sysinfo.configured, sysinfo.enterprise, sysinfo.credit, sysinfo.sortOrder, sysinfo.active);
+                            }
+                            else context.pr_addPersonGroup(person.id, person.GroupId);
+                        }
+                        //if (!isInside)
+                        //{
+                        person objdefaultSystemMaster = isInside ? person : db.pr_getPerson(person.manager).FirstOrDefault();
+                        // db.pr_getSystemMaster(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
+                        if (objdefaultSystemMaster == null)
+                        {
+                            ViewBag.message = "System manager is required";
+                            flag = 1;
+                        }
+
+                        if (flag == 0)
+                        {
+                            int? PersonId = person.id;
+
+
+
+                            // Email Invite
+                            var objSystemMaster = db.pr_getPerson(SessionSingleton.PersonId).FirstOrDefault();
+                            objSystemMaster.passWord = person.passWord;
+
+                            enterprise objEnterprise = db.pr_getEnterprise(interpriseId).FirstOrDefault();
+
+                            SendCreatePersonEmail(isInside, objdefaultSystemMaster, objSystemMaster, objEnterprise);
+
+                            //return RedirectToAction("AssignGroup", "Person");
+                            ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
+                            ViewBag.success = 1;
+
+                            return View();
+                        }
+                        //}
+                        //else
+                        //{
+                        //    ViewBag.message = "You have successfully added " + person.FullName + " to Intelleges.";
+                        //    ViewBag.success = 1;
+                        //    return View();
+                        //}
+
+                    }
+                    catch (Exception exp)
+                    {
+
+                        string errors = "";
+                        errors = exp.Message;
+                        if (exp.InnerException != null)
+                            errors += " ; " + exp.InnerException.Message;
+
+                        ViewBag.message = errors;
+                        return View(person);
                     }
                 }
-                ViewBag.message = errors;
+                else
+                {
+                    string errors = "";
+                    foreach (ModelState modelState in ViewData.ModelState.Values)
+                    {
+                        foreach (ModelError error in modelState.Errors)
+                        {
+                            errors += error.ErrorMessage + " ; ";
+                        }
+                    }
+                    ViewBag.message = errors;
+                }
+
+
             }
-
-
-
             return View(person);
         }
 
@@ -391,7 +395,7 @@ namespace Generic.Controllers
             autoMailMessage objamm = new autoMailMessage();
 
             objamm.subject = "Intelleges Account Created";
-            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+            //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://login.intelleges.com'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
             if (isInside)
                 objamm.text = @"Hello <b>[User Email]</b>,<br><br><br>
 Congratulations. We have created your Intelleges Account.<br><br>
@@ -479,7 +483,7 @@ Intelleges Team";
                 autoMailMessage objamm = new autoMailMessage();
 
                 objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
-                //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+                //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://login.intelleges.com'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
                 objamm.text = @"Hi [User Firstname],<br>
 
 You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>

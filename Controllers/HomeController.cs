@@ -44,7 +44,7 @@ namespace Generic.Controllers
                     fs.Write(logo);
                     fs.Close();
                 }
-                string s = "https://www.intelleges.com/mvcmt/Generic/uploadedFiles/EnterpriseLogo/" + fileName;
+                string s = "https://login.intelleges.com/uploadedFiles/EnterpriseLogo/" + fileName;
                 logoImg = "<img src='"+s+"' runat='server' style='height: 50px; width: 300px; border: none' />";
             }
 
@@ -151,7 +151,7 @@ namespace Generic.Controllers
                     //                    autoMailMessage objamm = new autoMailMessage();
 
                     //                    objamm.subject = "Welcome to Intelleges for [Enterprise Name]: [Touchpoint Title]";
-                    //                    //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://www.intelleges.com/mvcmt/Generic'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
+                    //                    //     objamm.text = "Dear " + objSystemMaster.firstName + "<br> please click on this <a href='https://login.intelleges.com'>hyperlink</a> and enter password " + objSystemMaster.passWord + " to login to the system.";
                     //                    objamm.text = @"Hi [User Firstname],<br>
                     //
                     //You have a new account at Intelleges for [Enterprise Name] [Touchpoint Title].<br>

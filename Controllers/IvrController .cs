@@ -48,11 +48,11 @@ namespace Generic.Controllers
                 }
                 else
                 {
-                    return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
+                    return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://login.intelleges.com/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
                 }
             }
             else
-                return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://www.intelleges.com/mvcmt/Generic/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
+                return Content("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Redirect method=\"POST\">https://login.intelleges.com/Ivr/IncomingCallXml</Redirect></Response>", "text/xml");
             
         }
 

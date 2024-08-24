@@ -69,7 +69,9 @@ namespace Generic.Controllers
 
         public ActionResult Create()
         {
-            //ViewBag.enterprise = new SelectList(db.enterprise, "id", "description");
+            int _touchpoint = 0;
+                _touchpoint = SessionSingleton.Touchpoint;
+            ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
             ViewBag.groupCollection = new SelectList(db.groupCollection, "id", "name");
             return View();
         }
@@ -80,26 +82,46 @@ namespace Generic.Controllers
         [HttpPost]
         public ActionResult Create(group group)
         {
+                int _touchpoint = 0;
             //if (ModelState.IsValid)
             if (group.name != "" && group.description != "")
             {
+                _touchpoint = SessionSingleton.Touchpoint;
                 group.description = string.IsNullOrEmpty(group.description) ? group.name : group.description;
                 group.active = 1;
                 group.sortOrder = 1;
                 group.dateCreated = DateTime.Now;
                 group.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
-
                 group.author = SessionSingleton.LoggedInUserId;
                 group.enterprise = Generic.Helpers.CurrentInstance.EnterpriseID;
                 db.group.Add(group);
                 db.SaveChanges();
                 ViewBag.ID = group.id;
                 ViewBag.GroupName = group.description;
-                //   db.pr_addGroup(group.enterprise, 0, group.author, 0, group.name, group.description, "", group.dateCreated, group.sortOrder, group.active);
-                //return RedirectToAction("Create", "Group");
+                //Save Touchpoint Group
+                touchpointGroup touchpointGroup = new touchpointGroup();
+                touchpointGroup.touchpoint = _touchpoint;
+                touchpointGroup.group = group.id;
+                db.touchpointGroup.Add(touchpointGroup);
+                db.SaveChanges();
+                //Save PTQGroup
+                var ptq = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(_touchpoint).FirstOrDefault();
+                if (ptq != null)
+                {
+                    ptqGroup ptqGroup = new ptqGroup();
+                    ptqGroup.ptq = ptq.id;
+                    ptqGroup.group = group.id;
+                    ptqGroup.partnertype = ptq.partnerType;
+                    ptqGroup.goal = 0;
+                    db.ptqGroup.Add(ptqGroup);
+                    db.SaveChanges();
+                }
+                ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
                 ViewBag.groupCollection = new SelectList(db.groupCollection, "id", "name");
                 return View(group);
             }
+           
+            ViewBag.TouchPoints = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title", _touchpoint); ;
 
             ViewBag.enterprise = new SelectList(db.enterprise, "id", "description", group.enterprise);
             ViewBag.groupCollection = new SelectList(db.groupCollection, "id", "name", group.groupCollection);

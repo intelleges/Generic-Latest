@@ -422,7 +422,7 @@ namespace Generic.Controllers
                 db.pr_modifyPartnerPartnertypeTouchpointQuestionnaireStatus(pptq.id, 6);
             }
 
-            return Redirect("https://www.intelleges.com/mvcmt/Generic" + "/Registration/?accessCode=" + accessCode + "&advanced=true");
+            return Redirect("https://login.intelleges.com" + "/Registration/?accessCode=" + accessCode + "&advanced=true");
         }
         //
         // GET: /Partner/Create
@@ -3632,13 +3632,13 @@ namespace Generic.Controllers
         {
             if (enterprise == null)
             {
-                return "https://www.intelleges.com/mvcmt/Generic";
+                return "https://login.intelleges.com";
             }
             else
             {
                 if (enterprise.multiTenantProjectType == 1)
                 {
-                    return "https://www.intelleges.com/mvcmt/Generic";
+                    return "https://login.intelleges.com";
                 }
                 else if (enterprise.multiTenantProjectType == 2)
                 {
@@ -3646,7 +3646,7 @@ namespace Generic.Controllers
                 }
                 else
                 {
-                    return "https://www.intelleges.com/mvcmt/Generic";
+                    return "https://login.intelleges.com";
                 }
             }
         }

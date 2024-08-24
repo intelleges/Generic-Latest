@@ -2275,7 +2275,7 @@ namespace Generic.Controllers
             //objamm.text += "We are excited to invite you to experience the power and capabilities of Intelleges, a global supply chain compliance";
             //objamm.text += " and risk management solution. As a valued vistor to our website, we would like to offer you a 15-day free trial of our cloud-based product.";
             //objamm.text += "<br/> Here's how you get started: <br/>";
-            //var url = "https://www.intelleges.com/mvcmt/Generic/Admin/FreeTrialForm?email=" + objmodel.emailAddress + "&product=" + objmodel.productId;
+            //var url = "https://login.intelleges.com/Admin/FreeTrialForm?email=" + objmodel.emailAddress + "&product=" + objmodel.productId;
             //objamm.text += "Simply click on this <a href='" + url + "'>link</a> to access our user-friendly free trial form. <br/>";
             //objamm.text += "In the free trial form, you will be prompted to provide additional information such as your name, company name, and phone number, which we require for enterprise purposes. <br/>";
             //objamm.text += "Once you have completed and submitted the free trial form, our system will verify the information provided and create a limited access account tailored specifically for you.  <br/>";

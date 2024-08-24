@@ -193,45 +193,17 @@
                     @Html.DropDownList("groupCollection", null, String.Empty, new { @class = "ddlClass" })
                     @Html.ValidationMessageFor(model => model.groupCollection)
                 </div>
-                @* <div class="editor-label">
-                    @Html.LabelFor(model => model.email)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.email,new {@class="txtClass"})
-                    @Html.ValidationMessageFor(model => model.email)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.dateCreated)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.dateCreated,new {@class="txtClass"})
-                    @Html.ValidationMessageFor(model => model.dateCreated)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.sortOrder)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.sortOrder,new {@class="txtClass"})
-                    @Html.ValidationMessageFor(model => model.sortOrder)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.active)
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.active,new {@class="txtClass"})
-                    @Html.ValidationMessageFor(model => model.active)
-                </div>*@
+               
             </div>
-            <div class="threecol">
+            <div class="threecol" style="margin-top:10px;margin-bottom:10px;">
                 <div class="editor-label">
+                    @Html.Label("Touchpoint")
+                    @*@Html.LabelFor(model => model.groupCollection, "groupCollection1")*@
                 </div>
-                <div class="editor-field">
-                    <a id="lnkperson" href="javascript:doSomething();" style="margin-left: 53%; font-size: 1em;">Add Person</a>
+                <div class="editor-field" style="width: 27% !important;">
+                    @Html.DropDownList("TouchPoints", null, String.Empty, new { @class = "ddlClass" })
                 </div>
-                <div class="editor-label">
+                @*<div class="editor-label">
                 </div>
                 <div class="editor-field">
                     <a id="lnkpartner" href="javascript:doSomething();" style="margin-left: 53%; font-size: 1em;">Add Partner</a>
@@ -240,7 +212,7 @@
                 </div>
                 <div class="editor-field">
                     <a id="lnktouchpoint" href="javascript:doSomething();" style="margin-left: 43%; font-size: 1em;">Add Touchpoint</a>
-                </div>
+                </div>*@
             </div>
             <p style="float: right; width: 20%;">
                 <input type="submit" value="Save" class="btn" />

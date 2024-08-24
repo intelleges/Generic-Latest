@@ -34,8 +34,8 @@ namespace Generic.Helpers
             t += "POC Last Name: " + partner.lastName + "<br/>";
             t += "POC Phone #: " + partner.phone + "<br/>";
             t += "POC Email: " + partner.email + "<br/><br/>";
-            t += "Access Code Link: <a href='https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
-            t += "PDF Link: <a href='https://www.intelleges.com/mvcmt/Generic/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
+            t += "Access Code Link: <a href='https://login.intelleges.com/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
+            t += "PDF Link: <a href='https://login.intelleges.com/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
             t += text + "<br/><br/>APPROVAL:  " + "<br/><a href='" + yesUrl + "'>Yes</a><br/><a href='" + noUrl + "'>No</a><br/><a href='" + unlockUrl + "'>Unlock</a>" +
                  "<br/><br/>Thanks.<br/><br/>" + StringHelper.UppercaseFirst(person.firstName) + " " + StringHelper.UppercaseFirst(person.lastName) + "<br>";
 
@@ -122,8 +122,8 @@ namespace Generic.Helpers
             t += "POC Last Name: " + partner.lastName + "<br/>";
             t += "POC Phone #: " + partner.phone + "<br/>";
             t += "POC Email: " + partner.email + "<br/><br/>";
-            t += "Access Code Link: <a href='https://www.intelleges.com/mvcmt/Generic/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
-            t += "PDF Link: <a href='https://www.intelleges.com/mvcmt/Generic/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
+            t += "Access Code Link: <a href='https://login.intelleges.com/Registration?Accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>";
+            t += "PDF Link: <a href='https://login.intelleges.com/Download?accesscode=" + accessCode + "'>" + accessCode + "</a><br/><br/>Clauses Subject to Review:<br/>";
             t += text + "<br/><br/>APPROVAL:  " + "<br/><a href='" + yesUrl + "'>Yes</a><br/><a href='" + noUrl + "'>No</a><br/><a href='" + unlockUrl + "'>Unlock</a>" +
                  "<br/><br/>Thanks.<br/><br/>" + StringHelper.UppercaseFirst(person.firstName) + " " + StringHelper.UppercaseFirst(person.lastName) + "<br>";
 

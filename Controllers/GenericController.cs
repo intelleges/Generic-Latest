@@ -224,7 +224,7 @@ namespace Generic.Controllers
                     {
                         foreach (var item in tags)
                         {
-                            string urlQuestion = "https://www.intelleges.com/mvcmt/Generic/Registration/Home/QuestionDocument";
+                            string urlQuestion = "https://login.intelleges.com/Registration/Home/QuestionDocument";
                             string url = urlQuestion + "/" + item.id;
                             var newNodeStr = "<a class='document-link' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
                             Regex rgx = new Regex(@"<document.*?>" + item.description + "</document>");
