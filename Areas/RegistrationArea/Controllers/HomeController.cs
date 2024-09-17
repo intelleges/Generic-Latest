@@ -17759,7 +17759,7 @@ Intelleges Team";
                         break;
                     case 65633:
                         ViewBag.Q65633_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1 != null && item.response1.description != null)
                         {
                             var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q65633_response = resultAdminsState == null ? string.Empty : resultAdminsState.description;
