@@ -15134,10 +15134,14 @@ Intelleges Team";
                         break;
                     case 51329:
                         ViewBag.Q51329_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q51329_response = resultAdminsState.description;
+                        }
+                        else
+                        {
+                            ViewBag.Q51329_response = item.comment;
                         }
                         break;
                     case 51330:
@@ -15161,10 +15165,14 @@ Intelleges Team";
                         break;
                     case 51336:
                         ViewBag.Q51336_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q51336_response = resultAuditState.description;
+                        }
+                        else
+                        {
+                            ViewBag.Q51336_response = item.comment;
                         }
                         break;
                     case 51337:
@@ -16776,10 +16784,14 @@ Intelleges Team";
                         break;
                     case 51329:
                         ViewBag.Q51329_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q51329_response = resultAdminsState.description;
+                        }
+                        else
+                        {
+                            ViewBag.Q51329_response = item.comment;
                         }
                         break;
                     case 51330:
@@ -16803,10 +16815,14 @@ Intelleges Team";
                         break;
                     case 51336:
                         ViewBag.Q51336_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q51336_response = resultAuditState.description;
+                        }
+                        else
+                        {
+                            ViewBag.Q51336_response = item.comment;
                         }
                         break;
                     case 51337:
@@ -17764,6 +17780,10 @@ Intelleges Team";
                             var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q65633_response = resultAdminsState == null ? string.Empty : resultAdminsState.description;
                         }
+                        else
+                        {
+                            ViewBag.Q65633_response = item.comment;
+                        }
                         break;
                     case 65634:
                         ViewBag.Input65634 = item.comment;
@@ -18364,10 +18384,14 @@ Intelleges Team";
                         break;
                     case 61831:
                         ViewBag.Q61831_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1!=null && item.response1.description != null)
                         {
                             var resultAdminsState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q61831_response = resultAdminsState == null ? string.Empty : resultAdminsState.description;
+                        }
+                        else
+                        {
+                            ViewBag.Q61831_response = item.comment;
                         }
                         break;
                     case 61832:
@@ -18391,11 +18415,12 @@ Intelleges Team";
                         break;
                     case 61838:
                         ViewBag.Q61838_response = "";
-                        if (item.response1.description != null)
+                        if (item.response1 != null && item.response1.description != null)
                         {
                             var resultAuditState = db.pr_getResponseByQuestion(item.question).ToList().Select(o => new { description = codeRegex.Replace(o.description, "") }).FirstOrDefault();
                             ViewBag.Q61838_response = resultAuditState == null ? string.Empty : resultAuditState.description;
                         }
+                        else { ViewBag.Q61838_response = item.comment; }
                         break;
                     case 61839:
                         ViewBag.Input61839 = item.comment;
