@@ -257,7 +257,9 @@
             alertify.alert('@ViewBag.MessageDetail');
             dataClear();
         }
-
+        if ("@ViewBag.Message" == "option") {
+            $('#optiondialog').modal("toggle");
+        }
 
         $('#btnInvite').click(function (e) {
             e.preventDefault();
@@ -667,7 +669,7 @@
         background: #f93013 !important;
     }
 
-    #btnalertSubmit {
+    #btnalertSubmit, #btnunArchive {
         background: #5da71c !important;
     }
 </style>
@@ -1001,6 +1003,33 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="optiondialog" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="z-index:1041">
+        <div class="modal-content">
+            <div class="modal-body" style=" height: 200px !important; border: 5px solid #74737C !important;">
+                <div id="dvSuggestion" class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" id="hdninternalId" value="@ViewBag.internalId" />
+                            <input type="hidden" id="hdnId" value="@ViewBag.Id" />
+                            @ViewBag.MessageDetail
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row" style="height: 34px; text-align: center !important;">
+                        <div class="col-xs-12">
+                            <button type="button" id="btnunArchive" class="btn btn-primary btndialogs" name="btnunArchive">UnArchive</button>
+                            <button type="button" id="btnOptionoverride" class="btn btn-primary btndialogs" name="btnOptionoverride">Override</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="updateDialog" role="dialog" aria-labelledby="gpsLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
 
@@ -1146,7 +1175,7 @@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
+<script type="text/javascript">
         function changeInrenalId() {
 
                               $.post("@Url.Action("ValidateInternalID", "Partner")", {
@@ -1280,13 +1309,54 @@
             $('#btnalertSubmit').click(function () {
                 var accessCode = $('#hdnAccessCode').val();
                 var pptq = $('#hdnpptq').val();
-               
+
                 shadow(accessCode, pptq);
             });
             $('#btnoverride').click(function () {
                 $("#alertdialog").modal("toggle");
             });
-         
+            $('#btnunArchive').click(function () {
+                var internalId = $('#hdninternalId').val();
+                var id = $('#hdnId').val();
+                $.get("@Url.Content("~/Partner/UnArchive/")" + id, function (data) {
+                    $('#optiondialog').modal("toggle");
+                    window.location.href = "../Partner/FindPartner";
+                });
+            });
+            $('#btnOptionoverride').click(function () {
+                var internalId = $('#hdninternalId').val();
+                var id = $('#hdnId').val();
+                $.get("@Url.Action("UnArchiveAndOverride", "Partner")", {
+                    id: id,
+                    touchpoint: $('#touchpoint').val(),
+                    group: $('#group').val(),
+                    partnertype: $("#partnertype").val(),
+                    txtInternalIdFind: $("#internalID").val(),
+                    txtDunsNumberFind: $("#dunsNumber").val(),
+                    txtNameFind: $("#name").val(),
+                    txtFederalIdFind: $("#federalID").val(),
+                    txtContactEmailFind: $("#email").val(),
+                    txtZipCodeFind: $("#zipcode").val(),
+                    txtAddress1: $("#address1").val(),
+                    txtAddress2: $("#address2").val(),
+                    txtCity: $("#city").val(),
+                    txtState: $("#state").val(),
+                    txtprovince: $("#province").val(),
+                    txtCountry: $("#country").val(),
+                    txtPhone: $("#phone").val(),
+                    txtFax: $("#fax").val(),
+                    txtFirstName: $("#firstName").val(),
+                    txtLastName: $("#lastName").val(),
+                    txtTitle: $("#title").val(),
+                    txtOwner: $("#owner").val(),
+                    txtDueDate: $("#DueDate").val(),
+
+                })
+                    .done(function (data) {
+                        $('#optiondialog').modal("toggle");
+                        window.location.href = "../Partner/FindPartner";
+                    });
+            });
             $('#btnFind').click(function (e) {
 
                $.post("@Url.Action("FindPartner2", "Partner")", {
@@ -1311,5 +1381,5 @@
 
             });
         });
-    </script>
+</script>
 }

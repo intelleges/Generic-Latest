@@ -617,8 +617,29 @@ namespace Generic.Controllers
                 var dbRecord = db.pr_getPartnerByInternalIDAndPTQ(partner.internalID, objptqId).FirstOrDefault();
                 if (dbRecord?.email == partner.email || dbRecord?.zipcode == partner.zipcode)
                 {
-                    ViewBag.Message = "error";
-                    ViewBag.MessageDetail = $"Email or Zipcode for internal Id {partner.internalID} already exist!. Please choose another one.";
+
+                    if (dbRecord.active == false)
+                    {
+                        ViewBag.MessageDetail = $"There is already an internalid, {partner.internalID}, that has been archived. Would you like to Unarchive or Override it?";
+                        ViewBag.internalId = partner.internalID;
+                        ViewBag.Id = dbRecord.id;
+                        ViewBag.Message = "option";
+                    }
+                    else
+                    {
+                        ViewBag.MessageDetail = $"Email or Zipcode for internal Id {partner.internalID} already exist!. Please choose another one.";
+                        ViewBag.Message = "error";
+                    }
+                    ViewBag.touchpoint = new SelectList(db.pr_getTouchpointAllByEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "title");
+
+                    ViewBag.partnertype = new SelectList(db.pr_getPartnerTypeAll(Generic.Helpers.CurrentInstance.EnterpriseID), "id", "name");
+
+                    ViewBag.partnerStatus = new SelectList(db.pr_getPartnerStatusAll(), "id", "description");
+
+                    ViewBag.searchType = "";
+
+                    var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                    ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1; 
                     return View(partner);
                 }
 
@@ -1229,7 +1250,15 @@ namespace Generic.Controllers
                             email.category = SendGridCategory.InvitePartnes;
 
                             SendEmail objSendEmail = new SendEmail();
-                            objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, sendFrom: new System.Net.Mail.MailAddress(person.email, person.FullName));
+                            string fromemail = "";
+                            if (objtouchpoint.description.Contains("Reps and Certs"))
+                                fromemail = "bcorepsandcerts@battelle.org";
+                            else if (objtouchpoint.description.Contains("FY 2023 Incurred Cost Submission (ICS)"))
+                                fromemail = "ics@battelle.org";
+                            else
+                                fromemail = person.email;
+
+                            objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, sendFrom: new System.Net.Mail.MailAddress(fromemail, person.FullName));
 
                         }
 
@@ -2108,7 +2137,21 @@ namespace Generic.Controllers
             return View("RemovePartner", objPartnerViewModelList);
 
         }
+       // [HttpPost]
+        public ActionResult UnArchiveAndOverride(int id, int? touchpoint, int? group,  int? partnertype, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind,  string txtZipCodeFind, string txtAddress1, string txtAddress2
+            , string txtCity, int? txtState, string txtprovince, int? txtCountry, string txtPhone, string txtFax, string txtFirstName, string txtLastName, string txtTitle, int? txtOwner, string txtDueDate)
+        {
+            db.pr_unArchivePartner(id, SessionSingleton.LoggedInUserId);
+            var partnerdetail = db.pr_getPartner(id).FirstOrDefault();
+            if (partnerdetail != null)
+            {
+                db.pr_modifyPartner(id, Generic.Helpers.CurrentInstance.EnterpriseID, txtInternalIdFind, txtNameFind, txtAddress1, txtAddress2, txtCity, txtState, txtprovince, txtZipCodeFind, txtCountry, txtPhone,
+                    txtFax, txtFirstName, txtLastName, txtTitle, txtContactEmailFind, txtDunsNumberFind, txtFederalIdFind, partnerdetail.status, partnerdetail.loadHistory, txtOwner, partnerdetail.author, partnerdetail.dateApproved,
+                  true, DateTime.Now);
+            }
 
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult UnArchievePartners(int[] items)
         {
             foreach (var item in items)
