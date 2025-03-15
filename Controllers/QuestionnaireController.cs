@@ -1654,6 +1654,8 @@ namespace Generic.Controllers
                                     objQuestion.commentType = CommentType.YN_COLORPICKER_N;
                                 else if (excelQuestionnaire.CommentType == "YN_COLORPICKER_Y")
                                     objQuestion.commentType = CommentType.YN_COLORPICKER_Y;
+                                else if (excelQuestionnaire.CommentType == "COMMENTONLY")
+                                    objQuestion.commentType = CommentType.COMMENTONLY;
                                 else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
                                 {
                                     try

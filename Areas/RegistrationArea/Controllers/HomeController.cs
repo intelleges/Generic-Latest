@@ -2205,6 +2205,12 @@ namespace Generic.Areas.RegistrationArea.Controllers
                         questionId = int.Parse(array[1]);
                         surveyId = int.Parse(array[2]);
                     }
+                    //else if (keyName.ToString().Contains("_commentOnly"))
+                    //{
+                    //    array = keyName.ToString().Split(splitter);
+                    //    questionId = int.Parse(array[1]);
+                    //    surveyId = int.Parse(array[2]);
+                    //}
 
                     #region other types
                     else
@@ -2250,7 +2256,15 @@ namespace Generic.Areas.RegistrationArea.Controllers
                                 }
                                 else
                                 {
-                                    responseComment = null;
+                                    string strvl2 = formCollection["question_" + questionId.ToString() + "_" + surveyId.ToString() + "_commentOnly"];
+                                    if (!string.IsNullOrEmpty(strvl2))
+                                    {
+                                        responseComment = strvl2;
+                                    }
+                                    else
+                                    {
+                                        responseComment = null;
+                                    }
                                 }
                             }
                         }

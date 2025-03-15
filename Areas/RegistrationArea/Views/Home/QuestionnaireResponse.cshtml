@@ -329,30 +329,60 @@
             var dualListBox = $(".list2listComponent").bootstrapDualListbox({
                 nonSelectedListLabel: 'Options',
                 selectedListLabel: 'Selected',
-                selectorMinimalHeight:370,
-                //preserveSelectionOnMove: 'moved',
-                //moveOnSelect: false,
-                //bootstrap3Compatible: true,
-                showFilterInputs:false
+                selectorMinimalHeight: 370,
+                showFilterInputs: false
             });
             var isRequiredField = dualListBox.attr('required');
 
             function initDualListBox() {
+                
                 var instance = dualListBox.data('plugin_bootstrapDualListbox');
                 var nonSelectedList = instance.elements.select2;
+                var selectedOptions = instance.elements.originalSelect.find('option:selected');
+               
                 var isDualListBoxValidated = !(instance.selectedElements > 0);
+
                 if ($("#bootstrapDualListbox_error_message").length == 0) {
-                    nonSelectedList.before('<span id=\"bootstrapDualListbox_error_message\" style=\"color:red;\" class=\"' + (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') + '\" data-valmsg-for=\"' + nonSelectedList.attr('id') + '\" data-valmsg-replace=\"true\">AT LEAST ONE SELECTION REQUIRED</span>');
+                    nonSelectedList.before('<span id="bootstrapDualListbox_error_message" style="color:red;" class="' +
+                        (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') +
+                        '" data-valmsg-for="' + nonSelectedList.attr('id') +
+                        '" data-valmsg-replace="true">AT LEAST ONE SELECTION REQUIRED</span>');
                 } else {
                     $("#bootstrapDualListbox_error_message").attr('class', (isDualListBoxValidated ? '' : 'hidden'));
                 }
+
                 nonSelectedList.prop('required', isDualListBoxValidated);
                 instance.elements.originalSelect.prop('required', false);
+                
+
+               // alert( selectedOptions.length);
+
+                var hasOthers = false;
+                selectedOptions.each(function () {
+                    var optionText = $(this).text().trim().toLowerCase();
+                    console.log("Checking option:", optionText);
+                    if (optionText === "other") {
+                        hasOthers = true;
+                    }
+                });
+
+                // Manage CommentOnly text box
+                if (hasOthers) {
+                    var id = dualListBox.attr('id');
+                    id = id.replace("_list2list", "_commentOnly");
+                    if ($("#"+id).length === 0) {
+                        instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id+'" class="form-control mt-2" style="margin-top: 15px;" placeholder="Please specify...">');
+                    }
+                } else {
+                    $("#" + id).remove();
+                }
             }
 
+            // Trigger initDualListBox on change
             dualListBox.change(function () {
-                if (isRequiredField)
+                if (isRequiredField) {
                     initDualListBox();
+                }
             });
 
             if (isRequiredField)
@@ -445,6 +475,7 @@
                                     $("#QuestionnaireResponse").submit();
                                 }
                             } else {
+                               
                                 showalert = false;
                                 $.post('@Url.Action("removeItemsByqid2", "Home")', { pptq: pptq, qstart: qstart, qend: qend[val.indexOf(Number(newvalP))] })
                     .done(function (data) {
