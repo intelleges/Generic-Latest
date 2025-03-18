@@ -326,64 +326,116 @@
             CKEDITOR.config.fontSize_defaultLabel = '17px';
             CKEDITOR.config.extraCss += "body{font-family:Avenir-Roman-webfont;font-size:17px;}";
             $(".list2listComponent").prop('required', true);
-            var dualListBox = $(".list2listComponent").bootstrapDualListbox({
-                nonSelectedListLabel: 'Options',
-                selectedListLabel: 'Selected',
-                selectorMinimalHeight: 370,
-                showFilterInputs: false
-            });
-            var isRequiredField = dualListBox.attr('required');
+            $(".list2listComponent").each(function () {
+                var dualListBox = $(this).bootstrapDualListbox({
+                    nonSelectedListLabel: 'Options',
+                    selectedListLabel: 'Selected',
+                    selectorMinimalHeight: 370,
+                    showFilterInputs: false
+                });
+                var isRequiredField = dualListBox.attr('required');
 
-            function initDualListBox() {
-                
-                var instance = dualListBox.data('plugin_bootstrapDualListbox');
-                var nonSelectedList = instance.elements.select2;
-                var selectedOptions = instance.elements.originalSelect.find('option:selected');
-               
-                var isDualListBoxValidated = !(instance.selectedElements > 0);
+                function initDualListBox(dualListBox) {
+                    var instance = dualListBox.data('plugin_bootstrapDualListbox');
+                    var nonSelectedList = instance.elements.select2;
+                    var selectedOptions = instance.elements.originalSelect.find('option:selected');
 
-                if ($("#bootstrapDualListbox_error_message").length == 0) {
-                    nonSelectedList.before('<span id="bootstrapDualListbox_error_message" style="color:red;" class="' +
-                        (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') +
-                        '" data-valmsg-for="' + nonSelectedList.attr('id') +
-                        '" data-valmsg-replace="true">AT LEAST ONE SELECTION REQUIRED</span>');
-                } else {
-                    $("#bootstrapDualListbox_error_message").attr('class', (isDualListBoxValidated ? '' : 'hidden'));
+                    var isDualListBoxValidated = !(instance.selectedElements > 0);
+
+                    if ($("#bootstrapDualListbox_error_message_" + dualListBox.attr('id')).length == 0) {
+                        nonSelectedList.before('<span id="bootstrapDualListbox_error_message_' + dualListBox.attr('id') + '" style="color:red;" class="' +
+                            (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') +
+                            '" data-valmsg-for="' + nonSelectedList.attr('id') +
+                            '" data-valmsg-replace="true">AT LEAST ONE SELECTION REQUIRED</span>');
+                    } else {
+                        $("#bootstrapDualListbox_error_message_" + dualListBox.attr('id')).attr('class', (isDualListBoxValidated ? '' : 'hidden'));
+                    }
+
+                    nonSelectedList.prop('required', isDualListBoxValidated);
+                    instance.elements.originalSelect.prop('required', false);
+
+                    var hasOthers = false;
+                    selectedOptions.each(function () {
+                        var optionText = $(this).text().trim().toLowerCase();
+                        if (optionText === "other") {
+                            hasOthers = true;
+                        }
+                    });
+
+                    var id = dualListBox.attr('id').replace("_list2list", "_commentOnly");
+
+                    if (hasOthers) {
+                        if ($("#" + id).length === 0) {
+                            instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id + '" class="form-control mt-2" style="margin-top: 15px;" placeholder="Please specify...">');
+                        }
+                    } else {
+                        $("#" + id).remove();
+                    }
                 }
 
-                nonSelectedList.prop('required', isDualListBoxValidated);
-                instance.elements.originalSelect.prop('required', false);
-                
-
-               // alert( selectedOptions.length);
-
-                var hasOthers = false;
-                selectedOptions.each(function () {
-                    var optionText = $(this).text().trim().toLowerCase();
-                    console.log("Checking option:", optionText);
-                    if (optionText === "other") {
-                        hasOthers = true;
+                // Trigger initDualListBox on change
+                dualListBox.change(function () {
+                    if (isRequiredField) {
+                        initDualListBox($(this)); // Pass the correct instance
                     }
                 });
 
-                // Manage CommentOnly text box
-                if (hasOthers) {
-                    var id = dualListBox.attr('id');
-                    id = id.replace("_list2list", "_commentOnly");
-                    if ($("#"+id).length === 0) {
-                        instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id+'" class="form-control mt-2" style="margin-top: 15px;" placeholder="Please specify...">');
-                    }
-                } else {
-                    $("#" + id).remove();
-                }
-            }
-
-            // Trigger initDualListBox on change
-            dualListBox.change(function () {
-                if (isRequiredField) {
-                    initDualListBox();
-                }
+                if (isRequiredField)
+                    initDualListBox($(this));
             });
+            //var isRequiredField = dualListBox.attr('required');
+
+            //function initDualListBox() {
+                
+            //    var instance = dualListBox.data('plugin_bootstrapDualListbox');
+            //    var nonSelectedList = instance.elements.select2;
+            //    var selectedOptions = instance.elements.originalSelect.find('option:selected');
+               
+            //    var isDualListBoxValidated = !(instance.selectedElements > 0);
+
+            //    if ($("#bootstrapDualListbox_error_message").length == 0) {
+            //        nonSelectedList.before('<span id="bootstrapDualListbox_error_message" style="color:red;" class="' +
+            //            (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') +
+            //            '" data-valmsg-for="' + nonSelectedList.attr('id') +
+            //            '" data-valmsg-replace="true">AT LEAST ONE SELECTION REQUIRED</span>');
+            //    } else {
+            //        $("#bootstrapDualListbox_error_message").attr('class', (isDualListBoxValidated ? '' : 'hidden'));
+            //    }
+
+            //    nonSelectedList.prop('required', isDualListBoxValidated);
+            //    instance.elements.originalSelect.prop('required', false);
+                
+
+            //   // alert( selectedOptions.length);
+
+            //    var hasOthers = false;
+            //    selectedOptions.each(function () {
+            //        var optionText = $(this).text().trim().toLowerCase();
+            //        console.log("Checking option:", optionText);
+            //        if (optionText === "other") {
+            //            hasOthers = true;
+            //        }
+            //    });
+            //    alert(hasOthers);
+            //    // Manage CommentOnly text box
+            //    if (hasOthers) {
+            //        var id = dualListBox.attr('id'); alert(id);
+            //        id = id.replace("_list2list", "_commentOnly");
+            //        alert(id);
+            //        if ($("#"+id).length === 0) {
+            //            instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id+'" class="form-control mt-2" style="margin-top: 15px;" placeholder="Please specify...">');
+            //        }
+            //    } else {
+            //        $("#" + id).remove();
+            //    }
+            //}
+
+            //// Trigger initDualListBox on change
+            //dualListBox.change(function () {
+            //    if (isRequiredField) {
+            //        initDualListBox();
+            //    }
+            //});
 
             if (isRequiredField)
                 initDualListBox();
