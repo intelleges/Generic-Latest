@@ -298,7 +298,7 @@
             }
             $("#btnSaveForLater").val(false);
         });
-        
+
     }
 	function submitForm() {
 		$("#QuestionnaireResponse").submit();
@@ -326,13 +326,57 @@
             CKEDITOR.config.fontSize_defaultLabel = '17px';
             CKEDITOR.config.extraCss += "body{font-family:Avenir-Roman-webfont;font-size:17px;}";
             $(".list2listComponent").prop('required', true);
+            // Translation Dictionary
+            // Translation Dictionary (Multi-Language)
+            var translations = {
+                "Options": {
+                    "en": "Options", "es": "Opciones", "fr": "Options", "de": "Optionen",
+                    "ar": "خيارات", "zh": "选项", "it": "Opzioni", "ru": "Опции"
+                },
+                "Selected": {
+                    "en": "Selected", "es": "Seleccionado", "fr": "Sélectionné", "de": "Ausgewählt",
+                    "ar": "المحدد", "zh": "已选择", "it": "Selezionato", "ru": "Выбрано"
+                },
+                "AT LEAST ONE SELECTION REQUIRED": {
+                    "en": "AT LEAST ONE SELECTION REQUIRED", "es": "SE REQUIERE AL MENOS UNA SELECCIÓN",
+                    "fr": "AU MOINS UNE SÉLECTION REQUISE", "de": "MIND. EINE AUSWAHL ERFORDERLICH",
+                    "ar": "مطلوب تحديد واحد على الأقل", "zh": "至少需要选择一个",
+                    "it": "È NECESSARIA ALMENO UNA SELEZIONE", "ru": "ТРЕБУЕТСЯ ХОТЯ БЫ ОДИН ВЫБОР"
+                },
+                "Other": {
+                    "en": "Other", "es": "Otro", "fr": "Autre", "de": "Andere",
+                    "ar": "آخر", "zh": "其他", "it": "Altro", "ru": "Другое"
+                },
+                "Please specify...": {
+                    "en": "Please specify...", "es": "Por favor especifique...",
+                    "fr": "Veuillez préciser...", "de": "Bitte angeben...",
+                    "ar": "يرجى التحديد...", "zh": "请指定...",
+                    "it": "Si prega di specificare...", "ru": "Пожалуйста, уточните..."
+                },
+                "Showing all": {
+                    "en": "Showing all",
+                    "es": "Mostrando todo",
+                    "fr": "Affichage de tout",
+                    "de": "Alles anzeigen",
+                    "ar": "عرض الكل",
+                    "zh": "显示全部",
+                    "it": "Mostrando tutto",
+                    "ru": "Показывает всё"
+                }
+
+            };
+
+            var userLang = navigator.language.substring(0, 2); // Get language code (e.g., "es", "fr")
+            if (!translations["Options"][userLang]) userLang = "en"; // Fallback to English
+
             $(".list2listComponent").each(function () {
                 var dualListBox = $(this).bootstrapDualListbox({
-                    nonSelectedListLabel: 'Options',
-                    selectedListLabel: 'Selected',
+                    nonSelectedListLabel: translations["Options"][userLang],  // Shows all translations
+                    selectedListLabel: translations["Selected"][userLang],
                     selectorMinimalHeight: 370,
                     showFilterInputs: false
                 });
+
                 var isRequiredField = dualListBox.attr('required');
 
                 function initDualListBox(dualListBox) {
@@ -341,14 +385,16 @@
                     var selectedOptions = instance.elements.originalSelect.find('option:selected');
 
                     var isDualListBoxValidated = !(instance.selectedElements > 0);
+                    var errorMessageId = "bootstrapDualListbox_error_message_" + dualListBox.attr('id');
 
-                    if ($("#bootstrapDualListbox_error_message_" + dualListBox.attr('id')).length == 0) {
-                        nonSelectedList.before('<span id="bootstrapDualListbox_error_message_' + dualListBox.attr('id') + '" style="color:red;" class="' +
+                    // Inject translated error message
+                    if ($("#" + errorMessageId).length == 0) {
+                        nonSelectedList.before('<span id="' + errorMessageId + '" style="color:red;" class="' +
                             (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') +
                             '" data-valmsg-for="' + nonSelectedList.attr('id') +
-                            '" data-valmsg-replace="true">AT LEAST ONE SELECTION REQUIRED</span>');
+                            '" data-valmsg-replace="true">' + translations["AT LEAST ONE SELECTION REQUIRED"][userLang]+ '</span>');
                     } else {
-                        $("#bootstrapDualListbox_error_message_" + dualListBox.attr('id')).attr('class', (isDualListBoxValidated ? '' : 'hidden'));
+                        $("#" + errorMessageId).attr('class', (isDualListBoxValidated ? '' : 'hidden'));
                     }
 
                     nonSelectedList.prop('required', isDualListBoxValidated);
@@ -357,21 +403,38 @@
                     var hasOthers = false;
                     selectedOptions.each(function () {
                         var optionText = $(this).text().trim().toLowerCase();
-                        if (optionText === "other") {
+                        if (optionText === translations["Other"]["en"].toLowerCase() || optionText === translations["Other"][userLang].toLowerCase()) {
                             hasOthers = true;
                         }
                     });
 
                     var id = dualListBox.attr('id').replace("_list2list", "_commentOnly");
 
+                    // Inject multilingual input box if "Other" is selected
                     if (hasOthers) {
                         if ($("#" + id).length === 0) {
-                            instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id + '" class="form-control mt-2" style="margin-top: 15px;" placeholder="Please specify...">');
+                            instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id +
+                                '" class="form-control mt-2" style="margin-top: 15px;" placeholder="' + translations["Please specify..."][userLang] + '">');
                         }
                     } else {
                         $("#" + id).remove();
                     }
                 }
+
+                // Translate options
+                function translateOptions(selectElement) {
+                    $(selectElement).find('option').each(function () {
+                        var text = $(this).text().trim();
+                        if (translations[text] && translations[text][userLang]) {
+                            $(this).text(translations[text][userLang]);
+                        }
+                    });
+                }
+
+
+                // Translate options on page load
+                translateOptions(dualListBox);
+                dualListBox.bootstrapDualListbox('refresh', true);
 
                 // Trigger initDualListBox on change
                 dualListBox.change(function () {
@@ -383,53 +446,8 @@
                 if (isRequiredField)
                     initDualListBox($(this));
             });
-            //var isRequiredField = dualListBox.attr('required');
 
-            //function initDualListBox() {
-                
-            //    var instance = dualListBox.data('plugin_bootstrapDualListbox');
-            //    var nonSelectedList = instance.elements.select2;
-            //    var selectedOptions = instance.elements.originalSelect.find('option:selected');
-               
-            //    var isDualListBoxValidated = !(instance.selectedElements > 0);
-
-            //    if ($("#bootstrapDualListbox_error_message").length == 0) {
-            //        nonSelectedList.before('<span id="bootstrapDualListbox_error_message" style="color:red;" class="' +
-            //            (isDualListBoxValidated ? 'field-validation-valid' : 'hidden') +
-            //            '" data-valmsg-for="' + nonSelectedList.attr('id') +
-            //            '" data-valmsg-replace="true">AT LEAST ONE SELECTION REQUIRED</span>');
-            //    } else {
-            //        $("#bootstrapDualListbox_error_message").attr('class', (isDualListBoxValidated ? '' : 'hidden'));
-            //    }
-
-            //    nonSelectedList.prop('required', isDualListBoxValidated);
-            //    instance.elements.originalSelect.prop('required', false);
-                
-
-            //   // alert( selectedOptions.length);
-
-            //    var hasOthers = false;
-            //    selectedOptions.each(function () {
-            //        var optionText = $(this).text().trim().toLowerCase();
-            //        console.log("Checking option:", optionText);
-            //        if (optionText === "other") {
-            //            hasOthers = true;
-            //        }
-            //    });
-            //    alert(hasOthers);
-            //    // Manage CommentOnly text box
-            //    if (hasOthers) {
-            //        var id = dualListBox.attr('id'); alert(id);
-            //        id = id.replace("_list2list", "_commentOnly");
-            //        alert(id);
-            //        if ($("#"+id).length === 0) {
-            //            instance.elements.originalSelect.after('<input type="text" id="' + id + '" name="' + id+'" class="form-control mt-2" style="margin-top: 15px;" placeholder="Please specify...">');
-            //        }
-            //    } else {
-            //        $("#" + id).remove();
-            //    }
-            //}
-
+           
             //// Trigger initDualListBox on change
             //dualListBox.change(function () {
             //    if (isRequiredField) {
@@ -513,7 +531,7 @@
                                 labels: { ok: "No", cancel: "Yes" },
                                 buttonFocus: "cancel"
                     });
-                   
+
                     alertify.confirm("You've already responded to this question. This questionnaire contains skip logic, changing your response now will overwrite or delete the existing response to the question(s) listed below... do you want to proceed with this change?" +
                          "<br/><br/>" + messages[val.indexOf(Number(newvalP))] + "<br/><br/>" +
                         "If \"Yes\"  is selected, existing response(s) will be deleted; if \"No\" is selected, the system will advance you to the next question without deleting the existing response(s).", function (e) {
@@ -527,7 +545,7 @@
                                     $("#QuestionnaireResponse").submit();
                                 }
                             } else {
-                               
+
                                 showalert = false;
                                 $.post('@Url.Action("removeItemsByqid2", "Home")', { pptq: pptq, qstart: qstart, qend: qend[val.indexOf(Number(newvalP))] })
                     .done(function (data) {

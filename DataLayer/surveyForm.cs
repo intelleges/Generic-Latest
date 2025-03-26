@@ -382,10 +382,10 @@ namespace Generic.DataLayer
                 foreach (var item in tags)
                 {
                     string url = urlQuestion + "/" + item.id;
-                    var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + item.description + "</a>";
-                    Regex rgx = new Regex(@"<document.*?>" + item.description + "</document>");
+                    var newNodeStr = "<a style='color:blue;cursor:pointer;' target='_blank' href=\"" + url + "\">" + _translator.Translate(item.description, _currentLanguage) + "</a>";
+                    Regex rgx = new Regex(@"<document.*?>" + _translator.Translate( item.description,_currentLanguage) + "</document>");
                     string result = rgx.Replace(label.Text, newNodeStr);
-                    label.Text = result;
+                    label.Text = _translator.Translate(result, _currentLanguage) ;
 
                 }
             }
@@ -2537,7 +2537,7 @@ namespace Generic.DataLayer
                             //dropDownList.Items.Add(new ListItem(responseCollection[i].description, responseCollection[i].id.ToString()));
                             //_translator.Translate(responseCollection[i].id, TranslationType.Response, _currentLanguage), responseCollection[i].id.ToString()
                             var splittedDescription = responseCollection[i].description.Split("|".ToCharArray());
-                            var item = new ListItem(splittedDescription[0], splittedDescription.Length == 3 ? splittedDescription[2] : splittedDescription[0]);
+                            var item = new ListItem(_translator.Translate(splittedDescription[0],_currentLanguage), splittedDescription.Length == 3 ? splittedDescription[2] : splittedDescription[0]);
                             item.Attributes.Add("title", splittedDescription[1]);
                             if (splittedDescription.Length == 3) {
                                 if (pptqResponse != null && pptqResponse.comment != null && pptqResponse.comment.Length > 0)
