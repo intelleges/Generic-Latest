@@ -6348,11 +6348,12 @@ Intelleges Team";
                     if (item.response != null)
                     {
                         model.response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
-                        match = reg.Match(model.response);
-                        if (match.Success)
-                        {
-                            notAddtoPDF = true;
-                        }
+                        
+                            match = reg.Match(model.response);
+                            if (match.Success)
+                            {
+                                notAddtoPDF = true;
+                            }
                     }
                 }
                 if (!notAddtoPDF)
@@ -24653,6 +24654,7 @@ Intelleges Team";
             //var find = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             //ViewBag.reslt2 = find;
 
+            
             if (isCustomizedPdf)
             {
                 string htmltext = this.RenderActionResultToString(this.View(ViewName));  //name of the view...
