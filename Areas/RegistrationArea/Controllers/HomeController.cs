@@ -4442,6 +4442,7 @@ Intelleges Team";
             string accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
             var _partnerHeader = db.pr_getPartnerHeaderByAccessCode(accessCode).ToList();
             ViewBag.partnerHeader = _partnerHeader;
+            ViewBag.accessCode = accessCode;
             List<enterprise> enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).ToList();
             var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCodeForPDF(accessCode).FirstOrDefault();
             var _partnerId = pptq != null ? pptq.partner : -1;
@@ -5224,7 +5225,7 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -6241,6 +6242,7 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
             //touchpoint 
 
             //_signature
@@ -6374,7 +6376,7 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -7216,7 +7218,7 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -8066,6 +8068,7 @@ Intelleges Team";
             {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -8450,7 +8453,7 @@ Intelleges Team";
             {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -8834,7 +8837,7 @@ Intelleges Team";
             {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -9220,7 +9223,7 @@ Intelleges Team";
             {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -9605,7 +9608,7 @@ Intelleges Team";
             {
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
-
+             ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -9992,6 +9995,7 @@ Intelleges Team";
                 ViewBag.Manager = m.firstName + " " + m.lastName;
             }
             ViewBag.Accesscode = accessCode;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -10361,6 +10365,7 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -11215,7 +11220,7 @@ Intelleges Team";
             eSignature _signature = db.pr_getEsignatureByPartnerPartnerTypeTouchpointQuestionnaire(pptq != null ? pptq.id : -1).FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -12104,7 +12109,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -12835,7 +12840,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -13520,6 +13525,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -13790,6 +13796,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -14376,7 +14383,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -14960,7 +14967,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -15226,7 +15233,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -15864,7 +15871,7 @@ Intelleges Team";
                 if (clause != null)
                     ViewBag.Clauses = clause.text;
             }
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -16454,6 +16461,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -16610,7 +16618,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
-
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -16877,6 +16885,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -17583,6 +17592,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -17881,6 +17891,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -18206,6 +18217,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -18894,6 +18906,7 @@ Intelleges Team";
             eSignature _signature = sigs.FirstOrDefault();
             var _partner = db.pr_getPartner(partnerId).FirstOrDefault();
             ViewBag.partner = _partner;
+            ViewBag.accessCode = accessCode;
 
             //_signature
             ViewBag.signature = _signature;
@@ -19508,6 +19521,7 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -20197,6 +20211,7 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -21000,6 +21015,7 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -21895,6 +21911,7 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -22545,6 +22562,7 @@ Intelleges Team";
             var _questionnaire = db.pr_getQuestionnaireByAccesscode(accessCode).FirstOrDefault();
             var partnerTouchPoint = _partner != null ? _partner.partnerPartnertypeTouchpointQuestionnaire.FirstOrDefault() : null;
             var pptqID = partnerTouchPoint != null ? partnerTouchPoint.id : -1;
+            ViewBag.accessCode = accessCode;
             //_signature
             ViewBag.signature = _signature;
             ViewBag.personTitle = _partner != null ? _partner.title : "";
@@ -24143,6 +24161,7 @@ Intelleges Team";
         public ActionResult ViewCustomizedStandardPDF(string ViewName, string footer = "0")
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            ViewBag.accessCode = accessCode;
             List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
@@ -24275,6 +24294,7 @@ Intelleges Team";
 
         private void GenerateCustomizePdf(string viewName, string accessCode, int pptqID, string footer = "")
         {
+            ViewBag.accessCode = accessCode;
             List<pr_getPartnerQuestionResponseByAccessCode99_Result> result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
@@ -24997,6 +25017,7 @@ Intelleges Team";
         public byte[] GetCustomizedStandardPDF(string ViewName, string footer = "0")
         {
             var accessCode = Session["accessCode"] != null ? Session["accessCode"].ToString() : "";
+            ViewBag.accessCode = accessCode;
             var result =
                 db.pr_getPartnerQuestionResponseByAccessCode99(accessCode).ToList();
 
