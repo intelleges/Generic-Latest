@@ -1227,7 +1227,7 @@ namespace Generic.Controllers
 
         private int GetPage(ExcelQuestionnaire previosRow, ExcelQuestionnaire currentRow, List<int> landingPages)
         {
-            return previosRow != null ? (previosRow.Surveyset != currentRow.Surveyset || previosRow.skipLogic.ToLower() == "y" || landingPages.Any(o => o == currentRow.QID) ? previosRow.Page + 1 : previosRow.Page) : 1;
+            return previosRow != null ? (previosRow.Surveyset != currentRow.Surveyset || (previosRow.skipLogic!=null? previosRow.skipLogic.ToLower() == "y": false) || landingPages.Any(o => o == currentRow.QID) ? previosRow.Page + 1 : previosRow.Page) : 1;
         }
         [HttpPost]
         public ActionResult UploadQuestionnaire(int protocol, string protocolName
@@ -1586,103 +1586,109 @@ namespace Generic.Controllers
                                 objQuestion.commentBoxTxt = excelQuestionnaire.CommentBoxMessageText;
                                 objQuestion.commentUploadTxt = excelQuestionnaire.UploadMessageText;
                                 objQuestion.subCheckBoxChoice = excelQuestionnaire.SubCheckBoxChoice;
+
                                 if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType))
+                                {
                                     excelQuestionnaire.CommentType = excelQuestionnaire.CommentType.ToUpper();
-                                if (excelQuestionnaire.CommentType == "YN_WARNING_N")
-                                {
-                                    objQuestion.commentType = CommentType.YN_WARNING_N;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
-                                {
-                                    objQuestion.commentType = CommentType.YN_WARNING_Y;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
-                                {
-                                    objQuestion.commentType = CommentType.YN_COMMENT_Y;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
-                                {
-                                    objQuestion.commentType = CommentType.YN_COMMENT_N;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y_PUBLIC")
-                                {
-                                    objQuestion.commentType = CommentType.YN_COMMENT_Y_PUBLIC;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_COMMENT_N_PUBLIC")
-                                {
-                                    objQuestion.commentType = CommentType.YN_COMMENT_N_PUBLIC;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
-                                {
-                                    objQuestion.commentType = CommentType.YN_UPLOAD_Y;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
-                                {
-                                    objQuestion.commentType = CommentType.YN_UPLOAD_N;
-                                }
-                                else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
-                                {
-                                    objQuestion.commentType = CommentType.YN_NO_COMMENT;
-                                }
-                                else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
-                                    objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
-                                else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
-                                    objQuestion.commentType = CommentType.YN_DUEDATE_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
-                                    objQuestion.commentType = CommentType.YN_DUEDATE_N;
-                                else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
-                                    objQuestion.commentType = CommentType.YN_ALERT_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
-                                    objQuestion.commentType = CommentType.YN_ALERT_N;
-                                else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_Y")
-                                    objQuestion.commentType = CommentType.YN_CHECKBOX_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_N")
-                                    objQuestion.commentType = CommentType.YN_CHECKBOX_N;
-                                else if (excelQuestionnaire.CommentType == "XX_CHECKBOX_X")
-                                    objQuestion.commentType = CommentType.XX_CHECKBOX_X;
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_Y")
-                                    objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
-                                    objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
-                                else if (excelQuestionnaire.CommentType == "XX_COMMENT_ALL")
-                                    objQuestion.commentType = CommentType.XX_COMMENT_ALL;
-                                else if (excelQuestionnaire.CommentType == "YN_REFERENCE_Y")
-                                    objQuestion.commentType = CommentType.YN_REFERENCE_Y;
-                                else if (excelQuestionnaire.CommentType == "YN_REFERENCE_N")
-                                    objQuestion.commentType = CommentType.YN_REFERENCE_N;
-                                else if (excelQuestionnaire.CommentType == "YN_COLORPICKER_N")
-                                    objQuestion.commentType = CommentType.YN_COLORPICKER_N;
-                                else if (excelQuestionnaire.CommentType == "YN_COLORPICKER_Y")
-                                    objQuestion.commentType = CommentType.YN_COLORPICKER_Y;
-                                else if (excelQuestionnaire.CommentType == "COMMENTONLY")
-                                    objQuestion.commentType = CommentType.COMMENTONLY;
-                                else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
-                                {
-                                    try
+                                    if (excelQuestionnaire.CommentType == "YN_WARNING_N")
                                     {
-                                        objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_N_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_N_".Length));
+                                        objQuestion.commentType = CommentType.YN_WARNING_N;
                                     }
-                                    catch
+                                    else if (excelQuestionnaire.CommentType == "YN_WARNING_Y")
                                     {
-                                        throw new Exception("Wrong TEXT_NUMBER_N_ comment type value");
+                                        objQuestion.commentType = CommentType.YN_WARNING_Y;
                                     }
-                                }
-                                else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_Y_"))
-                                {
-                                    try
+                                    else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y")
                                     {
-                                        objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_Y_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_Y_".Length));
+                                        objQuestion.commentType = CommentType.YN_COMMENT_Y;
                                     }
-                                    catch
+                                    else if (excelQuestionnaire.CommentType == "YN_COMMENT_N")
                                     {
-                                        throw new Exception("Wrong TEXT_NUMBER_Y_ comment type value");
+                                        objQuestion.commentType = CommentType.YN_COMMENT_N;
+                                    }
+                                    else if (excelQuestionnaire.CommentType == "YN_COMMENT_Y_PUBLIC")
+                                    {
+                                        objQuestion.commentType = CommentType.YN_COMMENT_Y_PUBLIC;
+                                    }
+                                    else if (excelQuestionnaire.CommentType == "YN_COMMENT_N_PUBLIC")
+                                    {
+                                        objQuestion.commentType = CommentType.YN_COMMENT_N_PUBLIC;
+                                    }
+                                    else if (excelQuestionnaire.CommentType == "YN_UPLOAD_Y")
+                                    {
+                                        objQuestion.commentType = CommentType.YN_UPLOAD_Y;
+                                    }
+                                    else if (excelQuestionnaire.CommentType == "YN_UPLOAD_N")
+                                    {
+                                        objQuestion.commentType = CommentType.YN_UPLOAD_N;
+                                    }
+                                    else if (excelQuestionnaire.CommentType == "YN_NO_COMMENT")
+                                    {
+                                        objQuestion.commentType = CommentType.YN_NO_COMMENT;
+                                    }
+                                    else if (excelQuestionnaire.CommentType == "DROPDOWN_COMMENT")
+                                        objQuestion.commentType = CommentType.DROPDOWN_COMMENT;
+                                    else if (excelQuestionnaire.CommentType == "YN_DUEDATE_Y")
+                                        objQuestion.commentType = CommentType.YN_DUEDATE_Y;
+                                    else if (excelQuestionnaire.CommentType == "YN_DUEDATE_N")
+                                        objQuestion.commentType = CommentType.YN_DUEDATE_N;
+                                    else if (excelQuestionnaire.CommentType == "YN_ALERT_Y")
+                                        objQuestion.commentType = CommentType.YN_ALERT_Y;
+                                    else if (excelQuestionnaire.CommentType == "YN_ALERT_N")
+                                        objQuestion.commentType = CommentType.YN_ALERT_N;
+                                    else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_Y")
+                                        objQuestion.commentType = CommentType.YN_CHECKBOX_Y;
+                                    else if (excelQuestionnaire.CommentType == "YN_CHECKBOX_N")
+                                        objQuestion.commentType = CommentType.YN_CHECKBOX_N;
+                                    else if (excelQuestionnaire.CommentType == "XX_CHECKBOX_X")
+                                        objQuestion.commentType = CommentType.XX_CHECKBOX_X;
+                                    else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_Y")
+                                        objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_Y;
+                                    else if (excelQuestionnaire.CommentType == "YN_UPLOADEXPIRY_N")
+                                        objQuestion.commentType = CommentType.YN_UPLOADEXPIRY_N;
+                                    else if (excelQuestionnaire.CommentType == "XX_COMMENT_ALL")
+                                        objQuestion.commentType = CommentType.XX_COMMENT_ALL;
+                                    else if (excelQuestionnaire.CommentType == "YN_REFERENCE_Y")
+                                        objQuestion.commentType = CommentType.YN_REFERENCE_Y;
+                                    else if (excelQuestionnaire.CommentType == "YN_REFERENCE_N")
+                                        objQuestion.commentType = CommentType.YN_REFERENCE_N;
+                                    else if (excelQuestionnaire.CommentType == "YN_COLORPICKER_N")
+                                        objQuestion.commentType = CommentType.YN_COLORPICKER_N;
+                                    else if (excelQuestionnaire.CommentType == "YN_COLORPICKER_Y")
+                                        objQuestion.commentType = CommentType.YN_COLORPICKER_Y;
+                                    else if (excelQuestionnaire.CommentType == "COMMENTONLY")
+                                        objQuestion.commentType = CommentType.COMMENTONLY;
+                                    else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_N_"))
+                                    {
+                                        try
+                                        {
+                                            objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_N_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_N_".Length));
+                                        }
+                                        catch
+                                        {
+                                            throw new Exception("Wrong TEXT_NUMBER_N_ comment type value");
+                                        }
+                                    }
+                                    else if (!string.IsNullOrEmpty(excelQuestionnaire.CommentType) && excelQuestionnaire.CommentType.StartsWith("TEXT_NUMBER_Y_"))
+                                    {
+                                        try
+                                        {
+                                            objQuestion.commentType = int.Parse(CommentType.TEXT_NUMBER_Y_X.ToString() + excelQuestionnaire.CommentType.Substring("TEXT_NUMBER_Y_".Length));
+                                        }
+                                        catch
+                                        {
+                                            throw new Exception("Wrong TEXT_NUMBER_Y_ comment type value");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        objQuestion.commentType = 0;
                                     }
                                 }
                                 else
                                 {
                                     objQuestion.commentType = 0;
                                 }
-
                                 try
                                 {
                                     objQuestion.spinOffQuestionnaire = excelQuestionnaire.snipOffQuestionnaire == null ? string.Empty : excelQuestionnaire.snipOffQuestionnaire.Substring(0, 1);
