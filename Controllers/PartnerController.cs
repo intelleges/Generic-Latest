@@ -1261,10 +1261,17 @@ namespace Generic.Controllers
                             objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = person, enterprise = pptq.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, sendFrom: new System.Net.Mail.MailAddress(fromemail, person.FullName));
 
                         }
+                        var currentPerson = db.pr_getPerson(SessionSingleton.LoggedInUserId).FirstOrDefault();
+                        string email_person = currentPerson.email;
+                        int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
+                        var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
+                        var fromToEmail = $"{email_person} -> {pptq.partner1.email}";
+                        message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
+                        db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, string.Empty, "3", pptq.accesscode, protocolTouchpoint, "MVCMT", (int)PartnerStatus.Invited_NoResponse, amm.id, enterpriseid, loadGroup);
 
                     }
                 }
-
+              
                 message = "Invite Sent";
                 ViewBag.Message = "2";
             }
