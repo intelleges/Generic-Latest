@@ -1005,8 +1005,8 @@ namespace Generic.Controllers
             var protocolname = db.protocol.Where(x => x.id == protocol).Select(x => x.name).FirstOrDefault();
             if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
             {
-                string title = "Reps and Certs 2023";
-                string title1 = "2023 Reps & Certs";
+                string title = "Reps and Certs "+DateTime.Now.Year.ToString();
+                string title1 = DateTime.Now.Year.ToString()+" Reps & Certs";
                 touchpoint = db.touchpoint.Where(x => (x.title == title || x.title == title1) && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
             }
             #endregion
