@@ -67,25 +67,26 @@ namespace Generic.Controllers
 {
     [Authorize]
     [EnableCors(origins: "http://localhost:51090", headers: "*", methods: "*")]
-    public class PartnerController : Controller
+    public class PartnerController : BaseController
     {
         /// <summary>
         /// The Simple Authorizer
         /// </summary>
         readonly Generic.Helpers.EvernoteAuthorizer _evernoteAuthorizer = new Generic.Helpers.EvernoteAuthorizer(ConfigurationManager.AppSettings["Evernote.Url"], ConfigurationManager.AppSettings["Evernote.Key"], ConfigurationManager.AppSettings["Evernote.Secret"]);
         private EntitiesDBContext db = new EntitiesDBContext();
-
+        public PartnerController(ILoggingService logger) : base(logger) { }
         //
         // GET: /Partner/
         //1170	All	../Partner/index	1142	89	True	1	2
         public virtual ActionResult Index()
+
+
         {
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";";
             Session["partnersearch"] = arguments;
             var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
             ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
             return RedirectToAction("FindPartnerResult");
-
         }
         [HttpPost]
         public ActionResult SendTextMessage(int partnerId, string text)
@@ -93,10 +94,10 @@ namespace Generic.Controllers
             //var iPartner = db.pr_getIteratePartner(partnerId).FirstOrDefault();
             var iPerson = db.iteratePerson.FirstOrDefault(o => o.iteratePartner == partnerId);
             if (string.IsNullOrEmpty(text))
-                return Json(new { error = "Sms message text cannot be empty" });
+                return JsonError("Sms message text cannot be empty");
             if (iPerson != null)
             {
-                if (string.IsNullOrEmpty(iPerson.phone)) return Json(new { error = "Current partner's phone number is empty. Sms message wasn't sent" });
+                if (string.IsNullOrEmpty(iPerson.phone)) return JsonError("Current partner's phone number is empty. Sms message wasn't sent");
                 string accountSid = ConfigurationManager.AppSettings["accountSidTwilio"].ToString(); //account sid
                 string authToken = ConfigurationManager.AppSettings["authTokenTwilio"].ToString(); //auth token                
                 string phoneNumberFrom = "+19178180225";// dialer's phone and pass according to needs.
@@ -104,15 +105,15 @@ namespace Generic.Controllers
                 var client = new TwilioRestClient(accountSid, authToken);
                 var sms = client.SendSmsMessage(phoneNumberFrom, phoneNumberTo, text);
                 if (sms.RestException != null)
-                    return Json(new { error = sms.RestException.Message });
+                    return JsonError(sms.RestException.Message);
                 else return Json("Sms was sent");
             }
             else
-                return Json(new { error = "There is no a such partner in data base." });
+                return JsonError("There is no such partner in the database.");
             return Json(true);
         }
         [HttpPost]
-        public bool RemoveStockNumbers(string[] values, int partnerId)
+        public ActionResult RemoveStockNumbers(string[] values, int partnerId)
         {
             var result = false;
             try
@@ -127,13 +128,15 @@ namespace Generic.Controllers
                     result = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error removing stock numbers for partnerId: {partnerId}");
             }
-            return result;
+            return Json(result);
         }
+
         [HttpPost]
-        public bool RemoveStockNumber(int value, int partnerId)
+        public ActionResult RemoveStockNumber(int value, int partnerId)
         {
             var result = false;
             try
@@ -145,13 +148,18 @@ namespace Generic.Controllers
                     result = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error removing stock number {value} for partnerId: {partnerId}");
             }
-            return result;
+            return Json(result);
         }
+        /// <summary>
+        /// Resets a specific part number for a partner.
+        /// Uses centralized error handling.
+        /// </summary>
         [HttpPost]
-        public string ResetPartNumber(int partnerId, int partNumberId)
+        public ActionResult ResetPartNumber(int partnerId, int partNumberId)
         {
             var result = "";
             try
@@ -161,16 +169,21 @@ namespace Generic.Controllers
                 var resulrValues = db.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber(pptqId, partNumberId).FirstOrDefault();
                 if (resulrValues != null)
                     result = string.Format("Congratulations you have reset partnumber: {0} to status: {1} for site: {2}", resulrValues.partnumber, resulrValues.status, resulrValues.site);
-
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error resetting part number {partNumberId} for partnerId: {partnerId}");
             }
-            return result;
+            return Json(result);
         }
 
+
+        /// <summary>
+        /// Resets a specific part number using PPTQ ID.
+        /// Uses centralized error handling.
+        /// </summary>
         [HttpPost]
-        public string ResetPartNumberByPptq(int pptqId, int partNumberId, int questionnaireId)
+        public ActionResult ResetPartNumberByPptq(int pptqId, int partNumberId, int questionnaireId)
         {
             var result = "";
             try
@@ -179,16 +192,20 @@ namespace Generic.Controllers
                 var resulrValues = db.pr_getPartnumberSiteZcodePPTQByPPTQPartnumber(pptqId, partNumberId).FirstOrDefault();
                 if (resulrValues != null)
                     result = string.Format("Congratulations you have reset partnumber: {0} to status: {1} for site: {2}", resulrValues.partnumber, resulrValues.status, resulrValues.site);
-
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error resetting part number {partNumberId} for pptqId: {pptqId}");
             }
-            return result;
+            return Json(result);
         }
 
+        /// <summary>
+        /// Removes partner questionnaires based on provided values.
+        /// Uses centralized error handling.
+        /// </summary>
         [HttpPost]
-        public bool RemovePartnersQuestinnarie(string[] values)
+        public ActionResult RemovePartnersQuestinnarie(string[] values)
         {
             var result = false;
             try
@@ -200,12 +217,12 @@ namespace Generic.Controllers
                     result = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error removing partner questionnaires.");
             }
-            return result;
+            return Json(result);
         }
-
 
         public ActionResult ExportInternalDocs(string accessCode)
         {
@@ -239,6 +256,7 @@ namespace Generic.Controllers
             //We return the XML from the memory as a .xls file
             return File(stream, "application/vnd.ms-excel", "ExportExternalDocs.xls");
         }
+
 
         public ActionResult PartnerDocuments(string accessCode)
         {
@@ -300,6 +318,7 @@ namespace Generic.Controllers
             return View(result);
         }
 
+
         [GridAction]
         public ActionResult ShowDocs(string accessCode)
         {
@@ -341,34 +360,49 @@ namespace Generic.Controllers
             {
                 ViewBag.CoutryName = db.pr_getCountry(partner.country).FirstOrDefault().name;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                return HandleException(ex, $"Error retrieving country name for partner ID: {partner.id}");
+            }
 
             try
             {
                 ViewBag.StateName = db.pr_getState(partner.state).FirstOrDefault().name;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                return HandleException(ex, $"Error retrieving state name for partner ID: {partner.id}");
+            }
 
             try
             {
                 var owner = db.pr_getPerson(partner.owner).FirstOrDefault();
                 ViewBag.OwnerName = owner.firstName + " " + owner.lastName;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                return HandleException(ex, $"Error retrieving owner for partner ID: {partner.id}");
+            }
 
             try
             {
                 var author = db.pr_getPerson(partner.author).FirstOrDefault();
                 ViewBag.AuthorName = author.firstName + " " + author.lastName;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                return HandleException(ex, $"Error retrieving author for partner ID: {partner.id}");
+            }
+
             try
             {
                 PartnerStatus status = (PartnerStatus)partner.status;
-
                 ViewBag.StatusName = status;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                return HandleException(ex, $"Error converting partner status enum for partner ID: {partner.id}");
+            }
 
             string arguments = "enterprise=" + Generic.Helpers.CurrentInstance.EnterpriseID + ";partnerID=" + partner.id + ";";
             var values = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByPartner(partner.id).ToList();
@@ -381,8 +415,11 @@ namespace Generic.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(partner);
         }
+
+
 
         [AllowAnonymous]
 
@@ -443,6 +480,7 @@ namespace Generic.Controllers
             return View();
         }
 
+
         public ActionResult GetPartnerTypes(int id)
         {
             return Json(db.pr_getPartnertypeByTouchpoint(id).ToList(), JsonRequestBehavior.AllowGet);
@@ -464,9 +502,11 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                //throw ex;
+                HandleException(ex, $"Error retrieving email for loggedInUserId: {SessionSingleton.LoggedInUserId}");
             }
         }
+
+
         //
         // POST: /Partner/Create
 
@@ -604,11 +644,14 @@ namespace Generic.Controllers
             return Json(new { success = true });
         }
 
+
+
         [HttpPost]
         public ActionResult Create(partner partner, int? protocol, int? partnertype, int? touchpoint, int? group, DateTime? DueDate)
         {
             try
             {
+
                 List<Tuple<int, string>> uploadedpartners = new List<Tuple<int, string>>();
                 GenerateCreateDropDownLists();
 
@@ -639,7 +682,7 @@ namespace Generic.Controllers
                     ViewBag.searchType = "";
 
                     var isSystemMaster = db.pr_isSystemMaster(SessionSingleton.LoggedInUserId).FirstOrDefault();
-                    ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1; 
+                    ViewBag.IsSystemMaster = isSystemMaster.HasValue && isSystemMaster.Value == 1;
                     return View(partner);
                 }
 
@@ -689,8 +732,9 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Message = "error";
-                ViewBag.MessageDetail = ex.ToString();
+                return HandleException(ex, $"Error preparing view data for partner form.");
+                //ViewBag.Message = "error";
+                // ViewBag.MessageDetail = ex.ToString();
                 //  alertify-ok"
                 //ViewBag.state = new SelectList(db.state.ToList(), "id", "name", partner.state);
                 //ViewBag.country = new SelectList(db.country.ToList(), "id", "name", partner.country);
@@ -699,7 +743,7 @@ namespace Generic.Controllers
                 //ViewBag.group = new SelectList(db.pr_getGroupByPerson(SessionSingleton.LoggedInUserId).ToList(), "id", "name", group);
                 //ViewBag.owner = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname", partner.owner);
                 //ViewBag.author = new SelectList(db.pr_getPersonAll(Generic.Helpers.CurrentInstance.EnterpriseID).ToList(), "id", "firstname", partner.author);
-                return View(partner);
+                // return View(partner);
             }
 
         }
@@ -767,7 +811,9 @@ namespace Generic.Controllers
                 }
                 catch (Exception ex)
                 {
+                    return HandleException(ex, $"Error resetting PDF for questionnaire id: {quest?.id}");
                 }
+
                 return Json(new { success = true });
             }
 
@@ -1005,8 +1051,8 @@ namespace Generic.Controllers
             var protocolname = db.protocol.Where(x => x.id == protocol).Select(x => x.name).FirstOrDefault();
             if (protocolname != null && (protocolname == "Reps and Certs" || protocolname == "Certs and Reps"))
             {
-                string title = "Reps and Certs "+DateTime.Now.Year.ToString();
-                string title1 = DateTime.Now.Year.ToString()+" Reps & Certs";
+                string title = "Reps and Certs " + DateTime.Now.Year.ToString();
+                string title1 = DateTime.Now.Year.ToString() + " Reps & Certs";
                 touchpoint = db.touchpoint.Where(x => (x.title == title || x.title == title1) && x.protocol == protocol).Select(x => x.id).FirstOrDefault();
             }
             #endregion
@@ -1094,6 +1140,7 @@ namespace Generic.Controllers
                         }
                         catch (Exception ex)
                         {
+                            return HandleException(ex, $"Error occurred while importing partner data for: {partners?.name}, email: {partners?.email}");
                         }
 
                     }
@@ -1271,7 +1318,7 @@ namespace Generic.Controllers
 
                     }
                 }
-              
+
                 message = "Invite Sent";
                 ViewBag.Message = "2";
             }
@@ -1351,9 +1398,9 @@ namespace Generic.Controllers
                 active = i.active,
                 progress = i.progress,
                 CompletedAs = string.Empty,
-                invitedDate= i.invitedDate,
-                completedDate= i.completedDate,
-                LatestEventTimestamp= i.LatestEventTimestamp
+                invitedDate = i.invitedDate,
+                completedDate = i.completedDate,
+                LatestEventTimestamp = i.LatestEventTimestamp
             }).ToList();
             if (null != Session["Partner_Find_Touchpoint"])
             {
@@ -1692,9 +1739,11 @@ namespace Generic.Controllers
                 }
                 catch (Exception ex)
                 {
+
                     ErrorView objerrorView = new ErrorView();
                     objerrorView.errorMessage = "During proccessing record #" + recordNumber.ToString() + " was raised error " + ex.InnerException != null ? ex.Message + " " + ex.InnerException.Message : ex.Message;
-                    return PartialView("_Error", objerrorView);
+                    // return PartialView("_Error", objerrorView);
+                    return HandleException(ex, $"Error processing record #{recordNumber}");
                 }
             }
 
@@ -1765,13 +1814,19 @@ namespace Generic.Controllers
                 {
                     qId = db.pr_getPartnertypeTouchpointQuestionnaireByTouchpoint(SessionSingleton.Touchpoint).FirstOrDefault().questionnaire;
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    HandleException(ex, $"Error retrieving questionnaire ID for current touchpoint.");
+                }
                 int levelType = 1;
                 try
                 {
                     levelType = int.Parse(db.pr_getQuestionnaire(qId).FirstOrDefault().levelType.ToString());
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    HandleException(ex, $"Error retrieving levelType for questionnaire ID: " + qId);
+                }
                 if (levelType == Generic.Helpers.Questionnaire.LevelType.PARTNUMBER_LEVEL)
                 {
                     ExportToExcel(getpr_getResponsesByProtocolTouchpointGroupPartnertypePartnumberByTouchpoint(SessionSingleton.Touchpoint));
@@ -2103,7 +2158,10 @@ namespace Generic.Controllers
                             {
                                 checkEventNotification = db.pr_eventNotificationCheck(accesscode).FirstOrDefault().Value;
                             }
-                            catch { }
+                            catch (Exception ex)
+                            {
+                                return HandleException(ex, $"Error checking event notification for access code: " + accesscode);
+                            }
 
                             if (checkEventNotification == 0)
                             {
@@ -2120,10 +2178,12 @@ namespace Generic.Controllers
                         }
                         index++;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        return HandleException(ex, $"Invalid email format encountered.");
                         //Wrong format email
                     }
+
 
                 }
                 ViewBag.searchType = "Invite";
@@ -2144,8 +2204,8 @@ namespace Generic.Controllers
             return View("RemovePartner", objPartnerViewModelList);
 
         }
-       // [HttpPost]
-        public ActionResult UnArchiveAndOverride(int id, int? touchpoint, int? group,  int? partnertype, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind,  string txtZipCodeFind, string txtAddress1, string txtAddress2
+        // [HttpPost]
+        public ActionResult UnArchiveAndOverride(int id, int? touchpoint, int? group, int? partnertype, string txtInternalIdFind, string txtDunsNumberFind, string txtNameFind, string txtFederalIdFind, string txtContactEmailFind, string txtZipCodeFind, string txtAddress1, string txtAddress2
             , string txtCity, int? txtState, string txtprovince, int? txtCountry, string txtPhone, string txtFax, string txtFirstName, string txtLastName, string txtTitle, int? txtOwner, string txtDueDate)
         {
             db.pr_unArchivePartner(id, SessionSingleton.LoggedInUserId);
@@ -2448,16 +2508,17 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                var string_with_your_data = ex.Message.ToString();
+                return HandleException(ex, $"Unhandled exception occurred. Returning exception as a file.");
+                //var string_with_your_data = ex.Message.ToString();
 
-                var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
-                var stream = new MemoryStream(byteArray);
+                //var byteArray = Encoding.ASCII.GetBytes(string_with_your_data);
+                //var stream = new MemoryStream(byteArray);
 
-                return File(stream, "text/plain", "exception.txt");
-                //throw new Exception(ex.Message, ex.InnerException);
-                if (!Response.IsRequestBeingRedirected)
-                    return RedirectToAction("FindPartner");
-                else return Json("false");
+                //return File(stream, "text/plain", "exception.txt");
+                ////throw new Exception(ex.Message, ex.InnerException);
+                //if (!Response.IsRequestBeingRedirected)
+                //    return RedirectToAction("FindPartner");
+                //else return Json("false");
             }
 
             //List<view_PartnerData> abc = (List<view_PartnerData>)TempData["partner"];
@@ -3002,7 +3063,7 @@ namespace Generic.Controllers
             return View("ConfirmPartner");
         }
 
-        public JsonResult ConfirmPartnerRecords(string inputList)
+        public ActionResult ConfirmPartnerRecords(string inputList)
         {
             var inputParam = GetInputListParameterForPerformSelectedActions(inputList);
 
@@ -3013,9 +3074,10 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(-1, JsonRequestBehavior.AllowGet);
+                return HandleException(ex, $"Error performing selected actions.");
             }
         }
+
 
         private string GetInputListParameterForPerformSelectedActions(string inputList)
         {
@@ -3281,7 +3343,7 @@ namespace Generic.Controllers
                 int enterpriseid = Generic.Helpers.CurrentInstance.EnterpriseID;
                 var protocolTouchpoint = pptq.partnerTypeTouchpointQuestionnaire1?.touchpoint1?.description ?? string.Empty;
                 var fromToEmail = $"{email} -> {pptq.partner1.email}";
-                 message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
+                message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") sent";
                 db.pr_addEventNotification(fromToEmail, DateTime.Now, string.Empty, string.Empty, string.Empty, "13", pptq.accesscode, protocolTouchpoint, "MVCMT", statusId/* (int)Reminders.InviteRemind*/, autoMailId, enterpriseid, em.loadgroup);
             }
             return Json(new { success = true, message });
@@ -3331,7 +3393,8 @@ namespace Generic.Controllers
             //if (staff != null && staff.emailFooter != null) text += staff.emailFooter;
 
 
-            return Json(error);
+            return JsonError(error);
+
         }
 
         [HttpPost, ValidateInput(false)]
@@ -3397,7 +3460,8 @@ namespace Generic.Controllers
             }
             catch (Exception exp)
             {
-                message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") NOT SENT!";
+                return HandleException(exp, $"Error sending email to partner: " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ")");
+                //message = "Email for " + pptq.partner1.firstName + " " + pptq.partner1.lastName + " (" + pptq.partner1.email + ") NOT SENT!";
             }
 
             return Json(new { message = message });
@@ -3540,12 +3604,11 @@ namespace Generic.Controllers
         }
 
         [HttpPost]
-        public string Invite(int pptqId)
+        public ActionResult Invite(int pptqId)
         {
             var result = "";
             try
             {
-
                 if (pptqId != 0)
                 {
                     var pptq = db.partnerPartnertypeTouchpointQuestionnaire.Where(x => x.id == pptqId).FirstOrDefault();
@@ -3563,7 +3626,6 @@ namespace Generic.Controllers
 
                         var amm = db.pr_getAutoMailmessageByMailtypeandPTQ(autoMailTypes.Invitation, pptq.partnerTypeTouchpointQuestionnaire).FirstOrDefault();
 
-
                         Email email = new Email(amm);
                         EmailFormat emailFormat = new EmailFormat();
                         email.body = emailFormat.sGetEmailBody(email.body, person, objpartner, objtouchpoint, pptq.partnerTypeTouchpointQuestionnaire);
@@ -3580,14 +3642,13 @@ namespace Generic.Controllers
 
                         result = "Invite Sent!";
                     }
-
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                result = "Error Occurred while sending invite";
+                return HandleException(ex, $"Error occurred while sending invite.");
             }
-            return result;
+            return Json(result);
         }
 
 
@@ -3747,7 +3808,10 @@ namespace Generic.Controllers
                     return View(result);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                return HandleException(ex, $"Error loading rail data for the logged-in user.");
+            }
             return RedirectToAction("Home", "Admin");
         }
         public ActionResult RailReportExel()
@@ -4541,6 +4605,7 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
+                HandleException(ex, $"Error updating Evernote note with ID: " + noteId);
                 return null;
             }
         }
@@ -4574,7 +4639,7 @@ namespace Generic.Controllers
                 }
                 catch (Exception ex)
                 {
-
+                    HandleException(ex, $"Error executing Gmail message list request.");
                 }
             } while (!String.IsNullOrEmpty(listRequest.PageToken));
             Stack<string> futureNotes = new Stack<string>();
@@ -4609,7 +4674,7 @@ namespace Generic.Controllers
                 }
                 catch (Exception ex)
                 {
-
+                    HandleException(ex, $"Error processing Gmail message ID: " + message?.Id);
                 }
             }
             foreach (var note in futureNotes)
@@ -4987,7 +5052,8 @@ namespace Generic.Controllers
                             }
                             catch (Exception ex)
                             {
-                                return Content(ex.Message);
+                                return HandleException(ex, $"Error importing partner: " + newPartnerItem.PARTNER_NAME + " (" + newPartnerItem.PARTNER_POC_EMAIL_ADDRESS + ")");
+                                //return Content(ex.Message);
                             }
                             confirmPartnerCount++;
                         }
@@ -5019,7 +5085,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return HandleException(ex, $"Error uploading Stuff script for user ID: " + SessionSingleton.LoggedInUserId);
+                //return Content(ex.Message);
             }
         }
 
@@ -5060,7 +5127,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new GridModel());
+                return HandleException(ex, $"Error loading iterate partners from Ajax request.");
+                //return Json(new GridModel());
             }
         }
 
@@ -5109,7 +5177,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return File("There are some errors", "application/vnd.ms-excel", "IteratePartners.xls");
+                return HandleException(ex, $"Error generating IteratePartners Excel file.");
+                //return File("There are some errors", "application/vnd.ms-excel", "IteratePartners.xls");
                 //return Json(new GridModel());
             }
         }
@@ -5141,8 +5210,9 @@ namespace Generic.Controllers
                 db.pr_clearIterateAll(SessionSingleton.LoggedInUserId);
                 result = true;
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error clearing iterate data for user ID: " + SessionSingleton.LoggedInUserId);
             }
             return Json(result);
         }
@@ -5304,8 +5374,9 @@ namespace Generic.Controllers
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                return HandleException(ex, $"Error updating iterate partner and person with ID: " + partnerid);
             }
             return Json(false);
         }
@@ -5465,7 +5536,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message });
+                return HandleException(ex, $"Error modifying partner for PPTQ ID: " + pptq);
+                //return Json(new { error = ex.Message });
             }
             return Json("done");
         }
@@ -5516,7 +5588,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message });
+                return HandleException(ex, $"Error sending test iterate partner email for partner ID: " + partnerId);
+                //return Json(new { error = ex.Message });
             }
             return Json("done");
         }
@@ -5702,7 +5775,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.Message });
+                return HandleException(ex, $"Error sending email and updating contact status for partner ID: " + partnerId);
+                // return Json(new { error = ex.Message });
             }
             return Json("done");
         }
@@ -5781,7 +5855,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
+                return HandleException(ex, $"Error creating and inviting iterate partner (PartnerID: " + partnerId + ", PersonID: " + personId + ")");
+                //return Json(ex.Message);
             }
             return Json("Can't relate partner");
         }
@@ -5818,7 +5893,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json("Error:" + ex.Message);
+                return HandleException(ex, $"Error duplicating iterate partner with ID: " + partnerId);
+                // return Json("Error:" + ex.Message);
             }
         }
 
@@ -5831,7 +5907,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(false);
+                return HandleException(ex, $"Error retrieving daily call count for user ID: " + SessionSingleton.LoggedInUserId);
+                //return Json(false);
             }
         }
         public ActionResult GetPersonStuffScript()
@@ -5844,9 +5921,9 @@ namespace Generic.Controllers
                     return File(data, "application/pdf");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                return HandleException(ex, $"Error retrieving Stuff script PDF for user ID: " + SessionSingleton.LoggedInUserId);
             }
             return Redirect(Url.Action("Iterate", "Partner"));
         }
@@ -5917,7 +5994,7 @@ namespace Generic.Controllers
                     var pptq = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).FirstOrDefault();
                     if (pptq != null)
                         Invite(pptq.partner, ptq.id);
-                    else return Json(new { error = "DB error during partner creation" });
+                    else return JsonError("DB error during partner creation");
                     //Create(new partner() { 
                     //    active=true,
                     //    address1 = iPartner.address1,
@@ -5941,11 +6018,12 @@ namespace Generic.Controllers
                     return Json(true);
                 }
                 else
-                    return Json(new { error = "There is no a such iterate partner in DB. Please connect to your administrator." });
+                    return JsonError("There is no a such iterate partner in DB. Please connect to your administrator.");
             }
             catch (Exception ex)
             {
-                return Json(new { error = ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message });
+                return HandleException(ex, $"Error creating partner from iterate partner ID: " + iPartnerId);
+                //return JsonError(ex.InnerException != null ? ex.Message + "; " + ex.InnerException.Message : ex.Message);
             }
         }
 
@@ -6030,7 +6108,7 @@ namespace Generic.Controllers
                 //}
             }
             else
-                return Json(new { error = "There is no a such a person" });
+                return JsonError("There is no a such a person");
         }
         public ActionResult DownloadDashboard(int? id, int? groupid)
         {
@@ -6355,7 +6433,7 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = false });
+                return HandleException(ex, $"Error retrieving automail message with ID: " + automailMessageId);
             }
         }
         [HttpPost]
@@ -6402,7 +6480,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = false });
+                return HandleException(ex, $"Error generating automail suggestions for subject: " + autoMailSubject);
+                //return Json(new { Status = false });
             }
         }
 
@@ -6422,7 +6501,8 @@ namespace Generic.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = false });
+                return HandleException(ex, $"Error modifying automail message with ID: " + automailMessageId);
+                //return Json(new { Status = false });
             }
         }
         [HttpPost]

@@ -342,29 +342,31 @@
                 </div>
                 @if (!Request.Url.ToString().Trim().ToLower().Contains("dashbord1") && !Request.Url.ToString().Trim().ToLower().Contains("dashboard2_1") && (ViewBag.IsHomePage != null))
                       {
-                    <div class="col-md-3" style="padding: 0px !important; width: 23% !important;">
-                        @{
-                                  var touchpointss = ViewBag.TouchPoints as IEnumerable<SelectListItem>;
-                                  string selectedToucId = "0";
-                                  if (touchpointss != null && touchpointss.Any(o => o.Selected))
-                                  {
-                                      selectedToucId = touchpointss.FirstOrDefault(o => o.Selected).Value;
-                                  }
-                        }
-                        @if (touchpointss != null)
-                              {
-                                  using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
-                                  {
-                                @Html.DropDownList("maintouchpoint", (IEnumerable<SelectListItem>)touchpointss, "Select Touchpoint", new { @class = "select", onchange = "Update_Dashboard_Values()", @height = "25px" })
-                                  }
-                              }
-                              else
-                              {
-                            <select id="maintouchpoint" name="Touchpoint">
-                                <option value="">Select Touchpoint</option>
-                            </select>
-                              }
-                    </div>
+            <div class="col-md-3" style="padding: 0px !important; width: 23% !important;">
+                @{
+                    var touchpointss = (ViewBag.TouchPoints as IEnumerable<SelectListItem>).ToList();
+                    string selectedToucId = "0";
+
+                    var selectedItem = touchpointss.FirstOrDefault(o => o.Selected);
+                    if (selectedItem != null)
+                    {
+                        selectedToucId = selectedItem.Value;
+                    }
+                }
+                @if (touchpointss != null)
+                      {
+                          using (Html.BeginForm("Home", "Admin", System.Web.Mvc.FormMethod.Post))
+                          {
+                        @Html.DropDownList("maintouchpoint", touchpointss, "Select Touchpoint", new { @class = "select", onchange = "Update_Dashboard_Values()", @height = "25px" })
+                          }
+                      }
+                      else
+                      {
+                    <select id="maintouchpoint" name="Touchpoint">
+                        <option value="">Select Touchpoint</option>
+                    </select>
+                      }
+            </div>
                     <div class="col-md-2" style=" margin-left: -19px;">
                         @{
                                   var groupss = ViewBag.Groups as IEnumerable<SelectListItem>;

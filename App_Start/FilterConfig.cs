@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using Generic.Filters;
+using Generic.Helpers;
+using System.Web;
 using System.Web.Mvc;
 
 
@@ -8,8 +10,9 @@ namespace Generic
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            //filters.Add(new HandleErrorAttribute());
-            //filters.Add(new AuthorizeAttribute());
+            var logger = DependencyResolver.Current.GetService<ILoggingService>();
+            filters.Add(new CustomHandleErrorAttribute(logger));
+
         }
     }
 }

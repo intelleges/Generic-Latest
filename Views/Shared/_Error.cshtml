@@ -1,8 +1,33 @@
-﻿@inherits System.Web.Mvc.WebViewPage<Generic.ViewModel.ErrorView>
-<table>
-    <tr>
-        <td>
-            <h3>@Model.errorMessage</h3>
-        </td>
-    </tr>
-</table>
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{ ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="error-container">
+    <h1>Oops! Something went wrong.</h1>
+
+    <div class="error-details">
+        @if (HttpContext.Current.IsDebuggingEnabled)
+        {
+<h2>Error Details:</h2>
+                <p><strong>Controller:</strong> @Model.ControllerName</p>
+                <p><strong>Action:</strong> @Model.ActionName</p>
+                <p><strong>Exception:</strong> @Model.Exception.Message</p>
+                <p><strong>Stack Trace:</strong></p>
+                <pre>@Model.Exception.StackTrace</pre> 
+         }
+         else
+         {
+         <p>An error occurred while processing your request. Our technical team has been notified.</p>
+         <p>Please try again later or contact support if the problem persists.</p>}
+    </div>
+
+    <div class="error-actions">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+            <i class="icon-home"></i> Return to Home Page
+        </a>
+        <a href="mailto:support@yourcompany.com" class="btn btn-default">
+            <i class="icon-envelope"></i> Contact Support
+        </a>
+    </div>
+</div>

@@ -2,9 +2,11 @@
 using Generic.Helpers;
 using Google.Apis.Services;
 using Microsoft.Net.Http.Headers;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -14,6 +16,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
 
 namespace Generic
 {
@@ -31,16 +34,41 @@ namespace Generic
             //container.EnablePerWebRequestScope();
             //container.EnableMvc();
 
+            // Configure Serilog
+            try
+            {
+                Log.Logger = new LoggerConfiguration()
+                    .ReadFrom.AppSettings()
+                    .Enrich.WithMachineName()
+                    .Enrich.WithThreadId()
+                    .WriteTo.Console()
+                    .WriteTo.File(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs\\log-.txt"),
+                        rollingInterval: RollingInterval.Day,
+                        retainedFileCountLimit: 31)
+                    .WriteTo.MSSqlServer(
+                        connectionString: ConfigurationManager.ConnectionStrings["SerilogConnection"].ConnectionString,
+                        tableName: "Logs",
+                        autoCreateSqlTable: true)
+                    .CreateLogger();
+
+                Log.Information("Application starting up");
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
             Helpers.CurrentInstance.IsGeneric = 1;
             AreaRegistration.RegisterAllAreas();
-           // ControllerBuilder.Current.DefaultNamespaces.Add("Sustainsys.Saml2.Mvc.Controllers");
+            // ControllerBuilder.Current.DefaultNamespaces.Add("Sustainsys.Saml2.Mvc.Controllers");
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-			GlobalConfiguration.Configuration.EnsureInitialized();
+            GlobalConfiguration.Configuration.EnsureInitialized();
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
-            
+
         }
         protected void ApplicationBeginrequest(object sender, ErrorMailEventArgs e)
         {
@@ -68,12 +96,17 @@ namespace Generic
 
         protected void ErrorLog_Logged(object sender, ErrorLoggedEventArgs args)
         {
-            args.Entry.Error.Exception.Data.Add("IncidentId", args.Entry.Id);           
+            args.Entry.Error.Exception.Data.Add("IncidentId", args.Entry.Id);
             HttpContext.Current.Cache.Insert("IncidentId", args.Entry.Id, null, DateTime.Now.AddMinutes(10d), Cache.NoSlidingExpiration);
         }
         protected void ErrorMail_Mailing(object sender, ErrorMailEventArgs e)
         {
             e.Mail.Subject = e.Error.Exception.Data["IncidentId"].ToString();
+        }
+        protected void Application_End()
+        {
+            Log.Information("Application shutting down");
+            Log.CloseAndFlush();
         }
     }
 }
