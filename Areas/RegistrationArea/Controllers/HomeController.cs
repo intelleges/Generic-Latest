@@ -3729,6 +3729,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
 
                 var person = db.pr_getPersonByEmail(CurrentInstance.EnterpriseID, User.Identity.Name).FirstOrDefault();
                 partner objPartner = db.pr_getPartner((int)Session["partner"]).FirstOrDefault();
+
                 enterprise _enterprise = db.pr_getEnterprise(Generic.Helpers.CurrentInstance.EnterpriseID).FirstOrDefault();
 
                 var result1 = db.pr_checkForInvalidZcode(ppptq_cms.id, ppptq_cms.zcode);
@@ -6327,7 +6328,25 @@ Intelleges Team";
                     var result = db.pr_getResponseByQuestion(item.question).AsEnumerable().Select(s => s.description.Split("|").ToArray()).ToList();
                     var selectedComments = item.comment.Split(",");
                     var selectedresponse = result.Where(w => selectedComments.Contains(w.Last()) == true).Select(s => s[0]).ToList();
-                    model.comments = selectedresponse;
+                    if (selectedresponse!=null && selectedresponse.Count>0)
+                    {
+                        List<string> selected = new List<string>();
+                        foreach (var itemselected in selectedresponse)
+                        {
+                            selected.Add(Regex.Replace(itemselected, @"\([A-Z]{2,4}\)", ""));
+                        }
+                        model.comments = selected;
+                    }
+                    else
+                    {
+                        List<string> selected = new List<string>();
+                        foreach (var itemselected in selectedComments)
+                        {
+                            selected.Add(Regex.Replace(itemselected, @"\([A-Z]{2,4}\)", ""));
+                        }
+                        model.comments = selected.ToList();
+                    }
+                   
                     match = reg.Match(item.comment);
                     if (match.Success)
                     {
@@ -6348,8 +6367,8 @@ Intelleges Team";
                     if (item.response != null)
                     {
                         model.response = db.response.Where(x => x.id == item.response).Select(x => x.description).FirstOrDefault();
-                        
-                            match = reg.Match(model.response);
+                        model.response= Regex.Replace(model.response, @"\([A-Z]{2,4}\)", "");
+                        match = reg.Match(model.response);
                             if (match.Success)
                             {
                                 notAddtoPDF = true;
