@@ -123,13 +123,16 @@ namespace Generic.Helpers
         {
             Regex reg = new Regex("\\([A-Z][A-Z]\\)");
             var match = reg.Match(text);
-            if (match.Success)
-            {
-                text = text.Replace(match.Value, "<span class=\"notranslate\">"+match.Value+"</span>");
-            }
+            //if (match.Success)
+            //{
+            //    text = text.Replace(match.Value, "<span class=\"notranslate\">"+match.Value+"</span>");
+                
+            //}
             //usleep(rand(1000000, 2000000));
             var response = _gService.Translations.List(text, lang).Execute();
             return response.Translations.FirstOrDefault().TranslatedText;
+            //translated = HttpUtility.HtmlDecode(translated);
+            //return translated;
         }
 
 
