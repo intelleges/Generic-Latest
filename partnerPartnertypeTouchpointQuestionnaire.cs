@@ -22,6 +22,7 @@ namespace Generic
             this.automailMessagePPTQ = new HashSet<automailMessagePPTQ>();
             this.pptqAutoMailMessageLog = new HashSet<pptqAutoMailMessageLog>();
             this.partnerPartnertypeTouchpointQuestionnaireQuestionResponse = new HashSet<partnerPartnertypeTouchpointQuestionnaireQuestionResponse>();
+            this.HricRegistrations = new HashSet<HricRegistration>();
         }
     
         public int id { get; set; }
@@ -55,5 +56,7 @@ namespace Generic
         public virtual ICollection<pptqAutoMailMessageLog> pptqAutoMailMessageLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<partnerPartnertypeTouchpointQuestionnaireQuestionResponse> partnerPartnertypeTouchpointQuestionnaireQuestionResponse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HricRegistration> HricRegistrations { get; set; }
     }
 }

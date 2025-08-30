@@ -305,6 +305,8 @@ namespace Generic
         public virtual DbSet<questionnaireClause> questionnaireClause { get; set; }
         public virtual DbSet<PartnerArchiveLog> PartnerArchiveLogs { get; set; }
         public virtual DbSet<view_PartnerData2> view_PartnerData2 { get; set; }
+        public virtual DbSet<HricRegistration> HricRegistrations { get; set; }
+        public virtual DbSet<HricRegistrationEvent> HricRegistrationEvents { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> pr_addAgency(string description, Nullable<int> sortOrder, Nullable<bool> active, Nullable<int> enterprise)
         {
@@ -31743,6 +31745,119 @@ namespace Generic
                 new ObjectParameter("active", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pr_getReminderBatch_1_Result>("pr_getReminderBatch_1", enterpriseParameter, touchpointParameter, partnertypeParameter, statusidParameter, activeParameter);
+        }
+    
+        public virtual ObjectResult<sp_HricRegistration_GetStatus_Result> sp_HricRegistration_GetStatus(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_HricRegistration_GetStatus_Result>("sp_HricRegistration_GetStatus", emailParameter);
+        }
+    
+        public virtual int sp_HricRegistration_Initiate(Nullable<int> pptq, string email, string country, string tier, string idempotencyKey, string source, string redirectBaseUrl, string locale, Nullable<int> linkTtlMinutes, ObjectParameter outid, ObjectParameter outLink, ObjectParameter outStatus, ObjectParameter outExpiresAtUtc)
+        {
+            var pptqParameter = pptq.HasValue ?
+                new ObjectParameter("pptq", pptq) :
+                new ObjectParameter("pptq", typeof(int));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var countryParameter = country != null ?
+                new ObjectParameter("Country", country) :
+                new ObjectParameter("Country", typeof(string));
+    
+            var tierParameter = tier != null ?
+                new ObjectParameter("Tier", tier) :
+                new ObjectParameter("Tier", typeof(string));
+    
+            var idempotencyKeyParameter = idempotencyKey != null ?
+                new ObjectParameter("IdempotencyKey", idempotencyKey) :
+                new ObjectParameter("IdempotencyKey", typeof(string));
+    
+            var sourceParameter = source != null ?
+                new ObjectParameter("Source", source) :
+                new ObjectParameter("Source", typeof(string));
+    
+            var redirectBaseUrlParameter = redirectBaseUrl != null ?
+                new ObjectParameter("RedirectBaseUrl", redirectBaseUrl) :
+                new ObjectParameter("RedirectBaseUrl", typeof(string));
+    
+            var localeParameter = locale != null ?
+                new ObjectParameter("Locale", locale) :
+                new ObjectParameter("Locale", typeof(string));
+    
+            var linkTtlMinutesParameter = linkTtlMinutes.HasValue ?
+                new ObjectParameter("LinkTtlMinutes", linkTtlMinutes) :
+                new ObjectParameter("LinkTtlMinutes", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HricRegistration_Initiate", pptqParameter, emailParameter, countryParameter, tierParameter, idempotencyKeyParameter, sourceParameter, redirectBaseUrlParameter, localeParameter, linkTtlMinutesParameter, outid, outLink, outStatus, outExpiresAtUtc);
+        }
+    
+        public virtual int sp_HricRegistration_RegenerateLink(Nullable<int> id, string redirectBaseUrl, Nullable<int> linkTtlMinutes, ObjectParameter outLink, ObjectParameter outExpiresAtUtc)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var redirectBaseUrlParameter = redirectBaseUrl != null ?
+                new ObjectParameter("RedirectBaseUrl", redirectBaseUrl) :
+                new ObjectParameter("RedirectBaseUrl", typeof(string));
+    
+            var linkTtlMinutesParameter = linkTtlMinutes.HasValue ?
+                new ObjectParameter("LinkTtlMinutes", linkTtlMinutes) :
+                new ObjectParameter("LinkTtlMinutes", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HricRegistration_RegenerateLink", idParameter, redirectBaseUrlParameter, linkTtlMinutesParameter, outLink, outExpiresAtUtc);
+        }
+    
+        public virtual ObjectResult<sp_HricRegistration_SetStatus_Result> sp_HricRegistration_SetStatus(Nullable<int> id, string status, string questionnaireLink, Nullable<System.DateTime> linkExpiresAtUtc)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var questionnaireLinkParameter = questionnaireLink != null ?
+                new ObjectParameter("QuestionnaireLink", questionnaireLink) :
+                new ObjectParameter("QuestionnaireLink", typeof(string));
+    
+            var linkExpiresAtUtcParameter = linkExpiresAtUtc.HasValue ?
+                new ObjectParameter("LinkExpiresAtUtc", linkExpiresAtUtc) :
+                new ObjectParameter("LinkExpiresAtUtc", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_HricRegistration_SetStatus_Result>("sp_HricRegistration_SetStatus", idParameter, statusParameter, questionnaireLinkParameter, linkExpiresAtUtcParameter);
+        }
+    
+        public virtual int sp_HricRegistration_UpsertEvent(Nullable<int> hricRegistration_id, string type, Nullable<System.DateTime> occurredAtUtc, string payloadJson, string eventExternalId)
+        {
+            var hricRegistration_idParameter = hricRegistration_id.HasValue ?
+                new ObjectParameter("HricRegistration_id", hricRegistration_id) :
+                new ObjectParameter("HricRegistration_id", typeof(int));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(string));
+    
+            var occurredAtUtcParameter = occurredAtUtc.HasValue ?
+                new ObjectParameter("OccurredAtUtc", occurredAtUtc) :
+                new ObjectParameter("OccurredAtUtc", typeof(System.DateTime));
+    
+            var payloadJsonParameter = payloadJson != null ?
+                new ObjectParameter("PayloadJson", payloadJson) :
+                new ObjectParameter("PayloadJson", typeof(string));
+    
+            var eventExternalIdParameter = eventExternalId != null ?
+                new ObjectParameter("EventExternalId", eventExternalId) :
+                new ObjectParameter("EventExternalId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_HricRegistration_UpsertEvent", hricRegistration_idParameter, typeParameter, occurredAtUtcParameter, payloadJsonParameter, eventExternalIdParameter);
         }
     }
 }

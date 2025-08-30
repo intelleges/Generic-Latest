@@ -890,6 +890,7 @@
     <Compile Include="Controllers\GigfestController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\hric\RegistrationController.cs" />
     <Compile Include="Controllers\IvrController .cs" />
     <Compile Include="Controllers\jsTree3Controller.cs" />
     <Compile Include="Controllers\AMLMMController.cs" />
@@ -1070,6 +1071,12 @@
     <Compile Include="holiday.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="HricRegistration.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HricRegistrationEvent.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="hs3Menu_deprecated.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
@@ -1227,6 +1234,7 @@
     <Compile Include="Models\FindPODSViewModel.cs" />
     <Compile Include="Models\FRPJModel.cs" />
     <Compile Include="Models\AMLMMModel.cs" />
+    <Compile Include="Models\HRICModel.cs" />
     <Compile Include="Models\LCEModel.cs" />
     <Compile Include="Models\LnResult.cs" />
     <Compile Include="Models\NotificationsModels.cs" />
@@ -3854,6 +3862,12 @@
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_HricRegistration_GetStatus_Result.cs">
+      <DependentUpon>Hs3Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_HricRegistration_SetStatus_Result.cs">
       <DependentUpon>Hs3Model.tt</DependentUpon>
     </Compile>
     <Compile Include="state.cs">
