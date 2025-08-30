@@ -11,15 +11,17 @@
 <html>
 <head>
     <title>@ViewBag.QuestionnaireTitle</title>
-   <style type="text/css">
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
         body {
-           color: #000;
+            color: #000;
         }
-       .question-text {
-           max-width: 900px; /* Adjust as needed */
-           overflow: auto;
-           word-wrap: break-word;
-       }
+
+        .question-text {
+            max-width: 900px; /* Adjust as needed */
+            overflow: auto;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
@@ -84,21 +86,21 @@
                         @foreach (var item in data)
                         {
                             i = i + 1;
-                            <p class="question-text">
-                                <b>@i.ToString()</b><b>.</b> &nbsp;
-                                @if (item.isCheckBox)
+                        <p class="question-text">
+                            <b>@i.ToString()</b><b>.</b> &nbsp;
+                            @if (item.isCheckBox)
+                            {
+                                if (item.response == "Yes")
                                 {
-                                    if (item.response == "Yes")
-                                    {
-                                        <input type="checkbox" checked="checked" id="chk_@i.ToString()" />
-                                    }
-                                    else
-                                    {
-                                        <span> &#x2610;</span>
-                                    }
+                                    <input type="checkbox" checked="checked" id="chk_@i.ToString()" />
                                 }
-                                @item.Question
-                            </p>
+                                else
+                                {
+                                    <span> &#x2610;</span>
+                                }
+                            }
+                            @Html.Raw(@item.Question)
+                        </p>
                             <p >
                                 @if (!item.isCheckBox)
                                 {
