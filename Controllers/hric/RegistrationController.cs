@@ -79,8 +79,9 @@ namespace Generic.Controllers
                     string loadGroup = db.pr_getAccesscode().FirstOrDefault();
                     int? enterprise = db.protocol.Where(x => x.id == objtouchpoint.protocol).Select(x => x.enterprise).FirstOrDefault();
                     int? group = db.pptqGroup.Where(x => x.pptq == model.Pptq).Select(x => x.group).FirstOrDefault();
+                    string emial= "john@intelleges.com";
                     int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(internalID, "", "12345", "FirstName LastName", "address 1 - test", "address 2 - test", "city -test", "Alaska", "123456", "United States", "FirstName -Test", "LastName -Test",
-                        "Compliance manager", "1234567890", model.Email, "", "", "", DateTime.Now, enterprise, partnerType.id, touchpoint, db.pr_getPersonByEmail(enterprise, User.Identity.Name).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.UtcNow, group).ToList().FirstOrDefault();
+                        "Compliance manager", "1234567890", model.Email, "", "", "", DateTime.Now, enterprise, partnerType.id, touchpoint, db.pr_getPersonByEmail(enterprise, emial).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.UtcNow, group).ToList().FirstOrDefault();
                     var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
                     int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType.id, touchpoint).LastOrDefault().id;
                     foreach (var partnerItem in objPartners)
@@ -94,7 +95,7 @@ namespace Generic.Controllers
                     if (pptqdetail_updated != null)
                     {
                         pptqdetail_updated.invitedDate = DateTime.Now;
-                        var person = db.pr_getPersonByEmail(enterprise, User.Identity.Name).FirstOrDefault();
+                        var person = db.pr_getPersonByEmail(enterprise, emial).FirstOrDefault();
                         pptqdetail_updated.invitedBy = person.id;
                         pptqdetail_updated.status = (int)PartnerStatus.Invited_NoResponse;
                         db.Entry(pptqdetail_updated).State = EntityState.Modified;
