@@ -147,7 +147,7 @@ namespace Generic.Controllers
                     result.email = model.Email;
                     result.ExpiresAtUtc = Convert.ToDateTime(outExpires.Value);
                     result.product_tier = model.Tier;
-                    result.questionnaire_link = Convert.ToString(outLink.Value);
+                    result.questionnaire_link = "https://login.intelleges.com/Registration?accessCode=" + accesscode;
                     result.registration_id = Convert.ToString(outId.Value);
                     result.status = "QUESTIONNAIRE_LINK_ISSUED";
 
