@@ -80,17 +80,29 @@ namespace Generic.Controllers
                     int? enterprise = db.protocol.Where(x => x.id == objtouchpoint.protocol).Select(x => x.enterprise).FirstOrDefault();
                     int? group = db.pptqGroup.Where(x => x.pptq == model.Pptq).Select(x => x.group).FirstOrDefault();
                     string emial= "john@intelleges.com";
-                    int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(internalID, "", "12345", "FirstName LastName", "address 1 - test", "address 2 - test", "city -test", "Alaska", "123456", "United States", "FirstName -Test", "LastName -Test",
-                        "Compliance manager", "1234567890", model.Email, "", "", "", DateTime.Now, enterprise, partnerType.id, touchpoint, db.pr_getPersonByEmail(enterprise, emial).FirstOrDefault().id, (int)PartnerStatus.Loaded, loadGroup, DateTime.UtcNow, group).ToList().FirstOrDefault();
+                    int? PartnerId = (int)db.pr_addPartnerSpreadsheetDataLoad(internalID, "", "12345", "FirstName LastName", "address 1 - test", "address 2 - test", "city -test", "1", "123456", "2", "FirstName -Test", "LastName -Test",
+                        "Compliance manager", "1234567890", model.Email, "", "", "", DateTime.Now, enterprise, partnerType.id, touchpoint, 13224, (int)PartnerStatus.Loaded, loadGroup, DateTime.UtcNow, group).ToList().FirstOrDefault();
                     var objPartners = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByLoadGroup(loadGroup).ToList();
                     int ptq = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType.id, touchpoint).LastOrDefault().id;
+                    string accesscode = "";
                     foreach (var partnerItem in objPartners)
                     {
                         var pptq = db.pr_getpartnerPartnertypeTouchpointQuestionnaireByPartnerAndPTQ(partnerItem.partner, ptq).FirstOrDefault();
+                        accesscode = pptq.accesscode;
+                        var pptqstatus = db.partnerPartnertypeTouchpointQuestionnaire.Where(x => x.accesscode == accesscode).FirstOrDefault();
+                        if (pptqstatus != null)
+                        {
+                            pptqstatus.status = (int)PartnerStatus.Confirmed;
+                            db.Entry(pptqstatus).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        PartnerId = partnerItem.partner;
                     }
                     int ptqdetail = db.pr_getPartnertypeTouchpointQuestionnaireByPartnertypeAndTouchpoint(partnerType.id, touchpoint).LastOrDefault().id;
 
-                    var pptqdetail_updated = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(loadGroup).FirstOrDefault();
+
+
+                    var pptqdetail_updated = db.pr_getPartnerPartnertypeTouchpointQuestionnaireByAccessCode(accesscode).FirstOrDefault();
 
                     if (pptqdetail_updated != null)
                     {
@@ -133,10 +145,10 @@ namespace Generic.Controllers
                         objSendEmail.sendEmail(email, new EmailFormatSettings() { sender = p, enterprise = pptqdetail_updated.partnerTypeTouchpointQuestionnaire1.partnerType1.enterprise1, ptq = ptq, partner = objpartner, touchpoint = objtouchpoint }, new System.Net.Mail.MailAddress(p.email, p.firstName + " " + p.lastName));
                     }
                     result.email = model.Email;
-                    result.ExpiresAtUtc = Convert.ToDateTime(outExpires);
+                    result.ExpiresAtUtc = Convert.ToDateTime(outExpires.Value);
                     result.product_tier = model.Tier;
-                    result.questionnaire_link = Convert.ToString(outLink);
-                    result.registration_id = Convert.ToString(outId);
+                    result.questionnaire_link = Convert.ToString(outLink.Value);
+                    result.registration_id = Convert.ToString(outId.Value);
                     result.status = "QUESTIONNAIRE_LINK_ISSUED";
 
                     return Ok(result);
