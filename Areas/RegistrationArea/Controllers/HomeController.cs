@@ -239,7 +239,17 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     accessCode = "379468JU";
                 }
-                else if (accessCode == "379468JU") { }
+                else if (accessCode == "379468JU") {
+                    var uri = Request.Url;
+
+                    // Get the base path (without query)
+                    var baseUrl = uri.GetLeftPart(UriPartial.Path);
+
+                    // Build a query string with Accesscode but no value
+                    var cleanUrl = $"{baseUrl}?Accesscode=";
+
+                    return Redirect(cleanUrl);
+                }
                 else
                 {
                     ViewBag.accesscode = accessCode;
