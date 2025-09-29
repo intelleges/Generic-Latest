@@ -239,6 +239,7 @@ namespace Generic.Areas.RegistrationArea.Controllers
                 {
                     accessCode = "379468JU";
                 }
+                else if (accessCode == "379468JU") { }
                 else
                 {
                     ViewBag.accesscode = accessCode;
